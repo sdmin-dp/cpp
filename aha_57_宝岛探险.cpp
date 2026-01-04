@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+#define ll long long
+using namespace std;
+#define el '\n'
+const ll N=1e2+5;
+ll n,m,bx,by;
+ll a[N][N];
+bool vis[N][N];
+ll dx[]={0,1,0,-1},dy[]={1,0,-1,0};
+ll sum=1;
+void dfs(ll x,ll y){
+    for(int i=0;i<4;i++){
+        ll xx=x+dx[i],yy=y+dy[i];
+        if(xx>=1&&yy>=1&&xx<=n&&yy<=m&&a[xx][yy]!=0&&!vis[xx][yy]){
+            sum++;
+            vis[xx][yy]=1;
+            dfs(xx,yy);
+        }
+    }
+}
+void solve(){
+    cin>>n>>m>>bx>>by;
+    for(int i=1;i<=n;i++) for(int j=1;j<=m;j++) cin>>a[i][j];
+    vis[bx][by]=1;
+    dfs(bx,by);
+    cout<<sum;
+}
+
+int main() {
+    // ios::sync_with_stdio(0);
+    // cin.tie(0);cout.tie(0);
+    //freopen("xxx.in","r",stdin);
+    //freopen("xxx.out","w",stdout);
+    ll T=1;
+    //cin>>T;
+    while(T--){
+        solve();
+    }
+    return 0;
+}
