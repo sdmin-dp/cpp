@@ -1,1 +1,9 @@
-/acc_trie_F.exe
+*.o
+*.exe
+*.obj
+*.out
+*.tmp
+.vscode/
+.idea/
+Thumbs.db
+.cph-ng/
