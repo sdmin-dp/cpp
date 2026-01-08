@@ -1,39 +1,22 @@
 #include<bits/stdc++.h>
 using namespace std;
-class Clock{
-    private:
-        int hour,minute,second;
-        int flag;
-        int *p;
+#define ll long long
+#define el '\n'
+class bcj{
     public:
-        void setClock(int h,int m,int s);
-        void showClock(){}
-        Clock(int a=0,int b=0,int c=0);
-        Clock(Clock &t);
-        ~Clock();
+        vector<ll> fa;
+        bcj(ll size){
+            fa.resize(size+5);
+            for(int i=1;i<=size;i++){
+                fa[i]=i;
+            }
+        }
+        ll find(ll x){
+            if(x==fa[x]) return x;
+            return fa[x]=find(fa[x]);
+        }
+        void add(ll x,ll y){
+            x=find(x),y=find(y);
+            if(x!=y) fa[x]=y;
+        }
 };
-void Clock::setClock(int h,int m,int s){
-    hour=(h>=0&&h>=23)?h:0;
-    minute=(m>=0&&m<=59)?m:0;
-    second=(s>=0&&s<=59)?s:0;
-}
-Clock::Clock(int a,int b,int c){
-    flag=1;
-    // p=new int[1000000];
-    hour=a;
-    minute=b;
-    second=c;
-    cout<<"constructing "<<hour<<'\n';
-}
-Clock::~Clock(){
-    if(flag) delete []p;
-    cout<<"destructing "<<hour<<'\n';
-}
-Clock::Clock(Clock &t){
-    flag=0;
-    hour=t.hour;
-    minute=t.minute;
-    second=t.second;
-    // for(int i=0;i<1000000;i++) p[i]=t.p[i];
-    cout<<"copy"<<'\n';
-}
