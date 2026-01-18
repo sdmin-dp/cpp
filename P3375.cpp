@@ -2,25 +2,27 @@
 using namespace std;
 #define ll long long
 #define el '\n'
-const ll N=1e5+5;
-ll nxt[N];
+const ll N=1e6+5;
 string s,t;
+ll nxt[N];
+ll n,m;
 void solve(){
     cin>>s>>t;
-    ll n=s.size(),m=t.size();
+    n=s.size(),m=t.size();
     for(int i=1,j=0;i<m;i++){
-        while(nxt[j]!=0&&t[i]!=t[j]) j=nxt[j-1];
+        while(j>0&&t[i]!=t[j]) j=nxt[j-1];
         if(t[i]==t[j]) j++;
         nxt[i]=j;
     }
     for(int i=0,j=0;i<n;i++){
-        while(nxt[j]!=0&&s[i]!=t[j]) j=nxt[j-1];
+        while(j>0&&s[i]!=t[j]) j=nxt[j-1];
         if(s[i]==t[j]) j++;
         if(j==m){
-            cout<<i-m+1<<el;
+            cout<<i-m+1+1<<el;
             j=nxt[j-1];
         }
     }
+    for(int i=0;i<m;i++) cout<<nxt[i]<<" ";
 }
 int main(){
     ios::sync_with_stdio(0);
