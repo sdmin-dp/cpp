@@ -2,46 +2,58 @@
 using namespace std;
 #define ll long long
 #define el '\n'
-const ll N=2e7+5;
-string s,t;
-ll n,m;
-ll l=1,r;
-ll z[N],p[N];
-ll sum1,sum2;
-//ll z[]={0,5,4,3,2,1},p[]={0,4,3,2,1,0,2,1};
+const ll N=1e5+5;
+vector<ll> z,p;
+void getz(string &s){
+    ll ns=s.size(),ans=0;
+    ll L=1,R=1;
+    z.clear();
+    z.resize(ns,0);
+    while(z[1]+1<ns&&s[1+z[1]]==s[1+z[1]]) z[1]++;
+    for(int i=2;i<ns;i++){
+        if(i<R){
+            ll k=i-L+1;
+            z[i]=min(z[k],R-i+1);
+        }
+        while(i+z[i]<=ns&&s[i+z[i]]==s[1+z[i]]){
+            z[i]++;
+        }
+        if(i+z[i]-1>R){
+            L=i,R=i+z[i]-1;
+        }
+    }
+    for(int i=1;i<ns;i++){
+        ans^=i*(z[i]+1);
+    }
+}
+void exkmp(string &s, string &t)
+{
+    ll ns=s.size(),nt=t.size(),ans=0;
+    ll L=1,R=1;
+    p.clear();
+    p.resize(ns, 0);
+    while (1+p[1]<ns&&1+p[1]<nt&&s[1+p[1]]==t[1+p[1]]) p[1]++;
+    for(int i=2;i<ns;i++){
+        if(i<=R){
+            int k=i-L+1;
+            p[i]=min(z[k],R-i+1);
+        }
+        while(i+p[i]<ns&&1+p[i]<nt&&s[i+p[i]]==t[1+p[i]])
+            p[i]++;
+        if(i+p[i]-1>R)
+            L=i,R=i+p[i]-1;
+    }
+    for(int i=1;i<ns;i++)
+        ans^=i*(1+p[i]);
+    cout<<ans;
+}
 void solve(){
-    cin>>t>>s;
-    s=' '+s;t=' '+t;
-    n=s.size()-1,m=t.size()-1;
-    for(int i=1;i<=n;i++){
-        if(i>r){
-            z[i]=0;
-        }else{
-            ll k=i-l+1;
-            z[i]=min(z[k],r-i+1);
-        }
-        while(i+z[i]<=n&&z[i]+1<=n&&s[z[i]+1]==s[z[i]+i]) z[i]++;
-        if(i+z[i]-1>r) l=i, r=i+z[i]-1;
-    }
-    l=1,r=0;
-    for(int i=1;i<=m;i++){
-        if(i>r){
-            p[i]=0;
-        }else{
-            ll k=i-l+1; 
-            p[i]=min(p[k],r-i+1);
-        }
-        while(i+p[i]<=m&&p[i]+1<=n&&s[p[i]+1]==t[p[i]+i]) p[i]++;
-        if(i+p[i]-1>r) l=i, r=i+p[i]-1;
-    }
-    
-    for(int i=1;i<=n;i++) sum1^=(i*(z[i]+1));
-    cout<<sum1<<el;
-    for(int i=1;i<=m;i++) sum2^=(i*(p[i]+1));
-    cout<<sum2;
-    for(int i=1;i<=n;i++) cerr<<z[i]<<" ";
-    cerr<<el;
-    for(int i=1;i<=m;i++) cerr<<p[i]<<" ";
+    string s,t;
+    cin>>s>>t;
+    s=' '+s;
+    t=' '+t;
+    getz(s);
+    exkmp(s,t);
 }
 int main(){
     ios::sync_with_stdio(0);
