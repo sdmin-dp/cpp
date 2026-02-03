@@ -29,6 +29,9 @@ void pushdown(ll idx){
     ll r=t[idx].r;
     ll tag=t[idx].tag;
     if(l==r||tag==0) return;
+    //1.将左右儿子的更新
+    //2.更新左右儿子的tag
+    //3.清空自己的tag
     t[idx*2].sum+=(t[idx*2].r-t[idx*2].l+1)*tag;
     t[idx*2+1].sum+=(t[idx*2+1].r-t[idx*2+1].l+1)*tag;
     t[idx*2].tag+=tag;
@@ -46,14 +49,14 @@ void update(ll s,ll e,ll k,ll idx=1){
     }
     pushdown(idx);
     ll mid=(l+r)/2;
-    if(s<=mid) update(s,e,idx*2);
+    if(s<=mid) update(s,e,k,idx*2);
     if(e>mid) update(s,e,k,idx*2+1);
     pushup(idx);
 }
 ll query(ll s,ll e,ll idx=1){
     ll l=t[idx].l,r=t[idx].r;
     if(s<=l&&r<=e) return t[idx].sum;
-    if(s<r||e<l) return 0;
+    if(s>r||e<l) return 0;
     pushdown(idx);
     return query(s,e,idx*2)+query(s,e,idx*2+1);
 }
@@ -86,3 +89,6 @@ int main() {
     }
     return 0;
 }
+/*
+
+*/
