@@ -50,7 +50,7 @@ void solve(){
     for(int i=1;i<=m;i++){
         ll op,x,y,k;
         cin>>op;
-//        cout<<op<<el;
+        cout<<op<<el;
         if(op==1){
             cin>>x>>y>>k;
             update(x,y,k);
@@ -60,9 +60,9 @@ void solve(){
         }
     }   
 }
-int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0);cout.tie(0);
+int main(){
+    //ios::sync_with_stdio(0);
+    //cin.tie(0);cout.tie(0);
     //freopen("xxx.in","r",stdin);
     //freopen("xxx.out","w",stdout);
     ll T=1;
@@ -71,4 +71,4 @@ int main() {
         solve();
     }
     return 0;
-}	
+}
