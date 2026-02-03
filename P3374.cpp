@@ -45,34 +45,20 @@ ll query(ll b,ll e,ll idx=1){
     return sum;
 }
 void solve(){
-//---------------------------------------------------No.1建线段树----------------------------------------------------------------------
     cin>>n>>m;
     for(int i=1;i<=n;i++) cin>>a[i];
     build();
-    //测试输出
-    // for(int i=1;i<=9;i++){
-    //     cout<<i<<" "<<t[i].l<<" "<<t[i].r<<" "<<t[i].sum<<el;   
-    // }
-//---------------------------------------------------No.2单点修改----------------------------------------------------------------------
-    //将原数组中的第x个数改成y
-    // ll x,y;
-    // cin>>x>>y;
-    // update(x,y);
-    // for(int i=1;i<=9;i++){
-    //     cout<<i<<" "<<t[i].l<<" "<<t[i].r<<" "<<t[i].sum<<el;   
-    // }
-//---------------------------------------------------No.3区间查询----------------------------------------------------------------------
-//     ll b,e;
-//     cin>>b>>e;
+    // ll b,e;
+    // cin>>b>>e;
     // cout<<query(b,e);
-    // for(int i=1;i<=m;i++){
-    //     ll op,x,y;
-    //     cin>>op>>x>>y;
-    //     if(op==1) update(x,y);
-    //     else cout<<query(x,y)<<el;
-    // }
+    for(int i=1;i<=m;i++){
+        ll op,x,y;
+        cin>>op>>x>>y;
+        if(op==1) update(x,y);
+        else cout<<query(x,y)<<el;
+    }
 }
-int main() {
+int main(){
     //ios::sync_with_stdio(0);
     //cin.tie(0);cout.tie(0);
     //freopen("xxx.in","r",stdin);
