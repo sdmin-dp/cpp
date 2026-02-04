@@ -3,7 +3,7 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-struct segment{
+struct node{
     ll l,r,sum,tag;
 }t[N*4];
 ll n,m;
@@ -23,7 +23,9 @@ void build(ll l=1,ll r=n,ll idx=1){
     pushup(idx);
 }
 void pushdown(ll idx){
-    ll l=t[idx].l,r=t[idx].r,tag=t[idx].tag;
+    ll l=t[idx].l;
+    ll r=t[idx].r;
+    ll tag=t[idx].tag;
     if(l==r||tag==0) return;
     t[idx*2].sum+=(t[idx*2].r-t[idx*2].l+1)*tag;
     t[idx*2+1].sum+=(t[idx*2+1].r-t[idx*2+1].l+1)*tag;
@@ -56,18 +58,21 @@ ll query(ll s,ll e,ll idx=1){
 void solve(){
     cin>>n>>m;
     for(int i=1;i<=n;i++) cin>>a[i];
+    for(int i=n;i>=1;i--) a[i]-=a[i-1];
     build();
     for(int i=1;i<=m;i++){
-        ll op;
+        ll op,l,r,k,d;
         cin>>op;
         if(op==1){
-            ll x,y,k;
-            cin>>x>>y>>k;
-            update(x,y,k);
+            cin>>l>>r>>k>>d;
+            update(l,l,k);
+            //+k
+            if(l+1<=r) update(l+1,r,d);
+            //+d
+            if(r+1<=n) update(r+1,r+1,-(k+(r-l)*d));
         }else{
-            ll x,y;
-            cin>>x>>y;
-            cout<<query(x,y)<<el;
+            cin>>k;
+            cout<<query(1,k)<<el;
         }
     }
 }
@@ -83,3 +88,5 @@ int main(){
     }
     return 0;
 }
+
+
