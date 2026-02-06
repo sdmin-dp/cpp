@@ -11,7 +11,7 @@ void solve(){
     mp.insert({0,'0'});
     mp.insert({1,'1'});
     mp.insert({2,'2'});
-    mp.insert({3,'3'});
+    mp.insert({3,'3'}); 
     mp.insert({4,'4'});
     mp.insert({5,'5'});
     mp.insert({6,'6'});
