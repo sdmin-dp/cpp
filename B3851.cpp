@@ -56,7 +56,7 @@ void solve(){
 		cout<<t[1]<<t[0];
 	}
 	cout<<el;
-	for(int i=1;i<=n;i++){
+	for(int i=1;i<=n;i++){	
 		for(int j=1;j<=m;j++){
 			ll id=0,mn=1e9;//id记录灰阶值，mn记录最小差值
 			for(int k=0;k<=15;k++){
