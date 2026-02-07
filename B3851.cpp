@@ -49,7 +49,7 @@ void solve(){
 		t="";
 		for(int i=1;i<=2;i++){
 			ll k=u%16;
-			t+=mp2[k];
+				t+=mp2[k];
 			// cout<<mp2[k]<<el;
 			u/=16;
 		}
