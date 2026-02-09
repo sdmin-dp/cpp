@@ -4,16 +4,16 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n;
-string s="0123456789ABCDEF";
-void solve(){
-	cin>>n;
-	do{
-		ll k=n%128;
-		n/=128;
-		if(n!=0){
-			k+=128;
-		}
-		cout<<s[k/16]<<s[k%16]<<" ";
+	string s="0123456789ABCDEF";
+	void solve(){
+		cin>>n;
+		do{
+			ll k=n%128;
+			n/=128;
+			if(n!=0){
+				k+=128;
+			}
+			cout<<s[k/16]<<s[k%16]<<" ";
 	}while(n);
 }
 int main(){
