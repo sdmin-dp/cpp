@@ -1,5 +1,543 @@
 放一篇大型秘籍：[大山秘籍]([Docs](https://tv7x543ftn5.feishu.cn/docx/DaODdbJHaokAzFxzCGNc4TeVnTe))
 
+# Tarjan算法
+
+## 算法概述
+
+Tarjan算法是由Robert Tarjan在1972年提出的一种基于深度优先搜索的图算法，用于解决图论中的多种连通性问题。该算法以其高效性和简洁性著称，主要应用包括：
+
+- 求解有向图的强连通分量(SCC)
+- 求解无向图的割点(关节点)
+- 求解无向图的割边(桥)
+- 求解最近公共祖先(LCA)
+
+## 核心思想
+
+Tarjan算法的核心思想是**利用DFS遍历图，通过时间戳和回溯信息来识别图中的连通结构**。算法维护两个关键数组：
+
+1. **dfn数组**：记录每个节点在DFS中的访问顺序（时间戳）
+2. **low数组**：记录每个节点能够通过回边或子树到达的最早时间戳
+
+通过比较dfn和low值，算法能够识别出图中的连通分量、割点和割边。
+
+## 时间戳与回溯
+
+### 时间戳(dfn)
+
+在DFS过程中，每个节点被访问时会被分配一个唯一的时间戳，表示该节点在遍历中的顺序。时间戳具有以下性质：
+
+- 每个节点的时间戳唯一
+- 父节点的时间戳小于子节点的时间戳
+- 时间戳反映了DFS的访问顺序
+
+### 回溯信息(low)
+
+low[u]表示从节点u出发，通过树边或回边能够到达的最早时间戳。计算规则：
+
+```
+low[u] = min(
+    dfn[u],                    // 节点自身的时间戳
+    low[v] for all children v, // 子节点的low值
+    dfn[w] for all back edges (u,w) // 回边连接的节点时间戳
+)
+```
+
+## 算法框架
+
+```cpp
+void tarjan(int u, int parent) {
+    dfn[u] = low[u] = ++timer;  // 设置时间戳
+    stack.push(u);              // 节点入栈
+    instack[u] = true;          // 标记节点在栈中
+    
+    for (int v : adj[u]) {
+        if (v == parent) continue;  // 跳过回父节点的边
+        
+        if (!dfn[v]) {  // 如果v未被访问
+            tarjan(v, u);           // 递归访问v
+            low[u] = min(low[u], low[v]);  // 更新low值
+        } else if (instack[v]) {  // 如果v在栈中(回边)
+            low[u] = min(low[u], dfn[v]);  // 更新low值
+        }
+    }
+    
+    // 处理连通分量/割点/割边
+    if (condition) {
+        // 根据具体应用处理
+    }
+}
+```
+
+## Tarjan算法求解强连通分量(SCC)
+
+### 强连通分量定义
+
+在有向图中，如果两个节点u和v之间存在路径u→v和v→u，则称u和v是强连通的。一个强连通分量是图中最大的强连通子图，其中任意两个节点都是强连通的。
+
+### 算法原理
+
+Tarjan算法通过以下步骤识别强连通分量：
+
+1. **DFS遍历**：从任意未访问节点开始DFS
+2. **维护栈**：将访问的节点压入栈中
+3. **计算low值**：根据子节点和回边更新low值
+4. **识别SCC**：当dfn[u] == low[u]时，u是一个SCC的根节点
+
+### 判断条件
+
+节点u是强连通分量的根节点当且仅当：
+```
+dfn[u] == low[u]
+```
+
+此时，栈中从u开始到栈顶的所有节点构成一个强连通分量。
+
+### 代码实现
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 1e5 + 5;
+vector<int> adj[N];  // 邻接表
+int dfn[N], low[N];  // 时间戳和low值
+int timer;           // 时间戳计数器
+stack<int> st;       // 栈
+bool instack[N];     // 节点是否在栈中
+vector<vector<int>> scc;  // 存储所有强连通分量
+int scc_id[N];       // 节点所属的SCC编号
+int scc_cnt;         // SCC计数器
+
+void tarjan(int u) {
+    dfn[u] = low[u] = ++timer;
+    st.push(u);
+    instack[u] = true;
+    
+    for (int v : adj[u]) {
+        if (!dfn[v]) {  // 如果v未被访问
+            tarjan(v);
+            low[u] = min(low[u], low[v]);
+        } else if (instack[v]) {  // 如果v在栈中(回边)
+            low[u] = min(low[u], dfn[v]);
+        }
+    }
+    
+    // 如果u是SCC的根节点
+    if (dfn[u] == low[u]) {
+        vector<int> component;
+        int v;
+        do {
+            v = st.top();
+            st.pop();
+            instack[v] = false;
+            component.push_back(v);
+            scc_id[v] = scc_cnt;
+        } while (v != u);
+        
+        scc.push_back(component);
+        scc_cnt++;
+    }
+}
+
+void findSCC(int n) {
+    timer = 0;
+    scc_cnt = 0;
+    memset(dfn, 0, sizeof(dfn));
+    memset(instack, false, sizeof(instack));
+    
+    for (int i = 1; i <= n; i++) {
+        if (!dfn[i]) {
+            tarjan(i);
+        }
+    }
+}
+
+int main() {
+    int n, m;  // 节点数和边数
+    cin >> n >> m;
+    
+    for (int i = 0; i < m; i++) {
+        int u, v;
+        cin >> u >> v;
+        adj[u].push_back(v);
+    }
+    
+    findSCC(n);
+    
+    cout << "强连通分量数量: " << scc_cnt << endl;
+    for (int i = 0; i < scc_cnt; i++) {
+        cout << "SCC " << i + 1 << ": ";
+        for (int node : scc[i]) {
+            cout << node << " ";
+        }
+        cout << endl;
+    }
+    
+    return 0;
+}
+```
+
+### 缩点应用
+
+强连通分量常用于图的缩点操作：
+
+```cpp
+vector<int> condensed_adj[N];  // 缩点后的图
+int indegree[N];               // 入度
+
+void buildCondensedGraph(int n) {
+    memset(indegree, 0, sizeof(indegree));
+    
+    for (int u = 1; u <= n; u++) {
+        for (int v : adj[u]) {
+            if (scc_id[u] != scc_id[v]) {
+                condensed_adj[scc_id[u]].push_back(scc_id[v]);
+                indegree[scc_id[v]]++;
+            }
+        }
+    }
+}
+```
+
+## Tarjan算法求解割点(关节点)
+
+### 割点定义
+
+在无向连通图中，如果删除某个节点u及其所有相关边后，图的连通分量数量增加，则称节点u为割点(或关节点)。
+
+### 算法原理
+
+割点的识别基于以下观察：
+
+1. **根节点特例**：如果根节点有至少两个子节点，则根节点是割点
+2. **非根节点判断**：对于非根节点u，如果存在子节点v使得low[v] ≥ dfn[u]，则u是割点
+
+这个条件的直观解释是：如果子节点v不能通过回边到达u的祖先节点，那么删除u会使得v子树与图的其余部分断开连接。
+
+### 判断条件
+
+对于节点u及其子节点v：
+
+```
+如果 u 是根节点且子节点数 ≥ 2，则 u 是割点
+如果 u 不是根节点且存在子节点 v 使得 low[v] ≥ dfn[u]，则 u 是割点
+```
+
+### 代码实现
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 1e5 + 5;
+vector<int> adj[N];  // 邻接表
+int dfn[N], low[N];  // 时间戳和low值
+int timer;           // 时间戳计数器
+bool is_cut[N];      // 标记割点
+int child_count;     // 子节点计数
+
+void tarjan(int u, int parent) {
+    dfn[u] = low[u] = ++timer;
+    
+    for (int v : adj[u]) {
+        if (v == parent) continue;  // 跳过回父节点的边
+        
+        if (!dfn[v]) {  // 如果v未被访问
+            if (parent == 0) child_count++;  // 根节点的子节点计数
+            
+            tarjan(v, u);
+            low[u] = min(low[u], low[v]);
+            
+            // 判断割点
+            if (parent != 0 && low[v] >= dfn[u]) {
+                is_cut[u] = true;
+            }
+        } else {  // 如果v已被访问(回边)
+            low[u] = min(low[u], dfn[v]);
+        }
+    }
+}
+
+void findCutPoints(int n) {
+    timer = 0;
+    memset(dfn, 0, sizeof(dfn));
+    memset(is_cut, false, sizeof(is_cut));
+    
+    for (int i = 1; i <= n; i++) {
+        if (!dfn[i]) {
+            child_count = 0;
+            tarjan(i, 0);
+            
+            // 根节点特例判断
+            if (child_count >= 2) {
+                is_cut[i] = true;
+            }
+        }
+    }
+}
+
+int main() {
+    int n, m;  // 节点数和边数
+    cin >> n >> m;
+    
+    for (int i = 0; i < m; i++) {
+        int u, v;
+        cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);  // 无向图
+    }
+    
+    findCutPoints(n);
+    
+    vector<int> cut_points;
+    for (int i = 1; i <= n; i++) {
+        if (is_cut[i]) {
+            cut_points.push_back(i);
+        }
+    }
+    
+    cout << "割点数量: " << cut_points.size() << endl;
+    cout << "割点: ";
+    for (int point : cut_points) {
+        cout << point << " ";
+    }
+    cout << endl;
+    
+    return 0;
+}
+```
+
+### 割点与连通分量
+
+割点将图分割成多个连通分量。以下代码可以找出每个割点分割的连通分量：
+
+```cpp
+vector<int> components[N];  // 每个割点对应的连通分量
+
+void findComponents(int n) {
+    // 首先找出所有割点
+    findCutPoints(n);
+    
+    // 对每个割点，找出删除它后的连通分量
+    for (int u = 1; u <= n; u++) {
+        if (is_cut[u]) {
+            bool visited[N] = {false};
+            visited[u] = true;  // 标记割点为已访问
+            
+            for (int v = 1; v <= n; v++) {
+                if (!visited[v]) {
+                    vector<int> component;
+                    dfsComponent(v, visited, component);
+                    components[u].push_back(component.size());
+                }
+            }
+        }
+    }
+}
+
+void dfsComponent(int u, bool visited[], vector<int>& component) {
+    visited[u] = true;
+    component.push_back(u);
+    
+    for (int v : adj[u]) {
+        if (!visited[v]) {
+            dfsComponent(v, visited, component);
+        }
+    }
+}
+```
+
+## Tarjan算法求解割边(桥)
+
+### 割边定义
+
+在无向连通图中，如果删除某条边e后，图的连通分量数量增加，则称边e为割边(或桥)。
+
+### 算法原理
+
+割边的识别基于以下观察：
+
+对于边(u, v)，其中u是v的父节点，如果low[v] > dfn[u]，则边(u, v)是割边。
+
+这个条件的直观解释是：如果子节点v不能通过回边到达u或u的祖先节点，那么边(u, v)是连接v子树与图其余部分的唯一路径，因此是割边。
+
+### 判断条件
+
+对于树边(u, v)：
+
+```
+如果 low[v] > dfn[u]，则边(u, v)是割边
+```
+
+注意这里是严格大于，而割点的判断是大于等于。
+
+### 代码实现
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 1e5 + 5;
+vector<pair<int, int>> adj[N];  // 邻接表，存储边的信息
+int dfn[N], low[N];              // 时间戳和low值
+int timer;                       // 时间戳计数器
+vector<pair<int, int>> bridges;  // 存储割边
+
+void tarjan(int u, int parent_edge) {
+    dfn[u] = low[u] = ++timer;
+    
+    for (auto& edge : adj[u]) {
+        int v = edge.first;
+        int edge_id = edge.second;
+        
+        if (edge_id == parent_edge) continue;  // 跳过回父节点的边
+        
+        if (!dfn[v]) {  // 如果v未被访问
+            tarjan(v, edge_id);
+            low[u] = min(low[u], low[v]);
+            
+            // 判断割边
+            if (low[v] > dfn[u]) {
+                bridges.push_back({min(u, v), max(u, v)});
+            }
+        } else {  // 如果v已被访问(回边)
+            low[u] = min(low[u], dfn[v]);
+        }
+    }
+}
+
+void findBridges(int n) {
+    timer = 0;
+    memset(dfn, 0, sizeof(dfn));
+    bridges.clear();
+    
+    for (int i = 1; i <= n; i++) {
+        if (!dfn[i]) {
+            tarjan(i, -1);
+        }
+    }
+}
+
+int main() {
+    int n, m;  // 节点数和边数
+    cin >> n >> m;
+    
+    for (int i = 0; i < m; i++) {
+        int u, v;
+        cin >> u >> v;
+        adj[u].push_back({v, i});
+        adj[v].push_back({u, i});  // 无向图
+    }
+    
+    findBridges(n);
+    
+    // 排序割边
+    sort(bridges.begin(), bridges.end());
+    
+    cout << "割边数量: " << bridges.size() << endl;
+    cout << "割边: " << endl;
+    for (auto& bridge : bridges) {
+        cout << bridge.first << " - " << bridge.second << endl;
+    }
+    
+    return 0;
+}
+```
+
+### 边双连通分量
+
+边双连通分量是图中不包含割边的最大子图。以下代码可以找出所有的边双连通分量：
+
+```cpp
+vector<vector<int>> ebcc;      // 存储所有边双连通分量
+int ebcc_id[N];                // 节点所属的边双连通分量编号
+int ebcc_cnt;                  // 边双连通分量计数器
+bool is_bridge[N][N];          // 标记割边
+
+void dfsEBCC(int u, int component_id) {
+    ebcc_id[u] = component_id;
+    ebcc[component_id - 1].push_back(u);
+    
+    for (int v : adj[u]) {
+        if (ebcc_id[v] == 0 && !is_bridge[u][v]) {
+            dfsEBCC(v, component_id);
+        }
+    }
+}
+
+void findEBCC(int n) {
+    // 首先找出所有割边
+    findBridges(n);
+    
+    // 标记割边
+    memset(is_bridge, false, sizeof(is_bridge));
+    for (auto& bridge : bridges) {
+        is_bridge[bridge.first][bridge.second] = true;
+        is_bridge[bridge.second][bridge.first] = true;
+    }
+    
+    // 找出边双连通分量
+    ebcc_cnt = 0;
+    memset(ebcc_id, 0, sizeof(ebcc_id));
+    
+    for (int i = 1; i <= n; i++) {
+        if (ebcc_id[i] == 0) {
+            ebcc.push_back(vector<int>());
+            dfsEBCC(i, ++ebcc_cnt);
+        }
+    }
+}
+```
+
+### 缩点应用
+
+边双连通分量缩点后形成一棵树：
+
+```cpp
+vector<int> condensed_adj[N];  // 缩点后的树
+
+void buildCondensedTree(int n) {
+    for (int u = 1; u <= n; u++) {
+        for (int v : adj[u]) {
+            if (ebcc_id[u] != ebcc_id[v]) {
+                condensed_adj[ebcc_id[u]].push_back(ebcc_id[v]);
+            }
+        }
+    }
+}
+```
+
+## 算法复杂度分析
+
+### 时间复杂度
+
+Tarjan算法的时间复杂度为O(V + E)，其中V是图中顶点数，E是边数。这是因为：
+
+1. 每个节点被访问一次
+2. 每条边被检查两次（正向和反向）
+3. 所有其他操作都是常数时间
+
+### 空间复杂度
+
+空间复杂度为O(V + E)，主要存储：
+1. 邻接表：O(E)
+2. dfn和low数组：O(V)
+3. 栈或其他辅助结构：O(V)
+
+## 应用场景
+
+1. **网络可靠性分析**：识别网络中的关键节点和边
+2. **社交网络分析**：发现紧密连接的群体
+3. **电路设计**：识别电路中的关键连接
+4. **交通规划**：找出交通网络中的关键路段
+
+## 常见问题与技巧
+
+1. **处理重边**：在无向图中，重边会影响割边的判断，需要特殊处理
+2. **处理自环**：自环通常不影响连通性分析
+3. **多组输入**：注意清空数组和重置变量
+4. **输出顺序**：某些题目要求特定的输出顺序，需要排序
+
 
 
 # 集合
@@ -4593,3 +5131,1233 @@ int main(){
 }
 
 ```
+
+# 线段树
+
+## 概念介绍
+
+线段树（Segment Tree）是一种二叉树形数据结构，用于高效地处理区间查询问题。它将一个区间划分为若干个小区间，每个节点代表一个区间，存储该区间的某些信息（如区间和、区间最大值、区间最小值等）。
+
+### 线段树的基本思想
+
+线段树的核心思想是**分治**：将一个大区间递归地分成两个小区间，直到区间长度为1。每个节点存储其对应区间的信息，通过合并子节点的信息可以得到父节点的信息。
+
+### 线段树的优势
+
+1. **查询效率高**：区间查询的时间复杂度为O(log n)
+2. **支持动态修改**：支持单点修改和区间修改
+3. **应用范围广**：可用于求区间和、区间最大值、区间最小值等
+4. **实现灵活**：可以根据需求定制不同的合并操作
+
+## 线段树的基本结构
+
+### 节点表示
+
+线段树的每个节点通常包含以下信息：
+- 区间范围 [l, r]
+- 区间信息（如区间和、最大值、最小值等）
+- 左子节点和右子节点的指针或索引
+
+### 线段树的高度
+
+对于长度为n的区间，线段树的高度为⌈log₂n⌉，总节点数不超过4n。
+
+## 线段树的实现
+
+### 1. 基本线段树（区间和）
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+class SegmentTree {
+private:
+    vector<int> tree;  // 线段树数组
+    vector<int> lazy;  // 懒标记数组（用于区间更新）
+    int n;             // 原数组长度
+    
+    // 构建线段树
+    void build(vector<int>& nums, int node, int start, int end) {
+        if (start == end) {
+            tree[node] = nums[start];
+        } else {
+            int mid = start + (end - start) / 2;
+            int leftChild = 2 * node + 1;
+            int rightChild = 2 * node + 2;
+            
+            build(nums, leftChild, start, mid);
+            build(nums, rightChild, mid + 1, end);
+            
+            tree[node] = tree[leftChild] + tree[rightChild];
+        }
+    }
+    
+    // 区间查询
+    int queryRange(int node, int start, int end, int l, int r) {
+        // 区间无交集
+        if (r < start || end < l) {
+            return 0;
+        }
+        
+        // 当前区间完全包含在查询区间内
+        if (l <= start && end <= r) {
+            return tree[node];
+        }
+        
+        // 部分重叠，递归查询
+        int mid = start + (end - start) / 2;
+        int leftChild = 2 * node + 1;
+        int rightChild = 2 * node + 2;
+        
+        int leftSum = queryRange(leftChild, start, mid, l, r);
+        int rightSum = queryRange(rightChild, mid + 1, end, l, r);
+        
+        return leftSum + rightSum;
+    }
+    
+    // 单点更新
+    void updatePoint(int node, int start, int end, int idx, int val) {
+        if (start == end) {
+            tree[node] = val;
+        } else {
+            int mid = start + (end - start) / 2;
+            int leftChild = 2 * node + 1;
+            int rightChild = 2 * node + 2;
+            
+            if (idx <= mid) {
+                updatePoint(leftChild, start, mid, idx, val);
+            } else {
+                updatePoint(rightChild, mid + 1, end, idx, val);
+            }
+            
+            tree[node] = tree[leftChild] + tree[rightChild];
+        }
+    }
+    
+public:
+    SegmentTree(vector<int>& nums) {
+        n = nums.size();
+        tree.resize(4 * n, 0);
+        build(nums, 0, 0, n - 1);
+    }
+    
+    // 区间查询接口
+    int queryRange(int l, int r) {
+        return queryRange(0, 0, n - 1, l, r);
+    }
+    
+    // 单点更新接口
+    void updatePoint(int idx, int val) {
+        updatePoint(0, 0, n - 1, idx, val);
+    }
+};
+
+int main() {
+    vector<int> nums = {1, 3, 5, 7, 9, 11};
+    SegmentTree st(nums);
+    
+    cout << "区间[0, 2]的和: " << st.queryRange(0, 2) << endl;  // 1 + 3 + 5 = 9
+    cout << "区间[1, 4]的和: " << st.queryRange(1, 4) << endl;  // 3 + 5 + 7 + 9 = 24
+    
+    // 更新索引2的值为6
+    st.updatePoint(2, 6);
+    cout << "更新后区间[0, 2]的和: " << st.queryRange(0, 2) << endl;  // 1 + 3 + 6 = 10
+    
+    return 0;
+}
+```
+
+### 2. 区间最大值线段树
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+class MaxSegmentTree {
+private:
+    vector<int> tree;
+    int n;
+    
+    void build(vector<int>& nums, int node, int start, int end) {
+        if (start == end) {
+            tree[node] = nums[start];
+        } else {
+            int mid = start + (end - start) / 2;
+            int leftChild = 2 * node + 1;
+            int rightChild = 2 * node + 2;
+            
+            build(nums, leftChild, start, mid);
+            build(nums, rightChild, mid + 1, end);
+            
+            tree[node] = max(tree[leftChild], tree[rightChild]);
+        }
+    }
+    
+    int queryRange(int node, int start, int end, int l, int r) {
+        if (r < start || end < l) {
+            return INT_MIN;  // 表示无效值
+        }
+        
+        if (l <= start && end <= r) {
+            return tree[node];
+        }
+        
+        int mid = start + (end - start) / 2;
+        int leftChild = 2 * node + 1;
+        int rightChild = 2 * node + 2;
+        
+        int leftMax = queryRange(leftChild, start, mid, l, r);
+        int rightMax = queryRange(rightChild, mid + 1, end, l, r);
+        
+        return max(leftMax, rightMax);
+    }
+    
+    void updatePoint(int node, int start, int end, int idx, int val) {
+        if (start == end) {
+            tree[node] = val;
+        } else {
+            int mid = start + (end - start) / 2;
+            int leftChild = 2 * node + 1;
+            int rightChild = 2 * node + 2;
+            
+            if (idx <= mid) {
+                updatePoint(leftChild, start, mid, idx, val);
+            } else {
+                updatePoint(rightChild, mid + 1, end, idx, val);
+            }
+            
+            tree[node] = max(tree[leftChild], tree[rightChild]);
+        }
+    }
+    
+public:
+    MaxSegmentTree(vector<int>& nums) {
+        n = nums.size();
+        tree.resize(4 * n, 0);
+        build(nums, 0, 0, n - 1);
+    }
+    
+    int queryRange(int l, int r) {
+        return queryRange(0, 0, n - 1, l, r);
+    }
+    
+    void updatePoint(int idx, int val) {
+        updatePoint(0, 0, n - 1, idx, val);
+    }
+};
+
+int main() {
+    vector<int> nums = {2, 5, 1, 4, 9, 3};
+    MaxSegmentTree st(nums);
+    
+    cout << "区间[0, 3]的最大值: " << st.queryRange(0, 3) << endl;  // max(2, 5, 1, 4) = 5
+    cout << "区间[2, 5]的最大值: " << st.queryRange(2, 5) << endl;  // max(1, 4, 9, 3) = 9
+    
+    // 更新索引1的值为10
+    st.updatePoint(1, 10);
+    cout << "更新后区间[0, 3]的最大值: " << st.queryRange(0, 3) << endl;  // max(2, 10, 1, 4) = 10
+    
+    return 0;
+}
+```
+
+### 3. 带懒标记的区间更新线段树
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+class LazySegmentTree {
+private:
+    vector<long long> tree;  // 线段树数组
+    vector<long long> lazy;  // 懒标记数组
+    int n;                   // 原数组长度
+    
+    // 下推懒标记
+    void pushDown(int node, int start, int end) {
+        if (lazy[node] != 0) {
+            int mid = start + (end - start) / 2;
+            int leftChild = 2 * node + 1;
+            int rightChild = 2 * node + 2;
+            
+            // 将懒标记传递给子节点
+            lazy[leftChild] += lazy[node];
+            lazy[rightChild] += lazy[node];
+            
+            // 更新子节点的值
+            tree[leftChild] += lazy[node] * (mid - start + 1);
+            tree[rightChild] += lazy[node] * (end - mid);
+            
+            // 清除当前节点的懒标记
+            lazy[node] = 0;
+        }
+    }
+    
+    // 构建线段树
+    void build(vector<int>& nums, int node, int start, int end) {
+        if (start == end) {
+            tree[node] = nums[start];
+        } else {
+            int mid = start + (end - start) / 2;
+            int leftChild = 2 * node + 1;
+            int rightChild = 2 * node + 2;
+            
+            build(nums, leftChild, start, mid);
+            build(nums, rightChild, mid + 1, end);
+            
+            tree[node] = tree[leftChild] + tree[rightChild];
+        }
+    }
+    
+    // 区间查询
+    long long queryRange(int node, int start, int end, int l, int r) {
+        // 区间无交集
+        if (r < start || end < l) {
+            return 0;
+        }
+        
+        // 当前区间完全包含在查询区间内
+        if (l <= start && end <= r) {
+            return tree[node];
+        }
+        
+        // 下推懒标记
+        pushDown(node, start, end);
+        
+        // 部分重叠，递归查询
+        int mid = start + (end - start) / 2;
+        int leftChild = 2 * node + 1;
+        int rightChild = 2 * node + 2;
+        
+        long long leftSum = queryRange(leftChild, start, mid, l, r);
+        long long rightSum = queryRange(rightChild, mid + 1, end, l, r);
+        
+        return leftSum + rightSum;
+    }
+    
+    // 区间更新
+    void updateRange(int node, int start, int end, int l, int r, int val) {
+        // 区间无交集
+        if (r < start || end < l) {
+            return;
+        }
+        
+        // 当前区间完全包含在更新区间内
+        if (l <= start && end <= r) {
+            tree[node] += (long long)val * (end - start + 1);
+            lazy[node] += val;
+            return;
+        }
+        
+        // 下推懒标记
+        pushDown(node, start, end);
+        
+        // 部分重叠，递归更新
+        int mid = start + (end - start) / 2;
+        int leftChild = 2 * node + 1;
+        int rightChild = 2 * node + 2;
+        
+        updateRange(leftChild, start, mid, l, r, val);
+        updateRange(rightChild, mid + 1, end, l, r, val);
+        
+        tree[node] = tree[leftChild] + tree[rightChild];
+    }
+    
+public:
+    LazySegmentTree(vector<int>& nums) {
+        n = nums.size();
+        tree.resize(4 * n, 0);
+        lazy.resize(4 * n, 0);
+        build(nums, 0, 0, n - 1);
+    }
+    
+    // 区间查询接口
+    long long queryRange(int l, int r) {
+        return queryRange(0, 0, n - 1, l, r);
+    }
+    
+    // 区间更新接口
+    void updateRange(int l, int r, int val) {
+        updateRange(0, 0, n - 1, l, r, val);
+    }
+};
+
+int main() {
+    vector<int> nums = {1, 2, 3, 4, 5};
+    LazySegmentTree st(nums);
+    
+    cout << "初始区间[0, 4]的和: " << st.queryRange(0, 4) << endl;  // 1 + 2 + 3 + 4 + 5 = 15
+    
+    // 区间[1, 3]每个元素加2
+    st.updateRange(1, 3, 2);
+    cout << "更新后区间[0, 4]的和: " << st.queryRange(0, 4) << endl;  // 1 + 4 + 5 + 6 + 5 = 21
+    cout << "更新后区间[1, 3]的和: " << st.queryRange(1, 3) << endl;  // 4 + 5 + 6 = 15
+    
+    // 再次区间[2, 4]每个元素加1
+    st.updateRange(2, 4, 1);
+    cout << "再次更新后区间[0, 4]的和: " << st.queryRange(0, 4) << endl;  // 1 + 4 + 6 + 7 + 6 = 24
+    
+    return 0;
+}
+```
+
+## 线段树的高级应用
+
+### 1. 区间最大子段和
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+struct Node {
+    int sum;        // 区间和
+    int maxSum;     // 区间最大子段和
+    int leftMax;    // 区间前缀最大和
+    int rightMax;   // 区间后缀最大和
+    
+    Node() : sum(0), maxSum(0), leftMax(0), rightMax(0) {}
+    Node(int val) : sum(val), maxSum(val), leftMax(val), rightMax(val) {}
+    
+    Node merge(const Node& other) {
+        Node result;
+        result.sum = sum + other.sum;
+        result.leftMax = max(leftMax, sum + other.leftMax);
+        result.rightMax = max(other.rightMax, other.sum + rightMax);
+        result.maxSum = max({maxSum, other.maxSum, rightMax + other.leftMax});
+        return result;
+    }
+};
+
+class MaxSubarraySegmentTree {
+private:
+    vector<Node> tree;
+    int n;
+    
+    void build(vector<int>& nums, int node, int start, int end) {
+        if (start == end) {
+            tree[node] = Node(nums[start]);
+        } else {
+            int mid = start + (end - start) / 2;
+            int leftChild = 2 * node + 1;
+            int rightChild = 2 * node + 2;
+            
+            build(nums, leftChild, start, mid);
+            build(nums, rightChild, mid + 1, end);
+            
+            tree[node] = tree[leftChild].merge(tree[rightChild]);
+        }
+    }
+    
+    Node queryRange(int node, int start, int end, int l, int r) {
+        if (r < start || end < l) {
+            return Node(INT_MIN);  // 返回无效节点
+        }
+        
+        if (l <= start && end <= r) {
+            return tree[node];
+        }
+        
+        int mid = start + (end - start) / 2;
+        int leftChild = 2 * node + 1;
+        int rightChild = 2 * node + 2;
+        
+        Node leftResult = queryRange(leftChild, start, mid, l, r);
+        Node rightResult = queryRange(rightChild, mid + 1, end, l, r);
+        
+        if (leftResult.sum == INT_MIN) return rightResult;
+        if (rightResult.sum == INT_MIN) return leftResult;
+        
+        return leftResult.merge(rightResult);
+    }
+    
+    void updatePoint(int node, int start, int end, int idx, int val) {
+        if (start == end) {
+            tree[node] = Node(val);
+        } else {
+            int mid = start + (end - start) / 2;
+            int leftChild = 2 * node + 1;
+            int rightChild = 2 * node + 2;
+            
+            if (idx <= mid) {
+                updatePoint(leftChild, start, mid, idx, val);
+            } else {
+                updatePoint(rightChild, mid + 1, end, idx, val);
+            }
+            
+            tree[node] = tree[leftChild].merge(tree[rightChild]);
+        }
+    }
+    
+public:
+    MaxSubarraySegmentTree(vector<int>& nums) {
+        n = nums.size();
+        tree.resize(4 * n);
+        build(nums, 0, 0, n - 1);
+    }
+    
+    int queryMaxSubarray(int l, int r) {
+        return queryRange(0, 0, n - 1, l, r).maxSum;
+    }
+    
+    void updatePoint(int idx, int val) {
+        updatePoint(0, 0, n - 1, idx, val);
+    }
+};
+
+int main() {
+    vector<int> nums = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
+    MaxSubarraySegmentTree st(nums);
+    
+    cout << "区间[0, 8]的最大子段和: " << st.queryMaxSubarray(0, 8) << endl;  // 6 (子段[3,6])
+    cout << "区间[3, 6]的最大子段和: " << st.queryMaxSubarray(3, 6) << endl;  // 6 (子段[3,6])
+    
+    // 更新索引4的值为10
+    st.updatePoint(4, 10);
+    cout << "更新后区间[0, 8]的最大子段和: " << st.queryMaxSubarray(0, 8) << endl;  // 16
+    
+    return 0;
+}
+```
+
+### 2. 区间乘法与加法混合更新
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+const int MOD = 1e9 + 7;
+
+class MixSegmentTree {
+private:
+    vector<long long> tree;    // 线段树数组
+    vector<long long> addLazy; // 加法懒标记
+    vector<long long> mulLazy; // 乘法懒标记
+    int n;
+    
+    // 下推懒标记
+    void pushDown(int node, int start, int end) {
+        if (addLazy[node] != 0 || mulLazy[node] != 1) {
+            int mid = start + (end - start) / 2;
+            int leftChild = 2 * node + 1;
+            int rightChild = 2 * node + 2;
+            
+            // 处理乘法懒标记
+            mulLazy[leftChild] = (mulLazy[leftChild] * mulLazy[node]) % MOD;
+            mulLazy[rightChild] = (mulLazy[rightChild] * mulLazy[node]) % MOD;
+            
+            addLazy[leftChild] = (addLazy[leftChild] * mulLazy[node]) % MOD;
+            addLazy[rightChild] = (addLazy[rightChild] * mulLazy[node]) % MOD;
+            
+            tree[leftChild] = (tree[leftChild] * mulLazy[node]) % MOD;
+            tree[rightChild] = (tree[rightChild] * mulLazy[node]) % MOD;
+            
+            // 处理加法懒标记
+            int leftLen = mid - start + 1;
+            int rightLen = end - mid;
+            
+            addLazy[leftChild] = (addLazy[leftChild] + addLazy[node]) % MOD;
+            addLazy[rightChild] = (addLazy[rightChild] + addLazy[node]) % MOD;
+            
+            tree[leftChild] = (tree[leftChild] + addLazy[node] * leftLen) % MOD;
+            tree[rightChild] = (tree[rightChild] + addLazy[node] * rightLen) % MOD;
+            
+            // 重置当前节点的懒标记
+            addLazy[node] = 0;
+            mulLazy[node] = 1;
+        }
+    }
+    
+    void build(vector<int>& nums, int node, int start, int end) {
+        if (start == end) {
+            tree[node] = nums[start] % MOD;
+        } else {
+            int mid = start + (end - start) / 2;
+            int leftChild = 2 * node + 1;
+            int rightChild = 2 * node + 2;
+            
+            build(nums, leftChild, start, mid);
+            build(nums, rightChild, mid + 1, end);
+            
+            tree[node] = (tree[leftChild] + tree[rightChild]) % MOD;
+        }
+    }
+    
+    long long queryRange(int node, int start, int end, int l, int r) {
+        if (r < start || end < l) {
+            return 0;
+        }
+        
+        if (l <= start && end <= r) {
+            return tree[node];
+        }
+        
+        pushDown(node, start, end);
+        
+        int mid = start + (end - start) / 2;
+        int leftChild = 2 * node + 1;
+        int rightChild = 2 * node + 2;
+        
+        long long leftSum = queryRange(leftChild, start, mid, l, r);
+        long long rightSum = queryRange(rightChild, mid + 1, end, l, r);
+        
+        return (leftSum + rightSum) % MOD;
+    }
+    
+    void updateAdd(int node, int start, int end, int l, int r, int val) {
+        if (r < start || end < l) {
+            return;
+        }
+        
+        if (l <= start && end <= r) {
+            addLazy[node] = (addLazy[node] + val) % MOD;
+            tree[node] = (tree[node] + (long long)val * (end - start + 1)) % MOD;
+            return;
+        }
+        
+        pushDown(node, start, end);
+        
+        int mid = start + (end - start) / 2;
+        int leftChild = 2 * node + 1;
+        int rightChild = 2 * node + 2;
+        
+        updateAdd(leftChild, start, mid, l, r, val);
+        updateAdd(rightChild, mid + 1, end, l, r, val);
+        
+        tree[node] = (tree[leftChild] + tree[rightChild]) % MOD;
+    }
+    
+    void updateMul(int node, int start, int end, int l, int r, int val) {
+        if (r < start || end < l) {
+            return;
+        }
+        
+        if (l <= start && end <= r) {
+            mulLazy[node] = (mulLazy[node] * val) % MOD;
+            addLazy[node] = (addLazy[node] * val) % MOD;
+            tree[node] = (tree[node] * val) % MOD;
+            return;
+        }
+        
+        pushDown(node, start, end);
+        
+        int mid = start + (end - start) / 2;
+        int leftChild = 2 * node + 1;
+        int rightChild = 2 * node + 2;
+        
+        updateMul(leftChild, start, mid, l, r, val);
+        updateMul(rightChild, mid + 1, end, l, r, val);
+        
+        tree[node] = (tree[leftChild] + tree[rightChild]) % MOD;
+    }
+    
+public:
+    MixSegmentTree(vector<int>& nums) {
+        n = nums.size();
+        tree.resize(4 * n, 0);
+        addLazy.resize(4 * n, 0);
+        mulLazy.resize(4 * n, 1);
+        build(nums, 0, 0, n - 1);
+    }
+    
+    long long queryRange(int l, int r) {
+        return queryRange(0, 0, n - 1, l, r);
+    }
+    
+    void updateAdd(int l, int r, int val) {
+        updateAdd(0, 0, n - 1, l, r, val);
+    }
+    
+    void updateMul(int l, int r, int val) {
+        updateMul(0, 0, n - 1, l, r, val);
+    }
+};
+
+int main() {
+    vector<int> nums = {1, 2, 3, 4, 5};
+    MixSegmentTree st(nums);
+    
+    cout << "初始区间[0, 4]的和: " << st.queryRange(0, 4) << endl;  // 15
+    
+    // 区间[1, 3]每个元素乘以2
+    st.updateMul(1, 3, 2);
+    cout << "乘法更新后区间[0, 4]的和: " << st.queryRange(0, 4) << endl;  // 1 + 4 + 6 + 8 + 5 = 24
+    
+    // 区间[2, 4]每个元素加3
+    st.updateAdd(2, 4, 3);
+    cout << "加法更新后区间[0, 4]的和: " << st.queryRange(0, 4) << endl;  // 1 + 4 + 9 + 11 + 8 = 33
+    
+    // 区间[0, 2]每个元素乘以3
+    st.updateMul(0, 2, 3);
+    cout << "再次乘法更新后区间[0, 4]的和: " << st.queryRange(0, 4) << endl;  // 3 + 12 + 27 + 11 + 8 = 61
+    
+    return 0;
+}
+```
+
+## 线段树的优化技巧
+
+### 1. 动态开点线段树
+
+当区间范围很大但实际使用的点很少时，可以使用动态开点线段树来节省空间。
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+class DynamicSegmentTree {
+private:
+    struct Node {
+        int val;
+        Node *left, *right;
+        
+        Node() : val(0), left(nullptr), right(nullptr) {}
+    };
+    
+    Node* root;
+    int leftBound, rightBound;
+    
+    void update(Node*& node, int start, int end, int idx, int val) {
+        if (!node) {
+            node = new Node();
+        }
+        
+        if (start == end) {
+            node->val = val;
+            return;
+        }
+        
+        int mid = start + (end - start) / 2;
+        
+        if (idx <= mid) {
+            update(node->left, start, mid, idx, val);
+        } else {
+            update(node->right, mid + 1, end, idx, val);
+        }
+        
+        node->val = (node->left ? node->left->val : 0) + 
+                   (node->right ? node->right->val : 0);
+    }
+    
+    int query(Node* node, int start, int end, int l, int r) {
+        if (!node || r < start || end < l) {
+            return 0;
+        }
+        
+        if (l <= start && end <= r) {
+            return node->val;
+        }
+        
+        int mid = start + (end - start) / 2;
+        
+        return query(node->left, start, mid, l, r) + 
+               query(node->right, mid + 1, end, l, r);
+    }
+    
+public:
+    DynamicSegmentTree(int left, int right) : leftBound(left), rightBound(right) {
+        root = nullptr;
+    }
+    
+    void update(int idx, int val) {
+        update(root, leftBound, rightBound, idx, val);
+    }
+    
+    int query(int l, int r) {
+        return query(root, leftBound, rightBound, l, r);
+    }
+};
+
+int main() {
+    // 处理范围[1, 1e9]的线段树
+    DynamicSegmentTree st(1, 1e9);
+    
+    // 更新位置1e9的值为100
+    st.update(1e9, 100);
+    
+    // 查询区间[1e9-1, 1e9]的和
+    cout << "区间[1e9-1, 1e9]的和: " << st.query(1e9 - 1, 1e9) << endl;  // 100
+    
+    return 0;
+}
+```
+
+### 2. 线段树合并
+
+当需要处理多个线段树并需要合并它们时，可以使用线段树合并技术。
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+class MergeSegmentTree {
+private:
+    struct Node {
+        int count;
+        Node *left, *right;
+        
+        Node() : count(0), left(nullptr), right(nullptr) {}
+    };
+    
+    vector<Node*> roots;
+    int leftBound, rightBound;
+    
+    void insert(Node*& node, int start, int end, int val) {
+        if (!node) {
+            node = new Node();
+        }
+        
+        node->count++;
+        
+        if (start == end) {
+            return;
+        }
+        
+        int mid = start + (end - start) / 2;
+        
+        if (val <= mid) {
+            insert(node->left, start, mid, val);
+        } else {
+            insert(node->right, mid + 1, end, val);
+        }
+    }
+    
+    Node* merge(Node* node1, Node* node2) {
+        if (!node1) return node2;
+        if (!node2) return node1;
+        
+        node1->count += node2->count;
+        node1->left = merge(node1->left, node2->left);
+        node1->right = merge(node1->right, node2->right);
+        
+        delete node2;
+        return node1;
+    }
+    
+    int query(Node* node, int start, int end, int l, int r) {
+        if (!node || r < start || end < l) {
+            return 0;
+        }
+        
+        if (l <= start && end <= r) {
+            return node->count;
+        }
+        
+        int mid = start + (end - start) / 2;
+        
+        return query(node->left, start, mid, l, r) + 
+               query(node->right, mid + 1, end, l, r);
+    }
+    
+public:
+    MergeSegmentTree(int left, int right) : leftBound(left), rightBound(right) {}
+    
+    void addTree() {
+        roots.push_back(nullptr);
+    }
+    
+    void insert(int treeIndex, int val) {
+        insert(roots[treeIndex], leftBound, rightBound, val);
+    }
+    
+    void mergeTrees(int index1, int index2) {
+        roots[index1] = merge(roots[index1], roots[index2]);
+        roots[index2] = nullptr;
+    }
+    
+    int query(int treeIndex, int l, int r) {
+        return query(roots[treeIndex], leftBound, rightBound, l, r);
+    }
+};
+
+int main() {
+    MergeSegmentTree st(1, 100);
+    
+    // 添加两棵线段树
+    st.addTree();
+    st.addTree();
+    
+    // 向第一棵树插入元素
+    st.insert(0, 10);
+    st.insert(0, 20);
+    st.insert(0, 30);
+    
+    // 向第二棵树插入元素
+    st.insert(1, 20);
+    st.insert(1, 40);
+    st.insert(1, 50);
+    
+    cout << "第一棵树中[15, 25]的元素个数: " << st.query(0, 15, 25) << endl;  // 1 (只有20)
+    cout << "第二棵树中[15, 25]的元素个数: " << st.query(1, 15, 25) << endl;  // 1 (只有20)
+    
+    // 合并两棵树
+    st.mergeTrees(0, 1);
+    
+    cout << "合并后树中[15, 25]的元素个数: " << st.query(0, 15, 25) << endl;  // 2 (两个20)
+    
+    return 0;
+}
+```
+
+## 线段树的应用场景
+
+### 1. 区间统计问题
+
+**问题描述**：给定一个数组，支持以下操作：
+1. 查询区间[l, r]的和
+2. 将区间[l, r]的每个元素加1
+3. 将位置idx的元素更新为val
+
+**解决方案**：使用带懒标记的线段树
+
+```cpp
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class RangeStatistics {
+private:
+    vector<long long> tree;
+    vector<long long> lazy;
+    int n;
+    
+    void pushDown(int node, int start, int end) {
+        if (lazy[node] != 0) {
+            int mid = start + (end - start) / 2;
+            int leftChild = 2 * node + 1;
+            int rightChild = 2 * node + 2;
+            
+            lazy[leftChild] += lazy[node];
+            lazy[rightChild] += lazy[node];
+            
+            tree[leftChild] += lazy[node] * (mid - start + 1);
+            tree[rightChild] += lazy[node] * (end - mid);
+            
+            lazy[node] = 0;
+        }
+    }
+    
+    void build(vector<int>& nums, int node, int start, int end) {
+        if (start == end) {
+            tree[node] = nums[start];
+        } else {
+            int mid = start + (end - start) / 2;
+            int leftChild = 2 * node + 1;
+            int rightChild = 2 * node + 2;
+            
+            build(nums, leftChild, start, mid);
+            build(nums, rightChild, mid + 1, end);
+            
+            tree[node] = tree[leftChild] + tree[rightChild];
+        }
+    }
+    
+    long long queryRange(int node, int start, int end, int l, int r) {
+        if (r < start || end < l) {
+            return 0;
+        }
+        
+        if (l <= start && end <= r) {
+            return tree[node];
+        }
+        
+        pushDown(node, start, end);
+        
+        int mid = start + (end - start) / 2;
+        int leftChild = 2 * node + 1;
+        int rightChild = 2 * node + 2;
+        
+        return queryRange(leftChild, start, mid, l, r) + 
+               queryRange(rightChild, mid + 1, end, l, r);
+    }
+    
+    void updateRange(int node, int start, int end, int l, int r) {
+        if (r < start || end < l) {
+            return;
+        }
+        
+        if (l <= start && end <= r) {
+            tree[node] += (end - start + 1);
+            lazy[node] += 1;
+            return;
+        }
+        
+        pushDown(node, start, end);
+        
+        int mid = start + (end - start) / 2;
+        int leftChild = 2 * node + 1;
+        int rightChild = 2 * node + 2;
+        
+        updateRange(leftChild, start, mid, l, r);
+        updateRange(rightChild, mid + 1, end, l, r);
+        
+        tree[node] = tree[leftChild] + tree[rightChild];
+    }
+    
+    void updatePoint(int node, int start, int end, int idx, int val) {
+        if (start == end) {
+            tree[node] = val;
+        } else {
+            int mid = start + (end - start) / 2;
+            int leftChild = 2 * node + 1;
+            int rightChild = 2 * node + 2;
+            
+            if (idx <= mid) {
+                updatePoint(leftChild, start, mid, idx, val);
+            } else {
+                updatePoint(rightChild, mid + 1, end, idx, val);
+            }
+            
+            tree[node] = tree[leftChild] + tree[rightChild];
+        }
+    }
+    
+public:
+    RangeStatistics(vector<int>& nums) {
+        n = nums.size();
+        tree.resize(4 * n, 0);
+        lazy.resize(4 * n, 0);
+        build(nums, 0, 0, n - 1);
+    }
+    
+    long long queryRange(int l, int r) {
+        return queryRange(0, 0, n - 1, l, r);
+    }
+    
+    void updateRange(int l, int r) {
+        updateRange(0, 0, n - 1, l, r);
+    }
+    
+    void updatePoint(int idx, int val) {
+        updatePoint(0, 0, n - 1, idx, val);
+    }
+};
+
+int main() {
+    vector<int> nums = {1, 2, 3, 4, 5};
+    RangeStatistics rs(nums);
+    
+    cout << "初始区间[0, 4]的和: " << rs.queryRange(0, 4) << endl;  // 15
+    
+    // 区间[1, 3]每个元素加1
+    rs.updateRange(1, 3);
+    cout << "区间更新后区间[0, 4]的和: " << rs.queryRange(0, 4) << endl;  // 18
+    
+    // 更新位置2的值为10
+    rs.updatePoint(2, 10);
+    cout << "单点更新后区间[0, 4]的和: " << rs.queryRange(0, 4) << endl;  // 23
+    
+    return 0;
+}
+```
+
+### 2. 区间最值问题
+
+**问题描述**：给定一个数组，支持以下操作：
+1. 查询区间[l, r]的最大值
+2. 查询区间[l, r]的最小值
+3. 更新位置idx的值为val
+
+**解决方案**：使用两个线段树分别维护最大值和最小值
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+class RangeMinMax {
+private:
+    vector<int> maxTree;
+    vector<int> minTree;
+    int n;
+    
+    void build(vector<int>& nums, int node, int start, int end) {
+        if (start == end) {
+            maxTree[node] = nums[start];
+            minTree[node] = nums[start];
+        } else {
+            int mid = start + (end - start) / 2;
+            int leftChild = 2 * node + 1;
+            int rightChild = 2 * node + 2;
+            
+            build(nums, leftChild, start, mid);
+            build(nums, rightChild, mid + 1, end);
+            
+            maxTree[node] = max(maxTree[leftChild], maxTree[rightChild]);
+            minTree[node] = min(minTree[leftChild], minTree[rightChild]);
+        }
+    }
+    
+    int queryMax(int node, int start, int end, int l, int r) {
+        if (r < start || end < l) {
+            return INT_MIN;
+        }
+        
+        if (l <= start && end <= r) {
+            return maxTree[node];
+        }
+        
+        int mid = start + (end - start) / 2;
+        int leftChild = 2 * node + 1;
+        int rightChild = 2 * node + 2;
+        
+        return max(queryMax(leftChild, start, mid, l, r),
+                   queryMax(rightChild, mid + 1, end, l, r));
+    }
+    
+    int queryMin(int node, int start, int end, int l, int r) {
+        if (r < start || end < l) {
+            return INT_MAX;
+        }
+        
+        if (l <= start && end <= r) {
+            return minTree[node];
+        }
+        
+        int mid = start + (end - start) / 2;
+        int leftChild = 2 * node + 1;
+        int rightChild = 2 * node + 2;
+        
+        return min(queryMin(leftChild, start, mid, l, r),
+                   queryMin(rightChild, mid + 1, end, l, r));
+    }
+    
+    void updatePoint(int node, int start, int end, int idx, int val) {
+        if (start == end) {
+            maxTree[node] = val;
+            minTree[node] = val;
+        } else {
+            int mid = start + (end - start) / 2;
+            int leftChild = 2 * node + 1;
+            int rightChild = 2 * node + 2;
+            
+            if (idx <= mid) {
+                updatePoint(leftChild, start, mid, idx, val);
+            } else {
+                updatePoint(rightChild, mid + 1, end, idx, val);
+            }
+            
+            maxTree[node] = max(maxTree[leftChild], maxTree[rightChild]);
+            minTree[node] = min(minTree[leftChild], minTree[rightChild]);
+        }
+    }
+    
+public:
+    RangeMinMax(vector<int>& nums) {
+        n = nums.size();
+        maxTree.resize(4 * n, 0);
+        minTree.resize(4 * n, 0);
+        build(nums, 0, 0, n - 1);
+    }
+    
+    int queryMax(int l, int r) {
+        return queryMax(0, 0, n - 1, l, r);
+    }
+    
+    int queryMin(int l, int r) {
+        return queryMin(0, 0, n - 1, l, r);
+    }
+    
+    void updatePoint(int idx, int val) {
+        updatePoint(0, 0, n - 1, idx, val);
+    }
+};
+
+int main() {
+    vector<int> nums = {3, 1, 4, 1, 5, 9, 2, 6};
+    RangeMinMax rmm(nums);
+    
+    cout << "区间[0, 7]的最大值: " << rmm.queryMax(0, 7) << endl;  // 9
+    cout << "区间[0, 7]的最小值: " << rmm.queryMin(0, 7) << endl;  // 1
+    
+    cout << "区间[2, 5]的最大值: " << rmm.queryMax(2, 5) << endl;  // 9
+    cout << "区间[2, 5]的最小值: " << rmm.queryMin(2, 5) << endl;  // 1
+    
+    // 更新位置1的值为10
+    rmm.updatePoint(1, 10);
+    cout << "更新后区间[0, 7]的最大值: " << rmm.queryMax(0, 7) << endl;  // 10
+    
+    return 0;
+}
+```
+
+## 线段树的复杂度分析
+
+### 时间复杂度
+
+- **构建线段树**：O(n)
+- **区间查询**：O(log n)
+- **单点更新**：O(log n)
+- **区间更新**：O(log n)
+
+### 空间复杂度
+
+- **基本线段树**：O(4n)
+- **带懒标记的线段树**：O(4n)
+- **动态开点线段树**：O(m log n)，其中m是操作次数
+
+## 线段树的优缺点
+
+### 优点
+
+1. **查询效率高**：区间查询的时间复杂度为O(log n)
+2. **功能强大**：支持多种区间操作和更新操作
+3. **实现灵活**：可以根据需求定制不同的合并操作
+4. **应用广泛**：适用于各种区间统计问题
+
+### 缺点
+
+1. **空间开销大**：需要4倍于原数组的空间
+2. **实现复杂**：相比树状数组，实现起来更复杂
+3. **常数较大**：在实际应用中，常数因子可能较大
+4. **不适合点查询**：对于单点查询，不如直接访问数组高效
+
+## 线段树与树状数组的比较
+
+| 特性 | 线段树 | 树状数组 |
+|------|--------|----------|
+| 时间复杂度 | O(log n) | O(log n) |
+| 空间复杂度 | O(4n) | O(n) |
+| 实现复杂度 | 较复杂 | 较简单 |
+| 支持操作 | 区间查询、区间更新 | 区间查询、单点更新 |
+| 适用场景 | 复杂区间操作 | 简单区间操作 |
+| 扩展性 | 强 | 有限 |
+
+**选择建议**：
+- 当需要支持区间更新或复杂的区间操作时，选择线段树
+- 当只需要简单的区间查询和单点更新时，选择树状数组
+
+## 总结
+
+线段树是一种强大的数据结构，特别适合处理区间查询和更新问题。通过合理的设计和优化，线段树可以高效地解决各种复杂的区间操作问题。
+
+### 关键点回顾
+
+1. **基本结构**：二叉树形结构，每个节点代表一个区间
+2. **核心操作**：构建、查询、更新
+3. **懒标记技术**：优化区间更新操作
+4. **应用场景**：区间和、区间最值、区间统计等
+5. **优化技巧**：动态开点、线段树合并等
+
+### 学习建议
+
+1. **掌握基础**：先理解线段树的基本结构和操作
+2. **练习实现**：亲手实现不同类型的线段树
+3. **应用实践**：解决实际问题，加深理解
+4. **优化探索**：学习各种优化技巧，提高效率
+
+通过系统学习和大量练习，可以熟练掌握线段树这一强大的数据结构，为解决复杂的区间问题提供有力工具。
