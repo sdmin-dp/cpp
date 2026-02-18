@@ -10,6 +10,7 @@ ll n;
 bool a[N];
 vector<ll> g[N];
 ll cnt[N];
+bool tou[N];
 void dfs(ll x,ll fa){
     if(g[x].empty()) return;
     for(auto i:g[x]){
@@ -19,6 +20,19 @@ void dfs(ll x,ll fa){
     }
     for(auto i:g[x]){
         if(i!=fa&&(a[i]||cnt[i])) cnt[x]++;
+    }
+}
+void dfs2(ll x, ll fa) {
+    if(fa!=0&&(a[fa]||tou[fa])){
+        tou[x]=1;
+    }
+    for(auto i:g[x]) {
+        if (i==fa) continue;
+        bool brother_has=false;
+        if (cnt[x]>1) brother_has=true; 
+        else if(cnt[x]==1&&!(a[i]||cnt[i])) brother_has=true;
+        if(brother_has) tou[i]=1;
+        dfs2(i,x);
     }
 }
 void solve(){
@@ -35,12 +49,13 @@ void solve(){
     }
     
     dfs(1,0);
+    dfs2(1,0);
     if(cnt[1]>=3){
         cout<<"No"<<el;
         return;
     }
     for(int i=2;i<=n;i++){
-        if(cnt[i]>=2){
+        if(cnt[i]+tou[i]>=3){
             cout<<"No"<<el;
             return;
         }
@@ -57,6 +72,7 @@ int main(){
     cin>>T;
     while(T--){
         memset(cnt,0,sizeof(cnt));
+        memset(tou,0,sizeof(tou));
         solve();
     }
     return 0;
