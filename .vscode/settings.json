@@ -1,5 +1,6 @@
 {
     "breadcrumbs.showArrays": true,
     "breadcrumbs.showBooleans": true,
-    "breadcrumbs.showClasses": true
+    "breadcrumbs.showClasses": true,
+    "gitdoc.enabled": true
 }
