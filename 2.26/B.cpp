@@ -33,8 +33,8 @@ void solve(){
         zhuan90();
         swap(n,m);
     }
-    for(int i=1;i<=m;i++){
-        for(int j=1;j<=n;j++){
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=m;j++){
             cerr<<a[i][j];
         }
         cerr<<el;
