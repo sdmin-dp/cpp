@@ -8,6 +8,7 @@ pair<ll,ll> a[N];
 ll ans[N];
 ll sumdan;//下m-1天蛋的费用，用于判断
 ll sum;//统计后面提供的美味值
+int kaoji[N];
 void solve(){
     cin>>n>>m;
     for(int i=1;i<=n;i++) cin>>a[i].first>>a[i].second;
@@ -19,7 +20,7 @@ void solve(){
             if(-min(a[i].first*m,a[i].second)>sum){
                 sum=0;
                 n=i-1;
-            }else if(min(a[i].first,a[i].second)){
+            }else if(min(a[i].first,a[i].second)<-(m-1)*sumdan){
                 
             }
         }
