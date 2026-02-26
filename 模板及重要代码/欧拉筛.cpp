@@ -16,7 +16,6 @@ void Prime(){
             if(!i%j) break;
         }
     }
-    
 }
 void solve(){
     cin>>n;
