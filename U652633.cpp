@@ -7,13 +7,13 @@ ll n;
 vector<ll> v;
 void prime(){
     ll x=n;
-    for(int i=1;i*i<=x;i++){
+    for(ll i=1;i*i<=x;i++){
         if(x%i==0){
             while(x%i==0){
                 x/=i;
                 v.push_back(i);
+                cout<<"ni ma";
             }
-            
         }
     }
     if(x) v.push_back(x);
