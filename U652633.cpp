@@ -4,20 +4,19 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n;
-vector<pair<ll,ll>> v;
+vector<ll> v;
 void prime(){
     ll x=n;
     for(int i=1;i*i<=x;i++){
         if(x%i==0){
-            ll cnt=0;
             while(x%i==0){
-                cnt++;
                 x/=i;
+                v.push_back(i);
             }
-            v.push_back({i,cnt});
+            
         }
     }
-    if(x) v.push_back({x,1});
+    if(x) v.push_back(x);
 }
 void solve(){
     cin>>n;
@@ -25,13 +24,12 @@ void solve(){
     bool flag=1;
     for(auto i:v){
         if(flag){
-            cout<<i.first<<"^"<<i.second;
+            cout<<i;
             flag=0;
         }
         else{
-            cout<<"×"<<i.first<<"^"<<i.second;
+            cout<<"×"<<i;
         }
-        
     }
 }
 int main(){
