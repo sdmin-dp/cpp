@@ -17,6 +17,7 @@ void prime(){
             v.push_back({i,cnt});
         }
     }
+    if(x) v.pop_back({x,1});
 }
 void solve(){
     cin>>n;
