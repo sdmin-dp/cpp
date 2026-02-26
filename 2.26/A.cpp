@@ -19,7 +19,7 @@ void Sort(ll l,ll r){
             else b[t++]=a[j++],cnt+=mid-i+1;
         }
         while(i<=mid) b[t++]=a[i++];
-        while(j<=r) b[t++]=a[i++];
+        while(j<=r) b[t++]=a[j++];
         for(i=l;i<=r;i++) a[i]=b[i];
     }
 }
