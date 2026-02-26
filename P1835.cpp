@@ -32,7 +32,7 @@ void solve(){
     }
     ll cnt=0;
     for(int i=0;i<=r-l;i++){
-        cnt+=book[i];
+        if(!book[i]) cnt++;
     }
     cout<<cnt;
 }
