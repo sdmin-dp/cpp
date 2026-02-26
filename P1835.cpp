@@ -27,7 +27,7 @@ void solve(){
         if(l%i!=0) k=l/i+1;
         else k=l/i;
         for(ll j=k;j*i<=r;j++){
-
+            
         }
     }
 }
