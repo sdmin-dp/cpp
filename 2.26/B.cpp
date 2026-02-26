@@ -32,8 +32,8 @@ void solve(){
     for(int i=1;i<=r/90;i++){
         zhuan90();
     }
-    for(int i=1;i<=n;i++){
-        for(int j=1;j<=m;j++){
+    for(int i=1;i<=m;i++){
+        for(int j=1;j<=n;j++){
             cerr<<a[i][j];
         }
         cerr<<el;
