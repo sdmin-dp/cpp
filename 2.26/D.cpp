@@ -6,9 +6,6 @@ const ll N=1e5+5;
 ll n,m;
 pair<ll,ll> a[N];
 ll ans[N];
-ll sumdan;//下m-1天蛋的费用，用于判断
-ll sum;//统计后面提供的美味值
-int kaoji[N];
 void solve(){
     cin>>n>>m;
     for(int i=1;i<=n;i++) cin>>a[i].first>>a[i].second;
@@ -16,24 +13,7 @@ void solve(){
         if(a[i].first>=0&&a[i].second>=0) ans[i]=max(m*a[i].first,(m-1)*a[i].first+a[i].second);
         if(a[i].first>=0&&a[i].second<0) ans[i]=m*a[i].first;
         if(a[i].first<0&&a[i].second>=0) ans[i]=a[i].second;
-        else{
-            if(-min(a[i].first*m,a[i].second)>sum){
-                sum=0;
-                sumdan=0;
-                n=i-1;
-            }else if(min(a[i].first,a[i].second)<-(m-1)*sumdan){
-                ans[i]=min(a[i].first,a[i].second);
-                sum=0;
-                for(int j=i+1;j<=n;j++){
-                    ans[j]=a[i].second;
-                    sum+=ans[j];
-                }
-            }else{
-                ans[i]=max(a[i].first*m,a[i].second);
-            }
-        }
-        // sumdan+=a[i].first*(m-1);
-        // sum+=ans[i];
+        else ans[i]=max(a[i].first*m,a[i].second);
     }
     ll sum=0;
     for(int i=1;i<=n;i++) sum+=ans[i];
