@@ -10,7 +10,7 @@ void solve(){
     for(int i=1;i<=n;i++){
         cin>>a[i];
     }
-    ll ans=0;
+    ll ans=1e12;
     for(int i=0;i<=n-k;i++){
         ll L= a[i];
         ll R=a[i+k-1];
