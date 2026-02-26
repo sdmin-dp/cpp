@@ -28,7 +28,7 @@ void solve(){
             flag=0;
         }
         else{
-            cout<<i.first<<"^"<<i.second;
+            cout<<"×"<<i.first<<"^"<<i.second;
         }
         
     }
