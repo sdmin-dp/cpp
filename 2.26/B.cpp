@@ -5,7 +5,6 @@ using namespace std;
 const ll N=1e1+5;
 ll r,k,n,m;
 char a[N][N];
-char ans[N*10][N*10];
 void zhuan90(){
     char b[N][N];
     for(int i=1;i<=n;i++){
@@ -34,12 +33,8 @@ void solve(){
         swap(n,m);
     }
     for(int i=1;i<=n;i++){
-        for(int j=1;j<=m;j++){
-            cerr<<a[i][j];
-        }
-        cerr<<el;
+        
     }
-
 }
 int main(){
     ios::sync_with_stdio(0);
