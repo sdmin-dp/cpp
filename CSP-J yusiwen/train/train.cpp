@@ -5,6 +5,12 @@ using namespace std;
 const ll N=1e2+5;
 ll n,m;
 vector<ll> g[N];
+bool vis[N];
+void dfs(ll x){
+    for(int i=1;i<=n;i++){
+        
+    }
+}
 void solve(){
     for(int i=1;i<=n;i++) g[i].clear();
     cin>>n>>m;
