@@ -15,7 +15,7 @@ void solve(){
         g[y].push_back(x);
     }
     ll cnt=0;
-    for(int i=0;i<=n;i++){
+    for(int i=0;i<n;i++){
         if(g[i].size()%2!=0){
             cnt++;
         }
