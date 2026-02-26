@@ -3,9 +3,34 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+ll n;
+vector<ll> v;
+void prime(){
+    ll x=n;
+    for(ll i=1;i*i<=x;i++){
+        if(x%i==0){
+            while(x%i==0){
+                x/=i;
+                v.push_back(i);
+                cout<<"ni ma";
+            }
+        }
+    }
+    if(x) v.push_back(x);
+}
 void solve(){
-    
+    cin>>n;
+    prime();
+    bool flag=1;
+    for(auto i:v){
+        if(flag){
+            cout<<i;
+            flag=0;
+        }
+        else{
+            cout<<"¡Á"<<i;
+        }
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
