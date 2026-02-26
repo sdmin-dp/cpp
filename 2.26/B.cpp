@@ -11,7 +11,7 @@ void zhuan90(){
         for(int j=1;j<=m;j++){
             ll I=i,J=j;
             swap(I,J);
-            J=n-j+1;
+            J=n-J+1;
             ans[I][J]=a[i][j];
         }
     }
