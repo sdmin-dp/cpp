@@ -12,7 +12,7 @@ void prime(){
             while(x%i==0){
                 x/=i;
                 v.push_back(i);
-                cout<<"ni ma";
+                cout<<x;
             }
         }
     }
