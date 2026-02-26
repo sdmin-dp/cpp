@@ -19,12 +19,9 @@ void solve(){
         if(g[i].size()%2!=0){
             cnt++;
         }
-        cerr<<g[i].size()<<" ";
     }
     if(cnt!=0&&cnt!=2) cout<<"NO"<<el;
     else cout<<"YES"<<el;
-    // cerr<<cnt<<el;
-    cerr<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
