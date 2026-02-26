@@ -2,38 +2,25 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e5+5;
+const ll N=1e7+5;
 ll n;
-vector<ll> v;
-void prime(){
-    ll x=n;
-    for(ll i=2;i*i<=x;i++){
-        if(x%i==0){
-            while(x%i==0){
-                x/=i;
-                v.push_back(i);
-            }
+vector<ll> prime;
+bool isprime[N];
+void Prime(){
+    isprime[1]=isprime[0]=1;
+    for(ll i=2;i<=n;i++){
+        if(!isprime[i]) prime.push_back(i);
+        for(auto j:prime){
+            if(i*j>n) break;
+            isprime[i*j]=1;
+            if(!i%j) break;
         }
     }
-    if(x>1) v.push_back(x);
 }
 void solve(){
     cin>>n;
-    if(n==1){
-        cout<<1;
-        return;
-    }
-    prime();
-    bool flag=1;
-    for(auto i:v){
-        if(flag){
-            cout<<i;
-            flag=0;
-        }
-        else{
-            cout<<"¡Á"<<i;
-        }
-    }
+    Prime();
+    for(auto i:prime) cout<<i<<" ";
 }
 int main(){
     ios::sync_with_stdio(0);
