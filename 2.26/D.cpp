@@ -32,8 +32,8 @@ void solve(){
                 ans[i]=max(a[i].first*m,a[i].second);
             }
         }
-        sumdan+=a[i].first*(m-1);
-        sum+=ans[i];
+        // sumdan+=a[i].first*(m-1);
+        // sum+=ans[i];
     }
     ll sum=0;
     for(int i=1;i<=n;i++) sum+=ans[i];
