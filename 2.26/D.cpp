@@ -21,9 +21,12 @@ void solve(){
                 sum=0;
                 n=i-1;
             }else if(min(a[i].first,a[i].second)<-(m-1)*sumdan){
-                kaoji[i+1]++;kaoji[n+1]--;
+                ans[i]=min(a[i].first,a[i].second);
+                for(int j;j<=n;j++){
+                    
+                }
             }else{
-                ans[i]=max(a[i].first*m,a[i])
+                ans[i]=max(a[i].first*m,a[i].second);
             }
         }
     }
