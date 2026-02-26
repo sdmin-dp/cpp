@@ -16,8 +16,8 @@ void zhuan90(){
             b[I][J]=a[i][j];
         }
     }
-    for(int i=1;i<=n+1;i++){
-        for(int j=1;j<=m+1;j++){
+    for(int i=1;i<=m;i++){
+        for(int j=1;j<=n;j++){
             a[i][j]=b[i][j];
         }
     }
