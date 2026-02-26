@@ -8,7 +8,7 @@ vector<ll> prime;
 bool isprime[N];
 void Prime(){
     isprime[1]=isprime[0]=1;
-    for(int i=2;i<=n;i++){
+    for(ll i=2;i<=n;i++){
         if(!isprime[i]) prime.push_back(i);
         for(auto j:prime){
             if(i*j>n) break;
@@ -16,6 +16,7 @@ void Prime(){
             if(!i%j) break;
         }
     }
+    
 }
 void solve(){
     cin>>n;
