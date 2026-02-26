@@ -22,7 +22,7 @@ void solve(){
     cin>>l>>r;
     n=sqrt(r);
     Prime();
-    book[0]=1;
+    if(l==1) book[0]=1;
     for(auto i:prime){
         ll k=0;
         if(l%i!=0) k=l/i+1;
