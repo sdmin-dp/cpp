@@ -7,7 +7,7 @@ ll n;
 vector<ll> v;
 void prime(){
     ll x=n;
-    for(ll i=1;i*i<=x;i++){
+    for(ll i=2;i*i<=x;i++){
         if(x%i==0){
             while(x%i==0){
                 x/=i;
