@@ -8,7 +8,7 @@ vector<pair<ll,ll>> v;
 void prime(){
     ll x=n;
     for(int i=1;i*i<=x;i++){
-        if(n%i==0){
+        if(x%i==0){
             ll cnt=0;
             while(x%i==0){
                 cnt++;
