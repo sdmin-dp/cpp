@@ -22,14 +22,15 @@ void solve(){
                 n=i-1;
             }else if(min(a[i].first,a[i].second)<-(m-1)*sumdan){
                 ans[i]=min(a[i].first,a[i].second);
-                for(int j=i;j<=n;j++){
-                    
-                }
+                for(int j=i+1;j<=n;j++) ans[j]=a[i].second;
             }else{
                 ans[i]=max(a[i].first*m,a[i].second);
             }
         }
     }
+    ll sum=0;
+    for(int i=1;i<=n;i++) sum+=ans[i];
+    cout<<sum;
 }
 int main(){
     ios::sync_with_stdio(0);
