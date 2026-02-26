@@ -27,7 +27,9 @@ void solve(){
         if(l%i!=0) k=l/i+1;
         else k=l/i;
         for(ll j=k;j*i<=r;j++){
-            book[j*i-l]=1;
+            if(j!=1){
+                book[j*i-l]=1;
+            }
         }
     }
     ll cnt=0;
