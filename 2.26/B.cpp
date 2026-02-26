@@ -3,7 +3,9 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+ll r,k,n,m;
+char a[N][N];
+char ans[N*4][]
 void solve(){
     
 }
