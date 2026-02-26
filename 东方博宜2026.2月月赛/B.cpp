@@ -10,11 +10,6 @@ void solve(){
     for(int i=1;i<=n;i++){
         cin>>a[i];
     }
-    //先走哪边？\
-    如果走远的一边\
-    x     o   x     x\
-    1 2 3 4 5 6 7 8 9\
-    答案是，走近的一边
     ll ans=0;
     for(int i=0;i<=n-k;i++){
         ll L= a[i];
