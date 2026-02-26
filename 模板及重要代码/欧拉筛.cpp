@@ -19,6 +19,7 @@ void Prime(){
 }
 void solve(){
     cin>>n;
+    Prime();
 }
 int main(){
     ios::sync_with_stdio(0);
