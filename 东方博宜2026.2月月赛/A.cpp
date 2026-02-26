@@ -15,7 +15,9 @@ void solve(){
         else if(a[i]==3) sum3[i]=sum3[i-1]+1;
     }
     for(int i=1;i<=q;i++){
-        
+        ll l,r;
+        cin>>l>>r;
+        cout<<sum1[r]-sum1[l]+1<<" "<<sum2[r]-sum2[l]+1<<" "<<sum3[r]-sum3[l]+1<<el;
     }
 }
 int main(){
