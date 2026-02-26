@@ -15,9 +15,14 @@ void solve(){
     x     o   x     x\
     1 2 3 4 5 6 7 8 9\
     答案是，走近的一边
-    for(int i=1;i<=n;i++){
-        
+    ll ans=0;
+    for(int i=0;i<=n-k;i++){
+        ll L= a[i];
+        ll R=a[i+k-1];
+        ll mn=min(abs(L)+(R-L),abs(R)+(R-L));
+        ans=min(ans, mn);
     }
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
