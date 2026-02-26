@@ -22,6 +22,7 @@ void solve(){
     }
     if(cnt!=0&&cnt!=2) cout<<"NO"<<el;
     else cout<<"YES"<<el;
+    cerr<<cnt<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
