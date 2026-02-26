@@ -13,7 +13,7 @@ void Sort(ll l,ll r){
         ll mid=(l+r)/2;
         Sort(l,mid);
         Sort(mid+1,r);
-        ll i=1,j=mid+1,t=1;
+        ll i=l,j=mid+1,t=1;
         while(i<=mid&&j<=r){
             if(a[i]<=a[j]) b[t++]=a[i++];
             else b[t++]=a[j++],cnt+=mid-i+1;
