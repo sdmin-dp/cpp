@@ -3,21 +3,9 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-ll n,m;
-pair<ll,ll> a[N];
-ll ans[N];
+
 void solve(){
-    cin>>n>>m;
-    for(int i=1;i<=n;i++) cin>>a[i].first>>a[i].second;
-    for(int i=n;i>=1;i--){
-        if(a[i].first>=0&&a[i].second>=0) ans[i]=max(m*a[i].first,(m-1)*a[i].first+a[i].second);
-        if(a[i].first>=0&&a[i].second<0) ans[i]=m*a[i].first;
-        if(a[i].first<0&&a[i].second>=0) ans[i]=a[i].second;
-        else ans[i]=max(a[i].first*m,a[i].second);
-    }
-    ll sum=0;
-    for(int i=1;i<=n;i++) sum+=ans[i];
-    cout<<sum;
+    
 }
 int main(){
     ios::sync_with_stdio(0);
