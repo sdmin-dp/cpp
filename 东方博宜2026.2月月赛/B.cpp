@@ -11,7 +11,7 @@ void solve(){
         cin>>a[i];
     }
     ll ans=1e12;
-    for(int i=0;i<=n-k;i++){
+    for(int i=1;i<=n-k+1;i++){
         ll L= a[i];
         ll R=a[i+k-1];
         ll mn=min(abs(L)+(R-L),abs(R)+(R-L));
