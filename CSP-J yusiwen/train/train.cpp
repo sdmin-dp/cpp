@@ -7,8 +7,10 @@ ll n,m;
 vector<ll> g[N];
 bool vis[N];
 void dfs(ll x){
-    for(int i=1;i<=n;i++){
-        
+    for(auto i:g[x]){
+        if(!vis[i]){
+            
+        }
     }
 }
 void solve(){
