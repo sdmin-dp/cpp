@@ -3,9 +3,14 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
+string s;
+ll n;
+ll a[N];
+void Sort(){
 
+}
 void solve(){
-    
+    cin>>s;
 }
 int main(){
     ios::sync_with_stdio(0);
