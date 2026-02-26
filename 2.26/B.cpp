@@ -33,7 +33,14 @@ void solve(){
         swap(n,m);
     }
     for(int i=1;i<=n;i++){
-        
+        for(int w=1;w<=k;w++){
+            for(int j=1;j<=m;j++){
+                for(int q=1;q<=k;q++){
+                    cout<<a[i][j];
+                }
+            }
+            cout<<el;
+        }
     }
 }
 int main(){
