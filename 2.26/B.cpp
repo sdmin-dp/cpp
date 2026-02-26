@@ -7,12 +7,18 @@ ll r,k,n,m;
 char a[N][N];
 char ans[N*10][N*10];
 void zhuan90(){
+    char b[N][N];
     for(int i=1;i<=n;i++){
         for(int j=1;j<=m;j++){
             ll I=i,J=j;
             swap(I,J);
             J=n-J+1;
-            ans[I][J]=a[i][j];
+            b[I][J]=a[i][j];
+        }
+    }
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=m;j++){
+            a[i][j]=b[i][j];
         }
     }
 }
@@ -23,7 +29,9 @@ void solve(){
             cin>>a[i][j];
         }
     }
-    zhuan90();
+    for(int i=1;i<=r%90;i++){
+        zhuan90();
+    }
     for(int i=1;i<=n;i++){
         for(int j=1;j<=m;j++){
             cerr<<ans[i][j];
