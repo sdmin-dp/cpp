@@ -27,9 +27,14 @@ void solve(){
         if(l%i!=0) k=l/i+1;
         else k=l/i;
         for(ll j=k;j*i<=r;j++){
-            
+            book[j*i-l]=1;
         }
     }
+    ll cnt=0;
+    for(int i=0;i<=r-l;i++){
+        cnt+=book[i];
+    }
+    cout<<cnt;
 }
 int main(){
     ios::sync_with_stdio(0);
