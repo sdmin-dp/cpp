@@ -15,6 +15,9 @@ void solve(){
     x     o   x     x\
     1 2 3 4 5 6 7 8 9\
     答案是，走近的一边
+    for(int i=1;i<=n;i++){
+        
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
