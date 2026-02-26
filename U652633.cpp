@@ -19,6 +19,10 @@ void prime(){
 }
 void solve(){
     cin>>n;
+    if(n==1){
+        cout<<1;
+        return;
+    }
     prime();
     bool flag=1;
     for(auto i:v){
