@@ -22,7 +22,7 @@ void solve(){
                 n=i-1;
             }else if(min(a[i].first,a[i].second)<-(m-1)*sumdan){
                 ans[i]=min(a[i].first,a[i].second);
-                for(int j;j<=n;j++){
+                for(int j=i;j<=n;j++){
                     
                 }
             }else{
