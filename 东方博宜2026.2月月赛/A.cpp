@@ -17,7 +17,7 @@ void solve(){
     for(int i=1;i<=q;i++){
         ll l,r;
         cin>>l>>r;
-        cout<<sum1[r]-sum1[l]+1<<" "<<sum2[r]-sum2[l]+1<<" "<<sum3[r]-sum3[l]+1<<el;
+        cout<<sum1[r]-sum1[l-1]<<" "<<sum2[r]-sum2[l-1]<<" "<<sum3[r]-sum3[l-1]<<el;
     }
 }
 int main(){
