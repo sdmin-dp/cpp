@@ -20,6 +20,7 @@ void Prime(){
 void solve(){
     cin>>n;
     Prime();
+    for(auto i:prime) cout<<i<<" ";
 }
 int main(){
     ios::sync_with_stdio(0);
