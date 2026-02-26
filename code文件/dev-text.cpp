@@ -7,19 +7,22 @@ ll n;
 vector<ll> v;
 void prime(){
     ll x=n;
-    for(ll i=1;i*i<=x;i++){
+    for(ll i=2;i*i<=x;i++){
         if(x%i==0){
             while(x%i==0){
                 x/=i;
                 v.push_back(i);
-                cout<<x;
             }
         }
     }
-    if(x) v.push_back(x);
+    if(x>1) v.push_back(x);
 }
 void solve(){
     cin>>n;
+    if(n==1){
+        cout<<1;
+        return;
+    }
     prime();
     bool flag=1;
     for(auto i:v){
