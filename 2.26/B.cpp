@@ -33,13 +33,13 @@ void solve(){
         zhuan90();
         swap(n,m);
     }
-    // for(int i=1;i<=n;i++){
-    //     for(int j=1;j<=m;j++){
-    //         cerr<<a[i][j];
-    //     }
-    //     cerr<<el;
-    // }
-    
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=m;j++){
+            cerr<<a[i][j];
+        }
+        cerr<<el;
+    }
+
 }
 int main(){
     ios::sync_with_stdio(0);
