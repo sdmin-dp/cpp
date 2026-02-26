@@ -29,12 +29,12 @@ void solve(){
             cin>>a[i][j];
         }
     }
-    for(int i=1;i<=r%90;i++){
+    for(int i=1;i<=r/90;i++){
         zhuan90();
     }
     for(int i=1;i<=n;i++){
         for(int j=1;j<=m;j++){
-            cerr<<ans[i][j];
+            cerr<<a[i][j];
         }
         cerr<<el;
     }
