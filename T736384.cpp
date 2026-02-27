@@ -7,7 +7,7 @@ string s;
 void solve(){
     cin>>s;
     for(int i=0;i<s.size();i++){
-        if(s[i]=='a'||s[i]=='e'||s[i]=='i'||s[i]=='0'||s[i]=='u'){
+        if(s[i]=='a'||s[i]=='e'||s[i]=='i'||s[i]=='o'||s[i]=='u'){
             s.insert(i+1," ");
         }
     }
