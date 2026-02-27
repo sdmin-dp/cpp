@@ -6361,3 +6361,484 @@ int main() {
 4. **优化探索**：学习各种优化技巧，提高效率
 
 通过系统学习和大量练习，可以熟练掌握线段树这一强大的数据结构，为解决复杂的区间问题提供有力工具。
+
+# 欧拉函数与定理
+
+## 欧拉函数定义
+
+欧拉函数φ(n)是数论中的重要函数，定义为：小于等于n的正整数中与n互质的数的个数。
+
+**数学表示**：
+$$\phi(n) = |\{1 \leq k \leq n | \gcd(k,n) = 1\}|$$
+
+## 欧拉函数的基本性质
+
+### 1. 基本值
+- φ(1) = 1
+- 当n是质数时，φ(n) = n-1
+- φ(2) = 1, φ(3) = 2, φ(4) = 2, φ(5) = 4, φ(6) = 2
+
+### 2. 积性性质
+若m和n互质，则：
+$$\phi(mn) = \phi(m) \times \phi(n)$$
+
+### 3. 质数幂的性质
+对于质数p和正整数k：
+$$\phi(p^k) = p^k - p^{k-1} = p^k \times (1 - \frac{1}{p})$$
+
+### 4. 通用计算公式
+若n的质因数分解为$n = p_1^{a_1} \times p_2^{a_2} \times \cdots \times p_k^{a_k}$，则：
+$$\phi(n) = n \times \prod_{i=1}^{k} (1 - \frac{1}{p_i})$$
+
+## 欧拉定理
+
+**定理内容**：若a和n互质，则：
+$$a^{\phi(n)} \equiv 1 \pmod{n}$$
+
+**推论**：当n为质数时，φ(n) = n-1，此时欧拉定理退化为费马小定理：
+$$a^{n-1} \equiv 1 \pmod{n}$$
+
+## 欧拉函数的求解方法
+
+### 方法一：直接计算（适用于单个数）
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+// 计算单个数的欧拉函数
+int euler_phi(int n) {
+    int result = n;
+    
+    // 对n进行质因数分解
+    for (int p = 2; p * p <= n; p++) {
+        if (n % p == 0) {
+            // p是n的质因数
+            while (n % p == 0) {
+                n /= p;
+            }
+            // 应用公式：φ(n) = n × (1 - 1/p)
+            result -= result / p;
+        }
+    }
+    
+    // 如果剩下的n > 1，说明n本身是质数
+    if (n > 1) {
+        result -= result / n;
+    }
+    
+    return result;
+}
+
+int main() {
+    int n;
+    cin >> n;
+    cout << "φ(" << n << ") = " << euler_phi(n) << endl;
+    return 0;
+}
+```
+
+### 方法二：筛法预处理（适用于多次查询）
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 1e6 + 5;
+int phi[N];  // 存储欧拉函数值
+
+// 线性筛法预处理欧拉函数
+void euler_sieve(int n) {
+    // 初始化
+    for (int i = 1; i <= n; i++) {
+        phi[i] = i;
+    }
+    
+    // 筛法过程
+    for (int i = 2; i <= n; i++) {
+        if (phi[i] == i) {  // i是质数
+            for (int j = i; j <= n; j += i) {
+                phi[j] -= phi[j] / i;
+            }
+        }
+    }
+}
+
+// 优化的线性筛法
+void euler_sieve_optimized(int n) {
+    vector<int> primes;
+    bool is_composite[N] = {false};
+    
+    phi[1] = 1;
+    
+    for (int i = 2; i <= n; i++) {
+        if (!is_composite[i]) {
+            primes.push_back(i);
+            phi[i] = i - 1;  // 质数的欧拉函数值为p-1
+        }
+        
+        for (int j = 0; j < primes.size() && i * primes[j] <= n; j++) {
+            is_composite[i * primes[j]] = true;
+            
+            if (i % primes[j] == 0) {
+                // 如果primes[j]是i的质因数
+                phi[i * primes[j]] = phi[i] * primes[j];
+                break;
+            } else {
+                // 如果primes[j]不是i的质因数
+                phi[i * primes[j]] = phi[i] * (primes[j] - 1);
+            }
+        }
+    }
+}
+
+int main() {
+    int n;
+    cin >> n;
+    
+    euler_sieve_optimized(n);
+    
+    // 输出前10个数的欧拉函数值
+    for (int i = 1; i <= 10; i++) {
+        cout << "φ(" << i << ") = " << phi[i] << endl;
+    }
+    
+    return 0;
+}
+```
+
+## 欧拉函数的应用
+
+### 1. 求解模逆元
+
+当a和n互质时，a的模逆元为：
+$$a^{-1} \equiv a^{\phi(n)-1} \pmod{n}$$
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+// 快速幂取模
+long long fast_pow(long long a, long long b, long long mod) {
+    long long result = 1;
+    a %= mod;
+    
+    while (b > 0) {
+        if (b & 1) {
+            result = (result * a) % mod;
+        }
+        a = (a * a) % mod;
+        b >>= 1;
+    }
+    
+    return result;
+}
+
+// 计算欧拉函数
+int euler_phi(int n) {
+    int result = n;
+    for (int p = 2; p * p <= n; p++) {
+        if (n % p == 0) {
+            while (n % p == 0) {
+                n /= p;
+            }
+            result -= result / p;
+        }
+    }
+    if (n > 1) {
+        result -= result / n;
+    }
+    return result;
+}
+
+// 求模逆元
+long long mod_inverse(int a, int mod) {
+    int phi_mod = euler_phi(mod);
+    return fast_pow(a, phi_mod - 1, mod);
+}
+
+int main() {
+    int a, mod;
+    cin >> a >> mod;
+    
+    if (__gcd(a, mod) != 1) {
+        cout << a << " 和 " << mod << " 不互质，不存在模逆元" << endl;
+    } else {
+        cout << a << " 模 " << mod << " 的逆元是: " << mod_inverse(a, mod) << endl;
+    }
+    
+    return 0;
+}
+```
+
+### 2. 求解同余方程
+
+利用欧拉定理可以快速求解某些同余方程。
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+// 快速幂取模
+long long fast_pow(long long a, long long b, long long mod) {
+    long long result = 1;
+    a %= mod;
+    
+    while (b > 0) {
+        if (b & 1) {
+            result = (result * a) % mod;
+        }
+        a = (a * a) % mod;
+        b >>= 1;
+    }
+    
+    return result;
+}
+
+// 计算欧拉函数
+int euler_phi(int n) {
+    int result = n;
+    for (int p = 2; p * p <= n; p++) {
+        if (n % p == 0) {
+            while (n % p == 0) {
+                n /= p;
+            }
+            result -= result / p;
+        }
+    }
+    if (n > 1) {
+        result -= result / n;
+    }
+    return result;
+}
+
+// 求解 a^x ≡ b (mod m)，其中a和m互质
+long long solve_congruence(long long a, long long b, long long m) {
+    if (__gcd(a, m) != 1) {
+        return -1;  // 无解或需要特殊处理
+    }
+    
+    int phi_m = euler_phi(m);
+    
+    // 利用欧拉定理：a^φ(m) ≡ 1 (mod m)
+    // 因此 a^(k*φ(m) + r) ≡ a^r (mod m)
+    
+    // 简单情况：尝试较小的指数
+    for (int x = 0; x < min(phi_m, 1000); x++) {
+        if (fast_pow(a, x, m) == b % m) {
+            return x;
+        }
+    }
+    
+    return -1;  // 未找到解
+}
+
+int main() {
+    long long a, b, m;
+    cin >> a >> b >> m;
+    
+    long long solution = solve_congruence(a, b, m);
+    
+    if (solution != -1) {
+        cout << "方程 " << a << "^x ≡ " << b << " (mod " << m << ") 的解是: x = " << solution << endl;
+    } else {
+        cout << "方程无解或解超出搜索范围" << endl;
+    }
+    
+    return 0;
+}
+```
+
+### 3. 欧拉降幂
+
+利用欧拉定理可以简化大指数的模运算。
+
+**欧拉降幂公式**：
+若b ≥ φ(m)，则：
+$$a^b \bmod m = a^{b \bmod \phi(m) + \phi(m)} \bmod m$$
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+// 快速幂取模
+long long fast_pow(long long a, long long b, long long mod) {
+    long long result = 1;
+    a %= mod;
+    
+    while (b > 0) {
+        if (b & 1) {
+            result = (result * a) % mod;
+        }
+        a = (a * a) % mod;
+        b >>= 1;
+    }
+    
+    return result;
+}
+
+// 计算欧拉函数
+int euler_phi(int n) {
+    int result = n;
+    for (int p = 2; p * p <= n; p++) {
+        if (n % p == 0) {
+            while (n % p == 0) {
+                n /= p;
+            }
+            result -= result / p;
+        }
+    }
+    if (n > 1) {
+        result -= result / n;
+    }
+    return result;
+}
+
+// 欧拉降幂计算
+long long euler_pow(long long a, long long b, long long m) {
+    if (m == 1) return 0;  // 特殊情况
+    
+    int phi_m = euler_phi(m);
+    
+    if (b >= phi_m) {
+        b = b % phi_m + phi_m;  // 欧拉降幂
+    }
+    
+    return fast_pow(a, b, m);
+}
+
+int main() {
+    long long a, b, m;
+    cin >> a >> b >> m;
+    
+    cout << a << "^" << b << " mod " << m << " = " << euler_pow(a, b, m) << endl;
+    
+    return 0;
+}
+```
+
+## 常见例题
+
+### 例题1：求欧拉函数值之和
+
+题目：求给定范围内所有数的欧拉函数值之和。
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 1e6 + 5;
+int phi[N];
+
+// 线性筛预处理欧拉函数
+void euler_sieve(int n) {
+    vector<int> primes;
+    bool is_composite[N] = {false};
+    
+    phi[0] = 0;
+    phi[1] = 1;
+    
+    for (int i = 2; i <= n; i++) {
+        if (!is_composite[i]) {
+            primes.push_back(i);
+            phi[i] = i - 1;
+        }
+        
+        for (int j = 0; j < primes.size() && i * primes[j] <= n; j++) {
+            is_composite[i * primes[j]] = true;
+            
+            if (i % primes[j] == 0) {
+                phi[i * primes[j]] = phi[i] * primes[j];
+                break;
+            } else {
+                phi[i * primes[j]] = phi[i] * (primes[j] - 1);
+            }
+        }
+    }
+    
+    // 计算前缀和
+    for (int i = 2; i <= n; i++) {
+        phi[i] += phi[i - 1];
+    }
+}
+
+int main() {
+    int n;
+    cin >> n;
+    
+    euler_sieve(n);
+    
+    cout << "1到" << n << "的欧拉函数值之和: " << phi[n] << endl;
+    
+    return 0;
+}
+```
+
+### 例题2：利用欧拉函数求互质数对
+
+题目：给定n，求满足1 ≤ i < j ≤ n且gcd(i,j) = 1的数对(i,j)的个数。
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 1e6 + 5;
+int phi[N];
+
+// 线性筛预处理欧拉函数
+void euler_sieve(int n) {
+    vector<int> primes;
+    bool is_composite[N] = {false};
+    
+    phi[0] = 0;
+    phi[1] = 1;
+    
+    for (int i = 2; i <= n; i++) {
+        if (!is_composite[i]) {
+            primes.push_back(i);
+            phi[i] = i - 1;
+        }
+        
+        for (int j = 0; j < primes.size() && i * primes[j] <= n; j++) {
+            is_composite[i * primes[j]] = true;
+            
+            if (i % primes[j] == 0) {
+                phi[i * primes[j]] = phi[i] * primes[j];
+                break;
+            } else {
+                phi[i * primes[j]] = phi[i] * (primes[j] - 1);
+            }
+        }
+    }
+}
+
+int main() {
+    int n;
+    cin >> n;
+    
+    euler_sieve(n);
+    
+    long long result = 0;
+    
+    // 对于每个j，计算满足1 ≤ i < j且gcd(i,j) = 1的i的个数
+    // 这正好是φ(j)
+    for (int j = 2; j <= n; j++) {
+        result += phi[j];
+    }
+    
+    cout << "互质数对的个数: " << result << endl;
+    
+    return 0;
+}
+```
+
+## 总结
+
+欧拉函数和欧拉定理是数论中的重要工具，在信奥竞赛中有广泛应用：
+
+1. **欧拉函数计算**：掌握直接计算和筛法预处理两种方法
+2. **欧拉定理应用**：主要用于模运算、求模逆元、求解同余方程
+3. **欧拉降幂**：处理大指数模运算的有效方法
+4. **互质数对问题**：利用欧拉函数的性质快速求解
+
+掌握这些知识点对于解决数论相关问题非常重要，建议多加练习相关题目。
