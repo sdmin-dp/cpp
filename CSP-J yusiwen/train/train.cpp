@@ -37,9 +37,9 @@ void solve(){
     for(int i=0;i<n;i++) sz[fa[i]]++;
     ll sum=0;
     for(int i=0;i<n;i++) if(sz[i]>=2) sum++;
-    for(int i=0;i<n;i++) cerr<<fa[i]<<" ";
-    cerr<<el;
-    for(int i=0;i<n;i++) cerr<<sz[i]<<" ";
+    // for(int i=0;i<n;i++) cerr<<fa[i]<<" ";
+    // cerr<<el;
+    // for(int i=0;i<n;i++) cerr<<sz[i]<<" ";
     if((cnt!=0&&cnt!=2)||sum>1) cout<<"NO"<<el;
     else cout<<"YES"<<el;
 }
