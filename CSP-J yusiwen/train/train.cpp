@@ -6,13 +6,6 @@ const ll N=1e2+5;
 ll n,m;
 vector<ll> g[N];
 bool vis[N];
-void dfs(ll x){
-    for(auto i:g[x]){
-        if(!vis[i]){
-            
-        }
-    }
-}
 void solve(){
     for(int i=1;i<=n;i++) g[i].clear();
     cin>>n>>m;
@@ -22,7 +15,6 @@ void solve(){
         g[x].push_back(y);
         g[y].push_back(x);
     }
-    
     ll cnt=0;
     for(int i=0;i<n;i++){
         if(g[i].size()%2!=0){
