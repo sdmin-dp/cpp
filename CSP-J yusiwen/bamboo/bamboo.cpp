@@ -27,7 +27,7 @@ void solve(){
                 res=max(res,dp[cost][i][j]);
                 for(int k=1;k<=n;k++){
                     if(l[k]==l[i]||l[k]==l[j])continue; // 新竹子的长度不能和前两根竹子的长度相同
-                    if(l[k]>l[i]&&l[k]>l[j])continue;
+                    if(l[k]>l[i]&&l[k]>l[j])continue;// 新竹子的长度不能大于前两根竹子的长度
                     if(l[k]<l[i]&&l[k]<l[j])continue;
                     if(cost+w[k]>c)continue;
                     if(dp[cost+w[k]][j][k]<dp[cost][i][j]+l[k]){
