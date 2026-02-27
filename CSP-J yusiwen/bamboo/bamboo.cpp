@@ -23,6 +23,7 @@ void solve(){
         for(int i=1;i<=n;i++){
             for(int j=1;j<=n;j++){
                 if(dp[cost][i][j]==-1)continue;
+                // 前两根竹子组合的成本为cost时，长度为l[i]和l[j]的竹子组合不存在
                 res=max(res,dp[cost][i][j]);
                 for(int k=1;k<=n;k++){
                     if(l[k]==l[i]||l[k]==l[j])continue;
