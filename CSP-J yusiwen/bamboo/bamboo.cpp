@@ -24,6 +24,9 @@ int maiin(){
 					if(l[j]>l[i]&&l[k]>l[j]) continue;
 					if(l[k]<l[i]&&l[k]<l[j]) continue;
 					if(cost+w[k]>c) continue;
+                    if(dp[cost+w[k]][j][k]<dp[cost][i][j]){
+
+                    }
 					dp[cost+w[k]][j][k]=max(dp[cost+w[k]][j][k],dp[cost][i][j]+l[k]);
 			}
 		}
