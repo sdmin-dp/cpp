@@ -43,8 +43,8 @@ void solve(){
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
-    freopen("bamboo.in","r",stdin);
-    freopen("bamboo.out","w",stdout);
+    // freopen("bamboo.in","r",stdin);
+    // freopen("bamboo.out","w",stdout);
     ll T=1;
     while(T--){
         solve();
