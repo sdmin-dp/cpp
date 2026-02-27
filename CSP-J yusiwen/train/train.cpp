@@ -13,7 +13,7 @@ ll find(ll x){
     return fa[x]=find(fa[x]);
 }
 void add(ll x,ll Y){
-    ll x=find(x),Yind(Y);
+    ll x=find(x),Y=find(Y);
     if(x!=Y) fa[x]=Y;
 }
 void solve(){
