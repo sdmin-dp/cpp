@@ -40,9 +40,9 @@ void solve(){
     }
     ll num_comp=0;
     for(int i=0;i<n;i++){
-        if(fa[i]==i && sz[i]>0) num_comp++;
+        if(fa[i]==i&&sz[i]>0) num_comp++;
     }
-    if((cnt==0 || cnt==2) && num_comp<=1) cout<<"YES"<<el;
+    if((cnt==0||cnt==2)&&num_comp<=1) cout<<"YES"<<el;
     else cout<<"NO"<<el;
 }
 int main(){
