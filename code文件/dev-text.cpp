@@ -1,36 +1,36 @@
-#include<bits/stdc++.h>
-#define ll long long
-using namespace std;
-#define el '\n'
-const ll N=1e7+5;
-ll n;
-vector<ll> prime;
-bool isprime[N];
-void Prime(){
-    isprime[1]=isprime[0]=1;
-    for(ll i=2;i<=n;i++){
-        if(!isprime[i]) prime.push_back(i);
-        for(auto j:prime){
-            if(i*j>n) break;
-            isprime[i*j]=1;
-            if(!i%j) break;
+#include <iostream>
+#include <vector>
+
+int main() {
+    int limit = 2026;
+    int count = 0;
+    std::vector<int> results;
+
+    // 最小质因数为 5 的数一定是 5 的倍数
+    // 我们直接以 5 为步长进行遍历
+    for (int i = 5; i <= limit; i += 5) {
+        // 最小质因数是 5，意味着它不能有比 5 更小的质因数（即 2 和 3）
+        if (i % 2 != 0 && i % 3 != 0) {
+            count++;
+            results.push_back(i);
         }
     }
-}
-void solve(){
-    cin>>n;
-    Prime();
-    for(auto i:prime) cout<<i<<" ";
-}
-int main(){
-    ios::sync_with_stdio(0);
-    cin.tie(0);cout.tie(0);
-    //freopen("xxx.in","r",stdin);
-    //freopen("xxx.out","w",stdout);
-    ll T=1;
-    //cin>>T;
-    while(T--){
-        solve();
+
+    std::cout << "2026以内最小质因数是5的数共有: " << count << " 个" << std::endl;
+
+    // 打印前5个和最后5个作为验证
+    if (!results.empty()) {
+        std::cout << "部分数值示例: ";
+        for (int i = 0; i < 5 && i < results.size(); ++i) {
+            std::cout << results[i] << " ";
+        }
+        std::cout << "... ";
+        for (int i = results.size() - 5; i < results.size(); ++i) {
+            if (i >= 0) std::cout << results[i] << " ";
+        }
+        std::cout << std::endl;
     }
+
     return 0;
 }
+
