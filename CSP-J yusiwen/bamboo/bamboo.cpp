@@ -15,7 +15,6 @@ int maiin(){
 			dp[w[i]]+w[j][i][j]=max(dp[w[i]]+w[j][i][j],l[i]+l[j]);
 		}
 	}
-    
 	ll res=0;
 	memset(dp,-1,sizeof(dp));
 	for(int cost=0;cost<=c;cost++){
