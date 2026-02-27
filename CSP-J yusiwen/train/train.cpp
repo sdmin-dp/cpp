@@ -12,9 +12,9 @@ ll find(ll x){
     if(x==fa[x]) return x;
     return fa[x]=find(fa[x]);
 }
-void add(ll x,ll y){
-    ll x=find(x),y=find(y);
-    if(x!=y) fa[x]=y;
+void add(ll x,ll Y){
+    ll x=find(x),Yind(Y);
+    if(x!=Y) fa[x]=Y;
 }
 void solve(){
     for(int i=0;i<n;i++) g[i].clear();
