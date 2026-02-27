@@ -33,8 +33,8 @@ void solve(){
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
-    freopen("ab.in","r",stdin);
-    freopen("ab.out","w",stdout);
+    // freopen("ab.in","r",stdin);
+    // freopen("ab.out","w",stdout);
     ll T=1;
     //cin>>T;
     while(T--){
