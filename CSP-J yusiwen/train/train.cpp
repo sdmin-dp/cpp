@@ -2,10 +2,16 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e2+5;
+const ll N=5e2+5;
 ll n,m;
 vector<ll> g[N];
 bool vis[N];
+ll fa[N];
+ll find(ll x){
+    if(x==fa[x]) return x;
+    return fa[x]=find(fa[x]);
+}
+
 void solve(){
     for(int i=1;i<=n;i++) g[i].clear();
     cin>>n>>m;
