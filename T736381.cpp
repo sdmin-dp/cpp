@@ -10,7 +10,8 @@ void solve(){
     for(int i=1;i<=n;i++) cin>>a[i];
     cin>>m;
     if(a[m]==0){
-        cout<<
+        cout<<m;
+        
     }
     for(int i=1;i<=n;i++){
 
