@@ -10,8 +10,9 @@ void solve(){
     for(int i=1;i<=min(n/x,a);i++){
         ll other=n-i*x;
         ll j=min(other/y,b);
-
+        ans=max(ans,i+j);
     }
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
