@@ -6,28 +6,19 @@ const ll N=10+5;
 string s;
 ll n;
 ll a[N];
-ll b[N];
-ll cnt=0;
-void Sort(ll l,ll r){
-    if(l<r){
-        ll mid=(l+r)/2;
-        Sort(l,mid);
-        Sort(mid+1,r);
-        ll i=l,j=mid+1,t=1;
-        while(i<=mid&&j<=r){
-            if(a[i]<=a[j]) b[t++]=a[i++];
-            else b[t++]=a[j++],cnt+=mid-i+1;
-        }
-        while(i<=mid) b[t++]=a[i++];
-        while(j<=r) b[t++]=a[j++];
-        for(i=l;i<=r;i++) a[i]=b[i];
-    }
-}
+ll cnt;
 void solve(){
     cin>>s;
     n=s.size();
     for(int i=0;i<s.size();i++) a[i+1]=s[i]-'A'+1;
-    Sort(1,n);
+    for(int i=1;i<=n-1;i++){
+        for(int j=1;j<=n-i;j++){
+            if(a[j]>a[j+1]){
+                swap(a[j],a[j+1]);
+                cnt++;
+            }
+        }
+    }
     cout<<cnt;
 }
 int main(){
