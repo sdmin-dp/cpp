@@ -16,6 +16,7 @@ void solve(){
     while(ss>>s){
         cout<<char(s[0]-32);
     }
+    cout<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
