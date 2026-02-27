@@ -7,6 +7,7 @@ ll n;
 void solve(){
     cin>>n;
     ll a=n/4,b=n/2;
+    if(a==0) a=1;
     cout<<a<<" "<<b<<el;
 }
 int main(){
