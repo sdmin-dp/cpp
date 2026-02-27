@@ -29,7 +29,7 @@ void solve(){
                     if(l[k]==l[i]||l[k]==l[j])continue; // 新竹子的长度不能和前两根竹子的长度相同
                     if(l[k]>l[i]&&l[k]>l[j])continue;// 新竹子的长度不能大于前两根竹子的长度
                     if(l[k]<l[i]&&l[k]<l[j])continue;// 新竹子的长度不能小于前两根竹子的长度
-                    if(cost+w[k]>c)continue;
+                    if(cost+w[k]>c)continue; // 新竹子的成本不能超过总成本
                     if(dp[cost+w[k]][j][k]<dp[cost][i][j]+l[k]){
                         dp[cost+w[k]][j][k]=dp[cost][i][j]+l[k];
                         res=max(res,dp[cost+w[k]][j][k]);
