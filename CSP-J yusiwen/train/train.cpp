@@ -43,8 +43,8 @@ void solve(){
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
-    // freopen("train.in","r",stdin);
-    // freopen("train.out","w",stdout);
+    freopen("train.in","r",stdin);
+    freopen("train.out","w",stdout);
     ll T=1;
     cin>>T;
     while(T--){
