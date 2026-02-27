@@ -11,10 +11,13 @@ void solve(){
     cin>>m;
     if(a[m]==0){
         cout<<m;
-        
+        return;
     }
     for(int i=1;i<=n;i++){
-
+        if(a[i]==0){
+            cout<<i;
+            return;
+        }   
     }
 }
 int main(){
