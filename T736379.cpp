@@ -12,6 +12,7 @@ void solve(){
         ll j=min(other/y,b);
         ans=max(ans,i+j);
     }
+    if(ans==0) ans+=min(n/y,b);
     cout<<ans;
 }
 int main(){
