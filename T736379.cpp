@@ -6,6 +6,9 @@ const ll N=1e5+5;
 ll a,b,x,y,n;
 void solve(){
     cin>>a>>b>>x>>y>>n;
+    for(int i=1;i<=n/a;i++){
+        
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
