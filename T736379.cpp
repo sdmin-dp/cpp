@@ -7,6 +7,7 @@ ll a,b,x,y,n;
 void solve(){
     cin>>a>>b>>x>>y>>n;
     for(int i=1;i<=min(n/x,a);i++){
+        ll other=n-i*x;
         
     }
 }
