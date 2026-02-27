@@ -12,6 +12,7 @@ void solve(){
     for(int i=1;i<=n;i++)cin>>w[i];
     memset(dp,-1,sizeof dp);
     for(int i=1;i<=n;i++){
+        // 初始化前两根竹子组合的长度和成本
         for(int j=1;j<=n;j++){
             if(l[i]==l[j])continue;
             if(w[i]+w[j]>c)continue;
