@@ -7,28 +7,35 @@ ll n,m;
 vector<ll> g[N];
 bool vis[N];
 ll fa[N];
+ll size[N];
 ll find(ll x){
     if(x==fa[x]) return x;
     return fa[x]=find(fa[x]);
 }
 void add(ll x,ll y){
-    ll x=find(x),find(y);
-    if() 
+    ll x=find(x),y=find(y);
+    if(x!=y) fa[x]=y;
 }
 void solve(){
-    for(int i=1;i<=n;i++) g[i].clear();
+    for(int i=0;i<n;i++) g[i].clear();
     cin>>n>>m;
     for(int i=1;i<=m;i++){
         ll x,y;
         cin>>x>>y;
         g[x].push_back(y);
         g[y].push_back(x);
+        add(x,y);
     }
     ll cnt=0;
     for(int i=0;i<n;i++){
         if(g[i].size()%2!=0){
             cnt++;
         }
+    }
+    bool flag=0;
+    for(int i=0;i<n;i++) fa[i]=find(i);
+    for(int i=0;i<n;i++){
+        
     }
     if(cnt!=0&&cnt!=2) cout<<"NO"<<el;
     else cout<<"YES"<<el;
