@@ -26,7 +26,7 @@ void solve(){
                 // 前两根竹子组合的成本为cost时，长度为l[i]和l[j]的竹子组合不存在
                 for(int k=1;k<=n;k++){
                     if(l[k]==l[i])continue; // 新竹子的长度不能和前两根竹子的长度相同
-                    if(l[k]==l[j])continue;// 新竹子的长度不能大于前两根竹子的长度
+                    if(l[k]==l[j])continue;// 新竹子的长度不能大于前两根
                     if(l[j]>l[i]&&l[k]>l[j])continue;// 新竹子的长度不能小于前两根竹子的长度
                     if(l[j]<l[i]&&l[k]<l[j])continue;
                     if(cost+w[k]>c)continue; // 新竹子的成本不能超过总成本
