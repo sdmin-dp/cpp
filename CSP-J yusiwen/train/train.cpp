@@ -7,7 +7,7 @@ ll n,m;
 vector<ll> g[N];
 bool vis[N];
 ll fa[N];
-ll size[N];
+ll sz[N];
 ll find(ll x){
     if(x==fa[x]) return x;
     return fa[x]=find(fa[x]);
@@ -19,6 +19,7 @@ void add(ll x,ll y){
 void solve(){
     for(int i=0;i<n;i++) g[i].clear();
     cin>>n>>m;
+    for(int i=0;i<n;i++) fa[i]=i;
     for(int i=1;i<=m;i++){
         ll x,y;
         cin>>x>>y;
@@ -32,12 +33,11 @@ void solve(){
             cnt++;
         }
     }
-    bool flag=0;
     for(int i=0;i<n;i++) fa[i]=find(i);
-    for(int i=0;i<n;i++){
-        
-    }
-    if(cnt!=0&&cnt!=2) cout<<"NO"<<el;
+    for(int i=0;i<n;i++) sz[fa[i]]++;
+    ll sum=0;
+    for(int i=0;i<n;i++) if(sz[i]>=2) sum++;
+    if((cnt!=0&&cnt!=2)||sum>1) cout<<"NO"<<el;
     else cout<<"YES"<<el;
 }
 int main(){
