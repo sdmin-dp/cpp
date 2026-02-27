@@ -11,7 +11,10 @@ ll find(ll x){
     if(x==fa[x]) return x;
     return fa[x]=find(fa[x]);
 }
-
+void add(ll x,ll y){
+    ll x=find(x),find(y);
+    if() 
+}
 void solve(){
     for(int i=1;i<=n;i++) g[i].clear();
     cin>>n>>m;
