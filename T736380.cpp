@@ -5,11 +5,16 @@ using namespace std;
 const ll N=1e5+5;
 ll n,a,b;
 ll x;
+ll v[3];
 void solve(){
     cin>>n>>a>>b;
     for(int i=1;i<=n;i++){
         cin>>x;
-        
+        v[0]=a;v[1]=b;v[2]=x;
+        sort(v,v+2+1);
+        if(v[0]*v[1]==v[2]||v[0]+v[1]==v[2]){
+            
+        }
     }
 }
 int main(){
