@@ -3,9 +3,10 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-ll n;
+ll k,m;
 void solve(){
-    
+    cin>>k>>m;
+    cout<<(m/k-1)/2;
 }
 int main(){
     ios::sync_with_stdio(0);
