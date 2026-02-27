@@ -25,14 +25,14 @@ void solve(){
                 if(dp[cost][i][j]==-1)continue;
                 // 前两根竹子组合的成本为cost时，长度为l[i]和l[j]的竹子组合不存在
                 for(int k=1;k<=n;k++){
-                    if(l[k]==l[i])continue; // 新竹子的长度不能和前两根竹子的长度相同
-                    if(l[k]==l[j])continue;// 新竹子的长度不能大于前两根
-                    if(l[j]>l[i]&&l[k]>l[j])continue;// 新竹子的长度不能小于前两根竹子的长度
-                    if(l[j]<l[i]&&l[k]<l[j])continue;
-                    if(cost+w[k]>c)continue; // 新竹子的成本不能超过总成本
+                    if(l[k]==l[i])continue;
+                    if(l[k]==l[j])continue;//不能相等的
+                    if(l[j]>l[i]&&l[k]>l[j])continue;//不能是递增的
+                    if(l[j]<l[i]&&l[k]<l[j])continue;//不能是递减的
+                    if(cost+w[k]>c)continue; // 加上新竹子的成本不能超过总成本
                     if(dp[cost+w[k]][j][k]<dp[cost][i][j]+l[k]){
                         dp[cost+w[k]][j][k]=dp[cost][i][j]+l[k];
-                        res=max(res,dp[cost+w[k]][j][k]);
+                        res=max(res,dp[cost+w[k]][j][k]);//保证至少有三根竹子
                     }
                 }
             }
