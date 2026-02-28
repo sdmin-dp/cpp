@@ -11,7 +11,7 @@ void solve(){
     for(int i=1;i<=n;i++) cin>>a[i].first>>a[i].second;
     cin>>m;
     for(int i=1;i<=n;i++){
-        for(int j=N;j>=a[i].first;j--){
+        for(int j=m;j>=a[i].first;j--){
             if(dp[j-a[i].first]+a[i].second!=0){
                 dp[j]=max(dp[j-a[i].first]+a[i].second,dp[j]);
             }
