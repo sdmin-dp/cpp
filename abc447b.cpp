@@ -6,7 +6,7 @@ const ll N=1e5+5;
 string s;
 map<char,ll> mp;
 vector<pair<char,ll>> v;
-map<char,bool> mp;
+map<char,bool> mp2;
 bool cmp(pair<ll,ll> x,pair<ll,ll> y){
     return x.second>y.second;
 }
@@ -23,10 +23,10 @@ void solve(){
             break;
         }
         last=v[i].second;
-        mp[v[i].first]=1;
+        mp2[v[i].first]=1;
     }
     for(auto i:s){
-        if(mp[i]!=1){
+        if(mp2[i]!=1){
             cout<<i;
         }
     }
