@@ -17,7 +17,8 @@ void solve(){
             }
         }
     }
-    cout<<dp[m];
+    if(dp[m]==0) cout<<1;
+    else cout<<dp[m];
     // for(int i=1;i<=m;i++) cout<<dp[i]<<el;
 }
 int main(){
