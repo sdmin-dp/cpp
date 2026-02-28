@@ -6,9 +6,13 @@ const ll N=1e5+5;
 ll n,m;
 pair<ll,ll> a[N];
 ll dp[N];
+ll sum1,sum2;
 void solve(){
     cin>>n;
-    for(int i=1;i<=n;i++) cin>>a[i].first>>a[i].second;
+    for(int i=1;i<=n;i++){
+        cin>>a[i].first>>a[i].second;
+        sum1+=a[
+    }
     cin>>m;
     for(int i=1;i<=n;i++){
         for(int j=m;j>=a[i].first;j--){
