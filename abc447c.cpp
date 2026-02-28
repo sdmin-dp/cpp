@@ -4,10 +4,11 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 string s,t;
+string s1,t1;
 void solve(){
     cin>>s>>t;
-    for(int i=1;i<=n;i++){
-        i
+    for(auto i:s){
+        if(i!='A')
     }
 }
 int main(){
