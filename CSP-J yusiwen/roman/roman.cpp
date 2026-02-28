@@ -37,19 +37,20 @@ void solve(){
         if(sum+num>3999){cout<<"ERROR";return;}
         else sum+=num;
     }
-    string ans;
-    for(auto i:a){
-        if(sum>=i){
-            if(sum/i==4){
-                if(i==1) ans+="IV";
-                if(i==5) ans+=""
-            }
-            for(int j=1;j<=sum/i;j++){
-                ans.push_back(mp2[i]);
-            }
-            sum%=i;
-        }
-    }
+    cout<<sum;
+    // string ans;
+    // for(auto i:a){
+    //     if(sum>=i){
+    //         if(sum/i==4){
+    //             if(i==1) ans+="IV";
+    //             if(i==5) ans+=""
+    //         }
+    //         for(int j=1;j<=sum/i;j++){
+    //             ans.push_back(mp2[i]);
+    //         }
+    //         sum%=i;
+    //     }
+    // }
 }
 int main(){
     ios::sync_with_stdio(0);
