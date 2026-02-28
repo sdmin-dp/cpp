@@ -9,7 +9,7 @@ string s;
 map<char,ll> mp;
 map<char,ll> mp2;
 
-ll a[]={1000,500,100,50,10,5,1};
+ll a[]={1000,100,10,1};
 void solve(){
     mp['I']=1;
     mp['V']=5;
@@ -37,7 +37,23 @@ void solve(){
         if(sum+num>3999){cout<<"ERROR";return;}
         else sum+=num;
     }
-    
+    string ans;
+    for(auto i:a){
+        ll k=sum/i;
+        if(k==9){
+            ans+=mp2[i/10];
+            ans+=mp2[i];
+        }
+        else if(k==4){
+            ans+=mp2[i/10];
+            ans+=mp[i/2];
+        }
+        else if(k>=5){
+            k-=5;
+            ans+=mp2[i/2];
+        }
+        
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
