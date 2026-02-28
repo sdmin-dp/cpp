@@ -49,12 +49,12 @@ void solve(){
         }
         else if(k==4){
             ans+=mp2[i];
-            ans+=mp2[i*2];
+            ans+=mp2[i*5];
             continue;
         }
         else if(k>=5){
             k-=5;
-            ans+=mp2[i*2];
+            ans+=mp2[i*5];
         }
         for(int j=1;j<=k;j++) ans+=mp2[i];
     }
