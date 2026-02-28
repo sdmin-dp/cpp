@@ -11,9 +11,13 @@ void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
         cin>>a[i].first>>a[i].second;
-        sum1+=a[
+        sum1+=a[i].first;sum2+=a[i].second;
     }
     cin>>m;
+    if(sum1==m){
+        cout<<sum2<<el<<"inf";
+        return;
+    }
     for(int i=1;i<=n;i++){
         for(int j=m;j>=a[i].first;j--){
             if(dp[j-a[i].first]+a[i].second!=0){
