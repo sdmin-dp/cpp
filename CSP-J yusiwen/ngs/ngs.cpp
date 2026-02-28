@@ -7,9 +7,9 @@ ll a,b,c;
 void solve(){
     cin>>a>>b>>c;
     ll d=b%a,r=b/a;
-    for(int i=1;;i++){
+    // for(int i=1;;i++){
         
-    }
+    // }
     cerr<<(-2)/3;
 }
 int main(){
