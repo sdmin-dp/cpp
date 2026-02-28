@@ -17,7 +17,7 @@ void solve(){
     }
     for(auto i:mp) v.push_back(i);
     sort(v.begin(),v.end(),cmp);
-    ll last=v[1].second;
+    ll last=v[0].second;
     for(int i=1;i<v.size();i++){
         if(v[i].second!=last){
             break;
