@@ -40,7 +40,7 @@ void solve(){
     string ans;
     for(auto i:a){
         ll k=sum/i;
-        sum/=i;
+        sum%=i;
         cerr<<k<<" ";
         if(k==9){
             ans+=mp2[i];
