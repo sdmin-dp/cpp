@@ -21,6 +21,7 @@ void solve(){
         cerr<<v[i].first<<" "<<v[i].second<<el;
     }
     ll last=v[0].second;
+    
     for(int i=1;i<v.size();i++){
         if(v[i].second!=last){
             break;
