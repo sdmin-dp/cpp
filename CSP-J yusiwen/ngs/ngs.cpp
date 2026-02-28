@@ -7,7 +7,10 @@ ll a,b,c;
 void solve(){
     cin>>a>>b>>c;
     for(int r=-1e5+1;r<=1e5+1;r++){
-        if()
+        if(b-a*r==c-b*r){
+            cout<<c*r+(b-a*r);
+            return;
+        }
     }
 }
 int main(){
