@@ -22,7 +22,7 @@ void solve(){
             break;
         }
         last=v[i].second;
-        s.erase();
+        
     }
 }
 int main(){
