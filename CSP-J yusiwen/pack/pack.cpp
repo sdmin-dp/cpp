@@ -11,7 +11,7 @@ void solve(){
     for(int i=1;i<=n;i++) cin>>a[i].first>>a[i].second;
     cin>>m;
     for(int i=1;i<=n;i++){
-        for(int j=m;j>=a[i].first;j--){
+        for(int j=N;j>=a[i].first;j--){
             if(dp[j-a[i].first]+a[i].second!=0){
                 dp[j]=max(dp[j-a[i].first]+a[i].second,dp[j]);
             }
@@ -19,7 +19,7 @@ void solve(){
     }
     if(dp[m]==0) cout<<1;
     else cout<<dp[m];
-    // for(int i=1;i<=m;i++) cout<<dp[i]<<el;
+    cout<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
