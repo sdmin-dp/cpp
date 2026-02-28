@@ -3,10 +3,27 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-ll n;
-
+string s;
+map<char,ll> mp;
+vector<pair<ll,ll>> v;
+bool cmp(pair<ll,ll> x,pair<ll,ll> y){
+    return x.second>y.second;
+}
 void solve(){
-    
+    cin>>s;
+    for(auto i:s){
+        mp[i]++;
+    }
+    for(auto i:mp) v.push_back(i);
+    sort(v.begin(),v.end(),cmp);
+    ll last=v[1].second;
+    for(int i=1;i<v.size();i++){
+        if(v[i].second!=last){
+            break;
+        }
+        last=v[i].second;
+        s.erase();
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
