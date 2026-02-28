@@ -6,7 +6,7 @@ const ll N=1e5+5;
 ll n,m;
 void solve(){
     cin>>n>>m;
-    cout<<(n>=m*2-1:)    
+    cout<<(n>=m*2-1?"Yes":"No");    
 }
 int main(){
     ios::sync_with_stdio(0);
