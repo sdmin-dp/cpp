@@ -7,7 +7,7 @@ ll n;
 ll sum;
 string s;
 map<char,ll> mp;
-map<char,ll> mp2;
+map<ll,char> mp2;
 
 ll a[]={1000,100,10,1};
 void solve(){
