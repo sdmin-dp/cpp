@@ -5,7 +5,8 @@ using namespace std;
 const ll N=1e5+5;
 string s;
 map<char,ll> mp;
-vector<pair<ll,ll>> v;
+vector<pair<char,ll>> v;
+map<char,bool> mp;
 bool cmp(pair<ll,ll> x,pair<ll,ll> y){
     return x.second>y.second;
 }
@@ -22,7 +23,12 @@ void solve(){
             break;
         }
         last=v[i].second;
-        
+        mp[v[i].first]=1;
+    }
+    for(auto i:s){
+        if(mp[i]!=1){
+            cout<<i;
+        }
     }
 }
 int main(){
