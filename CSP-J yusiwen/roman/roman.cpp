@@ -41,19 +41,22 @@ void solve(){
     for(auto i:a){
         ll k=sum/i;
         if(k==9){
-            ans+=mp2[i/10];
             ans+=mp2[i];
+            ans+=mp2[i*10];
+            continue;
         }
         else if(k==4){
-            ans+=mp2[i/10];
-            ans+=mp[i/2];
+            ans+=mp2[i];
+            ans+=mp2[i*2];
+            continue;
         }
         else if(k>=5){
             k-=5;
-            ans+=mp2[i/2];
+            ans+=mp2[i*2];
         }
-        
+        for(int j=1;j<=k;j++) ans+=mp2[i];
     }
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
