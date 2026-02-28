@@ -28,13 +28,13 @@ void solve(){
     if(dp[m]==0) cout<<1;
     else cout<<dp[m];
     cout<<el;
-    
+    cout<<dp[m]+2;
 }
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
-    //freopen("xxx.in","r",stdin);
-    //freopen("xxx.out","w",stdout);
+    freopen("xxx.in","r",stdin);
+    freopen("xxx.out","w",stdout);
     ll T=1;
     //cin>>T;
     while(T--){
