@@ -17,6 +17,9 @@ void solve(){
     }
     for(auto i:mp) v.push_back(i);
     sort(v.begin(),v.end(),cmp);
+    for(int i=0;i<v.size();i++){
+        cerr<<v[i].first<<" "<<v[i].second<<el;
+    }
     ll last=v[0].second;
     for(int i=1;i<v.size();i++){
         if(v[i].second!=last){
