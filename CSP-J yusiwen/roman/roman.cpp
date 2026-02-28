@@ -37,7 +37,7 @@ void solve(){
         if(sum+num>3999){cout<<"ERROR";return;}
         else sum+=num;
     }
-    cout<<sum;
+    cerr<<sum;
     // string ans;
     // for(auto i:a){
     //     if(sum>=i){
