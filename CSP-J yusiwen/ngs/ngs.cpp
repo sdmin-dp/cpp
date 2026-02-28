@@ -7,6 +7,7 @@ ll a,b,c;
 void solve(){
     cin>>a>>b>>c;
     ll d1=b%a,d2=c%b;
+    cerr<<d1<<" "<<d2;
     ll d=max(d1,d2);
     ll r=(c-d)/b;
     cout<<c*r+d;
