@@ -6,8 +6,9 @@ const ll N=1e5+5;
 ll a,b,c;
 void solve(){
     cin>>a>>b>>c;
-    ll d=b%a,r=max(b/a,1ll);
-    
+    for(int r=-1e5+1;r<=1e5+1;r++){
+        if()
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
