@@ -22,7 +22,8 @@ void solve(){
     cout<<el;
     for(int i=m;i<=N;i++){
         if(dp[i]>dp[m]){
-            cout<<
+            cout<<dp[i];
+            return;
         }
     }
 }
