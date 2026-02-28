@@ -10,6 +10,7 @@ void solve(){
     for(int i=1;;i++){
         
     }
+    cerr<<(-2)/3;
 }
 int main(){
     ios::sync_with_stdio(0);
