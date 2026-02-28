@@ -3,9 +3,12 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+string s,t;
 void solve(){
-    
+    cin>>s>>t;
+    for(int i=1;i<=n;i++){
+        i
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
