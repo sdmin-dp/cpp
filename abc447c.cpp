@@ -9,8 +9,23 @@ void solve(){
     cin>>s>>t;
     for(auto i:s) if(i!='A') s1.push_back(i);
     for(auto i:t) if(i!='A') t1.push_back(i);
-    if(s1!=t1) cout<<0;
-
+    if(s1!=t1){
+        cout<<-1;
+        return;
+    }
+    ll cnt=0;
+    for(int i=0;i<s.size();i++){
+        if(s[i]!=t[i]){
+            cnt++;
+            if(s[i]=='A'){
+                s.erase(i,1);
+            }
+            else if(t[i]=='A'){
+                s.insert(i,"A");
+            }
+        }
+    }
+    cout<<cnt;
 }
 int main(){
     ios::sync_with_stdio(0);
