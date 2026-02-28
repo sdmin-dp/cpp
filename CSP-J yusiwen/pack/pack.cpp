@@ -17,7 +17,7 @@ void solve(){
             }
         }
     }
-    cout<<dp[m];
+    for(int i=1;i<=m;i++) cout<<dp[i]<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
