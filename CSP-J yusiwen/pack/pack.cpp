@@ -19,23 +19,28 @@ void solve(){
             dp[j]=max(dp[j-a[i].second]+a[i].first,dp[j]);
         }
     }
-    ll mn,mx=-1;
-    for(int i=0;i<=sum;i++){
-        if(dp[i]>=m){
-            mn=i;
-            break;
-        }
+    // ll mn,mx=-1;
+    // for(int i=0;i<=sum;i++){
+    //     if(dp[i]>=m){
+    //         mn=i;
+    //         break;
+    //     }
+    // }
+    // for(int i=mn;i<=sum+1;i++){
+    //     if(dp[i]>m){
+    //         mx=i-1;
+    //         break;
+    //     }
+    // }
+    cout<<max(dp[m],1ll);
+    ll mn=0x3f3f3f;
+    for(int i=m+1;i<=sum;i++){
+        mn=min(mn,dp[i]);
     }
-    for(int i=mn;i<=sum+1;i++){
-        if(dp[i]>m){
-            mx=i-1;
-            break;
-        }
-    }
-    cout<<max(1ll,mn)<<'\n';
-    if(mx==-1){
-        cout<<"inf";
-    }else cout<<mx;
+    // cout<<max(1ll,mn)<<'\n';
+    // if(mx==-1){
+    //     cout<<"inf";
+    // }else cout<<mx;
 }
 int main(){
     ios::sync_with_stdio(0);
