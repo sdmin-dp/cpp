@@ -6,7 +6,7 @@ const ll N=1e5+5;
 double a,b,c;
 void solve(){
     cin>>a>>b>>c;
-    cout<<(c-a)*((c-b)/(b-a))+c;
+    cout<<(c-a)*((c-b)/(b-a))+b;
 }
 int main(){
     ios::sync_with_stdio(0);
