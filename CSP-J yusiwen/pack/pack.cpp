@@ -11,7 +11,7 @@ void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
         cin>>a[i].first>>a[i].second;
-        sum+=a[i].second;
+        sum+=a[i].first;
     }
     memset(dp,0x3f,sizeof dp);
     dp[0]=0;
@@ -44,6 +44,7 @@ void solve(){
     // if(mx==-1){
     //     cout<<"inf";
     // }else cout<<mx;
+    else cout<<mn-1;
 }
 int main(){
     ios::sync_with_stdio(0);
