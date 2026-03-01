@@ -15,8 +15,8 @@ void solve(){
     }
     cin>>m;
     for(int i=1;i<=n;i++){
-        for(int j=1e5;j>=a[i].second;j--){
-            dp[j]=max(dp[j-a[i].second]+a[i].first,dp[j]);
+        for(int j=1e5;j>=a[i].first;j--){
+            dp[j]=max(dp[j-a[i].first]+a[i].second,dp[j]);
         }
     }
     // ll mn,mx=-1;
@@ -33,10 +33,11 @@ void solve(){
     //     }
     // }
     cout<<max(dp[m],1ll);
-    ll mn=0x3f3f3f;
+    ll mn=0x3f3f3f3f;
     for(int i=m+1;i<=sum;i++){
         mn=min(mn,dp[i]);
     }
+    if(mn=0x3f3f3f3f) cout<<"inf";
     // cout<<max(1ll,mn)<<'\n';
     // if(mx==-1){
     //     cout<<"inf";
