@@ -1589,6 +1589,400 @@ int main()
 
 
 
+# 扩展欧几里得算法
+
+## 算法概述
+
+扩展欧几里得算法（Extended Euclidean Algorithm）是欧几里得算法的扩展，不仅能够计算两个整数的最大公约数(GCD)，还能找到满足贝祖等式（Bézout's identity）的整数解。
+
+### 贝祖等式
+
+对于任意两个不全为零的整数a和b，存在整数x和y，使得：
+```
+ax + by = gcd(a, b)
+```
+这个等式称为贝祖等式，其中x和y称为贝祖系数。
+
+## 算法原理
+
+扩展欧几里得算法基于欧几里得算法的递归过程，通过回溯计算贝祖系数。
+
+### 基本递推关系
+
+假设我们已经计算出了：
+```
+gcd(b, a % b) = b * x' + (a % b) * y'
+```
+
+由于 `a % b = a - (a / b) * b`，我们可以得到：
+```
+gcd(a, b) = a * y' + b * (x' - (a / b) * y')
+```
+
+因此，贝祖系数的递推关系为：
+```
+x = y'
+y = x' - (a / b) * y'
+```
+
+## 代码实现
+
+### 基础版本
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+// 扩展欧几里得算法
+// 返回a和b的最大公约数，并计算贝祖系数x和y
+int extended_gcd(int a, int b, int &x, int &y) {
+    if (b == 0) {
+        x = 1;
+        y = 0;
+        return a;
+    }
+    
+    int x1, y1;
+    int gcd = extended_gcd(b, a % b, x1, y1);
+    
+    // 回溯计算贝祖系数
+    x = y1;
+    y = x1 - (a / b) * y1;
+    
+    return gcd;
+}
+
+int main() {
+    int a, b;
+    cout << "输入两个整数a和b: ";
+    cin >> a >> b;
+    
+    int x, y;
+    int gcd = extended_gcd(a, b, x, y);
+    
+    cout << "gcd(" << a << ", " << b << ") = " << gcd << endl;
+    cout << "贝祖系数: x = " << x << ", y = " << y << endl;
+    cout << "验证: " << a << " * " << x << " + " << b << " * " << y << " = " << a * x + b * y << endl;
+    
+    return 0;
+}
+```
+
+### 迭代版本
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+// 迭代版本的扩展欧几里得算法
+pair<int, pair<int, int>> extended_gcd_iterative(int a, int b) {
+    int x0 = 1, y0 = 0;  // 初始贝祖系数
+    int x1 = 0, y1 = 1;  // 临时变量
+    
+    while (b != 0) {
+        int q = a / b;
+        
+        // 更新贝祖系数
+        int temp_x = x0 - q * x1;
+        int temp_y = y0 - q * y1;
+        
+        x0 = x1;
+        y0 = y1;
+        x1 = temp_x;
+        y1 = temp_y;
+        
+        // 欧几里得算法步骤
+        int temp = a % b;
+        a = b;
+        b = temp;
+    }
+    
+    return {a, {x0, y0}};  // 返回gcd和贝祖系数
+}
+
+int main() {
+    int a, b;
+    cout << "输入两个整数a和b: ";
+    cin >> a >> b;
+    
+    auto result = extended_gcd_iterative(a, b);
+    int gcd = result.first;
+    int x = result.second.first;
+    int y = result.second.second;
+    
+    cout << "gcd(" << a << ", " << b << ") = " << gcd << endl;
+    cout << "贝祖系数: x = " << x << ", y = " << y << endl;
+    cout << "验证: " << a << " * " << x << " + " << b << " * " << y << " = " << a * x + b * y << endl;
+    
+    return 0;
+}
+```
+
+## 应用场景
+
+### 1. 求解线性同余方程
+
+扩展欧几里得算法可以用来求解形如 `ax ≡ b (mod m)` 的线性同余方程。
+
+#### 求解步骤
+
+1. 首先求解 `ax + my = gcd(a, m)`
+2. 如果 `gcd(a, m) | b`，则方程有解
+3. 解为 `x ≡ x0 * (b / gcd(a, m)) (mod m)`
+
+#### 代码实现
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+// 扩展欧几里得算法
+int extended_gcd(int a, int b, int &x, int &y) {
+    if (b == 0) {
+        x = 1;
+        y = 0;
+        return a;
+    }
+    
+    int x1, y1;
+    int gcd = extended_gcd(b, a % b, x1, y1);
+    
+    x = y1;
+    y = x1 - (a / b) * y1;
+    
+    return gcd;
+}
+
+// 求解线性同余方程 ax ≡ b (mod m)
+bool linear_congruence(int a, int b, int m, int &x) {
+    int x0, y0;
+    int gcd = extended_gcd(a, m, x0, y0);
+    
+    if (b % gcd != 0) {
+        return false;  // 无解
+    }
+    
+    // 计算特解
+    x = (x0 * (b / gcd)) % m;
+    if (x < 0) x += m;  // 确保解为正
+    
+    return true;
+}
+
+int main() {
+    int a, b, m;
+    cout << "求解线性同余方程 ax ≡ b (mod m)" << endl;
+    cout << "输入a, b, m: ";
+    cin >> a >> b >> m;
+    
+    int x;
+    if (linear_congruence(a, b, m, x)) {
+        cout << "方程有解，一个特解为: x ≡ " << x << " (mod " << m << ")" << endl;
+        
+        // 通解形式
+        int gcd = __gcd(a, m);
+        cout << "通解: x ≡ " << x << " + k * " << m / gcd << " (mod " << m << "), k ∈ Z" << endl;
+    } else {
+        cout << "方程无解" << endl;
+    }
+    
+    return 0;
+}
+```
+
+### 2. 求解模逆元
+
+当a和m互质时，扩展欧几里得算法可以用来计算a模m的逆元。
+
+#### 逆元定义
+
+如果 `a * x ≡ 1 (mod m)`，则称x为a模m的逆元，记作 `a^(-1) ≡ x (mod m)`。
+
+#### 代码实现
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+// 扩展欧几里得算法
+int extended_gcd(int a, int b, int &x, int &y) {
+    if (b == 0) {
+        x = 1;
+        y = 0;
+        return a;
+    }
+    
+    int x1, y1;
+    int gcd = extended_gcd(b, a % b, x1, y1);
+    
+    x = y1;
+    y = x1 - (a / b) * y1;
+    
+    return gcd;
+}
+
+// 计算模逆元
+bool mod_inverse(int a, int m, int &inv) {
+    int x, y;
+    int gcd = extended_gcd(a, m, x, y);
+    
+    if (gcd != 1) {
+        return false;  // 逆元不存在
+    }
+    
+    inv = (x % m + m) % m;  // 确保逆元为正
+    return true;
+}
+
+int main() {
+    int a, m;
+    cout << "计算a模m的逆元" << endl;
+    cout << "输入a, m: ";
+    cin >> a >> m;
+    
+    int inv;
+    if (mod_inverse(a, m, inv)) {
+        cout << a << " 模 " << m << " 的逆元是: " << inv << endl;
+        cout << "验证: " << a << " * " << inv << " ≡ " << (a * inv) % m << " (mod " << m << ")" << endl;
+    } else {
+        cout << a << " 模 " << m << " 的逆元不存在（因为gcd(" << a << ", " << m << ") ≠ 1）" << endl;
+    }
+    
+    return 0;
+}
+```
+
+### 3. 求解二元一次不定方程
+
+扩展欧几里得算法可以用来求解形如 `ax + by = c` 的二元一次不定方程。
+
+#### 求解步骤
+
+1. 首先求解 `ax + by = gcd(a, b)`
+2. 如果 `gcd(a, b) | c`，则方程有解
+3. 解为 `x = x0 * (c / gcd(a, b))`，`y = y0 * (c / gcd(a, b))`
+
+#### 代码实现
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+// 扩展欧几里得算法
+int extended_gcd(int a, int b, int &x, int &y) {
+    if (b == 0) {
+        x = 1;
+        y = 0;
+        return a;
+    }
+    
+    int x1, y1;
+    int gcd = extended_gcd(b, a % b, x1, y1);
+    
+    x = y1;
+    y = x1 - (a / b) * y1;
+    
+    return gcd;
+}
+
+// 求解二元一次不定方程 ax + by = c
+bool linear_diophantine(int a, int b, int c, int &x, int &y) {
+    int x0, y0;
+    int gcd = extended_gcd(a, b, x0, y0);
+    
+    if (c % gcd != 0) {
+        return false;  // 无解
+    }
+    
+    // 计算特解
+    int factor = c / gcd;
+    x = x0 * factor;
+    y = y0 * factor;
+    
+    return true;
+}
+
+int main() {
+    int a, b, c;
+    cout << "求解二元一次不定方程 ax + by = c" << endl;
+    cout << "输入a, b, c: ";
+    cin >> a >> b >> c;
+    
+    int x, y;
+    if (linear_diophantine(a, b, c, x, y)) {
+        cout << "方程有解，一个特解为: x = " << x << ", y = " << y << endl;
+        
+        // 通解形式
+        int gcd = __gcd(a, b);
+        cout << "通解: x = " << x << " + k * " << b / gcd << ", y = " << y << " - k * " << a / gcd << ", k ∈ Z" << endl;
+    } else {
+        cout << "方程无解" << endl;
+    }
+    
+    return 0;
+}
+```
+
+## 算法复杂度分析
+
+### 时间复杂度
+
+扩展欧几里得算法的时间复杂度与欧几里得算法相同，为O(log(min(a, b)))。这是因为每次递归调用都会将问题规模至少减少一半。
+
+### 空间复杂度
+
+- 递归版本：O(log(min(a, b)))，由于递归栈的深度
+- 迭代版本：O(1)，只需要常数级别的额外空间
+
+## 常见问题与技巧
+
+### 1. 处理大数
+
+当处理大数时，可以使用long long类型：
+
+```cpp
+long long extended_gcd(long long a, long long b, long long &x, long long &y) {
+    if (b == 0) {
+        x = 1;
+        y = 0;
+        return a;
+    }
+    
+    long long x1, y1;
+    long long gcd = extended_gcd(b, a % b, x1, y1);
+    
+    x = y1;
+    y = x1 - (a / b) * y1;
+    
+    return gcd;
+}
+```
+
+### 2. 处理负数
+
+扩展欧几里得算法可以处理负数，但通常我们希望得到正的解：
+
+```cpp
+// 确保解为正
+x = (x % m + m) % m;
+```
+
+### 3. 多组解的处理
+
+对于有解的方程，通常有无限多组解。通解形式为：
+
+对于 `ax + by = c`，通解为：
+```
+x = x0 + k * (b / gcd(a, b))
+y = y0 - k * (a / gcd(a, b))
+```
+
+其中k为任意整数。
+
+## 总结
+
+扩展欧几里得算法是数论中的重要工具，它不仅能够计算最大公约数，还能求解贝祖等式，从而解决线性同余方程、模逆元计算和二元一次不定方程等问题。在信奥竞赛中，扩展欧几里得算法经常出现在数论相关的题目中，掌握其原理和应用非常重要。
+
 ## 差分约束系统
 
 ### 用处和含义
