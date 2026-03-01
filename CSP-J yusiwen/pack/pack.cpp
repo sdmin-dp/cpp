@@ -13,10 +13,12 @@ void solve(){
         cin>>a[i].first>>a[i].second;
         sum+=a[i].second;
     }
+    memset(dp,0x3f,sizeof dp);
+    dp[0]=0;
     cin>>m;
     for(int i=1;i<=n;i++){
         for(int j=1e5;j>=a[i].first;j--){
-            dp[j]=max(dp[j-a[i].first]+a[i].second,dp[j]);
+            dp[j]=min(dp[j-a[i].first]+a[i].second,dp[j]);
         }
     }
     // ll mn,mx=-1;
