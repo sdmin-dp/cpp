@@ -6,29 +6,30 @@ const ll N=1e5+5;
 ll n,m;
 pair<ll,ll> a[N];
 ll dp[N];
-ll sum1,sum2;
+ll sum;
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
         cin>>a[i].first>>a[i].second;
-        sum1+=a[i].first;sum2+=a[i].second;
+        sum+=a[i].second;
     }
     cin>>m;
-    if(sum1==m){
-        cout<<sum2<<el<<"inf";
-        return;
-    }
     for(int i=1;i<=n;i++){
-        for(int j=m;j>=a[i].first;j--){
-            if(dp[j-a[i].first]+a[i].second!=0){
-                dp[j]=max(dp[j-a[i].first]+a[i].second,dp[j]);
-            }
+        for(int j=1e5+5;j>=a[i].first;j--){
+            dp[j]=max(dp[j-a[i].first]+a[i].second,dp[j]);
         }
     }
-    if(dp[m]==0) cout<<1;
-    else cout<<dp[m];
-    cout<<el;
-    cout<<dp[m]+2;
+    ll mn=,mx=-1;
+    for(int i=0;i<=sum+1;i++){
+        if(dp[i]>m){
+            mx=i-1;
+            break;
+        }
+    }
+    cout<<max(1ll,mn)<<'\n';
+    if(mx==-1){
+        cout<<"inf";
+    }else cout<<mx;
 }
 int main(){
     ios::sync_with_stdio(0);
