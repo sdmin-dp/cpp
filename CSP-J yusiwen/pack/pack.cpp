@@ -19,7 +19,7 @@ void solve(){
             dp[j]=max(dp[j-a[i].first]+a[i].second,dp[j]);
         }
     }
-    ll mn=,mx=-1;
+    ll mn,mx=-1;
     for(int i=0;i<=sum+1;i++){
         if(dp[i]>m){
             mx=i-1;
@@ -34,8 +34,8 @@ void solve(){
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
-    freopen("pack.in","r",stdin);
-    freopen("pack.out","w",stdout);
+    // freopen("pack.in","r",stdin);
+    // freopen("pack.out","w",stdout);
     ll T=1;
     //cin>>T;
     while(T--){
