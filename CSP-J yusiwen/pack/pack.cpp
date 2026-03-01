@@ -39,11 +39,7 @@ void solve(){
     for(int i=m+1;i<=sum;i++){
         mn=min(mn,dp[i]);
     }
-    if(mn=0x3f3f3f3f) cout<<"inf";
-    // cout<<max(1ll,mn)<<'\n';
-    // if(mx==-1){
-    //     cout<<"inf";
-    // }else cout<<mx;
+    if(mn==0x3f3f3f3f) cout<<"inf";
     else cout<<mn-1;
 }
 int main(){
