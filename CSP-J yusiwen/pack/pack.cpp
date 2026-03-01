@@ -15,12 +15,18 @@ void solve(){
     }
     cin>>m;
     for(int i=1;i<=n;i++){
-        for(int j=1e5+5;j>=a[i].second;j--){
+        for(int j=1e5;j>=a[i].second;j--){
             dp[j]=max(dp[j-a[i].second]+a[i].first,dp[j]);
         }
     }
     ll mn,mx=-1;
-    for(int i=0;i<=sum+1;i++){
+    for(int i=0;i<=sum;i++){
+        if(dp[i]>=m){
+            mn=i;
+            break;
+        }
+    }
+    for(int i=mn;i<=sum+1;i++){
         if(dp[i]>m){
             mx=i-1;
             break;
