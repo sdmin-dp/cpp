@@ -32,7 +32,7 @@ void solve(){
     //         break;
     //     }
     // }
-    cout<<max(dp[m],1ll);
+    cout<<max(dp[m],1ll)<<el;
     ll mn=0x3f3f3f3f;
     for(int i=m+1;i<=sum;i++){
         mn=min(mn,dp[i]);
