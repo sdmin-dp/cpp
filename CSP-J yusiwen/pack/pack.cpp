@@ -15,8 +15,8 @@ void solve(){
     }
     cin>>m;
     for(int i=1;i<=n;i++){
-        for(int j=1e5+5;j>=a[i].first;j--){
-            dp[j]=max(dp[j-a[i].first]+a[i].second,dp[j]);
+        for(int j=1e5+5;j>=a[i].second;j--){
+            dp[j]=max(dp[j-a[i].second]+a[i].first,dp[j]);
         }
     }
     ll mn,mx=-1;
