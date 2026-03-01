@@ -6,12 +6,9 @@ const ll N=1e5+5;
 ll a,b,c;
 void solve(){
     cin>>a>>b>>c;
-    for(int r=-1e5+1;r<=1e5+1;r++){
-        if(b-a*r==c-b*r){
-            cout<<c*r+(b-a*r);
-            return;
-        }
-    }
+    ll r=(c-b)/(b-a);
+    ll d=(b-a)*(c-b)/(b-a);
+    cout<<r*c+d;
 }
 int main(){
     ios::sync_with_stdio(0);
