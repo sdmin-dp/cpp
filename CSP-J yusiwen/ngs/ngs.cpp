@@ -3,7 +3,7 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-ll a,b,c;
+double a,b,c;
 void solve(){
     cin>>a>>b>>c;
     cout<<(c-a)*((c-b)/(b-a))+c;
