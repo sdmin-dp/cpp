@@ -7,7 +7,10 @@ ll n;
 ll a[N],dp[N];
 void solve(){
     cin>>n;
-    cin>>
+    for(int i=1;i<=n;i++) cin>>a[i];
+    for(int i=1;i<=n;i++){
+        
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
