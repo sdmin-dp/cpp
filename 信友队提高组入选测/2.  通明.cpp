@@ -11,7 +11,7 @@ bool cmp(node x,node y){
 }
 void solve(){
     cin>>n>>w;
-    for(int i=1;i<=n;i++){
+    for(int i=1;i<=n;i++){ 
         p[i].id=i;
         cin>>p[i].val;
     }
