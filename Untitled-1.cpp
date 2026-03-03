@@ -8,7 +8,7 @@ void solve() {
     ll x;
     cin >> x;
     for(int i= 1; i <= x; i++) {
-    }
+     }
 }
 int main() {
     ios::sync_with_stdio(0);
