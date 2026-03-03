@@ -9,7 +9,7 @@ bool cmp(node x,node y){
     if(x.val!=y.val)return x.val<y.val;
     return x.id<y.id;
 }
-void solve(){
+void solve(){      
     cin>>n>>w;
     for(int i=1;i<=n;i++){ 
         p[i].id=i;
