@@ -4,9 +4,9 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n;
-ll a[N];
+ll a[N],dp[N];
 void solve(){
-    
+    cin>>n;   
 }
 int main(){
     ios::sync_with_stdio(0);
