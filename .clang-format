@@ -1,0 +1,25 @@
+---
+# 基础风格
+BasedOnStyle: LLVM
+# 缩进宽度（建议 4）
+IndentWidth: 4
+# 指针对齐方式（int* p -> Left, int *p -> Right）
+PointerAlignment: Left
+# 允许短的 if 语句写在同一行 (非常适合 OI：if (n < 0) return;)
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+# 允许短的循环写在同一行
+AllowShortLoopsOnASingleLine: true
+# 大括号换行设置
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterClass: false
+  AfterControlStatement: false # if/for/while 后面不换行
+  AfterFunction: false         // 函数名后面不换行 (设为 true 则换行)
+  AfterNamespace: false
+  AfterStruct: false           // 结构体后面不换行
+  BeforeElse: false            // else 不另起一行
+# 每行字符限制（0 表示不限制，防止它强行把长公式切断）
+ColumnLimit: 0
+# 在赋值运算符（=）两边加空格
+SpaceBeforeAssignmentOperators: true
+---
