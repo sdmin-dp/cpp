@@ -3,8 +3,9 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+ll n,q;
 void solve(){
+    cin>>n>>q;
     
 }
 int main(){
