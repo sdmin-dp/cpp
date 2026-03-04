@@ -19,7 +19,7 @@ void solve(){
     for(int i=1;i<=n;i++){
         for(int j=1;j<i;j++){
             if(a[j].first<a[i].first&&abs(a[i].second-a[j].second)<=w){
-                dp[i]=max(dp[i],dp[j+1]);
+                dp[i]=max(dp[i],dp[j]+1);
             }
         }
     }
