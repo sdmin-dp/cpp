@@ -31,7 +31,7 @@ void solve(){
         cnt=0;
         swap(a[x],a[y]);
         sort(1,n);
-        cout<<cnt;
+        cout<<cnt<<el;
     }
 }
 int main(){
