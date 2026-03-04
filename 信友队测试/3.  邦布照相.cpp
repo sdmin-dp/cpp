@@ -5,18 +5,26 @@ using namespace std;
 const ll N=1e5+5;
 ll n,m;
 ll a[N];
+string ans;
 void dfs(ll x,string s){
     if(x==n+1){
+        if(s.size()!=m) return;
         bool flag[N];
-        for(int i=0;i<s.size();i++){
-            flag[s[i]-48]=1;
-        }
+        for(int i=0;i<s.size();i++) flag[s[i]-48]=1;
+        for(int i=1;i<=m;i++) if(!flag[i]) return;
+        ans=max(ans,s);
+        return;
     }
+    s.push_back(char(a[x]+48));
+    dfs(x+1,s);
+    s.pop_back();
+    dfs(x+1,s);
 }
 void solve(){
     cin>>n>>m;
     for(int i=1;i<=n;i++) cin>>a[i];
-    
+    dfs(1,"");
+    for(auto i:ans) cout<<i<<" ";
 }
 int main(){
     ios::sync_with_stdio(0);
