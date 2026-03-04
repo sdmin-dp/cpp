@@ -11,7 +11,7 @@ void dfs(ll x,ll last){
         return;
     }
     for(int i=last;i<=m;i++){
-        dfs(x,i);
+        dfs(x+1,i);
     }
 }
 void solve(){
