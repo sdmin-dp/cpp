@@ -3,8 +3,12 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+ll n,m;
+ll a[N];
+ll flag[N];
 void solve(){
+    cin>>n>>m;
+    for(int i=1;i<=n;i++) cin>>a[i];
     
 }
 int main(){
