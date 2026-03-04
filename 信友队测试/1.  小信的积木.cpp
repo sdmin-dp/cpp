@@ -18,7 +18,7 @@ void solve(){
     cin>>k;
     if(k!=1) return;
     cin>>n>>m;
-    dfs(1,0);
+    dfs(1,1);
     cout<<cnt;
 }
 int main(){
