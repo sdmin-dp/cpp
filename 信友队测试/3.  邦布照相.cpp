@@ -5,7 +5,7 @@ using namespace std;
 const ll N=1e5+5;
 ll n,m;
 ll a[N];
-string ans="999999999999999999999999999999999999999999999999999999999999999999999999999999";
+string ans="99999999999999999999999999";
 bool flag[N];
 void dfs(ll x,string s){
     if(x==n+1){
