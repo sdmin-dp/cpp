@@ -5,7 +5,14 @@ using namespace std;
 const ll N=1e5+5;
 ll n,m;
 ll a[N];
-ll flag[N];
+void dfs(ll x,string s){
+    if(x==n+1){
+        bool flag[N];
+        for(int i=0;i<s.size();i++){
+            flag[s[i]-48]=1;
+        }
+    }
+}
 void solve(){
     cin>>n>>m;
     for(int i=1;i<=n;i++) cin>>a[i];
