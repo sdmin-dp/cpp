@@ -6,15 +6,15 @@ const ll N=1e5+5;
 ll n,m;
 ll a[N],b[N],c[N];
 ll cnt;
-void sort(ll l,ll r){
+void Sort(ll l,ll r){
     if(l<r){
         ll mid=(l+r)/2;
-        sort(l,mid);
-        sort(mid+1,r);
+        Sort(l,mid);
+        Sort(mid+1,r);
         ll i=l,j=mid+1,t=l;
         while(i<=mid&&j<=r){
             if(a[i]>a[j]) b[t++]=a[j++],cnt+=mid-i+1;
-            else b[t++]=a[i]++;
+            else b[t++]=a[i++];
         }
         while(i<=mid) b[t++]=a[i++];
         while(j<=r) b[t++]=a[j++];
@@ -26,11 +26,11 @@ void solve(){
     for(int i=1;i<=n;i++) cin>>c[i];
     for(int i=1;i<=m;i++){
         for(int j=1;j<=n;j++) a[j]=c[j];
-        // ll x,y;
-        // cin>>x>>y;
+        ll x,y;
+        cin>>x>>y;
         cnt=0;
-        // swap(a[x],a[y]);
-        sort(1,n);
+        swap(a[x],a[y]);
+        Sort(1,n);
         cout<<cnt<<el;
     }
 }
