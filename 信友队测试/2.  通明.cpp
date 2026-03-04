@@ -24,7 +24,8 @@ void solve(){
         }
     }
     for(int i=1;i<=n;i++) ans=max(ans,dp[i]);
-    for(int i=1;i<=n;i++) cerr<<dp[i]<<" ";
+    // for(int i=1;i<=n;i++) cerr<<dp[i]<<" ";
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
