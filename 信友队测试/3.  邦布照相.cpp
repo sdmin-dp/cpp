@@ -5,7 +5,7 @@ using namespace std;
 const ll N=1e5+5;
 ll n,m;
 ll a[N];
-string ans;
+string ans="";
 void dfs(ll x,string s){
     if(x==n+1){
         if(s.size()!=m) return;
