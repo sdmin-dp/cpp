@@ -5,7 +5,7 @@ using namespace std;
 const ll N=1e5+5;
 
 void solve(){
-    
+    for(int i=1;i<=1e5;i++) cout<<9;
 }
 int main(){
     ios::sync_with_stdio(0);
