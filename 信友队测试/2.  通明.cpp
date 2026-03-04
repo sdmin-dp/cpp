@@ -13,7 +13,7 @@ void solve(){
     for(int i=1;i<=n;i++){
         cin>>a[i].first;
         a[i].second=i;
-        dp[i]=1;
+        // dp[i]=1;
     }
     sort(a+1,a+n+1);
     for(int i=1;i<=n;i++){
