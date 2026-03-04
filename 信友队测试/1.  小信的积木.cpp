@@ -4,7 +4,15 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll k,n,m;
+void dfs(ll x){
+    if(x==n+1){
+        
+    }
+}
 void solve(){
+    cin>>k;
+    if(k!=1) return;
+    cin>>n>>m;
 
 }
 int main(){
