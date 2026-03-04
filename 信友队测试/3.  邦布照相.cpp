@@ -13,7 +13,7 @@ void dfs(ll x,string s){
         for(int i=0;i<s.size();i++) flag[s[i]-48]=1;
         for(int i=1;i<=m;i++) if(!flag[i]) return;
         ans=min(ans,s);
-        cerr<<s<<" ";
+        cerr<<ans;
         return;
     }
     s.push_back(char(a[x]+48));
