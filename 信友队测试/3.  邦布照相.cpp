@@ -6,15 +6,14 @@ const ll N=1e5+5;
 ll n,m;
 ll a[N];
 string ans="999999999999999999999999999999999999999999999999999999999999999999999999999999";
-vector<bool> flag(n+1,0);
+bool flag[N];
 void dfs(ll x,string s){
     if(x==n+1){
         if(s.size()!=m) return;
-        flag.resize(n+1,0);
+        memset(flag,0,sizeof flag);
         for(int i=0;i<s.size();i++) flag[s[i]-48]=1;
         for(int i=1;i<=m;i++) if(!flag[i]) return;
         ans=min(ans,s);
-        cerr<<ans;
         return;
     }
     s.push_back(char(a[x]+48));
