@@ -9,10 +9,10 @@ string ans;
 void dfs(ll x,string s){
     if(x==n+1){
         if(s.size()!=m) return;
-        bool flag[N];
+        vector<bool> flag(n+1,0);
         for(int i=0;i<s.size();i++) flag[s[i]-48]=1;
         for(int i=1;i<=m;i++) if(!flag[i]) return;
-        ans=max(ans,s);
+        ans=min(ans,s);
         cerr<<s<<" ";
         return;
     }
