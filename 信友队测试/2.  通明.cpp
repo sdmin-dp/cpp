@@ -16,9 +16,15 @@ void solve(){
         dp[i]=1;
     }
     sort(a+1,a+n+1);
-    for(int i=1;i<=n;i++) for(int j=1;j<i;j++) if(a[j].first<a[i].first&&abs(a[i].second-a[j].second)<=w) dp[i]=max(dp[i],dp[j+1]);
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<i;j++){
+            if(a[j].first<a[i].first&&abs(a[i].second-a[j].second)<=w){
+                dp[i]=max(dp[i],dp[j+1]);
+            }
+        }
+    }
     for(int i=1;i<=n;i++) ans=max(ans,dp[i]);
-    cout<<ans;
+    for(int i=1;i<=n;i++) cerr<<dp[i]<<" ";
 }
 int main(){
     ios::sync_with_stdio(0);
