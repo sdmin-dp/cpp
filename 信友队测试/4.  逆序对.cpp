@@ -26,10 +26,10 @@ void solve(){
     for(int i=1;i<=n;i++) cin>>c[i];
     for(int i=1;i<=m;i++){
         for(int j=1;j<=n;j++) a[j]=c[j];
-        ll x,y;
-        cin>>x>>y;
+        // ll x,y;
+        // cin>>x>>y;
         cnt=0;
-        swap(a[x],a[y]);
+        // swap(a[x],a[y]);
         sort(1,n);
         cout<<cnt<<el;
     }
