@@ -7265,6 +7265,8 @@ $$
     弧度= \frac{\frac{2o}{360} \times  \pi \times r}{r}=2 \times \frac{o}{360} \times \pi
 $$
 
+### 重大问题：三角形里哪里来的弧？
+
 ## sin
 ### 意思和用处
 正弦（sin），给你三角型弧度，可以算出底边的
