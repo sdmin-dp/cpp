@@ -7240,7 +7240,7 @@ int main() {
 
 # sin/cos/tan函数理论学习已及使用（GESP 7级考点）
 
-![]()
+![](C:\Users\Administrator\Pictures\Screenshots\)
 
 这是7级知识点，我在学习7级是写的。
 
