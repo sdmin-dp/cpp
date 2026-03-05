@@ -7252,11 +7252,18 @@ int main() {
 
 然后弧长从哪来呢？
 
-当然是$圆心角 \times 园的周长$。
+当然是$\frac{圆心角}{360} \times 园的周长$。
 
 然后圆的周长从哪来呢？
 
-当然是$2 \times \pai$
+当然是$2 \times \pi \times r$。
+
+设圆心角度为$o$,半径为$r$,带入得：
+
+$$
+    弧长= \frac{2o}{360} \times  \pi \times r，
+    弧度= \frac{\frac{2o}{360} \times  \pi \times r}{r}=2 \times \frac{o}{360} \times \pi
+$$
 
 ## sin
 ### 意思和用处
