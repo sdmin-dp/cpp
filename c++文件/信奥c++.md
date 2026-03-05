@@ -7240,5 +7240,5 @@ int main() {
 
 # sin/cos/tan函数理论学习已及使用（7级考点）
 
-> [!INMPORTENT]
+> [!IMPORTENT]
 >
