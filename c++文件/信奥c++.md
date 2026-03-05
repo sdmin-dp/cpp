@@ -49,10 +49,10 @@ void tarjan(int u, int parent) {
     dfn[u] = low[u] = ++timer;  // 设置时间戳
     stack.push(u);              // 节点入栈
     instack[u] = true;          // 标记节点在栈中
-    
+
     for (int v : adj[u]) {
         if (v == parent) continue;  // 跳过回父节点的边
-        
+
         if (!dfn[v]) {  // 如果v未被访问
             tarjan(v, u);           // 递归访问v
             low[u] = min(low[u], low[v]);  // 更新low值
@@ -60,7 +60,7 @@ void tarjan(int u, int parent) {
             low[u] = min(low[u], dfn[v]);  // 更新low值
         }
     }
-    
+
     // 处理连通分量/割点/割边
     if (condition) {
         // 根据具体应用处理
@@ -86,6 +86,7 @@ Tarjan算法通过以下步骤识别强连通分量：
 ### 判断条件
 
 节点u是强连通分量的根节点当且仅当：
+
 ```
 dfn[u] == low[u]
 ```
@@ -112,7 +113,7 @@ void tarjan(int u) {
     dfn[u] = low[u] = ++timer;
     st.push(u);
     instack[u] = true;
-    
+
     for (int v : adj[u]) {
         if (!dfn[v]) {  // 如果v未被访问
             tarjan(v);
@@ -121,7 +122,7 @@ void tarjan(int u) {
             low[u] = min(low[u], dfn[v]);
         }
     }
-    
+
     // 如果u是SCC的根节点
     if (dfn[u] == low[u]) {
         vector<int> component;
@@ -133,7 +134,7 @@ void tarjan(int u) {
             component.push_back(v);
             scc_id[v] = scc_cnt;
         } while (v != u);
-        
+
         scc.push_back(component);
         scc_cnt++;
     }
@@ -144,7 +145,7 @@ void findSCC(int n) {
     scc_cnt = 0;
     memset(dfn, 0, sizeof(dfn));
     memset(instack, false, sizeof(instack));
-    
+
     for (int i = 1; i <= n; i++) {
         if (!dfn[i]) {
             tarjan(i);
@@ -155,15 +156,15 @@ void findSCC(int n) {
 int main() {
     int n, m;  // 节点数和边数
     cin >> n >> m;
-    
+
     for (int i = 0; i < m; i++) {
         int u, v;
         cin >> u >> v;
         adj[u].push_back(v);
     }
-    
+
     findSCC(n);
-    
+
     cout << "强连通分量数量: " << scc_cnt << endl;
     for (int i = 0; i < scc_cnt; i++) {
         cout << "SCC " << i + 1 << ": ";
@@ -172,7 +173,7 @@ int main() {
         }
         cout << endl;
     }
-    
+
     return 0;
 }
 ```
@@ -187,7 +188,7 @@ int indegree[N];               // 入度
 
 void buildCondensedGraph(int n) {
     memset(indegree, 0, sizeof(indegree));
-    
+
     for (int u = 1; u <= n; u++) {
         for (int v : adj[u]) {
             if (scc_id[u] != scc_id[v]) {
@@ -238,16 +239,16 @@ int child_count;     // 子节点计数
 
 void tarjan(int u, int parent) {
     dfn[u] = low[u] = ++timer;
-    
+
     for (int v : adj[u]) {
         if (v == parent) continue;  // 跳过回父节点的边
-        
+
         if (!dfn[v]) {  // 如果v未被访问
             if (parent == 0) child_count++;  // 根节点的子节点计数
-            
+
             tarjan(v, u);
             low[u] = min(low[u], low[v]);
-            
+
             // 判断割点
             if (parent != 0 && low[v] >= dfn[u]) {
                 is_cut[u] = true;
@@ -262,12 +263,12 @@ void findCutPoints(int n) {
     timer = 0;
     memset(dfn, 0, sizeof(dfn));
     memset(is_cut, false, sizeof(is_cut));
-    
+
     for (int i = 1; i <= n; i++) {
         if (!dfn[i]) {
             child_count = 0;
             tarjan(i, 0);
-            
+
             // 根节点特例判断
             if (child_count >= 2) {
                 is_cut[i] = true;
@@ -279,30 +280,30 @@ void findCutPoints(int n) {
 int main() {
     int n, m;  // 节点数和边数
     cin >> n >> m;
-    
+
     for (int i = 0; i < m; i++) {
         int u, v;
         cin >> u >> v;
         adj[u].push_back(v);
         adj[v].push_back(u);  // 无向图
     }
-    
+
     findCutPoints(n);
-    
+
     vector<int> cut_points;
     for (int i = 1; i <= n; i++) {
         if (is_cut[i]) {
             cut_points.push_back(i);
         }
     }
-    
+
     cout << "割点数量: " << cut_points.size() << endl;
     cout << "割点: ";
     for (int point : cut_points) {
         cout << point << " ";
     }
     cout << endl;
-    
+
     return 0;
 }
 ```
@@ -317,13 +318,13 @@ vector<int> components[N];  // 每个割点对应的连通分量
 void findComponents(int n) {
     // 首先找出所有割点
     findCutPoints(n);
-    
+
     // 对每个割点，找出删除它后的连通分量
     for (int u = 1; u <= n; u++) {
         if (is_cut[u]) {
             bool visited[N] = {false};
             visited[u] = true;  // 标记割点为已访问
-            
+
             for (int v = 1; v <= n; v++) {
                 if (!visited[v]) {
                     vector<int> component;
@@ -338,7 +339,7 @@ void findComponents(int n) {
 void dfsComponent(int u, bool visited[], vector<int>& component) {
     visited[u] = true;
     component.push_back(u);
-    
+
     for (int v : adj[u]) {
         if (!visited[v]) {
             dfsComponent(v, visited, component);
@@ -385,17 +386,17 @@ vector<pair<int, int>> bridges;  // 存储割边
 
 void tarjan(int u, int parent_edge) {
     dfn[u] = low[u] = ++timer;
-    
+
     for (auto& edge : adj[u]) {
         int v = edge.first;
         int edge_id = edge.second;
-        
+
         if (edge_id == parent_edge) continue;  // 跳过回父节点的边
-        
+
         if (!dfn[v]) {  // 如果v未被访问
             tarjan(v, edge_id);
             low[u] = min(low[u], low[v]);
-            
+
             // 判断割边
             if (low[v] > dfn[u]) {
                 bridges.push_back({min(u, v), max(u, v)});
@@ -410,7 +411,7 @@ void findBridges(int n) {
     timer = 0;
     memset(dfn, 0, sizeof(dfn));
     bridges.clear();
-    
+
     for (int i = 1; i <= n; i++) {
         if (!dfn[i]) {
             tarjan(i, -1);
@@ -421,25 +422,25 @@ void findBridges(int n) {
 int main() {
     int n, m;  // 节点数和边数
     cin >> n >> m;
-    
+
     for (int i = 0; i < m; i++) {
         int u, v;
         cin >> u >> v;
         adj[u].push_back({v, i});
         adj[v].push_back({u, i});  // 无向图
     }
-    
+
     findBridges(n);
-    
+
     // 排序割边
     sort(bridges.begin(), bridges.end());
-    
+
     cout << "割边数量: " << bridges.size() << endl;
     cout << "割边: " << endl;
     for (auto& bridge : bridges) {
         cout << bridge.first << " - " << bridge.second << endl;
     }
-    
+
     return 0;
 }
 ```
@@ -457,7 +458,7 @@ bool is_bridge[N][N];          // 标记割边
 void dfsEBCC(int u, int component_id) {
     ebcc_id[u] = component_id;
     ebcc[component_id - 1].push_back(u);
-    
+
     for (int v : adj[u]) {
         if (ebcc_id[v] == 0 && !is_bridge[u][v]) {
             dfsEBCC(v, component_id);
@@ -468,18 +469,18 @@ void dfsEBCC(int u, int component_id) {
 void findEBCC(int n) {
     // 首先找出所有割边
     findBridges(n);
-    
+
     // 标记割边
     memset(is_bridge, false, sizeof(is_bridge));
     for (auto& bridge : bridges) {
         is_bridge[bridge.first][bridge.second] = true;
         is_bridge[bridge.second][bridge.first] = true;
     }
-    
+
     // 找出边双连通分量
     ebcc_cnt = 0;
     memset(ebcc_id, 0, sizeof(ebcc_id));
-    
+
     for (int i = 1; i <= n; i++) {
         if (ebcc_id[i] == 0) {
             ebcc.push_back(vector<int>());
@@ -520,6 +521,7 @@ Tarjan算法的时间复杂度为O(V + E)，其中V是图中顶点数，E是边�
 ### 空间复杂度
 
 空间复杂度为O(V + E)，主要存储：
+
 1. 邻接表：O(E)
 2. dfn和low数组：O(V)
 3. 栈或其他辅助结构：O(V)
@@ -537,21 +539,22 @@ Tarjan算法的时间复杂度为O(V + E)，其中V是图中顶点数，E是边�
 2. **处理自环**：自环通常不影响连通性分析
 3. **多组输入**：注意清空数组和重置变量
 4. **输出顺序**：某些题目要求特定的输出顺序，需要排序
-
-
+   
+   
 
 # 集合
 
 确定性：给定一个集合，任给一个元素，该元素或者属于或者不属于该集合，二者必居其一，不允许有模棱两可的情况出现。
 
-互异性：一个集合中，任何两个元素都认为是不相同的，即每个元素只能出现一次。有时需要对同一元素出现多次的情形进行刻画，可以使用多重集，其中的元素   		允许出现多次。
+互异性：一个集合中，任何两个元素都认为是不相同的，即每个元素只能出现一次。有时需要对同一元素出现多次的情形进行刻画，可以使用多重集，其中的元素           允许出现多次。
 
-无序性：一个集合中，每个元素的地位都是相同的，元素之间是无序的。集合上可以定义序关系，定义了序关系后，元素之间就可以按照序关系排序。但就集合本		身的特性而言，元素之间没有必然的序。
+无序性：一个集合中，每个元素的地位都是相同的，元素之间是无序的。集合上可以定义序关系，定义了序关系后，元素之间就可以按照序关系排序。但就集合本        身的特性而言，元素之间没有必然的序。
 $$
 \in\ \notin
 $$
 
 ## 交并集
+
 **交集定义**：由属于A且属于B的相同元素组成的集合，记作(或B∩A），读作“A交B”（或“B交A”），即A∩B={x|x∈A,且x∈B}， 如图1所示。注意交集越交越少。若A包含B，则$A∩B=B，A∪B=A$。
 
 **并集定义**：由所有属于集合A或属于集合B的元素所组成的集合，记作$A \cup B$（$或B∪A$），读作“A并B”（或“B并A”），即$A∪B={x|x∈A,或x∈B}，如图1所示。注意并集越并越多，这与交集的情况正相反
@@ -563,8 +566,6 @@ a\cup b\cup c = a + b +c-a\cap b -b\cap c-a \cap c + a\cap b \cap c
 $$
 
 <img src="https://bkimg.cdn.bcebos.com/pic/d000baa1cd11728b1ab6e504c5fcc3cec3fd2c78?x-bce-process=image/format,f_auto/watermark,image_d2F0ZXIvYmFpa2UyNzI,g_7,xp_5,yp_5,P_20/resize,m_lfit,limit_1,h_1080" alt="img" style="zoom:50%;" />
-
-
 
 ---
 
@@ -622,12 +623,12 @@ for (auto it = st.begin(); it != st.end(); it++) {
 
 # 深搜迷宫问题类型
 
-| 问题类型 | 洪水填充 |  是否可达  | 最小步数 |       路径数量       |  最小路径成本  | 最小成本路径成本 |
-| :------: | :------: | :--------: | :------: | :------------------: | :------------: | :--------------: |
-|   回溯   |    ✅     |     ❌      |    ✅     |          ✅           |       ✅        |        ✅         |
-|   剪枝   |    ❌     |     ❌      |    ✅     |          ❌           |       ✅        |        ✅         |
-| 边界条件 | 自然终止 |  达到终点  | 到达终点 |       到达终点       |    到达终点    |     到达终点     |
-| 边界处理 |    无    | `exit(0);` |  打擂台  | 复制栈数据 or 打擂台 | 累加和的最小值 |    复制栈数据    |
+| 问题类型 | 洪水填充 | 是否可达       | 最小步数 | 路径数量         | 最小路径成本  | 最小成本路径成本 |
+|:----:|:----:|:----------:|:----:|:------------:|:-------:|:--------:|
+| 回溯   | ✅    | ❌          | ✅    | ✅            | ✅       | ✅        |
+| 剪枝   | ❌    | ❌          | ✅    | ❌            | ✅       | ✅        |
+| 边界条件 | 自然终止 | 达到终点       | 到达终点 | 到达终点         | 到达终点    | 到达终点     |
+| 边界处理 | 无    | `exit(0);` | 打擂台  | 复制栈数据 or 打擂台 | 累加和的最小值 | 复制栈数据    |
 
 ## DFS欧拉序
 
@@ -643,6 +644,7 @@ for (auto it = st.begin(); it != st.end(); it++) {
 ### 算法原理
 
 在DFS遍历树的过程中，我们记录：
+
 - 进入节点时的时间戳（in时间）
 - 离开节点时的时间戳（out时间）
 
@@ -670,10 +672,10 @@ void dfs(int u, int parent) {
     // 记录进入时间戳
     in[u] = ++timer;
     node_in[timer] = u;  // 节点进入序列：第timer个访问的节点是u
-    
+
     // 完整欧拉序：记录进入节点
     euler[++euler_idx] = u;
-    
+
     // 递归访问所有子节点
     for (int v : g[u]) {
         if (v != parent) {  // 避免回边
@@ -682,7 +684,7 @@ void dfs(int u, int parent) {
             euler[++euler_idx] = u;
         }
     }
-    
+
     // 记录离开时间戳
     out[u] = timer;
 }
@@ -703,10 +705,10 @@ int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-    
+
     int n;  // 节点数
     cin >> n;
-    
+
     // 读取树的边（假设是1号节点为根的无向树）
     for (int i = 1; i < n; i++) {
         int u, v;
@@ -714,32 +716,32 @@ int main() {
         g[u].push_back(v);
         g[v].push_back(u);
     }
-    
+
     // 从根节点开始DFS
     timer = 0;
     euler_idx = 0;
     dfs(1, 0);
-    
+
     // 输出节点进入序列
     cout << "节点进入序列: ";
     for (int i = 1; i <= n; i++) {
         cout << node_in[i] << " ";
     }
     cout << endl;
-    
+
     // 输出完整欧拉序
     cout << "完整欧拉序: ";
     for (int i = 1; i <= euler_idx; i++) {
         cout << euler[i] << " ";
     }
     cout << endl;
-    
+
     // 输出每个节点的进入和离开时间戳
     cout << "节点时间戳:\n";
     for (int i = 1; i <= n; i++) {
         cout << "节点" << i << ": in=" << in[i] << ", out=" << out[i] << endl;
     }
-    
+
     // 示例：判断祖先关系
     int u, v;
     cout << "输入两个节点判断祖先关系: ";
@@ -749,14 +751,14 @@ int main() {
     } else {
         cout << u << " 不是 " << v << " 的祖先" << endl;
     }
-    
+
     // 示例：获取子树区间
     cout << "输入节点获取其子树区间: ";
     cin >> u;
     auto range = get_subtree_range(u);
     cout << "节点" << u << "的子树在欧拉序中的区间: [" 
          << range.first << ", " << range.second << "]" << endl;
-    
+
     return 0;
 }
 ```
@@ -792,13 +794,13 @@ ll prefix_sum[N * 2];  // 前缀和数组
 void dfs(int u, int parent) {
     in[u] = ++timer;
     node_in[timer] = u;
-    
+
     for (int v : g[u]) {
         if (v != parent) {
             dfs(v, u);
         }
     }
-    
+
     out[u] = timer;
 }
 
@@ -818,15 +820,15 @@ int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-    
+
     int n, q;  // 节点数和查询数
     cin >> n >> q;
-    
+
     // 读取节点值
     for (int i = 1; i <= n; i++) {
         cin >> values[i];
     }
-    
+
     // 读取树的边
     for (int i = 1; i < n; i++) {
         int u, v;
@@ -834,25 +836,25 @@ int main() {
         g[u].push_back(v);
         g[v].push_back(u);
     }
-    
+
     // DFS生成欧拉序
     timer = 0;
     dfs(1, 0);
-    
+
     // 预处理前缀和
     preprocess_prefix_sum();
-    
+
     // 处理查询
     while (q--) {
         int type, u;
         cin >> type >> u;
-        
+
         if (type == 1) {  // 更新节点值
             ll new_val;
             cin >> new_val;
             ll diff = new_val - values[u];
             values[u] = new_val;
-            
+
             // 更新前缀和（实际应用中可能需要使用树状数组或线段树）
             for (int i = in[u]; i <= timer; i++) {
                 prefix_sum[i] += diff;
@@ -861,7 +863,7 @@ int main() {
             cout << query_subtree_sum(u) << endl;
         }
     }
-    
+
     return 0;
 }
 ```
@@ -875,7 +877,7 @@ DFS欧拉序是处理树问题的强大工具，它将树的结构转化为线�
 ### 二维
 
 > [!IMPORTANT]
->
+> 
 > **状态转移公式** : `dp[i][j] = max(dp[i-1][j], dp[i-1][j-w[i]]+v[i])` 选择第i个物品，需满足$j≥w_i$，即在剩余容量$j−w_i$的基础上加上当前物品的价值$v_i$。
 
 
@@ -887,41 +889,41 @@ DFS欧拉序是处理树问题的强大工具，它将树的结构转化为线�
 using namespace std;
 
 void solve() {
-	ll W, n;
-	cin >> W >> n;3
-	vector<ll> w(n + 1), v(n + 1);
-	vector<vector<ll> > dp(n + 1, vector<ll> (W + 1));
-	
-	for (int i = 1; i <= n; i++)
-		cin >> w[i] >> v[i];
-	for (int i = 1; i <= n; i++) {
-		for (int j = 1; j <= W; j++) {
-			if (j < w[i]) {
-				dp[i][j] = dp[i - 1][j];
-			} else {
-				dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - w[i]] + v[i]);
-			}
-		}
-	}
-	cout << dp[n][W];
+    ll W, n;
+    cin >> W >> n;3
+    vector<ll> w(n + 1), v(n + 1);
+    vector<vector<ll> > dp(n + 1, vector<ll> (W + 1));
+
+    for (int i = 1; i <= n; i++)
+        cin >> w[i] >> v[i];
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= W; j++) {
+            if (j < w[i]) {
+                dp[i][j] = dp[i - 1][j];
+            } else {
+                dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - w[i]] + v[i]);
+            }
+        }
+    }
+    cout << dp[n][W];
 }
 
 int main() {
-	ios::sync_with_stdio(0);
-	cin.tie(0);
-	cout.tie(0);
-	int T = 1;
-	while (T--) {
-		solve(); 
-	}
-	return 0;
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    int T = 1;
+    while (T--) {
+        solve(); 
+    }
+    return 0;
 }
 ```
 
 ### 一维
 
 > [!IMPORTANT]
->
+> 
 > 状态转移公式`dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - w[i]] + v[i])`
 
 
@@ -934,38 +936,38 @@ int main() {
 using namespace std;
 
 void solve() {
-	ll W, n;
-	cin >> W >> n;
-	vector<ll> w(n + 1), v(n + 1);
-	vector<ll> dp(W + 1);
-	for (int i = 1; i <= n; i++)
-		cin >> w[i] >> v[i];
-	for (int i = 1; i <= n; i++) {
-		for (int j = W; j >= w[i]; j--) {
-			dp[j] = max(dp[j], dp[j - w[i]] + v[i]);
-		}
-	}
-	cout << dp[W];
+    ll W, n;
+    cin >> W >> n;
+    vector<ll> w(n + 1), v(n + 1);
+    vector<ll> dp(W + 1);
+    for (int i = 1; i <= n; i++)
+        cin >> w[i] >> v[i];
+    for (int i = 1; i <= n; i++) {
+        for (int j = W; j >= w[i]; j--) {
+            dp[j] = max(dp[j], dp[j - w[i]] + v[i]);
+        }
+    }
+    cout << dp[W];
 }
 
 int main() {
-	ios::sync_with_stdio(0);
-	cin.tie(0);
-	cout.tie(0);
-	int T = 1;
-	while (T--) {
-		solve();
-	}
-	return 0;
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    int T = 1;
+    while (T--) {
+        solve();
+    }
+    return 0;
 }
 ```
 
 ## 完全背包
 
 > [!IMPORTANT]
->
+> 
 > 二维状态转移公式：`dp[j] = max(dp[j], dp[j - weights[i]] + values[i]);`
->
+> 
 > 一维状态转移公式：`dp[j] = max(dp[j], dp[j - weights[i]] + values[i])`
 
 
@@ -982,7 +984,7 @@ using namespace std;
 int completePack2D(int W, vector<int>& weights, vector<int>& values) {
     int n = weights.size();
     vector<vector<int>> dp(n + 1, vector<int>(W + 1, 0));
-    
+
     for (int i = 1; i <= n; ++i) {
         for (int j = 1; j <= W; ++j) {
             if (j >= weights[i-1]) {
@@ -992,7 +994,7 @@ int completePack2D(int W, vector<int>& weights, vector<int>& values) {
             }
         }
     }
-    
+
     return dp[n][W];
 }
 
@@ -1000,7 +1002,7 @@ int main() {
     int W = 5;
     vector<int> weights = {1, 2, 3};
     vector<int> values = {6, 10, 12};
-    
+
     cout << "Maximum value (2D): " << completePack2D(W, weights, values) << endl;
     return 0;
 }
@@ -1017,13 +1019,13 @@ using namespace std;
 
 int completePack1D(int W, vector<int>& weights, vector<int>& values) {
     vector<int> dp(W + 1, 0);
-    
+
     for (int i = 0; i < weights.size(); ++i) {
         for (int j = weights[i]; j <= W; ++j) { // 正向遍历
             dp[j] = max(dp[j], dp[j - weights[i]] + values[i]);
         }
     }
-    
+
     return dp[W];
 }
 
@@ -1031,7 +1033,7 @@ int main() {
     int W = 5;
     vector<int> weights = {1, 2, 3};
     vector<int> values = {6, 10, 12};
-    
+
     cout << "Maximum value (1D): " << completePack1D(W, weights, values) << endl;
     return 0;
 }
@@ -1054,12 +1056,13 @@ int main() {
 4. 空间复杂度O(W)
 
 > [!CAUTION]
->
+> 
 > **为什么完全背包要正向遍历？**
 
 在完全背包中，同一物品可以选多次。正向遍历时，`dp[j - weights[i]]`可能已经包含当前物品的选取，因此可以实现多次选取的效果。例如：
 
 当计算`dp[2]`时：
+
 - 可能已经选取了1个物品（`dp[1]`的值）
 - 然后`dp[2] = max(dp[2], dp[1] + values[i])`相当于再选一次
 
@@ -1068,10 +1071,12 @@ int main() {
 **复杂度分析**
 
 两种解法的时间复杂度都是O(N*W)，其中：
+
 - N是物品数量
 - W是背包容量
 
 空间复杂度：
+
 - 二维：O(N*W)
 - 一维：O(W)
 
@@ -1082,6 +1087,7 @@ int main() {
 **问题描述**
 
 给定：
+
 - 一个容量为W的背包
 - N种物品，每种物品有：
   - 重量weight[i]
@@ -1102,7 +1108,7 @@ using namespace std;
 int multiKnapsack(int W, vector<int>& weight, vector<int>& value, vector<int>& amount) {
     int n = weight.size();
     vector<int> dp(W + 1, 0);
-    
+
     for (int i = 0; i < n; i++) {
         for (int j = W; j >= weight[i]; j--) {
             // 尝试放入0到amount[i]个第i种物品
@@ -1111,7 +1117,7 @@ int multiKnapsack(int W, vector<int>& weight, vector<int>& value, vector<int>& a
             }
         }
     }
-    
+
     return dp[W];
 }
 
@@ -1120,7 +1126,7 @@ int main() {
     vector<int> weight = {2, 3, 4}; // 物品重量
     vector<int> value = {3, 4, 5}; // 物品价值
     vector<int> amount = {3, 2, 2}; // 物品数量限制
-    
+
     cout << "最大价值: " << multiKnapsack(W, weight, value, amount) << endl;
     return 0;
 }
@@ -1130,7 +1136,6 @@ int main() {
 
 通过二进制优化将12个单一物品拆为四个一的物品将复杂的多重背包问题简化为更直观的01背包问题
 
-
 ```cpp
 #include <bits/stdc++.h>
 #define ll long long
@@ -1139,41 +1144,41 @@ int main() {
 using namespace std;
 
 void solve() {
-	int W, n;
-	cin >> n >> W;
-	vector<int> v(1), w(1);
-	vector<int> dp(W + 1);
-	for (int i = 1; i <= n; i++) {
-		int num, wi, vi;
-		cin >> num >> wi >> vi;
-		for (int j = 1; j <= num; j *= 2) {
-			w.push_back(wi * j);
-			v.push_back(vi * j);
-			num -= j;
-		}
-		if (num != 0) {
-			w.push_back(wi * num);
-			v.push_back(vi * num);
-		}
-	}
-	n = v.size() - 1;
-	for (int i = 1; i <= n; i++) {
-		for (int j = W; j >= v[i]; j--) {
-			dp[j] = max(dp[j], dp[j - w[i]] + v[i]);
-		}
-	}
-	
+    int W, n;
+    cin >> n >> W;
+    vector<int> v(1), w(1);
+    vector<int> dp(W + 1);
+    for (int i = 1; i <= n; i++) {
+        int num, wi, vi;
+        cin >> num >> wi >> vi;
+        for (int j = 1; j <= num; j *= 2) {
+            w.push_back(wi * j);
+            v.push_back(vi * j);
+            num -= j;
+        }
+        if (num != 0) {
+            w.push_back(wi * num);
+            v.push_back(vi * num);
+        }
+    }
+    n = v.size() - 1;
+    for (int i = 1; i <= n; i++) {
+        for (int j = W; j >= v[i]; j--) {
+            dp[j] = max(dp[j], dp[j - w[i]] + v[i]);
+        }
+    }
+
 }
 
 int main() {
-	ios::sync_with_stdio(0);
-	cin.tie(0);
-	cout.tie(0);
-	int T = 1;
-	while (T--) {
-		solve();
-	}
-	return 0;
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    int T = 1;
+    while (T--) {
+        solve();
+    }
+    return 0;
 }
 ```
 
@@ -1193,11 +1198,11 @@ int monotonicQueueMultiKnapsack(int W, vector<int>& weight, vector<int>& value, 
     vector<int> dp(W + 1, 0);
     vector<int> pre(W + 1, 0); // 前一轮的dp值
     int n = weight.size();
-    
+
     for (int i = 0; i < n; i++) {
         pre = dp;
         int w = weight[i], v = value[i], m = amount[i];
-        
+
         for (int j = 0; j < w; j++) {
             deque<int> q;
             for (int k = j; k <= W; k += w) {
@@ -1205,20 +1210,20 @@ int monotonicQueueMultiKnapsack(int W, vector<int>& weight, vector<int>& value, 
                 while (!q.empty() && (k - q.front()) / w > m) {
                     q.pop_front();
                 }
-                
+
                 if (!q.empty()) {
                     dp[k] = max(pre[k], pre[q.front()] + (k - q.front()) / w * v);
                 }
-                
+
                 while (!q.empty() && pre[k] >= pre[q.back()] + (k - q.back()) / w * v) {
                     q.pop_back();
                 }
-                
+
                 q.push_back(k);
             }
         }
     }
-    
+
     return dp[W];
 }
 
@@ -1227,7 +1232,7 @@ int main() {
     vector<int> weight = {2, 3, 4}; // 物品重量
     vector<int> value = {3, 4, 5}; // 物品价值
     vector<int> amount = {3, 2, 2}; // 物品数量限制
-    
+
     cout << "最大价值(单调队列优化): " << monotonicQueueMultiKnapsack(W, weight, value, amount) << endl;
     return 0;
 }
@@ -1240,7 +1245,9 @@ int main() {
 3. **单调队列优化**：最优解法，时间复杂度为$O(N*W)$
 
 # 质数和合数
+
 ## 质数判定(代码)
+
 ```cpp
 bool isprime(ll x){
   if(x<2) return 0;
@@ -1250,18 +1257,26 @@ bool isprime(ll x){
 ```
 
 ## 质数筛
+
 给定l,r，求出l~r之间所有的质数，这样的问题叫做质数筛
+
 ### 埃氏筛
+
 #### 基本思想
+
  任意整数x的倍数，$2x,3x……$都不是质数
+
 #### 实现步骤
+
 Step 1: 首先将小于1的数排除;
 Step 2: 创建从l ~r到的连续整数列表;
 Step 3:初始化p=2,因为2是最小的质数;
 Step 4:枚举所有p的倍数,标记为非质数(合数)；
 Step 5:找到下一个没有标记且大于p的数。如果没有,结束运算，如果有p赋值为它；
 Step 6:运算结束后，剩下所有没有被标记的数都是质数;
+
 #### 代码
+
 ```cpp
 //ll = long long
 //N=元素个数
@@ -1286,14 +1301,20 @@ ll aishishai(ll n){
 ```
 
 ### 欧拉筛(线性筛）
+
 #### 基本思想
+
 在埃氏筛法的基础上，让每个合数都只被他的最小质因子筛选一次，已达到不重复的目的
+
 #### 实现步骤
+
 Step 1:依次枚举每一个数
 Step 2:若当前数没被筛，则把这个数加入质数集合
 Step 3:对于每一个数,枚举当前已知质数,并筛掉当前的数×枚举到的数
 Step 4:如果i是枚举到的质数的倍数,停止枚举质数
+
 #### 代码
+
 ```cpp
 //ll = long long
 //N=元素个数
@@ -1505,21 +1526,21 @@ int main() {
 ### 负环判断
 
 > [!CAUTION]
->
+> 
 > 负环是什么？
->
+> 
 > 负环指图上一个环，他们的边权和为复数
 
 > [!CAUTION]
->
+> 
 > 为啥有负环的图$SPFA$得不到正确解呢？
->
+> 
 > 因为负环上边权和是负数，一直走下去最小值是$-\infty$,得不到解
 
 > [!CAUTION]
->
+> 
 > 怎么判断负环呢？
->
+> 
 > 只要一个点的入队次数超过$n$了，这个图就一定有负环
 
 代码：
@@ -1598,9 +1619,11 @@ int main()
 ### 贝祖等式
 
 对于任意两个不全为零的整数a和b，存在整数x和y，使得：
+
 ```
 ax + by = gcd(a, b)
 ```
+
 这个等式称为贝祖等式，其中x和y称为贝祖系数。
 
 ## 算法原理
@@ -1610,16 +1633,19 @@ ax + by = gcd(a, b)
 ### 基本递推关系
 
 假设我们已经计算出了：
+
 ```
 gcd(b, a % b) = b * x' + (a % b) * y'
 ```
 
 由于 `a % b = a - (a / b) * b`，我们可以得到：
+
 ```
 gcd(a, b) = a * y' + b * (x' - (a / b) * y')
 ```
 
 因此，贝祖系数的递推关系为：
+
 ```
 x = y'
 y = x' - (a / b) * y'
@@ -1641,14 +1667,14 @@ int extended_gcd(int a, int b, int &x, int &y) {
         y = 0;
         return a;
     }
-    
+
     int x1, y1;
     int gcd = extended_gcd(b, a % b, x1, y1);
-    
+
     // 回溯计算贝祖系数
     x = y1;
     y = x1 - (a / b) * y1;
-    
+
     return gcd;
 }
 
@@ -1656,14 +1682,14 @@ int main() {
     int a, b;
     cout << "输入两个整数a和b: ";
     cin >> a >> b;
-    
+
     int x, y;
     int gcd = extended_gcd(a, b, x, y);
-    
+
     cout << "gcd(" << a << ", " << b << ") = " << gcd << endl;
     cout << "贝祖系数: x = " << x << ", y = " << y << endl;
     cout << "验证: " << a << " * " << x << " + " << b << " * " << y << " = " << a * x + b * y << endl;
-    
+
     return 0;
 }
 ```
@@ -1678,25 +1704,25 @@ using namespace std;
 pair<int, pair<int, int>> extended_gcd_iterative(int a, int b) {
     int x0 = 1, y0 = 0;  // 初始贝祖系数
     int x1 = 0, y1 = 1;  // 临时变量
-    
+
     while (b != 0) {
         int q = a / b;
-        
+
         // 更新贝祖系数
         int temp_x = x0 - q * x1;
         int temp_y = y0 - q * y1;
-        
+
         x0 = x1;
         y0 = y1;
         x1 = temp_x;
         y1 = temp_y;
-        
+
         // 欧几里得算法步骤
         int temp = a % b;
         a = b;
         b = temp;
     }
-    
+
     return {a, {x0, y0}};  // 返回gcd和贝祖系数
 }
 
@@ -1704,16 +1730,16 @@ int main() {
     int a, b;
     cout << "输入两个整数a和b: ";
     cin >> a >> b;
-    
+
     auto result = extended_gcd_iterative(a, b);
     int gcd = result.first;
     int x = result.second.first;
     int y = result.second.second;
-    
+
     cout << "gcd(" << a << ", " << b << ") = " << gcd << endl;
     cout << "贝祖系数: x = " << x << ", y = " << y << endl;
     cout << "验证: " << a << " * " << x << " + " << b << " * " << y << " = " << a * x + b * y << endl;
-    
+
     return 0;
 }
 ```
@@ -1743,13 +1769,13 @@ int extended_gcd(int a, int b, int &x, int &y) {
         y = 0;
         return a;
     }
-    
+
     int x1, y1;
     int gcd = extended_gcd(b, a % b, x1, y1);
-    
+
     x = y1;
     y = x1 - (a / b) * y1;
-    
+
     return gcd;
 }
 
@@ -1757,15 +1783,15 @@ int extended_gcd(int a, int b, int &x, int &y) {
 bool linear_congruence(int a, int b, int m, int &x) {
     int x0, y0;
     int gcd = extended_gcd(a, m, x0, y0);
-    
+
     if (b % gcd != 0) {
         return false;  // 无解
     }
-    
+
     // 计算特解
     x = (x0 * (b / gcd)) % m;
     if (x < 0) x += m;  // 确保解为正
-    
+
     return true;
 }
 
@@ -1774,18 +1800,18 @@ int main() {
     cout << "求解线性同余方程 ax ≡ b (mod m)" << endl;
     cout << "输入a, b, m: ";
     cin >> a >> b >> m;
-    
+
     int x;
     if (linear_congruence(a, b, m, x)) {
         cout << "方程有解，一个特解为: x ≡ " << x << " (mod " << m << ")" << endl;
-        
+
         // 通解形式
         int gcd = __gcd(a, m);
         cout << "通解: x ≡ " << x << " + k * " << m / gcd << " (mod " << m << "), k ∈ Z" << endl;
     } else {
         cout << "方程无解" << endl;
     }
-    
+
     return 0;
 }
 ```
@@ -1811,13 +1837,13 @@ int extended_gcd(int a, int b, int &x, int &y) {
         y = 0;
         return a;
     }
-    
+
     int x1, y1;
     int gcd = extended_gcd(b, a % b, x1, y1);
-    
+
     x = y1;
     y = x1 - (a / b) * y1;
-    
+
     return gcd;
 }
 
@@ -1825,11 +1851,11 @@ int extended_gcd(int a, int b, int &x, int &y) {
 bool mod_inverse(int a, int m, int &inv) {
     int x, y;
     int gcd = extended_gcd(a, m, x, y);
-    
+
     if (gcd != 1) {
         return false;  // 逆元不存在
     }
-    
+
     inv = (x % m + m) % m;  // 确保逆元为正
     return true;
 }
@@ -1839,7 +1865,7 @@ int main() {
     cout << "计算a模m的逆元" << endl;
     cout << "输入a, m: ";
     cin >> a >> m;
-    
+
     int inv;
     if (mod_inverse(a, m, inv)) {
         cout << a << " 模 " << m << " 的逆元是: " << inv << endl;
@@ -1847,7 +1873,7 @@ int main() {
     } else {
         cout << a << " 模 " << m << " 的逆元不存在（因为gcd(" << a << ", " << m << ") ≠ 1）" << endl;
     }
-    
+
     return 0;
 }
 ```
@@ -1875,13 +1901,13 @@ int extended_gcd(int a, int b, int &x, int &y) {
         y = 0;
         return a;
     }
-    
+
     int x1, y1;
     int gcd = extended_gcd(b, a % b, x1, y1);
-    
+
     x = y1;
     y = x1 - (a / b) * y1;
-    
+
     return gcd;
 }
 
@@ -1889,16 +1915,16 @@ int extended_gcd(int a, int b, int &x, int &y) {
 bool linear_diophantine(int a, int b, int c, int &x, int &y) {
     int x0, y0;
     int gcd = extended_gcd(a, b, x0, y0);
-    
+
     if (c % gcd != 0) {
         return false;  // 无解
     }
-    
+
     // 计算特解
     int factor = c / gcd;
     x = x0 * factor;
     y = y0 * factor;
-    
+
     return true;
 }
 
@@ -1907,18 +1933,18 @@ int main() {
     cout << "求解二元一次不定方程 ax + by = c" << endl;
     cout << "输入a, b, c: ";
     cin >> a >> b >> c;
-    
+
     int x, y;
     if (linear_diophantine(a, b, c, x, y)) {
         cout << "方程有解，一个特解为: x = " << x << ", y = " << y << endl;
-        
+
         // 通解形式
         int gcd = __gcd(a, b);
         cout << "通解: x = " << x << " + k * " << b / gcd << ", y = " << y << " - k * " << a / gcd << ", k ∈ Z" << endl;
     } else {
         cout << "方程无解" << endl;
     }
-    
+
     return 0;
 }
 ```
@@ -1947,13 +1973,13 @@ long long extended_gcd(long long a, long long b, long long &x, long long &y) {
         y = 0;
         return a;
     }
-    
+
     long long x1, y1;
     long long gcd = extended_gcd(b, a % b, x1, y1);
-    
+
     x = y1;
     y = x1 - (a / b) * y1;
-    
+
     return gcd;
 }
 ```
@@ -1972,6 +1998,7 @@ x = (x % m + m) % m;
 对于有解的方程，通常有无限多组解。通解形式为：
 
 对于 `ax + by = c`，通解为：
+
 ```
 x = x0 + k * (b / gcd(a, b))
 y = y0 - k * (a / gcd(a, b))
@@ -2030,21 +2057,21 @@ $x_3-x_2\leq 2$     （5）
 $\min(8,9,7)=7$,所以答案为7
 
 > [!IMPORTANT]
->
+> 
 > 这里可以把不等式组看成图(有向图)（建图是从$x_j$到$x_i$)
->
+> 
 > 例如：
->
+> 
 > $x_1-x_0 \leq 2$ 可以理解为$x_1$到$x_2$的距离为2！
->
+> 
 > 所以说求$x_3-x_0$的最大值就是求图中$x_3$到$x_0$的最短距离！
 
 所以可以用上$SPFA$
 
 > [!CAUTION]
->
+> 
 > 有负环怎么办？
->
+> 
 > 可以用$SPFA$判负环呀
 
 可以去上面$SPFA$的位置学一学
@@ -2120,7 +2147,7 @@ int main() {
 
 ### 扩展
 
-#### $x_i-x_j \geq k$ 
+#### $x_i-x_j \geq k$
 
 改为$x_i-x_j \leq -k$
 
@@ -2143,6 +2170,7 @@ KMP（Knuth-Morris-Pratt）算法是一种高效的字符串匹配算法，用�
 假设我们要在文本串 `"ababcababcabc"` 中查找模式串 `"ababc"`。
 
 **暴力匹配过程**：
+
 ```
 文本: a b a b c a b a b c a b c
 模式: a b a b c
@@ -2171,6 +2199,7 @@ KMP算法的核心是**前缀函数（next数组）**，它记录了模式串中
 **后缀**：从最后一个字符开始但不包含第一个字符的子串
 
 例如：模式串 `"ababc"` 的前缀函数：
+
 - 位置0：`"a"`，最长相同前后缀长度 = 0
 - 位置1：`"ab"`，最长相同前后缀长度 = 0
 - 位置2：`"aba"`，最长相同前后缀长度 = 1（前缀"a"，后缀"a"）
@@ -2184,6 +2213,7 @@ KMP算法的核心是**前缀函数（next数组）**，它记录了模式串中
 next数组告诉我们：**当模式串的第i个字符匹配失败时，应该跳转到第next[i-1]个字符继续匹配。**
 
 举个例子，模式串 `"ababc"`：
+
 ```
 位置: 0 1 2 3 4
 字符: a b a b c
@@ -2201,6 +2231,7 @@ next: 0 0 1 2 0
 **初始化**：next[0] = 0
 
 **计算next[1]**：
+
 - 子串："ab"
 - 前缀：{"a"}
 - 后缀：{"b"}
@@ -2208,6 +2239,7 @@ next: 0 0 1 2 0
 - next[1] = 0
 
 **计算next[2]**：
+
 - 子串："aba"
 - 前缀：{"a", "ab"}
 - 后缀：{"a", "ba"}
@@ -2215,6 +2247,7 @@ next: 0 0 1 2 0
 - next[2] = 1
 
 **计算next[3]**：
+
 - 子串："abab"
 - 前缀：{"a", "ab", "aba"}
 - 后缀：{"b", "ab", "bab"}
@@ -2222,6 +2255,7 @@ next: 0 0 1 2 0
 - next[3] = 2
 
 **计算next[4]**：
+
 - 子串："ababc"
 - 前缀：{"a", "ab", "aba", "abab"}
 - 后缀：{"c", "bc", "abc", "babc"}
@@ -2241,6 +2275,7 @@ next: 0 0 1 2 0
 ```
 
 **第1轮匹配**：
+
 - i=0, j=0: 'a'=='a'，匹配成功，j++
 - i=1, j=1: 'b'=='b'，匹配成功，j++
 - i=2, j=2: 'a'=='a'，匹配成功，j++
@@ -2250,6 +2285,7 @@ next: 0 0 1 2 0
 - j = next[4] = 0，继续寻找下一个匹配
 
 **第2轮匹配**：
+
 - i=5, j=0: 'a'=='a'，匹配成功，j++
 - i=6, j=1: 'b'=='b'，匹配成功，j++
 - i=7, j=2: 'a'=='a'，匹配成功，j++
@@ -2259,12 +2295,14 @@ next: 0 0 1 2 0
 - j = next[4] = 0，继续寻找下一个匹配
 
 **第3轮匹配**：
+
 - i=10, j=0: 'a'=='a'，匹配成功，j++
 - i=11, j=1: 'b'=='b'，匹配成功，j++
 - i=12, j=2: 'c'!='a'，匹配失败！
 - j = next[1] = 0，模式串跳到开头
 
 **第4轮匹配**：
+
 - i=12, j=0: 'c'!='a'，匹配失败！
 - i++，文本指针前进
 
@@ -2275,11 +2313,13 @@ next: 0 0 1 2 0
 假设文本串 `"aaaabaaaab"`，模式串 `"aaaab"`：
 
 **暴力匹配**：
+
 - 第1次匹配失败后，文本指针回退到位置1
 - 第2次匹配失败后，文本指针回退到位置2
 - ... 大量重复比较
 
 **KMP匹配**：
+
 - 文本指针永不回退，只向前移动
 - 利用next数组，模式串智能跳转
 - 避免了所有重复比较
@@ -2291,21 +2331,21 @@ vector<int> buildNext(const string& pattern) {
     int m = pattern.length();
     vector<int> next(m, 0);
     int j = 0;  // 前缀指针
-    
+
     for (int i = 1; i < m; i++) {
         // 不匹配时，回退到前一个匹配位置
         while (j > 0 && pattern[i] != pattern[j]) {
             j = next[j - 1];
         }
-        
+
         // 匹配成功，j向前移动
         if (pattern[i] == pattern[j]) {
             j++;
         }
-        
+
         next[i] = j;
     }
-    
+
     return next;
 }
 ```
@@ -2317,30 +2357,30 @@ vector<int> kmpSearch(const string& text, const string& pattern) {
     vector<int> positions;
     int n = text.length();
     int m = pattern.length();
-    
+
     if (m == 0) return positions;
-    
+
     vector<int> next = buildNext(pattern);
     int j = 0;  // 模式串指针
-    
+
     for (int i = 0; i < n; i++) {
         // 不匹配时，利用next数组回退
         while (j > 0 && text[i] != pattern[j]) {
             j = next[j - 1];
         }
-        
+
         // 匹配成功，j向前移动
         if (text[i] == pattern[j]) {
             j++;
         }
-        
+
         // 完全匹配成功
         if (j == m) {
             positions.push_back(i - m + 1);  // 记录起始位置
             j = next[j - 1];  // 继续寻找下一个匹配
         }
     }
-    
+
     return positions;
 }
 ```
@@ -2359,19 +2399,19 @@ vector<int> buildNext(const string& pattern) {
     int m = pattern.length();
     vector<int> next(m, 0);
     int j = 0;
-    
+
     for (int i = 1; i < m; i++) {
         while (j > 0 && pattern[i] != pattern[j]) {
             j = next[j - 1];
         }
-        
+
         if (pattern[i] == pattern[j]) {
             j++;
         }
-        
+
         next[i] = j;
     }
-    
+
     return next;
 }
 
@@ -2380,36 +2420,36 @@ vector<int> kmpSearch(const string& text, const string& pattern) {
     vector<int> positions;
     int n = text.length();
     int m = pattern.length();
-    
+
     if (m == 0) return positions;
-    
+
     vector<int> next = buildNext(pattern);
     int j = 0;
-    
+
     for (int i = 0; i < n; i++) {
         while (j > 0 && text[i] != pattern[j]) {
             j = next[j - 1];
         }
-        
+
         if (text[i] == pattern[j]) {
             j++;
         }
-        
+
         if (j == m) {
             positions.push_back(i - m + 1);
             j = next[j - 1];
         }
     }
-    
+
     return positions;
 }
 
 int main() {
     string text = "ababcababcabc";
     string pattern = "ababc";
-    
+
     vector<int> result = kmpSearch(text, pattern);
-    
+
     cout << "文本: " << text << endl;
     cout << "模式: " << pattern << endl;
     cout << "匹配位置: ";
@@ -2417,7 +2457,7 @@ int main() {
         cout << pos << " ";
     }
     cout << endl;
-    
+
     return 0;
 }
 ```
@@ -2425,11 +2465,13 @@ int main() {
 ## 算法复杂度分析
 
 **时间复杂度**：
+
 - 构建next数组：O(m)，其中m是模式串长度
 - 匹配过程：O(n)，其中n是文本串长度
 - 总时间复杂度：O(n + m)
 
 **空间复杂度**：
+
 - next数组：O(m)
 
 ## 应用场景
@@ -2518,21 +2560,25 @@ A: 是的，KMP算法能够找到文本串中所有模式串出现的位置。
 ### 传统方法的问题
 
 假设我们要存储以下字符串：
+
 ```
 {"code", "coder", "coding", "compile", "compiler", "computer"}
 ```
 
 **使用传统数组存储**：
+
 - 查找"coding"需要逐个比较
 - 时间复杂度：O(n*m)，n是字符串数量，m是字符串长度
 - 无法高效处理前缀相关问题
 
 **使用哈希表存储**：
+
 - 查找效率高，但无法利用前缀信息
 - 无法高效地解决前缀相关问题
 - 不支持字典序操作
 
 **使用平衡二叉搜索树存储**：
+
 - 查找时间复杂度：O(m*log n)
 - 虽然支持字典序，但前缀操作效率不高
 
@@ -2548,61 +2594,65 @@ A: 是的，KMP算法能够找到文本串中所有模式串出现的位置。
 
 ### 与哈希表的对比
 
-| 特性 | 字典树 | 哈希表 |
-|------|--------|--------|
-| 查找时间复杂度 | O(m) | O(1)平均，O(n)最坏 |
-| 前缀匹配 | O(m) | 不支持 |
-| 字典序遍历 | O(总字符数) | 不支持 |
-| 空间复杂度 | O(总字符数) | O(字符串数量×平均长度) |
-| 冲突处理 | 无冲突 | 需要处理冲突 |
-| 内存局部性 | 较好 | 依赖哈希函数 |
+| 特性      | 字典树     | 哈希表           |
+| ------- | ------- | ------------- |
+| 查找时间复杂度 | O(m)    | O(1)平均，O(n)最坏 |
+| 前缀匹配    | O(m)    | 不支持           |
+| 字典序遍历   | O(总字符数) | 不支持           |
+| 空间复杂度   | O(总字符数) | O(字符串数量×平均长度) |
+| 冲突处理    | 无冲突     | 需要处理冲突        |
+| 内存局部性   | 较好      | 依赖哈希函数        |
 
 **适用场景**：
+
 - 字典树：需要前缀操作、字典序操作或最坏情况性能保证的场景
 - 哈希表：只需要精确查找，且对平均性能要求高的场景
 
 ### 与平衡二叉搜索树的对比
 
-| 特性 | 字典树 | 平衡二叉搜索树 |
-|------|--------|----------------|
-| 查找时间复杂度 | O(m) | O(m×log n) |
-| 前缀匹配 | O(m) | O(m×log n) |
-| 字典序遍历 | O(总字符数) | O(n×m) |
-| 插入/删除 | O(m) | O(m×log n) |
-| 空间复杂度 | O(总字符数) | O(n×m) |
-| 实现复杂度 | 中等 | 较高 |
+| 特性      | 字典树     | 平衡二叉搜索树    |
+| ------- | ------- | ---------- |
+| 查找时间复杂度 | O(m)    | O(m×log n) |
+| 前缀匹配    | O(m)    | O(m×log n) |
+| 字典序遍历   | O(总字符数) | O(n×m)     |
+| 插入/删除   | O(m)    | O(m×log n) |
+| 空间复杂度   | O(总字符数) | O(n×m)     |
+| 实现复杂度   | 中等      | 较高         |
 
 **适用场景**：
+
 - 字典树：字符串长度较短，或前缀操作频繁的场景
 - 平衡二叉搜索树：需要动态维护有序性，且字符串长度较长的场景
 
 ### 与数组的对比
 
-| 特性 | 字典树 | 数组 |
-|------|--------|------|
-| 查找时间复杂度 | O(m) | O(n×m) |
-| 前缀匹配 | O(m) | O(n×m) |
-| 字典序遍历 | O(总字符数) | O(n×log n×m) |
-| 插入/删除 | O(m) | O(n×m) |
-| 空间复杂度 | O(总字符数) | O(n×m) |
-| 实现复杂度 | 中等 | 简单 |
+| 特性      | 字典树     | 数组           |
+| ------- | ------- | ------------ |
+| 查找时间复杂度 | O(m)    | O(n×m)       |
+| 前缀匹配    | O(m)    | O(n×m)       |
+| 字典序遍历   | O(总字符数) | O(n×log n×m) |
+| 插入/删除   | O(m)    | O(n×m)       |
+| 空间复杂度   | O(总字符数) | O(n×m)       |
+| 实现复杂度   | 中等      | 简单           |
 
 **适用场景**：
+
 - 字典树：数据量大，查找操作频繁的场景
 - 数组：数据量小，或需要简单实现的场景
 
 ### 与红黑树的对比
 
-| 特性 | 字典树 | 红黑树 |
-|------|--------|--------|
-| 查找时间复杂度 | O(m) | O(m×log n) |
-| 前缀匹配 | O(m) | O(m×log n) |
-| 字典序遍历 | O(总字符数) | O(n×m) |
-| 插入/删除 | O(m) | O(m×log n) |
-| 空间复杂度 | O(总字符数) | O(n×m) |
-| 平衡操作 | 不需要 | 需要 |
+| 特性      | 字典树     | 红黑树        |
+| ------- | ------- | ---------- |
+| 查找时间复杂度 | O(m)    | O(m×log n) |
+| 前缀匹配    | O(m)    | O(m×log n) |
+| 字典序遍历   | O(总字符数) | O(n×m)     |
+| 插入/删除   | O(m)    | O(m×log n) |
+| 空间复杂度   | O(总字符数) | O(n×m)     |
+| 平衡操作    | 不需要     | 需要         |
 
 **适用场景**：
+
 - 字典树：字符串操作为主，特别是前缀相关的场景
 - 红黑树：需要平衡的树结构，但不限于字符串的场景
 
@@ -2633,7 +2683,7 @@ struct TrieNode {
     bool isEnd;              // 标记是否是单词结束
     int count;               // 记录以该节点结尾的单词数量
     int prefixCount;         // 记录以该节点为前缀的单词数量
-    
+
     TrieNode() {
         for (int i = 0; i < 26; i++) {
             children[i] = nullptr;
@@ -2654,19 +2704,19 @@ struct TrieNode {
 ```cpp
 void insert(TrieNode* root, const string& word) {
     TrieNode* node = root;
-    
+
     for (char ch : word) {
         int index = ch - 'a';  // 计算字符对应的索引
-        
+
         // 如果子节点不存在，创建新节点
         if (node->children[index] == nullptr) {
             node->children[index] = new TrieNode();
         }
-        
+
         node = node->children[index];
         node->prefixCount++;  // 更新前缀计数
     }
-    
+
     node->isEnd = true;
     node->count++;  // 更新单词计数
 }
@@ -2675,6 +2725,7 @@ void insert(TrieNode* root, const string& word) {
 **插入过程示例**
 
 插入单词"code"：
+
 ```
 步骤1：根节点 -> 'c'
 步骤2：'c'节点 -> 'o'
@@ -2690,18 +2741,18 @@ void insert(TrieNode* root, const string& word) {
 ```cpp
 bool search(TrieNode* root, const string& word) {
     TrieNode* node = root;
-    
+
     for (char ch : word) {
         int index = ch - 'a';
-        
+
         // 如果子节点不存在，单词不存在
         if (node->children[index] == nullptr) {
             return false;
         }
-        
+
         node = node->children[index];
     }
-    
+
     // 返回是否是单词结束
     return node->isEnd;
 }
@@ -2714,17 +2765,17 @@ bool search(TrieNode* root, const string& word) {
 ```cpp
 bool startsWith(TrieNode* root, const string& prefix) {
     TrieNode* node = root;
-    
+
     for (char ch : prefix) {
         int index = ch - 'a';
-        
+
         if (node->children[index] == nullptr) {
             return false;
         }
-        
+
         node = node->children[index];
     }
-    
+
     return true;  // 前缀存在
 }
 ```
@@ -2736,7 +2787,7 @@ bool startsWith(TrieNode* root, const string& prefix) {
 ```cpp
 bool deleteWord(TrieNode* root, const string& word, int depth = 0) {
     if (!root) return false;
-    
+
     // 如果到达单词末尾
     if (depth == word.length()) {
         if (root->isEnd) {
@@ -2746,19 +2797,19 @@ bool deleteWord(TrieNode* root, const string& word, int depth = 0) {
         }
         return false;  // 单词不存在
     }
-    
+
     int index = word[depth] - 'a';
     TrieNode* child = root->children[index];
-    
+
     if (!child) return false;  // 单词不存在
-    
+
     bool shouldDeleteChild = deleteWord(child, word, depth + 1);
-    
+
     // 如果应该删除子节点且子节点没有其他子节点
     if (shouldDeleteChild) {
         delete child;
         root->children[index] = nullptr;
-        
+
         // 检查当前节点是否可以删除
         bool hasChildren = false;
         for (int i = 0; i < 26; i++) {
@@ -2767,10 +2818,10 @@ bool deleteWord(TrieNode* root, const string& word, int depth = 0) {
                 break;
             }
         }
-        
+
         return !hasChildren && !root->isEnd;
     }
-    
+
     return false;
 }
 ```
@@ -2791,7 +2842,7 @@ private:
         bool isEnd;
         int count;
         int prefixCount;
-        
+
         TrieNode() {
             for (int i = 0; i < 26; i++) {
                 children[i] = nullptr;
@@ -2800,138 +2851,138 @@ private:
             count = 0;
             prefixCount = 0;
         }
-        
+
         ~TrieNode() {
             for (int i = 0; i < 26; i++) {
                 delete children[i];
             }
         }
     };
-    
+
     TrieNode* root;
-    
+
 public:
     Trie() {
         root = new TrieNode();
     }
-    
+
     ~Trie() {
         delete root;
     }
-    
+
     // 插入单词
     void insert(const string& word) {
         TrieNode* node = root;
-        
+
         for (char ch : word) {
             int index = ch - 'a';
-            
+
             if (node->children[index] == nullptr) {
                 node->children[index] = new TrieNode();
             }
-            
+
             node = node->children[index];
             node->prefixCount++;
         }
-        
+
         node->isEnd = true;
         node->count++;
     }
-    
+
     // 查找单词
     bool search(const string& word) {
         TrieNode* node = root;
-        
+
         for (char ch : word) {
             int index = ch - 'a';
-            
+
             if (node->children[index] == nullptr) {
                 return false;
             }
-            
+
             node = node->children[index];
         }
-        
+
         return node->isEnd;
     }
-    
+
     // 查找前缀
     bool startsWith(const string& prefix) {
         TrieNode* node = root;
-        
+
         for (char ch : prefix) {
             int index = ch - 'a';
-            
+
             if (node->children[index] == nullptr) {
                 return false;
             }
-            
+
             node = node->children[index];
         }
-        
+
         return true;
     }
-    
+
     // 获取以prefix为前缀的单词数量
     int countWordsWithPrefix(const string& prefix) {
         TrieNode* node = root;
-        
+
         for (char ch : prefix) {
             int index = ch - 'a';
-            
+
             if (node->children[index] == nullptr) {
                 return 0;
             }
-            
+
             node = node->children[index];
         }
-        
+
         return node->prefixCount;
     }
-    
+
     // 获取单词word的出现次数
     int getWordCount(const string& word) {
         TrieNode* node = root;
-        
+
         for (char ch : word) {
             int index = ch - 'a';
-            
+
             if (node->children[index] == nullptr) {
                 return 0;
             }
-            
+
             node = node->children[index];
         }
-        
+
         return node->count;
     }
-    
+
     // 删除单词
     bool erase(const string& word) {
         return deleteHelper(root, word, 0);
     }
-    
+
 private:
     bool deleteHelper(TrieNode* node, const string& word, int depth) {
         if (depth == word.length()) {
             if (!node->isEnd) return false;
-            
+
             node->isEnd = false;
             node->count--;
             return true;
         }
-        
+
         int index = word[depth] - 'a';
         TrieNode* child = node->children[index];
-        
+
         if (!child) return false;
-        
+
         bool shouldDeleteChild = deleteHelper(child, word, depth + 1);
-        
+
         if (shouldDeleteChild) {
             delete child;
             node->children[index] = nullptr;
-            
+
             bool hasChildren = false;
             for (int i = 0; i < 26; i++) {
                 if (node->children[i]) {
@@ -2939,43 +2990,43 @@ private:
                     break;
                 }
             }
-            
+
             return !hasChildren && !node->isEnd;
         }
-        
+
         return false;
     }
 };
 
 int main() {
     Trie trie;
-    
+
     // 插入单词
     trie.insert("hello");
     trie.insert("world");
     trie.insert("help");
     trie.insert("helper");
     trie.insert("helicopter");
-    
+
     // 测试查找
     cout << "查找 'hello': " << (trie.search("hello") ? "存在" : "不存在") << endl;
     cout << "查找 'word': " << (trie.search("word") ? "存在" : "不存在") << endl;
-    
+
     // 测试前缀查找
     cout << "前缀 'hel': " << (trie.startsWith("hel") ? "存在" : "不存在") << endl;
     cout << "前缀 'xyz': " << (trie.startsWith("xyz") ? "存在" : "不存在") << endl;
-    
+
     // 统计前缀单词数量
     cout << "以 'hel' 为前缀的单词数量: " << trie.countWordsWithPrefix("hel") << endl;
     cout << "以 'help' 为前缀的单词数量: " << trie.countWordsWithPrefix("help") << endl;
-    
+
     // 获取单词出现次数
     cout << "'hello' 出现次数: " << trie.getWordCount("hello") << endl;
-    
+
     // 删除单词
     trie.erase("hello");
     cout << "删除 'hello' 后查找: " << (trie.search("hello") ? "存在" : "不存在") << endl;
-    
+
     return 0;
 }
 ```
@@ -2990,7 +3041,7 @@ int main() {
 vector<string> getAllWordsWithPrefix(TrieNode* root, const string& prefix) {
     vector<string> result;
     TrieNode* node = root;
-    
+
     // 先找到前缀对应的节点
     for (char ch : prefix) {
         int index = ch - 'a';
@@ -2999,7 +3050,7 @@ vector<string> getAllWordsWithPrefix(TrieNode* root, const string& prefix) {
         }
         node = node->children[index];
     }
-    
+
     // 从该节点开始收集所有单词
     collectWords(node, prefix, result);
     return result;
@@ -3009,7 +3060,7 @@ void collectWords(TrieNode* node, string current, vector<string>& result) {
     if (node->isEnd) {
         result.push_back(current);
     }
-    
+
     for (int i = 0; i < 26; i++) {
         if (node->children[i]) {
             collectWords(node->children[i], current + char('a' + i), result);
@@ -3027,7 +3078,7 @@ void printWordsInOrder(TrieNode* node, string current) {
     if (node->isEnd) {
         cout << current << endl;
     }
-    
+
     for (int i = 0; i < 26; i++) {
         if (node->children[i]) {
             printWordsInOrder(node->children[i], current + char('a' + i));
@@ -3043,26 +3094,26 @@ void printWordsInOrder(TrieNode* node, string current) {
 ```cpp
 string findLongestCommonPrefix(vector<string>& words) {
     if (words.empty()) return "";
-    
+
     Trie trie;
     for (const string& word : words) {
         trie.insert(word);
     }
-    
+
     string prefix = "";
     TrieNode* node = trie.root;
-    
+
     while (true) {
         int childCount = 0;
         int nextIndex = -1;
-        
+
         for (int i = 0; i < 26; i++) {
             if (node->children[i]) {
                 childCount++;
                 nextIndex = i;
             }
         }
-        
+
         // 如果只有一个子节点且不是单词结束，继续
         if (childCount == 1 && !node->isEnd) {
             prefix += char('a' + nextIndex);
@@ -3071,7 +3122,7 @@ string findLongestCommonPrefix(vector<string>& words) {
             break;
         }
     }
-    
+
     return prefix;
 }
 ```
@@ -3086,7 +3137,7 @@ string findLongestCommonPrefix(vector<string>& words) {
 struct CompressedTrieNode {
     map<string, CompressedTrieNode*> children;  // 使用字符串作为键
     bool isEnd;
-    
+
     CompressedTrieNode() : isEnd(false) {}
 };
 ```
@@ -3100,21 +3151,21 @@ class ArrayTrie {
 private:
     static const int MAXNODES = 100000;
     static const int ALPHABET = 26;
-    
+
     int children[MAXNODES][ALPHABET];
     bool isEnd[MAXNODES];
     int nodeCount;
-    
+
 public:
     ArrayTrie() {
         memset(children, -1, sizeof(children));
         memset(isEnd, false, sizeof(isEnd));
         nodeCount = 1;  // 节点0是根节点
     }
-    
+
     void insert(const string& word) {
         int current = 0;
-        
+
         for (char ch : word) {
             int index = ch - 'a';
             if (children[current][index] == -1) {
@@ -3122,13 +3173,13 @@ public:
             }
             current = children[current][index];
         }
-        
+
         isEnd[current] = true;
     }
-    
+
     bool search(const string& word) {
         int current = 0;
-        
+
         for (char ch : word) {
             int index = ch - 'a';
             if (children[current][index] == -1) {
@@ -3136,7 +3187,7 @@ public:
             }
             current = children[current][index];
         }
-        
+
         return isEnd[current];
     }
 };
@@ -3174,6 +3225,7 @@ public:
 **题目类型**：统计给定前缀的单词数量、统计出现频率最高的单词等
 
 **应用示例**：
+
 ```cpp
 // 统计以某个前缀开头的单词数量
 int countPrefixWords(TrieNode* root, const string& prefix) {
@@ -3194,12 +3246,13 @@ int countPrefixWords(TrieNode* root, const string& prefix) {
 **题目类型**：查找所有以给定前缀开头的单词、查找最长公共前缀等
 
 **应用示例**：
+
 ```cpp
 // 查找所有以prefix为前缀的单词
 vector<string> findWordsWithPrefix(TrieNode* root, const string& prefix) {
     vector<string> result;
     TrieNode* node = root;
-    
+
     // 找到前缀对应的节点
     for (char ch : prefix) {
         int index = ch - 'a';
@@ -3208,7 +3261,7 @@ vector<string> findWordsWithPrefix(TrieNode* root, const string& prefix) {
         }
         node = node->children[index];
     }
-    
+
     // 收集所有单词
     collectAllWords(node, prefix, result);
     return result;
@@ -3220,6 +3273,7 @@ vector<string> findWordsWithPrefix(TrieNode* root, const string& prefix) {
 **题目类型**：在给定的数组中，找到两个数的异或值最大
 
 **应用示例**：
+
 ```cpp
 // 01字典树节点
 struct XORTrieNode {
@@ -3264,6 +3318,7 @@ int findMaxXOR(XORTrieNode* root, int num) {
 **题目类型**：给定起始单词和结束单词，找到最短的转换序列
 
 **应用示例**：
+
 ```cpp
 // 使用字典树优化单词查找
 class Solution {
@@ -3273,18 +3328,18 @@ public:
         for (const string& word : wordList) {
             trie.insert(word);
         }
-        
+
         if (!trie.search(endWord)) return 0;
-        
+
         queue<pair<string, int>> q;
         q.push({beginWord, 1});
-        
+
         while (!q.empty()) {
             auto curr = q.front();
             q.pop();
-            
+
             if (curr.first == endWord) return curr.second;
-            
+
             // 生成所有可能的下一个单词
             for (int i = 0; i < curr.first.size(); i++) {
                 char original = curr.first[i];
@@ -3299,7 +3354,7 @@ public:
                 curr.first[i] = original;
             }
         }
-        
+
         return 0;
     }
 };
@@ -3310,13 +3365,14 @@ public:
 **题目类型**：在文本中同时查找多个模式串
 
 **应用示例**：
+
 ```cpp
 // AC自动机（基于字典树的多模式匹配算法）
 struct ACMNode {
     ACMNode* children[26];
     ACMNode* fail;
     vector<int> output;
-    
+
     ACMNode() {
         for (int i = 0; i < 26; i++) {
             children[i] = nullptr;
@@ -3339,7 +3395,7 @@ void buildACAutomaton(ACMNode* root, vector<string>& patterns) {
         }
         node->output.push_back(i);
     }
-    
+
     // 构建失败指针
     queue<ACMNode*> q;
     for (int i = 0; i < 26; i++) {
@@ -3348,30 +3404,30 @@ void buildACAutomaton(ACMNode* root, vector<string>& patterns) {
             q.push(root->children[i]);
         }
     }
-    
+
     while (!q.empty()) {
         ACMNode* current = q.front();
         q.pop();
-        
+
         for (int i = 0; i < 26; i++) {
             if (current->children[i] != nullptr) {
                 ACMNode* child = current->children[i];
                 ACMNode* failNode = current->fail;
-                
+
                 while (failNode != nullptr && failNode->children[i] == nullptr) {
                     failNode = failNode->fail;
                 }
-                
+
                 if (failNode == nullptr) {
                     child->fail = root;
                 } else {
                     child->fail = failNode->children[i];
                 }
-                
+
                 child->output.insert(child->output.end(), 
                                    child->fail->output.begin(), 
                                    child->fail->output.end());
-                
+
                 q.push(child);
             }
         }
@@ -3384,6 +3440,7 @@ void buildACAutomaton(ACMNode* root, vector<string>& patterns) {
 **题目类型**：通过插入、删除、替换操作将一个字符串变为另一个字符串的最小操作数
 
 **应用示例**：
+
 ```cpp
 // 使用字典树优化编辑距离计算
 class EditDistanceTrie {
@@ -3391,7 +3448,7 @@ private:
     struct TrieNode {
         TrieNode* children[26];
         bool isEnd;
-        
+
         TrieNode() {
             for (int i = 0; i < 26; i++) {
                 children[i] = nullptr;
@@ -3399,9 +3456,9 @@ private:
             isEnd = false;
         }
     };
-    
+
     TrieNode* root;
-    
+
 public:
     void insert(const string& word) {
         TrieNode* node = root;
@@ -3414,20 +3471,20 @@ public:
         }
         node->isEnd = true;
     }
-    
+
     // 查找编辑距离不超过k的单词
     vector<string> findWordsWithinEditDistance(const string& word, int k) {
         vector<string> result;
         vector<vector<int>> dp(word.size() + 1, vector<int>(1, 0));
-        
+
         for (int i = 0; i <= word.size(); i++) {
             dp[i][0] = i;
         }
-        
+
         searchHelper(root, word, dp, result);
         return result;
     }
-    
+
 private:
     void searchHelper(TrieNode* node, const string& word, 
                       vector<vector<int>>& dp, vector<string>& result, 
@@ -3435,26 +3492,26 @@ private:
         if (node->isEnd && dp[word.size()][0] <= 2) {
             result.push_back(current);
         }
-        
+
         for (int i = 0; i < 26; i++) {
             if (node->children[i] != nullptr) {
                 char ch = 'a' + i;
                 vector<vector<int>> newDP(word.size() + 1, vector<int>(dp[0].size() + 1, 0));
-                
+
                 newDP[0][0] = dp[0][0] + 1;
-                
+
                 for (int j = 1; j <= word.size(); j++) {
                     newDP[j][0] = dp[j][0] + 1;
                     newDP[0][j] = j;
                 }
-                
+
                 for (int j = 1; j <= word.size(); j++) {
                     int cost = (word[j-1] == ch) ? 0 : 1;
                     newDP[j][1] = min({dp[j-1][1] + 1,        // 删除
                                       dp[j][0] + 1,           // 插入
                                       dp[j-1][0] + cost});     // 替换
                 }
-                
+
                 searchHelper(node->children[i], word, newDP, result, current + ch);
             }
         }
@@ -3467,23 +3524,24 @@ private:
 #### 1. 空间优化技巧
 
 **使用数组代替指针**：
+
 ```cpp
 class ArrayTrie {
 private:
     static const int MAXNODES = 100000;
     static const int ALPHABET = 26;
-    
+
     int children[MAXNODES][ALPHABET];
     bool isEnd[MAXNODES];
     int nodeCount;
-    
+
 public:
     ArrayTrie() {
         memset(children, -1, sizeof(children));
         memset(isEnd, false, sizeof(isEnd));
         nodeCount = 1;
     }
-    
+
     void insert(const string& word) {
         int current = 0;
         for (char ch : word) {
@@ -3501,21 +3559,22 @@ public:
 #### 2. 位优化技巧
 
 **使用位掩码表示子节点**：
+
 ```cpp
 struct BitTrieNode {
     int children;  // 26位掩码，每一位表示一个子节点是否存在
     bool isEnd;
-    
+
     BitTrieNode() : children(0), isEnd(false) {}
-    
+
     bool hasChild(char ch) {
         return children & (1 << (ch - 'a'));
     }
-    
+
     void setChild(char ch) {
         children |= (1 << (ch - 'a'));
     }
-    
+
     void clearChild(char ch) {
         children &= ~(1 << (ch - 'a'));
     }
@@ -3525,27 +3584,28 @@ struct BitTrieNode {
 #### 3. 内存池优化
 
 **使用内存池减少动态内存分配**：
+
 ```cpp
 class MemoryPoolTrie {
 private:
     struct TrieNode {
         TrieNode* children[26];
         bool isEnd;
-        
+
         static TrieNode* create() {
             static TrieNode pool[100000];
             static int poolIndex = 0;
             return &pool[poolIndex++];
         }
     };
-    
+
     TrieNode* root;
-    
+
 public:
     MemoryPoolTrie() {
         root = TrieNode::create();
     }
-    
+
     void insert(const string& word) {
         TrieNode* node = root;
         for (char ch : word) {
@@ -3581,20 +3641,20 @@ private:
     struct Node {
         Node* children[2];
         int count;
-        
+
         Node() {
             children[0] = children[1] = nullptr;
             count = 0;
         }
     };
-    
+
     Node* root;
-    
+
 public:
     BinaryTrie() {
         root = new Node();
     }
-    
+
     void insert(int num) {
         Node* node = root;
         for (int i = 30; i >= 0; i--) {
@@ -3606,7 +3666,7 @@ public:
             node->count++;
         }
     }
-    
+
     void remove(int num) {
         Node* node = root;
         for (int i = 30; i >= 0; i--) {
@@ -3615,15 +3675,15 @@ public:
             node->count--;
         }
     }
-    
+
     int findMaxXOR(int num) {
         Node* node = root;
         int maxXOR = 0;
-        
+
         for (int i = 30; i >= 0; i--) {
             int bit = (num >> i) & 1;
             int toggleBit = 1 - bit;
-            
+
             if (node->children[toggleBit] != nullptr && 
                 node->children[toggleBit]->count > 0) {
                 maxXOR += (1 << i);
@@ -3632,18 +3692,18 @@ public:
                 node = node->children[bit];
             }
         }
-        
+
         return maxXOR;
     }
-    
+
     // 查找小于等于num的最大数
     int findMaxLessOrEqual(int num) {
         Node* node = root;
         int result = 0;
-        
+
         for (int i = 30; i >= 0; i--) {
             int bit = (num >> i) & 1;
-            
+
             if (bit == 1 && node->children[0] != nullptr && 
                 node->children[0]->count > 0) {
                 node = node->children[0];
@@ -3655,7 +3715,7 @@ public:
                 return -1;  // 没有找到
             }
         }
-        
+
         return result;
     }
 };
@@ -3671,27 +3731,27 @@ private:
     struct Node {
         map<string, Node*> children;
         bool isEnd;
-        
+
         Node() : isEnd(false) {}
     };
-    
+
     Node* root;
-    
+
 public:
     CompressedTrie() {
         root = new Node();
     }
-    
+
     void insert(const string& word) {
         Node* node = root;
         string remaining = word;
-        
+
         while (!remaining.empty()) {
             bool found = false;
-            
+
             for (auto& [edge, child] : node->children) {
                 int commonPrefix = getCommonPrefix(remaining, edge);
-                
+
                 if (commonPrefix > 0) {
                     if (commonPrefix == edge.length()) {
                         // 完全匹配现有边
@@ -3703,28 +3763,28 @@ public:
                         // 需要分割现有边
                         Node* newNode = new Node();
                         Node* splitNode = new Node();
-                        
+
                         string splitEdge = edge.substr(commonPrefix);
                         splitNode->children = child->children;
                         splitNode->isEnd = child->isEnd;
-                        
+
                         newNode->children[splitEdge] = splitNode;
                         newNode->isEnd = (commonPrefix == remaining.length());
-                        
+
                         node->children.erase(edge);
                         node->children[edge.substr(0, commonPrefix)] = newNode;
-                        
+
                         if (commonPrefix < remaining.length()) {
                             remaining = remaining.substr(commonPrefix);
                             node = newNode;
                         }
-                        
+
                         found = true;
                         break;
                     }
                 }
             }
-            
+
             if (!found) {
                 node->children[remaining] = new Node();
                 node->children[remaining]->isEnd = true;
@@ -3732,16 +3792,16 @@ public:
             }
         }
     }
-    
+
 private:
     int getCommonPrefix(const string& str1, const string& str2) {
         int common = 0;
         int minLength = min(str1.length(), str2.length());
-        
+
         while (common < minLength && str1[common] == str2[common]) {
             common++;
         }
-        
+
         return common;
     }
 };
@@ -3758,7 +3818,7 @@ private:
         Node* children[26];
         bool isEnd;
         int version;
-        
+
         Node() {
             for (int i = 0; i < 26; i++) {
                 children[i] = nullptr;
@@ -3766,7 +3826,7 @@ private:
             isEnd = false;
             version = 0;
         }
-        
+
         Node(const Node* other, int newVersion) {
             for (int i = 0; i < 26; i++) {
                 children[i] = other->children[i];
@@ -3775,23 +3835,23 @@ private:
             version = newVersion;
         }
     };
-    
+
     vector<Node*> roots;  // 每个版本的根节点
     int currentVersion;
-    
+
 public:
     PersistentTrie() {
         roots.push_back(new Node());
         currentVersion = 0;
     }
-    
+
     void insert(const string& word) {
         Node* newRoot = new Node(roots[currentVersion], currentVersion + 1);
         Node* node = newRoot;
-        
+
         for (char ch : word) {
             int index = ch - 'a';
-            
+
             if (node->children[index] == nullptr || 
                 node->children[index]->version <= currentVersion) {
                 // 创建新版本节点
@@ -3804,40 +3864,40 @@ public:
                 // 需要复制现有节点
                 node->children[index] = new Node(node->children[index], currentVersion + 1);
             }
-            
+
             node = node->children[index];
         }
-        
+
         node->isEnd = true;
         roots.push_back(newRoot);
         currentVersion++;
     }
-    
+
     bool search(const string& word, int version = -1) {
         if (version == -1) {
             version = currentVersion;
         }
-        
+
         if (version >= roots.size()) {
             return false;
         }
-        
+
         Node* node = roots[version];
-        
+
         for (char ch : word) {
             int index = ch - 'a';
-            
+
             if (node->children[index] == nullptr || 
                 node->children[index]->version > version) {
                 return false;
             }
-            
+
             node = node->children[index];
         }
-        
+
         return node->isEnd;
     }
-    
+
     int getVersionCount() {
         return currentVersion + 1;
     }
@@ -3855,7 +3915,7 @@ private:
         Node* children[26];
         Node* fail;
         vector<int> output;
-        
+
         Node() {
             for (int i = 0; i < 26; i++) {
                 children[i] = nullptr;
@@ -3863,18 +3923,18 @@ private:
             fail = nullptr;
         }
     };
-    
+
     Node* root;
     vector<int> patternLengths;
-    
+
 public:
     AhoCorasick() {
         root = new Node();
     }
-    
+
     void insert(const string& pattern, int patternId) {
         Node* node = root;
-        
+
         for (char ch : pattern) {
             int index = ch - 'a';
             if (node->children[index] == nullptr) {
@@ -3882,14 +3942,14 @@ public:
             }
             node = node->children[index];
         }
-        
+
         node->output.push_back(patternId);
         patternLengths.push_back(pattern.length());
     }
-    
+
     void buildFailureLinks() {
         queue<Node*> q;
-        
+
         // 初始化第一层节点的失败指针
         for (int i = 0; i < 26; i++) {
             if (root->children[i] != nullptr) {
@@ -3897,22 +3957,22 @@ public:
                 q.push(root->children[i]);
             }
         }
-        
+
         // BFS构建失败指针
         while (!q.empty()) {
             Node* current = q.front();
             q.pop();
-            
+
             for (int i = 0; i < 26; i++) {
                 if (current->children[i] != nullptr) {
                     Node* child = current->children[i];
                     Node* failNode = current->fail;
-                    
+
                     // 找到失败指针
                     while (failNode != nullptr && failNode->children[i] == nullptr) {
                         failNode = failNode->fail;
                     }
-                    
+
                     if (failNode == nullptr) {
                         child->fail = root;
                     } else {
@@ -3922,38 +3982,38 @@ public:
                                            child->fail->output.begin(), 
                                            child->fail->output.end());
                     }
-                    
+
                     q.push(child);
                 }
             }
         }
     }
-    
+
     vector<pair<int, int>> search(const string& text) {
         vector<pair<int, int>> result;  // (位置, 模式ID)
         Node* current = root;
-        
+
         for (int i = 0; i < text.length(); i++) {
             int index = text[i] - 'a';
-            
+
             // 找到下一个匹配的节点
             while (current != nullptr && current->children[index] == nullptr) {
                 current = current->fail;
             }
-            
+
             if (current == nullptr) {
                 current = root;
                 continue;
             }
-            
+
             current = current->children[index];
-            
+
             // 输出所有匹配的模式
             for (int patternId : current->output) {
                 result.push_back({i - patternLengths[patternId] + 1, patternId});
             }
         }
-        
+
         return result;
     }
 };
@@ -3969,7 +4029,7 @@ private:
     vector<int> base;
     vector<int> check;
     int size;
-    
+
 public:
     DoubleArrayTrie(int maxSize = 100000) {
         base.resize(maxSize, 0);
@@ -3978,21 +4038,21 @@ public:
         base[0] = 1;
         check[0] = -1;
     }
-    
+
     void insert(const string& word) {
         int currentState = 0;
         int i = 0;
-        
+
         while (i < word.length()) {
             char c = word[i];
             int next = base[currentState] + (c - 'a' + 1);
-            
+
             if (next >= base.size()) {
                 int newSize = base.size() * 2;
                 base.resize(newSize, 0);
                 check.resize(newSize, -1);
             }
-            
+
             if (check[next] == -1) {
                 check[next] = currentState;
                 base[next] = -1;
@@ -4007,26 +4067,26 @@ public:
                 i = 0;
             }
         }
-        
+
         base[currentState] = 0;  // 终止状态
     }
-    
+
     bool search(const string& word) {
         int currentState = 0;
-        
+
         for (char c : word) {
             int next = base[currentState] + (c - 'a' + 1);
-            
+
             if (next >= base.size() || check[next] != currentState) {
                 return false;
             }
-            
+
             currentState = next;
         }
-        
+
         return base[currentState] == 0;
     }
-    
+
 private:
     void resolveConflict(int state, char c) {
         // 冲突解决逻辑
@@ -4060,9 +4120,11 @@ private:
 ## 封装(Encapsulation)
 
 ### 概念
+
 封装是面向对象编程的基本特性之一，它将数据和操作数据的方法捆绑在一起，隐藏对象的内部实现细节，只对外提供公共接口。
 
 ### 访问修饰符
+
 - `public`: 公共成员，可以在任何地方访问
 - `private`: 私有成员，只能在类内部访问
 - `protected`: 保护成员，可以在类内部和派生类中访问
@@ -4079,7 +4141,7 @@ private:
     string name;
     int age;
     double score;
-    
+
 public:
     // 构造函数
     Student(string n, int a, double s) {
@@ -4087,36 +4149,36 @@ public:
         age = a;
         score = s;
     }
-    
+
     // 公共接口方法
     void setName(string n) {
         name = n;
     }
-    
+
     string getName() {
         return name;
     }
-    
+
     void setAge(int a) {
         if (a > 0) {  // 数据验证
             age = a;
         }
     }
-    
+
     int getAge() {
         return age;
     }
-    
+
     void setScore(double s) {
         if (s >= 0 && s <= 100) {  // 数据验证
             score = s;
         }
     }
-    
+
     double getScore() {
         return score;
     }
-    
+
     void displayInfo() {
         cout << "姓名: " << name << ", 年龄: " << age << ", 分数: " << score << endl;
     }
@@ -4125,16 +4187,17 @@ public:
 int main() {
     Student stu("张三", 18, 95.5);
     stu.displayInfo();
-    
+
     stu.setAge(19);
     stu.setScore(88.0);
     stu.displayInfo();
-    
+
     return 0;
 }
 ```
 
 ### 封装的优势
+
 1. **数据保护**: 防止外部代码直接修改对象的内部状态
 2. **数据验证**: 在setter方法中添加数据验证逻辑
 3. **代码维护**: 修改内部实现不会影响外部代码
@@ -4143,9 +4206,11 @@ int main() {
 ## 继承(Inheritance)
 
 ### 概念
+
 继承允许一个类(派生类)获取另一个类(基类)的属性和方法，实现代码重用和扩展。
 
 ### 继承语法
+
 ```cpp
 class 派生类 : 继承方式 基类 {
     // 派生类的新成员
@@ -4153,6 +4218,7 @@ class 派生类 : 继承方式 基类 {
 ```
 
 ### 继承方式
+
 - `public继承`: 基类的public成员在派生类中仍为public，protected成员仍为protected
 - `protected继承`: 基类的public和protected成员在派生类中都变为protected
 - `private继承`: 基类的public和protected成员在派生类中都变为private
@@ -4169,18 +4235,18 @@ class Animal {
 protected:
     string name;
     int age;
-    
+
 public:
     Animal(string n, int a) : name(n), age(a) {}
-    
+
     void eat() {
         cout << name << "正在吃东西" << endl;
     }
-    
+
     void sleep() {
         cout << name << "正在睡觉" << endl;
     }
-    
+
     virtual void makeSound() {  // 虚函数，为多态做准备
         cout << name << "发出声音" << endl;
     }
@@ -4190,18 +4256,18 @@ public:
 class Dog : public Animal {
 private:
     string breed;
-    
+
 public:
     Dog(string n, int a, string b) : Animal(n, a), breed(b) {}
-    
+
     void bark() {
         cout << name << "汪汪叫" << endl;
     }
-    
+
     void makeSound() override {  // 重写虚函数
         cout << name << "汪汪汪！" << endl;
     }
-    
+
     void displayInfo() {
         cout << "狗的名字: " << name << ", 年龄: " << age << ", 品种: " << breed << endl;
     }
@@ -4211,18 +4277,18 @@ public:
 class Cat : public Animal {
 private:
     bool isIndoor;
-    
+
 public:
     Cat(string n, int a, bool indoor) : Animal(n, a), isIndoor(indoor) {}
-    
+
     void meow() {
         cout << name << "喵喵叫" << endl;
     }
-    
+
     void makeSound() override {  // 重写虚函数
         cout << name << "喵喵喵！" << endl;
     }
-    
+
     void displayInfo() {
         cout << "猫的名字: " << name << ", 年龄: " << age 
              << ", 是否室内猫: " << (isIndoor ? "是" : "否") << endl;
@@ -4232,26 +4298,27 @@ public:
 int main() {
     Dog dog("旺财", 3, "金毛");
     Cat cat("咪咪", 2, true);
-    
+
     dog.eat();     // 继承自基类的方法
     dog.sleep();   // 继承自基类的方法
     dog.bark();    // 派生类特有的方法
     dog.makeSound(); // 重写的方法
     dog.displayInfo();
-    
+
     cout << "--------------------" << endl;
-    
+
     cat.eat();     // 继承自基类的方法
     cat.sleep();   // 继承自基类的方法
     cat.meow();    // 派生类特有的方法
     cat.makeSound(); // 重写的方法
     cat.displayInfo();
-    
+
     return 0;
 }
 ```
 
 ### 继承的优势
+
 1. **代码重用**: 避免重复编写相同的代码
 2. **逻辑层次**: 建立清晰的类层次结构
 3. **扩展性**: 可以在不修改基类的情况下扩展功能
@@ -4260,18 +4327,22 @@ int main() {
 ## 多态(Polymorphism)
 
 ### 概念
+
 多态允许不同类的对象对相同的消息做出不同的响应，主要通过虚函数实现。
 
 ### 多态的类型
+
 1. **编译时多态**: 函数重载、运算符重载
 2. **运行时多态**: 虚函数实现
 
 ### 虚函数
+
 - 使用`virtual`关键字声明
 - 在派生类中使用`override`关键字重写
 - 通过基类指针或引用调用时，会根据实际对象类型调用相应函数
 
 ### 纯虚函数和抽象类
+
 - 纯虚函数：`virtual void functionName() = 0;`
 - 包含纯虚函数的类称为抽象类
 - 抽象类不能实例化，只能作为基类
@@ -4288,16 +4359,16 @@ using namespace std;
 class Shape {
 protected:
     string name;
-    
+
 public:
     Shape(string n) : name(n) {}
-    
+
     virtual ~Shape() {}  // 虚析构函数，确保正确释放派生类对象
-    
+
     // 纯虚函数
     virtual double getArea() = 0;
     virtual double getPerimeter() = 0;
-    
+
     // 普通虚函数
     virtual void display() {
         cout << "这是一个" << name << endl;
@@ -4308,18 +4379,18 @@ public:
 class Circle : public Shape {
 private:
     double radius;
-    
+
 public:
     Circle(double r) : Shape("圆形"), radius(r) {}
-    
+
     double getArea() override {
         return 3.14159 * radius * radius;
     }
-    
+
     double getPerimeter() override {
         return 2 * 3.14159 * radius;
     }
-    
+
     void display() override {
         cout << "圆形，半径: " << radius << endl;
         cout << "面积: " << getArea() << ", 周长: " << getPerimeter() << endl;
@@ -4330,18 +4401,18 @@ public:
 class Rectangle : public Shape {
 private:
     double width, height;
-    
+
 public:
     Rectangle(double w, double h) : Shape("矩形"), width(w), height(h) {}
-    
+
     double getArea() override {
         return width * height;
     }
-    
+
     double getPerimeter() override {
         return 2 * (width + height);
     }
-    
+
     void display() override {
         cout << "矩形，宽: " << width << ", 高: " << height << endl;
         cout << "面积: " << getArea() << ", 周长: " << getPerimeter() << endl;
@@ -4352,21 +4423,21 @@ public:
 class Triangle : public Shape {
 private:
     double a, b, c;
-    
+
 public:
     Triangle(double side1, double side2, double side3) 
         : Shape("三角形"), a(side1), b(side2), c(side3) {}
-    
+
     double getArea() override {
         // 使用海伦公式
         double s = getPerimeter() / 2;
         return sqrt(s * (s - a) * (s - b) * (s - c));
     }
-    
+
     double getPerimeter() override {
         return a + b + c;
     }
-    
+
     void display() override {
         cout << "三角形，边长: " << a << ", " << b << ", " << c << endl;
         cout << "面积: " << getArea() << ", 周长: " << getPerimeter() << endl;
@@ -4387,24 +4458,24 @@ int main() {
     Circle circle(5.0);
     Rectangle rectangle(4.0, 6.0);
     Triangle triangle(3.0, 4.0, 5.0);
-    
+
     // 使用基类指针数组存储不同派生类对象
     vector<Shape*> shapes;
     shapes.push_back(&circle);
     shapes.push_back(&rectangle);
     shapes.push_back(&triangle);
-    
+
     // 多态调用：根据实际对象类型调用相应的函数
     cout << "=== 多态演示 ===" << endl;
     for (Shape* shape : shapes) {
         shape->display();
         cout << "--------------------" << endl;
     }
-    
+
     // 计算总面积
     double totalArea = calculateTotalArea(shapes);
     cout << "所有图形的总面积: " << totalArea << endl;
-    
+
     return 0;
 }
 ```
@@ -4418,26 +4489,26 @@ using namespace std;
 class Complex {
 private:
     double real, imag;
-    
+
 public:
     Complex(double r = 0, double i = 0) : real(r), imag(i) {}
-    
+
     // 运算符重载：加法
     Complex operator+(const Complex& other) {
         return Complex(real + other.real, imag + other.imag);
     }
-    
+
     // 运算符重载：减法
     Complex operator-(const Complex& other) {
         return Complex(real - other.real, imag - other.imag);
     }
-    
+
     // 运算符重载：乘法
     Complex operator*(const Complex& other) {
         return Complex(real * other.real - imag * other.imag,
                       real * other.imag + imag * other.real);
     }
-    
+
     // 运算符重载：输出
     friend ostream& operator<<(ostream& os, const Complex& c) {
         os << c.real;
@@ -4445,7 +4516,7 @@ public:
         os << c.imag << "i";
         return os;
     }
-    
+
     // 运算符重载：输入
     friend istream& operator>>(istream& is, Complex& c) {
         is >> c.real >> c.imag;
@@ -4456,22 +4527,23 @@ public:
 int main() {
     Complex c1(3.0, 4.0);
     Complex c2(1.0, 2.0);
-    
+
     Complex sum = c1 + c2;
     Complex diff = c1 - c2;
     Complex product = c1 * c2;
-    
+
     cout << "c1 = " << c1 << endl;
     cout << "c2 = " << c2 << endl;
     cout << "c1 + c2 = " << sum << endl;
     cout << "c1 - c2 = " << diff << endl;
     cout << "c1 * c2 = " << product << endl;
-    
+
     return 0;
 }
 ```
 
 ### 多态的优势
+
 1. **灵活性**: 同一个接口可以处理不同类型的对象
 2. **扩展性**: 添加新的派生类不需要修改现有代码
 3. **代码简洁**: 减少条件判断，提高代码可读性
@@ -4492,15 +4564,15 @@ protected:
     string name;
     int id;
     double baseSalary;
-    
+
 public:
     Employee(string n, int i, double salary) 
         : name(n), id(i), baseSalary(salary) {}
-    
+
     virtual ~Employee() {}
-    
+
     virtual double calculateSalary() = 0;  // 纯虚函数
-    
+
     virtual void displayInfo() {
         cout << "姓名: " << name << ", 工号: " << id;
     }
@@ -4511,11 +4583,11 @@ class RegularEmployee : public Employee {
 public:
     RegularEmployee(string n, int i, double salary) 
         : Employee(n, i, salary) {}
-    
+
     double calculateSalary() override {
         return baseSalary;
     }
-    
+
     void displayInfo() override {
         Employee::displayInfo();
         cout << ", 职位: 普通员工, 工资: " << calculateSalary() << endl;
@@ -4526,15 +4598,15 @@ public:
 class Manager : public Employee {
 private:
     double bonus;
-    
+
 public:
     Manager(string n, int i, double salary, double b) 
         : Employee(n, i, salary), bonus(b) {}
-    
+
     double calculateSalary() override {
         return baseSalary + bonus;
     }
-    
+
     void displayInfo() override {
         Employee::displayInfo();
         cout << ", 职位: 经理, 工资: " << calculateSalary() 
@@ -4547,19 +4619,19 @@ class Salesperson : public Employee {
 private:
     double commissionRate;
     double salesAmount;
-    
+
 public:
     Salesperson(string n, int i, double salary, double rate, double amount) 
         : Employee(n, i, salary), commissionRate(rate), salesAmount(amount) {}
-    
+
     double calculateSalary() override {
         return baseSalary + salesAmount * commissionRate;
     }
-    
+
     void setSalesAmount(double amount) {
         salesAmount = amount;
     }
-    
+
     void displayInfo() override {
         Employee::displayInfo();
         cout << ", 职位: 销售员, 工资: " << calculateSalary() 
@@ -4572,12 +4644,12 @@ public:
 class HRSystem {
 private:
     vector<unique_ptr<Employee>> employees;
-    
+
 public:
     void addEmployee(unique_ptr<Employee> emp) {
         employees.push_back(move(emp));
     }
-    
+
     void displayAllEmployees() {
         cout << "=== 员工信息 ===" << endl;
         for (const auto& emp : employees) {
@@ -4585,7 +4657,7 @@ public:
         }
         cout << endl;
     }
-    
+
     double calculateTotalSalary() {
         double total = 0;
         for (const auto& emp : employees) {
@@ -4593,7 +4665,7 @@ public:
         }
         return total;
     }
-    
+
     void updateSalespersonCommission(int id, double newAmount) {
         for (const auto& emp : employees) {
             Salesperson* sp = dynamic_cast<Salesperson*>(emp.get());
@@ -4607,18 +4679,18 @@ public:
 
 int main() {
     HRSystem hrSystem;
-    
+
     // 添加不同类型的员工
     hrSystem.addEmployee(make_unique<RegularEmployee>("张三", 1001, 5000));
     hrSystem.addEmployee(make_unique<Manager>("李四", 1002, 8000, 2000));
     hrSystem.addEmployee(make_unique<Salesperson>("王五", 1003, 4000, 0.1, 10000));
-    
+
     // 显示所有员工信息
     hrSystem.displayAllEmployees();
-    
+
     // 计算总工资支出
     cout << "公司总工资支出: " << hrSystem.calculateTotalSalary() << endl;
-    
+
     return 0;
 }
 ```
@@ -4642,6 +4714,7 @@ int main() {
 ### 形式化定义
 
 设图 $G=(V,E)$，如果存在顶点集 $V$ 的一个划分 $V=V_1 \cup V_2$，满足：
+
 1. $V_1 \cap V_2 = \emptyset$（两个子集不相交）
 2. 对于任意边 $(u,v) \in E$，有 $u \in V_1$ 且 $v \in V_2$，或者 $u \in V_2$ 且 $v \in V_1$
 
@@ -4650,6 +4723,7 @@ int main() {
 ### 直观理解
 
 二分图可以理解为"两类顶点之间的连接关系图"，同一类顶点之间没有边相连。例如：
+
 - 男生和女生之间的朋友关系图（男生只和女生做朋友，女生只和男生做朋友）
 - 工人和任务之间的分配关系图（工人只分配任务，任务只分配给工人）
 
@@ -4677,6 +4751,7 @@ C --- |
 ### 染色法
 
 二分图判定的最常用方法是染色法。其核心思想是：
+
 1. 任意选择一个未染色的顶点，将其染成颜色1
 2. 将其所有未染色的邻居染成颜色2
 3. 将这些邻居的未染色邻居染成颜色1
@@ -4699,17 +4774,17 @@ int color[N];      // 0表示未染色，1和2表示两种颜色
 // BFS染色法判断二分图
 bool isBipartite(int n) {
     queue<int> q;
-    
+
     // 可能存在多个连通分量，所以需要遍历所有顶点
     for (int i = 1; i <= n; i++) {
         if (color[i] == 0) {  // 未染色
             q.push(i);
             color[i] = 1;     // 染成颜色1
-            
+
             while (!q.empty()) {
                 int u = q.front();
                 q.pop();
-                
+
                 for (int v : g[u]) {
                     if (color[v] == 0) {  // 未染色，染成相反颜色
                         color[v] = 3 - color[u];  // 1变2，2变1
@@ -4721,14 +4796,14 @@ bool isBipartite(int n) {
             }
         }
     }
-    
+
     return true;  // 所有点都成功染色，是二分图
 }
 
 // DFS染色法判断二分图
 bool dfs(int u, int c) {
     color[u] = c;
-    
+
     for (int v : g[u]) {
         if (color[v] == 0) {  // 未染色
             if (!dfs(v, 3 - c)) {  // 染成相反颜色
@@ -4738,7 +4813,7 @@ bool dfs(int u, int c) {
             return false;  // 不是二分图
         }
     }
-    
+
     return true;
 }
 
@@ -4756,20 +4831,20 @@ bool isBipartiteDFS(int n) {
 int main() {
     int n, m;  // n个顶点，m条边
     cin >> n >> m;
-    
+
     for (int i = 0; i < m; i++) {
         int u, v;
         cin >> u >> v;
         g[u].push_back(v);
         g[v].push_back(u);  // 无向图
     }
-    
+
     if (isBipartite(n)) {
         cout << "该图是二分图" << endl;
     } else {
         cout << "该图不是二分图" << endl;
     }
-    
+
     return 0;
 }
 ```
@@ -4812,7 +4887,7 @@ bool dfs(int u) {
     for (int v : g[u]) {
         if (!visited[v]) {  // 如果该右部顶点本轮未访问
             visited[v] = true;
-            
+
             // 如果v未匹配，或者能为v的当前匹配对象找到新的匹配
             if (match[v] == 0 || dfs(match[v])) {
                 match[v] = u;  // 建立新的匹配
@@ -4826,31 +4901,31 @@ bool dfs(int u) {
 // 匈牙利算法求最大匹配
 int hungarian(int n, int m) {
     int result = 0;  // 匹配数
-    
+
     for (int i = 1; i <= n; i++) {  // 遍历左部顶点
         memset(visited, false, sizeof(visited));  // 重置访问标记
-        
+
         if (dfs(i)) {  // 如果能为i找到匹配
             result++;
         }
     }
-    
+
     return result;
 }
 
 int main() {
     int n, m, e;  // n个左部顶点，m个右部顶点，e条边
     cin >> n >> m >> e;
-    
+
     for (int i = 0; i < e; i++) {
         int u, v;
         cin >> u >> v;
         g[u].push_back(v);  // 从左部到右部的边
     }
-    
+
     int maxMatch = hungarian(n, m);
     cout << "最大匹配数: " << maxMatch << endl;
-    
+
     // 输出匹配方案
     cout << "匹配方案:" << endl;
     for (int i = 1; i <= m; i++) {
@@ -4858,7 +4933,7 @@ int main() {
             cout << "左部顶点" << match[i] << " -> 右部顶点" << i << endl;
         }
     }
-    
+
     return 0;
 }
 ```
@@ -4915,7 +4990,7 @@ bool dfs(int u) {
 void bfs(int n) {
     queue<int> q;
     bool reachable[N] = {false};
-    
+
     // 找到所有左部未匹配点，加入队列
     for (int i = 1; i <= n; i++) {
         bool isMatched = false;
@@ -4930,15 +5005,15 @@ void bfs(int n) {
             reachable[i] = true;
         }
     }
-    
+
     while (!q.empty()) {
         int u = q.front();
         q.pop();
-        
+
         for (int v : g[u]) {
             if (!reachable[v]) {
                 reachable[v] = true;
-                
+
                 // 如果v匹配了某个左部顶点w，则将w加入队列
                 if (match[v] != 0 && !reachable[match[v]]) {
                     reachable[match[v]] = true;
@@ -4947,14 +5022,14 @@ void bfs(int n) {
             }
         }
     }
-    
+
     // 根据König定理构造最小点覆盖
     for (int i = 1; i <= n; i++) {
         if (!reachable[i]) {
             inLeftSide[i] = true;  // 左部不可达顶点
         }
     }
-    
+
     for (int i = 1; i <= n; i++) {
         if (reachable[i]) {
             inRightSide[i] = true;  // 右部可达顶点
@@ -4965,13 +5040,13 @@ void bfs(int n) {
 int main() {
     int n, m, e;  // n个左部顶点，m个右部顶点，e条边
     cin >> n >> m >> e;
-    
+
     for (int i = 0; i < e; i++) {
         int u, v;
         cin >> u >> v;
         g[u].push_back(v);
     }
-    
+
     // 求最大匹配
     int maxMatch = 0;
     for (int i = 1; i <= n; i++) {
@@ -4980,13 +5055,13 @@ int main() {
             maxMatch++;
         }
     }
-    
+
     // 求最小点覆盖
     bfs(n);
-    
+
     cout << "最大匹配数: " << maxMatch << endl;
     cout << "最小点覆盖数: " << maxMatch << endl;
-    
+
     cout << "最小点覆盖:" << endl;
     cout << "左部顶点: ";
     for (int i = 1; i <= n; i++) {
@@ -4995,7 +5070,7 @@ int main() {
         }
     }
     cout << endl;
-    
+
     cout << "右部顶点: ";
     for (int i = 1; i <= m; i++) {
         if (inRightSide[i]) {
@@ -5003,7 +5078,7 @@ int main() {
         }
     }
     cout << endl;
-    
+
     return 0;
 }
 ```
@@ -5050,13 +5125,13 @@ bool dfs(int u) {
 int main() {
     int n, m, e;
     cin >> n >> m >> e;
-    
+
     for (int i = 0; i < e; i++) {
         int u, v;
         cin >> u >> v;
         g[u].push_back(v);
     }
-    
+
     // 求最大匹配
     int maxMatch = 0;
     for (int i = 1; i <= n; i++) {
@@ -5065,14 +5140,14 @@ int main() {
             maxMatch++;
         }
     }
-    
+
     // 最大独立集 = 总顶点数 - 最小点覆盖数
     // 最小点覆盖数 = 最大匹配数
     int maxIndependentSet = n + m - maxMatch;
-    
+
     cout << "最大匹配数: " << maxMatch << endl;
     cout << "最大独立集大小: " << maxIndependentSet << endl;
-    
+
     return 0;
 }
 ```
@@ -5101,7 +5176,7 @@ bool dfs(int worker, int m) {
     for (int task : workers[worker]) {
         if (!visited[task]) {
             visited[task] = true;
-            
+
             // 如果任务未分配，或者能为当前任务的工人分配其他任务
             if (taskMatch[task] == 0 || dfs(taskMatch[task], m)) {
                 taskMatch[task] = worker;
@@ -5114,30 +5189,30 @@ bool dfs(int worker, int m) {
 
 int maxTaskAssignment(int n, int m) {
     int result = 0;
-    
+
     for (int i = 1; i <= n; i++) {
         memset(visited, false, sizeof(visited));
         if (dfs(i, m)) {
             result++;
         }
     }
-    
+
     return result;
 }
 
 int main() {
     int n, m, e;  // n个工人，m个任务，e种能完成的关系
     cin >> n >> m >> e;
-    
+
     for (int i = 0; i < e; i++) {
         int worker, task;
         cin >> worker >> task;
         workers[worker].push_back(task);
     }
-    
+
     int maxTasks = maxTaskAssignment(n, m);
     cout << "最多能完成的任务数: " << maxTasks << endl;
-    
+
     // 输出分配方案
     cout << "任务分配方案:" << endl;
     for (int i = 1; i <= m; i++) {
@@ -5145,7 +5220,7 @@ int main() {
             cout << "任务" << i << "分配给工人" << taskMatch[i] << endl;
         }
     }
-    
+
     return 0;
 }
 ```
@@ -5165,6 +5240,7 @@ int main() {
 ### 4. 网络流问题
 
 许多网络流问题可以转化为二分图匹配问题，例如：
+
 - 二分图最大权匹配
 - 二分图最小权匹配
 - 二分图完美匹配
@@ -5192,7 +5268,7 @@ int dist[N];             // 距离
 // BFS构建层次图
 bool bfs(int n, int m) {
     queue<int> q;
-    
+
     for (int u = 1; u <= n; u++) {
         if (pairU[u] == 0) {  // 未匹配的左部顶点
             dist[u] = 0;
@@ -5201,13 +5277,13 @@ bool bfs(int n, int m) {
             dist[u] = INF;
         }
     }
-    
+
     dist[0] = INF;  // 虚拟节点
-    
+
     while (!q.empty()) {
         int u = q.front();
         q.pop();
-        
+
         if (dist[u] < dist[0]) {  // 优化：剪枝
             for (int v : g[u]) {
                 if (dist[pairV[v]] == INF) {
@@ -5217,7 +5293,7 @@ bool bfs(int n, int m) {
             }
         }
     }
-    
+
     return dist[0] != INF;
 }
 
@@ -5231,7 +5307,7 @@ bool dfs(int u) {
                 return true;
             }
         }
-        
+
         dist[u] = INF;  // 标记为不可达
         return false;
     }
@@ -5242,9 +5318,9 @@ bool dfs(int u) {
 int hopcroftKarp(int n, int m) {
     memset(pairU, 0, sizeof(pairU));
     memset(pairV, 0, sizeof(pairV));
-    
+
     int result = 0;
-    
+
     while (bfs(n, m)) {
         for (int u = 1; u <= n; u++) {
             if (pairU[u] == 0 && dfs(u)) {
@@ -5252,23 +5328,23 @@ int hopcroftKarp(int n, int m) {
             }
         }
     }
-    
+
     return result;
 }
 
 int main() {
     int n, m, e;
     cin >> n >> m >> e;
-    
+
     for (int i = 0; i < e; i++) {
         int u, v;
         cin >> u >> v;
         g[u].push_back(v);
     }
-    
+
     int maxMatch = hopcroftKarp(n, m);
     cout << "最大匹配数: " << maxMatch << endl;
-    
+
     return 0;
 }
 ```
@@ -5301,14 +5377,14 @@ int slack[N];       // 松弛量
 
 bool dfs(int u) {
     S[u] = true;  // 标记左部顶点u为访问
-    
+
     for (int v = 1; v <= n; v++) {
         if (!T[v]) {  // 右部顶点v未访问
             int tmp = lx[u] + ly[v] - weight[u][v];
-            
+
             if (tmp == 0) {  // 在相等子图中
                 T[v] = true;
-                
+
                 if (matchY[v] == 0 || dfs(matchY[v])) {
                     matchY[v] = u;
                     return true;
@@ -5318,19 +5394,19 @@ bool dfs(int u) {
             }
         }
     }
-    
+
     return false;
 }
 
 void update() {
     int d = INF;
-    
+
     for (int v = 1; v <= n; v++) {
         if (!T[v]) {
             d = min(d, slack[v]);
         }
     }
-    
+
     for (int i = 1; i <= n; i++) {
         if (S[i]) {
             lx[i] -= d;
@@ -5344,7 +5420,7 @@ void update() {
 int km() {
     memset(matchY, 0, sizeof(matchY));
     memset(ly, 0, sizeof(ly));
-    
+
     // 初始化左部顶点的标号
     for (int i = 1; i <= n; i++) {
         lx[i] = -INF;
@@ -5352,22 +5428,22 @@ int km() {
             lx[i] = max(lx[i], weight[i][j]);
         }
     }
-    
+
     for (int u = 1; u <= n; u++) {
         memset(slack, 0x3f, sizeof(slack));
-        
+
         while (true) {
             memset(S, false, sizeof(S));
             memset(T, false, sizeof(T));
-            
+
             if (dfs(u)) {
                 break;  // 找到匹配
             }
-            
+
             update();  // 更新标号
         }
     }
-    
+
     // 计算最大权匹配
     int result = 0;
     for (int v = 1; v <= n; v++) {
@@ -5375,22 +5451,22 @@ int km() {
             result += weight[matchY[v]][v];
         }
     }
-    
+
     return result;
 }
 
 int main() {
     cin >> n;
-    
+
     for (int i = 1; i <= n; i++) {
         for (int j = 1; j <= n; j++) {
             cin >> weight[i][j];
         }
     }
-    
+
     int maxWeight = km();
     cout << "最大权匹配值: " << maxWeight << endl;
-    
+
     cout << "匹配方案:" << endl;
     for (int v = 1; v <= n; v++) {
         if (matchY[v] != 0) {
@@ -5398,7 +5474,7 @@ int main() {
                  << " (权重: " << weight[matchY[v]][v] << ")" << endl;
         }
     }
-    
+
     return 0;
 }
 ```
@@ -5452,12 +5528,16 @@ int main() {
 通过系统学习和大量练习，可以熟练掌握二分图相关算法，为解决更复杂的图论问题打下坚实基础。
 
 # tarjan
+
 tarjan是个人，他发明了一坨**图论算法**，所以我们称他的算法为tarjan,其它的用问题去区分
 
 > **小知识**: tarjan不叫**塔尖**，而是叫**塔儿烟**（中文翻译**陶尔杨**），嘿嘿
+
 ## 割点
+
 双联通分量的前置算法之一（因该说是前置算法的前置算法），去掉一个或一些点之后**这个图不联通**，则这些点**被称为割点**
 具体思路就不细讲了，**代码里头有注释**，包你看懂
+
 ```cpp
 #include<bits/stdc++.h>
 using namespace std;
@@ -5548,6 +5628,7 @@ int main(){
 ### 节点表示
 
 线段树的每个节点通常包含以下信息：
+
 - 区间范围 [l, r]
 - 区间信息（如区间和、最大值、最小值等）
 - 左子节点和右子节点的指针或索引
@@ -5571,7 +5652,7 @@ private:
     vector<int> tree;  // 线段树数组
     vector<int> lazy;  // 懒标记数组（用于区间更新）
     int n;             // 原数组长度
-    
+
     // 构建线段树
     void build(vector<int>& nums, int node, int start, int end) {
         if (start == end) {
@@ -5580,37 +5661,37 @@ private:
             int mid = start + (end - start) / 2;
             int leftChild = 2 * node + 1;
             int rightChild = 2 * node + 2;
-            
+
             build(nums, leftChild, start, mid);
             build(nums, rightChild, mid + 1, end);
-            
+
             tree[node] = tree[leftChild] + tree[rightChild];
         }
     }
-    
+
     // 区间查询
     int queryRange(int node, int start, int end, int l, int r) {
         // 区间无交集
         if (r < start || end < l) {
             return 0;
         }
-        
+
         // 当前区间完全包含在查询区间内
         if (l <= start && end <= r) {
             return tree[node];
         }
-        
+
         // 部分重叠，递归查询
         int mid = start + (end - start) / 2;
         int leftChild = 2 * node + 1;
         int rightChild = 2 * node + 2;
-        
+
         int leftSum = queryRange(leftChild, start, mid, l, r);
         int rightSum = queryRange(rightChild, mid + 1, end, l, r);
-        
+
         return leftSum + rightSum;
     }
-    
+
     // 单点更新
     void updatePoint(int node, int start, int end, int idx, int val) {
         if (start == end) {
@@ -5619,29 +5700,29 @@ private:
             int mid = start + (end - start) / 2;
             int leftChild = 2 * node + 1;
             int rightChild = 2 * node + 2;
-            
+
             if (idx <= mid) {
                 updatePoint(leftChild, start, mid, idx, val);
             } else {
                 updatePoint(rightChild, mid + 1, end, idx, val);
             }
-            
+
             tree[node] = tree[leftChild] + tree[rightChild];
         }
     }
-    
+
 public:
     SegmentTree(vector<int>& nums) {
         n = nums.size();
         tree.resize(4 * n, 0);
         build(nums, 0, 0, n - 1);
     }
-    
+
     // 区间查询接口
     int queryRange(int l, int r) {
         return queryRange(0, 0, n - 1, l, r);
     }
-    
+
     // 单点更新接口
     void updatePoint(int idx, int val) {
         updatePoint(0, 0, n - 1, idx, val);
@@ -5651,14 +5732,14 @@ public:
 int main() {
     vector<int> nums = {1, 3, 5, 7, 9, 11};
     SegmentTree st(nums);
-    
+
     cout << "区间[0, 2]的和: " << st.queryRange(0, 2) << endl;  // 1 + 3 + 5 = 9
     cout << "区间[1, 4]的和: " << st.queryRange(1, 4) << endl;  // 3 + 5 + 7 + 9 = 24
-    
+
     // 更新索引2的值为6
     st.updatePoint(2, 6);
     cout << "更新后区间[0, 2]的和: " << st.queryRange(0, 2) << endl;  // 1 + 3 + 6 = 10
-    
+
     return 0;
 }
 ```
@@ -5675,7 +5756,7 @@ class MaxSegmentTree {
 private:
     vector<int> tree;
     int n;
-    
+
     void build(vector<int>& nums, int node, int start, int end) {
         if (start == end) {
             tree[node] = nums[start];
@@ -5683,33 +5764,33 @@ private:
             int mid = start + (end - start) / 2;
             int leftChild = 2 * node + 1;
             int rightChild = 2 * node + 2;
-            
+
             build(nums, leftChild, start, mid);
             build(nums, rightChild, mid + 1, end);
-            
+
             tree[node] = max(tree[leftChild], tree[rightChild]);
         }
     }
-    
+
     int queryRange(int node, int start, int end, int l, int r) {
         if (r < start || end < l) {
             return INT_MIN;  // 表示无效值
         }
-        
+
         if (l <= start && end <= r) {
             return tree[node];
         }
-        
+
         int mid = start + (end - start) / 2;
         int leftChild = 2 * node + 1;
         int rightChild = 2 * node + 2;
-        
+
         int leftMax = queryRange(leftChild, start, mid, l, r);
         int rightMax = queryRange(rightChild, mid + 1, end, l, r);
-        
+
         return max(leftMax, rightMax);
     }
-    
+
     void updatePoint(int node, int start, int end, int idx, int val) {
         if (start == end) {
             tree[node] = val;
@@ -5717,28 +5798,28 @@ private:
             int mid = start + (end - start) / 2;
             int leftChild = 2 * node + 1;
             int rightChild = 2 * node + 2;
-            
+
             if (idx <= mid) {
                 updatePoint(leftChild, start, mid, idx, val);
             } else {
                 updatePoint(rightChild, mid + 1, end, idx, val);
             }
-            
+
             tree[node] = max(tree[leftChild], tree[rightChild]);
         }
     }
-    
+
 public:
     MaxSegmentTree(vector<int>& nums) {
         n = nums.size();
         tree.resize(4 * n, 0);
         build(nums, 0, 0, n - 1);
     }
-    
+
     int queryRange(int l, int r) {
         return queryRange(0, 0, n - 1, l, r);
     }
-    
+
     void updatePoint(int idx, int val) {
         updatePoint(0, 0, n - 1, idx, val);
     }
@@ -5747,14 +5828,14 @@ public:
 int main() {
     vector<int> nums = {2, 5, 1, 4, 9, 3};
     MaxSegmentTree st(nums);
-    
+
     cout << "区间[0, 3]的最大值: " << st.queryRange(0, 3) << endl;  // max(2, 5, 1, 4) = 5
     cout << "区间[2, 5]的最大值: " << st.queryRange(2, 5) << endl;  // max(1, 4, 9, 3) = 9
-    
+
     // 更新索引1的值为10
     st.updatePoint(1, 10);
     cout << "更新后区间[0, 3]的最大值: " << st.queryRange(0, 3) << endl;  // max(2, 10, 1, 4) = 10
-    
+
     return 0;
 }
 ```
@@ -5772,27 +5853,27 @@ private:
     vector<long long> tree;  // 线段树数组
     vector<long long> lazy;  // 懒标记数组
     int n;                   // 原数组长度
-    
+
     // 下推懒标记
     void pushDown(int node, int start, int end) {
         if (lazy[node] != 0) {
             int mid = start + (end - start) / 2;
             int leftChild = 2 * node + 1;
             int rightChild = 2 * node + 2;
-            
+
             // 将懒标记传递给子节点
             lazy[leftChild] += lazy[node];
             lazy[rightChild] += lazy[node];
-            
+
             // 更新子节点的值
             tree[leftChild] += lazy[node] * (mid - start + 1);
             tree[rightChild] += lazy[node] * (end - mid);
-            
+
             // 清除当前节点的懒标记
             lazy[node] = 0;
         }
     }
-    
+
     // 构建线段树
     void build(vector<int>& nums, int node, int start, int end) {
         if (start == end) {
@@ -5801,68 +5882,68 @@ private:
             int mid = start + (end - start) / 2;
             int leftChild = 2 * node + 1;
             int rightChild = 2 * node + 2;
-            
+
             build(nums, leftChild, start, mid);
             build(nums, rightChild, mid + 1, end);
-            
+
             tree[node] = tree[leftChild] + tree[rightChild];
         }
     }
-    
+
     // 区间查询
     long long queryRange(int node, int start, int end, int l, int r) {
         // 区间无交集
         if (r < start || end < l) {
             return 0;
         }
-        
+
         // 当前区间完全包含在查询区间内
         if (l <= start && end <= r) {
             return tree[node];
         }
-        
+
         // 下推懒标记
         pushDown(node, start, end);
-        
+
         // 部分重叠，递归查询
         int mid = start + (end - start) / 2;
         int leftChild = 2 * node + 1;
         int rightChild = 2 * node + 2;
-        
+
         long long leftSum = queryRange(leftChild, start, mid, l, r);
         long long rightSum = queryRange(rightChild, mid + 1, end, l, r);
-        
+
         return leftSum + rightSum;
     }
-    
+
     // 区间更新
     void updateRange(int node, int start, int end, int l, int r, int val) {
         // 区间无交集
         if (r < start || end < l) {
             return;
         }
-        
+
         // 当前区间完全包含在更新区间内
         if (l <= start && end <= r) {
             tree[node] += (long long)val * (end - start + 1);
             lazy[node] += val;
             return;
         }
-        
+
         // 下推懒标记
         pushDown(node, start, end);
-        
+
         // 部分重叠，递归更新
         int mid = start + (end - start) / 2;
         int leftChild = 2 * node + 1;
         int rightChild = 2 * node + 2;
-        
+
         updateRange(leftChild, start, mid, l, r, val);
         updateRange(rightChild, mid + 1, end, l, r, val);
-        
+
         tree[node] = tree[leftChild] + tree[rightChild];
     }
-    
+
 public:
     LazySegmentTree(vector<int>& nums) {
         n = nums.size();
@@ -5870,12 +5951,12 @@ public:
         lazy.resize(4 * n, 0);
         build(nums, 0, 0, n - 1);
     }
-    
+
     // 区间查询接口
     long long queryRange(int l, int r) {
         return queryRange(0, 0, n - 1, l, r);
     }
-    
+
     // 区间更新接口
     void updateRange(int l, int r, int val) {
         updateRange(0, 0, n - 1, l, r, val);
@@ -5885,18 +5966,18 @@ public:
 int main() {
     vector<int> nums = {1, 2, 3, 4, 5};
     LazySegmentTree st(nums);
-    
+
     cout << "初始区间[0, 4]的和: " << st.queryRange(0, 4) << endl;  // 1 + 2 + 3 + 4 + 5 = 15
-    
+
     // 区间[1, 3]每个元素加2
     st.updateRange(1, 3, 2);
     cout << "更新后区间[0, 4]的和: " << st.queryRange(0, 4) << endl;  // 1 + 4 + 5 + 6 + 5 = 21
     cout << "更新后区间[1, 3]的和: " << st.queryRange(1, 3) << endl;  // 4 + 5 + 6 = 15
-    
+
     // 再次区间[2, 4]每个元素加1
     st.updateRange(2, 4, 1);
     cout << "再次更新后区间[0, 4]的和: " << st.queryRange(0, 4) << endl;  // 1 + 4 + 6 + 7 + 6 = 24
-    
+
     return 0;
 }
 ```
@@ -5916,10 +5997,10 @@ struct Node {
     int maxSum;     // 区间最大子段和
     int leftMax;    // 区间前缀最大和
     int rightMax;   // 区间后缀最大和
-    
+
     Node() : sum(0), maxSum(0), leftMax(0), rightMax(0) {}
     Node(int val) : sum(val), maxSum(val), leftMax(val), rightMax(val) {}
-    
+
     Node merge(const Node& other) {
         Node result;
         result.sum = sum + other.sum;
@@ -5934,7 +6015,7 @@ class MaxSubarraySegmentTree {
 private:
     vector<Node> tree;
     int n;
-    
+
     void build(vector<int>& nums, int node, int start, int end) {
         if (start == end) {
             tree[node] = Node(nums[start]);
@@ -5942,36 +6023,36 @@ private:
             int mid = start + (end - start) / 2;
             int leftChild = 2 * node + 1;
             int rightChild = 2 * node + 2;
-            
+
             build(nums, leftChild, start, mid);
             build(nums, rightChild, mid + 1, end);
-            
+
             tree[node] = tree[leftChild].merge(tree[rightChild]);
         }
     }
-    
+
     Node queryRange(int node, int start, int end, int l, int r) {
         if (r < start || end < l) {
             return Node(INT_MIN);  // 返回无效节点
         }
-        
+
         if (l <= start && end <= r) {
             return tree[node];
         }
-        
+
         int mid = start + (end - start) / 2;
         int leftChild = 2 * node + 1;
         int rightChild = 2 * node + 2;
-        
+
         Node leftResult = queryRange(leftChild, start, mid, l, r);
         Node rightResult = queryRange(rightChild, mid + 1, end, l, r);
-        
+
         if (leftResult.sum == INT_MIN) return rightResult;
         if (rightResult.sum == INT_MIN) return leftResult;
-        
+
         return leftResult.merge(rightResult);
     }
-    
+
     void updatePoint(int node, int start, int end, int idx, int val) {
         if (start == end) {
             tree[node] = Node(val);
@@ -5979,28 +6060,28 @@ private:
             int mid = start + (end - start) / 2;
             int leftChild = 2 * node + 1;
             int rightChild = 2 * node + 2;
-            
+
             if (idx <= mid) {
                 updatePoint(leftChild, start, mid, idx, val);
             } else {
                 updatePoint(rightChild, mid + 1, end, idx, val);
             }
-            
+
             tree[node] = tree[leftChild].merge(tree[rightChild]);
         }
     }
-    
+
 public:
     MaxSubarraySegmentTree(vector<int>& nums) {
         n = nums.size();
         tree.resize(4 * n);
         build(nums, 0, 0, n - 1);
     }
-    
+
     int queryMaxSubarray(int l, int r) {
         return queryRange(0, 0, n - 1, l, r).maxSum;
     }
-    
+
     void updatePoint(int idx, int val) {
         updatePoint(0, 0, n - 1, idx, val);
     }
@@ -6009,14 +6090,14 @@ public:
 int main() {
     vector<int> nums = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
     MaxSubarraySegmentTree st(nums);
-    
+
     cout << "区间[0, 8]的最大子段和: " << st.queryMaxSubarray(0, 8) << endl;  // 6 (子段[3,6])
     cout << "区间[3, 6]的最大子段和: " << st.queryMaxSubarray(3, 6) << endl;  // 6 (子段[3,6])
-    
+
     // 更新索引4的值为10
     st.updatePoint(4, 10);
     cout << "更新后区间[0, 8]的最大子段和: " << st.queryMaxSubarray(0, 8) << endl;  // 16
-    
+
     return 0;
 }
 ```
@@ -6037,40 +6118,40 @@ private:
     vector<long long> addLazy; // 加法懒标记
     vector<long long> mulLazy; // 乘法懒标记
     int n;
-    
+
     // 下推懒标记
     void pushDown(int node, int start, int end) {
         if (addLazy[node] != 0 || mulLazy[node] != 1) {
             int mid = start + (end - start) / 2;
             int leftChild = 2 * node + 1;
             int rightChild = 2 * node + 2;
-            
+
             // 处理乘法懒标记
             mulLazy[leftChild] = (mulLazy[leftChild] * mulLazy[node]) % MOD;
             mulLazy[rightChild] = (mulLazy[rightChild] * mulLazy[node]) % MOD;
-            
+
             addLazy[leftChild] = (addLazy[leftChild] * mulLazy[node]) % MOD;
             addLazy[rightChild] = (addLazy[rightChild] * mulLazy[node]) % MOD;
-            
+
             tree[leftChild] = (tree[leftChild] * mulLazy[node]) % MOD;
             tree[rightChild] = (tree[rightChild] * mulLazy[node]) % MOD;
-            
+
             // 处理加法懒标记
             int leftLen = mid - start + 1;
             int rightLen = end - mid;
-            
+
             addLazy[leftChild] = (addLazy[leftChild] + addLazy[node]) % MOD;
             addLazy[rightChild] = (addLazy[rightChild] + addLazy[node]) % MOD;
-            
+
             tree[leftChild] = (tree[leftChild] + addLazy[node] * leftLen) % MOD;
             tree[rightChild] = (tree[rightChild] + addLazy[node] * rightLen) % MOD;
-            
+
             // 重置当前节点的懒标记
             addLazy[node] = 0;
             mulLazy[node] = 1;
         }
     }
-    
+
     void build(vector<int>& nums, int node, int start, int end) {
         if (start == end) {
             tree[node] = nums[start] % MOD;
@@ -6078,82 +6159,82 @@ private:
             int mid = start + (end - start) / 2;
             int leftChild = 2 * node + 1;
             int rightChild = 2 * node + 2;
-            
+
             build(nums, leftChild, start, mid);
             build(nums, rightChild, mid + 1, end);
-            
+
             tree[node] = (tree[leftChild] + tree[rightChild]) % MOD;
         }
     }
-    
+
     long long queryRange(int node, int start, int end, int l, int r) {
         if (r < start || end < l) {
             return 0;
         }
-        
+
         if (l <= start && end <= r) {
             return tree[node];
         }
-        
+
         pushDown(node, start, end);
-        
+
         int mid = start + (end - start) / 2;
         int leftChild = 2 * node + 1;
         int rightChild = 2 * node + 2;
-        
+
         long long leftSum = queryRange(leftChild, start, mid, l, r);
         long long rightSum = queryRange(rightChild, mid + 1, end, l, r);
-        
+
         return (leftSum + rightSum) % MOD;
     }
-    
+
     void updateAdd(int node, int start, int end, int l, int r, int val) {
         if (r < start || end < l) {
             return;
         }
-        
+
         if (l <= start && end <= r) {
             addLazy[node] = (addLazy[node] + val) % MOD;
             tree[node] = (tree[node] + (long long)val * (end - start + 1)) % MOD;
             return;
         }
-        
+
         pushDown(node, start, end);
-        
+
         int mid = start + (end - start) / 2;
         int leftChild = 2 * node + 1;
         int rightChild = 2 * node + 2;
-        
+
         updateAdd(leftChild, start, mid, l, r, val);
         updateAdd(rightChild, mid + 1, end, l, r, val);
-        
+
         tree[node] = (tree[leftChild] + tree[rightChild]) % MOD;
     }
-    
+
     void updateMul(int node, int start, int end, int l, int r, int val) {
         if (r < start || end < l) {
             return;
         }
-        
+
         if (l <= start && end <= r) {
             mulLazy[node] = (mulLazy[node] * val) % MOD;
             addLazy[node] = (addLazy[node] * val) % MOD;
             tree[node] = (tree[node] * val) % MOD;
             return;
         }
-        
+
         pushDown(node, start, end);
-        
+
         int mid = start + (end - start) / 2;
         int leftChild = 2 * node + 1;
         int rightChild = 2 * node + 2;
-        
+
         updateMul(leftChild, start, mid, l, r, val);
         updateMul(rightChild, mid + 1, end, l, r, val);
-        
+
         tree[node] = (tree[leftChild] + tree[rightChild]) % MOD;
     }
-    
+
 public:
     MixSegmentTree(vector<int>& nums) {
         n = nums.size();
@@ -6162,15 +6243,15 @@ public:
         mulLazy.resize(4 * n, 1);
         build(nums, 0, 0, n - 1);
     }
-    
+
     long long queryRange(int l, int r) {
         return queryRange(0, 0, n - 1, l, r);
     }
-    
+
     void updateAdd(int l, int r, int val) {
         updateAdd(0, 0, n - 1, l, r, val);
     }
-    
+
     void updateMul(int l, int r, int val) {
         updateMul(0, 0, n - 1, l, r, val);
     }
@@ -6179,21 +6260,21 @@ public:
 int main() {
     vector<int> nums = {1, 2, 3, 4, 5};
     MixSegmentTree st(nums);
-    
+
     cout << "初始区间[0, 4]的和: " << st.queryRange(0, 4) << endl;  // 15
-    
+
     // 区间[1, 3]每个元素乘以2
     st.updateMul(1, 3, 2);
     cout << "乘法更新后区间[0, 4]的和: " << st.queryRange(0, 4) << endl;  // 1 + 4 + 6 + 8 + 5 = 24
-    
+
     // 区间[2, 4]每个元素加3
     st.updateAdd(2, 4, 3);
     cout << "加法更新后区间[0, 4]的和: " << st.queryRange(0, 4) << endl;  // 1 + 4 + 9 + 11 + 8 = 33
-    
+
     // 区间[0, 2]每个元素乘以3
     st.updateMul(0, 2, 3);
     cout << "再次乘法更新后区间[0, 4]的和: " << st.queryRange(0, 4) << endl;  // 3 + 12 + 27 + 11 + 8 = 61
-    
+
     return 0;
 }
 ```
@@ -6215,59 +6296,59 @@ private:
     struct Node {
         int val;
         Node *left, *right;
-        
+
         Node() : val(0), left(nullptr), right(nullptr) {}
     };
-    
+
     Node* root;
     int leftBound, rightBound;
-    
+
     void update(Node*& node, int start, int end, int idx, int val) {
         if (!node) {
             node = new Node();
         }
-        
+
         if (start == end) {
             node->val = val;
             return;
         }
-        
+
         int mid = start + (end - start) / 2;
-        
+
         if (idx <= mid) {
             update(node->left, start, mid, idx, val);
         } else {
             update(node->right, mid + 1, end, idx, val);
         }
-        
+
         node->val = (node->left ? node->left->val : 0) + 
                    (node->right ? node->right->val : 0);
     }
-    
+
     int query(Node* node, int start, int end, int l, int r) {
         if (!node || r < start || end < l) {
             return 0;
         }
-        
+
         if (l <= start && end <= r) {
             return node->val;
         }
-        
+
         int mid = start + (end - start) / 2;
-        
+
         return query(node->left, start, mid, l, r) + 
                query(node->right, mid + 1, end, l, r);
     }
-    
+
 public:
     DynamicSegmentTree(int left, int right) : leftBound(left), rightBound(right) {
         root = nullptr;
     }
-    
+
     void update(int idx, int val) {
         update(root, leftBound, rightBound, idx, val);
     }
-    
+
     int query(int l, int r) {
         return query(root, leftBound, rightBound, l, r);
     }
@@ -6276,13 +6357,13 @@ public:
 int main() {
     // 处理范围[1, 1e9]的线段树
     DynamicSegmentTree st(1, 1e9);
-    
+
     // 更新位置1e9的值为100
     st.update(1e9, 100);
-    
+
     // 查询区间[1e9-1, 1e9]的和
     cout << "区间[1e9-1, 1e9]的和: " << st.query(1e9 - 1, 1e9) << endl;  // 100
-    
+
     return 0;
 }
 ```
@@ -6302,76 +6383,76 @@ private:
     struct Node {
         int count;
         Node *left, *right;
-        
+
         Node() : count(0), left(nullptr), right(nullptr) {}
     };
-    
+
     vector<Node*> roots;
     int leftBound, rightBound;
-    
+
     void insert(Node*& node, int start, int end, int val) {
         if (!node) {
             node = new Node();
         }
-        
+
         node->count++;
-        
+
         if (start == end) {
             return;
         }
-        
+
         int mid = start + (end - start) / 2;
-        
+
         if (val <= mid) {
             insert(node->left, start, mid, val);
         } else {
             insert(node->right, mid + 1, end, val);
         }
     }
-    
+
     Node* merge(Node* node1, Node* node2) {
         if (!node1) return node2;
         if (!node2) return node1;
-        
+
         node1->count += node2->count;
         node1->left = merge(node1->left, node2->left);
         node1->right = merge(node1->right, node2->right);
-        
+
         delete node2;
         return node1;
     }
-    
+
     int query(Node* node, int start, int end, int l, int r) {
         if (!node || r < start || end < l) {
             return 0;
         }
-        
+
         if (l <= start && end <= r) {
             return node->count;
         }
-        
+
         int mid = start + (end - start) / 2;
-        
+
         return query(node->left, start, mid, l, r) + 
                query(node->right, mid + 1, end, l, r);
     }
-    
+
 public:
     MergeSegmentTree(int left, int right) : leftBound(left), rightBound(right) {}
-    
+
     void addTree() {
         roots.push_back(nullptr);
     }
-    
+
     void insert(int treeIndex, int val) {
         insert(roots[treeIndex], leftBound, rightBound, val);
     }
-    
+
     void mergeTrees(int index1, int index2) {
         roots[index1] = merge(roots[index1], roots[index2]);
         roots[index2] = nullptr;
     }
-    
+
     int query(int treeIndex, int l, int r) {
         return query(roots[treeIndex], leftBound, rightBound, l, r);
     }
@@ -6379,29 +6460,29 @@ public:
 
 int main() {
     MergeSegmentTree st(1, 100);
-    
+
     // 添加两棵线段树
     st.addTree();
     st.addTree();
-    
+
     // 向第一棵树插入元素
     st.insert(0, 10);
     st.insert(0, 20);
     st.insert(0, 30);
-    
+
     // 向第二棵树插入元素
     st.insert(1, 20);
     st.insert(1, 40);
     st.insert(1, 50);
-    
+
     cout << "第一棵树中[15, 25]的元素个数: " << st.query(0, 15, 25) << endl;  // 1 (只有20)
     cout << "第二棵树中[15, 25]的元素个数: " << st.query(1, 15, 25) << endl;  // 1 (只有20)
-    
+
     // 合并两棵树
     st.mergeTrees(0, 1);
-    
+
     cout << "合并后树中[15, 25]的元素个数: " << st.query(0, 15, 25) << endl;  // 2 (两个20)
-    
+
     return 0;
 }
 ```
@@ -6411,6 +6492,7 @@ int main() {
 ### 1. 区间统计问题
 
 **问题描述**：给定一个数组，支持以下操作：
+
 1. 查询区间[l, r]的和
 2. 将区间[l, r]的每个元素加1
 3. 将位置idx的元素更新为val
@@ -6427,23 +6509,23 @@ private:
     vector<long long> tree;
     vector<long long> lazy;
     int n;
-    
+
     void pushDown(int node, int start, int end) {
         if (lazy[node] != 0) {
             int mid = start + (end - start) / 2;
             int leftChild = 2 * node + 1;
             int rightChild = 2 * node + 2;
-            
+
             lazy[leftChild] += lazy[node];
             lazy[rightChild] += lazy[node];
-            
+
             tree[leftChild] += lazy[node] * (mid - start + 1);
             tree[rightChild] += lazy[node] * (end - mid);
-            
+
             lazy[node] = 0;
         }
     }
-    
+
     void build(vector<int>& nums, int node, int start, int end) {
         if (start == end) {
             tree[node] = nums[start];
@@ -6451,56 +6533,56 @@ private:
             int mid = start + (end - start) / 2;
             int leftChild = 2 * node + 1;
             int rightChild = 2 * node + 2;
-            
+
             build(nums, leftChild, start, mid);
             build(nums, rightChild, mid + 1, end);
-            
+
             tree[node] = tree[leftChild] + tree[rightChild];
         }
     }
-    
+
     long long queryRange(int node, int start, int end, int l, int r) {
         if (r < start || end < l) {
             return 0;
         }
-        
+
         if (l <= start && end <= r) {
             return tree[node];
         }
-        
+
         pushDown(node, start, end);
-        
+
         int mid = start + (end - start) / 2;
         int leftChild = 2 * node + 1;
         int rightChild = 2 * node + 2;
-        
+
         return queryRange(leftChild, start, mid, l, r) + 
                queryRange(rightChild, mid + 1, end, l, r);
     }
-    
+
     void updateRange(int node, int start, int end, int l, int r) {
         if (r < start || end < l) {
             return;
         }
-        
+
         if (l <= start && end <= r) {
             tree[node] += (end - start + 1);
             lazy[node] += 1;
             return;
         }
-        
+
         pushDown(node, start, end);
-        
+
         int mid = start + (end - start) / 2;
         int leftChild = 2 * node + 1;
         int rightChild = 2 * node + 2;
-        
+
         updateRange(leftChild, start, mid, l, r);
         updateRange(rightChild, mid + 1, end, l, r);
-        
+
         tree[node] = tree[leftChild] + tree[rightChild];
     }
-    
+
     void updatePoint(int node, int start, int end, int idx, int val) {
         if (start == end) {
             tree[node] = val;
@@ -6508,17 +6590,17 @@ private:
             int mid = start + (end - start) / 2;
             int leftChild = 2 * node + 1;
             int rightChild = 2 * node + 2;
-            
+
             if (idx <= mid) {
                 updatePoint(leftChild, start, mid, idx, val);
             } else {
                 updatePoint(rightChild, mid + 1, end, idx, val);
             }
-            
+
             tree[node] = tree[leftChild] + tree[rightChild];
         }
     }
-    
+
 public:
     RangeStatistics(vector<int>& nums) {
         n = nums.size();
@@ -6526,15 +6608,15 @@ public:
         lazy.resize(4 * n, 0);
         build(nums, 0, 0, n - 1);
     }
-    
+
     long long queryRange(int l, int r) {
         return queryRange(0, 0, n - 1, l, r);
     }
-    
+
     void updateRange(int l, int r) {
         updateRange(0, 0, n - 1, l, r);
     }
-    
+
     void updatePoint(int idx, int val) {
         updatePoint(0, 0, n - 1, idx, val);
     }
@@ -6543,17 +6625,17 @@ public:
 int main() {
     vector<int> nums = {1, 2, 3, 4, 5};
     RangeStatistics rs(nums);
-    
+
     cout << "初始区间[0, 4]的和: " << rs.queryRange(0, 4) << endl;  // 15
-    
+
     // 区间[1, 3]每个元素加1
     rs.updateRange(1, 3);
     cout << "区间更新后区间[0, 4]的和: " << rs.queryRange(0, 4) << endl;  // 18
-    
+
     // 更新位置2的值为10
     rs.updatePoint(2, 10);
     cout << "单点更新后区间[0, 4]的和: " << rs.queryRange(0, 4) << endl;  // 23
-    
+
     return 0;
 }
 ```
@@ -6561,6 +6643,7 @@ int main() {
 ### 2. 区间最值问题
 
 **问题描述**：给定一个数组，支持以下操作：
+
 1. 查询区间[l, r]的最大值
 2. 查询区间[l, r]的最小值
 3. 更新位置idx的值为val
@@ -6578,7 +6661,7 @@ private:
     vector<int> maxTree;
     vector<int> minTree;
     int n;
-    
+
     void build(vector<int>& nums, int node, int start, int end) {
         if (start == end) {
             maxTree[node] = nums[start];
@@ -6587,49 +6670,49 @@ private:
             int mid = start + (end - start) / 2;
             int leftChild = 2 * node + 1;
             int rightChild = 2 * node + 2;
-            
+
             build(nums, leftChild, start, mid);
             build(nums, rightChild, mid + 1, end);
-            
+
             maxTree[node] = max(maxTree[leftChild], maxTree[rightChild]);
             minTree[node] = min(minTree[leftChild], minTree[rightChild]);
         }
     }
-    
+
     int queryMax(int node, int start, int end, int l, int r) {
         if (r < start || end < l) {
             return INT_MIN;
         }
-        
+
         if (l <= start && end <= r) {
             return maxTree[node];
         }
-        
+
         int mid = start + (end - start) / 2;
         int leftChild = 2 * node + 1;
         int rightChild = 2 * node + 2;
-        
+
         return max(queryMax(leftChild, start, mid, l, r),
                    queryMax(rightChild, mid + 1, end, l, r));
     }
-    
+
     int queryMin(int node, int start, int end, int l, int r) {
         if (r < start || end < l) {
             return INT_MAX;
         }
-        
+
         if (l <= start && end <= r) {
             return minTree[node];
         }
-        
+
         int mid = start + (end - start) / 2;
         int leftChild = 2 * node + 1;
         int rightChild = 2 * node + 2;
-        
+
         return min(queryMin(leftChild, start, mid, l, r),
                    queryMin(rightChild, mid + 1, end, l, r));
     }
-    
+
     void updatePoint(int node, int start, int end, int idx, int val) {
         if (start == end) {
             maxTree[node] = val;
@@ -6638,18 +6721,18 @@ private:
             int mid = start + (end - start) / 2;
             int leftChild = 2 * node + 1;
             int rightChild = 2 * node + 2;
-            
+
             if (idx <= mid) {
                 updatePoint(leftChild, start, mid, idx, val);
             } else {
                 updatePoint(rightChild, mid + 1, end, idx, val);
             }
-            
+
             maxTree[node] = max(maxTree[leftChild], maxTree[rightChild]);
             minTree[node] = min(minTree[leftChild], minTree[rightChild]);
         }
     }
-    
+
 public:
     RangeMinMax(vector<int>& nums) {
         n = nums.size();
@@ -6657,15 +6740,15 @@ public:
         minTree.resize(4 * n, 0);
         build(nums, 0, 0, n - 1);
     }
-    
+
     int queryMax(int l, int r) {
         return queryMax(0, 0, n - 1, l, r);
     }
-    
+
     int queryMin(int l, int r) {
         return queryMin(0, 0, n - 1, l, r);
     }
-    
+
     void updatePoint(int idx, int val) {
         updatePoint(0, 0, n - 1, idx, val);
     }
@@ -6674,17 +6757,17 @@ public:
 int main() {
     vector<int> nums = {3, 1, 4, 1, 5, 9, 2, 6};
     RangeMinMax rmm(nums);
-    
+
     cout << "区间[0, 7]的最大值: " << rmm.queryMax(0, 7) << endl;  // 9
     cout << "区间[0, 7]的最小值: " << rmm.queryMin(0, 7) << endl;  // 1
-    
+
     cout << "区间[2, 5]的最大值: " << rmm.queryMax(2, 5) << endl;  // 9
     cout << "区间[2, 5]的最小值: " << rmm.queryMin(2, 5) << endl;  // 1
-    
+
     // 更新位置1的值为10
     rmm.updatePoint(1, 10);
     cout << "更新后区间[0, 7]的最大值: " << rmm.queryMax(0, 7) << endl;  // 10
-    
+
     return 0;
 }
 ```
@@ -6722,16 +6805,17 @@ int main() {
 
 ## 线段树与树状数组的比较
 
-| 特性 | 线段树 | 树状数组 |
-|------|--------|----------|
-| 时间复杂度 | O(log n) | O(log n) |
-| 空间复杂度 | O(4n) | O(n) |
-| 实现复杂度 | 较复杂 | 较简单 |
-| 支持操作 | 区间查询、区间更新 | 区间查询、单点更新 |
-| 适用场景 | 复杂区间操作 | 简单区间操作 |
-| 扩展性 | 强 | 有限 |
+| 特性    | 线段树       | 树状数组      |
+| ----- | --------- | --------- |
+| 时间复杂度 | O(log n)  | O(log n)  |
+| 空间复杂度 | O(4n)     | O(n)      |
+| 实现复杂度 | 较复杂       | 较简单       |
+| 支持操作  | 区间查询、区间更新 | 区间查询、单点更新 |
+| 适用场景  | 复杂区间操作    | 简单区间操作    |
+| 扩展性   | 强         | 有限        |
 
 **选择建议**：
+
 - 当需要支持区间更新或复杂的区间操作时，选择线段树
 - 当只需要简单的区间查询和单点更新时，选择树状数组
 
@@ -6768,19 +6852,23 @@ $$\phi(n) = |\{1 \leq k \leq n | \gcd(k,n) = 1\}|$$
 ## 欧拉函数的基本性质
 
 ### 1. 基本值
+
 - φ(1) = 1
 - 当n是质数时，φ(n) = n-1
 - φ(2) = 1, φ(3) = 2, φ(4) = 2, φ(5) = 4, φ(6) = 2
 
 ### 2. 积性性质
+
 若m和n互质，则：
 $$\phi(mn) = \phi(m) \times \phi(n)$$
 
 ### 3. 质数幂的性质
+
 对于质数p和正整数k：
 $$\phi(p^k) = p^k - p^{k-1} = p^k \times (1 - \frac{1}{p})$$
 
 ### 4. 通用计算公式
+
 若n的质因数分解为$n = p_1^{a_1} \times p_2^{a_2} \times \cdots \times p_k^{a_k}$，则：
 $$\phi(n) = n \times \prod_{i=1}^{k} (1 - \frac{1}{p_i})$$
 
@@ -6803,7 +6891,7 @@ using namespace std;
 // 计算单个数的欧拉函数
 int euler_phi(int n) {
     int result = n;
-    
+
     // 对n进行质因数分解
     for (int p = 2; p * p <= n; p++) {
         if (n % p == 0) {
@@ -6815,12 +6903,12 @@ int euler_phi(int n) {
             result -= result / p;
         }
     }
-    
+
     // 如果剩下的n > 1，说明n本身是质数
     if (n > 1) {
         result -= result / n;
     }
-    
+
     return result;
 }
 
@@ -6847,7 +6935,7 @@ void euler_sieve(int n) {
     for (int i = 1; i <= n; i++) {
         phi[i] = i;
     }
-    
+
     // 筛法过程
     for (int i = 2; i <= n; i++) {
         if (phi[i] == i) {  // i是质数
@@ -6862,18 +6950,18 @@ void euler_sieve(int n) {
 void euler_sieve_optimized(int n) {
     vector<int> primes;
     bool is_composite[N] = {false};
-    
+
     phi[1] = 1;
-    
+
     for (int i = 2; i <= n; i++) {
         if (!is_composite[i]) {
             primes.push_back(i);
             phi[i] = i - 1;  // 质数的欧拉函数值为p-1
         }
-        
+
         for (int j = 0; j < primes.size() && i * primes[j] <= n; j++) {
             is_composite[i * primes[j]] = true;
-            
+
             if (i % primes[j] == 0) {
                 // 如果primes[j]是i的质因数
                 phi[i * primes[j]] = phi[i] * primes[j];
@@ -6889,14 +6977,14 @@ void euler_sieve_optimized(int n) {
 int main() {
     int n;
     cin >> n;
-    
+
     euler_sieve_optimized(n);
-    
+
     // 输出前10个数的欧拉函数值
     for (int i = 1; i <= 10; i++) {
         cout << "φ(" << i << ") = " << phi[i] << endl;
     }
-    
+
     return 0;
 }
 ```
@@ -6916,7 +7004,7 @@ using namespace std;
 long long fast_pow(long long a, long long b, long long mod) {
     long long result = 1;
     a %= mod;
-    
+
     while (b > 0) {
         if (b & 1) {
             result = (result * a) % mod;
@@ -6924,7 +7012,7 @@ long long fast_pow(long long a, long long b, long long mod) {
         a = (a * a) % mod;
         b >>= 1;
     }
-    
+
     return result;
 }
 
@@ -6954,13 +7042,13 @@ long long mod_inverse(int a, int mod) {
 int main() {
     int a, mod;
     cin >> a >> mod;
-    
+
     if (__gcd(a, mod) != 1) {
         cout << a << " 和 " << mod << " 不互质，不存在模逆元" << endl;
     } else {
         cout << a << " 模 " << mod << " 的逆元是: " << mod_inverse(a, mod) << endl;
     }
-    
+
     return 0;
 }
 ```
@@ -6977,7 +7065,7 @@ using namespace std;
 long long fast_pow(long long a, long long b, long long mod) {
     long long result = 1;
     a %= mod;
-    
+
     while (b > 0) {
         if (b & 1) {
             result = (result * a) % mod;
@@ -6985,7 +7073,7 @@ long long fast_pow(long long a, long long b, long long mod) {
         a = (a * a) % mod;
         b >>= 1;
     }
-    
+
     return result;
 }
 
@@ -7011,34 +7099,34 @@ long long solve_congruence(long long a, long long b, long long m) {
     if (__gcd(a, m) != 1) {
         return -1;  // 无解或需要特殊处理
     }
-    
+
     int phi_m = euler_phi(m);
-    
+
     // 利用欧拉定理：a^φ(m) ≡ 1 (mod m)
     // 因此 a^(k*φ(m) + r) ≡ a^r (mod m)
-    
+
     // 简单情况：尝试较小的指数
     for (int x = 0; x < min(phi_m, 1000); x++) {
         if (fast_pow(a, x, m) == b % m) {
             return x;
         }
     }
-    
+
     return -1;  // 未找到解
 }
 
 int main() {
     long long a, b, m;
     cin >> a >> b >> m;
-    
+
     long long solution = solve_congruence(a, b, m);
-    
+
     if (solution != -1) {
         cout << "方程 " << a << "^x ≡ " << b << " (mod " << m << ") 的解是: x = " << solution << endl;
     } else {
         cout << "方程无解或解超出搜索范围" << endl;
     }
-    
+
     return 0;
 }
 ```
@@ -7059,7 +7147,7 @@ using namespace std;
 long long fast_pow(long long a, long long b, long long mod) {
     long long result = 1;
     a %= mod;
-    
+
     while (b > 0) {
         if (b & 1) {
             result = (result * a) % mod;
@@ -7067,7 +7155,7 @@ long long fast_pow(long long a, long long b, long long mod) {
         a = (a * a) % mod;
         b >>= 1;
     }
-    
+
     return result;
 }
 
@@ -7091,22 +7179,22 @@ int euler_phi(int n) {
 // 欧拉降幂计算
 long long euler_pow(long long a, long long b, long long m) {
     if (m == 1) return 0;  // 特殊情况
-    
+
     int phi_m = euler_phi(m);
-    
+
     if (b >= phi_m) {
         b = b % phi_m + phi_m;  // 欧拉降幂
     }
-    
+
     return fast_pow(a, b, m);
 }
 
 int main() {
     long long a, b, m;
     cin >> a >> b >> m;
-    
+
     cout << a << "^" << b << " mod " << m << " = " << euler_pow(a, b, m) << endl;
-    
+
     return 0;
 }
 ```
@@ -7128,19 +7216,19 @@ int phi[N];
 void euler_sieve(int n) {
     vector<int> primes;
     bool is_composite[N] = {false};
-    
+
     phi[0] = 0;
     phi[1] = 1;
-    
+
     for (int i = 2; i <= n; i++) {
         if (!is_composite[i]) {
             primes.push_back(i);
             phi[i] = i - 1;
         }
-        
+
         for (int j = 0; j < primes.size() && i * primes[j] <= n; j++) {
             is_composite[i * primes[j]] = true;
-            
+
             if (i % primes[j] == 0) {
                 phi[i * primes[j]] = phi[i] * primes[j];
                 break;
@@ -7149,7 +7237,7 @@ void euler_sieve(int n) {
             }
         }
     }
-    
+
     // 计算前缀和
     for (int i = 2; i <= n; i++) {
         phi[i] += phi[i - 1];
@@ -7159,11 +7247,11 @@ void euler_sieve(int n) {
 int main() {
     int n;
     cin >> n;
-    
+
     euler_sieve(n);
-    
+
     cout << "1到" << n << "的欧拉函数值之和: " << phi[n] << endl;
-    
+
     return 0;
 }
 ```
@@ -7183,19 +7271,19 @@ int phi[N];
 void euler_sieve(int n) {
     vector<int> primes;
     bool is_composite[N] = {false};
-    
+
     phi[0] = 0;
     phi[1] = 1;
-    
+
     for (int i = 2; i <= n; i++) {
         if (!is_composite[i]) {
             primes.push_back(i);
             phi[i] = i - 1;
         }
-        
+
         for (int j = 0; j < primes.size() && i * primes[j] <= n; j++) {
             is_composite[i * primes[j]] = true;
-            
+
             if (i % primes[j] == 0) {
                 phi[i * primes[j]] = phi[i] * primes[j];
                 break;
@@ -7209,19 +7297,19 @@ void euler_sieve(int n) {
 int main() {
     int n;
     cin >> n;
-    
+
     euler_sieve(n);
-    
+
     long long result = 0;
-    
+
     // 对于每个j，计算满足1 ≤ i < j且gcd(i,j) = 1的i的个数
     // 这正好是φ(j)
     for (int j = 2; j <= n; j++) {
         result += phi[j];
     }
-    
+
     cout << "互质数对的个数: " << result << endl;
-    
+
     return 0;
 }
 ```
@@ -7237,11 +7325,9 @@ int main() {
 
 掌握这些知识点对于解决数论相关问题非常重要，建议多加练习相关题目。
 
-
 # sin/cos/tan函数理论学习已及使用（GESP 7级考点）
 
 ![](C:\Users\Administrator\Pictures\Screenshots\zjsjx.png)
-
 
 这是7级知识点，我在学习7级是写的。
 
@@ -7264,54 +7350,70 @@ int main() {
 设圆心角度为$o$,半径为$r$,带入得：
 
 $$
-    弧长= \frac{2o}{360} \times  \pi \times r，
+弧长= \frac{2o}{360} \times  \pi \times r，
     弧度= \frac{\frac{2o}{360} \times  \pi \times r}{r}=2 \times \frac{o}{360} \times \pi
 $$
 
 ### 重大问题：三角形里哪里来的弧？
+
 这是一个非常棒的思考！你发现了一个关键：**三角形本身是没有“弧”的**，它是**直的**。
 
 之所以会出现“弧长”，是因为我们**将三角形放进了一个“圆”里**。
+
 #### 1. 动态图解：三角形是怎么“长”出弧来的？
+
 想象你手里有一把圆规：
+
 1. 定半径：针尖扎在原点 ，笔尖拉开一段距离（这就是半径 ，也是直角三角形的斜边）。
+
 2. 画弧：笔尖从水平位置（x轴）向上转动，直到停在某个点 
-。
-第三步（补全三角形）：从点 
- 向下作一条垂线到 x 轴。
-看这个示意图：
-```
+   。
+   第三步（补全三角形）：从点 
+   向下作一条垂线到 x 轴。
+   看这个示意图：
+   
+   ```
                  y轴 (高度)
                   ^
-
+   
                   |           点 P (笔尖位置)
                   |          /|
        弧长 (s)   |        /  | 
         ~~~~~>    |  r (斜边) | y (对边/高度)
      (圆周上的线) |    /      | 
-
+   
                   |  / θ(角)  |
      -------------+-----------+------------> x轴 (宽度)
                 圆心         x (临边/宽度)
+   
+   ```
 
 ```
+
 #### 2. 它们的关系：谁生了谁？
+
 弧长 ($s$)：是笔尖在圆周上滑过的真实路程。
 
 弧度 ($\theta$)：就是这个路程占了半径的几倍？（公式：$\theta = \frac{s}{r}$）。
 
 三角形：是此时笔尖、圆心、投影点构成的直角三角形。
+
 #### 3. 三角形怎么“算”出弧长？
+
 如果你只知道三角形的边长，想反推“弧长”，逻辑是这样的：
+
 1. 先求比例（正切/斜率）：通过三角形的 
-（对边除以临边），得到 
-。
+   （对边除以临边），得到 
+   。
 2. 求出弧度：用 C++ 的反正切函数 atan(y/x)，电脑会告诉你：“对应的弧度是 
-”。
+   ”。
 3. 最后算弧长：根据弧度的定义，弧长 = 弧度 
- 半径 (
-)。
+   半径 ()。
 
 ## sin
+
 ### 意思和用处
+
 正弦（sin），给你三角型弧度，可以算出底边的
+
+
