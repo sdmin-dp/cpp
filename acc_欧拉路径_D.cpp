@@ -3,9 +3,10 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-ll t;
-ll a[N];
+ll n,m,t;
+
 void solve(){
+    cin>>t>>n>>m;
     
 }
 int main(){
