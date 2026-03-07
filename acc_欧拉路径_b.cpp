@@ -6,12 +6,15 @@ const ll N=1e5+5;
 ll n,m;
 vector<ll> g[N];
 void solve(){
-    cin>>n>>m;
-    for(int i=1;i<=m;i++){
-        ll x,y;
-        cin>>x>>y;
-        g[x].push_back(y);
-        g[y].push_back(x);
+    while(cin>>n>>m){
+        for(int i=1;i<=n;i++) g[i].clear();
+        for(int i=1;i<=m;i++){
+            ll x,y;
+            cin>>x>>y;
+            g[x].push_back(y);
+            g[y].push_back(x);
+        }
+        
     }
 }
 int main(){
