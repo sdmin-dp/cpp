@@ -5,6 +5,14 @@ using namespace std;
 const ll N=1e5+5;
 ll n,m;
 vector<ll> g[N];
+void dfs(ll x){
+    for(auto i:g[x]){
+        if(!vis[i]){
+            vis[i]=1;
+            dfs(i);
+        }
+    }
+}
 void solve(){
     while(cin>>n>>m){
         for(int i=1;i<=n;i++) g[i].clear();
@@ -14,7 +22,7 @@ void solve(){
             g[x].push_back(y);
             g[y].push_back(x);
         }
-        
+
     }
 }
 int main(){
