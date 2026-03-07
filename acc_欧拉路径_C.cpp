@@ -30,7 +30,7 @@ void solve(){
     }
     ll b=1;
     ll cnt=0;
-    for(int i=1;i<=n;i++){
+    for(int i=mn;i<=mx;i++){
         cnt=0;
         for(int j=1;j<=n;j++) cnt+=a[i][j];
         if(cnt%2){
