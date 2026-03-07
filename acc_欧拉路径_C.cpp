@@ -5,8 +5,9 @@ using namespace std;
 const ll N=1025+5;
 ll n;
 bool a[N][N];
-void dfs(){
-    
+deque<ll> ans;
+void dfs(ll x){
+
 }
 void solve(){
     cin>>n;
@@ -16,7 +17,7 @@ void solve(){
         a[x][y]=1;
         a[y][x]=1;
     }
-
+    
 }
 int main(){
     ios::sync_with_stdio(0);
