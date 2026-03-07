@@ -5,6 +5,7 @@ using namespace std;
 const ll N=1e5+5;
 ll n,m;
 vector<ll> g[N];
+bool vis[N];
 void dfs(ll x){
     for(auto i:g[x]){
         if(!vis[i]){
