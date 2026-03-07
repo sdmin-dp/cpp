@@ -1,57 +1,41 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
+#define ll long long
 using namespace std;
-
-const int N = 1e5 + 5;
-vector<int> g[N];
+#define el '\n'
+const ll N=1e5+5;
+ll n,m,deg[N];
 bool vis[N];
-int deg[N];
-vector<int> component_nodes;
-
-void dfs(int u) {
-    vis[u] = true;
-    component_nodes.push_back(u);
-    for (int v : g[u]) {
-        if (!vis[v]) dfs(v);
-    }
+vector<ll> g[N],nodes;
+void dfs(ll u){
+    vis[u]=1;
+    nodes.push_back(u);
+    for(auto v:g[u])if(!vis[v])dfs(v);
 }
-
-void solve() {
-    int n, m;
-    while (cin >> n >> m) {
-        for (int i = 1; i <= n; i++) {
-            g[i].clear();
-            vis[i] = false;
-            deg[i] = 0;
+void solve(){
+    while(cin>>n>>m){
+        for(int i=1;i<=n;i++){g[i].clear();vis[i]=0;deg[i]=0;}
+        for(int i=1;i<=m;i++){
+            ll x,y;cin>>x>>y;
+            g[x].push_back(y);g[y].push_back(x);
+            deg[x]++;deg[y]++;
         }
-        for (int i = 0; i < m; i++) {
-            int u, v;
-            cin >> u >> v;
-            g[u].push_back(v);
-            g[v].push_back(u);
-            deg[u]++; deg[v]++;
-        }
-
-        int total_strokes = 0;
-        for (int i = 1; i <= n; i++) {
-            if (!vis[i] && deg[i] > 0) {
-                component_nodes.clear();
+        ll ans=0;
+        for(int i=1;i<=n;i++){
+            if(!vis[i]&&deg[i]>0){
+                nodes.clear();
                 dfs(i);
-                
-                int odd_cnt = 0;
-                for (int node : component_nodes) {
-                    if (deg[node] % 2 != 0) odd_cnt++;
-                }
-                
-                if (odd_cnt == 0) total_strokes += 1;
-                else total_strokes += odd_cnt / 2;
+                ll cnt=0;
+                for(auto u:nodes)if(deg[u]%2==1)cnt++;
+                if(cnt==0)ans++;
+                else ans+=cnt/2;
             }
         }
-        cout << total_strokes << endl;
+        cout<<ans<<el;
     }
 }
-
-int main() {
-    ios::sync_with_stdio(0); cin.tie(0);
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
     solve();
     return 0;
 }
