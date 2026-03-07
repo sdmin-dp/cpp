@@ -17,7 +17,7 @@ bool a[N][N];
 //     ans.push_front(x);
 // }
 void solve(){
-    cin>>n;
+    // cin>>n;
     // for(int i=1;i<=n;i++){
     //     ll x,y;
     //     cin>>x>>y;
