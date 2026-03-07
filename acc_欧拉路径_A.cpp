@@ -7,6 +7,7 @@ ll n,m;
 vector<ll> g[N];
 void solve(){
     cin>>n>>m;
+    if(n==0) exit(0);
     for(int i=1;i<=m;i++){
         ll x,y;
         cin>>x>>y;
@@ -25,7 +26,7 @@ int main(){
     //freopen("xxx.out","w",stdout);
     ll T=1;
     //cin>>T;
-    while(T--){
+    while(1){
         solve();
     }
     return 0;
