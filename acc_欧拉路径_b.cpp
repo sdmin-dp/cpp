@@ -5,15 +5,6 @@ using namespace std;
 const ll N=1e5+5;
 ll n,m;
 vector<ll> g[N];
-bool vis[N];
-void dfs(ll x){
-    for(auto i:g[x]){
-        if(!vis[i]){
-            vis[i]=1;
-            dfs(i);
-        }
-    }
-}
 void solve(){
     while(cin>>n>>m){
         for(int i=1;i<=n;i++) g[i].clear();
@@ -23,13 +14,9 @@ void solve(){
             g[x].push_back(y);
             g[y].push_back(x);
         }
-        dfs(1);
-        bool flag=0;
-        for(int i=1;i<=n;i++) if(!vis[i]) flag=1;
         ll cnt=0;
         for(int i=1;i<=n;i++) if(g[i].size()%2==1) cnt++;
-        if(!flag&&cnt==0) cout<<1<<el;
-        else cout<<0<<el;
+        cout<<cnt/2<<el;
     }
 }
 int main(){
