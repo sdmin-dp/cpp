@@ -6,18 +6,21 @@ const ll N=1e5+5;
 ll n,m;
 vector<ll> g[N];
 void solve(){
-    cin>>n>>m;
-    if(n==0) exit(0);
-    for(int i=1;i<=m;i++){
-        ll x,y;
-        cin>>x>>y;
-        g[x].push_back(y);
-        g[y].push_back(x);
+    while(cin>>n){
+        cin>>m;
+        if(n==0) return;
+        for(int i=1;i<=m;i++){
+            ll x,y;
+            cin>>x>>y;
+            g[x].push_back(y);
+            g[y].push_back(x);
+        }
+        ll cnt=0;
+        for(int i=1;i<=n;i++) if(g[i].size()%2==1) cnt++;
+        if(!cnt) cout<<1<<el;
+        else cout<<0<<el;
     }
-    ll cnt=0;
-    for(int i=1;i<=n;i++) if(g[i].size()%2==1) cnt++;
-    if(!cnt) cout<<1<<el;
-    else cout<<0<<el;
+    
 }
 int main(){
     ios::sync_with_stdio(0);
@@ -26,7 +29,7 @@ int main(){
     //freopen("xxx.out","w",stdout);
     ll T=1;
     //cin>>T;
-    while(1){
+    while(T--){
         solve();
     }
     return 0;
