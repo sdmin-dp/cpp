@@ -24,8 +24,8 @@ void solve(){
         a[x][y]=1;
         a[y][x]=1;
     }
-    ll b=1;
-    ll cnt=0;
+    // ll b=1;
+    // ll cnt=0;
     // for(int i=1;i<=n;i++){
     //     cnt=0;
     //     for(int j=1;j<=n;j++) cnt+=a[i][j];
