@@ -1,2 +1,1 @@
-print("hello python!")
-True
+print(1+1!=2)
