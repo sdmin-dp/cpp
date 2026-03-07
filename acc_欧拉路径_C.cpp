@@ -17,7 +17,9 @@ void solve(){
         a[x][y]=1;
         a[y][x]=1;
     }
-    
+    for(int i=1;i<=n;i++){
+        
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
