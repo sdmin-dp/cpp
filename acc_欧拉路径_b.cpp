@@ -16,7 +16,8 @@ void solve(){
         }
         ll cnt=0;
         for(int i=1;i<=n;i++) if(g[i].size()%2==1) cnt++;
-        cout<<cnt<<el;
+        if(cnt==0) cout<<1<<el;
+        else cout<<cnt/2<<el;
     }
 }
 int main(){
