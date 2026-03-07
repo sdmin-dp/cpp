@@ -1,36 +1,51 @@
-#include <iostream>
-#include <vector>
-
-int main() {
-    int limit = 2026;
-    int count = 0;
-    std::vector<int> results;
-
-    // 最小质因数为 5 的数一定是 5 的倍数
-    // 我们直接以 5 为步长进行遍历
-    for (int i = 5; i <= limit; i += 5) {
-        // 最小质因数是 5，意味着它不能有比 5 更小的质因数（即 2 和 3）
-        if (i % 2 != 0 && i % 3 != 0) {
-            count++;
-            results.push_back(i);
+#include<bits/stdc++.h>
+#define ll long long
+using namespace std;
+#define el '\n'
+const ll N=500+5;
+ll n;
+bool a[N][N];
+deque<ll> ans;
+void dfs(ll x){
+    for(int i=1;i<=n;i++){
+        if(a[x][i]){
+            a[x][i]=0;
+            a[i][x]=1;
+            dfs(i);
         }
     }
-
-    std::cout << "2026以内最小质因数是5的数共有: " << count << " 个" << std::endl;
-
-    // 打印前5个和最后5个作为验证
-    if (!results.empty()) {
-        std::cout << "部分数值示例: ";
-        for (int i = 0; i < 5 && i < results.size(); ++i) {
-            std::cout << results[i] << " ";
-        }
-        std::cout << "... ";
-        for (int i = results.size() - 5; i < results.size(); ++i) {
-            if (i >= 0) std::cout << results[i] << " ";
-        }
-        std::cout << std::endl;
+    ans.push_front(x);
+}
+void solve(){
+    cin>>n;
+    for(int i=1;i<=n;i++){
+        ll x,y;
+        cin>>x>>y;
+        a[x][y]=1;
+        a[y][x]=1;
     }
-
+    ll b=1;
+    ll cnt=0;
+    for(int i=1;i<=n;i++){
+        cnt=0;
+        for(int j=1;j<=n;j++) cnt+=a[i][j];
+        if(cnt%2){
+            b=i;
+            break;
+        }
+    }
+    dfs(b);
+    for(auto i:ans) cout<<i<<el;
+}
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    //freopen("xxx.in","r",stdin);
+    //freopen("xxx.out","w",stdout);
+    ll T=1;
+    //cin>>T;
+    while(T--){
+        solve();
+    }
     return 0;
 }
-
