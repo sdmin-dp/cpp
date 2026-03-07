@@ -6,18 +6,42 @@
       {
         "id": "8a2ff3bc2f515b8c",
         "type": "tabs",
+        "dimension": 81.08504398826979,
         "children": [
           {
             "id": "782af40c1018c187",
             "type": "leaf",
             "state": {
-              "type": "bases",
+              "type": "markdown",
               "state": {
-                "file": "Untitled.base",
-                "viewName": "Table"
+                "file": "信奥c++.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-table",
-              "title": "Untitled"
+              "icon": "lucide-file",
+              "title": "信奥c++"
+            }
+          }
+        ]
+      },
+      {
+        "id": "41aa856adbe271f1",
+        "type": "tabs",
+        "dimension": 18.914956011730204,
+        "children": [
+          {
+            "id": "aa369a256858d9e5",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "信奥c++.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "信奥c++ 的大纲"
             }
           }
         ]
@@ -43,7 +67,7 @@
                 "autoReveal": false
               },
               "icon": "lucide-folder-closed",
-              "title": "Files"
+              "title": "文件列表"
             }
           },
           {
@@ -70,11 +94,10 @@
               "type": "bookmarks",
               "state": {},
               "icon": "lucide-bookmark",
-              "title": "Bookmarks"
+              "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -94,7 +117,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Welcome.md",
+                "file": "信奥c++.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +127,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Welcome"
+              "title": "信奥c++ 的反向链接列表"
             }
           },
           {
@@ -185,8 +208,12 @@
   },
   "active": "782af40c1018c187",
   "lastOpenFiles": [
+    "GESP六级编程题考点与应对策略.md",
+    "GESP 7级 查漏补缺.md",
+    "信奥c++.md",
     "Untitled.base",
-    "Untitled.canvas",
-    "Welcome.md"
+    "create a link.md",
+    "Welcome.md",
+    "Untitled.canvas"
   ]
 }
