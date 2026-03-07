@@ -6,16 +6,16 @@ const ll N=500+5;
 ll n;
 bool a[N][N];
 deque<ll> ans;
-void dfs(ll x){
-    for(int i=1;i<=n;i++){
-        if(a[x][i]){
-            a[x][i]=0;
-            a[i][x]=0;
-            dfs(i);
-        }
-    }
-    ans.push_front(x);
-}
+// void dfs(ll x){
+//     for(int i=1;i<=n;i++){
+//         if(a[x][i]){
+//             a[x][i]=0;
+//             a[i][x]=0;
+//             dfs(i);
+//         }
+//     }
+//     ans.push_front(x);
+// }
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
@@ -34,7 +34,7 @@ void solve(){
             break;
         }
     }
-    dfs(b);
+    // dfs(b);
     for(auto i:ans) cout<<i<<el;
 }
 int main(){
