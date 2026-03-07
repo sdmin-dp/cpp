@@ -9,9 +9,12 @@ deque<ll> ans;
 void dfs(ll x){
     for(int i=1;i<=n;i++){
         if(a[x][i]){
-            
+            a[x][i]=0;
+            a[i][x]=1;
+            dfs(i);
         }
     }
+    ans.push_front(x);
 }
 void solve(){
     cin>>n;
@@ -32,6 +35,7 @@ void solve(){
         }
     }
     dfs(b);
+    for(auto i:ans) cout<<i<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
