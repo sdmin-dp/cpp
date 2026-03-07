@@ -1,2 +1,0 @@
-f"aaaa{"b"}."
-print
