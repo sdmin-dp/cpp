@@ -3,8 +3,16 @@
 using namespace std;
 #define el '\n'
 const ll N=1025+5;
-
+ll n;
+bool a[N][N];
 void solve(){
+    cin>>n;
+    for(int i=1;i<=n;i++){
+        ll x,y;
+        cin>>x>>y;
+        a[x][y]=1;
+        a[y][x]=1;
+    }
     
 }
 int main(){
