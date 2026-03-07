@@ -22,7 +22,9 @@ void solve(){
     for(int i=1;i<=n;i++){
         cnt=0;
         for(int j=1;j<=n;j++) cnt+=a[i][j];
-        if(cnt%2) 
+        if(cnt%2){
+            
+        }
     }
 }
 int main(){
