@@ -20,7 +20,7 @@ void solve(){
         if(!cnt) cout<<1<<el;
         else cout<<0<<el;
     }
-    
+
 }
 int main(){
     ios::sync_with_stdio(0);
