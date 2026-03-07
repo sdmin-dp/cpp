@@ -10,7 +10,7 @@ void dfs(ll x){
     for(int i=1;i<=n;i++){
         if(a[x][i]){
             a[x][i]=0;
-            a[i][x]=1;
+            a[i][x]=0;
             dfs(i);
         }
     }
