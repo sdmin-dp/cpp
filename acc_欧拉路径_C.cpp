@@ -5,7 +5,7 @@ using namespace std;
 const ll N=500+5;
 ll n;
 bool a[N][N];
-deque<ll> ans;
+// deque<ll> ans;
 // void dfs(ll x){
 //     for(int i=1;i<=n;i++){
 //         if(a[x][i]){
@@ -35,7 +35,7 @@ void solve(){
         }
     }
     // dfs(b);
-    for(auto i:ans) cout<<i<<el;
+    // for(auto i:ans) cout<<i<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
