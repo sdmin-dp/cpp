@@ -16,6 +16,8 @@ void dfs(ll x){
 }
 void solve(){
     while(cin>>n){
+        for(int i=1;i<=n;i++) g[i].clear();
+        memset(vis,0,sizeof(vis));
         cin>>m;
         if(n==0) return;
         for(int i=1;i<=m;i++){
