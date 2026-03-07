@@ -5,6 +5,10 @@ using namespace std;
 const ll N=1e5+5;
 ll n,m;
 vector<ll> g[N];
+ll vis[N];
+void dfs(ll x){
+
+}
 void solve(){
     while(cin>>n){
         cin>>m;
