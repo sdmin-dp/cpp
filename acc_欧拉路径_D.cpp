@@ -5,9 +5,12 @@ using namespace std;
 const ll N=1e5+5;
 ll n,m,t;
 map<ll,ll> mp;
+
 void solve(){
     cin>>t>>n>>m;
-    
+    for(int i=1;i<=m;i++){
+        
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
