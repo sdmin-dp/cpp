@@ -2,7 +2,7 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1025+5;
+const ll N=500+5;
 ll n;
 bool a[N][N];
 deque<ll> ans;
@@ -23,7 +23,7 @@ void solve(){
         cnt=0;
         for(int j=1;j<=n;j++) cnt+=a[i][j];
         if(cnt%2){
-            
+
         }
     }
 }
