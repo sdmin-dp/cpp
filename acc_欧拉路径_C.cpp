@@ -7,7 +7,11 @@ ll n;
 bool a[N][N];
 deque<ll> ans;
 void dfs(ll x){
-
+    for(int i=1;i<=n;i++){
+        if(a[x][i]){
+            
+        }
+    }
 }
 void solve(){
     cin>>n;
@@ -23,9 +27,11 @@ void solve(){
         cnt=0;
         for(int j=1;j<=n;j++) cnt+=a[i][j];
         if(cnt%2){
-
+            b=i;
+            break;
         }
     }
+    dfs(b);
 }
 int main(){
     ios::sync_with_stdio(0);
