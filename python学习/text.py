@@ -1,1 +1,2 @@
-f"aaaa"{"b"}
+f"aaaa{"b"}."
+print
