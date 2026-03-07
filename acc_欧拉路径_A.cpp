@@ -26,18 +26,11 @@ void solve(){
         }
         dfs(1);
         bool flag=0;
-        for(int i=1;i<=n;i++){
-            if(!vis[i]){
-                cout<<0<<el;
-                flag=1;
-            }
-        }
-        if(!flag){
-            ll cnt=0;
-            for(int i=1;i<=n;i++) if(g[i].size()%2==1) cnt++;
-            if(cnt==0) cout<<1<<el;
-            else cout<<0<<el;
-        }
+        for(int i=1;i<=n;i++) if(!vis[i]) flag=1;
+        ll cnt=0;
+        for(int i=1;i<=n;i++) if(g[i].size()%2==1) cnt++;
+        if(!flag&&cnt==0) cout<<1<<el;
+        else cout<<0<<el;
     }
 
 }
