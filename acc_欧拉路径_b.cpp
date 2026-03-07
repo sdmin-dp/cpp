@@ -23,7 +23,13 @@ void solve(){
             g[x].push_back(y);
             g[y].push_back(x);
         }
-
+        dfs(1);
+        bool flag=0;
+        for(int i=1;i<=n;i++) if(!vis[i]) flag=1;
+        ll cnt=0;
+        for(int i=1;i<=n;i++) if(g[i].size()%2==1) cnt++;
+        if(!flag&&cnt==0) cout<<1<<el;
+        else cout<<0<<el;
     }
 }
 int main(){
