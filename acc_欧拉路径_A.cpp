@@ -2,12 +2,17 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e5+5;
+const ll N=1e3+5;
 ll n,m;
 vector<ll> g[N];
-ll vis[N];
+bool vis[N];
 void dfs(ll x){
-
+    for(auto i:g[x]){
+        if(!vis[i]){
+            vis[i]=1;
+            dfs(i);
+        }
+    }
 }
 void solve(){
     while(cin>>n){
@@ -18,6 +23,13 @@ void solve(){
             cin>>x>>y;
             g[x].push_back(y);
             g[y].push_back(x);
+        }
+        dfs(1);
+        for(int i=1;i<=n;i++){
+            if(!vis[i]){
+                cout<<0<<el;
+                continue;
+            }
         }
         ll cnt=0;
         for(int i=1;i<=n;i++) if(g[i].size()%2==1) cnt++;
