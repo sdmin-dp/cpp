@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"name": "cpp",
+			"path": ".."
+		}
+	],
+	"settings": {
+		"gitdoc.enabled": true
+	}
+}
