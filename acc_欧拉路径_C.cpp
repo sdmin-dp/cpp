@@ -5,6 +5,9 @@ using namespace std;
 const ll N=1025+5;
 ll n;
 bool a[N][N];
+void dfs(){
+    
+}
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
@@ -13,7 +16,7 @@ void solve(){
         a[x][y]=1;
         a[y][x]=1;
     }
-    
+
 }
 int main(){
     ios::sync_with_stdio(0);
