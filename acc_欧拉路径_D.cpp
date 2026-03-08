@@ -14,7 +14,7 @@ void dfs(ll x){
         i++;
         if(vis[abs(u.second)]) continue;
         vis[abs(u.second)]=1;
-        
+        dfs(i);
     }
 }
 void solve(){
