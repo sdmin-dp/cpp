@@ -34,7 +34,11 @@ void solve(){
         g[x].push_back({y,1});
         g[y].push_back({x,1});
     }
-    for()
+    for(int i=1;i<=n;i++){
+        b=i;
+        memset(dis,0,sizeof(dis));
+        
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
