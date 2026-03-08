@@ -6,8 +6,9 @@ const ll N=1e5+5;
 ll n,m;
 vector<ll> g[N];
 ll dis[N];
-void bfs(){
+void bfs(ll b){
     queue<ll> q;
+    q.push(b);
     while(!q.empty()){
         ll x=q.front();
         q.pop();
@@ -26,7 +27,21 @@ void solve(){
         g[x].push_back(y);
         g[y].push_back(x);
     }
-    for()
+    ll res=1e18,id=0;
+    for(int i=1;i<=n;i++){
+        memset(dis,0x3f,sizeof(dis));
+        bfs(i);
+        ll ans=-1e18;
+        for(int j=1;j<=n;j++){
+            if(j==i) continue;
+            ans=max(ans,dis[j]);
+        }
+        if(ans<res) res=ans,id=i;
+        for(int i=1;i<=n;i++) cerr<<dis[i]<<" ";
+        cerr<<el;
+    }
+    
+    cout<<id;
 }
 int main(){
     ios::sync_with_stdio(0);
