@@ -7,6 +7,7 @@ ll n,m,t;
 map<pair<ll,ll>,ll> mp;
 vector<pair<ll,ll>> g[N];
 deque<ll> dq;
+ll cur[N];
 void dfs(ll x){
     
 }
