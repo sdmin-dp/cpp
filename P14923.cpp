@@ -37,6 +37,7 @@ void solve(){
     for(int i=1;i<=n;i++) cerr<<dis[i]<<" ";
     for(int i=1;i<=n;i++) if(dis[i]<dis[cat]) ans+=val[i];
     cout<<ans;
+    cerr<<0x3f3f3f3f;
 }
 int main(){
     ios::sync_with_stdio(0);
