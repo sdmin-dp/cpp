@@ -46,7 +46,7 @@ void solve(){
         return;
     }
     else{
-        cout<<"YES";
+        cout<<"YES"<<el;
         for(auto i:dq) cout<<i<<" ";
         cout<<el;
     }
