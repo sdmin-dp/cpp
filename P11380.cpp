@@ -26,9 +26,9 @@ void solve(){
         pre[b]=a;nxt[a]=b;
         --n;
     }
-    for(int i=1;i<=n;i++){
-        
-    }
+    ll ans=0;
+    for(int i=1;i<=n;i++) ans=ans*i%p;
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
