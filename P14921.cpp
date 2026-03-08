@@ -36,10 +36,11 @@ void solve(){
     }
     for(int i=1;i<=n;i++){
         b=i;
-        memset(dis,0,sizeof(dis));
+        memset(dis,0x3f,sizeof(dis));
         SPFA();
         for(int j=1;j<=n;j++){
             if(j==i) continue;
+            
         }
     }
 }
