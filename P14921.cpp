@@ -3,8 +3,37 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+ll n,m;
+vector<pair<ll,ll>> g[N];
+ll dis[N];
+bool inq[N];
+ll b,res;
+void SPFA(){
+    queue<ll> q;
+    q.push(b);
+    dis[b]=0;
+    inq[b]=1;
+    while(!q.empty()){
+        ll x=q.front();
+        inq[x]=0;
+        q.pop();
+        for(auto v:g[x]){
+            if(dis[v.first]>dis[x]+v.second){
+	            
+                dis[v.first]=dis[x]+v.second;
+                if(!inq[v.first]) q.push(v.first);
+                inq[v.first]=1;
+            }
+        }
+    }
+}
 void solve(){
+    cin>>n>>m;
+    for(int i=1;i<=m;i++){
+        ll x,y;cin>>x>>y;
+        g[x].push_back({y,1});
+        g[y].push_back({x,1});
+    }
     
 }
 int main(){
