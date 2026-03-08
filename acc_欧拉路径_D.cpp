@@ -27,8 +27,8 @@ void solve(){
         }
     }
     for(int i=1;i<=n;i++){
-        if(g[i].size()!=0){
-            
+        if(!g[i].empty()){
+            dfs(g[i]);
         }
     }
 }
