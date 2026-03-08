@@ -34,7 +34,7 @@ void solve(){
         g[v].push_back({u,w});
     }
     dijkstra(mouse);
-    for(int i=1;i<=n;i++) cout<<dis[N]
+    for(int i=1;i<=n;i++) cerr<<dis[i]<<" ";
     for(int i=1;i<=n;i++) if(dis[i]<dis[cat]) ans+=val[i];
     cout<<ans;
 }
