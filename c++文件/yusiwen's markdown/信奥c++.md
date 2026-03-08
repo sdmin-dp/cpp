@@ -1352,7 +1352,7 @@ $(a-b) \mod q = (a \mod q-b \mod q+q)\mod q$
 
 ## 最短路
 
-### $floyd$
+### floyd
 
 ### 思路
 
@@ -1404,7 +1404,7 @@ int main(){
 
 
 
-### $dijkstra$
+### dijkstra
 
 ### 代码
 
@@ -1465,15 +1465,15 @@ int main() {
 
 
 
-### $bellman-ford$
+### bellman-ford
 
 没必要讲
 
-### $SPFA$
+### SPFA
 
 ### 正常版
 
-$SPFA$不难，可以用在差分约束系统上
+SPFA 不难，可以用在差分约束系统上
 
 直接贴代码：
 

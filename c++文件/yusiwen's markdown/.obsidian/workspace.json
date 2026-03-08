@@ -6,7 +6,7 @@
       {
         "id": "8a2ff3bc2f515b8c",
         "type": "tabs",
-        "dimension": 81.08504398826979,
+        "dimension": 78.28319882611886,
         "children": [
           {
             "id": "782af40c1018c187",
@@ -27,7 +27,7 @@
       {
         "id": "41aa856adbe271f1",
         "type": "tabs",
-        "dimension": 18.914956011730204,
+        "dimension": 21.716801173881144,
         "children": [
           {
             "id": "aa369a256858d9e5",
@@ -36,8 +36,8 @@
               "type": "outline",
               "state": {
                 "file": "信奥c++.md",
-                "followCursor": false,
-                "showSearch": false,
+                "followCursor": true,
+                "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
@@ -206,7 +206,7 @@
       "bases:新建数据库": false
     }
   },
-  "active": "782af40c1018c187",
+  "active": "aa369a256858d9e5",
   "lastOpenFiles": [
     "GESP六级编程题考点与应对策略.md",
     "GESP 7级 查漏补缺.md",
