@@ -18,7 +18,7 @@ void dijkstra(ll b){
         for(auto i:g[x.second]){
             if(dis[i.first]>dis[x.second]+i.second){
                 dis[i.first]=dis[x.second]+i.second;
-                q.push({i.first,dis[i.first]});
+                q.push({dis[i.first],i.first});
             }
         }
     }
