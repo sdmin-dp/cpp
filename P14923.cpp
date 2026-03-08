@@ -8,7 +8,7 @@ vector<pair<ll,ll>> g[N];
 ll dis[N];
 ll mouse,cat;//猫窝和老鼠窝的位置
 ll val[N];//每个奶酪的价值
-void dijkstra(ll b,ll e){
+void dijkstra(ll b){
     priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;//堆优化
     q.push({0,b});
     memset(dis,0x3f,sizeof(dis));
@@ -36,6 +36,9 @@ void solve(){
         g[v].push_back({u,w});
     }
     dijkstra(mouse);
+    for(int i=1;i<=n;i++){
+        
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
