@@ -38,9 +38,10 @@ void solve(){
         b=i;
         memset(dis,0x3f,sizeof(dis));
         SPFA();
+        ll ans=-1e18;
         for(int j=1;j<=n;j++){
             if(j==i) continue;
-            
+            ans=max(ans,dis[j]);
         }
     }
 }
