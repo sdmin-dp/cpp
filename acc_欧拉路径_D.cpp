@@ -14,7 +14,8 @@ void solve(){
             cin>>x>>y;
             mp[{x,y}]=i;
             mp[{y,x}]=-i;
-            
+            g[x].push_back({y,i});
+            g[y].push_back({x,i});
         }
     }
     else{
@@ -22,6 +23,12 @@ void solve(){
             ll x,y;
             cin>>x>>y;
             mp[{x,y}]=i;
+            g[x].push_back({y,i});
+        }
+    }
+    for(int i=1;i<=n;i++){
+        if(g[i].size()!=0){
+            
         }
     }
 }
