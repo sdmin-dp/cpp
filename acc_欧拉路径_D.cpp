@@ -8,6 +8,7 @@ vector<pair<ll,ll>> g[N];
 deque<ll> dq;
 ll cur[N];
 bool vis[N];
+ll in[N],out[N];
 void dfs(ll x){
     for(ll &i=cur[x];i<g[x].size();){
         pair<ll,ll> u=g[x][i];
