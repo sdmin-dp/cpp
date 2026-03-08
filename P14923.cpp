@@ -25,7 +25,7 @@ void dijkstra(ll b){
 }
 void solve(){
     cin>>n>>m;
-    cin>>mouse>>cat;
+    cin>>cat>>mouse;
     for(int i=1;i<=n;i++) cin>>val[i];
     for(int i=1;i<=m;i++){
         ll u,v,w;
