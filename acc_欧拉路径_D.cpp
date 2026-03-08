@@ -9,7 +9,9 @@ vector<pair<ll,ll>> g[N];
 deque<ll> dq;
 ll cur[N];
 void dfs(ll x){
-    
+    for(ll &i=cur[x];i<g[x].size();){
+        
+    }
 }
 void solve(){
     cin>>t>>n>>m;
