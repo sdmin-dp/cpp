@@ -6,7 +6,7 @@ const ll N=1e5+5;
 ll n,m,b,q;
 vector<pair<ll,ll>> g[N];
 ll dis[N];
-void dijkstra(ll b){
+void dijkstra(){
     priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;//堆优化
     q.push({0,b});
     memset(dis,0x3f,sizeof(dis));
@@ -30,6 +30,12 @@ void solve(){
         cin>>u>>v>>w;
         g[u].push_back({v,w});
         g[v].push_back({u,w});
+    }
+    dijkstra();
+    for(int i=1;i<=q;i++){
+        ll x;
+        cin>>x;
+        cout<<dis[x]<<el;
     }
 }
 int main(){
