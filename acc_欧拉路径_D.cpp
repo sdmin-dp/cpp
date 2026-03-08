@@ -4,14 +4,24 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n,m,t;
-map<ll,ll> mp;
-
+map<pair<ll,ll>,ll> mp;
+vector<pair<ll,ll>> g[N];
 void solve(){
     cin>>t>>n>>m;
     if(t==1){
         for(int i=1;i<=m;i++){
             ll x,y;
             cin>>x>>y;
+            mp[{x,y}]=i;
+            mp[{y,x}]=-i;
+            
+        }
+    }
+    else{
+        for(int i=1;i<=m;i++){
+            ll x,y;
+            cin>>x>>y;
+            mp[{x,y}]=i;
         }
     }
 }
