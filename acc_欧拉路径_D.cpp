@@ -34,11 +34,20 @@ void solve(){
             ll x,y;
             cin>>x>>y;
             g[x].push_back({y,i});
+            in[y]++;
+            out[x]++;
         }
     }
     if(t==1){
         for(int i=1;i<=n;i++){
             if(g[i].size()%2!=0){
+                cout<<"NO";
+                return;
+            }
+        }
+    }else{
+        for(int i=1;i<=n;i++){
+            if(in[i]!=out[i]){
                 cout<<"NO";
                 return;
             }
