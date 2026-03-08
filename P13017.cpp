@@ -8,15 +8,9 @@ ll a[N];
 ll ans;
 void solve(){
 	cin>>n>>m;
-	for(int i=1;i<=m;i++){
-		int u,v;
-		cin>>u>>v;
-		a[u]++;
-		a[v]++;
-	}
+	for(int i=1,u,v;i<=m;i++){cin>>u>>v;a[u]++;a[v]++;}
 	for (int i=1;i<=n;i++) ans+=a[i]*(a[i]-1)/2;
 	cout<<ans;
-
 }
 int main(){
     ios::sync_with_stdio(0);
