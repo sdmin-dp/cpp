@@ -36,7 +36,7 @@
               "type": "outline",
               "state": {
                 "file": "信奥c++.md",
-                "followCursor": true,
+                "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
