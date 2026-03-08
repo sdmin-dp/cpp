@@ -7,8 +7,8 @@ ll n,m;
 vector<pair<ll,ll>> g[N];
 ll dis[N];
 bool inq[N];
-ll b,e;
-ll SPFA(){
+ll b,res;
+void SPFA(){
     queue<ll> q;
     q.push(b);
     dis[b]=0;
@@ -25,7 +25,6 @@ ll SPFA(){
             }
         }
     }
-    return dis[e];
 }
 void solve(){
     cin>>n>>m;
@@ -34,6 +33,7 @@ void solve(){
         g[x].push_back({y,1});
         g[y].push_back({x,1});
     }
+    ll res=0,id=0;
     for(int i=1;i<=n;i++){
         b=i;
         memset(dis,0x3f,sizeof(dis));
@@ -43,7 +43,9 @@ void solve(){
             if(j==i) continue;
             ans=max(ans,dis[j]);
         }
+        if(ans>res) res=ans,id=i;
     }
+    cout<<id;
 }
 int main(){
     ios::sync_with_stdio(0);
