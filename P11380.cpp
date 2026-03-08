@@ -13,6 +13,7 @@ ll find(ll x){
 }
 void solve(){
     cin>>n>>m;
+    for(int i=1;i<=n;i++) fa[i]=i;
     for(int i=1;i<=m;i++){
         ll a,b;
         cin>>a>>b;
