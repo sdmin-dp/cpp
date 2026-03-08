@@ -1486,15 +1486,19 @@ const ll N=1e5+5;
 ll n,m,b,e;
 vector<pair<ll,ll>> g[N];
 ll dis[N];
+bool inq[N];
 ll SPFA(){
     queue<ll> q;
     q.push(b);
     dis[b]=0;
+    inq[b]=1;
     while(!q.empty()){
         ll x=q.front();
+        inq[x]=0;
         q.pop();
         for(auto v:g[x]){
-            if(dis[v.first]>dis[x]+v.second){
+            if(!inq[v.first]&&dis[v.first]>dis[x]+v.second){
+	            inq[v.first]=1;
                 dis[v.first]=dis[x]+v.second;
                 q.push(v.first);
             }
