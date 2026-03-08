@@ -28,6 +28,8 @@ void dijkstra(){
 }
 void solve(){
     cin>>n>>m;
+    cin>>mouse>>cat;
+    
 }
 int main(){
     ios::sync_with_stdio(0);
