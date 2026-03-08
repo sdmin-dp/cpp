@@ -3,7 +3,7 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-const ll p=1e
+const ll p=1e9+7;
 ll fa[N];
 ll pre[N],nxt[N];
 ll n,m;
@@ -17,7 +17,17 @@ void solve(){
         ll a,b;
         cin>>a>>b;
         if(pre[b]==a||nxt[a]==b) continue;
-        i
+        if(pre[b]||nxt[a]||find(a)==find(b)){
+            cout<<0<<el;
+            return;
+        }
+        ll A=find(a),B=find(b);
+        if(A!=B) fa[B]=A;
+        pre[b]=a;nxt[a]=b;
+        --n;
+    }
+    for(int i=1;i<=n;i++){
+        
     }
 }
 int main(){
