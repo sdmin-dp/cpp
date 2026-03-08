@@ -13,6 +13,7 @@ void dfs(ll x){
         pair<ll,ll> u=g[x][i];
         i++;
         if(vis[abs(u.second)]) continue;
+        vis[abs(u.second)]=1;
         
     }
 }
