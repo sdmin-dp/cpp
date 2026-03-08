@@ -15,6 +15,7 @@ void dfs(ll x){
         if(vis[abs(u.second)]) continue;
         vis[abs(u.second)]=1;
         dfs(u.first);
+        dq.push_front(u.second);
     }
 }
 void solve(){
