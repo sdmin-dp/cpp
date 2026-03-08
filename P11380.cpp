@@ -20,7 +20,7 @@ void solve(){
         if(pre[b]==a||nxt[a]==b) continue;
         if(pre[b]||nxt[a]||find(a)==find(b)){
             // cout<<0<<el;
-            return;
+            // return;
         }
         ll A=find(a),B=find(b);
         if(A!=B) fa[B]=A;
