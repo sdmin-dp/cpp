@@ -19,7 +19,7 @@ void solve(){
         cin>>a>>b;
         if(pre[b]==a||nxt[a]==b) continue;
         if(pre[b]||nxt[a]||find(a)==find(b)){
-            cout<<0<<el;
+            // cout<<0<<el;
             return;
         }
         ll A=find(a),B=find(b);
