@@ -37,7 +37,7 @@ void solve(){
     }
     if(t==1){
         for(int i=1;i<=n;i++){
-            if(g[i].size()!=2){
+            if(g[i].size()%2!=0){
                 cout<<"NO";
                 return;
             }
