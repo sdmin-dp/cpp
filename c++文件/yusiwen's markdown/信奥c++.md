@@ -1429,8 +1429,8 @@ void dijkstra(){
         q.pop();
         if(x.first>dis[x.second]) continue;//一个小优化
         for(auto i:g[x.second]){
-            if(dis[i.first]>x.second+i.second){//松弛
-                dis[i.first]=x.second+i.second;
+            if(dis[i.first]>x.first+i.second){//松弛
+                dis[i.first]=x.first+i.second;
                 q.push({i.first,dis[i.first]});
             }
         }
