@@ -9,4 +9,5 @@ int main(){
         else if(std::__gcd(x,y)==1) std::cout<<std::min(a,2*b)<<'\n';
         else std::cout<<std::min(2*a,b)<<'\n';
     }
+    return 0;
 }
