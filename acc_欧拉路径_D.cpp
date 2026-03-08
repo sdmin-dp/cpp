@@ -8,8 +8,11 @@ map<ll,ll> mp;
 
 void solve(){
     cin>>t>>n>>m;
-    for(int i=1;i<=m;i++){
-        
+    if(t==1){
+        for(int i=1;i<=m;i++){
+            ll x,y;
+            cin>>x>>y;
+        }
     }
 }
 int main(){
