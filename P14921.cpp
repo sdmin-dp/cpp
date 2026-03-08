@@ -45,6 +45,7 @@ void solve(){
         }
         if(ans>res) res=ans,id=i;
     }
+    for(int i=1;i<=n;i++) cerr<<dis[i]<<" ";
     cout<<id;
 }
 int main(){
