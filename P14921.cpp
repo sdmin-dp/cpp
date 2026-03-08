@@ -34,7 +34,7 @@ void solve(){
         g[x].push_back({y,1});
         g[y].push_back({x,1});
     }
-    ll res=0,id=0;
+    ll res=1e18,id=0;
     for(int i=1;i<=n;i++){
         b=i;
         memset(dis,0x3f,sizeof(dis));
