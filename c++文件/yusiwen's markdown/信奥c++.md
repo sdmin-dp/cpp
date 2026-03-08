@@ -1478,7 +1478,8 @@ SPFA 不难，可以用在差分约束系统上
 直接贴代码：
 
 ```cpp
-#include<bits/stdc++.h> using namespace std; #define ll long long #define el "\n" #define prl pair<ll,ll> vector<vector<prl>> G;//邻接表 ll n,m,x,y,w,start; void solve(){ cin>>n>>m>>start;//n个点，m条边，从start开始 G.resize(n+1); for(int i=1;i<=m;i++){ cin>>x>>y>>w;//从x到y权重是w的边 G[x].push_back({y,w});//有向图只这一行 G[y].push_back({x,w});//无向图加上反向的情况 } vector<ll> dis(n+1,LONG_LONG_MAX);//存每个点的最短距离，默认权重无穷大 vector<bool> inque(n+1,0); vector<ll> count(n+1,0); dis[start]=0;//起点最短为0 queue<ll> q; q.push(start); inque[start]=1; count[start]++; while(!q.empty()){ ll u=q.front();q.pop(); inque[u]=0; for(auto [v,w]:G[u]){ if(dis[u]+w<dis[v]){ dis[v]=dis[u]+w; if(!inque[v]){ q.push(v); count[v]++; if(count[v]>n){ cout<<"有负权环"; return ; } } } } } for(int i=1;i<=n;i++) cout<<dis[i]<<" "; } int main(){ ios::sync_with_stdio(0); cin.tie(0);cout.tie(0); //freopen("***.in","r",stdin); //freopen("***.out","w",stdout); int T=1;//cin>>T; while(T--){ solve(); } retu
+#include<bits/stdc++.h> using namespace std; 
+#define ll long long #define el "\n" #define prl pair<ll,ll> vector<vector<prl>> G;//邻接表 ll n,m,x,y,w,start; void solve(){ cin>>n>>m>>start;//n个点，m条边，从start开始 G.resize(n+1); for(int i=1;i<=m;i++){ cin>>x>>y>>w;//从x到y权重是w的边 G[x].push_back({y,w});//有向图只这一行 G[y].push_back({x,w});//无向图加上反向的情况 } vector<ll> dis(n+1,LONG_LONG_MAX);//存每个点的最短距离，默认权重无穷大 vector<bool> inque(n+1,0); vector<ll> count(n+1,0); dis[start]=0;//起点最短为0 queue<ll> q; q.push(start); inque[start]=1; count[start]++; while(!q.empty()){ ll u=q.front();q.pop(); inque[u]=0; for(auto [v,w]:G[u]){ if(dis[u]+w<dis[v]){ dis[v]=dis[u]+w; if(!inque[v]){ q.push(v); count[v]++; if(count[v]>n){ cout<<"有负权环"; return ; } } } } } for(int i=1;i<=n;i++) cout<<dis[i]<<" "; } int main(){ ios::sync_with_stdio(0); cin.tie(0);cout.tie(0); //freopen("***.in","r",stdin); //freopen("***.out","w",stdout); int T=1;//cin>>T; while(T--){ solve(); } retu
 ```
 
 ### 负环判断
