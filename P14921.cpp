@@ -8,7 +8,7 @@ vector<ll> g[N];
 ll dis[N];
 void bfs(ll b){
     queue<ll> q;
-    q.push(b);dis[x]=0;
+    q.push(b);dis[b]=0;
     while(!q.empty()){
         ll x=q.front();
         q.pop();
