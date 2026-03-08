@@ -35,6 +35,14 @@ void solve(){
             g[x].push_back({y,i});
         }
     }
+    if(t==1){
+        for(int i=1;i<=n;i++){
+            if(g[i].size()!=2){
+                cout<<"NO";
+                return;
+            }
+        }
+    }
     for(int i=1;i<=n;i++) sort(g[i].begin(),g[i].end());
     for(int i=1;i<=n;i++){
         if(!g[i].empty()){
