@@ -6,10 +6,9 @@ const ll N=1e5+5;
 ll n,m;
 vector<pair<ll,ll>> g[N];
 ll dis[N];
-ll b,e;
-ll mouse,cat;
-
-void dijkstra(){
+ll mouse,cat;//猫窝和老鼠窝的位置
+ll val[N];//每个奶酪的价值
+void dijkstra(ll b,ll e){
     priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;//堆优化
     q.push({0,b});
     memset(dis,0x3f,sizeof(dis));
@@ -30,7 +29,13 @@ void dijkstra(){
 void solve(){
     cin>>n>>m;
     cin>>mouse>>cat;
-    for(int i=1;i<=n;i++) 
+    for(int i=1;i<=n;i++) cin>>val[i];
+    for(int i=1;i<=m;i++){
+        ll u,v,w;
+        cin>>u>>v>>w;
+        g[u].push_back({v,w});
+        g[v].push_back({u,w});
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
