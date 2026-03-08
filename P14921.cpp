@@ -18,10 +18,11 @@ void SPFA(){
         inq[x]=0;
         q.pop();
         for(auto v:g[x]){
-            if(!inq[v.first]&&dis[v.first]>dis[x]+v.second){
-	            inq[v.first]=1;
+            if(dis[v.first]>dis[x]+v.second){
+	            
                 dis[v.first]=dis[x]+v.second;
-                q.push(v.first);
+                if(!inq[v.first]) q.push(v.first);
+                inq[v.first]=1;
             }
         }
     }
