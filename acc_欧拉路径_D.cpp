@@ -6,6 +6,10 @@ const ll N=1e5+5;
 ll n,m,t;
 map<pair<ll,ll>,ll> mp;
 vector<pair<ll,ll>> g[N];
+deque<ll> dq;
+void dfs(ll x){
+    
+}
 void solve(){
     cin>>t>>n>>m;
     if(t==1){
@@ -28,7 +32,8 @@ void solve(){
     }
     for(int i=1;i<=n;i++){
         if(!g[i].empty()){
-            dfs(g[i]);
+            dfs(i);
+            break;
         }
     }
 }
