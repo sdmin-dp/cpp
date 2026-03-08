@@ -8,7 +8,8 @@ void solve(){
     cin>>n>>a>>b;
     while(n--){
         cin>>x>>y;
-        if(__gcd(x,y)==1) cout<<min(a,2*b)<<el;
+        if(x==y) cout<<0<<el;
+        else if(__gcd(x,y)==1) cout<<min(a,2*b)<<el;
         else cout<<min(2*a,b)<<el;
     }
 }
