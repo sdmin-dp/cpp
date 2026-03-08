@@ -41,6 +41,9 @@ void solve(){
             break;
         }
     }
+    if(dq.size()!=m){
+        cout<<"No"
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
