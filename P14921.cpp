@@ -4,25 +4,17 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n,m;
-vector<pair<ll,ll>> g[N];
+vector<ll> g[N];
 ll dis[N];
-bool inq[N];
-ll b,res;
-void SPFA(){
+void bfs(){
     queue<ll> q;
-    q.push(b);
-    dis[b]=0;
-    inq[b]=1;
     while(!q.empty()){
         ll x=q.front();
-        inq[x]=0;
         q.pop();
-        for(auto v:g[x]){
-            if(dis[v.first]>dis[x]+v.second){
-	            
-                dis[v.first]=dis[x]+v.second;
-                if(!inq[v.first]) q.push(v.first);
-                inq[v.first]=1;
+        for(auto i:g[x]){
+            if(dis[i]>dis[x]+1){
+                dis[i]=dis[x]+1;
+                q.push(i);
             }
         }
     }
@@ -31,10 +23,10 @@ void solve(){
     cin>>n>>m;
     for(int i=1;i<=m;i++){
         ll x,y;cin>>x>>y;
-        g[x].push_back({y,1});
-        g[y].push_back({x,1});
+        g[x].push_back(y);
+        g[y].push_back(x);
     }
-    
+    for()
 }
 int main(){
     ios::sync_with_stdio(0);
