@@ -3,11 +3,9 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-ll n,m;
+ll n,m,ans,mouse,cat;//猫窝和老鼠窝的位置
 vector<pair<ll,ll>> g[N];
-ll dis[N];
-ll mouse,cat;//猫窝和老鼠窝的位置
-ll val[N];//每个奶酪的价值
+ll dis[N],val[N];//每个奶酪的价值
 void dijkstra(ll b){
     priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;//堆优化
     q.push({0,b});
@@ -36,9 +34,8 @@ void solve(){
         g[v].push_back({u,w});
     }
     dijkstra(mouse);
-    for(int i=1;i<=n;i++){
-        
-    }
+    for(int i=1;i<=n;i++) if(dis[i]<dis[cat]) ans+=val[i];
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
