@@ -35,6 +35,7 @@ void solve(){
             g[x].push_back({y,i});
         }
     }
+    for(int i=1;i<=n;i++) sort(g[i].begin(),g[i].end());
     for(int i=1;i<=n;i++){
         if(!g[i].empty()){
             dfs(i);
