@@ -37,8 +37,6 @@ void solve(){
             ans=max(ans,dis[j]);
         }
         if(ans<res) res=ans,id=i;
-        for(int i=1;i<=n;i++) cerr<<dis[i]<<" ";
-        cerr<<el;
     }
     
     cout<<id;
