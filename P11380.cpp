@@ -4,12 +4,14 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll fa[N];
+ll n,m;
 ll find(ll x){
     if(fa[x]==x) return x;
     return fa[x]=find(fa[x]);
 }
 void solve(){
-       
+    cin>>n>>m;
+    for(int i=1;i<=m)
 }
 int main(){
     ios::sync_with_stdio(0);
