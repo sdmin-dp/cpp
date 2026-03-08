@@ -8,11 +8,12 @@ map<pair<ll,ll>,ll> mp;
 vector<pair<ll,ll>> g[N];
 deque<ll> dq;
 ll cur[N];
+bool vis[N];
 void dfs(ll x){
     for(ll &i=cur[x];i<g[x].size();){
         pair<ll,ll> u=g[x][i];
         i++;
-        dfs();
+        
     }
 }
 void solve(){
