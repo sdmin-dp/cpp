@@ -11,7 +11,8 @@ ll cur[N];
 void dfs(ll x){
     for(ll &i=cur[x];i<g[x].size();){
         pair<ll,ll> u=g[x][i];
-        
+        i++;
+        dfs();
     }
 }
 void solve(){
