@@ -7,6 +7,7 @@ ll n,m;
 vector<pair<ll,ll>> g[N];
 ll dis[N];
 ll b,e;
+ll mouse,cat;
 void dijkstra(){
     priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;//堆优化
     q.push({0,b});
@@ -26,7 +27,7 @@ void dijkstra(){
     }
 }
 void solve(){
-    
+    cin>>n>>m;
 }
 int main(){
     ios::sync_with_stdio(0);
