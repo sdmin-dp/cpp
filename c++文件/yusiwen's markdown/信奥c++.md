@@ -1418,23 +1418,23 @@ ll n,m;
 vector<pair<ll,ll>> g[N];
 ll dis[N];
 ll b,e;
-void dijkstra(){
-    priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;//堆优化
-    q.push({0,b});
-    memset(dis,0x3f,sizeof(dis));
-    dis[1]=0;
-    //dis[i]数组存的是b到i的最短路
-    while(!q.empty()){
-        auto x=q.top();
-        q.pop();
-        if(x.first>dis[x.second]) continue;//一个小优化
-        for(auto i:g[x.second]){
-            if(dis[i.first]>x.first+i.second){//松弛
-                dis[i.first]=x.first+i.second;
-                q.push({i.first,dis[i.first]});
-            }
-        }
-    }
+void dijkstra(ll b){
+
+    priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;//堆优化
+    q.push({0,b});
+    memset(dis,0x3f,sizeof(dis));
+    dis[b]=0;
+    while(!q.empty()){
+        auto x=q.top();
+        q.pop();
+        if(x.first>dis[x.second]) continue;
+        for(auto i:g[x.second]){
+            if(dis[i.first]>dis[x.second]+i.second){
+                dis[i.first]=dis[x.second]+i.second;
+                q.push({dis[i.first],i.first});
+            }
+        }
+    }
 }
 void solve(){
     cin>>n>>m;
