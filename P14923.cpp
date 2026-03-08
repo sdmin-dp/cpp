@@ -10,7 +10,7 @@ void dijkstra(ll b){
     priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;//堆优化
     q.push({0,b});
     memset(dis,0x3f,sizeof(dis));
-    dis[1]=0;
+    dis[b]=0;
     while(!q.empty()){
         auto x=q.top();
         q.pop();
@@ -34,6 +34,7 @@ void solve(){
         g[v].push_back({u,w});
     }
     dijkstra(mouse);
+    for(int i=1;i<=n;i++) cout<<dis[N]
     for(int i=1;i<=n;i++) if(dis[i]<dis[cat]) ans+=val[i];
     cout<<ans;
 }
