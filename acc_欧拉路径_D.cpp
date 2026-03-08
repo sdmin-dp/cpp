@@ -4,7 +4,6 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n,m,t;
-map<pair<ll,ll>,ll> mp;
 vector<pair<ll,ll>> g[N];
 deque<ll> dq;
 ll cur[N];
@@ -13,6 +12,7 @@ void dfs(ll x){
     for(ll &i=cur[x];i<g[x].size();){
         pair<ll,ll> u=g[x][i];
         i++;
+        if(vis[abs(u.second)]) continue;
         
     }
 }
@@ -22,17 +22,14 @@ void solve(){
         for(int i=1;i<=m;i++){
             ll x,y;
             cin>>x>>y;
-            mp[{x,y}]=i;
-            mp[{y,x}]=-i;
             g[x].push_back({y,i});
-            g[y].push_back({x,i});
+            g[y].push_back({x,-i});
         }
     }
     else{
         for(int i=1;i<=m;i++){
             ll x,y;
             cin>>x>>y;
-            mp[{x,y}]=i;
             g[x].push_back({y,i});
         }
     }
