@@ -42,7 +42,13 @@ void solve(){
         }
     }
     if(dq.size()!=m){
-        cout<<"No"
+        cout<<"NO"<<el;
+        return;
+    }
+    else{
+        cout<<"YES";
+        for(auto i:dq) cout<<i<<" ";
+        cout<<el;
     }
 }
 int main(){
