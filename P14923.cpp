@@ -29,7 +29,9 @@ void dijkstra(){
 void solve(){
     cin>>n>>m;
     cin>>mouse>>cat;
-    
+    for(int i=1;i<=n;i++){
+        
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
