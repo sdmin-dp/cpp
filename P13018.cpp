@@ -21,7 +21,7 @@ void solve(){
         //如果是正数，那么倒着就是j-w<=j,就要倒着遍历
         if(w>=0) for(int j=m;j>=w;j--) if(dp[j-w]!=-4485090715960753727) dp[j]=max(dp[j],dp[j-w]+v);
         //如果是复数，负重量，从小到大，同样是为了防止重复使用（因为依赖右边的旧值）
-        else for(int j=w;j<=m;j++) if(dp[j-w]!=-4485090715960753727) dp[j]=max(dp[j],dp[j-w]+v);
+        else for(int j=0;j<=zero+w;j++) if(dp[j-w]!=-4485090715960753727) dp[j]=max(dp[j],dp[j-w]+v);
     }
     ll mx=0;
     for(int i=zero;i<=zero+n;i++) mx=max(mx,dp[i]);
