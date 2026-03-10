@@ -11,7 +11,10 @@ void solve(){
     cin>>n;
     for(int i=1;i<=n;i++) cin>>a[i].first>>a[i].second;
     for(int i=1;i<=n;i++){
-        fi(a[i])
+        if(a[i].first-a[i].second>=0){
+            //如果是正数，那么倒着就是j-w<=j,就要倒着遍历
+            
+        }
     }
 }
 int main(){
