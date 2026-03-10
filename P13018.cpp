@@ -13,6 +13,7 @@ void solve(){
     for(int i=1;i<=n;i++) cin>>a[i].first>>a[i].second;
     for(int i=0;i<N;i++) dp[i]=-1e15;
     dp[zero]=0;
+    ll L=zero-50000,R=zero+50000;
     for(int i=1;i<=n;i++){
         ll w=a[i].first-a[i].second;
         ll v=a[i].second+a[i].first;
