@@ -13,7 +13,9 @@ pair<ll,ll> a[N];
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++) cin>>a[i].first>>a[i].second;
-    memset(dp,-0x3f,sizeof(dp));
+    for(int i=1;i<=n;i++){
+        
+    }
     dp[zero]=0;
     for(int i=1;i<=n;i++){
         ll w=a[i].first-a[i].second;
