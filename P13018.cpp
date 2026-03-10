@@ -5,6 +5,8 @@ using namespace std;
 const ll N=2e5+5;
 // 总重量 100005
 const ll m=100005;
+//偏移之后的0值
+const ll zero=50005;
 ll n;
 ll dp[N];
 pair<ll,ll> a[N];
@@ -13,7 +15,7 @@ void solve(){
     cin>>n;
     for(int i=1;i<=n;i++) cin>>a[i].first>>a[i].second;
     memset(dp,-0x3f,sizeof(dp));
-    cerr<<dp[0];
+    dp[zero]=0;
     for(int i=1;i<=n;i++){
         ll w=a[i].first-a[i].second;
         ll v=a[i].second+a[i].first;
