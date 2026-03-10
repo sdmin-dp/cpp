@@ -2,32 +2,39 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=2e5+5;
-const ll m=100005;
-const ll zero=50005;
+const ll OFFSET=50000;          // 最大差值偏移
+const ll MAXD=100000+5;         // dp数组大小
 ll n;
-ll dp[N];
-pair<ll,ll> a[N];
+ll dp[MAXD];
+pair<ll,ll> a[105];
+
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++) cin>>a[i].first>>a[i].second;
-    for(int i=0;i<N;i++) dp[i]=-1e15;
-    dp[zero]=0;
-    ll L=zero-50090,R=zero+50090;
+    for(int i=0;i<MAXD;i++) dp[i]=-1e15;
+    dp[OFFSET]=0; // 差值为0时总和为0
+
     for(int i=1;i<=n;i++){
-        ll w=a[i].first-a[i].second;
-        ll v=a[i].second+a[i].first;
-        if(w>=0) for(int j=R;j>=L+w;j--) if(dp[j-w]>-1e16) dp[j]=max(dp[j],dp[j-w]+v);
-        else for(int j=L;j<=R;j++) if(dp[j-w]>-1e16) dp[j]=max(dp[j],dp[j-w]+v);
+        ll w=a[i].first-a[i].second; // 差值
+        ll v=a[i].first+a[i].second; // 总和
+        if(w>=0){
+            for(int j=MAXD-1;j>=w;j--){
+                if(dp[j-w]>-1e14) dp[j]=max(dp[j],dp[j-w]+v);
+            }
+        }else{
+            for(int j=0;j<MAXD+w;j++){
+                if(dp[j-w]>-1e14) dp[j]=max(dp[j],dp[j-w]+v);
+            }
+        }
     }
-    if(dp[zero]==-1e15) cout<<-1;
-    else cout<<dp[zero];
+
+    if(dp[OFFSET]<0) cout<<-1<<el;
+    else cout<<dp[OFFSET]<<el;
 }
+
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
-    //freopen("xxx.in","r",stdin);
-    //freopen("xxx.out","w",stdout);
     ll T=1;
     //cin>>T;
     while(T--){
