@@ -13,9 +13,7 @@ pair<ll,ll> a[N];
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++) cin>>a[i].first>>a[i].second;
-    for(int i=1;i<=n;i++){
-        
-    }
+    for(int i=0;i<N;i++) dp[i]=-4485090715960753727;
     dp[zero]=0;
     for(int i=1;i<=n;i++){
         ll w=a[i].first-a[i].second;
