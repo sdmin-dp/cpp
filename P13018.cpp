@@ -6,9 +6,13 @@ const ll N=2e5+5;
 ll n;
 ll dp[N];
 pair<ll,ll> a[N];
+ll val(){
+    
+}
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++) cin>>a[i].first>>a[i].second;
+    
 }
 int main(){
     ios::sync_with_stdio(0);
