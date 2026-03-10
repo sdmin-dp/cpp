@@ -13,7 +13,7 @@ void solve(){
     for(int i=1;i<=n;i++){
         if(a[i].first-a[i].second>=0){
             //如果是正数，那么倒着就是j-w<=j,就要倒着遍历
-            
+            // for(int i=;i++) 
         }
     }
 }
