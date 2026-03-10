@@ -7,6 +7,7 @@ ll n;
 ll dp[N];
 pair<ll,ll> a[N];
 ll val(ll x){return (x+50000);}
+// 总重量 
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++) cin>>a[i].first>>a[i].second;
