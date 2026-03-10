@@ -19,9 +19,9 @@ void solve(){
         ll w=a[i].first-a[i].second;
         ll v=a[i].second+a[i].first;
         //如果是正数，那么倒着就是j-w<=j,就要倒着遍历
-        if(w>=0) for(int j=m;j>=w;j--) if(dp[j-w]>-1e15) dp[j]=max(dp[j],dp[j-w]+v);
+        if(w>=0) for(int j=m;j>=w;j--) if(dp[j-w]>-1e16) dp[j]=max(dp[j],dp[j-w]+v);
         //如果是复数，负重量，从小到大，同样是为了防止重复使用（因为依赖右边的旧值）
-        else for(int j=0;j<=m+w;j++) if(dp[j-w]>-1e15) dp[j]=max(dp[j],dp[j-w]+v);
+        else for(int j=0;j<=m+w;j++) if(dp[j-w]>-1e16) dp[j]=max(dp[j],dp[j-w]+v);
     }
     if(dp[zero]==-1e15) cout<<-1;
     else cout<<dp[zero];
