@@ -20,7 +20,7 @@ void solve(){
         if(w>=0){
             //如果是正数，那么倒着就是j-w<=j,就要倒着遍历
             for(int i=m;i>=w;i--){
-                
+                if()
             } 
         }
     }
