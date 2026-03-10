@@ -3,11 +3,12 @@
 using namespace std;
 #define el '\n'
 const ll N=2e5+5;
+// 总重量 100005
+const ll m=100005;
 ll n;
 ll dp[N];
 pair<ll,ll> a[N];
 ll val(ll x){return (x+50000);}
-// 总重量 
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++) cin>>a[i].first>>a[i].second;
@@ -18,7 +19,9 @@ void solve(){
         ll v=a[i].second+a[i].first;
         if(w>=0){
             //如果是正数，那么倒着就是j-w<=j,就要倒着遍历
-            // for(int i=;i++) 
+            for(int i=m;i>=w;i--){
+                
+            } 
         }
     }
 }
