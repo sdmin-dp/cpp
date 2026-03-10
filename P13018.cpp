@@ -17,12 +17,12 @@ void solve(){
     for(int i=1;i<=n;i++){
         ll w=a[i].first-a[i].second;
         ll v=a[i].second+a[i].first;
-        if(w>=0){
-            //如果是正数，那么倒着就是j-w<=j,就要倒着遍历
-            for(int i=m;i>=w;i--){
-                if(dp[j-w]!=)
-            } 
-        }
+        // if(w>=0){
+        //     //如果是正数，那么倒着就是j-w<=j,就要倒着遍历
+        //     for(int i=m;i>=w;i--){
+        //         if(dp[j-w]!=)
+        //     } 
+        // }
     }
 }
 int main(){
