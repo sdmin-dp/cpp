@@ -18,7 +18,7 @@ void solve(){
         ll w=a[i].first-a[i].second;
         ll v=a[i].second+a[i].first;
         if(w>=0) for(int j=R;j>=L+w;j--) if(dp[j-w]>-1e16) dp[j]=max(dp[j],dp[j-w]+v);
-        else for(int j=L;j<=R+w;j++) if(dp[j-w]>-1e16) dp[j]=max(dp[j],dp[j-w]+v);
+        else for(int j=L;j<=R;j++) if(dp[j-w]>-1e16) dp[j]=max(dp[j],dp[j-w]+v);
     }
     if(dp[zero]==-1e15) cout<<-1;
     else cout<<dp[zero];
