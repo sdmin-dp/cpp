@@ -10,6 +10,8 @@ ll val(ll x){return (x+50000);}
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++) cin>>a[i].first>>a[i].second;
+    memset(dp,-0x3f,sizeof(dp));
+    
     for(int i=1;i<=n;i++){
         if(a[i].first-a[i].second>=0){
             //如果是正数，那么倒着就是j-w<=j,就要倒着遍历
