@@ -21,11 +21,7 @@ void solve(){
         ll v=a[i].second+a[i].first;
         if(w>=0){
             //如果是正数，那么倒着就是j-w<=j,就要倒着遍历
-            for(int j=m;j>=w;j--){
-                if(dp[j-w]!=-4485090715960753727){
-                    dp[j]=
-                }
-            } 
+            for(int j=m;j>=w;j--) if(dp[j-w]!=-4485090715960753727) dp[j]=max(dp[j],dp[j-w]+v);
         }
     }
 }
