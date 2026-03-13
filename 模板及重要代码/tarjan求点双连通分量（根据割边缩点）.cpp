@@ -42,8 +42,7 @@ void solve(){
         g[y].push_back(x);
     }
     dfs(1,0);
-    for(auto &i:bridge){
-        if(i.first>i.second) swap(i.first,i.second);
+    for(auto &i:bridge) if(i.first>i.second) swap(i.first,i.second);
     for(auto &i:bridge) mp[{i.first,i.second}]=1;
     idx=0;
     for(int i=1;i<=n;i++){
