@@ -6,7 +6,6 @@
       {
         "id": "8a2ff3bc2f515b8c",
         "type": "tabs",
-        "dimension": 78.28319882611886,
         "children": [
           {
             "id": "782af40c1018c187",
@@ -20,28 +19,6 @@
               },
               "icon": "lucide-file",
               "title": "信奥c++"
-            }
-          }
-        ]
-      },
-      {
-        "id": "41aa856adbe271f1",
-        "type": "tabs",
-        "dimension": 21.716801173881144,
-        "children": [
-          {
-            "id": "aa369a256858d9e5",
-            "type": "leaf",
-            "state": {
-              "type": "outline",
-              "state": {
-                "file": "信奥c++.md",
-                "followCursor": false,
-                "showSearch": true,
-                "searchQuery": ""
-              },
-              "icon": "lucide-list",
-              "title": "信奥c++ 的大纲"
             }
           }
         ]
@@ -97,7 +74,8 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -112,88 +90,25 @@
         "type": "tabs",
         "children": [
           {
-            "id": "d61a21a1efb2fb09",
-            "type": "leaf",
-            "state": {
-              "type": "backlink",
-              "state": {
-                "file": "信奥c++.md",
-                "collapseAll": false,
-                "extraContext": false,
-                "sortOrder": "alphabetical",
-                "showSearch": false,
-                "searchQuery": "",
-                "backlinkCollapsed": false,
-                "unlinkedCollapsed": true
-              },
-              "icon": "links-coming-in",
-              "title": "信奥c++ 的反向链接列表"
-            }
-          },
-          {
-            "id": "451d3b909430aa72",
-            "type": "leaf",
-            "state": {
-              "type": "outgoing-link",
-              "state": {
-                "file": "Welcome.md",
-                "linksCollapsed": false,
-                "unlinkedCollapsed": true
-              },
-              "icon": "links-going-out",
-              "title": "Outgoing links from Welcome"
-            }
-          },
-          {
-            "id": "6a9138cab829ce0d",
-            "type": "leaf",
-            "state": {
-              "type": "tag",
-              "state": {
-                "sortOrder": "frequency",
-                "useHierarchy": true,
-                "showSearch": false,
-                "searchQuery": ""
-              },
-              "icon": "lucide-tags",
-              "title": "Tags"
-            }
-          },
-          {
-            "id": "f77ef6965d50d3cf",
-            "type": "leaf",
-            "state": {
-              "type": "all-properties",
-              "state": {
-                "sortOrder": "frequency",
-                "showSearch": false,
-                "searchQuery": ""
-              },
-              "icon": "lucide-archive",
-              "title": "All properties"
-            }
-          },
-          {
             "id": "2232e330621ccc8b",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "Welcome.md",
-                "followCursor": false,
-                "showSearch": false,
+                "file": "信奥c++.md",
+                "followCursor": true,
+                "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Welcome"
+              "title": "信奥c++ 的大纲"
             }
           }
         ]
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 278.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -206,7 +121,7 @@
       "bases:新建数据库": false
     }
   },
-  "active": "782af40c1018c187",
+  "active": "2232e330621ccc8b",
   "lastOpenFiles": [
     "GESP六级编程题考点与应对策略.md",
     "GESP 7级 查漏补缺.md",

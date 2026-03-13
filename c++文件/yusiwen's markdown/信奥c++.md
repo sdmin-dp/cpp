@@ -1,4 +1,4 @@
-放一篇大型秘籍：[大山秘籍]([Docs](https://tv7x543ftn5.feishu.cn/docx/DaODdbJHaokAzFxzCGNc4TeVnTe))
+﻿放一篇大型秘籍：[大山秘籍]([Docs](https://tv7x543ftn5.feishu.cn/docx/DaODdbJHaokAzFxzCGNc4TeVnTe))
 
 # 一个很容易被忽略的函数--exp
 
@@ -877,6 +877,491 @@ int main() {
 
 DFS欧拉序是处理树问题的强大工具，它将树的结构转化为线性结构，使得许多复杂的树操作可以通过简单的区间操作来实现。掌握欧拉序对于解决信奥竞赛中的树相关问题非常有帮助。
 
+
+# 倍增思想
+
+## 基本概念
+
+倍增（Doubling）是一种重要的算法思想，其核心思想是**利用二进制拆分的思想，预处理出2的幂次方的信息，从而加速查询**。
+
+### 为什么叫"倍增"
+
+"倍增"来源于每次跳转的距离都是2的幂次方：1, 2, 4, 8, 16, 32... 这样我们可以通过组合这些2的幂次方来快速到达目标位置。
+
+### 核心思想
+
+1. **预处理阶段**：提前计算每个点向上跳2^k步到达的祖先节点
+2. **查询阶段**：通过二进制分解，组合不同的2^k跳跃来快速到达目标
+
+### 为什么要用倍增
+
+考虑一个简单的问题：从节点u向上跳k步，会到达哪个节点？
+
+**朴素做法**：一步一步向上跳，时间复杂度O(k)
+
+**倍增做法**：将k表示为二进制，比如k=13=8+4+1，只需跳3次，时间复杂度O(log k)
+
+## 应用场景
+
+倍增思想广泛应用于：
+
+1. **LCA（最近公共祖先）**：快速查询两个节点的最近公共祖先
+2. **树上路径查询**：快速查询树上两点间的路径信息
+3. **RMQ（区间最值查询）**：快速查询区间最大值/最小值
+4. **K-th ancestor**：快速查找节点的第k个祖先
+
+## 倍增预处理
+
+### 数据结构设计
+
+`cpp
+const int N = 1e5 + 5;
+const int LOGN = 20;  // 2^20 > 1e5，足够覆盖
+
+vector<int> adj[N];   // 邻接表
+int depth[N];         // 节点深度
+int parent[N][LOGN];  // parent[u][k]表示节点u向上跳2^k步的祖先
+`
+
+### 预处理过程
+
+`cpp
+void dfs(int u, int p, int d) {
+    // 记录深度
+    depth[u] = d;
+    
+    // parent[u][0]是u的直接父节点
+    parent[u][0] = p;
+    
+    // 预处理倍增信息
+    // parent[u][k] = parent[parent[u][k-1]][k-1]
+    // 即：向上跳2^k步 = 向上跳2^(k-1)步，再向上跳2^(k-1)步
+    for (int k = 1; k < LOGN; k++) {
+        if (parent[u][k-1] != -1) {
+            parent[u][k] = parent[parent[u][k-1]][k-1];
+        }
+    }
+    
+    // 递归处理子节点
+    for (int v : adj[u]) {
+        if (v != p) {
+            dfs(v, u, d + 1);
+        }
+    }
+}
+`
+
+### 向上跳k步的实现
+
+`cpp
+// 从节点u向上跳k步，返回到达的节点
+int jump_up(int u, int k) {
+    for (int i = 0; i < LOGN; i++) {
+        // 如果k的第i位是1，就向上跳2^i步
+        if ((k >> i) & 1) {
+            u = parent[u][i];
+            if (u == -1) return -1;  // 超出树的范围
+        }
+    }
+    return u;
+}
+`
+
+## 复杂度分析
+
+- **预处理时间复杂度**：O(N log N)，每个节点预处理log N层
+- **预处理空间复杂度**：O(N log N)，存储parent数组
+- **单次查询时间复杂度**：O(log N)
+
+---
+
+# 倍增求LCA（最近公共祖先）
+
+## LCA定义
+
+在树中，两个节点u和v的最近公共祖先（Lowest Common Ancestor，LCA）是指：
+
+1. 既是u的祖先，也是v的祖先
+2. 在所有满足条件1的节点中，深度最大（最接近u和v）
+
+**直观理解**：从u和v同时向根节点走，第一个相遇的节点就是LCA
+
+## 倍增求LCA的原理
+
+### 核心思路
+
+倍增求LCA分为三个步骤：
+
+1. **预处理**：用DFS预处理每个节点的深度和2^k祖先
+2. **调整深度**：将深度较大的节点向上跳，使两个节点深度相同
+3. **同时上跳**：两个节点同时从高位到低位向上跳，找到LCA
+
+### 详细步骤
+
+**Step 1: 预处理**
+
+`cpp
+void dfs(int u, int p, int d) {
+    depth[u] = d;
+    parent[u][0] = p;
+    
+    for (int k = 1; k < LOGN; k++) {
+        if (parent[u][k-1] != -1) {
+            parent[u][k] = parent[parent[u][k-1]][k-1];
+        }
+    }
+    
+    for (int v : adj[u]) {
+        if (v != p) {
+            dfs(v, u, d + 1);
+        }
+    }
+}
+`
+
+**Step 2: 调整深度**
+
+如果两个节点深度不同，先将深度较大的节点向上跳，使深度相同。
+
+`cpp
+// 将节点u调整到与节点v相同的深度
+void adjust_depth(int &u, int d) {
+    int diff = depth[u] - d;
+    for (int i = 0; i < LOGN; i++) {
+        if ((diff >> i) & 1) {
+            u = parent[u][i];
+        }
+    }
+}
+`
+
+**Step 3: 同时上跳**
+
+两个节点同时从高位到低位向上跳，如果跳2^k步后不是同一个节点，就跳；否则不跳。
+
+最后两个节点的父节点就是LCA。
+
+`cpp
+int lca(int u, int v) {
+    // Step 1: 确保u的深度大于等于v
+    if (depth[u] < depth[v]) {
+        swap(u, v);
+    }
+    
+    // Step 2: 将u调整到与v相同的深度
+    adjust_depth(u, depth[v]);
+    
+    // Step 3: 如果调整后u就是v，直接返回
+    if (u == v) return u;
+    
+    // Step 4: 从高位到低位尝试上跳
+    for (int k = LOGN - 1; k >= 0; k--) {
+        // 如果跳2^k步后不是同一个节点，就跳
+        if (parent[u][k] != parent[v][k]) {
+            u = parent[u][k];
+            v = parent[v][k];
+        }
+    }
+    
+    // 此时u和v都是LCA的子节点，它们的父节点就是LCA
+    return parent[u][0];
+}
+`
+
+## 完整代码实现
+
+`cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+const int N = 1e5 + 5;
+const int LOGN = 20;  // 2^20 > 1e5，足够覆盖
+
+vector<int> adj[N];   // 邻接表存储树
+int depth[N];         // 节点深度
+int parent[N][LOGN];  // parent[u][k]表示节点u向上跳2^k步的祖先
+
+/**
+ * DFS预处理
+ * @param u 当前节点
+ * @param p 父节点
+ * @param d 当前深度
+ */
+void dfs(int u, int p, int d) {
+    // 记录当前节点的深度
+    depth[u] = d;
+    
+    // 记录当前节点的直接父节点（向上跳2^0=1步）
+    parent[u][0] = p;
+    
+    // 预处理倍增信息
+    // parent[u][k] = parent[parent[u][k-1]][k-1]
+    // 解释：向上跳2^k步 = 先向上跳2^(k-1)步，再向上跳2^(k-1)步
+    for (int k = 1; k < LOGN; k++) {
+        if (parent[u][k-1] != -1) {
+            // 祖先的祖先存在，可以继续跳跃
+            parent[u][k] = parent[parent[u][k-1]][k-1];
+        } else {
+            // 祖先不存在，标记为-1
+            parent[u][k] = -1;
+        }
+    }
+    
+    // 递归处理所有子节点
+    for (int v : adj[u]) {
+        if (v != p) {  // 避免回边
+            dfs(v, u, d + 1);
+        }
+    }
+}
+
+/**
+ * 求两个节点的最近公共祖先
+ * @param u 第一个节点
+ * @param v 第二个节点
+ * @return u和v的最近公共祖先
+ */
+int lca(int u, int v) {
+    // Step 1: 确保u的深度大于等于v（便于后续处理）
+    if (depth[u] < depth[v]) {
+        swap(u, v);
+    }
+    
+    // Step 2: 将u调整到与v相同的深度
+    int diff = depth[u] - depth[v];
+    for (int i = 0; i < LOGN; i++) {
+        // 将深度差分解为二进制
+        // 例如：diff = 13 = 1101(二进制) = 8 + 4 + 1
+        // 分别跳8步、4步、1步
+        if ((diff >> i) & 1) {
+            u = parent[u][i];
+        }
+    }
+    
+    // Step 3: 如果调整后u就是v，直接返回
+    // 这种情况说明v本来就是u的祖先
+    if (u == v) return u;
+    
+    // Step 4: 从高位到低位尝试上跳
+    // 目标：找到u和v最深的公共祖先
+    // 策略：如果跳2^k步后不是同一个节点，就跳
+    // 最后u和v都是LCA的子节点，它们的父节点就是LCA
+    for (int k = LOGN - 1; k >= 0; k--) {
+        // 如果跳2^k步后不是同一个节点，就跳
+        if (parent[u][k] != parent[v][k]) {
+            u = parent[u][k];
+            v = parent[v][k];
+        }
+    }
+    
+    // 此时u和v都是LCA的直接子节点
+    // 它们的父节点就是LCA
+    return parent[u][0];
+}
+
+/**
+ * 求两个节点之间的距离
+ * @param u 第一个节点
+ * @param v 第二个节点
+ * @return u和v之间的距离（边的数量）
+ */
+int distance(int u, int v) {
+    int ancestor = lca(u, v);
+    // 距离 = depth[u] + depth[v] - 2 * depth[ancestor]
+    return depth[u] + depth[v] - 2 * depth[ancestor];
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+
+    int n, m;  // n是节点数，m是查询数
+    cin >> n >> m;
+
+    // 读取树的边（假设是1号节点为根的无向树）
+    for (int i = 1; i < n; i++) {
+        int u, v;
+        cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+
+    // 初始化parent数组
+    memset(parent, -1, sizeof(parent));
+
+    // 从根节点开始DFS预处理
+    dfs(1, -1, 0);
+
+    // 处理查询
+    while (m--) {
+        int u, v;
+        cin >> u >> v;
+        cout << "LCA(" << u << ", " << v << ") = " << lca(u, v) << endl;
+        cout << "Distance(" << u << ", " << v << ") = " << distance(u, v) << endl;
+    }
+
+    return 0;
+}
+`
+
+## 示例
+
+### 输入样例
+
+`
+7 3
+1 2
+1 3
+2 4
+2 5
+3 6
+3 7
+4 5
+6 7
+`
+
+### 树的结构
+
+`
+        1
+       / \
+      2   3
+     / \ / \
+    4  5 6  7
+`
+
+### 输出样例
+
+`
+LCA(4, 5) = 2
+Distance(4, 5) = 2
+LCA(6, 7) = 3
+Distance(6, 7) = 2
+`
+
+### 算法过程解析
+
+以查询LCA(4, 5)为例：
+
+1. **预处理阶段**：
+   - depth[1] = 0, depth[2] = 1, depth[3] = 1
+   - depth[4] = 2, depth[5] = 2, depth[6] = 2, depth[7] = 2
+   - parent[4][0] = 2, parent[5][0] = 2, parent[6][0] = 3, parent[7][0] = 3
+
+2. **查询阶段**：
+   - depth[4] = 2, depth[5] = 2，深度相同，无需调整
+   - 从高位到低位尝试上跳：
+     - k=1: parent[4][1] = 1, parent[5][1] = 1，相同，不跳
+     - k=0: parent[4][0] = 2, parent[5][0] = 2，相同，不跳
+   - 最后返回parent[4][0] = parent[5][0] = 2
+
+## 复杂度分析
+
+### 时间复杂度
+
+- **预处理阶段**：O(N log N)
+  - DFS遍历所有节点：O(N)
+  - 每个节点预处理log N层：O(N log N)
+
+- **单次查询**：O(log N)
+  - 调整深度：O(log N)
+  - 同时上跳：O(log N)
+
+- **总复杂度**：O((N + Q) log N)，其中Q是查询次数
+
+### 空间复杂度
+
+- **存储空间**：O(N log N)
+  - 邻接表：O(N)
+  - depth数组：O(N)
+  - parent数组：O(N log N)
+
+## 与其他LCA算法的对比
+
+| 算法 | 预处理时间 | 单次查询时间 | 空间复杂度 | 实现难度 |
+|:----:|:----------:|:------------:|:----------:|:--------:|
+| 倍增 | O(N log N) | O(log N) | O(N log N) | 中等 |
+| Tarjan | O(N) | O(1) | O(N) | 困难 |
+| RMQ+欧拉序 | O(N) | O(1) | O(N) | 中等 |
+| 树链剖分 | O(N) | O(log N) | O(N) | 困难 |
+
+## 应用扩展
+
+### 1. 树上路径和查询
+
+`cpp
+// 求树上两点路径上节点权值的和
+int path_sum(int u, int v, vector<int>& val, vector<int>& prefix) {
+    int ancestor = lca(u, v);
+    return prefix[u] + prefix[v] - 2 * prefix[ancestor] + val[ancestor];
+}
+`
+
+### 2. 树上第k个祖先
+
+`cpp
+// 求节点u的第k个祖先
+int kth_ancestor(int u, int k) {
+    for (int i = 0; i < LOGN; i++) {
+        if ((k >> i) & 1) {
+            u = parent[u][i];
+            if (u == -1) return -1;
+        }
+    }
+    return u;
+}
+`
+
+### 3. 树上两点路径上的第k个节点
+
+`cpp
+// 求u到v路径上的第k个节点
+int kth_node_on_path(int u, int v, int k) {
+    int ancestor = lca(u, v);
+    int d1 = depth[u] - depth[ancestor];
+    int d2 = depth[v] - depth[ancestor];
+    
+    if (k <= d1 + 1) {
+        // 第k个节点在u到LCA的路径上
+        return kth_ancestor(u, k - 1);
+    } else {
+        // 第k个节点在LCA到v的路径上
+        return kth_ancestor(v, d1 + d2 - k + 1);
+    }
+}
+`
+
+## 常见错误与注意事项
+
+1. **LOGN的大小**：
+   - LOGN应该设置为⌈log₂(N)⌉+1，确保覆盖所有可能的跳跃
+   - 对于N=1e5，LOGN=20就足够了
+
+2. **根节点的处理**：
+   - 根节点的parent[1][0]应该设置为-1
+   - 在DFS时要注意检查parent[u][k-1]是否为-1
+
+3. **查询时的边界情况**：
+   - 当u是v的祖先时，lca(u, v)应该返回u
+   - 代码中的if (u == v) return u;处理了这种情况
+
+4. **从高位到低位遍历**：
+   - 在同时上跳时，必须从高位到低位遍历
+   - 这样可以确保找到最深的公共祖先
+
+## 总结
+
+倍增求LCA是一种经典且高效的算法，具有以下优点：
+
+1. **效率高**：预处理O(N log N)，查询O(log N)
+2. **易于实现**：代码逻辑清晰，容易理解和调试
+3. **适用范围广**：不仅可以求LCA，还可以解决树上路径查询等问题
+4. **扩展性强**：可以结合其他算法解决更复杂的问题
+
+掌握倍增思想对于解决信奥竞赛中的树相关问题非常重要，建议多练习相关题目以熟练掌握。
+
+---
 ## 01背包
 
 ### 二维
@@ -7456,3 +7941,4 @@ $tan(x)=直角三角形的斜率$，$x=\theta$
 - **平衡判定**：给出一种树形结构，问这是否是平衡二叉树。
 - **时间复杂度分析**：掌握平衡树的查找效率为 $O(\log n)$ ，而普通 BST 在极端情况下会退化为$O(n)$ 。
 - **与红黑树对比**：了解红黑树也是一种平衡查找树，虽然平衡要求较宽，但性能更稳定。
+
