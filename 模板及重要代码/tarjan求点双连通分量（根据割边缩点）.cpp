@@ -51,7 +51,10 @@ void solve(){
             change(i);
         }
     }
-    
+    /*
+    缩点n步走：
+    1.如果i和j
+    */
 }
 int main(){
     ios::sync_with_stdio(0);
