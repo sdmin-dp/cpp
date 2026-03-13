@@ -12,7 +12,10 @@ void dfs(ll x,ll fa){
     dfn[x]=++idx;
     low[x]=idx;
     for(auto i:g[x]){
-        
+        if(dfn[i]==0){
+            dfs(i,x);
+            
+        }
     }
 }
 void solve(){
