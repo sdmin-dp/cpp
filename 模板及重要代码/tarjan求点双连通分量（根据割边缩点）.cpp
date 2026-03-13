@@ -5,9 +5,10 @@ using namespace std;
 const ll N=1e5+5;
 ll n,m;
 vector<ll> g[N];
-ll num[N],low[N];
+ll dfn[N],low[N];
 void dfs(ll x,ll fa){
     ll child=0;
+    dfn[x]=dfn[fa]+1;
     
 }
 void solve(){
