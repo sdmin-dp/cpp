@@ -42,7 +42,11 @@ void solve(){
         g[y].push_back(x);
     }
     dfs(1,0);
+    set<pair<ll,ll>> st;
     for(auto &i:bridge) if(i.first>i.second) swap(i.first,i.second);
+    for(auto i:bridge) st.insert(i);
+    bridge.clear();
+    for(auto i:st) bridge.push_back(i);
     for(auto &i:bridge) mp[{i.first,i.second}]=1;
     idx=0;
     for(int i=1;i<=n;i++){
