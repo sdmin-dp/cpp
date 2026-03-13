@@ -23,7 +23,9 @@ void dfs(ll x,ll fa){
     }
 }
 void change(ll x){
-    
+    for(int i:x){
+        
+    }
 }
 void solve(){
     cin>>n>>m;
