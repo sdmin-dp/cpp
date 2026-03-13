@@ -7,6 +7,7 @@ ll n,m;
 vector<ll> g[N];
 ll dfn[N],low[N];
 ll idx;
+vector<pair<ll,ll>> bridge;
 void dfs(ll x,ll fa){
     ll child=0;
     dfn[x]=++idx;
@@ -16,8 +17,10 @@ void dfs(ll x,ll fa){
             dfs(i,x);
             low[x]=min(low[i],low[x]);
             if(low[i]>dfn[x]){
-
+                bridge.push_back({x,i});
             }
+        }else{
+            low[]
         }
     }
 }
