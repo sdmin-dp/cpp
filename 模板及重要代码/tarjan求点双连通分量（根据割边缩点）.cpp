@@ -5,6 +5,9 @@ using namespace std;
 const ll N=1e5+5;
 ll n,m;
 vector<ll> g[N];
+void dfs(ll x,ll fa){
+    
+}
 void solve(){
     cin>>n>>m;
     for(int i=1;i<=m;i++){
@@ -13,6 +16,7 @@ void solve(){
         g[x].push_back(y);
         g[y].push_back(x);
     }
+    dfs(1,0);
 }
 int main(){
     ios::sync_with_stdio(0);
