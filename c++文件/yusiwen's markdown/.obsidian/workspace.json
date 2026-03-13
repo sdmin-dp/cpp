@@ -15,7 +15,7 @@
               "type": "markdown",
               "state": {
                 "file": "信奥c++.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
@@ -206,7 +206,7 @@
       "bases:新建数据库": false
     }
   },
-  "active": "aa369a256858d9e5",
+  "active": "782af40c1018c187",
   "lastOpenFiles": [
     "GESP六级编程题考点与应对策略.md",
     "GESP 7级 查漏补缺.md",
