@@ -3,7 +3,6 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
 ll n,m;
 vector<ll> g[N],ng[N]; // g: 原图邻接表, ng: 缩点后的新图(树)
 ll dfn[N],low[N];       // Tarjan 算法的时间戳与回溯值
@@ -11,7 +10,6 @@ ll idx;                 // 全局计数器：先用于 dfn 编号，后用于 co
 vector<pair<ll,ll>> bridge; // 存储所有找出的割边
 map<pair<ll,ll>,bool> mp;   // 标记割边，用于染色时阻断连接
 ll color[N];            // color[i] 表示点 i 属于哪个边双连通分量
-
 // 第一步：DFS 寻找割边
 void dfs(ll x,ll fa){
     dfn[x]=++idx;
@@ -28,7 +26,6 @@ void dfs(ll x,ll fa){
         else if(x!=fa) low[x]=min(low[x],dfn[i]); 
     }
 }
-
 // 第二步：Flood Fill 染色（缩点）
 void change(ll x){
     color[x]=idx; // 为当前点赋予新的分量编号
@@ -39,7 +36,6 @@ void change(ll x){
         if(!mp[{min(x,i),max(x,i)}] && !color[i]) change(i);
     }
 }
-
 void solve(){
     cin>>n>>m;
     for(int i=1;i<=m;i++){
@@ -48,14 +44,11 @@ void solve(){
         g[x].push_back(y);
         g[y].push_back(x);
     }
-
     // 1. 跑 Tarjan 寻找割边（假设原图连通，否则需循环检查未访问点）
     dfs(1,0);
-
     // 2. 预处理割边：排序并存入 map，方便 change 函数 O(log E) 判定
     for(auto &i:bridge) if(i.first>i.second) swap(i.first,i.second);
     for(auto &i:bridge) mp[{i.first,i.second}]=1;
-
     // 3. 染色：将每个边双连通分量缩成一个点
     idx=0; 
     for(int i=1;i<=n;i++){
@@ -64,11 +57,8 @@ void solve(){
             change(i);
         }
     }
-
     // 4. 建立新图：遍历所有割边，连接它们所属的缩点
     for(auto i:bridge){
-        // 【重边风险】如果两个缩点之间有多条不同的割边，ng 会产生重边。
-        // 若后续算法（如树形DP）对重边敏感，需手动去重。
         ng[color[i.first]].push_back(color[i.second]);
         ng[color[i.second]].push_back(color[i.first]);
     }
