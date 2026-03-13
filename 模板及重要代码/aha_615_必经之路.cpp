@@ -15,14 +15,16 @@ void dfs_tarjan(ll x,ll fa){
         if(!dfn[i]){
             dfs_tarjan(i,x);
             low[x]=min(low[x],low[i]);
-            if(low[i]>dfn[x]) bridge.push_back({x,i});
+            pair<ll,ll> p={x,i};
+            if(low[i]>dfn[x]) bridge.push_back(p);
         }else low[x]=min(low[x],dfn[i]);
     }
 }
 void dfs_color(ll x,ll c){
     color[x]=c;
     for(auto i:g[x]){
-        if(color[i] || mp[{min(x,i),max(x,i)}]) continue;
+        pair<ll,ll> p={min(x,i),max(x,i)};
+        if(color[i]||mp[p]) continue;
         dfs_color(i,c);
     }
 }
@@ -40,7 +42,7 @@ ll get_lca(ll x,ll y){
     return f[x][0];
 }
 void solve(){
-    if(!(cin>>n>>m)) return;
+    cin>>n>>m;
     for(int i=1;i<=m;i++){
         ll x,y;
         cin>>x>>y;
