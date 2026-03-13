@@ -28,7 +28,7 @@ void dfs(ll x,ll fa){
                 sorted.push_back({x,i});
             }
         }
-        else if(i!=fa){
+        else if(i!=fa){//防止我把我到爸爸那条边也当成了一条不同的路，否则我一条割边都找不到
             low[x]=min(low[x],num[i]);
         }
     }
