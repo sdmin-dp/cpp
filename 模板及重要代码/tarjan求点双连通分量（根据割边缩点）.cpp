@@ -36,8 +36,8 @@ void solve(){
         g[y].push_back(x);
     }
     dfs(1,0);
-    for(auto i:bridge){
-        
+    for(auto &i:bridge){
+        if(i.first>i.second) sort(i.first,i.second);
     }
     for(int i=1;i<=n;i++) if(!color[i]) change(i);
 }
