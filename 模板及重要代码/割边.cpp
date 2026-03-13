@@ -24,7 +24,7 @@ void dfs(ll x,ll fa){
         if(num[i]==0){//当前节点还没放问过（时间戳没赋值）
             dfs(i,x);//dfs他
             low[x]=min(low[x],low[i]);//维护这个点能回到的时间戳最早的节点
-            if(low[i]>num[x]){
+            if(low[i]>num[x]){//我的儿子
                 sorted.push_back({x,i});
             }
         }
