@@ -6,10 +6,11 @@ const ll N=1e5+5;
 ll n,m;
 vector<ll> g[N];
 ll dfn[N],low[N];
+ll idx;
 void dfs(ll x,ll fa){
     ll child=0;
-    dfn[x]=dfn[fa]+1;
-    
+    dfn[x]=++idx;
+    low[x]=dfn[x];
 }
 void solve(){
     cin>>n>>m;
