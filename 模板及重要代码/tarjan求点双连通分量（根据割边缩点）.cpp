@@ -20,7 +20,9 @@ void dfs(ll x,ll fa){
                 bridge.push_back({x,i});
             }
         }else{
-            low[x]=min(low[x])
+            if(x!=fa){
+                x=max
+            }
         }
     }
 }
