@@ -12,18 +12,18 @@ vector<ll> g[N];
 ll root;
 ll idx=0;
 bool flag[N];
-ll num[N];
-ll low[N];
-vector<pair<ll,ll>> sorted;
+ll num[N];//当前时间戳
+ll low[N];//可以回到的最早时间戳
+vector<pair<ll,ll>> sorted;//存割边的
 void dfs(ll x,ll fa){
-    ll child=0;
-    idx++;
+    ll child=0;//孩子数量（从生成树的角度来说）
+    idx++;//时间戳++
     num[x]=idx;
     low[x]=idx;
     for(auto i:g[x]){
-        if(num[i]==0){
-            dfs(i,x);
-            low[x]=min(low[x],low[i]);
+        if(num[i]==0){//当前节点还没放问过（时间戳没赋值）
+            dfs(i,x);//dfs他
+            low[x]=min(low[x],low[i]);//维护这个点能回到的时间戳最早的节点
             if(low[i]>num[x]){
                 // cout<<x<<'-'<<i<<el;
                 sorted.push_back({x,i});
