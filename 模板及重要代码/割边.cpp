@@ -1,6 +1,6 @@
 /*
-只需要将low[i]>=num[x]改为low[i]>num[x]然后改一下输出就好啦(^w^)
-因为割边是不走这条边连爸爸都回不到了，所以把'='删掉就好啦（'w')
+只需要将low[i]>=num[x]改为low[i]>num[x]然后改一下输出就好
+因为割边是不走这条边连爸爸都回不到了，所以把'='删掉就好啦
 */
 #include<bits/stdc++.h>
 using namespace std;
