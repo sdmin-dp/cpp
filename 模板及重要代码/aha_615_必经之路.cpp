@@ -73,7 +73,9 @@ void solve(){
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
-    
-    solve();
+    ll T=1;
+    while(T--){
+        solve();
+    }
     return 0;
 }
