@@ -914,18 +914,20 @@ DFS欧拉序是处理树问题的强大工具，它将树的结构转化为线�
 
 ### 数据结构设计
 
-`cpp
+```
 const int N = 1e5 + 5;
 const int LOGN = 20;  // 2^20 > 1e5，足够覆盖
 
 vector<int> adj[N];   // 邻接表
 int depth[N];         // 节点深度
 int parent[N][LOGN];  // parent[u][k]表示节点u向上跳2^k步的祖先
-`
+```
+
 
 ### 预处理过程
 
-`cpp
+
+```cpp
 void dfs(int u, int p, int d) {
     // 记录深度
     depth[u] = d;
@@ -949,11 +951,11 @@ void dfs(int u, int p, int d) {
         }
     }
 }
-`
+```
 
 ### 向上跳k步的实现
 
-`cpp
+```cpp
 // 从节点u向上跳k步，返回到达的节点
 int jump_up(int u, int k) {
     for (int i = 0; i < LOGN; i++) {
@@ -965,7 +967,8 @@ int jump_up(int u, int k) {
     }
     return u;
 }
-`
+```
+
 
 ## 复杂度分析
 
@@ -1023,7 +1026,7 @@ void dfs(int u, int p, int d) {
 
 如果两个节点深度不同，先将深度较大的节点向上跳，使深度相同。
 
-`cpp
+```cpp
 // 将节点u调整到与节点v相同的深度
 void adjust_depth(int &u, int d) {
     int diff = depth[u] - d;
@@ -1033,7 +1036,7 @@ void adjust_depth(int &u, int d) {
         }
     }
 }
-`
+```
 
 **Step 3: 同时上跳**
 
@@ -1041,7 +1044,7 @@ void adjust_depth(int &u, int d) {
 
 最后两个节点的父节点就是LCA。
 
-`cpp
+```cpp
 int lca(int u, int v) {
     // Step 1: 确保u的深度大于等于v
     if (depth[u] < depth[v]) {
@@ -1066,202 +1069,110 @@ int lca(int u, int v) {
     // 此时u和v都是LCA的子节点，它们的父节点就是LCA
     return parent[u][0];
 }
-`
+```
 
 ## 完整代码实现
 
-`cpp
-#include <bits/stdc++.h>
+```cpp
+#include<bits/stdc++.h>
 using namespace std;
+#define ll long long
+#define el '\n'
+const ll N=1e5+5;
+ll n,m;
+ll fa[N]; // 存储每个节点的父节点
+ll dep[N],up[15][N]; // dep存储节点深度, up用于存储倍增数组（二进制跳跃的祖先节点）
 
-const int N = 1e5 + 5;
-const int LOGN = 20;  // 2^20 > 1e5，足够覆盖
+// DFS初始化倍增数组和节点深度
+// 重难点：倍增数组的构建（预处理每个节点的2^k级祖先）
+void dfs(ll x,ll f){
+    dep[x]=dep[f]+1; // 当前节点深度为父节点深度+1
+    up[0][x]=f; // 初始化2^0级祖先（直接父节点）
 
-vector<int> adj[N];   // 邻接表存储树
-int depth[N];         // 节点深度
-int parent[N][LOGN];  // parent[u][k]表示节点u向上跳2^k步的祖先
+    // 倍增数组的构建：利用递推关系 up[i][x] = up[i-1][up[i-1][x]]
+    // 即x的2^i级祖先等于x的2^(i-1)级祖先的2^(i-1)级祖先
+    for(int i=1;i<10;i++) up[i][x]=up[i-1][up[i-1][x]];
 
-/**
- * DFS预处理
- * @param u 当前节点
- * @param p 父节点
- * @param d 当前深度
- */
-void dfs(int u, int p, int d) {
-    // 记录当前节点的深度
-    depth[u] = d;
-    
-    // 记录当前节点的直接父节点（向上跳2^0=1步）
-    parent[u][0] = p;
-    
-    // 预处理倍增信息
-    // parent[u][k] = parent[parent[u][k-1]][k-1]
-    // 解释：向上跳2^k步 = 先向上跳2^(k-1)步，再向上跳2^(k-1)步
-    for (int k = 1; k < LOGN; k++) {
-        if (parent[u][k-1] != -1) {
-            // 祖先的祖先存在，可以继续跳跃
-            parent[u][k] = parent[parent[u][k-1]][k-1];
-        } else {
-            // 祖先不存在，标记为-1
-            parent[u][k] = -1;
+    // 递归遍历子节点
+    for(int i=2;i<=n;i++) if(fa[i]==x) dfs(i,x);
+}
+
+// LCA查询函数（最近公共祖先）
+// 重难点：利用倍增数组实现二进制跳跃，快速找到LCA
+ll LCA(ll u,ll v){
+    // 确保u的深度大于等于v
+    if(dep[u]<dep[v]) swap(v,u);
+
+    // 将u向上跳跃至与v同一深度
+    // 从最高位开始尝试跳跃，能跳则跳
+    for(int i=9;i>=0;i--){
+        if(dep[up[i][u]]>=dep[v]){
+            u=up[i][u];
         }
     }
-    
-    // 递归处理所有子节点
-    for (int v : adj[u]) {
-        if (v != p) {  // 避免回边
-            dfs(v, u, d + 1);
+
+    // 如果u和v相等，说明v就是u的祖先，直接返回
+    if(u==v) return u;
+
+    // 同时向上跳跃u和v，直到它们的父节点相同
+    // 从最高位开始尝试跳跃，能跳则跳（但不跳到相同节点）
+    for(int k=9;k>=0;k--){
+        if(up[k][u]!=up[k][v]){
+            u=up[k][u];
+            v=up[k][v];
         }
+    }
+
+    // 最终u和v的父节点即为LCA
+    return up[0][u];
+}
+
+void solve(){
+    cin>>n>>m;
+    for(int i=2;i<=n;i++) cin>>fa[i]; // 读取每个节点的父节点
+    fa[1]=0; // 根节点的父节点设为0
+    dfs(1,0); // 从根节点开始DFS，初始化倍增数组和深度
+
+    // 处理m次查询
+    for(int i=0;i<m;i++){
+        ll x,y;
+        cin>>x>>y;
+        cout<<LCA(x,y)<<el; // 输出x和y的LCA
     }
 }
 
-/**
- * 求两个节点的最近公共祖先
- * @param u 第一个节点
- * @param v 第二个节点
- * @return u和v的最近公共祖先
- */
-int lca(int u, int v) {
-    // Step 1: 确保u的深度大于等于v（便于后续处理）
-    if (depth[u] < depth[v]) {
-        swap(u, v);
+int main(){
+    ll T=1;
+    // cin>>T;
+    while(T--){
+        solve();
     }
-    
-    // Step 2: 将u调整到与v相同的深度
-    int diff = depth[u] - depth[v];
-    for (int i = 0; i < LOGN; i++) {
-        // 将深度差分解为二进制
-        // 例如：diff = 13 = 1101(二进制) = 8 + 4 + 1
-        // 分别跳8步、4步、1步
-        if ((diff >> i) & 1) {
-            u = parent[u][i];
-        }
-    }
-    
-    // Step 3: 如果调整后u就是v，直接返回
-    // 这种情况说明v本来就是u的祖先
-    if (u == v) return u;
-    
-    // Step 4: 从高位到低位尝试上跳
-    // 目标：找到u和v最深的公共祖先
-    // 策略：如果跳2^k步后不是同一个节点，就跳
-    // 最后u和v都是LCA的子节点，它们的父节点就是LCA
-    for (int k = LOGN - 1; k >= 0; k--) {
-        // 如果跳2^k步后不是同一个节点，就跳
-        if (parent[u][k] != parent[v][k]) {
-            u = parent[u][k];
-            v = parent[v][k];
-        }
-    }
-    
-    // 此时u和v都是LCA的直接子节点
-    // 它们的父节点就是LCA
-    return parent[u][0];
-}
-
-/**
- * 求两个节点之间的距离
- * @param u 第一个节点
- * @param v 第二个节点
- * @return u和v之间的距离（边的数量）
- */
-int distance(int u, int v) {
-    int ancestor = lca(u, v);
-    // 距离 = depth[u] + depth[v] - 2 * depth[ancestor]
-    return depth[u] + depth[v] - 2 * depth[ancestor];
-}
-
-int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
-
-    int n, m;  // n是节点数，m是查询数
-    cin >> n >> m;
-
-    // 读取树的边（假设是1号节点为根的无向树）
-    for (int i = 1; i < n; i++) {
-        int u, v;
-        cin >> u >> v;
-        adj[u].push_back(v);
-        adj[v].push_back(u);
-    }
-
-    // 初始化parent数组
-    memset(parent, -1, sizeof(parent));
-
-    // 从根节点开始DFS预处理
-    dfs(1, -1, 0);
-
-    // 处理查询
-    while (m--) {
-        int u, v;
-        cin >> u >> v;
-        cout << "LCA(" << u << ", " << v << ") = " << lca(u, v) << endl;
-        cout << "Distance(" << u << ", " << v << ") = " << distance(u, v) << endl;
-    }
-
     return 0;
 }
-`
-
-## 示例
-
-### 输入样例
-
-`
-7 3
-1 2
-1 3
-2 4
-2 5
-3 6
-3 7
-4 5
-6 7
-`
-
-### 树的结构
-
-`
-        1
-       / \
-      2   3
-     / \ / \
-    4  5 6  7
-`
-
-### 输出样例
-
-`
-LCA(4, 5) = 2
-Distance(4, 5) = 2
-LCA(6, 7) = 3
-Distance(6, 7) = 2
-`
+```
 
 ### 算法过程解析
 
 以查询LCA(4, 5)为例：
 
 1. **预处理阶段**：
-   - depth[1] = 0, depth[2] = 1, depth[3] = 1
-   - depth[4] = 2, depth[5] = 2, depth[6] = 2, depth[7] = 2
-   - parent[4][0] = 2, parent[5][0] = 2, parent[6][0] = 3, parent[7][0] = 3
+   - ``depth[1] = 0, depth[2] = 1, depth[3] = 1``
+   - ``depth[4] = 2, depth[5] = 2, depth[6] = 2, depth[7] = 2``
+   - ``parent[4][0] = 2, parent[5][0] = 2, parent[6][0] = 3, parent[7][0] = 3``
 
 2. **查询阶段**：
-   - depth[4] = 2, depth[5] = 2，深度相同，无需调整
+   - ``depth[4] = 2, depth[5] = 2``，深度相同，无需调整
    - 从高位到低位尝试上跳：
-     - k=1: parent[4][1] = 1, parent[5][1] = 1，相同，不跳
-     - k=0: parent[4][0] = 2, parent[5][0] = 2，相同，不跳
-   - 最后返回parent[4][0] = parent[5][0] = 2
+     - ``k=1: parent[4][1] = 1, parent[5][1] = 1``，相同，不跳
+     - `` k=0: parent[4][0] = 2, parent[5][0] = 2``，相同，不跳
+   - 最后返回``parent[4][0] = parent[5][0] = 2``
 
 ## 复杂度分析
 
 ### 时间复杂度
 
 - **预处理阶段**：O(N log N)
-  - DFS遍历所有节点：O(N)
+  - DFS遍历所有节点：$O(N)$
   - 每个节点预处理log N层：O(N log N)
 
 - **单次查询**：O(log N)
@@ -1279,28 +1190,28 @@ Distance(6, 7) = 2
 
 ## 与其他LCA算法的对比
 
-| 算法 | 预处理时间 | 单次查询时间 | 空间复杂度 | 实现难度 |
-|:----:|:----------:|:------------:|:----------:|:--------:|
-| 倍增 | O(N log N) | O(log N) | O(N log N) | 中等 |
-| Tarjan | O(N) | O(1) | O(N) | 困难 |
-| RMQ+欧拉序 | O(N) | O(1) | O(N) | 中等 |
-| 树链剖分 | O(N) | O(log N) | O(N) | 困难 |
+|   算法    |   预处理时间    |  单次查询时间  |   空间复杂度    | 实现难度 |
+| :-----: | :--------: | :------: | :--------: | :--: |
+|   倍增    | O(N log N) | O(log N) | O(N log N) |  中等  |
+| Tarjan  |    O(N)    |   O(1)   |    O(N)    |  困难  |
+| RMQ+欧拉序 |    O(N)    |   O(1)   |    O(N)    |  中等  |
+|  树链剖分   |    O(N)    | O(log N) |    O(N)    |  困难  |
 
 ## 应用扩展
 
 ### 1. 树上路径和查询
 
-`cpp
+```cpp
 // 求树上两点路径上节点权值的和
 int path_sum(int u, int v, vector<int>& val, vector<int>& prefix) {
     int ancestor = lca(u, v);
     return prefix[u] + prefix[v] - 2 * prefix[ancestor] + val[ancestor];
 }
-`
+```
 
 ### 2. 树上第k个祖先
 
-`cpp
+```cpp
 // 求节点u的第k个祖先
 int kth_ancestor(int u, int k) {
     for (int i = 0; i < LOGN; i++) {
@@ -1311,11 +1222,11 @@ int kth_ancestor(int u, int k) {
     }
     return u;
 }
-`
+```
 
 ### 3. 树上两点路径上的第k个节点
 
-`cpp
+```cpp
 // 求u到v路径上的第k个节点
 int kth_node_on_path(int u, int v, int k) {
     int ancestor = lca(u, v);
@@ -1330,11 +1241,11 @@ int kth_node_on_path(int u, int v, int k) {
         return kth_ancestor(v, d1 + d2 - k + 1);
     }
 }
-`
+```
 
 ## 常见错误与注意事项
 
-1. **LOGN的大小**：
+1. **LOG(N)的大小**：
    - LOGN应该设置为⌈log₂(N)⌉+1，确保覆盖所有可能的跳跃
    - 对于N=1e5，LOGN=20就足够了
 
