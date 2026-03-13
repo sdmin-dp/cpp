@@ -25,7 +25,6 @@ void dfs(ll x,ll fa){
             dfs(i,x);//dfs他
             low[x]=min(low[x],low[i]);//维护这个点能回到的时间戳最早的节点
             if(low[i]>num[x]){
-                // cout<<x<<'-'<<i<<el;
                 sorted.push_back({x,i});
             }
         }
