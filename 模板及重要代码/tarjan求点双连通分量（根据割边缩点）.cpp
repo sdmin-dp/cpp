@@ -53,8 +53,10 @@ void solve(){
     }
     /*
     缩点n步走：
-    1.如果i和j
+    1.如果i和j是一个颜色的，就不用缩了;如果是不同的，则将color[i]到color[j]加一条边
+    2.没了
     */
+   
 }
 int main(){
     ios::sync_with_stdio(0);
