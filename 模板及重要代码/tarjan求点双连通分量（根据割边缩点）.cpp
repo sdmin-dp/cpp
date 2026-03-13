@@ -20,7 +20,7 @@ void dfs(ll x,ll fa){
                 bridge.push_back({x,i});
             }
         }else{
-            low[]
+            low[x]=min(low[x])
         }
     }
 }
