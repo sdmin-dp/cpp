@@ -23,8 +23,8 @@ void dfs(ll x,ll fa){
     }
 }
 void change(ll x){
-    for(int i:x){
-        
+    for(int i:g[x]){
+
     }
 }
 void solve(){
@@ -36,6 +36,9 @@ void solve(){
         g[y].push_back(x);
     }
     dfs(1,0);
+    for(auto i:bridge){
+        
+    }
     for(int i=1;i<=n;i++) if(!color[i]) change(i);
 }
 int main(){
