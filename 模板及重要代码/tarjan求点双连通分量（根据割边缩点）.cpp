@@ -10,7 +10,7 @@ ll idx;
 void dfs(ll x,ll fa){
     ll child=0;
     dfn[x]=++idx;
-    low[x]=dfn[x];
+    low[x]=idx;
 }
 void solve(){
     cin>>n>>m;
