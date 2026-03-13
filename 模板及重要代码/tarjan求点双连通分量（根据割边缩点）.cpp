@@ -16,14 +16,9 @@ void dfs(ll x,ll fa){
         if(dfn[i]==0){
             dfs(i,x);
             low[x]=min(low[i],low[x]);
-            if(low[i]>dfn[x]){
-                bridge.push_back({x,i});
-            }
-        }else{
-            if(x!=fa){
-                x=max
-            }
+            if(low[i]>dfn[x]) bridge.push_back({x,i});
         }
+        else if(x!=fa) x=min(low[x],dfn[i]);
     }
 }
 void solve(){
@@ -35,6 +30,7 @@ void solve(){
         g[y].push_back(x);
     }
     dfs(1,0);
+    
 }
 int main(){
     ios::sync_with_stdio(0);
