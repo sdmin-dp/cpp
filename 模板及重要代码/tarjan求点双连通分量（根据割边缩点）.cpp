@@ -51,8 +51,10 @@ void solve(){
             change(i);
         }
     }
-    for(auto i:bridge) ng[color[i.first]].push_back(color[i.second]);
-    
+    for(auto i:bridge){
+        ng[color[i.first]].push_back(color[i.second]);
+        ng[color[i.second]].push_back(color[i.first]);
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
