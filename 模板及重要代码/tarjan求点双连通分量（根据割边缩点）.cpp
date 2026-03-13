@@ -11,6 +11,9 @@ void dfs(ll x,ll fa){
     ll child=0;
     dfn[x]=++idx;
     low[x]=idx;
+    for(auto i:g[x]){
+        
+    }
 }
 void solve(){
     cin>>n>>m;
