@@ -1,4 +1,4 @@
-﻿放一篇大型秘籍：[大山秘籍]([Docs](https://tv7x543ftn5.feishu.cn/docx/DaODdbJHaokAzFxzCGNc4TeVnTe))
+放一篇大型秘籍：[大山秘籍]([Docs](https://tv7x543ftn5.feishu.cn/docx/DaODdbJHaokAzFxzCGNc4TeVnTe))
 
 # 一个很容易被忽略的函数--exp
 
@@ -1000,7 +1000,7 @@ int jump_up(int u, int k) {
 
 **Step 1: 预处理**
 
-`cpp
+```cpp
 void dfs(int u, int p, int d) {
     depth[u] = d;
     parent[u][0] = p;
@@ -1017,7 +1017,7 @@ void dfs(int u, int p, int d) {
         }
     }
 }
-`
+```
 
 **Step 2: 调整深度**
 
