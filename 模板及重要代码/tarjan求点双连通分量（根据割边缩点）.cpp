@@ -14,7 +14,8 @@ void dfs(ll x,ll fa){
     for(auto i:g[x]){
         if(dfn[i]==0){
             dfs(i,x);
-            
+            low[x]=min(low[i],low[x]);
+            if(low[i]>low[x])
         }
     }
 }
