@@ -5,9 +5,9 @@ using namespace std;
 const ll N=1e5+5;
 double n;
 void solve(){
-    
+    double pi=acos(-1.0);
     cin>>n;
-    printf("%.15f",3.141592653589793*(n/2.0)*(n/2.0));
+    printf("%.15f",pi*(n/2.0)*(n/2.0));
 }
 int main(){
     // ios::sync_with_stdio(0);
