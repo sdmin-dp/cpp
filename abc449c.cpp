@@ -11,9 +11,9 @@ void solve(){
     cin>>n>>l>>r;
     cin>>s;
     for(int i=0;i<n;i++) v[s[i]-'a'+1].push_back(i);
-    for(int i=1;i<=26;i++) sort(v[i].begin(),v[i].end());
-    for(int i=1;i<=n;i++){
-        
+    for(int i=1;i<=26;i++) sort(v[i].begin(),v[i].end(),greater<ll>());
+    for(int i=0;i<n;i++){
+        if(j<=)
     }
 }
 int main(){
