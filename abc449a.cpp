@@ -6,7 +6,7 @@ const ll N=1e5+5;
 double n;
 void solve(){
     cin>>n;
-    printf("%.6f",3.14159265*(n/2.0)*(n/2.0));
+    printf("%.15f",3.14159265*(n/2.0)*(n/2.0));
 }
 int main(){
     // ios::sync_with_stdio(0);
