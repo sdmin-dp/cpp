@@ -1,25 +1,21 @@
 #include<bits/stdc++.h>
-#define ll long long
 using namespace std;
+#define ll long long
 #define el '\n'
-const ll N=1e5+5;
-ll n,l,r;
+const ll N=5e5+5;
+ll n,l,r,cnt=0;
 string s;
-//l<=j-i<=r
-vector<ll> v[27];
-ll cnt=1;
+vector<ll> v[30];
 void solve(){
-    cin>>n>>l>>r;
-    cin>>s;
-    for(int i=0;i<n;i++) v[s[i]-'a'+1].push_back(i);
-    for(int i=1;i<=26;i++) sort(v[i].begin(),v[i].end(),greater<ll>());
+    cin>>n>>l>>r>>s;
+    for(int i=0;i<n;i++)v[s[i]-'a'+1].push_back(i);
     for(int i=0;i<n;i++){
-        for(auto j:v[s[i]-'a'+1]){
-            if(j<i||j-i<l) break;
-            cnt++;
-        } 
+        int id=s[i]-'a'+1;
+        auto it1=lower_bound(v[id].begin(),v[id].end(),i+l);
+        auto it2=upper_bound(v[id].begin(),v[id].end(),i+r);
+        cnt+=distance(it1,it2);
     }
-    cout<<cnt;
+    cout<<cnt<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
