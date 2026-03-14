@@ -3,9 +3,18 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+ll n,l,r;
+string s;
+//l<=j-i<=r
+vector<ll> v[27];
 void solve(){
-    
+    cin>>n>>l>>r;
+    cin>>s;
+    for(int i=0;i<n;i++) v[s[i]-'a'+1].push_back(i);
+    for(int i=1;i<=26;i++) sort(v[i].begin(),v[i].end());
+    for(int i=1;i<=n;i++){
+        
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
