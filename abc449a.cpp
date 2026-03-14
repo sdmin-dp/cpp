@@ -3,13 +3,14 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-ll n;
+double n;
 void solve(){
-    
+    cin>>n;
+    printf("%.6f",3.14159265*(n/2.0)*(n/2.0));
 }
 int main(){
-    ios::sync_with_stdio(0);
-    cin.tie(0);cout.tie(0);
+    // ios::sync_with_stdio(0);
+    // cin.tie(0);cout.tie(0);
     //freopen("xxx.in","r",stdin);
     //freopen("xxx.out","w",stdout);
     ll T=1;
