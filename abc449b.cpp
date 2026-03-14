@@ -10,7 +10,11 @@ void solve(){
         ll op,x;
         cin>>op>>x;
         if(op==1){
-            
+            n-=x;
+            cout<<x*m<<el;
+        }else{
+            m-=x;
+            cout<<n*x<<el;
         }
     }
     
