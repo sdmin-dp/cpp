@@ -7,7 +7,7 @@ double n;
 void solve(){
     double pi=acos(-1.0);
     cin>>n;
-    printf("%.14f",pi*n*n/4.0);
+    printf("%.15f",pi*n*n/4.0);
 }
 int main(){
     ios::sync_with_stdio(0);
