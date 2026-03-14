@@ -5,6 +5,7 @@ using namespace std;
 const ll N=1e5+5;
 double n;
 void solve(){
+    
     cin>>n;
     printf("%.15f",3.141592653589793*(n/2.0)*(n/2.0));
 }
