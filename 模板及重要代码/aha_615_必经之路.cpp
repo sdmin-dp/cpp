@@ -47,7 +47,7 @@ void solve(){
         ll x,y;
         cin>>x>>y;
         g[x].push_back(y);
-        g[y].push_back(x);
+        g[y].push_back(x)
     }
     idx=0;
     dfs_tarjan(1,0);
@@ -65,7 +65,7 @@ void solve(){
     dfs_lca(1,0,1);
     cin>>q;
     while(q--){
-        ll a,b;
+        ll a,b
         cin>>a>>b;
         ll u=color[a],v=color[b];
         ll lca=get_lca(u,v);
