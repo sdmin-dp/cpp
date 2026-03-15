@@ -6,7 +6,7 @@ const ll N=1e5+5;
 ll a,b,c;
 ll _a,_b,_c;
 ll lcm(ll a,ll b,ll c){
-    return a%__gcd(__gcd(a,b),c)*b*c;
+    return a/__gcd(__gcd(a,b),c)*b*c;
 }
 void solve(){
     cin>>a>>_a;
@@ -17,7 +17,7 @@ void solve(){
     ll LCM=lcm(a,b,c);
     cout<<LCM;
     // while(ans>LCM) ans-=LCM;
-    cout<<ans;
+    // cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
