@@ -19,12 +19,16 @@ void solve(){
     for(int k=1;k<=n;k++){
         for(int i=1;i<=n;i++){
             if(dis[i][k]==0x3f3f3f3f3f3f3f3f) continue;
-            for(int j=i;j<=n;j++){
+            for(int j=1;j<=n;j++){
                 if(dis[i][k]+dis[k][j]<dis[i][j]) dis[i][j]=dis[i][k]+dis[k][j];
             }
         }
     }
-    
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=n;j++){
+
+        }
+    }
     ll sum=0;
     for(int i=2;i<=m;i++){
         sum+=dis[a[i-1]][a[i]];
