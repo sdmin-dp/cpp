@@ -34,6 +34,8 @@ void solve(){
         g[u].push_back(v);
         g[v].push_back(u);
     }
+    dfs(1);
+    cout<<mx;
     for(int i=1;i<=n;i++) cout<<ans[i]<<" ";
 }
 int main(){
