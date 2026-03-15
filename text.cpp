@@ -30,7 +30,8 @@ void solve(){
     ans=res1*n+res2*m+res3*k;
 
     ll LCM=lcm(a,b,c);
-    cout<<ans%LCM;
+    while(ans>LCM) ans-=LCM;
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
