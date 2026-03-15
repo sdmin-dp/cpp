@@ -6,6 +6,7 @@ const ll N=1e5+5;
 const ll p=1e9;
 ll n;
 void solve(){
+    cin>>n;
     ll a=n/3,b=n%3;
     ll ans;
     if(b==1) ans=(pow(3,a-1)*4);
