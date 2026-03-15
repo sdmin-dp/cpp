@@ -16,7 +16,7 @@ void dfs(ll x,ll sum){
         if(sum>mx) ans=vis,mx=sum;
         return;
     }
-    // if(sum+(n-x+1)<=mx) return;
+    if(sum+(n-x+1)<=mx) return;
     if(check(x)){
         vis[x]=1;
         dfs(x+1,sum+1);
