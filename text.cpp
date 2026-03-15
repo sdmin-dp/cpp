@@ -6,7 +6,8 @@ const ll N=1e6+5;
 ll n;
 ll dp[N];
 void solve(){
-    
+    cin>>n;
+    cout<<dp[n];
 }
 int main(){
     ios::sync_with_stdio(0);
