@@ -17,7 +17,7 @@ void dfs(ll x,ll sum){
         return;
     }
     if(sum+(n-x+1)<=mx) return;
-    if(!check(x)){
+    if(check(x)){
         vis[x]=1;
         dfs(x+1,sum+1);
         vis[x]=0;
@@ -35,7 +35,7 @@ void solve(){
         g[v].push_back(u);
     }
     dfs(1,0);
-    cout<<mx;
+    cout<<mx<<el;
     for(int i=1;i<=n;i++) cout<<ans[i]<<" ";
 }
 int main(){
