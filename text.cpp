@@ -27,7 +27,7 @@ void solve(){
     res3=lcm(a,c)*x;
 
     ans=res1*n+res2*m+res3*k;
-
+    
     ll LCM=lcm(a,b,c);
     cout<<ans%LCM;
 }
