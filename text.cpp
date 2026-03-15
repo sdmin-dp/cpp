@@ -4,23 +4,32 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll a,b,c;
-ll _a,_b,_c;
-ll lcm(ll a,ll b,ll c){
-    return a/__gcd(__gcd(a,b),c)*b*c;
-}
+ll n,m,k;
+ll ans;
+ll lcm(ll a,ll b,ll c) return a/__gcd(__gcd(a,b),c)*b*c;
+ll lcm(ll a,ll b) return a/__gcd(a,b)*b;
+ll res1,res2,res3;
 void solve(){
-    cin>>a>>_a;
-    cin>>b>>_b;
-    cin>>c>>_c;
-    ll _=lcm(a,b,c)+1;
-    // cerr<<_;
-    ll ans=_a*_+_b*_+_c*_;
-    cerr<<ans;
+    cin>>a>>n;
+    cin>>b>>m;
+    cin>>c>>k;
+    //(a+b)%c==1
+    ll x=1;
+    while(lcm(a,b)*x%c!=1) x++;
+    res1=lcm(a,b)*x;
+    //(a+c)%b==1
+    x=1;
+    while(lcm(a,c)*x%b!=1) x++;
+    res2=lcm(a,c)*x;
+    //(b+c)%a==1
+    x=1;
+    while(lcm(b,c)*x%a!=1) x++;
+    res3=lcm(a,c)*x;
+
+    ans=res1*n+res2*m+res3*k;
+
     ll LCM=lcm(a,b,c);
-    // cout<<LCM;
-    // cerr<<106%3<<" "<<106%5<<" "<<106%7;
-    while(ans>LCM) ans-=LCM;
-    cout<<ans;
+    cout<<ans%LCM;
 }
 int main(){
     ios::sync_with_stdio(0);
