@@ -2,25 +2,11 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e5+5;
-const ll p=1e9;
+const ll N=1e6+5;
 ll n;
-ll qpow(ll a,ll b){
-    ll res=1;
-    while(b){
-        if(b%2) res*=a;
-        b/=2;
-        a*=a;
-    }
-    return res;
-}
+ll dp[N];
 void solve(){
-    cin>>n;
-    ll a=n/3,b=n%3;
-    ll ans;
-    if(b==1) ans=(qpow(3,a-1)*4);
-    else ans=qpow(3,a);
-    cout<<ans<<el;
+    
 }
 int main(){
     ios::sync_with_stdio(0);
@@ -29,6 +15,15 @@ int main(){
     //freopen("xxx.out","w",stdout);
     ll T=1;
     cin>>T;
+    for(int i=1;i<=n;i++){
+        if(i<=4){
+            dp[i]=i;
+            continue;
+        }
+        if(i%3==0) dp[i]=dp[i-3]*3;
+        else if(i%3==1) dp[i]=dp[i-4]*4;
+        else if(i%3==2) dp[i]=dp[i-2]*2;
+    }
     while(T--){
         solve();
     }
