@@ -17,7 +17,6 @@ void dfs(ll x,ll sum){
         if(sum>mx) ans=vis,mx=sum;
         return;
     }
-    
     if(check(x)){
         vis[x]=1;
         dfs(x+1,sum+1);
