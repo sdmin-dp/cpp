@@ -2,7 +2,7 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e5+5;
+const ll N=1e2+5;
 ll n,m;
 ll a[N];
 ll dis[N][N];
@@ -12,14 +12,15 @@ void solve(){
     memset(dis,0x3f,sizeof(dis));
     for(int i=1;i<=n;i++){
         for(int j=1;j<=n;j++){
-            cin>>dis[i][j];
+            ll x;cin>>x;
+            if(x!=0) dis[i][j]=x;
         }
     }
     for(int k=1;k<=n;k++){
         for(int i=1;i<=k;i++){
             if(dis[i][k]==0x3f3f3f3f3f3f3f3f) continue;
             for(int j=k;j<=n;j++){
-                if(dis[i][k]+dis[k][j])
+                if(dis[i][k]+dis[k][j]>dis[i][j]) dis[i][j]=dis[i][k]+dis[k][j];
             }
         }
     }
