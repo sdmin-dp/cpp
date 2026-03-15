@@ -7,7 +7,7 @@ ll n;
 ll dp[N];
 void solve(){
     cin>>n;
-    cout<<dp[n];
+    // cout<<dp[n];
 }
 int main(){
     ios::sync_with_stdio(0);
@@ -25,6 +25,7 @@ int main(){
         else if(i%3==1) dp[i]=dp[i-4]*4;
         else if(i%3==2) dp[i]=dp[i-2]*2;
     }
+    cout<<dp[6];
     while(T--){
         solve();
     }
