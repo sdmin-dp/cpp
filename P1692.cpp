@@ -14,7 +14,7 @@ bool check(ll x){
 void dfs(ll x,ll sum){
     if(sum+(n-x+1)<=mx) return;
     if(x==n+1){
-        /*if(sum>mx) */ans=vis,mx=sum;
+        if(sum>mx) ans=vis,mx=sum;
         return;
     }
     
