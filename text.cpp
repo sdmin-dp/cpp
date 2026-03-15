@@ -16,7 +16,7 @@ void solve(){
     ll ans=(_a+_b+_c)*_;
     ll LCM=lcm(a,b,c);
     cout<<LCM;
-    cerr<<106/3<<" "<<106/5<<" "<<106/7;
+    cerr<<106%3<<" "<<106%5<<" "<<106%7;
     // while(ans>LCM) ans-=LCM;
     // cout<<ans;
 }
