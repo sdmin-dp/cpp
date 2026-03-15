@@ -15,6 +15,7 @@ void solve(){
     ll _=a*b*c+1;
     ll ans=(_a+_b+_c)*_;
     ll LCM=lcm(a,b,c);
+    cout<<LCM;
     // while(ans>LCM) ans-=LCM;
     cout<<ans;
 }
