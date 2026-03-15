@@ -9,7 +9,7 @@ ll dp[N];
 void solve(){
     cin>>n;
     cout<<dp[n]%p;
-}x
+}
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
