@@ -18,13 +18,8 @@ int main(){
     ll T=1;
     cin>>T;
     for(int i=1;i<=N;i++){
-        if(i<=4){
-            dp[i]=i;
-            continue;
-        }
-        if(i%3==0) dp[i]=dp[i-3]*3;
-        else if(i%3==1) dp[i]=dp[i-4]*4;
-        else if(i%3==2) dp[i]=dp[i-2]*2;
+        if(i<=4){dp[i]=i;continue;}
+        if(i%3==0) dp[i]=dp[i-3]*3,dp[i-4]*4,dp[i-2]*2);
     }
     // cout<<dp[6];
     while(T--){
