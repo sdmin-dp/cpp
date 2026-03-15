@@ -17,10 +17,10 @@ void solve(){
     ll ans=_a*_+_b*_+_c*_;
     cerr<<ans;
     ll LCM=lcm(a,b,c);
-    cout<<LCM;
+    // cout<<LCM;
     // cerr<<106%3<<" "<<106%5<<" "<<106%7;
     while(ans>LCM) ans-=LCM;
-    // cout<<ans;
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
