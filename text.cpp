@@ -9,7 +9,7 @@ ll dp[N];
 void solve(){
     cin>>n;
     cout<<dp[n]%p;
-}
+}x
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
@@ -19,9 +19,8 @@ int main(){
     cin>>T;
     for(int i=1;i<=N;i++){
         if(i<=4){dp[i]=i;continue;}
-        if(i%3==0) dp[i]=dp[i-3]*3,dp[i-4]*4,dp[i-2]*2);
+        if(i%3==0) dp[i]=max(dp[i-3]*3,dp[i-4]*4,dp[i-2]*2);
     }
-    // cout<<dp[6];
     while(T--){
         solve();
     }
