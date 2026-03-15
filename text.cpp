@@ -16,6 +16,7 @@ void solve(){
     ll ans=lcm(_a,_b,_c)*_;
     ll LCM=lcm(a,b,c);
     while(ans>LCM) ans-=LCM;
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
