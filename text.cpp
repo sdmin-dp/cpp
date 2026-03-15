@@ -6,8 +6,9 @@ const ll N=1e5+5;
 ll a,b,c;
 ll n,m,k;
 ll ans;
-ll lcm(ll A,ll B,ll C){return A/__gcd(__gcd(A,B),C)*B*C;}
+
 ll lcm(ll A,ll B){return A/__gcd(A,B)*B;}
+ll lcm(ll A,ll B,ll C){return lcm(lcm(A,B),C);}
 ll res1,res2,res3;
 void solve(){
     cin>>a>>n;
