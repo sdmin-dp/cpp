@@ -24,6 +24,7 @@ void solve(){
             }
         }
     }
+    
     ll sum=0;
     for(int i=2;i<=m;i++){
         sum+=dis[a[i]][a[i-1]];
