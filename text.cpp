@@ -10,7 +10,7 @@ void solve(){
     ll ans;
     if(b==1) ans=(pow(3,a-1)*4);
     else ans=pow(3,a);
-    cout<<ans%p<<el;
+    cout<<ans<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
