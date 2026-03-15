@@ -3,6 +3,7 @@
 using namespace std;
 #define el '\n'
 const ll N=1e6+5;
+const ll p=1e9;
 ll n;
 ll dp[N];
 void solve(){
@@ -25,7 +26,7 @@ int main(){
         else if(i%3==1) dp[i]=dp[i-4]*4;
         else if(i%3==2) dp[i]=dp[i-2]*2;
     }
-    cout<<dp[6];
+    // cout<<dp[6];
     while(T--){
         solve();
     }
