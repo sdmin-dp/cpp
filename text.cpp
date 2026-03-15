@@ -12,9 +12,10 @@ void solve(){
     cin>>a>>_a;
     cin>>b>>_b;
     cin>>c>>_c;
-    ll _=a*b*c+1;
-    cerr<<_;
-    ll ans=(_a+_b+_c)*_;
+    ll _=lcm(a,b,c)+1;
+    // cerr<<_;
+    ll ans=_a*_+_b*_+_c*_;
+    cerr<<ans;
     ll LCM=lcm(a,b,c);
     cout<<LCM;
     // cerr<<106%3<<" "<<106%5<<" "<<106%7;
