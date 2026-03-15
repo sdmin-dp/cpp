@@ -7,7 +7,7 @@ ll n;
 ll dp[N];
 void solve(){
     cin>>n;
-    // cout<<dp[n];
+    cout<<dp[n]%p;
 }
 int main(){
     ios::sync_with_stdio(0);
@@ -16,7 +16,7 @@ int main(){
     //freopen("xxx.out","w",stdout);
     ll T=1;
     cin>>T;
-    for(int i=1;i<=n;i++){
+    for(int i=1;i<=N;i++){
         if(i<=4){
             dp[i]=i;
             continue;
