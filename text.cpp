@@ -6,7 +6,7 @@ const ll N=1e5+5;
 
 void solve(){
     for(int i=1;i;i++){
-        if(i%3==2&&i%5==4&&i%7==6){
+        if(i%3==1&&i%5==4&&i%7==6){
             cout<<i;
             return;
         }
