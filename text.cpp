@@ -19,7 +19,7 @@ void solve(){
     ll LCM=lcm(a,b,c);
     cout<<LCM;
     // cerr<<106%3<<" "<<106%5<<" "<<106%7;
-    // while(ans>LCM) ans-=LCM;
+    while(ans>LCM) ans-=LCM;
     // cout<<ans;
 }
 int main(){
