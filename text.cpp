@@ -13,7 +13,7 @@ void solve(){
     cin>>b>>_b;
     cin>>c>>_c;
     ll _=a*b*c+1;
-    ll ans=lcm(_a,_b,_c)*_;
+    ll ans=(_a+_b+_c)*_;
     ll LCM=lcm(a,b,c);
     while(ans>LCM) ans-=LCM;
     cout<<ans;
