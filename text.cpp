@@ -6,8 +6,8 @@ const ll N=1e5+5;
 ll a,b,c;
 ll n,m,k;
 ll ans;
-ll lcm(ll a,ll b,ll c){return a/__gcd(__gcd(a,b),c)*b*c;}
-ll lcm(ll a,ll b){return a/__gcd(a,b)*b;}
+ll lcm(ll A,ll B,ll C){return A/__gcd(__gcd(A,B),C)*B*C;}
+ll lcm(ll A,ll B){return A/__gcd(A,B)*B;}
 ll res1,res2,res3;
 void solve(){
     cin>>a>>n;
@@ -27,7 +27,7 @@ void solve(){
     res3=lcm(a,c)*x;
 
     ans=res1*n+res2*m+res3*k;
-    
+
     ll LCM=lcm(a,b,c);
     cout<<ans%LCM;
 }
