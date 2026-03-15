@@ -3,14 +3,19 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+ll a,b,c;
+ll _a,_b,_c;
+ll lcm(ll a,ll b,ll c){
+    return a%__gcd(__gcd(a,b),c)*b*c;
+}
 void solve(){
-    for(int i=1;i;i++){
-        if(i%3==1&&i%5==4&&i%7==6){
-            cout<<i;
-            return;
-        }
-    }
+    cin>>a>>_a;
+    cin>>b>>_b;
+    cin>>c>>_c;
+    ll _=a*b*c+1;
+    ll ans=lcm(_a,_b,_c)*_;
+    ll LCM=lcm(a,b,c);
+    while(ans>LCM) ans-=LCM;
 }
 int main(){
     ios::sync_with_stdio(0);
