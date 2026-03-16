@@ -15,6 +15,13 @@ void solve(){
         ll x,y;
         cin>>st;
         cin>>x>>y;
+        stt.insert({st,{x,y}});
+    }
+    for(int i=1;i<=n;i++){
+        string st;
+        ll x,y;
+        cin>>st;
+        cin>>x>>y;
         if(st=="CP"){
             a[1][x]++;
             a[2][y]++;
