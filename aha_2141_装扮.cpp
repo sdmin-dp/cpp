@@ -26,6 +26,8 @@ void solve(){
         // st=uniqe[i].first;
         // x=uniqe[i].second.first;
         // y=uniqe[i].second.second;
+        cin>>st;
+        cin>>x>>y;
         if(st=="CP"){
             a[1][x]++;
             a[2][y]++;
