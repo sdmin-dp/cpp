@@ -3,9 +3,30 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-ll n,m;
+ll c,p,s,n;
+ll a[4][N];
+ll ans;
 void solve(){
-    
+    cin>>c>>p>>s>>n;
+    ans=c*p*s;
+    for(int i=1;i<=n;i++){
+        string st;
+        ll x,y;
+        cin>>st;
+        cin>>x>>y;
+        if(st=="CP"){
+            a[1][x]++;
+            a[2][y]++;
+            ans-=s;
+        }else{
+            a[2][x]++;
+            a[3][y]++;
+            ans-=c;
+        }
+    }
+    for(int i=1;i<=c;i++){
+        
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
