@@ -23,9 +23,9 @@ void solve(){
     for(int i=1;i<=n;i++){
         string st;
         ll x,y;
-        st=uniqe[i].first;
-        x=uniqe[i].second.first;
-        y=uniqe[i].second.second;
+        // st=uniqe[i].first;
+        // x=uniqe[i].second.first;
+        // y=uniqe[i].second.second;
         if(st=="CP"){
             a[1][x]++;
             a[2][y]++;
