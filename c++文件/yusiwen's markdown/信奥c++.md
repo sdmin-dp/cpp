@@ -7730,6 +7730,38 @@ int main() {
 
 掌握这些知识点对于解决数论相关问题非常重要，建议多加练习相关题目。
 
+# 费马小定理
+## 余数的性质
+
+### 可加性
+设$x \div y = z \dots \dots c$ 
+$x' \div y = z' \dots \dots c'$, 
+则$(x+x') \div y = z'' \dots \dots (c+c')$
+
+### 可减性
+设$x \div y = z \dots \dots c$ 
+$x' \div y = z' \dots \dots c'$, 
+则$(x - x') \div y = z'' \dots \dots (c-c')$
+
+### 可乘性
+设$x \div y = z \dots \dots c$ 
+$x' \div y = z' \dots \dots c'$, 
+则$(x \times x') \div y = z'' \dots \dots (c \times c')$
+
+### 可乘方性
+设$x^t \div y = z \dots \dots c$ ,$a = x \mod y$ ,
+则$a^t \div 5 = z' \dots \dots c$ ，
+（可以看成可乘性，$t$个$c$相乘，结果大于了除数，然后在重新取个模）
+
+### 公式
+有一个质数$p$和一个数$a$,$a \mod p \neq 0$($a$不是$p$的倍数，即$a$和$p$互质)，则:
+$$
+\begin{aligned}
+a^{p-1} &\equiv 1 \pmod{p} \\
+a^p &\equiv a \pmod{p}
+\end{aligned}
+$$
+
 # sin/cos/tan函数理论学习及使用（GESP 7级考点）
 
 ![](C:\Users\Administrator\Pictures\Screenshots\zjsjx.png)
@@ -7818,6 +7850,7 @@ $$
 
 感情我之前讲的都是废话是吧。。。
 ## sin
+图像：
 
 正弦（$sin$），给你直角三角型的弧度，可以算出对边（高）的。
 
@@ -7825,12 +7858,21 @@ $sin(x)=直角三角形的对边长$，$x=\theta$
 
 ## cos
 
-余弦（$sin$），给你直角三角型的弧度，可以算出邻边（底）的。
+
+![[Pasted image 20260315214749.png]]
+
+>[!IMPORTANT]
+>他是一个比例（数学中）所以他的所有值在 $1$ 到 $-1$ 之间  ；
+>当 $x \mod \pi = 1$时，$y=-1$；
+>当 $x \mod \pi = 0$时，$y=1$,  
+ 
+
+余弦（$cos$），给你直角三角型的弧度，可以算出邻边（底）的。
 
 $cos(x)=直角三角形的底边长$，$x=\theta$ 
 
 ## tan
-正切（tan），正切我不知道有啥用，但是斜率就是正切，可以表示坡度
+正切（$tan$），正切我不知道有啥用，但是斜率就是正切，可以表示坡度
 
 $tan(x)=直角三角形的斜率$，$x=\theta$ 
 
