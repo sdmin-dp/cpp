@@ -24,9 +24,10 @@ void solve(){
             ans-=c;
         }
     }
-    for(int i=1;i<=c;i++){
-        
-    }
+    for(int i=1;i<=c;i++) if(a[1][i]!=0) ans+=a[1][i]-1;
+    for(int i=1;i<=p;i++) if(a[2][i]!=0) ans+=a[2][i]-1;
+    for(int i=1;i<=s;i++) if(a[3][i]!=0) ans+=a[3][i]-1;
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
