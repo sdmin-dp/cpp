@@ -6,14 +6,26 @@ const ll N=1e5+5;
 ll c,p,s,n;
 ll a[4][N];
 ll ans;
+pair<string,pair<ll,ll>> uniqe[N];
 void solve(){
     cin>>c>>p>>s>>n;
     ans=c*p*s;
     for(int i=1;i<=n;i++){
+        string S;
+        ll x,y;
+        cin>>x>>y;
+        uniqe[i].first=S;
+        uniqe[i].second.first=x;
+        uniqe[i].second.second=y;
+    }
+    sort(uniqe+1,uniqe+n+1);
+    n=unique(uniqe+1,uniqe+n+1)-uniqe;
+    for(int i=1;i<=n;i++){
         string st;
         ll x,y;
-        cin>>st;
-        cin>>x>>y;
+        st=uniqe[i].first;
+        x=uniqe[i].second.first;
+        y=uniqe[i].second.second;
         if(st=="CP"){
             a[1][x]++;
             a[2][y]++;
