@@ -18,8 +18,8 @@ void solve(){
         uniqe[i].second.first=x;
         uniqe[i].second.second=y;
     }
-    sort(uniqe+1,uniqe+n+1);
-    n=unique(uniqe+1,uniqe+n+1)-uniqe;
+    // sort(uniqe+1,uniqe+n+1);
+    // n=unique(uniqe+1,uniqe+n+1)-uniqe;
     for(int i=1;i<=n;i++){
         string st;
         ll x,y;
