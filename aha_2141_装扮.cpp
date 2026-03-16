@@ -10,14 +10,14 @@ pair<string,pair<ll,ll>> uniqe[N];
 void solve(){
     cin>>c>>p>>s>>n;
     ans=c*p*s;
-    for(int i=1;i<=n;i++){
-        string S;
-        ll x,y;
-        cin>>x>>y;
-        uniqe[i].first=S;
-        uniqe[i].second.first=x;
-        uniqe[i].second.second=y;
-    }
+    // for(int i=1;i<=n;i++){
+    //     string S;
+    //     ll x,y;
+    //     cin>>x>>y;
+    //     uniqe[i].first=S;
+    //     uniqe[i].second.first=x;
+    //     uniqe[i].second.second=y;
+    // }
     // sort(uniqe+1,uniqe+n+1);
     // n=unique(uniqe+1,uniqe+n+1)-uniqe;
     for(int i=1;i<=n;i++){
