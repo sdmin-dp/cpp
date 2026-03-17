@@ -3,6 +3,7 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
+const ll p=1000000007;
 ll n,m;
 ll a[N];
 ll cnt;
