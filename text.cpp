@@ -11,7 +11,7 @@ void dfs(string s){
             else if(i=='g') g++;
             else b++;
         }
-        if(r<=1&&b<=1) cout<<s;
+        if(r<=1&&b<=1) cout<<s<<el;
         return;
     }
     dfs(s+'r');
