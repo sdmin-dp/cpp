@@ -11,10 +11,6 @@ set<ll> st;
 void tarjan(ll x,ll root){
     dfn[x]=low[x]=++idx;
     stk.push(x);
-    if(x==root&&g[x].empty()){
-        dcc[++dcc_cnt].push_back(x);
-        return;
-    }
     ll child=0;
     for(auto i:g[x]){
         if(!dfn[i]){
@@ -36,8 +32,7 @@ void tarjan(ll x,ll root){
 }
 void solve(){
     ll T=0;
-    while(cin>>m){
-        if(!m) return;
+    while(cin>>m&&m){
         T++;
         for(int i=0;i<N;i++){
             g[i].clear();dcc[i].clear();
@@ -51,10 +46,10 @@ void solve(){
             st.insert(u);st.insert(v);
         }
         for(auto i:st)if(!dfn[i])tarjan(i,i);
-        ll res_num=0,res_way=1;
+        unsigned long long res_num=0,res_way=1;
         if(dcc_cnt==1){
             res_num=2;
-            res_way=dcc[1].size()*(dcc[1].size()-1)/2;
+            res_way=(unsigned long long)dcc[1].size()*(dcc[1].size()-1)/2;
         }else{
             for(int i=1;i<=dcc_cnt;i++){
                 ll cnt=0;
@@ -68,7 +63,7 @@ void solve(){
         cout<<"Case "<<T<<": "<<res_num<<" "<<res_way<<el;
     }
 }
-int mian(){
+int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
     //freopen("xxx.in","r",stdin);
