@@ -8,7 +8,10 @@ ll a[N];
 ll cnt;
 void dfs(ll x,ll sum){
     if(sum>m) return;
-    if(x==n+1&&sum==m) cnt++;
+    if(x==n+1){
+        if(sum==m) cnt++;
+        return;
+    }
     for(int i=0;i<=a[x];i++) dfs(x+1,sum+i);
 }
 void solve(){
