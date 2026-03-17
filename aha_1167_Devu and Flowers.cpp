@@ -12,6 +12,7 @@ ll cnm(ll n,ll m){
     ll res=1;
     for(int i=0;i<=m;i++){
         res*=(n-i);
+        res
     }
     return res;
 }
