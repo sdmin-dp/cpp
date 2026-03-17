@@ -7,7 +7,7 @@ ll n,m;
 ll a[N];
 ll cnt;
 void dfs(ll x,ll sum){
-    if(su>m) return;
+    if(sum>m) return;
     if(x==n+1&&sum==m) cnt++;
     for(int i=1;i<=a[x];i++) dfs(x+1,sum+i);
 }
