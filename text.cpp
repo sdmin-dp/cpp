@@ -19,7 +19,7 @@ void dfs(string s){
     dfs(s+'b');
 }
 void solve(){
-    
+    dfs("");
 }
 int main(){
     ios::sync_with_stdio(0);
