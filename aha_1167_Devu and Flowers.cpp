@@ -11,7 +11,7 @@ ll cnm(ll n,ll m){
     m=min(n-m,m);
     ll res=1;
     if(m==0) return 1;
-    for(int i=n;i>=(n-m);i--) res*=i;
+    for(int i=n;i>=(n-m+1);i--) res*=i;
     for(int i=1;i<=m;i++) res/=i;
     return res;
 }
