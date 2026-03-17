@@ -6,20 +6,21 @@ const ll N=1e5+5;
 const ll p=1000000007;
 ll n,m;
 ll a[N];
-ll cnt;
-void dfs(ll x,ll sum){
-    if(sum>m) return;
-    if(x==n+1){
-        if(sum==m) cnt++;
-        return;
-    }
-    for(int i=0;i<=a[x];i++) dfs(x+1,sum+i);
+ll cnt,sum;
+ll cnm(ll n,ll m){
+    m=min(n-m,m);
+    ll res=0;
+    for(int i=n;i>=m;i--) res*=i;
+    for(int i=1;i<=m;i++) res/=i;
+    return res;
 }
 void solve(){
     cin>>n>>m;
-    for(int i=1;i<=n;i++) cin>>a[i];
-    dfs(1,0);
-    cout<<cnt%p;
+    for(int i=1;i<=n;i++){
+        cin>>a[i];
+        sum+=a[i];
+    }
+    cout<<cnm(sum,m)%p;
 }
 int main(){
     ios::sync_with_stdio(0);
