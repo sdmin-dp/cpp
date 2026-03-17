@@ -19,7 +19,7 @@ void solve(){
     cin>>n>>m;
     for(int i=1;i<=n;i++) cin>>a[i];
     dfs(1,0);
-    cout<<cnt;
+    cout<<cnt%p;
 }
 int main(){
     ios::sync_with_stdio(0);
