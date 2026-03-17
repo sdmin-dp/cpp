@@ -6,14 +6,15 @@ const ll N=1e5+5;
 ll n,m;
 ll a[N];
 ll cnt;
-void dfs(ll x){
-    if(x==n+1) cnt++;
-    for(int i=1;i<=a[x];i++) dfs(x+1);
+void dfs(ll x,ll sum){
+    if(su>m) return;
+    if(x==n+1&&sum==m) cnt++;
+    for(int i=1;i<=a[x];i++) dfs(x+1,sum+i);
 }
 void solve(){
     cin>>n>>m;
     for(int i=1;i<=n;i++) cin>>a[i];
-    dfs(1);
+    dfs(1,0);
     cout<<cnt;
 }
 int main(){
