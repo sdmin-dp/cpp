@@ -9,7 +9,7 @@ ll cnt;
 void dfs(ll x,ll sum){
     if(sum>m) return;
     if(x==n+1&&sum==m) cnt++;
-    for(int i=1;i<=a[x];i++) dfs(x+1,sum+i);
+    for(int i=0;i<=a[x];i++) dfs(x+1,sum+i);
 }
 void solve(){
     cin>>n>>m;
