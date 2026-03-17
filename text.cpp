@@ -51,10 +51,10 @@ void solve(){
             st.insert(u);st.insert(v);
         }
         for(auto i:st)if(!dfn[i])tarjan(i,i);
-        unsigned long long res_num=0,res_way=1;
+        ll res_num=0,res_way=1;
         if(dcc_cnt==1){
             res_num=2;
-            res_way=(unsigned long long)dcc[1].size()*(dcc[1].size()-1)/2;
+            res_way=dcc[1].size()*(dcc[1].size()-1)/2;
         }else{
             for(int i=1;i<=dcc_cnt;i++){
                 ll cnt=0;
@@ -67,8 +67,16 @@ void solve(){
         }
         cout<<"Case "<<T<<": "<<res_num<<" "<<res_way<<el;
     }
-    return 0;
 }
 int mian(){
-    
+    ios::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    //freopen("xxx.in","r",stdin);
+    //freopen("xxx.out","w",stdout);
+    ll T=1;
+    //cin>>T;
+    while(T--){
+        solve();
+    }
+    return 0;
 }
