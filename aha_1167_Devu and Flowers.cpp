@@ -3,7 +3,8 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-void dfs(ll x,ll sum){
+
+void dfs(ll x){
 
 }
 void solve(){
