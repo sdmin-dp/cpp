@@ -4,9 +4,9 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll c,p,s,n;
-ll a[4][N];
 ll ans;
 set<pair<string,pair<ll,ll>>> stt;
+pair<ll,ll> a[N];
 void solve(){
     cin>>c>>p>>s>>n;
     ans=c*p*s;
@@ -23,21 +23,15 @@ void solve(){
         st=i.first;
         x=i.second.first;
         y=i.second.second;
-        // cin>>st;
-        // cin>>x>>y;
         if(st=="CP"){
-            a[1][x]++;
-            a[2][y]++;
+            a[y].first++;
             ans-=s;
         }else{
-            a[2][x]++;
-            a[3][y]++;
+            a[x].second++;
             ans-=c;
         }
     }
-    // for(int i=1;i<=c;i++) if(a[1][i]!=0) ans+=a[1][i]-1;
-    for(int i=1;i<=p;i++) if(a[2][i]!=0) ans+=a[2][i]-1;
-    // for(int i=1;i<=s;i++) if(a[3][i]!=0) ans+=a[3][i]-1;
+    for(int i=1;i<=p;i++) ans+=a[i].first*a[i].second;
     cout<<ans;
 }
 int main(){
