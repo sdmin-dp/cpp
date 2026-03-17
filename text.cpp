@@ -5,7 +5,7 @@ using namespace std;
 const ll N=1e5+5;
 ll cnt;
 void dfs(string s){
-    if(s.size()==3){
+    if(s.size()==2){
         ll r=0,g=0,b=0;
         for(auto i:s){
             if(i=='r') r++; 
