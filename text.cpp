@@ -3,6 +3,7 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
+ll cnt;
 void dfs(string s){
     if(s.size()==3){
         ll r=0,g=0,b=0;
@@ -11,7 +12,7 @@ void dfs(string s){
             else if(i=='g') g++;
             else b++;
         }
-        if(r<=1&&b<=1) cout<<s<<el;
+        if(r<=1&&b<=1){cnt++;cout<<s<<el;}
         return;
     }
     dfs(s+'r');
@@ -20,6 +21,7 @@ void dfs(string s){
 }
 void solve(){
     dfs("");
+    cout<<cnt;
 }
 int main(){
     ios::sync_with_stdio(0);
