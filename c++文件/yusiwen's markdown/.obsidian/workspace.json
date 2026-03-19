@@ -14,7 +14,7 @@
               "type": "markdown",
               "state": {
                 "file": "信奥c++.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
@@ -56,7 +56,7 @@
                 "file": "信奥c++.md",
                 "followCursor": true,
                 "showSearch": true,
-                "searchQuery": ""
+                "searchQuery": "st"
               },
               "icon": "lucide-list",
               "title": "信奥c++ 的大纲"
@@ -184,7 +184,7 @@
       "bases:新建数据库": false
     }
   },
-  "active": "2232e330621ccc8b",
+  "active": "6373af05aadf0f01",
   "lastOpenFiles": [
     "Pasted image 20260315214749.png",
     "信奥c++.md",
