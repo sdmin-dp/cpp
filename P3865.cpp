@@ -30,7 +30,6 @@ void solve(){
         cin>>x>>y;
         cout<<query(x,y)<<el;
     }
-    cerr<<(1<<16);
 }
 int main(){
     ios::sync_with_stdio(0);
