@@ -3,9 +3,9 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-ll st[N][];
+// ll st[N][];
 void solve(){
-    
+    cout<<log2(N);
 }
 int main(){
     ios::sync_with_stdio(0);
