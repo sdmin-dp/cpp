@@ -3,13 +3,19 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
+const ll mxlog=17;
 ll n,m;
 ll a[N];
 ll st[N][20];
 void init(){
-
+    for(int i=1;i<=n;i++) st[i][0]=a[i];
+    for(int j=1;j<=mxlog;j++){
+        for(int i=1;i+(1<<j)-1<=n;i++){
+            st[i][j]=max(st[i][j-1]+st[i+(1<<(j-1))][j-1]); 
+        }
+    }
 }
-ll query(ll x,ll y){
+ll query(ll l,ll r){
 
 }
 void solve(){
