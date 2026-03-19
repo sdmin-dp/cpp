@@ -4,24 +4,23 @@ using namespace std;
 #define el '\n'
 const ll N=2e5+5;
 ll n,m,p;
-pair<ll,ll> a[N];
-ll color[55];
-ll mxprice[55];
-ll cnt;
+ll ls[N];
+ll sum[N];
+ll cc[N];
+ll lp_idx=-1;
+ll ans;
 void solve(){
     cin>>n>>m>>p;
-    for(int i=1;i<=n;i++) cin>>a[i].first>>a[i].second;
     for(int i=1;i<=n;i++){
-        int color, price;
-        cin >> color >> price;
-        if (price <= p)
-            lp_idx = i;
-        if (lp_idx >= ls[color])
-            sum[color] = cc[color];
-        ls[color] = i;
-        ans += sum[color];
+        ll color,price;
+        cin>>color>>price;
+        if (price<=p) lp_idx=i;
+        if(lp_idx>=ls[color]) sum[color]=cc[color];
+        ls[color]=i;
+        ans+=sum[color];
         cc[color]++;
     }
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
