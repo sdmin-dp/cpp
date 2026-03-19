@@ -5,10 +5,14 @@ using namespace std;
 const ll N=2e5+5;
 ll n,m,p;
 pair<ll,ll> a[N];
+ll color[55];
+ll mx
 void solve(){
     cin>>n>>m>>p;
     for(int i=1;i<=n;i++) cin>>a[i].first>>a[i].second;
-    
+    for(int i=1;i<=n;i++){
+
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
