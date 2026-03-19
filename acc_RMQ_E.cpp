@@ -7,7 +7,8 @@ ll n,m,p;
 pair<ll,ll> a[N];
 void solve(){
     cin>>n>>m>>p;
-
+    for(int i=1;i<=n;i++) cin>>a[i].first>>a[i].second;
+    
 }
 int main(){
     ios::sync_with_stdio(0);
