@@ -7,7 +7,7 @@ ll n,m,p;
 pair<ll,ll> a[N];
 void solve(){
     cin>>n>>m>>p;
-    
+
 }
 int main(){
     ios::sync_with_stdio(0);
