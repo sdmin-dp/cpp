@@ -6,6 +6,7 @@ const ll N=2e5+5;
 ll n,m,p;
 pair<ll,ll> a[N];
 void solve(){
+    cin>>n>>m>>p;
     
 }
 int main(){
