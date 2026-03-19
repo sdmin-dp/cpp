@@ -26,9 +26,9 @@ void solve(){
     cin>>n>>m;
     for(int i=1;i<=n;i++) cin>>a[i];
     init();
-    for(int i=1;i<=m;i++){
-        ll x,y;
-        cin>>x>>y;
+    for(int i=1;i<=n-m+1;i++){
+        ll x=i,y=i+m-1;
+        if(x>n||y>n) continue;
         pair<ll,ll> p=query(x,y);
         cout<<p.first<<" "<<p.second<<el;
     }
