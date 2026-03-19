@@ -30,7 +30,7 @@ void solve(){
         cin>>x>>y;
         cout<<query(x,y)<<el;
     }
-    cerr<<log2(10000);
+    cerr<<log2(100000);
 }
 int main(){
     ios::sync_with_stdio(0);
