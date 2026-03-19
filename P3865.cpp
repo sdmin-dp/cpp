@@ -28,7 +28,7 @@ void solve(){
     for(int i=1;i<=m;i++){
         ll x,y;
         cin>>x>>y;
-        cout<<query(x,y);
+        cout<<query(x,y)<<el;
     }
 }
 int main(){
