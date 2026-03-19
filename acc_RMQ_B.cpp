@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 #define ll long long
 using namespace std;
-#define el '\\\\n'
+#define el '\n'
 const ll N=1e5+5;
 const ll mxlog=17;
 ll n,m;
