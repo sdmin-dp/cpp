@@ -4,17 +4,22 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n,m;
+ll a[N];
 ll st[N][20];
 void init(){
 
 }
-void query(){
+ll query(ll x,ll y){
 
 }
 void solve(){
     cin>>n>>m;
+    for(int i=1;i<=n;i++) cin>>a[i];
+    init();
     for(int i=1;i<=m;i++){
-
+        ll x,y;
+        cin>>x>>y;
+        cout<<query(x,y);
     }
 }
 int main(){
