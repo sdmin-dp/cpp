@@ -2,8 +2,8 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e5+5;
-const ll mxlog=17;
+const ll N=2e5+5;
+const ll mxlog=19;
 ll n,m;
 ll a[N];
 ll st[N][20];
