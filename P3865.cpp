@@ -11,7 +11,7 @@ void init(){
     for(int i=1;i<=n;i++) st[i][0]=a[i];
     for(int j=1;j<=mxlog;j++){
         for(int i=1;i+(1<<j)-1<=n;i++){
-            st[i][j]=max(st[i][j-1]+st[i+(1<<(j-1))][j-1]); 
+            st[i][j]=max(st[i][j-1],st[i+(1<<(j-1))][j-1]); 
         }
     }
 }
