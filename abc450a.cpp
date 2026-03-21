@@ -5,6 +5,7 @@ using namespace std;
 const ll N=1e5+5;
 ll n;
 void solve(){
+    cin>>n;
     cout<<n;
     for(int i=n-1;i>=1;i--){
         cout<<","<<i;
