@@ -7,17 +7,17 @@ ll n;
 ll c[N][N];
 void solve(){
     cin>>n;
-    // for(int i=1;i<=n;i++) for(int j=i;j<=n;i++) cin>>c[i][j];
-    // for(int i=1;i<=n;i++){
-    //     for(int j=i+1;j<=n;j++){
-    //         for(int k=j+1;k<=n;k++){
-    //             if(c[i][j]+c[j][k]<c[i][k]){
-    //                 cout<<"Yes";
-    //                 return;
-    //             }
-    //         }
-    //     }
-    // }
+    for(int i=1;i<=n;i++) for(int j=i;j<=n;j++) cin>>c[i][j];
+    for(int i=1;i<=n;i++){
+        for(int j=i+1;j<=n;j++){
+            for(int k=j+1;k<=n;k++){
+                if(c[i][j]+c[j][k]<c[i][k]){
+                    cout<<"Yes";
+                    return;
+                }
+            }
+        }
+    }
     cout<<"No";
 }
 int main(){
