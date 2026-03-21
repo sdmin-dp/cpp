@@ -12,7 +12,7 @@ void solve(){
         for(int j=i+1;j<=n;j++){
             for(int k=j+1;k<=n;k++){
                 if(c[i][j]+c[j][k]<c[i][k]){
-                    
+                    cout<<
                 }
             }
         }
