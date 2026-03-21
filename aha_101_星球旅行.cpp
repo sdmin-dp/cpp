@@ -28,7 +28,8 @@ void solve(){
 			for(int i=1;i<k;i++){
 				for(int j=1;j<i;j++){
                     // if(i==j||j==k||i==k) continue;
-					ans=min(ans,dis[i][j]+a[j][k]+a[k][i]);
+					if(dis[i][j]<1e11&&a[j][k]<1e11&&a[k][i]<1e11)
+                        ans=min(ans,dis[i][j]+a[j][k]+a[k][i]); 
 				}
 			}
 			for(int i=1;i<=n;i++){
