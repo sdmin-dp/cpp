@@ -25,15 +25,15 @@ void solve(){
             a[i][i]=0;
         }
 		for(int k=1;k<=n;k++){
-			for(int i=1;i<=n;i++){
-				for(int j=1;j<=n;j++){
-                    if(i==j||j==k||i==k) continue;
+			for(int i=1;i<k;i++){
+				for(int j=1;j<i;j++){
+                    // if(i==j||j==k||i==k) continue;
 					ans=min(ans,dis[i][j]+a[j][k]+a[k][i]);
 				}
 			}
-			for(int i=1;i<=n;i++){
-				for(int j=1;j<=n;j++){
-                    if(i==j||j==k||i==k) continue;
+			for(int i=1;i<k;i++){
+				for(int j=1;j<i;j++){
+                    // if(i==j||j==k||i==k) continue;
 					if(dis[i][k]+dis[k][j]<dis[i][j]){
 						dis[i][j]=dis[i][k]+dis[k][j];
 					}
