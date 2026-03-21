@@ -11,9 +11,10 @@ ll cnt;
 void dfs(ll x,ll y){
     for(int i=0;i<4;i++){
         ll xx=x+dx[i],yy=y+dy[i];
-        if(xx>n||xx<1||yy>m||yy<1||a[xx][yy]=='#'||vis[xx][yy]) continue;
-        vis[xx][yy]=1;
-        dfs(xx,yy);
+        if(xx>=1&&xx<=n&&yy>=1&&yy<=m&&a[xx][yy]=='.'&&!vis[xx][yy]){
+            vis[xx][yy]=1;
+            dfs(xx,yy);
+        }
     }
 }
 void solve(){
