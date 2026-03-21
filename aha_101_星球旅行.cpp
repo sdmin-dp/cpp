@@ -16,7 +16,12 @@ void solve(){
 			a[u][v]=min(a[u][v],w);
 			a[v][u]=min(a[v][u],w);
 		}
-		memset(dis,0x3f,sizeof(dis));
+        memset(dis,0x3f,sizeof(dis));
+		for(int i=1;i<=n;i++){
+            for(int j=1;j<=n;j++){
+                dis[i][j]=a[i][j];
+            }
+        }
 		for(int k=1;k<=n;k++){
 			for(int i=1;i<=n;i++){
 				for(int j=1;j<=n;j++){
