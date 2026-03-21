@@ -21,7 +21,7 @@ void solve(){
     cin>>n>>m;
     for(int i=1;i<=n;i++) for(int j=1;j<=n;j++) cin>>a[i][j];
     for(int i=1;i<=n;i++){
-        for(int j=1;j<=n;j++){
+        for(int j=1;j<=m;j++){
             if(a[i][j]=='.'&&!vis[i][j]){
                 cnt++;
                 vis[i][j]=1;
