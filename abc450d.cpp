@@ -13,9 +13,7 @@ void solve(){
     }
     sort(a+1,a+n+1);
     ll ans=a[n]-a[1];
-    for(int i=1;i<=n;i++){
-        ans=min(ans,a[i]+k-a[1]);
-    }
+    for(int i=1;i<=n;i++) ans=min(ans,a[i]+m-a[i+1]);
 }
 int main(){
     ios::sync_with_stdio(0);
