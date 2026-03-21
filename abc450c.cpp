@@ -11,7 +11,7 @@ ll cnt;
 void dfs(ll x,ll y){
     for(int i=0;i<4;i++){
         ll xx=x+dx[i],yy=y+dy[i];
-        if(xx>=n||xx<=1||yy>=m||yy<=1||a[xx][yy]=='#'||vis[xx][yy]) continue;
+        if(xx>n||xx<1||yy>m||yy<1||a[xx][yy]=='#'||vis[xx][yy]) continue;
         vis[xx][yy]=1;
         dfs(xx,yy);
     }
