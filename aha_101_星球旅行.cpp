@@ -31,8 +31,8 @@ void solve(){
 					ans=min(ans,dis[i][j]+a[j][k]+a[k][i]);
 				}
 			}
-			for(int i=1;i<k;i++){
-				for(int j=1;j<i;j++){
+			for(int i=1;i<=n;i++){
+				for(int j=1;j<=n;j++){
                     // if(i==j||j==k||i==k) continue;
 					if(dis[i][k]+dis[k][j]<dis[i][j]){
 						dis[i][j]=dis[i][k]+dis[k][j];
