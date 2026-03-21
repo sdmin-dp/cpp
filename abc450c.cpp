@@ -26,7 +26,7 @@ void dfs(ll x,ll y){
 }
 void solve(){
     cin>>n>>m;
-    for(int i=1;i<=n;i++) for(int j=1;j<=n;j++) cin>>a[i][j];
+    for(int i=1;i<=n;i++) for(int j=1;j<=m;j++) cin>>a[i][j];
     for(int i=1;i<=n;i++){
         for(int j=1;j<=m;j++){
             flag=0;
