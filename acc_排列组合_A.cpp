@@ -5,15 +5,15 @@ using namespace std;
 const ll N=1e5+5;
 const ll p=10007;
 ll a,b,k,n,m;
-ll qpow(ll a,ll b){
-    ll res=1;
-    while(b){
-        if(b%2) res*=a;
-        a*=a;
-        b/=2;
-    }
-    return res;
-}
+// ll qpow(ll a,ll b){
+//     ll res=1;
+//     while(b){
+//         if(b%2) res*=a;
+//         a*=a;
+//         b/=2;
+//     }
+//     return res;
+// }
 ll cnm(ll n,ll k){
     ll res=1;
     k=min(k,n-k);
