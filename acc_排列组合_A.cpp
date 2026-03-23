@@ -12,7 +12,7 @@ ll qpow(ll a,ll b){
         a=a*a%p;
         b/=2;
     }
-    return res;
+    return res%p;
 }
 void out(ll x){
     string s;
@@ -31,7 +31,7 @@ ll cnm(ll n,ll k){
         res*=(n-i);
         res/=(i+1);
     }
-    return res;
+    return res%p;
 }
 void solve(){
     cin>>a>>b>>k>>n>>m;
