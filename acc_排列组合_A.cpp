@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
-#define ll long long
+#define ll __int128
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 const ll p=10007;
-ll a,b,k,n,m;
+long long a,b,k,n,m;
 // ll qpow(ll a,ll b){
 //     ll res=1;
 //     while(b){
@@ -14,6 +14,15 @@ ll a,b,k,n,m;
 //     }
 //     return res;
 // }
+void out(ll x){
+    string s;
+    do{
+        char c=x%10+48;
+        x/=10;
+    }while(x);
+    reverse(s.begin(),s.end());
+    cout<<s;
+}
 ll cnm(ll n,ll k){
     ll res=1;
     k=min(k,n-k);
@@ -25,7 +34,7 @@ void solve(){
     cin>>a>>b>>k>>n>>m;
     ll A=pow(a,n);
     ll B=pow(b,m);
-    cout<<cnm(k,m)*A*B%p;
+    out(cnm(k,m)*A*B%p);
 }
 int main(){
     ios::sync_with_stdio(0);
