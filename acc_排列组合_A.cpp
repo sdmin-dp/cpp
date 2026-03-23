@@ -15,10 +15,8 @@ ll qpow(ll a,ll b){
     }
     return res%p;
 }
-void init() {
-    ll n,k,p;//C(n,k)对p求余
-    cin>>n>>k>>p;
-    for(int i=0;i<=n;i++){
+void init(){
+    for(int i=0;i<=k;i++){
         for(int j=0;j<=i;j++){
             if(j==0||i==j) Cnk[i][j]=1;
             else Cnk[i][j]=(Cnk[i-1][j-1]+Cnk[i-1][j])%p;
@@ -27,10 +25,11 @@ void init() {
 }
 void solve(){
     cin>>a>>b>>k>>n>>m;
+    init();
     a%=p;b%=p;
     ll A=qpow(a,n);
     ll B=qpow(b,m);
-       
+    cout<<Cnk[k][m]*A*B%p;
 }
 int main(){
     ios::sync_with_stdio(0);
