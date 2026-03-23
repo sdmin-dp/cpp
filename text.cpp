@@ -11,7 +11,7 @@ ll cnm(ll n,ll k){
     return res;
 }
 void solve(){
-    cout<<cnm(10,10);
+    cout<<cnm(10,9);
 }
 int main(){
     ios::sync_with_stdio(0);
