@@ -23,10 +23,9 @@ ll cnm(ll n,ll k){
 }
 void solve(){
     cin>>a>>b>>k>>n>>m;
-    ll r=k-n;
-    ll A=pow(a,k-r);
-    ll B=pow(b,r);
-    cout<<cnm(k,r)*A*B%p;
+    ll A=pow(a,n);
+    ll B=pow(b,m);
+    cout<<cnm(k,m)*A*B%p;
 }
 int main(){
     ios::sync_with_stdio(0);
