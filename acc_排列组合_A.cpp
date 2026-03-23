@@ -14,24 +14,19 @@ ll qpow(ll a,ll b){
     }
     return res%p;
 }
-void out(ll x){
-    string s;
-    do{
-        char c=x%10+48;
-        x/=10;
-        s=s+c;
-    }while(x);
-    reverse(s.begin(),s.end());
-    cout<<s;
-}
-ll cnm(ll n,ll k){
-    ll res=1;
-    k=min(k,n-k);
-    for(int i=0;i<k;i++){
-        res*=(n-i);
-        res/=(i+1);
+void init() {
+    ll n,k,p;//C(n,k)对p求余
+    cin>>n>>k>>p;
+    for(int i=0;i<=n;i++){
+        for(int j=0;j<=i;j++){
+            if(j==0||i==j) Cnk[i][j]=1;
+            else Cnk[i][j]=(Cnk[i-1][j-1]+Cnk[i-1][j])%p;
+            cout<<Cnk[i][j]<<" ";
+        }
+        cout<<el;
     }
-    return res%p;
+    cout<<Cnk[n][k];
+    return;
 }
 void solve(){
     cin>>a>>b>>k>>n>>m;
