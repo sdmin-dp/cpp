@@ -27,13 +27,9 @@ void out(ll x){
 ll cnm(ll n,ll k){
     ll res=1;
     k=min(k,n-k);
-    for(int i=n;i>=n-k+1;i--) res*=i;
-    for(int i=k;i>=1;i--) res/=i;
-    /*
-    
-    */
-    for(int i=1;i<=n;i++){
-
+    for(int i=1;i<=k+1;i++){
+        res*=(n-i);
+        res/=(k-i);
     }
     return res;
 }
