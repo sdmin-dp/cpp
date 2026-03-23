@@ -19,8 +19,8 @@ void out(ll x){
     do{
         char c=x%10+48;
         x/=10;
+        cout<<c;
     }while(x);
-    cout<<c;
     reverse(s.begin(),s.end());
     cout<<s;
 }
