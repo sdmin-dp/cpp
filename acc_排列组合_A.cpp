@@ -35,6 +35,7 @@ ll cnm(ll n,ll k){
 }
 void solve(){
     cin>>a>>b>>k>>n>>m;
+    a%=p;b%=p;
     ll A=qpow(a,n);
     ll B=qpow(b,m);
     out(cnm(k,m)*A*B%p);
