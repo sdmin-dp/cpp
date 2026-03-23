@@ -2,9 +2,10 @@
 using namespace std;
 #define ll long long
 #define el '\n'
-const ll N=1e5+5;
+const ll N=1e3+5;
 const ll p=10007;
 ll a,b,k,n,m;
+ll Cnk[N][N];
 ll qpow(ll a,ll b){
     ll res=1;
     while(b){
@@ -21,19 +22,15 @@ void init() {
         for(int j=0;j<=i;j++){
             if(j==0||i==j) Cnk[i][j]=1;
             else Cnk[i][j]=(Cnk[i-1][j-1]+Cnk[i-1][j])%p;
-            cout<<Cnk[i][j]<<" ";
         }
-        cout<<el;
     }
-    cout<<Cnk[n][k];
-    return;
 }
 void solve(){
     cin>>a>>b>>k>>n>>m;
     a%=p;b%=p;
     ll A=qpow(a,n);
     ll B=qpow(b,m);
-    out(cnm(k,m)*A*B%p);
+       
 }
 int main(){
     ios::sync_with_stdio(0);
