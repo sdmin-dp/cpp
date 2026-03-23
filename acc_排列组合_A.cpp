@@ -19,7 +19,7 @@ void out(ll x){
     do{
         char c=x%10+48;
         x/=10;
-        cout<<c;
+        s=s+c;
     }while(x);
     reverse(s.begin(),s.end());
     cout<<s;
