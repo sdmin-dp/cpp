@@ -20,6 +20,7 @@ void out(ll x){
         char c=x%10+48;
         x/=10;
     }while(x);
+    cout<<"dog";
     reverse(s.begin(),s.end());
     cout<<s;
 }
