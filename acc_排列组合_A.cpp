@@ -29,7 +29,7 @@ ll cnm(ll n,ll k){
     k=min(k,n-k);
     for(int i=0;i<k;i++){
         res*=(n-i);
-        res/=(k-i);
+        res/=(i+1);
     }
     return res;
 }
