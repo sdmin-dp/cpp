@@ -64,6 +64,7 @@ void solve(){
                     }
                 }
                 cout<<idx<<" ";
+                cerr<<el;
             }
             cout<<el;
         }
