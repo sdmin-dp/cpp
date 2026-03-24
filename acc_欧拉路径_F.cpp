@@ -6,12 +6,16 @@ const ll N=2e3+5;
 ll cnt=0;
 ll a[N][N];
 map<pair<ll,ll>,ll> id;
+ll n;
 void solve(){
     while(1){
         ll x,y,w;
         cin>>x>>y;
         if(cnt==1&&x!=0&&y!=0){
             //初始化
+            n=0;
+            id.clear();
+            memset(a,0,sizeof(a));
         }
         if(x==0&&y==0){
             cnt++;
@@ -19,6 +23,7 @@ void solve(){
             //开始计算
             
         }
+        n++;
         cin>>w;
         a[x][y]++;
         a[y][x]++;
