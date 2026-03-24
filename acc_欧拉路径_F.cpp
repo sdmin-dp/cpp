@@ -29,7 +29,7 @@ void solve(){
             M=0;
             n=0;
             id.clear();
-            for(int i=1;i<=n;i++) g[i].clear();
+            for(int i=1;i<=N;i++) g[i].clear();
             ans.clear();
         }
         if(x==0&&y==0){
@@ -73,8 +73,8 @@ void solve(){
         else{
             n++;
             cin>>w;
-            a[x][y]++;
-            a[y][x]++;
+            g[x].push_back({y,w});
+            g[y].push_back({x,w});
             id[{x,y}].insert(w);
             id[{y,x}].insert(w);
         }
