@@ -12,7 +12,7 @@ void solve(){
     for(int i=1;i<=n;i++) a[i]=rand()%10;
     cout<<n<<" "<<k<<el;
     for(int i=1;i<=n;i++) cout<<a[i];
-    cout<<el;
+    cout<<el<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
