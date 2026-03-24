@@ -22,6 +22,7 @@ void solve(){
     while(1){
         ll x,y,w;
         cin>>x>>y;
+        cerr<<cnt<<" ";
         if(cnt==1&&x!=0&&y!=0){
             //初始化
             n=0;
