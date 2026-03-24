@@ -4,13 +4,13 @@ using namespace std;
 #define el '\n'
 const ll N=500+5;
 ll m,n;
-bool a[N][N];
+ll a[N][N];
 deque<ll> ans;
 void dfs(ll x){
     for(int i=1;i<=n;i++){
         if(a[x][i]){
-            a[x][i]=0;
-            a[i][x]=0;
+            a[x][i]--;
+            a[i][x]--;
             dfs(i);
         }
     }
@@ -21,8 +21,8 @@ void solve(){
     for(int i=1;i<=m;i++){
         ll x,y;
         cin>>x>>y;
-        a[x][y]=1;
-        a[y][x]=1;
+        a[x][y]++;
+        a[y][x]++;
         n=max({n,x,y});
     }
     ll b=1;
