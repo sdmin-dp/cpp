@@ -25,7 +25,6 @@ void solve(){
         if(cnt==1&&x!=0&&y!=0){
             //初始化
             n=0;
-            cnt=0;
             id.clear();
             memset(a,0,sizeof(a));
             ans.clear();
@@ -35,6 +34,7 @@ void solve(){
             if(cnt==2) break;
             //开始计算
             ll b=1;
+            ll cnt=0;
             ll cntou=0;
             for(int i=1;i<=n;i++){
                 cnt=0;
