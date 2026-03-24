@@ -2,92 +2,65 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=2e3+5;
-ll M;
-ll a[N][N];
-map<pair<ll,ll>,set<ll>> id;
-ll n;
-deque<ll> ans;
+const ll N=2005;
+const ll M_MAX=50;
+vector<pair<ll,ll>> g[M_MAX];
+ll deg[M_MAX];
 bool vis[N];
-void dfs(ll x){
-    for(int i=1;i<=n;i++){
-        if(a[x][i]){
-            a[x][i]--;
-            a[i][x]--;
-            dfs(i);
+vector<ll> ans;
+void dfs(ll u){
+    for(auto &edge:g[u]){
+        ll id=edge.first;
+        ll v=edge.second;
+        if(!vis[id]){
+            vis[id]=1;
+            dfs(v);
+            ans.push_back(id);
         }
     }
-    ans.push_front(x);
 }
 void solve(){
-    while(1){
-        ll x,y,w;
-        cin>>x>>y;
-        if(M==1&&x!=0&&y!=0){
-            //初始化
-            M=0;
-            n=0;
-            id.clear();
-            memset(a,0,sizeof(a));
-            ans.clear();
-        }
-        if(x==0&&y==0){
-            M++;
-            if(M==2) break;
-            //开始计算
-            ll b=1;
-            ll cnt=0;
-            ll cntou=0;
-            for(int i=1;i<=n;i++){
-                cnt=0;
-                for(int j=1;j<=n;j++) cnt+=a[i][j];
-                if(cnt%2){
-                    b=i;
-                    cntou++;
-                }
-            }
-            if(cntou!=0){
-                cout<<"Round trip does not exist.\n";
-                continue;
-            }
-            dfs(b);
-            for(auto i:ans) cerr<<i<<" ";
-            cerr<<el<<el;
-            for(int i=1;i<ans.size();i++){
-                ll idx;
-                pair<ll,ll> p={ans[i-1],ans[i]};
-                for(auto i:id[p]){
-                    cerr<<i<<" ";
-                    if(!vis[i]){
-                        idx=i;
-                        vis[i]=1;
-                        break;
-                    }
-                }
-                cout<<idx<<" ";
-                cerr<<el;
-            }
-            cout<<el;
-        }
-        else{
-            n++;
+    ll u,v,w;
+    while(cin>>u>>v&&u+v){
+        for(int i=0;i<M_MAX;i++) g[i].clear();
+        memset(deg,0,sizeof(deg));
+        memset(vis,0,sizeof(vis));
+        ans.clear();
+        ll start=min(u,v);
+        auto add_edge=[&](ll u,ll v,ll w){
+            g[u].push_back({w,v});
+            g[v].push_back({w,u});
+            deg[u]++;deg[v]++;
+        };
+        cin>>w;
+        add_edge(u,v,w);
+        while(cin>>u>>v&&u+v){
             cin>>w;
-            a[x][y]++;
-            a[y][x]++;
-            id[{x,y}].insert(w);
-            id[{y,x}].insert(w);
+            add_edge(u,v,w);
         }
+        bool ok=1;
+        for(int i=1;i<M_MAX;i++){
+            if(deg[i]%2){
+                ok=0;break;
+            }
+        }
+        if(!ok){
+            cout<<"Round trip does not exist."<<el;
+            continue;
+        }
+        for(int i=1;i<M_MAX;i++) sort(g[i].begin(),g[i].end());
+        dfs(start);
+        for(int i=ans.size()-1;i>=0;i--){
+            cout<<ans[i]<<(i==0?"":" ");
+        }
+        cout<<el;
     }
 }
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
-    //freopen("xxx.in","r",stdin);
-    //freopen("xxx.out","w",stdout);
     ll T=1;
-    //cin>>T;
-    while(T--){
-        solve();
-    }
+    w
+    solve();
     return 0;
 }
