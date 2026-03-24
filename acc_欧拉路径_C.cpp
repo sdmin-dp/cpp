@@ -2,14 +2,12 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1030+5;
-ll n;
+const ll N=500+5;
+ll m,n;
 bool a[N][N];
 deque<ll> ans;
-ll mn=1e9;
-ll mx=-mn;
 void dfs(ll x){
-    for(int i=1;i<=mx;i++){
+    for(int i=1;i<=n;i++){
         if(a[x][i]){
             a[x][i]=0;
             a[i][x]=0;
@@ -19,18 +17,17 @@ void dfs(ll x){
     ans.push_front(x);
 }
 void solve(){
-    cin>>n;
+    cin>>m;
     for(int i=1;i<=n;i++){
         ll x,y;
         cin>>x>>y;
         a[x][y]=1;
         a[y][x]=1;
-        mn=min({mn,x,y});
-        mx=max({mx,x,y});
+        n=max({n,x,y});
     }
     ll b=1;
     ll cnt=0;
-    for(int i=mn;i<=mx;i++){
+    for(int i=1;i<=n;i++){
         cnt=0;
         for(int j=1;j<=n;j++) cnt+=a[i][j];
         if(cnt%2){
