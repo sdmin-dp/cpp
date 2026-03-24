@@ -4,19 +4,17 @@ using namespace std;
 #define el '\n'
 const ll N=2e3+5;
 ll M;
-// bool vis[N];
+map<pair<ll,ll>,bool> vis;
 vector<pair<ll,ll>> g[N];
 map<pair<ll,ll>,set<ll>> id;
 ll n;
 deque<ll> ans;
 bool vs[N];
 void dfs(ll x){
-    for(int i=1;i<=n;i++){
-        if(a[x][i]){
-            a[x][i]--;
-            a[i][x]--;
-            dfs(i);
-        }
+    for(auto i:g[x]){
+            vis[{x,i.second}]=1;
+            vis[{i.second,x}]=1;
+            dfs(i.second);
     }
     ans.push_front(x);
 }
@@ -34,14 +32,14 @@ void solve(){
         }
         if(x==0&&y==0){
             M++;
+            for(int i=1;i<=n;i++) sort(g[i].begin(),g[i].end());
             if(M==2) break;
             //开始计算
             ll b=1;
             ll cnt=0;
             ll cntou=0;
-            for(int i=1;i<=n;i++){
-                cnt=0;
-                for(int j=1;j<=n;j++) cnt+=a[i][j];
+            for(ll i=1;i<=n;i++){
+                cnt=g[i].size();
                 if(cnt%2){
                     b=i;
                     cntou++;
