@@ -6,12 +6,15 @@ const ll N=1e5+5;
 ll n;
 ll a[N];
 void solve(){
-    n=
+    n=rand()%15;
+    if(n==0) n=15;
+    for(int i=1;i<=n;i++) a[i]=rand()%1e5;
+
 }
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
-    
+    srand(time(NULL));
     //freopen("xxx.in","r",stdin);
     //freopen("xxx.out","w",stdout);
     ll T=1;
