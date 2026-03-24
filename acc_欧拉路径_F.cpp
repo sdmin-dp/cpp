@@ -4,11 +4,12 @@ using namespace std;
 #define el '\n'
 const ll N=2e3+5;
 ll M;
-
+// bool vis[N];
+vector<pair<ll,ll>> g[N];
 map<pair<ll,ll>,set<ll>> id;
 ll n;
 deque<ll> ans;
-bool vis[N];
+bool vs[N];
 void dfs(ll x){
     for(int i=1;i<=n;i++){
         if(a[x][i]){
