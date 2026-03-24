@@ -24,7 +24,6 @@ void solve(){
         ll x,y,w;
         cin>>x>>y;
         if(M==1&&x!=0&&y!=0){
-            //初始化
             M=0;
             
             id.clear();
@@ -36,7 +35,6 @@ void solve(){
             M++;
             for(int i=1;i<=n;i++) sort(g[i].begin(),g[i].end());
             if(M==2) break;
-            //开始计算
             ll b=1;
             ll cnt=0;
             ll cntou=0;
