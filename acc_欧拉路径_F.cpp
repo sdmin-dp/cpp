@@ -8,7 +8,7 @@ ll a[N][N];
 map<pair<ll,ll>,set<ll>> id;
 ll n;
 deque<ll> ans;
-bool vis[x];
+bool vis[N];
 void dfs(ll x){
     for(int i=1;i<=n;i++){
         if(a[x][i]){
@@ -55,7 +55,10 @@ void solve(){
             cerr<<el;
             for(int i=1;i<ans.size();i++){
                 ll idx;
-                idx
+                pair<ll,ll> p={ans[i-1],ans[i]};
+                for(auto i:id[p]){
+
+                }
             }
             cout<<el;
         }
