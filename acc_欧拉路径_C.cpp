@@ -6,8 +6,10 @@ const ll N=1030+5;
 ll n;
 bool a[N][N];
 deque<ll> ans;
+ll mn=1e9;
+ll mx=-mn;
 void dfs(ll x){
-    for(int i=1;i<=n;i++){
+    for(int i=1;i<=mx;i++){
         if(a[x][i]){
             a[x][i]=0;
             a[i][x]=0;
@@ -18,8 +20,6 @@ void dfs(ll x){
 }
 void solve(){
     cin>>n;
-    ll mn=1e9;
-    ll mx=-mn;
     for(int i=1;i<=n;i++){
         ll x,y;
         cin>>x>>y;
