@@ -8,7 +8,10 @@ ll a[N][N];
 void solve(){
     cin>>m;
     for(int i=1;i<=m;i++){
-        
+        ll x,y;
+        cin>>x>>y;
+        a[x][y]=a[y][x]=1;
+        1
     }
 }
 int main(){
