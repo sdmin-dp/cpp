@@ -30,16 +30,14 @@ void solve(){
     }
     ll b=1;
     ll cnt=0;
-    ll cntou=0;
     for(int i=mn;i<=mx;i++){
         cnt=0;
         for(int j=1;j<=n;j++) cnt+=a[i][j];
         if(cnt%2){
             b=i;
-            cntou++;
+            break;
         }
     }
-    if(cntou)
     dfs(b);
     for(auto i:ans) cout<<i<<el;
 }
