@@ -2,9 +2,9 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e5+5;
+const ll N=2e3+5;
 ll cnt=0;
-
+ll a[N][N];
 void solve(){
     while(1){
         ll x,y,w;
@@ -18,7 +18,7 @@ void solve(){
             //开始计算
         }
         cin>>w;
-
+        
     }
 }
 int main(){
