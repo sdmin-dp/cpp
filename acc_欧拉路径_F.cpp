@@ -29,7 +29,7 @@ void solve(){
             M=0;
             n=0;
             id.clear();
-            memset(a,0,sizeof(a));
+            for(int i=1;i<=n;i++) g[i].clear();
             ans.clear();
         }
         if(x==0&&y==0){
