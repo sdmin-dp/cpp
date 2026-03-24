@@ -40,8 +40,7 @@ void solve(){
             ll cntou=0;
             for(ll i=1;i<=n;i++){
                 cnt=g[i].size();
-                if(cnt%2){
-                    b=i;
+                if(!cnt%2){
                     cntou++;
                 }
             }
