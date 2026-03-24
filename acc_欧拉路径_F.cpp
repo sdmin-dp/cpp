@@ -32,10 +32,10 @@ void solve(){
         }
         if(x==0&&y==0){
             M++;
+            cerr<<M<<" ";
             if(M==2) break;
             //开始计算
             ll b=1;
-            cerr<<M<<" ";
             ll cnt=0;
             ll cntou=0;
             for(int i=1;i<=n;i++){
