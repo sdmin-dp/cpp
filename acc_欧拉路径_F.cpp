@@ -45,7 +45,7 @@ void solve(){
                     cntou++;
                 }
             }
-            if(!(cntou==0||cntou==2)){
+            if(cntou!=0){
                 cout<<"Round trip does not exist.\n";
                 continue;
             }
