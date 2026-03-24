@@ -22,7 +22,7 @@ void solve(){
         a[x][y]++;
         a[y][x]++;
         id[{x,y}]=w;
-        id[{y,x}]=w;
+        id[{y,x}]=w;1
     }
 }
 int main(){
