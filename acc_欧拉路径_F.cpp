@@ -45,17 +45,19 @@ void solve(){
                 }
             }
             if(!(cntou==0||cntou==2)){
-                
+                cout<<"Round trip does not exist.\n";
+                continue;
             }
             dfs(b);
-
         }
-        n++;
-        cin>>w;
-        a[x][y]++;
-        a[y][x]++;
-        id[{x,y}]=w;
-        id[{y,x}]=w;
+        else{
+            n++;
+            cin>>w;
+            a[x][y]++;
+            a[y][x]++;
+            id[{x,y}]=w;
+            id[{y,x}]=w;
+        }
     }
 }
 int main(){
