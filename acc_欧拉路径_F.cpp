@@ -28,7 +28,7 @@ void solve(){
             M=0;
             
             id.clear();
-            for(int i=1;i<=n;i++) g[i].clear();
+            for(int i=1;i<=50;i++) g[i].clear();
             ans.clear();
             n=0;
         }
