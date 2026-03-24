@@ -34,9 +34,9 @@ void solve(){
             if(cnt==2) break;
             //开始计算
             ll b=1;
+            cerr<<cnt<<" ";
             ll cnt=0;
             ll cntou=0;
-            cerr<<cnt<<" ";
             for(int i=1;i<=n;i++){
                 cnt=0;
                 for(int j=1;j<=n;j++) cnt+=a[i][j];
