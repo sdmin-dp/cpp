@@ -10,9 +10,10 @@ void solve(){
     for(int i=1;i<=m;i++){
         ll x,y;
         cin>>x>>y;
-        a[x][y]=a[y][x]=1;
-        1
+        a[x][y]=1;a[y][x]=1;
+        n=max({x,y,n});
     }
+    
 }
 int main(){
     ios::sync_with_stdio(0);
