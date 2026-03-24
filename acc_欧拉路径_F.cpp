@@ -24,6 +24,7 @@ void solve(){
         cin>>x>>y;
         if(M==1&&x!=0&&y!=0){
             //初始化
+            M=0;
             n=0;
             id.clear();
             memset(a,0,sizeof(a));
@@ -35,7 +36,6 @@ void solve(){
             //开始计算
             ll b=1;
             cerr<<M<<" ";
-            cnt=0;
             ll cnt=0;
             ll cntou=0;
             for(int i=1;i<=n;i++){
