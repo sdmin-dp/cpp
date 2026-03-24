@@ -5,9 +5,7 @@ using namespace std;
 const ll N=2e3+5;
 ll cnt=0;
 ll a[N][N];
-struct node{
-    
-};
+map<pair<ll,ll>,ll> id;
 void solve(){
     while(1){
         ll x,y,w;
@@ -21,7 +19,10 @@ void solve(){
             //开始计算
         }
         cin>>w;
-        
+        a[x][y]++;
+        a[y][x]++;
+        id[{x,y}]=w;
+        id[{y,x}]=w;
     }
 }
 int main(){
