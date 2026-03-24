@@ -5,6 +5,9 @@ using namespace std;
 const ll N=2e3+5;
 ll cnt=0;
 ll a[N][N];
+struct node{
+    
+};
 void solve(){
     while(1){
         ll x,y,w;
