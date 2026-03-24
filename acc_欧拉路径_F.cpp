@@ -5,9 +5,10 @@ using namespace std;
 const ll N=2e3+5;
 ll M;
 ll a[N][N];
-map<pair<ll,ll>,vector<ll>> id;
+map<pair<ll,ll>,set<ll>> id;
 ll n;
 deque<ll> ans;
+bool vis[x];
 void dfs(ll x){
     for(int i=1;i<=n;i++){
         if(a[x][i]){
@@ -52,7 +53,10 @@ void solve(){
             dfs(b);
             for(auto i:ans) cerr<<i<<" ";
             cerr<<el;
-            for(int i=1;i<ans.size();i++) cout<<id[{i,ans[i]}]<<" ";
+            for(int i=1;i<ans.size();i++){
+                ll idx;
+                idx
+            }
             cout<<el;
         }
         else{
@@ -60,8 +64,8 @@ void solve(){
             cin>>w;
             a[x][y]++;
             a[y][x]++;
-            id[{x,y}]=w;
-            id[{y,x}]=w;
+            id[{x,y}].insert(w);
+            id[{y,x}].insert(w);
         }
     }
 }
