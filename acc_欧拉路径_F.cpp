@@ -49,9 +49,8 @@ void solve(){
                 continue;
             }
             dfs(b);
-            for(int i=1;i<=n;i++){
-                
-            }
+            for(int i=1;i<ans.size();i++) cout<<id[{i,ans[i]}]<<" ";
+            cout<<el;
         }
         else{
             n++;
