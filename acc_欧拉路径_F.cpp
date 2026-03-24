@@ -19,9 +19,21 @@ void solve(){
         }
         if(x==0&&y==0){
             cnt++;
-            if(cnt==2) break;
+            if(cnt==2
+    ll b=1;
+    ll cnt=0;
+    for(int i=1;i<=n;i++){
+        cnt=0;
+        for(int j=1;j<=n;j++) cnt+=a[i][j];
+        if(cnt%2){
+            b=i;
+            break;
+        }
+    }
+    dfs(b);
+    for(auto i:ans) cout<<i<<el;) break;
             //开始计算
-            
+
         }
         n++;
         cin>>w;
