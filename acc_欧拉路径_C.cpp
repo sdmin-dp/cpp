@@ -2,7 +2,7 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=500+5;
+const ll N=1030+5;
 ll n;
 bool a[N][N];
 deque<ll> ans;
