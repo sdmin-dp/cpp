@@ -10,7 +10,8 @@ void solve(){
     if(n==0) n=15;
     k=rand()%n;
     for(int i=1;i<=n;i++) a[i]=rand()%10;
-
+    cout<<n<<k;
+    for(int i=1;i<=n;i++) cout<<a[i];
 }
 int main(){
     ios::sync_with_stdio(0);
