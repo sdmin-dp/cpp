@@ -22,7 +22,6 @@ void solve(){
     while(1){
         ll x,y,w;
         cin>>x>>y;
-        cerr<<cnt<<" ";
         if(cnt==1&&x!=0&&y!=0){
             //初始化
             n=0;
@@ -37,6 +36,7 @@ void solve(){
             ll b=1;
             ll cnt=0;
             ll cntou=0;
+            cerr<<cnt<<" ";
             for(int i=1;i<=n;i++){
                 cnt=0;
                 for(int j=1;j<=n;j++) cnt+=a[i][j];
