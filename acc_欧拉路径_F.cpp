@@ -35,7 +35,7 @@ void solve(){
             //开始计算
             ll b=1;
             cerr<<cnt<<" ";
-            cnt=0;
+            cnt=0;`
             ll cnt=0;
             ll cntou=0;
             for(int i=1;i<=n;i++){
