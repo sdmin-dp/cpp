@@ -32,7 +32,6 @@ void solve(){
         }
         if(x==0&&y==0){
             M++;
-            cerr<<M<<" ";
             if(M==2) break;
             //开始计算
             ll b=1;
@@ -51,6 +50,8 @@ void solve(){
                 continue;
             }
             dfs(b);
+            for(auto i:ans) cerr<<i<<" ";
+            cerr<<el;
             for(int i=1;i<ans.size();i++) cout<<id[{i,ans[i]}]<<" ";
             cout<<el;
         }
