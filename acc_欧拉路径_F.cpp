@@ -4,7 +4,7 @@ using namespace std;
 #define el '\n'
 const ll N=2e3+5;
 ll M;
-map<pair<ll,ll>,bool> vis;
+bool vis[N];
 vector<pair<ll,ll>> g[N];
 map<pair<ll,ll>,set<ll>> id;
 ll n;
@@ -12,9 +12,8 @@ deque<ll> ans;
 bool vs[N];
 void dfs(ll x){
     for(auto i:g[x]){
-        if(!vis[{x,i.second}]){
-            vis[{x,i.second}]=1;
-            vis[{i.second,x}]=1;
+        if(!vis[i.first]){
+            vis[i.first]=1;
             dfs(i.second);
         }
     }
