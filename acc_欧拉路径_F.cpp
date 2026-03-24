@@ -4,7 +4,7 @@ using namespace std;
 #define el '\n'
 const ll N=2e3+5;
 ll M;
-ll a[N][N];
+
 map<pair<ll,ll>,set<ll>> id;
 ll n;
 deque<ll> ans;
