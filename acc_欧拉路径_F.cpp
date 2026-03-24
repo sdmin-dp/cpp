@@ -49,7 +49,7 @@ void solve(){
                 continue;
             }
             dfs(b);
-            for(auto i:ans) cerr<<i<<" ";
+            // for(auto i:ans) cerr<<i<<" ";
             cerr<<el<<el;
             for(int i=1;i<ans.size();i++){
                 ll idx;
