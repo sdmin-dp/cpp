@@ -73,8 +73,8 @@ void solve(){
         else{
             n++;
             cin>>w;
-            g[x].push_back({y,w});
-            g[y].push_back({x,w});
+            g[x].push_back({w,y});
+            g[y].push_back({w,x});
             id[{x,y}].insert(w);
             id[{y,x}].insert(w);
         }
