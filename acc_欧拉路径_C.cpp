@@ -6,7 +6,10 @@ const ll N=1e5+5;
 ll n,m;
 ll a[N][N];
 void solve(){
-    
+    cin>>m;
+    for(int i=1;i<=n;i++)[
+        
+    ]
 }
 int main(){
     ios::sync_with_stdio(0);
