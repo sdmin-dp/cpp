@@ -4,7 +4,7 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll cnt=0;
-vector<ll> v;
+
 void solve(){
     while(1){
         ll x,y,w;
@@ -18,7 +18,7 @@ void solve(){
             //开始计算
         }
         cin>>w;
-        
+
     }
 }
 int main(){
