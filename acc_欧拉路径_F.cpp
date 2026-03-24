@@ -51,7 +51,8 @@ void solve(){
                 continue;
             }
             dfs(b);
-            cerr<<el;
+            for(auto i:ans) cerr<<i<<" ";
+            cerr<<el<<el;
             for(int i=1;i<ans.size();i++){
                 ll idx;
                 pair<ll,ll> p={ans[i-1],ans[i]};
