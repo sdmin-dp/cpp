@@ -12,9 +12,11 @@ deque<ll> ans;
 bool vs[N];
 void dfs(ll x){
     for(auto i:g[x]){
+        if(!vis[{x,i.second}]){
             vis[{x,i.second}]=1;
             vis[{i.second,x}]=1;
             dfs(i.second);
+        }
     }
     ans.push_front(x);
 }
