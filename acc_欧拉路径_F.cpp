@@ -21,7 +21,7 @@ void dfs(ll u){
 }
 void solve(){
     ll u,v,w;
-    while(cin>>u>>v&&u+v){
+    while(cin>>u>>v){
         for(int i=0;i<M_MAX;i++) g[i].clear();
         memset(deg,0,sizeof(deg));
         memset(vis,0,sizeof(vis));
@@ -59,8 +59,12 @@ void solve(){
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
+    //freopen("xxx.in","r",stdin);
+    //freopen("xxx.out","w",stdout);
     ll T=1;
-    w
-    solve();
+    //cin>>T;
+    while(T--){
+        solve();
+    }
     return 0;
 }
