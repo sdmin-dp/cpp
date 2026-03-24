@@ -2,8 +2,9 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=2005;
-ll M,n,a[50][50],deg[50];
+const ll N=2e3+5;
+ll M;
+ll n,a[50][50],deg[50];
 map<pair<ll,ll>,set<ll>> id;
 vector<ll> ans;
 bool vis[N];
@@ -44,8 +45,7 @@ void solve(){
                 continue;
             }
             dfs(st);
-            for(int i=ans.size()-1;i>=0;i--)
-                cout<<ans[i]<<(i==0?"":" ");
+            for(int i=ans.size()-1;i>=0;i--) cout<<ans[i]<<(i==0?"":" ");
             cout<<el;
         }else{
             cin>>w;
