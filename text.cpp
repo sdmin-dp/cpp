@@ -19,7 +19,7 @@ int main(){
     srand(time(NULL));
     //freopen("xxx.in","r",stdin);
     //freopen("xxx.out","w",stdout);
-    ll T=1;
+    ll T=15;
     //cin>>T;
     while(T--){
         solve();
