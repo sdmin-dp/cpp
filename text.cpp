@@ -3,12 +3,13 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-ll n;
+ll n,k;
 ll a[N];
 void solve(){
     n=rand()%15;
     if(n==0) n=15;
-    for(int i=1;i<=n;i++) a[i]=rand()%1e5;
+    k=rand()%n;
+    for(int i=1;i<=n;i++) a[i]=rand()%10;
 
 }
 int main(){
