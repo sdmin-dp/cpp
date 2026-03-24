@@ -57,7 +57,7 @@ void solve(){
                 ll idx;
                 pair<ll,ll> p={ans[i-1],ans[i]};
                 for(auto i:id[p]){
-                    cerr<<i<<" ";
+                    // cerr<<i<<" ";
                     if(!vis[i]){
                         idx=i;
                         vis[i]=1;
