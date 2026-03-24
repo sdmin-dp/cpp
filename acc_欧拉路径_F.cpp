@@ -5,7 +5,7 @@ using namespace std;
 const ll N=2e3+5;
 ll M;
 bool vis[N];
-vector<pair<ll,ll>> g[N];
+vector<pair<ll,ll>> g[55];
 map<pair<ll,ll>,set<ll>> id;
 ll n;
 deque<ll> ans;
