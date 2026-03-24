@@ -51,13 +51,13 @@ void solve(){
                 continue;
             }
             dfs(b);
-            for(auto i:ans) cerr<<i<<" ";
             cerr<<el;
             for(int i=1;i<ans.size();i++){
                 ll idx;
                 pair<ll,ll> p={ans[i-1],ans[i]};
                 for(auto i:id[p]){
                     if(!vis[i]){
+                        cerr<<i<<" ";
                         idx=i;
                         vis[i]=1;
                         break;
