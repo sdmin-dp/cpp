@@ -17,12 +17,13 @@ void solve(){
             cnt++;
             if(cnt==2) break;
             //开始计算
+            
         }
         cin>>w;
         a[x][y]++;
         a[y][x]++;
         id[{x,y}]=w;
-        id[{y,x}]=w;1
+        id[{y,x}]=w;
     }
 }
 int main(){
