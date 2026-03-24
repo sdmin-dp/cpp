@@ -59,9 +59,9 @@ void solve(){
                 pair<ll,ll> p={ans[i-1],ans[i]};
                 for(auto i:id[p]){
                     // cerr<<i<<" ";
-                    if(!vis[i]){
+                    if(!vs[i]){
                         idx=i;
-                        vis[i]=1;
+                        vs[i]=1;
                         break;
                     }
                 }
