@@ -25,6 +25,7 @@ void solve(){
         if(cnt==1&&x!=0&&y!=0){
             //初始化
             n=0;
+            cnt=0;
             id.clear();
             memset(a,0,sizeof(a));
             ans.clear();
