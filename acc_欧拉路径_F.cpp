@@ -5,7 +5,7 @@ using namespace std;
 const ll N=2e3+5;
 ll M;
 ll a[N][N];
-map<pair<ll,ll>,ll> id;
+map<pair<ll,ll>,vector<ll>> id;
 ll n;
 deque<ll> ans;
 void dfs(ll x){
