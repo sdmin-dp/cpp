@@ -25,10 +25,11 @@ void solve(){
         if(M==1&&x!=0&&y!=0){
             //初始化
             M=0;
-            n=0;
+            
             id.clear();
-            for(int i=1;i<=N;i++) g[i].clear();
+            for(int i=1;i<=n;i++) g[i].clear();
             ans.clear();
+            n=0;
         }
         if(x==0&&y==0){
             M++;
