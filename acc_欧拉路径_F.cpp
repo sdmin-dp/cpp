@@ -49,6 +49,9 @@ void solve(){
                 continue;
             }
             dfs(b);
+            for(int i=1;i<=n;i++){
+                
+            }
         }
         else{
             n++;
