@@ -18,7 +18,7 @@ void dfs(ll x){
 }
 void solve(){
     cin>>m;
-    for(int i=1;i<=n;i++){
+    for(int i=1;i<=m;i++){
         ll x,y;
         cin>>x>>y;
         a[x][y]=1;
