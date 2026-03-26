@@ -7,7 +7,6 @@ ll n;
 bool vis[N];
 vector<ll> g[N];
 map<char,vector<ll>> mp;
-map<string,ll> id;
 string s[N];
 void dfs(ll x){
     for(auto i:g[x]){
@@ -22,7 +21,6 @@ void solve(){
     for(int i=1;i<=n;i++){
         cin>>s[i];
         mp[s[i][0]].push_back(i);
-        id[s[i]]=i;
     }
     for(int i=1;i<=n;i++){
         char c=s[i][s[i].size()-1];
