@@ -32,7 +32,7 @@ void solve(){
         }
         if(x==0&&y==0){
             M++;
-            for(int i=1;i<=n;i++) sort(g[i].begin(),g[i].end());
+            // for(int i=1;i<=n;i++) sort(g[i].begin(),g[i].end());
             // if(M==2) break;
             // ll b=1;
             // ll cnt=0;
