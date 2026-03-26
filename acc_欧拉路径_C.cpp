@@ -18,14 +18,15 @@ void dfs(ll x){
 }
 void solve(){
     cin>>m;
+    ll b=1;
     for(int i=1;i<=m;i++){
         ll x,y;
         cin>>x>>y;
+        b=min({b,x,y});
         a[x][y]++;
         a[y][x]++;
         n=max({n,x,y});
     }
-    ll b=1;
     ll cnt=0;
     for(int i=1;i<=n;i++){
         cnt=0;
