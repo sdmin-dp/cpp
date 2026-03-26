@@ -30,6 +30,13 @@ void solve(){
             g[k].push_back(i);
         }
     }
+    for(int i=1;i<=n;i++){
+        cout<<"i:";
+        for(auto j:g[i]){
+            cout<<j<<" ";
+        }
+        cout<<el;
+    }
     dfs(1);
     bool flag=1;
     for(int i=1;i<=n;i++) if(!vis[i]) flag=0;
