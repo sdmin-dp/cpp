@@ -6,7 +6,7 @@ const ll N=1e5+5;
 ll n;
 bool vis[N];
 vector<ll> g[N];
-map<char,vector<ll>> mp;
+unordered_map<char,vector<ll>> mp;
 string s[N];
 void dfs(ll x){
     for(auto i:g[x]){
