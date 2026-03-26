@@ -4,56 +4,70 @@ using namespace std;
 #define el '\n'
 const ll N=2e3+5;
 ll M;
-ll n,a[50][50],deg[50];
-map<pair<ll,ll>,set<ll>> id;
-vector<ll> ans;
 bool vis[N];
+vector<pair<ll,ll>> g[55];
+map<pair<ll,ll>,set<ll>> id;
+ll n;
+deque<ll> ans;
+bool vs[N];
 void dfs(ll x){
-    for(int i=1;i<=n;i++){
-        if(a[x][i]){
-            for(auto it=id[{x,i}].begin();it!=id[{x,i}].end();){
-                ll w=*it;
-                if(!vis[w]){
-                    vis[w]=1;
-                    a[x][i]--;a[i][x]--;
-                    id[{x,i}].erase(it);id[{i,x}].erase(w);
-                    dfs(i);
-                    ans.push_back(w);
-                    it=id[{x,i}].begin();
-                }else it++;
-            }
+    for(auto i:g[x]){
+        if(!vis[i.first]){
+            vis[i.first]=1;
+            dfs(i.second);
         }
     }
+    ans.push_front(x);
 }
 void solve(){
-    ll x,y,w,st=0;
     while(1){
+        ll x,y,w;
         cin>>x>>y;
         if(M==1&&x!=0&&y!=0){
-            M=0;n=0;st=0;
-            id.clear();ans.clear();
-            memset(a,0,sizeof(a));
-            memset(deg,0,sizeof(deg));
-            memset(vis,0,sizeof(vis));
+            M=0;
+            id.clear();
+            for(int i=1;i<=50;i++) g[i].clear();
+            ans.clear();
+            n=0;
         }
         if(x==0&&y==0){
-            M++;if(M==2)break;
+            M++;
+            for(int i=1;i<=n;i++) sort(g[i].begin(),g[i].end());
+            if(M==2) break;
+            ll b=1;
+            ll cnt=0;
             ll cntou=0;
-            for(int i=1;i<=n;i++)if(deg[i]%2)cntou++;
+            for(ll i=1;i<=n;i++){
+                cnt=g[i].size();
+                if(cnt%2){
+                    cntou++;
+                }
+            }
             if(cntou!=0){
                 cout<<"Round trip does not exist.\n";
                 continue;
             }
-            dfs(st);
-            for(int i=ans.size()-1;i>=0;i--) cout<<ans[i]<<(i==0?"":" ");
+            dfs(b);
+            cerr<<el<<el;
+            for(int i=1;i<ans.size();i++){
+                ll idx;
+                pair<ll,ll> p={ans[i-1],ans[i]};
+                for(auto i:id[p]){
+                        idx=i;
+                        break;
+                }
+                cout<<idx<<" ";
+            }
             cout<<el;
-        }else{
+        }
+        else{
+            n++;
             cin>>w;
-            if(!st)st=min(x,y);
-            n=max({n,x,y});
-            a[x][y]++;a[y][x]++;
-            deg[x]++;deg[y]++;
-            id[{x,y}].insert(w);id[{y,x}].insert(w);
+            g[x].push_back({w,y});
+            g[y].push_back({w,x});
+            if(x>y) swap(x,y);
+            id[{x,y}].insert(w);
+            // id[{y,x}].insert(w);
         }
     }
 }
