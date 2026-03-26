@@ -16,7 +16,7 @@ void dfs(ll x){
             vis[i.first]=1;
             dfs(i.second);
         }
-    }·
+    }
     ans.push_front(x);
 }
 void solve(){
