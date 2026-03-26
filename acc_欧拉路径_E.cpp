@@ -34,7 +34,8 @@ void solve(){
     }
     dfs(1);
     bool flag=1;
-    for(int i=1;i<=n;i++) if(!vis[i]) flag
+    for(int i=1;i<=n;i++) if(!vis[i]) flag=0;
+    if(flag) 
 }
 int main(){
     ios::sync_with_stdio(0);
