@@ -36,7 +36,7 @@ void solve(){
     bool flag=1;
     for(int i=1;i<=n;i++) if(!vis[i]) flag=0;
     if(flag) cout<<"Ordering is possible.\n";
-    else cout<<""
+    else cout<<"The door cannot be opened.\n";
 }
 int main(){
     ios::sync_with_stdio(0);
