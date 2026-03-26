@@ -3,72 +3,47 @@
 using namespace std;
 #define el '\n'
 const ll N=30;
-ll n;
-bool vis,exists;
-vector<ll> g;
-ll in,out;
-void dfs(ll x){
-    vis[x]=1;
-    for(auto i:g[x]){
-        if(!vis[i]) dfs(i);
-    }
-}
+ll n,in,ot;
+bool ex;
+int p;
+int find(int x){return p[x]==x?x:p[x]=find(p[x]);}
 void solve(){
     cin>>n;
     for(int i=0;i<26;i++){
-        g[i].clear();
-        vis[i]=0;
-        exists[i]=0;
-        in[i]=0;
-        out[i]=0;
+        p[i]=i;
+        in[i]=ot[i]=ex[i]=0;
     }
     for(int i=1;i<=n;i++){
         string s;
         cin>>s;
-        int u=s[0]-'a';
-        int v=s[s.size()-1]-'a';
-        g[u].push_back(v);
-        g[v].push_back(u);
-        out[u]++;
-        in[v]++;
-        exists[u]=exists[v]=1;
+        int u=s[0]-'a',v=s[s.size()-1]-'a';
+        ot[u]++;in[v]++;
+        ex[u]=ex[v]=1;
+        int fu=find(u),fv=find(v);
+        if(fu!=fv) p[fu]=fv;
     }
-    int st=-1;
-    for(int i=0;i<26;i++){
-        if(exists[i]){
-            st=i;
-            break;
-        }
+    int cnt=0;
+    for(int i=0;i<26;i++) if(ex[i]&&p[i]==i) cnt++;
+    if(cnt>1){
+        cout<<"The door cannot be opened."<<el;
+        return;
     }
-    if(st!=-1) dfs(st);
-    for(int i=0;i<26;i++){
-        if(exists[i]&&!vis[i]){
-            cout<<"The door cannot be opened."<<el;
-            return;
-        }
-    }
-    int s_cnt=0,e_cnt=0;
+    int s1=0,s2=0;
     bool ok=1;
     for(int i=0;i<26;i++){
-        if(!exists[i]) continue;
-        if(in[i]==out[i]) continue;
-        if(out[i]-in[i]==1) s_cnt++;
-        else if(in[i]-out[i]==1) e_cnt++;
+        if(!ex[i]) continue;
+        if(in[i]==ot[i]) continue;
+        if(ot[i]-in[i]==1) s1++;
+        else if(in[i]-ot[i]==1) s2++;
         else ok=0;
     }
-    if(ok&&((s_cnt==0&&e_cnt==0)||(s_cnt==1&&e_cnt==1))){
-        cout<<"Ordering is possible."<<el;
-    }else{
-        cout<<"The door cannot be opened."<<el;
-    }
+    if(ok&&((s1==0&&s2==0)||(s1==1&&s2==1))) cout<<"Ordering is possible."<<el;
+    else cout<<"The door cannot be opened."<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
-    ll T;
-    cin>>T;
-    while(T--){
-        solve();
-    }
+    int T;cin>>T;
+    while(T--) solve();
     return 0;
 }
