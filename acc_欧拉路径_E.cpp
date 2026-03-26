@@ -5,16 +5,19 @@ using namespace std;
 const ll N=1e5+5;
 ll n;
 string s;
+bool vis[N];
 vector<ll> g[N];
 map<char,vector<string>> mp;
+map<string,ll> id;
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
         cin>>s;
         mp[s[0]].push_back(s);
+        id[s]=i;
     }
-    for(char i='a';i<=){
-
+    for(char i='a';i<='z';i++){
+                
     }
 }
 int main(){
@@ -25,6 +28,7 @@ int main(){
     ll T=1;
     cin>>T;
     while(T--){
+        id.clear();
         mp.clear();
         for(int i=1;i<=n;i++) g[i].clear();
         solve();
