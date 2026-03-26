@@ -31,11 +31,11 @@ void solve(){
         }
     }
     for(int i=1;i<=n;i++){
-        cout<<"i:";
+        cerr<<"i:";
         for(auto j:g[i]){
-            cout<<j<<" ";
+            cerr<<j<<" ";
         }
-        cout<<el;
+        cerr<<el;
     }
     dfs(1);
     bool flag=1;
@@ -54,6 +54,7 @@ int main(){
         mp.clear();
         for(int i=1;i<=n;i++) g[i].clear();
         solve();
+        cerr<<el<<el;
     }
     return 0;
 }
