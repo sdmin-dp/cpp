@@ -31,44 +31,44 @@ void solve(){
             n=0;
         }
         if(x==0&&y==0){
-            M++;
-            for(int i=1;i<=n;i++) sort(g[i].begin(),g[i].end());
-            if(M==2) break;
-            ll b=1;
-            ll cnt=0;
-            ll cntou=0;
-            for(ll i=1;i<=n;i++){
-                cnt=g[i].size();
-                if(cnt%2){
-                    cntou++;
-                }
-            }
-            if(cntou!=0){
-                cout<<"Round trip does not exist.\n";
-                continue;
-            }
-            dfs(b);
-            // cerr<<el<<el;
-            for(int i=1;i<ans.size();i++){
-                ll idx;
-                pair<ll,ll> p={ans[i-1],ans[i]};
-                for(auto i:id[p]){
-                        idx=i;
-                        break;
-                }
-                cout<<idx<<" ";
-            }
-            cout<<el;
+            // M++;
+            // for(int i=1;i<=n;i++) sort(g[i].begin(),g[i].end());
+            // if(M==2) break;
+            // ll b=1;
+            // ll cnt=0;
+            // ll cntou=0;
+            // for(ll i=1;i<=n;i++){
+            //     cnt=g[i].size();
+            //     if(cnt%2){
+            //         cntou++;
+            //     }
+            // }
+            // if(cntou!=0){
+            //     cout<<"Round trip does not exist.\n";
+            //     continue;
+            // }
+            // dfs(b);
+            // // cerr<<el<<el;
+            // for(int i=1;i<ans.size();i++){
+            //     ll idx;
+            //     pair<ll,ll> p={ans[i-1],ans[i]};
+            //     for(auto i:id[p]){
+            //             idx=i;
+            //             break;
+            //     }
+            //     cout<<idx<<" ";
+            // }
+            // cout<<el;
         }
-    //     else{
-    //         n++;
-    //         cin>>w;
-    //         g[x].push_back({w,y});
-    //         g[y].push_back({w,x});
-    //         if(x>y) swap(x,y);
-    //         id[{x,y}].insert(w);
-    //         // id[{y,x}].insert(w);
-    //     }
+        else{
+            n++;
+            cin>>w;
+            g[x].push_back({w,y});
+            g[y].push_back({w,x});
+            if(x>y) swap(x,y);
+            id[{x,y}].insert(w);
+            // id[{y,x}].insert(w);
+        }
     }
 }
 int main(){
