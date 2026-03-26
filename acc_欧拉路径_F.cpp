@@ -31,22 +31,22 @@ void solve(){
             n=0;
         }
         if(x==0&&y==0){
-            // M++;
-            // for(int i=1;i<=n;i++) sort(g[i].begin(),g[i].end());
-            // if(M==2) break;
-            // ll b=1;
-            // ll cnt=0;
-            // ll cntou=0;
-            // for(ll i=1;i<=n;i++){
-            //     cnt=g[i].size();
-            //     if(cnt%2){
-            //         cntou++;
-            //     }
-            // }
-            // if(cntou!=0){
-            //     cout<<"Round trip does not exist.\n";
-            //     continue;
-            // }
+            M++;
+            for(int i=1;i<=n;i++) sort(g[i].begin(),g[i].end());
+            if(M==2) break;
+            ll b=1;
+            ll cnt=0;
+            ll cntou=0;
+            for(ll i=1;i<=n;i++){
+                cnt=g[i].size();
+                if(cnt%2){
+                    cntou++;
+                }
+            }
+            if(cntou!=0){
+                cout<<"Round trip does not exist.\n";
+                continue;
+            }
             // dfs(b);
             // // cerr<<el<<el;
             // for(int i=1;i<ans.size();i++){
