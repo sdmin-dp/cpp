@@ -35,7 +35,8 @@ void solve(){
     dfs(1);
     bool flag=1;
     for(int i=1;i<=n;i++) if(!vis[i]) flag=0;
-    if(flag) 
+    if(flag) cout<<"Ordering is possible.\n";
+    else cout<<""
 }
 int main(){
     ios::sync_with_stdio(0);
