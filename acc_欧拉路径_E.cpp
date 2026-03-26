@@ -30,13 +30,13 @@ void solve(){
             g[k].push_back(i);
         }
     }
-    for(int i=1;i<=n;i++){
-        cerr<<i<<":";
-        for(auto j:g[i]){
-            cerr<<j<<" ";
-        }
-        cerr<<el;
-    }
+    // for(int i=1;i<=n;i++){
+    //     cerr<<i<<":";
+    //     for(auto j:g[i]){
+    //         cerr<<j<<" ";
+    //     }
+    //     cerr<<el;
+    // }
     dfs(1);
     bool flag=1;
     for(int i=1;i<=n;i++) if(!vis[i]) flag=0;
@@ -55,7 +55,7 @@ int main(){
         for(int i=1;i<=n;i++) g[i].clear();
         memset(vis,0,sizeof(vis));
         solve();
-        cerr<<el<<el;
+        // cerr<<el<<el;
     }
     return 0;
 }
