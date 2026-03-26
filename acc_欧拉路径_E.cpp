@@ -53,6 +53,7 @@ int main(){
     while(T--){
         mp.clear();
         for(int i=1;i<=n;i++) g[i].clear();
+        memset(vis,0,sizeof(vis));
         solve();
         cerr<<el<<el;
     }
