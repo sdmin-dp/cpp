@@ -67,7 +67,7 @@ void solve(){
             g[y].push_back({w,x});
             if(x>y) swap(x,y);
             id[{x,y}].insert(w);
-            // id[{y,x}].insert(w);
+            id[{y,x}].insert(w);
         }
     }
 }
