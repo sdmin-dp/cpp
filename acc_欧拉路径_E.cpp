@@ -31,7 +31,7 @@ void solve(){
         }
     }
     for(int i=1;i<=n;i++){
-        cerr<<"i:";
+        cerr<<i<<":";
         for(auto j:g[i]){
             cerr<<j<<" ";
         }
