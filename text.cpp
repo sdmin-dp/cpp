@@ -34,7 +34,7 @@ void solve(){
         }
         if(x==0&&y==0){
             M++;
-            for(int i=1;i<=n;i++) sort(g[i].begin(),g[i].end());
+            for(int i=1;i<=min(n,50ll);i++) sort(g[i].begin(),g[i].end());
             if(M==2) break;
             //开始计算
             ll b=1;
@@ -52,8 +52,8 @@ void solve(){
                 continue;
             }
             dfs(b);
-            for(auto i:ans) cerr<<i<<" ";
-            cerr<<el<<el;
+            // for(auto i:ans) cerr<<i<<" ";
+            // cerr<<el<<el;
             for(int i=1;i<ans.size();i++){
                 ll idx;
                 pair<ll,ll> p={ans[i-1],ans[i]};
