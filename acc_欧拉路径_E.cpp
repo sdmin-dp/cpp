@@ -9,6 +9,14 @@ vector<ll> g[N];
 map<char,vector<string>> mp;
 map<string,ll> id;
 string s[N];
+void dfs(ll x){
+    for(auto i:g[x]){
+        if(!vis[i]){
+            vis[i]=1;
+            dfs(i);
+        }
+    }
+}
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
@@ -20,9 +28,13 @@ void solve(){
         char c=s[i][s[i].size()-1];
         for(auto j:mp[c]){
             ll k=id[j];
-            
+            g[i].push_back(k);
+            g[k].push_back(i);
         }
-    }   
+    }
+    dfs(1);
+    bool flag=1;
+    for(int i=1;i<=n;i++) if(!vis[i]) 
 }
 int main(){
     ios::sync_with_stdio(0);
