@@ -16,9 +16,7 @@ void solve(){
         mp[s[0]].push_back(s);
         id[s]=i;
     }
-    for(char i='a';i<='z';i++){
-        c        
-    }
+    
 }
 int main(){
     ios::sync_with_stdio(0);
