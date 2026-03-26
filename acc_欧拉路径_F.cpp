@@ -21,15 +21,15 @@ void dfs(ll x){
 }
 void solve(){
     // while(1){
-    //     ll x,y,w;
-    //     cin>>x>>y;
-    //     if(M==1&&x!=0&&y!=0){
-    //         M=0;
-    //         id.clear();
-    //         for(int i=1;i<=50;i++) g[i].clear();
-    //         ans.clear();
-    //         n=0;
-    //     }
+        ll x,y,w;
+        cin>>x>>y;
+        if(M==1&&x!=0&&y!=0){
+            M=0;
+            id.clear();
+            for(int i=1;i<=50;i++) g[i].clear();
+            ans.clear();
+            n=0;
+        }
     //     if(x==0&&y==0){
     //         M++;
     //         for(int i=1;i<=n;i++) sort(g[i].begin(),g[i].end());
