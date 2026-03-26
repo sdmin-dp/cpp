@@ -27,7 +27,7 @@ void solve(){
     for(int i=1;i<=n;i++){
         char c=s[i][s[i].size()-1];
         for(auto j:mp[c]){
-            k=j;
+            ll k=j;
             g[i].push_back(k);
             g[k].push_back(i);
         }
