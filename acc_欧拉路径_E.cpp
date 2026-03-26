@@ -44,7 +44,6 @@ int main(){
     ll T=1;
     cin>>T;
     while(T--){
-        id.clear();
         mp.clear();
         for(int i=1;i<=n;i++) g[i].clear();
         solve();
