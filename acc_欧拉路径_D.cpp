@@ -31,11 +31,9 @@ void solve(){
     }
     else{
         for(int i=1;i<=m;i++){
-            ll x,y;
-            cin>>x>>y;
+            ll x,y;cin>>x>>y;
             g[x].push_back({y,i});
-            in[y]++;
-            out[x]++;
+            in[y]++;out[x]++;
         }
     }
     if(t==1){
