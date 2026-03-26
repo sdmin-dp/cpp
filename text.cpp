@@ -24,7 +24,9 @@ void solve(){
         ll x,y,w;
         cin>>x>>y;
         if(M==1&&x!=0&&y!=0){
+            //初始化
             M=0;
+             
             id.clear();
             for(int i=1;i<=50;i++) g[i].clear();
             ans.clear();
@@ -34,12 +36,14 @@ void solve(){
             M++;
             for(int i=1;i<=n;i++) sort(g[i].begin(),g[i].end());
             if(M==2) break;
+            //开始计算
             ll b=1;
             ll cnt=0;
             ll cntou=0;
             for(ll i=1;i<=n;i++){
                 cnt=g[i].size();
                 if(cnt%2){
+                    b=i;
                     cntou++;
                 }
             }
@@ -48,15 +52,21 @@ void solve(){
                 continue;
             }
             dfs(b);
+            for(auto i:ans) cerr<<i<<" ";
             cerr<<el<<el;
             for(int i=1;i<ans.size();i++){
                 ll idx;
                 pair<ll,ll> p={ans[i-1],ans[i]};
                 for(auto i:id[p]){
+                    // cerr<<i<<" ";
+                    if(!vs[i]){
                         idx=i;
+                        vs[i]=1;
                         break;
+                    }
                 }
                 cout<<idx<<" ";
+                // cerr<<el;
             }
             cout<<el;
         }
@@ -65,9 +75,8 @@ void solve(){
             cin>>w;
             g[x].push_back({w,y});
             g[y].push_back({w,x});
-            if(x>y) swap(x,y);
             id[{x,y}].insert(w);
-            // id[{y,x}].insert(w);
+            id[{y,x}].insert(w);
         }
     }
 }
