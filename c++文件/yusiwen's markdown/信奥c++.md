@@ -9410,3 +9410,480 @@ $tan(x)=直角三角形的斜率$，$x=\theta$
 - **时间复杂度分析**：掌握平衡树的查找效率为 $O(\log n)$ ，而普通 BST 在极端情况下会退化为$O(n)$ 。
 - **与红黑树对比**：了解红黑树也是一种平衡查找树，虽然平衡要求较宽，但性能更稳定。
 
+# 乘法逆元
+
+## 乘法逆元的概念
+
+### 什么是乘法逆元？
+
+**乘法逆元**是模运算中的一个重要概念。在模运算中，除法不能直接进行，我们需要通过乘法逆元来实现"除法"操作。
+
+**定义**：对于整数a和正整数m，如果存在整数b，使得：
+$$a \times b \equiv 1 \pmod{m}$$
+那么b称为a模m的乘法逆元，记作$a^{-1} \equiv b \pmod{m}$。
+
+### 为什么需要乘法逆元？
+
+在组合数学和数论中，我们经常需要计算组合数：
+$$C(n, k) = \frac{n!}{k!(n-k)!}$$
+
+在模运算中，除法不能直接进行，因为除法本质上是乘以倒数。而在模运算中，倒数就是乘法逆元。
+
+所以，我们需要将除法转换为乘法乘以逆元：
+$$\frac{a}{b} \equiv a \times b^{-1} \pmod{m}$$
+
+## 乘法逆元的性质
+
+### 1. 存在性
+
+乘法逆元存在的**充要条件**是：a和m互质，即$\gcd(a, m) = 1$。
+
+### 2. 唯一性
+
+当乘法逆元存在时，它在模m下是唯一的。
+
+### 3. 计算性质
+
+- $(a \times b)^{-1} \equiv a^{-1} \times b^{-1} \pmod{m}$
+- $(a^{-1})^{-1} \equiv a \pmod{m}$
+- 如果$a \equiv b \pmod{m}$，那么$a^{-1} \equiv b^{-1} \pmod{m}$
+
+## 计算乘法逆元的方法
+
+### 方法1：扩展欧几里得算法
+
+这是最常用的方法，适用于任意模数m。
+
+```cpp
+#include <iostream>
+using namespace std;
+
+// 扩展欧几里得算法
+// 返回gcd(a, b)，并求解x, y使得ax + by = gcd(a, b)
+int exgcd(int a, int b, int &x, int &y) {
+    if (b == 0) {
+        x = 1;
+        y = 0;
+        return a;
+    }
+    
+    int x1, y1;
+    int gcd = exgcd(b, a % b, x1, y1);
+    
+    x = y1;
+    y = x1 - (a / b) * y1;
+    
+    return gcd;
+}
+
+// 计算a模m的乘法逆元
+int mod_inverse(int a, int m) {
+    int x, y;
+    int gcd = exgcd(a, m, x, y);
+    
+    if (gcd != 1) {
+        return -1;  // 逆元不存在，因为a和m不互质
+    }
+    
+    // 确保结果为正数
+    return (x % m + m) % m;
+}
+
+int main() {
+    int a, m;
+    cin >> a >> m;
+    
+    int inv = mod_inverse(a, m);
+    if (inv == -1) {
+        cout << a << " 和 " << m " 不互质，逆元不存在" << endl;
+    } else {
+        cout << a << " 模 " << m << " 的逆元是: " << inv << endl;
+        cout << "验证: " << a << " * " << inv << " = " << (a * inv) % m << endl;
+    }
+    
+    return 0;
+}
+```
+
+### 方法2：费马小定理（仅适用于m为质数）
+
+当m是质数时，根据费马小定理：
+$$a^{m-1} \equiv 1 \pmod{m}$$
+因此：
+$$a^{-1} \equiv a^{m-2} \pmod{m}$$
+
+```cpp
+#include <iostream>
+using namespace std;
+
+// 快速幂取模
+long long fast_pow(long long a, long long b, long long mod) {
+    long long result = 1;
+    a %= mod;
+    
+    while (b > 0) {
+        if (b & 1) {
+            result = (result * a) % mod;
+        }
+        a = (a * a) % mod;
+        b >>= 1;
+    }
+    
+    return result;
+}
+
+// 使用费马小定理计算逆元（仅适用于mod为质数）
+long long fermat_inverse(long long a, long long mod) {
+    return fast_pow(a, mod - 2, mod);
+}
+
+int main() {
+    long long a, mod;
+    cin >> a >> mod;
+    
+    // 检查mod是否为质数（这里简化处理，实际应该先判断）
+    if (mod <= 1) {
+        cout << "模数必须是大于1的质数" << endl;
+        return 0;
+    }
+    
+    long long inv = fermat_inverse(a, mod);
+    cout << a << " 模 " << mod << " 的逆元是: " << inv << endl;
+    cout << "验证: " << a << " * " << inv << " = " << (a * inv) % mod << endl;
+    
+    return 0;
+}
+```
+
+### 方法3：递推法（适用于连续模数）
+
+当模数是连续的整数时，可以使用递推法：
+
+```cpp
+#include <iostream>
+using namespace std;
+
+const int N = 1e6 + 5;
+int inv[N];  // 存储逆元
+
+// 递推计算逆元，适用于连续模数
+void calc_inverse(int n) {
+    inv[1] = 1;
+    for (int i = 2; i <= n; i++) {
+        inv[i] = (long long)(n - n / i) * inv[n % i] % n;
+    }
+}
+
+int main() {
+    int n;
+    cin >> n;
+    
+    calc_inverse(n);
+    
+    for (int i = 1; i <= n; i++) {
+        cout << i << " 的逆元: " << inv[i] << endl;
+    }
+    
+    return 0;
+}
+```
+
+## 乘法逆元的应用
+
+### 1. 组合数计算
+
+```cpp
+#include <iostream>
+using namespace std;
+
+const int N = 1e6 + 5;
+const int MOD = 1e9 + 7;
+
+long long fact[N], inv_fact[N];
+
+// 快速幂取模
+long long fast_pow(long long a, long long b, long long mod) {
+    long long result = 1;
+    a %= mod;
+    
+    while (b > 0) {
+        if (b & 1) {
+            result = (result * a) % mod;
+        }
+        a = (a * a) % mod;
+        b >>= 1;
+    }
+    
+    return result;
+}
+
+// 预处理阶乘和阶乘的逆元
+void precompute(int n) {
+    fact[0] = 1;
+    for (int i = 1; i <= n; i++) {
+        fact[i] = (fact[i-1] * i) % MOD;
+    }
+    
+    inv_fact[n] = fast_pow(fact[n], MOD-2, MOD);
+    for (int i = n-1; i >= 0; i--) {
+        inv_fact[i] = (inv_fact[i+1] * (i+1)) % MOD;
+    }
+}
+
+// 计算组合数 C(n, k)
+long long comb(int n, int k) {
+    if (k < 0 || k > n) return 0;
+    return (fact[n] * inv_fact[k] % MOD) * inv_fact[n-k] % MOD;
+}
+
+int main() {
+    int n, k;
+    cin >> n >> k;
+    
+    precompute(n);
+    
+    cout << "C(" << n << ", " << k << ") = " << comb(n, k) << endl;
+    
+    return 0;
+}
+```
+
+### 2. 线性递推式求解
+
+```cpp
+#include <iostream>
+using namespace std;
+
+const int N = 1e6 + 5;
+const int MOD = 1e9 + 7;
+
+long long f[N], inv[N];
+
+void solve_linear_recurrence(int n) {
+    // 预处理逆元
+    inv[1] = 1;
+    for (int i = 2; i <= n; i++) {
+        inv[i] = (MOD - MOD / i) * inv[MOD % i] % MOD;
+    }
+    
+    // 递推求解 f(n) = f(n-1) + 2 * f(n-2) + ... + n * f(0)
+    f[0] = 1;
+    for (int i = 1; i <= n; i++) {
+        f[i] = 0;
+        for (int j = 1; j <= i; j++) {
+            f[i] = (f[i] + j * f[i-j]) % MOD;
+        }
+    }
+    
+    // 使用逆元优化：f(n) = f(n-1) + 2 * f(n-2) + ... + n * f(0)
+    // 可以写成：f(n) = sum_{j=1}^{n} j * f(n-j)
+    // 使用前缀和优化
+}
+
+int main() {
+    int n;
+    cin >> n;
+    
+    solve_linear_recurrence(n);
+    
+    for (int i = 0; i <= n; i++) {
+        cout << "f(" << i << ") = " << f[i] << endl;
+    }
+    
+    return 0;
+}
+```
+
+### 3. 分数取模
+
+```cpp
+#include <iostream>
+using namespace std;
+
+// 计算a/b mod m
+long long fraction_mod(long long a, long long b, long long m) {
+    // 先计算b mod m的逆元
+    long long inv_b = fast_pow(b, m-2, m);  // 假设m是质数
+    return (a % m * inv_b) % m;
+}
+
+int main() {
+    long long a, b, m;
+    cin >> a >> b >> m;
+    
+    long long result = fraction_mod(a, b, m);
+    cout << a << "/" << b << " mod " << m << " = " << result << endl;
+    
+    return 0;
+}
+```
+
+## 常见问题与技巧
+
+### 1. 逆元不存在的情况
+
+当a和m不互质时，逆元不存在。在使用扩展欧几里得算法时，需要检查gcd(a, m)是否为1。
+
+```cpp
+int mod_inverse(int a, int m) {
+    int x, y;
+    int gcd = exgcd(a, m, x, y);
+    
+    if (gcd != 1) {
+        return -1;  // 逆元不存在
+    }
+    
+    return (x % m + m) % m;
+}
+```
+
+### 2. 逆元的正数化
+
+由于逆元可能是负数，需要将其转换为正数：
+```cpp
+int positive_inv = (x % m + m) % m;
+```
+
+### 3. 批量计算逆元
+
+当需要计算多个数的逆元时，可以使用递推法：
+```cpp
+void calc_inverses(int n, int mod) {
+    inv[1] = 1;
+    for (int i = 2; i <= n; i++) {
+        inv[i] = (mod - mod / i) * inv[mod % i] % mod;
+    }
+}
+```
+
+### 4. 费马小定理的局限性
+
+费马小定理只适用于模数是质数的情况。当模数不是质数时，必须使用扩展欧几里得算法。
+
+## 实际应用示例
+
+### 1. 组合数求和
+
+```cpp
+#include <iostream>
+using namespace std;
+
+const int N = 1e6 + 5;
+const int MOD = 1e9 + 7;
+
+long long fact[N], inv_fact[N];
+
+long long fast_pow(long long a, long long b, long long mod) {
+    long long result = 1;
+    a %= mod;
+    
+    while (b > 0) {
+        if (b & 1) {
+            result = (result * a) % mod;
+        }
+        a = (a * a) % mod;
+        b >>= 1;
+    }
+    
+    return result;
+}
+
+void precompute(int n) {
+    fact[0] = 1;
+    for (int i = 1; i <= n; i++) {
+        fact[i] = (fact[i-1] * i) % MOD;
+    }
+    
+    inv_fact[n] = fast_pow(fact[n], MOD-2, MOD);
+    for (int i = n-1; i >= 0; i--) {
+        inv_fact[i] = (inv_fact[i+1] * (i+1)) % MOD;
+    }
+}
+
+long long comb(int n, int k) {
+    if (k < 0 || k > n) return 0;
+    return (fact[n] * inv_fact[k] % MOD) * inv_fact[n-k] % MOD;
+}
+
+int main() {
+    int n, k;
+    cin >> n >> k;
+    
+    precompute(n);
+    
+    long long sum = 0;
+    for (int i = 0; i <= n; i++) {
+        sum = (sum + comb(n, i)) % MOD;
+    }
+    
+    cout << "组合数求和: " << sum << endl;
+    
+    return 0;
+}
+```
+
+### 2. 概率问题
+
+```cpp
+#include <iostream>
+using namespace std;
+
+const int MOD = 1e9 + 7;
+
+long long fast_pow(long long a, long long b, long long mod) {
+    long long result = 1;
+    a %= mod;
+    
+    while (b > 0) {
+        if (b & 1) {
+            result = (result * a) % mod;
+        }
+        a = (a * a) % mod;
+        b >>= 1;
+    }
+    
+    return result;
+}
+
+// 计算概率：n次独立实验，每次成功概率为p，恰好k次成功的概率
+long long probability(int n, int k, long long p) {
+    // 将p转换为分数形式：p = a/b
+    long long a = p;
+    long long b = 100;  // 假设p是以百分数形式输入
+    
+    // 计算C(n, k) * p^k * (1-p)^(n-k)
+    long long comb = 1;
+    for (int i = 1; i <= k; i++) {
+        comb = comb * (n - k + i) % MOD;
+        comb = comb * fast_pow(i, MOD-2, MOD) % MOD;
+    }
+    
+    long long p_pow = fast_pow(a, k, MOD);
+    long long q_pow = fast_pow(b - a, n - k, MOD);
+    
+    return comb * p_pow % MOD * q_pow % MOD;
+}
+
+int main() {
+    int n, k;
+    long long p;
+    cin >> n >> k >> p;
+    
+    long long result = probability(n, k, p);
+    cout << "概率: " << result << endl;
+    
+    return 0;
+}
+```
+
+## 总结
+
+乘法逆元是数论中的重要概念，在信奥竞赛中有广泛应用：
+
+1. **基本概念**：理解乘法逆元的定义和存在条件
+2. **计算方法**：掌握扩展欧几里得算法和费马小定理
+3. **应用场景**：组合数计算、分数取模、概率问题等
+4. **优化技巧**：批量计算逆元、递推法等
+
+熟练掌握乘法逆元对于解决数论相关问题非常重要，建议多加练习相关题目。
+
