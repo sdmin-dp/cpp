@@ -17,6 +17,7 @@ void solve(){
             s.insert(i,".");
             i++;
         }
+        if(s[i-1]=='.'&&s[i]>='a'&&s[i]<='z') s[i]=s[i]+'A'-'a';
     }
     if(s[s.size()-1]!='.') s+='.';
     cout<<s;
