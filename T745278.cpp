@@ -5,7 +5,9 @@ using namespace std;
 const ll N=1e5+5;
 ll n,m;
 void solve(){
-    if()
+    cin>>n>>m;
+    if(n<=3&&m) cout<<"Yes";
+    else cout<<"No";
 }
 int main(){
     ios::sync_with_stdio(0);
