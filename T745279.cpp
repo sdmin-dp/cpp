@@ -18,6 +18,7 @@ void solve(){
             return;
         }
     }
+    cout<<a[n];
 }
 int main(){
     ios::sync_with_stdio(0);
