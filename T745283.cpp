@@ -14,9 +14,10 @@ void solve(){
     if(s[0]>='a'&&s[0]<='z') s[0]=s[0]+'A'-'a';
     for(int i=1;i<=s.size();i++){
         if(s[i]>='A'&&s[i]<='Z'){
-            s.insert(i,'.');
+            s.insert(i,".");
         }
     }
+    cout<<s;
 }
 int main(){
     ios::sync_with_stdio(0);
