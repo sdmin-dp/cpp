@@ -12,7 +12,7 @@ string s;
 void solve(){
     cin>>s;
     if(s[0]>='a'&&s[0]<='z') s[0]=s[0]+'A'-'a';
-    for(int i=1;i<=s.size();i++){
+    for(int i=1;i<=s.size()-1;i++){
         if(s[i]>='A'&&s[i]<='Z'){
             s.insert(i,".");
             i++;
