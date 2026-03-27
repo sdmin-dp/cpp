@@ -14,7 +14,7 @@ void solve(){
             cin>>a[i][j];
         }
     }
-    for(int j=1;j<=n;j++){
+    for(int j=1;j<=m;j++){
         cnt+=a[x][j];
     }
     for(int i=n;i>x;i--){
