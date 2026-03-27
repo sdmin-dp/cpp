@@ -15,9 +15,10 @@ void solve(){
     for(int i=1;i<=s.size();i++){
         if(s[i]>='A'&&s[i]<='Z'){
             s.insert(i,".");
+            i++;
         }
     }
-    if()
+    if(s[s.size()-1]!='.') s.insert(s.size(),".");
     cout<<s;
 }
 int main(){
