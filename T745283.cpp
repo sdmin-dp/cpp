@@ -18,7 +18,7 @@ void solve(){
             i++;
         }
     }
-    if(s[s.size()-1]!='.') s.insert(s.size(),".");
+    if(s[s.size()-1]!='.') s+='.';
     cout<<s;
 }
 int main(){
