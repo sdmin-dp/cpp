@@ -11,7 +11,17 @@ ll n,m;
 第偶数行第偶数列的字符为空格。
 */
 void solve(){
-    
+    cin>>n>>m;
+    for(int i=1;i<=2*n+1;i++){
+        for(int j=1;j<=2*m+1;j++){
+            if(i%2&&j%2) cout<<'+';
+            if(i%2&&j%2==0) cout<<'-';
+            if(i%2==0&&j%2) cout<<'|';
+            if(i%2==0&&j%2==0) cout<<' ';
+            
+        }
+        cout<<el;
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
