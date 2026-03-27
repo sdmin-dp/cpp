@@ -14,9 +14,8 @@ void solve(){
         else b[a[i]].first=i;
     }
     for(int i=1;i<=2*n;i++){
-        if(b[a[i]].first==i){
-            cout<<b[a[i]].second<<" ";
-        }
+        if(b[a[i]].first==i) cout<<b[a[i]].second<<" ";
+        else cout<<b[a[i]].first<<" ";
     }
 }
 int main(){
