@@ -2,11 +2,27 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e5+5;
+const ll N=1e3+5;
 ll n,m,x,y;
 bool a[N][N];
+ll cnt;
+ll procnt;
 void solve(){
-    
+    cin>>n>>m>>x>>y;
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=m;j++){
+            cin>>a[i][j];
+        }
+    }
+    for(int j=1;j<=n;j++){
+        cnt+=a[x][j];
+    }
+    for(int i=n;i>x;i--){
+        for(int j=1;j<=m;j++){
+            cnt++;
+        }
+    }
+    cout<<procnt+1<<" "<<procnt+cnt;
 }
 int main(){
     ios::sync_with_stdio(0);
