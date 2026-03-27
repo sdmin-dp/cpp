@@ -17,6 +17,7 @@ void solve(){
             s.insert(i,".");
         }
     }
+    if()
     cout<<s;
 }
 int main(){
