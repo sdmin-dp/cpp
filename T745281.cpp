@@ -19,7 +19,7 @@ void solve(){
     }
     for(int i=n;i>x;i--){
         for(int j=1;j<=m;j++){
-            cnt++;
+            procnt+=a[i][j];
         }
     }
     cout<<procnt+1<<" "<<procnt+cnt;
