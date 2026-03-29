@@ -9,9 +9,7 @@ ll in[N],out[N];
 ll idx[N];
 ll s;
 void dfs(ll x){
-    for(int i=1;i<=n;i++){
-        
-    }
+    while(idx[x]<g[i])
 }
 void solve(){
     cin>>n>>m;
