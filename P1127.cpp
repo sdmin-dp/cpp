@@ -28,13 +28,6 @@ void solve(){
         in[num(s[i][s[i].size()-1])]++;
         out[num(s[i][0])]++;
     }
-    for(int i=1;i<=26;i++){
-        cerr<<char(i+'a'-1)<<":";
-        for(auto j:g[i]){
-            cerr<<char(j.second+'a'-1)<<",";
-        }
-        cerr<<el;
-    }
     ll cnt1=0,cnt2=0,cnt3=0,id=0,id2=1e9+7;
     for(int i=1;i<=26;i++){
         if(g[i].size()>=1&&i<id2) id2=i;
@@ -45,7 +38,6 @@ void solve(){
         }
         else if(out[i]==in[i]) cnt3++;
     }
-    // cerr<<cnt1<<" "<<cnt2<<" "<<cnt3<<" "<<id<<" "<<id2;
     if(cnt1==1&&cnt2==1&&cnt3+cnt2+cnt1==n) start=id;
     else if(cnt1==0&&cnt2==0&&cnt3==n) start=id2;
     else{
