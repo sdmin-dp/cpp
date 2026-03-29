@@ -8,7 +8,19 @@ ll n;
 string s[N];
 vector<pair<string,ll>> g[35];
 ll in[N],out[N];
+ll idx[N];
 ll start;
+deque<string> ans;
+void dfs(ll x){
+    while(idx[x]<g[x].size()){
+        string v=g[x][idx[x]].first;
+        ll u=g[x][idx[x]].second;
+        idx[x]++;
+        dfs(u);
+        ans.push_front(v);
+    }
+    
+}
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
@@ -35,6 +47,10 @@ void solve(){
     }
     for(int i=1;i<=n;i++){
         sort(g[i].begin(),g[i].end());
+    }
+    dfs(start);
+    for(int i=1;i<=n;i++){
+
     }
 }
 int main(){
