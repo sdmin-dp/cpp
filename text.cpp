@@ -5,6 +5,7 @@ using namespace std;
 const ll N=1e5+5;
 ll n,m;
 vector<ll> g[N];
+ll in[N],out[N];
 void solve(){
     
 }
