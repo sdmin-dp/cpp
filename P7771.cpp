@@ -12,7 +12,14 @@ void solve(){
         cin>>x>>y;
         g[x].push_back({y,i});
     }
-    ll cnt1=0,cnt2=0,cnt3=0;
+    ll cnt1=0,cnt2=0,cnt3=0,id=0,id2=0;
+    /*
+    cnt1: in-out=1
+    cnt2: out-in=1
+    cnt3: out=in
+      id: 满足out-in=1的一个点的编号1
+     id2: 
+    */
 }
 int main(){
     ios::sync_with_stdio(0);
