@@ -5,7 +5,8 @@ using namespace std;
 const ll N=1e3+5;
 ll n;
 vector<pair<ll,char>> g[N];
-ll cnt1,cnt2,cnt3;
+ll cnt1,cnt2,cnt3,start;
+ll idx[N];
 void solve(){
     
 }
