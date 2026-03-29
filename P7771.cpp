@@ -9,7 +9,9 @@ ll in[N],out[N];
 ll idx[N];
 ll s;
 void dfs(ll x){
-    
+    for(int i=1;i<=n;i++){
+        
+    }
 }
 void solve(){
     cin>>n>>m;
@@ -46,6 +48,7 @@ void solve(){
     for(int i=1;i<=n;i++){
         sort(g[i].begin(),g[i].end());
     }
+    dfs(s);
 }
 int main(){
     ios::sync_with_stdio(0);
