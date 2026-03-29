@@ -27,13 +27,6 @@ void solve(){
         out[x]++;
     }
     ll cnt1=0,cnt2=0,cnt3=0,id=0,id2=1e9+7;
-    /*
-    cnt1: in-out=1
-    cnt2: out-in=1
-    cnt3: out=in
-      id: 满足out-in=1的一个点的编号
-     id2: 一个有边的点的编号
-    */
     for(int i=1;i<=n;i++){
         if(g[i].size()>=1&&i<id2) id2=i;
         if(in[i]-out[i]==1) cnt1++;
