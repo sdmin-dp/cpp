@@ -9,7 +9,7 @@ ll a[N];
 ll lg2[N];
 ll st[N][20];
 void init(){
-    for(int i=1;i<=n;i++) lg2[i]=lg2[i/2]+1;
+    for(int i=2;i<=n;i++) lg2[i]=lg2[i/2]+1;
     for(int i=1;i<=n;i++) st[i][0]=a[i];
     for(int j=1;j<=maxlog;j++) for(int i=1;i+(1<<j)-1<=n;i++) st[i][j]=max(st[i][j-1],st[i+(1<<j-1)][j-1]);
 }
