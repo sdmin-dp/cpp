@@ -8,11 +8,14 @@ vector<pair<ll,ll>> g[N];
 ll in[N],out[N];
 ll idx[N];
 ll s;
+deque<ll> ans;
 void dfs(ll x){
     while(idx[x]<g[x].size()){
         ll v=g[x][idx[x]].first,u=g[x][idx[x]].second;
         idx[x]++;
+        dfs(v);
     }
+    ans.push_front(x);
 }
 void solve(){
     cin>>n>>m;
@@ -50,6 +53,7 @@ void solve(){
         sort(g[i].begin(),g[i].end());
     }
     dfs(s);
+    for(auto i:ans) cout<<i<<" ";
 }
 int main(){
     ios::sync_with_stdio(0);
