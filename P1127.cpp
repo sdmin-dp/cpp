@@ -7,13 +7,35 @@ ll num(char c){return c-'a'+1;}
 ll n;
 string s[N];
 vector<pair<string,ll>> g[35];
+ll in[N],out[N];
+ll start;
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
         cin>>s[i];
         g[num(s[i][0])].push_back({s[i],num(s[i][s[i].size()-1])});
+        in[num(s[i][s[i].size()-1])]++;
+        out[num(s[i][0])]++;
     }
-        
+    ll cnt1=0,cnt2=0,cnt3=0,id=0,id2=1e9+7;
+    for(int i=1;i<=n;i++){
+        if(g[i].size()>=1&&i<id2) id2=i;
+        if(in[i]-out[i]==1) cnt1++;
+        else if(out[i]-in[i]==1){
+            cnt2++;
+            id=i;
+        }
+        else if(out[i]==in[i]) cnt3++;
+    }
+    if(cnt1==1&&cnt2==1&&cnt3+cnt2+cnt1==n) start=id;
+    else if(cnt1==0&&cnt2==0&&cnt3==n) start=id2;
+    else{
+        cout<<"No";
+        return;
+    }
+    for(int i=1;i<=n;i++){
+        sort(g[i].begin(),g[i].end());
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
