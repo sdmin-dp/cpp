@@ -8,7 +8,7 @@ vector<pair<ll,ll>> g[N];
 ll in[N],out[N];
 ll s;
 void dfs(ll x){
-    
+
 }
 void solve(){
     cin>>n>>m;
@@ -38,6 +38,10 @@ void solve(){
     }
     if(cnt1==1&&cnt2==1&&cnt3+cnt2+cnt1==n) s=id;
     else if(cnt1==0&&cnt2==0&&cnt3==n) s=id2;
+
+    for(int i=1;i<=n;i++){
+        
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
