@@ -26,6 +26,7 @@ void solve(){
     for(int i=1;i<=n;i++){
         char u=s[i][0],v=s[i].back();
         g[u].push_back({i,v});
+        in[v]++;
     }
     for(char i='a';i<='z';i++) sort(g[i].begin(),g[i].end());
     for(char i='a';i<='z';i++){
