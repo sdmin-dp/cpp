@@ -10,14 +10,13 @@ char start;
 ll idx[130];
 string s[N];
 ll in[130];
-deque<string> ans;
+deque<ll> res;
 void dfs(ll x){
     while(idx[x]<g[x].size()){
-        string v=g[x][idx[x]].first;
-        ll u=g[x][idx[x]].second;
+        ll u=g[x][idx[x]].first,v=g[x][idx[x]].second;
         idx[x]++;
-        dfs(u);
-        ans.push_front(v);
+        dfs(v);
+        res.push_front(u);
     }
 }
 void solve(){
@@ -49,8 +48,13 @@ void solve(){
         }
     }
     dfs(start);
-    if(ans.size()!=n){
+    if(res.size()!=n){
         cout<<"***";
+        return;
+    }
+    cout<<s[res[0]];
+    for(int i=1;i<res.size();i++){
+        cout<<"."<<s[res[i]];
     }
 }
 int main(){
