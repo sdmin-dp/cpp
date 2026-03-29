@@ -14,14 +14,16 @@ void init(){
     for(int j=1;j<=maxlog;j++) for(int i=1;i+(1<<j)-1<=n;i++) st[i][j]=max(st[i][j-1],st[i+(1<<j-1)-1][j-1]);
 }
 ll quary(ll l,ll r){
-    
+    ll k=lg2[r-l+1];
+    return max(st[l][k],st[r-(1<<k)+1][k]);
 }
 void solve(){
     cin>>n>>q;
     for(int i=1;i<=n;i++) cin>>a[i];
     init();
     for(int i=1;i<=q;i++){
-        cout<<
+        ll x,y;
+        cout<<quary(x,y)<<el;
     }
 }
 int main(){
