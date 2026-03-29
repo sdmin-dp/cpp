@@ -6,12 +6,12 @@ const ll N=1e3+5;
 ll num(char c){return c-'a'+1;}
 ll n;
 string s[N];
-vector<pair<ll,ll>> g[35];
+vector<pair<string,ll>> g[35];
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
         cin>>s[i];
-        g[num(s[i][0])].
+        g[num(s[i][0])].push_back({s[i],num(s[i][s[i].size()-1])});
     }
 }
 int main(){
