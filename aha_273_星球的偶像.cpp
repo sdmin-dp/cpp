@@ -11,6 +11,7 @@ stack<ll> s;
 ll idx;
 ll cnt=0,len[N],color[N];
 vector<ll> ng[N];
+ll out[N];
 void tarjan(ll x){
     dfn[x]=low[x]=++idx;
     s.push(x);
@@ -41,6 +42,21 @@ void solve(){
         g[x].push_back(y);
     }
     for(int i=1;i<=n;i++) if(!color[i]) tarjan(i);
+        for(int u=1;u<=n;u++){
+        for(auto v:g[u]){
+            if(color[u]!=color[v]) out[color[u]]++;
+        }
+    }
+    ll ans=0,pos=0;
+    for(int i=1;i<=cnt;i++){
+        if(!out[i]){
+            ans++;
+            pos=i;
+        }
+    }
+    if(ans==1) cout<<len[pos]<<el;
+    else cout<<0<<el;
+
 }
 int main(){
     ll T=1;
