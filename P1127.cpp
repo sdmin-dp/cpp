@@ -29,10 +29,11 @@ void solve(){
         out[num(s[i][0])]++;
     }
     for(int i=1;i<=26;i++){
-        cout<<i+'a'-1<<":";
+        cerr<<i+'a'-1<<":";
         for(auto j:g[i]){
-            cout<<j.second<<",";
+            cerr<<j.second<<",";
         }
+        cerr<<el;
     }
     ll cnt1=0,cnt2=0,cnt3=0,id=0,id2=1e9+7;
     for(int i=1;i<=26;i++){
