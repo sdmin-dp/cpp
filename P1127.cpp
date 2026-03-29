@@ -17,6 +17,8 @@ void solve(){
         char u=s[i][0],v=s[i].back();
         g[u].push_back({i,v});
     }
+    for(char i='a';i<='z';i++) sort(g[i].begin(),g[i].end());
+
 }
 int main(){
     ios::sync_with_stdio(0);
