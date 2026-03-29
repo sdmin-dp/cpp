@@ -10,7 +10,7 @@ ll idx[N];
 ll s;
 void dfs(ll x){
     while(idx[x]<g[x].size()){
-        
+        ll v=g[x][]
     }
 }
 void solve(){
