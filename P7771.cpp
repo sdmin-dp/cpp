@@ -17,9 +17,12 @@ void solve(){
     cnt1: in-out=1
     cnt2: out-in=1
     cnt3: out=in
-      id: 满足out-in=1的一个点的编号1
-     id2: 
+      id: 满足out-in=1的一个点的编号
+     id2: 一个有边的点的编号
     */
+    for(int i=1;i<=n;i++){
+        
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
