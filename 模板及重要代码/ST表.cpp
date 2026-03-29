@@ -23,6 +23,7 @@ void solve(){
     init();
     for(int i=1;i<=q;i++){
         ll x,y;
+        cin>>x>>y;
         cout<<quary(x,y)<<el;
     }
 }
