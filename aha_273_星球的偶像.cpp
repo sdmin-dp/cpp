@@ -42,7 +42,7 @@ void solve(){
         g[x].push_back(y);
     }
     for(int i=1;i<=n;i++) if(!color[i]) tarjan(i);
-        for(int u=1;u<=n;u++){
+    for(int u=1;u<=n;u++){
         for(auto v:g[u]){
             if(color[u]!=color[v]) out[color[u]]++;
         }
