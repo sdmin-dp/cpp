@@ -13,6 +13,7 @@ void solve(){
         cin>>s[i];
         g[num(s[i][0])].push_back({s[i],num(s[i][s[i].size()-1])});
     }
+        
 }
 int main(){
     ios::sync_with_stdio(0);
