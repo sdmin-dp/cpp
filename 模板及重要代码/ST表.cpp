@@ -13,8 +13,16 @@ void init(){
     for(int i=1;i<=n;i++) st[i][0]=a[i];
     for(int j=1;j<=maxlog;j++) for(int i=1;i+(1<<j)-1<=n;i++) st[i][j]=max(st[i][j-1],st[i+(1<<j-1)-1][j-1]);
 }
-void solve(){
+ll quary(ll l,ll r){
     
+}
+void solve(){
+    cin>>n>>q;
+    for(int i=1;i<=n;i++) cin>>a[i];
+    init();
+    for(int i=1;i<=q;i++){
+        cout<<
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
