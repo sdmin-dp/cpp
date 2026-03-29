@@ -6,10 +6,10 @@ const ll N=1e5+5;
 ll n,m;
 vector<pair<ll,ll>> g[N];
 ll in[N],out[N];
-ll 
+ll idx[N];
 ll s;
 void dfs(ll x){
-
+    
 }
 void solve(){
     cin>>n>>m;
@@ -39,9 +39,12 @@ void solve(){
     }
     if(cnt1==1&&cnt2==1&&cnt3+cnt2+cnt1==n) s=id;
     else if(cnt1==0&&cnt2==0&&cnt3==n) s=id2;
-    else cout<<"No";
+    else{
+        cout<<"No";
+        return;
+    }
     for(int i=1;i<=n;i++){
-
+        sort(g[i].begin(),g[i].end());
     }
 }
 int main(){
