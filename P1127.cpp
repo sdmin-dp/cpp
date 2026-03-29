@@ -9,8 +9,10 @@ string s[N];
 vector<pair<ll,ll>> g[35];
 void solve(){
     cin>>n;
-    for(int i=1;i<=n;i++) cin>>s[i];
-
+    for(int i=1;i<=n;i++){
+        cin>>s[i];
+        g[num(s[i][0])].
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
