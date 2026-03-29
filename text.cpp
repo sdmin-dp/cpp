@@ -45,6 +45,7 @@ void solve(){
     for(int i=1;i<=n;i++){
         sort(g[i].begin(),g[i].end());
     }
+    cerr<<s;
     dfs(s);
     for(auto i:ans) cout<<i<<" ";
 }
