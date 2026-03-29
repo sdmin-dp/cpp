@@ -19,7 +19,6 @@ void dfs(ll x){
         dfs(u);
         ans.push_front(v);
     }
-    
 }
 void solve(){
     cin>>n;
@@ -49,7 +48,8 @@ void solve(){
         sort(g[i].begin(),g[i].end());
     }
     dfs(start);
-    for(int i=1;i<=n;i++){
+    cout<<ans[0];
+    for(ll ){
 
     }
 }
