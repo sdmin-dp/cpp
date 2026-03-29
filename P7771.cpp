@@ -26,7 +26,7 @@ void solve(){
         in[y]++;
         out[x]++;
     }
-    ll cnt1=0,cnt2=0,cnt3=0,id=0,id2=0;
+    ll cnt1=0,cnt2=0,cnt3=0,id=0,id2=1e9+7;
     /*
     cnt1: in-out=1
     cnt2: out-in=1
