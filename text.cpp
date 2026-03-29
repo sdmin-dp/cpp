@@ -3,51 +3,33 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
+const ll mxlog=17;
 ll n,m;
-vector<ll> g[N];
-ll in[N],out[N];
-ll idx[N];
-ll s;
-deque<ll> ans;
-void dfs(ll x){
-    while(idx[x]<g[x].size()){
-        ll i=g[x][idx[x]];
-        idx[x]++;
-        dfs(i);
+ll a[N];
+ll st[N][20];
+ll lg2[N];
+void init(){
+    for(int i=1;i<=n;i++) st[i][0]=a[i];
+    for(int j=1;j<=mxlog;j++){
+        for(int i=1;i+(1<<j)-1<=n;i++){
+            st[i][j]=max(st[i][j-1],st[i+(1<<(j-1))][j-1]); 
+        }
     }
-    ans.push_front(x);
+    for(int i=2;i<=n;i++) lg2[i]=lg2[i/2]+1;
+}
+ll query(ll l,ll r){
+    ll k=lg2[r-l+1];
+    return max(st[l][k],st[r-(1<<k)+1][k]);
 }
 void solve(){
     cin>>n>>m;
+    for(int i=1;i<=n;i++) cin>>a[i];
+    init();
     for(int i=1;i<=m;i++){
         ll x,y;
         cin>>x>>y;
-        g[x].push_back(y);
-        in[y]++;
-        out[x]++;
+        cout<<query(x,y)<<el;
     }
-    ll cnt1=0,cnt2=0,cnt3=0,id=0,id2=1e9+7;
-    for(int i=1;i<=n;i++){
-        if(g[i].size()>=1&&i<id2) id2=i;
-        if(in[i]-out[i]==1) cnt1++;
-        else if(out[i]-in[i]==1){
-            cnt2++;
-            id=i;
-        }
-        else if(out[i]==in[i]) cnt3++;
-    }
-    if(cnt1==1&&cnt2==1&&cnt3+cnt2+cnt1==n) s=id;
-    else if(cnt1==0&&cnt2==0&&cnt3==n) s=id2;
-    else{
-        cout<<"No";
-        return;
-    }
-    for(int i=1;i<=n;i++){
-        sort(g[i].begin(),g[i].end());
-    }
-    cerr<<s;
-    dfs(s);
-    for(auto i:ans) cout<<i<<" ";
 }
 int main(){
     ios::sync_with_stdio(0);
