@@ -2,7 +2,7 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e3+5;
+const ll N=1e4+5;
 ll num(char c){return c-'a'+1;}
 ll n;
 string s[N];
