@@ -36,8 +36,8 @@ void solve(){
         }
         else if(out[i]==in[i]) cnt3++;
     }
-    if(cnt1==1&&cnt2==1&&cnt3+cnt2+cnt1==n) s=1;
-    else if(cnt1==0&&cnt2==0&&cnt3==n) s=2;
+    if(cnt1==1&&cnt2==1&&cnt3+cnt2+cnt1==n) s=id;
+    else if(cnt1==0&&cnt2==0&&cnt3==n) s=id2;
     else{
         cout<<"No";
         return;
