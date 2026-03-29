@@ -4,7 +4,7 @@ using namespace std;
 #define el '\n'
 const ll N=1e3+5;
 ll n;
-vector<pair<ll,char>> g[N];
+vector<pair<ll,char>> g[130];
 ll cnt1,cnt2,cnt3,start;
 ll idx[N];
 string s[N];
@@ -13,7 +13,10 @@ void solve(){
     cin>>n;
     for(int i=1;i<=n;i++) cin>>s[i];
     sort(s+1,s+n+1);
-    
+    for(int i=1;i<=n;i++){
+        char u=s[i][0],v=s[i].back();
+        g[u].push_back({i,v});
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
