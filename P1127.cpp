@@ -31,7 +31,7 @@ void solve(){
     for(int i=1;i<=26;i++){
         cerr<<char(i+'a'-1)<<":";
         for(auto j:g[i]){
-            cerr<<j.second<<",";
+            cerr<<char(j.second+'a'-1)<<",";
         }
         cerr<<el;
     }
