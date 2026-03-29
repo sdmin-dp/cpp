@@ -4,7 +4,7 @@ using namespace std;
 #define el '\n'
 const ll N=1e3+5;
 ll n;
-vector<pair<ll,char>> g[130];
+vector<pair<ll,char>> g[130];76561199407212102
 ll cnt1,cnt2,cnt3;
 char start;
 ll idx[130];
