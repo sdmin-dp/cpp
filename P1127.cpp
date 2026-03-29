@@ -9,8 +9,17 @@ ll cnt1,cnt2,cnt3;
 char start;
 ll idx[130];
 string s[N];
-deque<ll> res;
 ll in[130];
+deque<string> ans;
+void dfs(ll x){
+    while(idx[x]<g[x].size()){
+        string v=g[x][idx[x]].first;
+        ll u=g[x][idx[x]].second;
+        idx[x]++;
+        dfs(u);
+        ans.push_front(v);
+    }
+}
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++) cin>>s[i];
@@ -40,7 +49,9 @@ void solve(){
         }
     }
     dfs(start);
-    
+    if(ans.size()!=n){
+        cout<<"***";
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
