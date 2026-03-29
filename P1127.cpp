@@ -9,6 +9,7 @@ ll cnt1,cnt2,cnt3,start;
 ll idx[N];
 string s[N];
 deque<ll> res;
+ll in[130];
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++) cin>>s[i];
@@ -18,7 +19,7 @@ void solve(){
         g[u].push_back({i,v});
     }
     for(char i='a';i<='z';i++) sort(g[i].begin(),g[i].end());
-
+    for(char i='a';)
 }
 int main(){
     ios::sync_with_stdio(0);
