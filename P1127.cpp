@@ -29,7 +29,7 @@ void solve(){
         out[num(s[i][0])]++;
     }
     for(int i=1;i<=26;i++){
-        cerr<<i+'a'-1<<":";
+        cerr<<char(i+'a'-1)<<":";
         for(auto j:g[i]){
             cerr<<j.second<<",";
         }
