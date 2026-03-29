@@ -19,7 +19,7 @@ void dfs(ll x){
 }
 void solve(){
     cin>>n>>m;
-    for(int i=1;i<=n;i++){
+    for(int i=1;i<=m;i++){
         ll x,y;
         cin>>x>>y;
         g[x].push_back({y,i});
