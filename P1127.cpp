@@ -49,8 +49,8 @@ void solve(){
     }
     dfs(start);
     cout<<ans[0];
-    for(ll ){
-
+    for(ll i=1;i<ans.size();i++){
+        cout<<"."<<ans[i];
     }
 }
 int main(){
