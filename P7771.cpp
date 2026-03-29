@@ -35,7 +35,7 @@ void solve(){
      id2: 一个有边的点的编号
     */
     for(int i=1;i<=n;i++){
-        if(g[i].size()>=1) id2=i;
+        if(g[i].size()>=1&&i<id2) id2=i;
         if(in[i]-out[i]==1) cnt1++;
         else if(out[i]-in[i]==1){
             cnt2++;
