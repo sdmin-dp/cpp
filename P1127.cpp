@@ -40,8 +40,8 @@ void solve(){
         else if(out[i]==in[i]) cnt3++;
     }
     cerr<<cnt1<<" "<<cnt2<<" "<<cnt3<<" "<<id<<" "<<id2;
-    if(cnt1==1&&cnt2==1&&cnt3+cnt2+cnt1==n) start=id;
-    else if(cnt1==0&&cnt2==0&&cnt3==n) start=id2;
+    if(cnt1==1&&cnt2==1) start=id;
+    else if(cnt1==0&&cnt2==0) start=id2;
     else{
         cout<<"***";
         return;
