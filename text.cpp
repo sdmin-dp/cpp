@@ -6,7 +6,7 @@ const ll N=1e5+5;
 ll n,m;
 void solve(){
     n=rand()%20;if(n==0) n=20;
-    m=rand()%20;if(m==0) m=15;
+    m=rand()%20;if(m==0) m=20;
     cout<<n<<" "<<m<<el;
     for(int i=1;i<=m;i++){
         ll x,y;
