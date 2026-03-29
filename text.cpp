@@ -41,7 +41,7 @@ void solve(){
     else{
         cout<<"No";
         return;
-    }    
+    }
     for(int i=1;i<=n;i++){
         sort(g[i].begin(),g[i].end());
     }
