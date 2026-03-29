@@ -7,7 +7,7 @@ const ll maxlog=17;
 ll n,q;
 ll a[N];
 ll lg2[N];
-ll st[N][17];
+ll st[N][20];
 void init(){
     for(int i=1;i<=n;i++) lg2[i]=lg2[i/2]+1;
     for(int i=1;i<=n;i++) st[i][0]=a[i];
