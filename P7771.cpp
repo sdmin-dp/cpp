@@ -11,6 +11,8 @@ ll s;
 void dfs(ll x){
     while(idx[x]<g[x].size()){
         ll v=g[x][idx[x]].first,u=g[x][idx[x]].second;
+        idx[x]++;
+        
     }
 }
 void solve(){
