@@ -10,8 +10,9 @@ void solve(){
     for(int i=1;i<=n;i++){
         ll x,y;
         cin>>x>>y;
-        g[x].push_back(y);
+        g[x].push_back({y,i});
     }
+    ll cnt1=0,cnt2=0,cnt3=0;
 }
 int main(){
     ios::sync_with_stdio(0);
