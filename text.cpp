@@ -9,6 +9,14 @@ ll in[N],out[N];
 ll idx[N];
 ll s;
 deque<ll> ans;
+void dfs(ll x){
+    while(idx[x]<g[x].size()){
+        ll i=g[x][idx[x]];
+        idx[x]++;
+        dfs(i);
+    }
+    ans.push_front(x);
+}
 void solve(){
     cin>>n>>m;
     for(int i=1;i<=n;i++){
@@ -18,9 +26,24 @@ void solve(){
         in[y]++;
         out[x]++;
     }
+    ll cnt1=0,cnt2=0,cnt3=0,id=0,id2=1e9+7;
     for(int i=1;i<=n;i++){
-        if(in[i])
+        if(g[i].size()>=1&&i<id2) id2=i;
+        if(in[i]-out[i]==1) cnt1++;
+        else if(out[i]-in[i]==1){
+            cnt2++;
+            id=i;
+        }
+        else if(out[i]==in[i]) cnt3++;
     }
+    if(cnt1==1&&cnt2==1&&cnt3+cnt2+cnt1==n) s=id;
+    else if(cnt1==0&&cnt2==0&&cnt3==n) s=id2;
+    else{
+        cout<<"No";
+        return;
+    }
+    dfs(s);
+    for(auto i:ans) cout<<i<<" ";
 }
 int main(){
     ios::sync_with_stdio(0);
