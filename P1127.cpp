@@ -7,7 +7,12 @@ ll n;
 vector<pair<ll,char>> g[N];
 ll cnt1,cnt2,cnt3,start;
 ll idx[N];
+string s[N];
+deque<ll> res;
 void solve(){
+    cin>>n;
+    for(int i=1;i<=n;i++) cin>>s[i];
+    sort(s+1,s+n+1);
     
 }
 int main(){
