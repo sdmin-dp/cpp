@@ -9,7 +9,7 @@ ll in[N],out[N];
 ll idx[N];
 ll s;
 void dfs(ll x){
-    while(idx[x]<g[i].size()){
+    while(idx[x]<g[x].size()){
         
     }
 }
