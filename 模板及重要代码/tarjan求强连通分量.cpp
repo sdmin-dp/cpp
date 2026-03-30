@@ -47,7 +47,7 @@ void solve(){
             if(color[u]!=color[v]) out[color[u]]++;
         }
     }
-    
+
 }
 int main(){
     ll T=1;
