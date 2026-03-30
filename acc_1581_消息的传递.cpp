@@ -3,7 +3,7 @@ using namespace std;
 #define ll long long
 #define el '\n'
 const ll N=1e4+5;
-ll n,m;
+ll n;
 vector<ll> g[N];
 ll dfn[N],low[N];
 ll ins[N];
@@ -35,11 +35,13 @@ void tarjan(ll x){
     }
 }
 void solve(){
-    cin>>n>>m;
-    for(int i=1;i<=m;i++){
-        ll x,y;
-        cin>>x>>y;
-        g[x].push_back(y);
+    cin>>n;
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=n;j++){
+            ll f;
+            cin>>f;
+            if(f) g[i].push_back(j);
+        }
     }
     for(int i=1;i<=n;i++) if(!color[i]) tarjan(i);
     for(int u=1;u<=n;u++){
