@@ -3,7 +3,7 @@ using namespace std;
 #define ll long long
 #define el '\n'
 const ll N=1e4+5;
-ll n;
+ll n,m;
 vector<ll> g[N];
 ll dfn[N],low[N];
 ll ins[N];
@@ -11,7 +11,7 @@ stack<ll> s;
 ll idx;
 ll cnt=0,len[N],color[N];
 vector<ll> ng[N];
-ll in[N];
+ll out[N];
 void tarjan(ll x){
     dfn[x]=low[x]=++idx;
     s.push(x);
@@ -35,25 +35,19 @@ void tarjan(ll x){
     }
 }
 void solve(){
-    cin>>n;
-    for(int i=1;i<=n;i++){
-        for(int j=1;j<=n;j++){
-            ll f;
-            cin>>f;
-            if(f) g[i].push_back(j);
-        }
+    cin>>n>>m;
+    for(int i=1;i<=m;i++){
+        ll x,y;
+        cin>>x>>y;
+        g[x].push_back(y);
     }
     for(int i=1;i<=n;i++) if(!color[i]) tarjan(i);
     for(int u=1;u<=n;u++){
         for(auto v:g[u]){
-            if(color[u]!=color[v]) in[color[v]]++;
+            if(color[u]!=color[v]) out[color[u]]++;
         }
     }
-    ll ans=0;
-    for(int i=1;i<=cnt;i++){
-        if(!in[i]) ans++;
-    }
-    cout<<ans;
+    
 }
 int main(){
     ll T=1;
