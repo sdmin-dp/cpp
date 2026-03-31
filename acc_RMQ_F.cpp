@@ -43,8 +43,8 @@ void init(){
     }
 }
 ll query(ll x1,ll y1,ll x2,ll y2){
-    int k1=lg2[x2-x1+1];
-    int k2=lg2[y2-y1+1];
+    ll k1=lg2[x2-x1+1];
+    ll k2=lg2[y2-y1+1];
     return max({
         st[x1][y1][k1][k2],
         st[x2-(1<<k1)+1][y1][k1][k2],
