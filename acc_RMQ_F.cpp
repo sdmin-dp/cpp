@@ -9,7 +9,7 @@ ll a[N][N];
 ll st[N][N][10][10];
 void init(){
     for(int i=1;i<=n;i++) for(ll j=1;j<=m;j++) st[i][j][0][0]=a[i][j];
-    
+    for(int i=1;i<=n;i++) st[]
 }
 void solve(){
     cin>>n>>m;
