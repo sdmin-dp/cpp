@@ -39,7 +39,7 @@ void init(){
     }
 }
 ll query(ll x1,ll y1,ll x2,ll y2){
-
+    
 }
 void solve(){
     cin>>n>>m;
