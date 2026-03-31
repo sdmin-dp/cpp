@@ -3,7 +3,7 @@
 using namespace std;
 #define el '\n'
 const ll N=250+5;
-const ll mxlog=8;
+const ll mxlog=8; 
 ll n,m,q;
 ll a[N][N];
 ll st[N][N][10][10];
