@@ -35,7 +35,7 @@ void init(){
                         st[i+(1<<m-1)][j][n-1][m-1],
                         st[i+(1<<m-1)-1][j+(1<<m-1)-1][n-1][m-1]
                     });
-                    cerr<<st[i][j][k][l]
+                    cerr<<st[i][j][k][l];
                 }
             }
         }
