@@ -9,7 +9,7 @@ ll a[N][N];
 ll st[N][N][10][10];
 ll lg2[N];
 void init(){
-    for(int i=2;i<=n;i++) lg2[i]=lg2[i/2]+1;
+    for(int i=2;i<=N;i++) lg2[i]=lg2[i/2]+1;
     for(int i=1;i<=n;i++) for(ll j=1;j<=m;j++) st[i][j][0][0]=a[i][j];
     // for(int i=1;i<=n;i++){
     //     for(int k=1;k<=mxlog;k++){
