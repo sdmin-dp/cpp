@@ -18,7 +18,6 @@ void init(){
     //         }
     //     }
     // }
-
     for(int i=1;i<=n;i++){
         for(int k=1;k<=mxlog;k++){
             for(int j=1;j+(1<<k-1)-1<=m;j++){
@@ -26,7 +25,6 @@ void init(){
             }
         }
     }
-
     for(int j=1;j<=m;j++){
         for(int k=1;k<=mxlog;k++){
             for(int i=1;i+(1<<k-1)-1<=n;i++){
@@ -34,8 +32,6 @@ void init(){
             }
         }
     }
-
-
     for(int k=1;k<=mxlog;k++){
         for(int l=1;l<=mxlog;l++){
             for(int i=1;i+(1<<k-1)-1<=n;i++){
