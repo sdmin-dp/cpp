@@ -8,15 +8,12 @@ ll n,m,q;
 ll a[N][N];
 ll st[N][N][10][10];
 void init(){
+    for(int i=1;i<=n;i++) for(ll j=1;j<=m;j++) st[i][j][0][0]=a[i][j];
     
 }
 void solve(){
     cin>>n>>m;
-    for(int i=1;i<=n;i++){
-        for(int j=1;j<=m;j++){
-            
-        }
-    }    
+    for(int i=1;i<=n;i++) for(int j=1;j<=m;j++) cin>>a[i][j]; 
 }
 int main(){
     ios::sync_with_stdio(0);
