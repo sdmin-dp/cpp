@@ -57,7 +57,7 @@ void solve(){
     for(int i=1;i<=q;i++){
         ll x1,y1,x2,y2;
         cin>>x1>>y1>>x2>>y2;
-        // cout<<x1<<" "<<y1<<" "<<x2<<" "<<y2;
+        cout<<x1<<" "<<y1<<" "<<x2<<" "<<y2;
         cout<<query(x1,y1,x2,y2)<<el;
     }
 }
