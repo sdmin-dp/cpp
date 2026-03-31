@@ -3,7 +3,7 @@
 using namespace std;
 #define el '\n'
 const ll N=250+5;
-const ll mxlog=8; 
+const ll mxlog=8;
 ll n,m,q;
 ll a[N][N];
 ll st[N][N][10][10];
@@ -11,14 +11,6 @@ ll lg2[N];
 void init(){
     for(int i=2;i<N;i++) lg2[i]=lg2[i/2]+1;
     for(int i=1;i<=n;i++) for(ll j=1;j<=m;j++) st[i][j][0][0]=a[i][j];
-    // for(int i=1;i<=n;i++){
-    //     for(int k=1;k<=mxlog;k++){
-    //         for(int j=1;j+(1<<k-1)-1<=m;j++){
-    //             st[i][j][0][k]=max(st[i][j+(1<<k-1)-1][0][k-1],st[i][j][0][k-1]);
-    //         }
-    //     }
-    // }
-    
     for(int k=1;k<=mxlog;k++){
         for(int i=1;i+(1<<k-1)<=n;i++){
             for(int j=1;j<=m;j++){
