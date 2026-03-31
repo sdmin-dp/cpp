@@ -3,11 +3,20 @@
 using namespace std;
 #define el '\n'
 const ll N=250+5;
+const ll mxlog=8;
 ll n,m,q;
 ll a[N][N];
-ll st[N][N][][];
-void solve(){
+ll st[N][N][10][10];
+void init(){
     
+}
+void solve(){
+    cin>>n>>m;
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=m;j++){
+            
+        }
+    }    
 }
 int main(){
     ios::sync_with_stdio(0);
