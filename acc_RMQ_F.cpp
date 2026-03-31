@@ -15,6 +15,7 @@ void init(){
         for(int k=1;k<=mxlog;k++){
             for(int j=1;j+(1<<k-1)-1<=m;j++){
                 st[i][j][0][k]=max(st[i][j+(1<<k-1)-1][0][k-1],st[i][j][0][k-1]);
+                cout<<st[i][j][0][k];
             }
         }
     }
@@ -35,7 +36,7 @@ void init(){
                         st[i+(1<<m-1)][j][n-1][m-1],
                         st[i+(1<<m-1)-1][j+(1<<m-1)-1][n-1][m-1]
                     });
-                    cout<<st[i][j][k][l];
+                    
                 }
             }
         }
