@@ -4,7 +4,7 @@ using namespace std;
 #define el '\n'
 const ll N=250+5;
 ll n,m,q;
-ll a[N][N];
+ll a[N][N]; 
 void solve(){
     
 }
