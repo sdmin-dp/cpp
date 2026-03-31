@@ -18,12 +18,12 @@ void init(){
     //         }
     //     }
     // }
-    for(int  j=1;j<=m;j++){
-        for(int k=1;k<=mxlog;k++){
-            for(int i=1;i+(1<<k-1)<=n;i++){
+    
+    for(int k=1;k<=mxlog;k++){
+        for(int i=1;i+(1<<k-1)<=n;i++){
+            for(int j=1;j<=m;j++){
                 st[i][j][k][0]=max(st[i][j+(1<<k-1)][k-1][0],st[i][j][k-1][0]);
             }
-
         }
     }
     for(int k=1;k<=mxlog;k++){
