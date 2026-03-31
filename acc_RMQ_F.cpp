@@ -9,7 +9,14 @@ ll a[N][N];
 ll st[N][N][10][10];
 void init(){
     for(int i=1;i<=n;i++) for(ll j=1;j<=m;j++) st[i][j][0][0]=a[i][j];
-    for(int i=1;i<=n;i++) st[]
+    for(int i=1;i<=n;i++){
+        for(int k=1;k<=mxlog;k++){
+            for(int j=1;j+(1<<k-1)-1<=m;j++){
+                st[i][j][0][k]=max(st[i][j+(1<<k-1)-1][0][k-1],st[i][j][0][k-1]);
+            }
+        }
+    }
+    
 }
 void solve(){
     cin>>n>>m;
