@@ -23,6 +23,11 @@ void init(){
             }
         }
     }
+    for(int k=1;k<=mxlog;k++){
+        for(int l=1;l<=mxlog;l++){
+            for(int )
+        }
+    }
 }
 void solve(){
     cin>>n>>m;
