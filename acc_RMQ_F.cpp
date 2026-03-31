@@ -55,7 +55,6 @@ void solve(){
     cin>>n>>m>>q;
     for(int i=1;i<=n;i++) for(int j=1;j<=m;j++) cin>>a[i][j];
     init();
-    cout<<st[1][1][0][0];
     for(int i=1;i<=q;i++){
         ll x1,y1,x2,y2;
         cin>>x1>>y1>>x2>>y2;
