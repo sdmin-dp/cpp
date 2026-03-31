@@ -7,7 +7,9 @@ const ll mxlog=8;
 ll n,m,q;
 ll a[N][N];
 ll st[N][N][10][10];
+ll lg2[N];
 void init(){
+    for(int i=2;i<=n;i++) lg2[i]=lg2[i/2]+1;
     for(int i=1;i<=n;i++) for(ll j=1;j<=m;j++) st[i][j][0][0]=a[i][j];
     for(int i=1;i<=n;i++){
         for(int k=1;k<=mxlog;k++){
@@ -39,13 +41,13 @@ void init(){
     }
 }
 ll query(ll x1,ll y1,ll x2,ll y2){
-    int k1 = mm[x2 - x1 + 1];
-    int k2 = mm[y2 - c1 + 1];
+    int k1=lg2[x2-x1+1];
+    int k2=lg2[y2-y1+1];
     return max({
-        st[x1][c1][k1][k2],
-        st[x2 - (1 << k1) + 1][c1][k1][k2],
-        st[x1][y2 - (1 << k2) + 1][k1][k2],
-        st[x2 - (1 << k1) + 1][y2 - (1 << k2) + 1][k1][k2]
+        st[x1][y1][k1][k2],
+        st[x2-(1<<k1)+1][y1][k1][k2],
+        st[x1][y2-(1<<k2)+1][k1][k2],
+        st[x2-(1<<k1)+1][y2-(1<<k2)+1][k1][k2]
     });
 }
 void solve(){
