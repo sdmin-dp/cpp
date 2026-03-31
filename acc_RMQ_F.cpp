@@ -39,7 +39,14 @@ void init(){
     }
 }
 ll query(ll x1,ll y1,ll x2,ll y2){
-    
+    int k1 = mm[r2 - r1 + 1];
+    int k2 = mm[c2 - c1 + 1];
+    return max({
+        st[r1][c1][k1][k2],
+        st[r2 - (1 << k1) + 1][c1][k1][k2],
+        st[r1][c2 - (1 << k2) + 1][k1][k2],
+        st[r2 - (1 << k1) + 1][c2 - (1 << k2) + 1][k1][k2]
+    });
 }
 void solve(){
     cin>>n>>m;
