@@ -3,7 +3,10 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
+//逆元方法：a的p-2次方
+ll qpow(ll a,){
 
+}
 void solve(){
     
 }
