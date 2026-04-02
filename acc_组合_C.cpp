@@ -5,7 +5,7 @@ using namespace std;
 const ll N=1e5+5;
 const ll mod=9901;
 ll n,m;
-ll poww(ll a,ll b){
+ll qpow(ll a,ll b){
     ll res=1;
     while(b){
         if(b&1) res=res*a%mod;
@@ -16,8 +16,9 @@ ll poww(ll a,ll b){
 }
 void solve(){
     cin>>n>>m;
-    ll a=n/mod,b=m/mod;
-    ll ans=cnm(a,b)*cnm(n%mod,m%mod)%mod;
+    ll ans=1;
+    for(int i=n;i>=max(n-m+1,m+1);i--) ans=ans*i%mod;
+    for(int i=1;i<=min(n-m,m);i++) ans=ans*qpow(i,mod-2)%mod;
     cout<<ans;
 }
 int main(){
