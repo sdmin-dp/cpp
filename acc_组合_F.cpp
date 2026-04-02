@@ -4,7 +4,7 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 const ll p=10007;
-ll n,m,p;
+ll n,m;
 ll qpow(ll a,ll b,ll p){
     ll res=1;a=a%p;
     while(b){
