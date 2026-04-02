@@ -4,12 +4,12 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 //逆元方法：a的p-2次方
-ll qpow(ll a,ll b){
+ll qpow(ll a,ll b,ll p){
     ll res=1;
     while(b){
-        if(b%2) res*=a;
+        if(b%2) res=res*a%p;
         b/=2;
-        a=a*a;
+        a=a*a%p;
     }
     return res;
 }
@@ -20,7 +20,7 @@ void solve(){
         cout<<"impossible"<<el;
         return;
     }
-    cout<<qpow(a,p-2)<<el;
+    cout<<qpow(a,p-2,p)<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
