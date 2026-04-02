@@ -17,7 +17,8 @@ void solve(){
     ll a,p;
     cin>>a>>p;
     if(__gcd(a,p)!=1){
-        cout<<""
+        cout<<"impossible"<<el;
+        return;
     }
     cout<<qpow(a,p-2)<<el;
 }
