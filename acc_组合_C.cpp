@@ -3,7 +3,7 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-const ll mod=
+const ll mod=9901;
 ll n,m;
 ll cnm(ll n,ll k) {
     if(k>n-k) k=n-k;
@@ -16,7 +16,7 @@ ll cnm(ll n,ll k) {
 }
 void solve(){
     cin>>n>>m;
-    ll a
+    ll a=n%mod,b=m%mod;
 }
 int main(){
     ios::sync_with_stdio(0);
