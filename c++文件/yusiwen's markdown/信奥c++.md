@@ -30,7 +30,7 @@ C(m, n) ≡ C(m₀, n₀) × C(m₁, n₁) × ... × C(m_k, n_k) (mod p)
 ```
 
 $$
-C(n,m) \mod p = C()
+C(n,m) \mod p = C(\lfloor n \rfloor,\lfloor m \rfloor) \times C(n \mod p,m \mod p) \mod p
 $$
 
 其中：
