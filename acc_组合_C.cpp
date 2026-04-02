@@ -3,8 +3,15 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
-
+ll cnm(ll n,ll k) {
+    if(k>n-k) k=n-k;
+    ll res=1;
+    for(ll i=0;i<k;i++){
+        res*=(n-i);
+        res/=(i+1);
+    }
+    return res;
+}
 void solve(){
     
 }
