@@ -8768,7 +8768,10 @@ int main() {
 
 **数学表示**：
 $$\phi(n) = |\{1 \leq k \leq n | \gcd(k,n) = 1\}|$$
+**求法**:
+设$p_1,p_2,...p_m$为$n$的**质因数分解** 
 
+$$\phi(n)=n \times \frac{p_1-1}{p1} \times \frac{p_2-1}{p2} \times ... \times \frac{p_m-1}{p_m}$$
 ## 欧拉函数的基本性质
 
 ### 1. 基本值
