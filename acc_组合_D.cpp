@@ -3,7 +3,7 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+ll n,p,ny[10000005]; 
 void solve(){
     cin>>n>>p;
     ny[1]=1;cout<<1<<'\n';
