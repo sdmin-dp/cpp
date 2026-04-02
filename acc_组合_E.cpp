@@ -27,7 +27,8 @@ ll Ls(ll n,ll m,ll p){
     return C(n%p,m%p,p)*Ls(n/p,m/p,p)%p;
 }
 void solve(){
-    
+    cin>>n>>m>>p;
+    cout<<Ls(n,m,p)<<endl;
 }
 int main(){
     ios::sync_with_stdio(0);
