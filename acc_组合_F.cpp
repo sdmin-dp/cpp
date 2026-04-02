@@ -2,6 +2,8 @@
 using namespace std;
 #define ll long long
 #define el '\n'
+const ll N=1e5+5;
+const ll p=10007;
 ll n,m,p;
 ll qpow(ll a,ll b,ll p){
     ll res=1;a=a%p;
@@ -26,18 +28,18 @@ ll Ls(ll n,ll m,ll p){
     return C(n%p,m%p,p)*Ls(n/p,m/p,p)%p;
 }
 void solve(){
-    cin>>n>>m;p=10007;
+    cin>>n>>m;
     cout<<Ls(n,m,p)<<endl;
 }
 int main(){
     //freopen(".in","r",stdin);
     //freopen(".out","w",stdout);
     std::ios::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
+    cin.tie(0);cout.tie(0);
+    ll T=1;
     cin>>T;
     while(T--){
-        
+        solve();
     }
     return 0;
 }
