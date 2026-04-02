@@ -5,8 +5,14 @@ using namespace std;
 const ll N=1e5+5;
 const ll mod=9901;
 ll n,m;
-void qpow(){
-    
+ll poww(ll a,ll b){
+    ll res=1;
+    while(b){
+        if(b&1) res=res*a%mod;
+        a=a*a%mod;
+        b/=2;
+    }
+    return res;
 }
 void solve(){
     cin>>n>>m;
