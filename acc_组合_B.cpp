@@ -14,7 +14,9 @@ ll qpow(ll a,ll b){
     return res;
 }
 void solve(){
-    
+    ll a,p;
+    cin>>a>>p;
+    cout<<qpow(a,p-2)<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
@@ -22,7 +24,7 @@ int main(){
     //freopen("xxx.in","r",stdin);
     //freopen("xxx.out","w",stdout);
     ll T=1;
-    //cin>>T;
+    cin>>T;
     while(T--){
         solve();
     }
