@@ -16,7 +16,7 @@ ll cnm(ll n,ll k) {
 }
 void solve(){
     cin>>n>>m;
-    ll a=n%mod,b=m%mod;
+    ll a=n/mod,b=m/mod;
 }
 int main(){
     ios::sync_with_stdio(0);
