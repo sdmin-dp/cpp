@@ -32,14 +32,6 @@ void solve(){
         ll fu=find(u),fv=find(v);
         if(fu!=fv) f[fu]=fv;
     }
-    // ... 在输入 m 条边后 ...
-for(int i = 1; i <= n; i++) {
-    int root = find(i);
-    if(!v[root]) {
-        d[root] = get_d(root); // 确保从当前连通块的某个点开始搜
-        v[root] = 1;
-    }
-}
     for(int i=1;i<=n;i++){
         int r=find(i);
         if(!v[r]){
