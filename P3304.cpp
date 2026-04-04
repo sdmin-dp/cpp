@@ -3,9 +3,9 @@
 using namespace std;
 #define el '\n'
 const ll N=4e4+5;
-ll n,ans,anslen;
+ll n,ans,len;
 vector<pair<ll,ll>> g[N];
-ll dfs(ll x,ll fa,ll len){
+ll dfs(ll x,ll fa,ll ){
     ll dist=0,d1=0,d2=0;
     for(auto i:g[x]){
         if(i.first==fa) continue;
@@ -26,8 +26,8 @@ void solve(){
         g[x].push_back({y,z});
         g[y].push_back({x,z});
     }
-    dfs(1,-1,0);
-    cout<<ans<<el<<anslen;
+    dfs(1,-1);
+    cout<<ans<<el<<len;
 }
 int main(){
     ios::sync_with_stdio(0);
