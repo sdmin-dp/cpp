@@ -26,3 +26,4 @@ int main() {
     else cout << 521007 << endl;
 
     return 0;
+}
