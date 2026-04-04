@@ -38,7 +38,7 @@ void solve(){
     }
     while(q--){
         int o,x,y;cin>>o>>x;
-        if(o==1) cout<<d[find(x)]<<"\n";
+        if(o==1) cout<<d[find(x)]<<el;
         else{
             cin>>y;
             int fx=find(x),fy=find(y);
