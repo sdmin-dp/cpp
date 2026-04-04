@@ -7,8 +7,11 @@ ll n;
 vector<pair<ll,ll>> g[N];
 void solve(){
     cin>>n;
-    for(int i=1;i<=n;i++){
-        
+    for(int i=1;i<n;i++){
+        ll x,y,z;
+        cin>>x>>y>>z;
+        g[x].push_back({y,z});
+        g[y].push_back({x,z});
     }
 }
 int main(){
