@@ -4,6 +4,7 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n;
+vector<pair<ll,ll>> g[N];
 void solve(){
     
 }
