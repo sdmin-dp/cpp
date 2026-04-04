@@ -2,7 +2,7 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=4e3+5;
+const ll N=4e4+5;
 ll n,ans;
 vector<pair<ll,ll>> g[N];
 ll dfs(ll x,ll fa){
