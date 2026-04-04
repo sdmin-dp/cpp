@@ -7,7 +7,10 @@ vector<int>g[N];
 ll n,m,q;
 ll f[N],d[N],v[N];
 ll L,P;
-int find(int x){return f[x]==(x?x:f[x]=find(f[x]));}
+ll find(ll x){
+    if(x==f[x]) return x;
+    return f[x]=find(f[x]);
+}
 void dfs(int u,int p,int s){
     if(s>L) L=s,P=u;
     for(int v:g[u]) if(v!=p) dfs(v,u,s+1);
