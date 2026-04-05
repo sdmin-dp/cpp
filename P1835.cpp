@@ -2,7 +2,7 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e5+5;
+const ll N=2e6+5;
 ll l,r,n;
 vector<ll> prime;
 bool isprime[N],vis[N];
