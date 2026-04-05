@@ -63,15 +63,15 @@ pair<ll,ll> query(ll x1,ll y1,ll x2,ll y2){
 void solve(){
     cin>>n>>m>>k;
     for(int i=1;i<=n;i++) for(int j=1;j<=m;j++) cin>>a[i][j];
-    init();
+    // init();
     ll ans=1e12;
-    // for(int i=1;i+k-1<=n;i++){
-    //     for(int j=1;j+k-1<=m;i++){
-    //         ll x1=i,y1=j,x2=i+k-1,y2=j+k-1;
-    //         pair<ll,ll> p=/*query(x1,y1,x2,y2)*/{0,0};
-    //         ans=min(ans,p.first-p.second);
-    //     }
-    // }
+    for(int i=1;i+k-1<=n;i++){
+        for(int j=1;j+k-1<=m;i++){
+            ll x1=i,y1=j,x2=i+k-1,y2=j+k-1;
+            pair<ll,ll> p=/*query(x1,y1,x2,y2)*/{0,0};
+            ans=min(ans,p.first-p.second);
+        }
+    }
     cout<<ans;
 }
 int main(){
