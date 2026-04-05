@@ -63,7 +63,7 @@ pair<ll,ll> query(ll x1,ll y1,ll x2,ll y2){
 void solve(){
     cin>>n>>m>>k;
     for(int i=1;i<=n;i++) for(int j=1;j<=m;j++) cin>>a[i][j];
-    init();
+    // init();
     ll ans=1e12;
     for(int i=1;i+k-1<=n;i++){
         for(int j=1;j+k-1<=m;i++){
