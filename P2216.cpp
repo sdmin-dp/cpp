@@ -45,15 +45,20 @@ void init(){
         }
     }
 }
-ll query(ll x1,ll y1,ll x2,ll y2){
+pair<ll,ll> query(ll x1,ll y1,ll x2,ll y2){
     ll k1=lg2[x2-x1+1];
     ll k2=lg2[y2-y1+1];
-    return max({
-        st[x1][y1][k1][k2],
-        st[x2-(1<<k1)+1][y1][k1][k2],
-        st[x1][y2-(1<<k2)+1][k1][k2],
-        st[x2-(1<<k1)+1][y2-(1<<k2)+1][k1][k2]
-    });
+    return {max({
+        st[x1][y1][k1][k2].first,
+        st[x2-(1<<k1)+1][y1][k1][k2].first,
+        st[x1][y2-(1<<k2)+1][k1][k2].first,
+        st[x2-(1<<k1)+1][y2-(1<<k2)+1][k1][k2].first
+    }),min({
+        st[x1][y1][k1][k2].second,
+        st[x2-(1<<k1)+1][y1][k1][k2].second,
+        st[x1][y2-(1<<k2)+1][k1][k2].second,
+        st[x2-(1<<k1)+1][y2-(1<<k2)+1][k1][k2].second
+    })};
 }
 void solve(){
     cin>>n>>m>>k;
@@ -63,7 +68,8 @@ void solve(){
     for(int i=1;i+k-1<=n;i++){
         for(int j=1;j+k-1<=m;i++){
             ll x1=i,y1=j,x2=i+k-1,y2=j+k-1;
-            cout<<query(x1,y1,x2,y2)<<el;
+            pair<ll,ll> p=query(x1,y1,x2,y2);
+            cout<<p.first-p.second<<el;
         }
     }
 }
