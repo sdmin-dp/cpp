@@ -68,8 +68,8 @@ void solve(){
     for(int i=1;i+k-1<=n;i++){
         for(int j=1;j+k-1<=m;i++){
             ll x1=i,y1=j,x2=i+k-1,y2=j+k-1;
-            pair<ll,ll> p=/*query(x1,y1,x2,y2)*/{0,0};
-            ans=min(ans,p.first-p.second);
+            // pair<ll,ll> p=/*query(x1,y1,x2,y2)*/{0,0};
+            // ans=min(ans,p.first-p.second);
         }
     }
     cout<<ans;
