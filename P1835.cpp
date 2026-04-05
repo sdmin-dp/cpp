@@ -20,6 +20,7 @@ void init(){
 void solve(){
     cin>>l>>r;
     n=sqrt(r);
+    
     init();
     for(auto i:prime){
         for(int j=(l/i);i*j<=r;j++){
