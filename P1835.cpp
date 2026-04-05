@@ -29,7 +29,7 @@ void solve(){
     }
     ll cnt=0;
     for(int i=1;i<=r-l+1;i++){
-        if(!vis[i]) cnt++;
+        if(!vis[i]) cnt++;`
     }   
     cout<<cnt;
 }
