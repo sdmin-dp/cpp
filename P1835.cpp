@@ -27,11 +27,11 @@ void solve(){
         if(l%i!=0) k++;
         for(int j=k;i*j<=r;j++){
             if(j==1) continue;
-            vis[i*j-l]=0;
+            vis[i*j-l]=1;
         }
     }
     ll cnt=0;
-    for(int i=1;i<=r-l+1;i++){
+    for(int i=0;i<=r-l;i++){
         if(!vis[i]) cnt++;
     }   
     cout<<cnt;
