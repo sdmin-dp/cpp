@@ -43,7 +43,8 @@ void solve(){
     for(int i=0;i<=r-l;i++){
         if(!vis[i]) cnt++;
     }
-    cout<<cnt;
+    if(l==1) cout<<cnt-1;
+    else cout<<cnt;
 }
 int main(){
     ios::sync_with_stdio(0);
