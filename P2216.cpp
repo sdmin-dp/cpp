@@ -69,9 +69,10 @@ void solve(){
         for(int j=1;j+k-1<=m;i++){
             ll x1=i,y1=j,x2=i+k-1,y2=j+k-1;
             pair<ll,ll> p=query(x1,y1,x2,y2);
-            cout<<p.first-p.second
+            ans=min(ans,p.first-p.second);
+        }
     }
-    }
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
