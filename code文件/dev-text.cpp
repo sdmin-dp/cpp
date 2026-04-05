@@ -2,82 +2,74 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=2e3+5;
-ll M;
-map<pair<ll,ll>,bool> vis;
-vector<pair<ll,ll>> g[N];
-map<pair<ll,ll>,set<ll>> id;
-ll n;
-deque<ll> ans;
-bool vs[N];
-void dfs(ll x){
-    for(auto i:g[x]){
-        if(!vis[{x,i.second}]){
-            vis[{x,i.second}]=1;
-            vis[{i.second,x}]=1;
-            dfs(i.second);
+const ll N=100+5;
+const ll mxlog=8;
+ll n,m,k;
+ll a[N][N];
+pair<ll,ll> st[N][N][11][11];
+ll lg2[N];
+void init(){
+    for(int i=2;i<N;i++) lg2[i]=lg2[i/2]+1;
+    for(int i=1;i<=n;i++) for(ll j=1;j<=m;j++) st[i][j][0][0]={a[i][j],a[i][j]};
+    for(int i=1;i<=n;i++){
+        for(int k=1;k<=mxlog;k++){
+            for(int j=1;j+(1<<k-1)-1<=m;j++){
+                st[i][j][0][k]={max(st[i][j+(1<<k-1)][0][k-1].first,st[i][j][0][k-1].first),min(st[i][j+(1<<k-1)][0][k-1].second,st[i][j][0][k-1].second)};
+            }
         }
     }
-    ans.push_front(x);
+    for(int j=1;j<=m;j++){
+        for(int k=1;k<=mxlog;k++){
+            for(int i=1;i+(1<<k-1)-1<=n;i++){
+                st[i][j][k][0]={max(st[i+(1<<k-1)][j][k-1][0].first,st[i][j][k-1][0].first),min(st[i+(1<<k-1)][j][k-1][0].second,st[i][j][k-1][0].second)};
+            }
+        }
+    }
+    for(int k=1;k<=mxlog;k++){
+        for(int l=1;l<=mxlog;l++){
+            for(int i=1;i+(1<<k-1)-1<=n;i++){
+                for(int j=1;j+(1<<l-1)-1<=m;j++){
+                    st[i][j][k][l]={max({
+                        st[i][j][k-1][l-1].first,
+                        st[i][j+(1<<l-1)][k-1][l-1].first,
+                        st[i+(1<<k-1)][j][k-1][l-1].first,
+                        st[i+(1<<k-1)][j+(1<<l-1)][k-1][l-1].first
+                    }),min({
+                        st[i][j][k-1][l-1].second,
+                        st[i][j+(1<<l-1)][k-1][l-1].second,
+                        st[i+(1<<k-1)][j][k-1][l-1].second,
+                        st[i+(1<<k-1)][j+(1<<l-1)][k-1][l-1].second
+                    })};
+                }
+            }
+        }
+    }
+}
+pair<ll,ll> query(ll x1,ll y1,ll x2,ll y2){
+    ll k1=lg2[x2-x1+1];
+    ll k2=lg2[y2-y1+1];
+    return {max({
+        st[x1][y1][k1][k2].first,
+        st[x2-(1<<k1)+1][y1][k1][k2].first,
+        st[x1][y2-(1<<k2)+1][k1][k2].first,
+        st[x2-(1<<k1)+1][y2-(1<<k2)+1][k1][k2].first
+    }),min({
+        st[x1][y1][k1][k2].second,
+        st[x2-(1<<k1)+1][y1][k1][k2].second,
+        st[x1][y2-(1<<k2)+1][k1][k2].second,
+        st[x2-(1<<k1)+1][y2-(1<<k2)+1][k1][k2].second
+    })};
 }
 void solve(){
-    while(1){
-        ll x,y,w;
-        cin>>x>>y;
-        if(M==1&&x!=0&&y!=0){
-            //初始化
-            M=0;
-            
-            id.clear();
-            for(int i=1;i<=n;i++) g[i].clear();
-            ans.clear();
-            n=0;
-        }
-        if(x==0&&y==0){
-            M++;
-            for(int i=1;i<=n;i++) sort(g[i].begin(),g[i].end());
-            if(M==2) break;
-            //开始计算
-            ll b=1;
-            ll cnt=0;
-            ll cntou=0;
-            for(ll i=1;i<=n;i++){
-                cnt=g[i].size();
-                if(cnt%2){
-                    b=i;
-                    cntou++;
-                }
-            }
-            if(cntou!=0){
-                cout<<"Round trip does not exist.\n";
-                continue;
-            }
-            dfs(b);
-            for(auto i:ans) cerr<<i<<" ";
-            cerr<<el<<el;
-            for(int i=1;i<ans.size();i++){
-                ll idx;
-                pair<ll,ll> p={ans[i-1],ans[i]};
-                for(auto i:id[p]){
-                    // cerr<<i<<" ";
-                    if(!vs[i]){
-                        idx=i;
-                        vs[i]=1;
-                        break;
-                    }
-                }
-                cout<<idx<<" ";
-                // cerr<<el;
-            }
-            cout<<el;
-        }
-        else{
-            n++;
-            cin>>w;
-            g[x].push_back({y,w});
-            g[y].push_back({x,w});
-            id[{x,y}].insert(w);
-            id[{y,x}].insert(w);
+    cin>>n>>m>>k;
+    for(int i=1;i<=n;i++) for(int j=1;j<=m;j++) cin>>a[i][j];
+    init();
+    ll ans=10000;
+    for(int i=1;i+k-1<=n;i++){
+        for(int j=1;j+k-1<=m;i++){
+            ll x1=i,y1=j,x2=i+k-1,y2=j+k-1;
+            pair<ll,ll> p=query(x1,y1,x2,y2);
+            cout<<p.first-p.second<<el;
         }
     }
 }
