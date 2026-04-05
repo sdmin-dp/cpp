@@ -26,6 +26,7 @@ void solve(){
         ll k=(l/i);
         if(l%i!=0) k++;
         for(int j=k;i*j<=r;j++){
+            if(j==1) continue;
             vis[i*j]=0;
         }
     }
