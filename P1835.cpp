@@ -24,10 +24,10 @@ bool Isprime(ll x){
 }
 void solve(){
     cin>>l>>r;
-    if(r==l&&!Isprime(r)){
-        cout<<0;
-        return;
-    }
+    // if(r==l&&!Isprime(r)){
+    //     cout<<0;
+    //     return;
+    // }
     n=sqrt(r);
     // vis[1]=1;
     init();
