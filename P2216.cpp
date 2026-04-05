@@ -5,6 +5,7 @@ using namespace std;
 const ll N=1e3+5;
 ll n,m,k;
 ll a[N][N];
+
 void solve(){
     cin>>n>>m>>k;
     for(int i=1;i<=n;i++) for(int j=1;j<=m;j++) cin>>a[i][j];
