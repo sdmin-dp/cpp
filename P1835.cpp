@@ -17,8 +17,17 @@ void init(){
         }
     }
 }
+bool Isprime(ll x){
+    if(x<2) return 0;
+    for(ll i=2;i*i<=n;i++) if(n%i==0) return 0;
+    return 1;
+}
 void solve(){
     cin>>l>>r;
+    if(r==l&&!Isprime(r)){
+        cout<<0;
+        return;
+    }
     n=sqrt(r);
     // vis[1]=1;
     init();
@@ -33,7 +42,7 @@ void solve(){
     ll cnt=0;
     for(int i=0;i<=r-l;i++){
         if(!vis[i]) cnt++;
-    }   
+    }
     cout<<cnt;
 }
 int main(){
