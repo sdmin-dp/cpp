@@ -2,41 +2,35 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e6+5;
+const ll N=1e5+5;
 ll l,r,n;
 vector<ll> prime;
-bool isprime[N];
-bool book[N];
-void Prime(){
-    isprime[1]=isprime[0]=1;
+bool isprime[N],vis[N];
+void init(){
+    isprime[0]=isprime[1]=1;
     for(ll i=2;i<=n;i++){
         if(!isprime[i]) prime.push_back(i);
         for(auto j:prime){
-            if(i*j>n) break;
+            if(j*i>n) break;
             isprime[i*j]=1;
-            if(!i%j) break;
+            if(i%j==0) break;
         }
     }
 }
 void solve(){
     cin>>l>>r;
     n=sqrt(r);
-    Prime();
-    if(l==1) book[0]=1;
+    init();
     for(auto i:prime){
-        ll k=0;
-        if(l%i!=0) k=l/i+1;
-        else k=l/i;
-        for(ll j=k;j*i<=r;j++){
-            if(j!=1){
-                book[j*i-l]=1;
-            }
+        for(int j=(l/i);i*j<=r;j++){
+            if(i*j<l) continue;
+            vis[i*j-l+1]=1;
         }
     }
     ll cnt=0;
-    for(int i=0;i<=r-l;i++){
-        if(!book[i]) cnt++;
-    }
+    for(int i=1;i<=r-l+1;i++){
+        if(!vis[i]) cnt++;
+    }   
     cout<<cnt;
 }
 int main(){
