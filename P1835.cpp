@@ -23,6 +23,7 @@ void solve(){
     init();
     for(auto i:prime){
         for(int j=(l/i);i*j<=r;j++){
+            if(j==1) continue;
             if(i*j<l) continue;
             vis[i*j-l+1]=1;
         }
