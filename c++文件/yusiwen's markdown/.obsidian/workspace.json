@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "194d97244a915bbe",
+        "id": "bd78954720fcff8a",
         "type": "tabs",
         "children": [
           {
-            "id": "f8d3b665bd7e47ad",
+            "id": "019f056cb4c642d9",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "信奥c++.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "信奥c++"
+              "title": "新标签页"
             }
           }
         ]
@@ -53,13 +49,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "信奥c++.md",
+                "file": "未命名.md",
                 "followCursor": true,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "信奥c++ 的大纲"
+              "title": "未命名 的大纲"
             }
           },
           {
@@ -89,8 +85,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -184,10 +179,11 @@
       "bases:新建数据库": false
     }
   },
-  "active": "2232e330621ccc8b",
+  "active": "94fb295582f7dd0a",
   "lastOpenFiles": [
-    "2026-04-04.md",
+    "未命名.md",
     "信奥c++.md",
+    "2026-04-04.md",
     "2026-03-29.md",
     "2026-03-30.md",
     "Pasted image 20260315214749.png",
