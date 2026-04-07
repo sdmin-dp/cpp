@@ -37,7 +37,6 @@ void solve(){
                 cout<<ans;
                 return;
             }
-            
             if(a.find(i)!=a.find(j.second)){
                 ans+=j.first;
                 cnt++;
