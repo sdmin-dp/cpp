@@ -6,7 +6,14 @@ const ll N=1e5+5;
 ll n,m;
 vector<pair<ll,ll>> g[N];
 struct bcj{
-
+    vector<ll> fa;
+    bcj(ll len){
+        fa.reserve(len+5);
+        fa.resize(len+5);
+        for(int i=1;i<=len;i++){
+            fa[i]=i;
+        }
+    }
 };
 void solve(){
     cin>>n>>m;
