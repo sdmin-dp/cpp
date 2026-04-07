@@ -20,9 +20,9 @@ struct bcj{
 ll n,m;
 vector<pair<ll,ll>> g[N];
 vector<pair<ll,pair<ll,ll>>> edge;
-bcj a(n);
 void solve(){
     cin>>n>>m;
+    bcj a(n);
     for(int i=1;i<=m;i++){
         ll x,y,z;
         cin>>x>>y>>z;
