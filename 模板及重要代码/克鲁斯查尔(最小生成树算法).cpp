@@ -19,7 +19,7 @@ struct bcj{
 };
 ll n,m;
 vector<pair<ll,ll>> g[N];
-vector<pair<pair<ll,ll>,ll>> 
+vector<pair<ll,pair<ll,ll>>> edges;
 bcj a(n);
 void solve(){
     cin>>n>>m;
@@ -28,6 +28,7 @@ void solve(){
         cin>>x>>y>>z;
         g[x].push_back({z,y});
         g[y].push_back({z,x});
+        edge.push_back({z,})
     }
     for(int i=1;i<=n;i++) sort(g[i].begin(),g[i].end());
     ll cnt=0;
