@@ -19,6 +19,7 @@ struct bcj{
 };
 ll n,m;
 vector<pair<ll,ll>> g[N];
+vector<pair<pair<ll,ll>,ll>> 
 bcj a(n);
 void solve(){
     cin>>n>>m;
