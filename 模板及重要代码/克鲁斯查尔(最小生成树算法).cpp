@@ -14,6 +14,10 @@ struct bcj{
             fa[i]=i;
         }
     }
+    ll find(ll x){
+        if(fa[x]==x) return x;
+        return fa[x]=find(fa[x]);
+    }
 };
 void solve(){
     cin>>n>>m;
@@ -23,6 +27,7 @@ void solve(){
         g[x].push_back({y,z});
         g[y].push_back({x,z});
     }
+    bcj(n) a;
 }
 int main(){
     ios::sync_with_stdio(0);
