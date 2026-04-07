@@ -30,21 +30,19 @@ void solve(){
         g[y].push_back({z,x});
         edge.push_back({z,{min(x,y),max(x,y)}});
     }
-    for(int i=1;i<=n;i++) sort(g[i].begin(),g[i].end());
+    sort(edge.begin(),edge.end());
     ll cnt=0;
     ll ans=0;
-    for(int i=1;i<=n;i++){
-        for(auto j:g[i]){
-            if(cnt==n-1){
-                cout<<ans;
-                return;
-            }
-            if(a.find(i)!=a.find(j.second)){
-                ans+=j.first;
-                cnt++;
-                ll x=a.find(i),y=a.find(j.second);
-                a.fa[x]=y;
-            }
+    for(auto i:edge){
+        if(cnt==n-1){
+            cout<<ans;
+            return;
+        }
+        ll u=i.second.first,v=i.second.second,w=i.first;
+        if(a.find(u)!=a.find(v)){
+            cnt++;
+            ans+=w;
+            a.fa[a.find(u)]=a.fa[a.find(v)];
         }
     }
 }
