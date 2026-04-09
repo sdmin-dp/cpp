@@ -5,6 +5,7 @@ using namespace std;
 const ll N=2e5+5;
 ll n;
 vector<pair<ll,ll>> g[N];
+bool isin
 void solve(){
     cin>>n;
     for(int i=1;i<n;i++){
