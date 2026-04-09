@@ -15,6 +15,9 @@ void solve(){
         g[x].push_back({y,z});
         g[y].push_back({x,z});
     }
+    dfs(1,0,0);
+    ans=-1e12;
+    dfs(k,0,0);
 }
 int main(){
     ios::sync_with_stdio(0);
