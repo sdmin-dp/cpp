@@ -6,7 +6,18 @@ const ll N=2e5+5;
 ll n;
 vector<pair<ll,ll>> g[N];
 bool book[N];
-
+ll ans=-1e12,k;
+void dfs(ll x,ll fa,ll dis){
+    if(dis>ans){
+        k=x;
+        ans=dis;
+    }
+    for(auto i:g[x]){
+        ll v=i.first;
+        if(v==fa) continue;
+        dfs(v,x,dis+i.second);
+    }
+}
 void solve(){
     cin>>n;
     for(int i=1;i<n;i++){
