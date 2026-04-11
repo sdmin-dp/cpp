@@ -59,12 +59,12 @@ void solve(){
     for(auto i:path) odis[i]=dfs_search(i,0,0);
     ll l=0,r=path.size()-1;
     for(ll i=0;i<path.size();i++){
-        if(odis[path[i]]==dis[path[i]]){
+        if(odis[path[i]]==ans-dis[path[i]]){
             l=i;
         }
     }
     for(ll i=path.size()-1;i>=0;i--){
-        if(odis[path[i]]==ans-dis[path[i]]){
+        if(odis[path[i]]==dis[path[i]]){
             r=i;
         }
     }
