@@ -27,11 +27,11 @@ void dfs(ll x,ll fa,ll ds){
 }
 //踢边：找出这个点不走直径可以走的最远的路程（一个即可）other_dis->odis
 //然后从这个点到第一个顶点的距离（到另外一边直接一减就行）dis
-ll dfs_search(ll x,ll ds){
+ll dfs_search(ll x,ll fa,ll ds){
     ll res=0;
     for(auto i:g[x]){
         ll v=i.first;
-        if(!inpath[v]){
+        if(v!=x&&!inpath[v]){
             dfs_search(v,ds+i.second);
         }
     }
