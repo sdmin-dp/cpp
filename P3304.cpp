@@ -7,6 +7,7 @@ ll n;
 vector<pair<ll,ll>> g[N];
 bool book[N];
 ll ans=-1e12,k;
+ll pre[N];
 void dfs(ll x,ll fa,ll dis){
     if(dis>ans){
         k=x;
@@ -15,6 +16,7 @@ void dfs(ll x,ll fa,ll dis){
     for(auto i:g[x]){
         ll v=i.first;
         if(v==fa) continue;
+        pre[v]=fa;
         dfs(v,x,dis+i.second);
     }
 }
@@ -29,6 +31,7 @@ void solve(){
     dfs(1,0,0);
     ans=-1e12;
     dfs(k,0,0);
+    
 }
 int main(){
     ios::sync_with_stdio(0);
