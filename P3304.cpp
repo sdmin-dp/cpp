@@ -56,7 +56,7 @@ void solve(){
     inpath[b]=1;
     path.push_back(b);
     for(auto i:path) dfs_search(i,0);
-    ll l=b,r=e;
+    ll l=1,r=path.size()-1;
     for(auto i:path) if(odis[i]==dis[i]) l=i;
     reverse(path.begin(),path.end());
     for(auto i:path) if(odis[i]==ans-dis[i]) r=i;
