@@ -12,6 +12,7 @@ ll pre[N];
 ll b,e;
 ll odis[N],dis[N];
 void dfs(ll x,ll fa,ll ds){
+    dis[x]=ds;
     if(ds>ans){
         k=x;
         ans=ds;
