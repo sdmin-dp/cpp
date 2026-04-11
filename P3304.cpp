@@ -33,6 +33,7 @@ ll dfs_search(ll x,ll fa,ll ds){
         ll v=i.first;
         if(v!=fa&&!inpath[v]) res=max(res,dfs_search(v,x,ds+i.second)+i.second);
     }
+    return res;
 }
 void solve(){
     cin>>n;
