@@ -68,7 +68,7 @@ void solve(){
             r=i;
         }
     }
-    cout<<ans<<" "<<r-l+1;
+    cout<<ans<<el<<r-l;
 }
 int main(){
     ios::sync_with_stdio(0);
