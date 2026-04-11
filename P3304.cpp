@@ -67,7 +67,7 @@ void solve(){
             r=i;
         }
     }
-    cout<<r-l+1;
+    cout<<abs(r-l+1);
 }
 int main(){
     ios::sync_with_stdio(0);
