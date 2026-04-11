@@ -22,8 +22,8 @@ void dfs(ll x,ll fa,ll dis){
         dfs(v,x,dis+i.second);
     }
 }
-void tibian(){
-    
+void kick(){
+
 }
 void solve(){
     cin>>n;
