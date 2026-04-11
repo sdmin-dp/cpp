@@ -10,21 +10,22 @@ vector<ll> path;
 ll ans=-1e12,k;
 ll pre[N];
 ll b,e;
-void dfs(ll x,ll fa,ll dis){
-    if(dis>ans){
+ll odis[N],dis[N];
+void dfs(ll x,ll fa,ll ds){
+    if(ds>ans){
         k=x;
-        ans=dis;
+        ans=ds;
     }
     for(auto i:g[x]){
         ll v=i.first;
         if(v==fa) continue;
         pre[v]=x;
-        dfs(v,x,dis+i.second);
+        dis[v]=ds+i.second;
+        dfs(v,x,ds+i.second);
     }
 }
-void kick(){
-    
-}
+//踢边：找出这个点不走直径可以走的最远的路程（一个即可）other_dis->odis
+//然后从这个点到第一个顶点的距离（到另外一边直接一减就行）dis
 void solve(){
     cin>>n;
     for(int i=1;i<n;i++){
@@ -44,7 +45,7 @@ void solve(){
         cur=pre[cur];
     }
     path.push_back(b);
-    kick();
+
 }
 int main(){
     ios::sync_with_stdio(0);
