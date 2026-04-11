@@ -58,13 +58,16 @@ void solve(){
     for(auto i:path) odis[i]=dfs_search(i,0,0);
     ll l=0,r=path.size()-1;
     for(ll i=0;i<path.size();i++){
-        if(odis[i]==dis[i]){
+        if(odis[path[i]]==dis[path[i]]){
             l=i;
         }
     }
-    reverse(path.begin(),path.end());
-    for(auto i:path) if(odis[i]==ans-dis[i]) r=i;
-    
+    for(ll i=path.size()-1;i>=0;i--){
+        if(odis[path[i]]==dis[path[i]]){
+            r=i;
+        }
+    }
+    cout<<r-l+1;
 }
 int main(){
     ios::sync_with_stdio(0);
