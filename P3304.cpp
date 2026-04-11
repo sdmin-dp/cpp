@@ -33,7 +33,7 @@ ll dfs_search(ll x,ll fa,ll ds){
         ll v=i.first;
         if(v!=fa&&!inpath[v]){
             dfs_search(v,x,ds+i.second);
-            res=max(res,)
+            res=max(res,dfs_search(),di)
         }
     }
 }
