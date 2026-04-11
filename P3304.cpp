@@ -23,7 +23,7 @@ void dfs(ll x,ll fa,ll dis){
     }
 }
 void kick(){
-    
+
 }
 void solve(){
     cin>>n;
@@ -44,6 +44,7 @@ void solve(){
         cur=pre[cur];
     }
     path.push_back(b);
+    kick();
 }
 int main(){
     ios::sync_with_stdio(0);
