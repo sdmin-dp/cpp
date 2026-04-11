@@ -57,7 +57,7 @@ void solve(){
     }
     inpath[b]=1;
     path.push_back(b);
-    for()
+    for(auto i:path) dfs_search(i,0);
 }
 int main(){
     ios::sync_with_stdio(0);
