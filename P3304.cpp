@@ -5,6 +5,8 @@ using namespace std;
 const ll N=2e5+5;
 ll n;
 vector<pair<ll,ll>> g[N];
+bool inpath[N];
+vector<ll> path;
 ll ans=-1e12,k;
 ll pre[N];
 ll b,e;
@@ -20,7 +22,9 @@ void dfs(ll x,ll fa,ll dis){
         dfs(v,x,dis+i.second);
     }
 }
-vector<ll> path;
+void tibian(){
+    
+}
 void solve(){
     cin>>n;
     for(int i=1;i<n;i++){
