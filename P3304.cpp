@@ -16,7 +16,7 @@ void dfs(ll x,ll fa,ll dis){
     for(auto i:g[x]){
         ll v=i.first;
         if(v==fa) continue;
-        pre[v]=fa;
+        pre[v]=x;
         dfs(v,x,dis+i.second);
     }
 }
