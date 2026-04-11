@@ -23,7 +23,7 @@ void dfs(ll x,ll fa,ll dis){
     }
 }
 void kick(){
-
+    
 }
 void solve(){
     cin>>n;
