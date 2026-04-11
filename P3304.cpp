@@ -58,6 +58,12 @@ void solve(){
     inpath[b]=1;
     path.push_back(b);
     for(auto i:path) dfs_search(i,0);
+    ll l=b,r=e;
+    for(auto i:path){
+        if(odis[i]==dis[i]){
+            l=i;
+        }
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
