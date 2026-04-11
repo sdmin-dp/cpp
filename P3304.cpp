@@ -31,10 +31,7 @@ ll dfs_search(ll x,ll fa,ll ds){
     ll res=0;
     for(auto i:g[x]){
         ll v=i.first;
-        if(v!=fa&&!inpath[v]){
-            dfs_search(v,x,ds+i.second);
-            res=max(res,dfs_search(),di)
-        }
+        if(v!=fa&&!inpath[v]) res=max(res,dfs_search(v,x,ds+i.second)+i.second);
     }
 }
 void solve(){
