@@ -31,8 +31,8 @@ ll dfs_search(ll x,ll fa,ll ds){
     ll res=0;
     for(auto i:g[x]){
         ll v=i.first;
-        if(v!=x&&!inpath[v]){
-            dfs_search(v,ds+i.second);
+        if(v!=fa&&!inpath[v]){
+            dfs_search(v,x,ds+i.second);
         }
     }
 }
