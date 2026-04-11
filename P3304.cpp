@@ -64,7 +64,7 @@ void solve(){
         }
     }
     for(ll i=path.size()-1;i>=0;i--){
-        if(odis[path[i]]==dis[path[i]]){
+        if(odis[path[i]]==ans-dis[path[i]]){
             r=i;
         }
     }
