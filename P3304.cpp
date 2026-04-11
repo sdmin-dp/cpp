@@ -43,8 +43,10 @@ void solve(){
     ll cur=e;
     while(cur!=b){
         path.push_back(cur);
+        inpath[cur]=1;
         cur=pre[cur];
     }
+    inpath[b]=1;
     path.push_back(b);
 
 }
