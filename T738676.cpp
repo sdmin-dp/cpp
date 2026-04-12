@@ -19,7 +19,7 @@ void solve(){
     for(ll i=0;i<=log2(n)+5;i++){
         if(a[i]>n) break;
         if(ishuiwen(n-a[i])){
-            
+            cout<<"yes";
         }
     }
 }
