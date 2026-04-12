@@ -21,8 +21,7 @@ void dfs(ll x){
         vis[1]=1;
         ans[x]=1;
         dfs(x+1);
-        ans[x]=0;
-        vis[1]=0;
+        return;
     }
     for(ll i=1;i<=n;i++){
         if(isprime[ans[x-1]+i]&&!vis[i]){
