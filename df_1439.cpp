@@ -3,9 +3,35 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
+ll n;
 bool isprime[]={0,0,1,1,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0};
+ll ans[N];
+void dfs(ll x){
+    if(x==n+1){
+        if(isprime[ans[n]+ans[1]]){
+            for(int i=1;i<=n;i++){
+                cout<<ans[i]<<" ";
+            }
+            cout<<el;
+        }
+        return;
+    }
+    if(x==1){
+        ans[x]=1;
+        dfs(x+1);
+        ans[x]=0;
+    }
+    for(ll i=1;i<=n;i++){
+        if(isprime[ans[x-1]+i]){
+            ans[x]=i;
+            dfs(x+1);
+            ans[x]=0;
+        }
+    }
+}
 void solve(){
-
+    cin>>n;
+    dfs(1);
 }
 int main(){
     ios::sync_with_stdio(0);
