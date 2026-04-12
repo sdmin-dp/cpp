@@ -17,7 +17,7 @@ void solve(){
     ll x=0,y=0;
     ll gcd=exgcd(2,11,x,y);
     // 2 11 100
-    cout<<"x:"<<x<<" "<<"y:"<<" gcd:"<<gcd;
+    cout<<"x:"<<x<<" "<<"y:"<<y<<" gcd:"<<gcd;
 }
 int main(){
     ios::sync_with_stdio(0);
