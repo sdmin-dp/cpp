@@ -2,11 +2,15 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e5+5;
-
+const ll N=1e2+5;
+ll n;
+pair<ll,ll> a[N];
 void solve(){
-    ll n;
-    
+    cin>>n;
+    memset(a,0,sizeof a);
+    for(int i=1;i<=n;i++){
+        
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
