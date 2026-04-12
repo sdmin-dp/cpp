@@ -40,9 +40,10 @@ void solve(){
         mq>-x,m>-x/q,m_min=-x/q (m_min=-x/q+1)
     */
     ll m_max=(y%k==0?y/k-1:(ll)y/k),m_min=(ll)(-x/q)+1;
-    cerr<<k<<" "<<q;
+    // cerr<<k<<" "<<q;
     ll sum=m_max-m_min+1;
     ll y_min=y-m_max*k;
+    cerr<<y;
     ll x_max=x+m_max*q;
     ll y_max=y-m_min*k;
     ll x_min=x-m_min*q;
