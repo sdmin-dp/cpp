@@ -17,6 +17,13 @@ void dfs(ll x){
         }
         return;
     }
+    if(x==1){
+        vis[1]=1;
+        ans[x]=1;
+        dfs(x+1);
+        ans[x]=0;
+        vis[1]=0;
+    }
     for(ll i=1;i<=n;i++){
         if(isprime[ans[x-1]+i]&&!vis[i]){
             vis[i]=1;
