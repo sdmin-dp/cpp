@@ -39,6 +39,9 @@ void dfs(ll x){
 }
 void solve(){
     cin>>n;
+    if(n%2==1){
+        return;
+    }
     if(n==14){
         cout<<"1 2 3 4 7 6 13 10 9 14 5 8 11 12 "<<el;
         cout<<"1 2 3 4 7 10 13 6 5 14 9 8 11 12 "<<el;
