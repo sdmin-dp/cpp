@@ -4,8 +4,29 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll a,b,t;
+ll exgcd(ll a,ll b,ll &x,ll &y){
+    if(b==0){
+        x=1;
+        y=0;
+        return a;
+    }
+    ll d=exgcd(b,a%b,y,x);
+    y-=(a/b)*x;
+    return d;
+}
 void solve(){
     cin>>a>>b>>t;
+    //特判
+    if(t%__gcd(a,b)!=0){
+        cout<<-1;
+        return;
+    }
+    //step 1.算出方程的一组解
+    ll x,y,gcd;
+    gcd=exgcd(a,b,x,y);
+    x=t/gcd*x,y=t/gcd*y;
+    //step 2 算出k和q
+    //y-k,x+q
     
 }
 int main(){
