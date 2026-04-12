@@ -45,7 +45,7 @@ void solve(){
     ll x_max=x+m_max*q;
     ll y_max=y-m_min*k;
     ll x_min=x-m_min*q;
-    cout<<sum
+    cout<<sum<<" "<<x_min<<" "<<y_min<<" "<<x_max<<" "<<x_min<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
