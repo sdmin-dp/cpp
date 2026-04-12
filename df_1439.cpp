@@ -9,7 +9,7 @@ ll ans[N];
 ll vis[N];
 void dfs(ll x){
     if(x==n+1){
-        if(isprime[ans[n]+ans[1]]){
+        if(isprime[ans[n]+ans[1]]&&ans[1]==1){
             for(int i=1;i<=n;i++){
                 cout<<ans[i]<<" ";
             }
