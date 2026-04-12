@@ -18,7 +18,7 @@ void solve(){
     cin>>a>>b>>t;
     //特判
     if(t%__gcd(a,b)!=0){
-        cout<<-1;
+        cout<<-1<<el;
         return;
     }
 
