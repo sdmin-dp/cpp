@@ -9,6 +9,7 @@ ll ans[N];
 ll vis[N];
 ll sum=0;
 void dfs(ll x){
+    if(sum>=10) exit(0);
     if(x==n+1){
         if(sum<10&&isprime[ans[n]+ans[1]]&&ans[1]==1){
             for(int i=1;i<=n;i++){
@@ -17,6 +18,7 @@ void dfs(ll x){
             cout<<el;
             sum++;
         }
+        
         return;
     }
     if(x==1){
