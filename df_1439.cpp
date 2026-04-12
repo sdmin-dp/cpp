@@ -7,13 +7,15 @@ ll n;
 bool isprime[]={0,0,1,1,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0};
 ll ans[N];
 ll vis[N];
+ll sum=0;
 void dfs(ll x){
     if(x==n+1){
-        if(isprime[ans[n]+ans[1]]&&ans[1]==1){
+        if(sum<10&&isprime[ans[n]+ans[1]]&&ans[1]==1){
             for(int i=1;i<=n;i++){
                 cout<<ans[i]<<" ";
             }
             cout<<el;
+            sum++;
         }
         return;
     }
