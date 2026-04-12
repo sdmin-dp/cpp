@@ -43,7 +43,7 @@ void solve(){
     // cerr<<k<<" "<<q;
     ll sum=m_max-m_min+1;
     ll y_min=y-m_max*k;
-    cerr<<y;
+    cerr<<y_min;
     ll x_max=x+m_max*q;
     ll y_max=y-m_min*k;
     ll x_min=x-m_min*q;
