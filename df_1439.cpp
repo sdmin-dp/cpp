@@ -11,10 +11,19 @@ bool isprime(ll x){
     return 1;
 }
 void dfs(ll x,string s){
-    if(x==1){
-        dfs(x+1,s+'1');
+    if(x==n+1){
+        
     }
-    
+    if(x==1){
+        vis[1]=1;
+        dfs(x+1,s+'1');
+        vis[1]=0;
+    }
+    for(ll i=1;i<=n;i++){
+        if(!vis[i]){
+            
+        }
+    }
 }
 void solve(){
     cin>>n;
