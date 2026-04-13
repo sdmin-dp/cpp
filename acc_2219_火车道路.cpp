@@ -15,7 +15,7 @@ void dfs(ll x,ll fa){
 }
 ll LCA(ll u,ll v){
     if(dep[u]<dep[v]) swap(u,v);
-    for(int i=maxlog;i>=0;i--)
+    for(int i=mxlog;i>=0;i--)
 }
 void solve(){
     cin>>n>>m>>b;
