@@ -29,6 +29,7 @@ bool SPFA(){
     return 0;
 }
 void solve(){
+    memset(cnt,0,sizeof(cnt));
     for(int i=1;i<=n;i++) g[i].clear(); 
     cin>>n>>m;
     for(int i=1;i<=m;i++){
