@@ -9,9 +9,11 @@ void solve(){
     cout<<n<<" "<<m<<el;
     ll sqr=sqrt(n);
     ll ans=-1e18;
-    for(ll i=1;i<=min(sqr,m);i++){
-        
-        if(n%i==0) ans=max({ans,i});
+    for(ll i=1;i*i<=n;i++){
+        if(n%i==0){
+            if(i<=m) ans=max(ans,i);
+            if(n/i<=m) ans=max(ans,n/i);
+        }
         cerr<<ans<<el;
     }
     // cout<<n/ans;
