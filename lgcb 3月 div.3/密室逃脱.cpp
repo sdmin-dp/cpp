@@ -18,7 +18,7 @@ void solve(){
         cnt+=a[cnt];
         
     }
-    return;
+    cout<<"NO\n";
 }
 int main(){
     ios::sync_with_stdio(0);
