@@ -13,9 +13,9 @@ void solve(){
         if(__gcd(i,n/i)!=1) continue;
         // if(max(ans.first,ans.second)>max(i,n/i))ans={i,n/i};
         // cout<<"dog";
-        cout<<
+        cout<<min(i,n/i)<<" "<<max(i,n/i);
+        break;
     }
-    cout<<ans.first<<" "<<ans.second;
 }
 int main(){
     ios::sync_with_stdio(0);
