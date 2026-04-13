@@ -3,9 +3,16 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+ll n,m,x;
 void solve(){
-    
+    cin>>n>>m;
+    ll cnt=1;
+    for(int i=1;i<=n;i++){
+        cin>>x;
+        if(cnt==m){
+            cout<<""
+        }
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
@@ -13,7 +20,7 @@ int main(){
     //freopen("xxx.in","r",stdin);
     //freopen("xxx.out","w",stdout);
     ll T=1;
-    //cin>>T;
+    cin>>T;
     while(T--){
         solve();
     }
