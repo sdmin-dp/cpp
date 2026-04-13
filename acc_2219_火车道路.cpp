@@ -52,10 +52,11 @@ void solve(){
         if(vis[x]) continue;
         ll fa=LCA(last,x);
         ll t=llabs(dep[fa]-dep[x])+llabs(dep[fa]-dep[last]);
-        // if(lastlca==0){
-        //     dfs2(x,fa);
-        //     dfs2(last,fa);
-        // }else if(dep[fa]>dep[lastlca]){
+        if(lastlca==0){
+            dfs2(x,fa);
+            dfs2(last,fa);
+        }
+        // else if(dep[fa]>dep[lastlca]){
         //     dfs2(lastlca,fa);
         //     dfs2(x,fa);
         // }else{
