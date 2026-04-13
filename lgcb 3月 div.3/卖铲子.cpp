@@ -8,8 +8,7 @@ void solve(){
     cin>>n>>m;
     ll cnt=0;
     if(n>=m){
-        cnt=n/m;
-        if(n%m!=0) cnt++;
+        
     }else if(n<m){
         cnt=1;       
     }
