@@ -22,7 +22,7 @@ bool SPFA(){
             if(dis[x]+i.second>dis[i.first]){
                 dis[i.first]=dis[x]+i.second;
                 cnt[i.first]++;
-                cerr<<i.first<<" ";
+                cerr<<cnt[i.first]<<" ";
                 if(!inq[i.first]) q.push(i.first);
             }
         }
