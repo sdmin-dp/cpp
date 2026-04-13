@@ -15,9 +15,10 @@ void dfs(ll x,ll fa){
     for(auto i:g[x]) if(i!=fa) dfs(i,x);
 }
 void dfs2(ll x,ll lca){
-    vis[x]=1;
-    if(x==lca) return;
-    dfs2(up[0][x],lca);
+    ll 
+    while(x!=lca){
+        x=up[0][x];
+    }
 }
 ll LCA(ll u,ll v){
     if(dep[u]<dep[v]) swap(u,v);
