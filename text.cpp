@@ -8,7 +8,7 @@ ll mp[30];
 ll mp2[30];
 ll cnt[30];
 void solve(){
-    cin>>cmp>>s;
+    scanf("%s %s",&cmp,&s);
     for(size_t i=0;i<cmp.size();i++){
         mp[cmp[i]-'a']=i;
         mp2[i]=cmp[i]-'a';
