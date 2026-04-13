@@ -11,12 +11,14 @@ void solve(){
         cin>>x;
         if(cnt==m){
             cout<<"YES\n";
+            cerr<<el;
             return;
         }
         cnt+=x;
-        cerr<<cnt<<el;
+        cerr<<cnt<<" ";
     }
     cout<<"NO\n";
+    cerr<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
