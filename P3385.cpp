@@ -16,12 +16,12 @@ bool SPFA(){
         q.pop();
         inq[x]=0;
         for(auto i:g[x]){
-            if(cnt[i.first]>n+1){
+            if(cnt[i.first]>n){
                 return 1;
             }
             if(dis[x]+i.second>dis[i.first]){
                 dis[i.first]=dis[x]+i.second;
-                cnt[i.first]++;
+                cnt[i.first]=cnt[x]+1;
                 // cerr<<cnt[i.first]<<" ";
                 if(!inq[i.first]) q.push(i.first);
             }
@@ -30,9 +30,10 @@ bool SPFA(){
     return 0;
 }
 void solve(){
-    memset(cnt,0,sizeof(cnt));
+    
     for(int i=1;i<=n;i++) g[i].clear(); 
     cin>>n>>m;
+    for(int i=1;i<=n;i++) cnt[i]=1;
     for(int i=1;i<=m;i++){
         ll x,y,z;
         cin>>x>>y>>z;
