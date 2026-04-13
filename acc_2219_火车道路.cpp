@@ -56,8 +56,8 @@ void solve(){
             dfs2(x,fa);
             dfs2(last,fa);
         }
-        else if(dep[fa]>dep[lastlca]){
-            dfs2(fa,lastlca);
+        else if(dep[fa]<dep[lastlca]){
+            dfs(lastlca,fa);
             dfs2(x,fa);
         }
         else{
