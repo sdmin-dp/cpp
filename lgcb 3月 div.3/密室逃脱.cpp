@@ -10,17 +10,17 @@ void solve(){
     for(int i=1;i<n;i++) cin>>a[i];
     ll cnt=1;
     for(int i=1;i<n;i++){
-        cerr<<cnt<<" "<<m<<el;
+        // cerr<<cnt<<" "<<m<<el;
         if(cnt==m){
             cout<<"YES\n";
-            cerr<<el;
+            // cerr<<el;
             return;
         }
         cnt+=a[cnt];
         
     }
     cout<<"NO\n";
-    cerr<<el;
+    // cerr<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
