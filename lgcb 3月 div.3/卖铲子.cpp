@@ -3,9 +3,15 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+ll n,m;
 void solve(){
-    
+    ll cnt=0;
+    if(n>=m){
+        cnt=n/m;
+        if(n%m!=0) cnt++;
+    }else if(n<m){
+        cnt=1;       
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
@@ -13,7 +19,7 @@ int main(){
     //freopen("xxx.in","r",stdin);
     //freopen("xxx.out","w",stdout);
     ll T=1;
-    //cin>>T;
+    cin>>T;
     while(T--){
         solve();
     }
