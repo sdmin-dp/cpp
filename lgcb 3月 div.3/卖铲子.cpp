@@ -6,13 +6,12 @@ const ll N=1e5+5;
 ll n,m;
 void solve(){
     cin>>n>>m;
-    ll cnt=0;
-    if(n>=m){
-        
-    }else if(n<m){
-        cnt=1;       
+    ll sqr=sqrt(n);
+    ll ans;
+    for(ll i=1;i<=min(sqr,m);i++){
+        if(n%i==0) ans=max({ans,i,n/i});
     }
-    cout<<cnt<<el;
+    cout<<n/ans;
 }
 int main(){
     ios::sync_with_stdio(0);
