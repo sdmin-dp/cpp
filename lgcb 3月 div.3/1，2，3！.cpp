@@ -34,6 +34,7 @@ void solve(){
         if(K2!=1e18) K2=num3[k2];
         ll i=min(abs(I1-j),abs(I2-j)),k=min(abs(K1-j),abs(K2-j));
         ll b=min({i,j,k}),e=max({i,j,k});
+        cerr<<i<<" "<<k<<el;
         ans=min(ans,e-b+1);
         // printf("i1:%lld,i2:%lld,k1:%lld,k2:%lld,j:%lld\n",i1,i2,k1,k2,j);
     }
