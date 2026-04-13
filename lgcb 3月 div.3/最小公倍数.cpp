@@ -7,12 +7,12 @@ ll n;
 ll ans=1e18;
 void solve(){
     cin>>n;
-    cout<<n;
+    // cout<<n;
     for(ll i=1;i*i<=n;i++){
         if(n%i) continue;
         if(__gcd(i,n/i)!=0) continue;
         ans=min(ans,max(i,n/i));
-        cout<<max(i,n/i);
+        cout<<"dog";
     }
     // cout<<ans;
 }
