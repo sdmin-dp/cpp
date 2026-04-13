@@ -37,7 +37,16 @@ void solve(){
         g[y].push_back(x);
     }
     dfs(1,0);
-    
+    ll last=b,ans=0;
+    for(int i=1;i<=m;i++){
+        ll x;
+        cin>>x;
+        ll fa=LCA(last,x);
+        ll t=abs(dep[fa]-dep[x])+abs(dep[fa]-dep[last]);
+        ans+=t;
+        last=x;
+    }
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
