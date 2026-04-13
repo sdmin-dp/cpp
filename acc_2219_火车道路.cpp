@@ -9,7 +9,7 @@ vector<ll> g[N];
 ll up[mxlog][N],dep[N];
 void dfs(ll x,ll fa){
     dep[x]=dep[fa]+1;
-    
+    for(int i=1;i<=mxlog;i++) up[i][x]=up[i-1][up[i-1][x]];
 }
 void solve(){
     cin>>n>>m>>b;
