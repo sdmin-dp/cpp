@@ -16,14 +16,14 @@ bool SPFA(){
         q.pop();
         inq[x]=0;
         for(auto i:g[x]){
-            if(cnt[i.first]>n+1){
-                return 1;
-            }
             if(dis[x]+i.second>dis[i.first]){
                 dis[i.first]=dis[x]+i.second;
                 cnt[i.first]=cnt[x]+1;
                 // cerr<<cnt[i.first]<<" ";
                 if(!inq[i.first]) q.push(i.first);
+            }
+            if(cnt[i.first]>n+1){
+                return 1;
             }
         }
     }
