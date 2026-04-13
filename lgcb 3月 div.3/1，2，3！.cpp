@@ -11,13 +11,11 @@ void solve(){
     ll cnt[]={0,0,0,0};
     ll ans=1e18;
     for(r=0;r<s.size();r++){
-        cnt[r]++;
-        
+        cnt[s[r]-'48']++;
         while(cnt[l]>1){
             l++;
             cnt[l]--;
         }
-        cout<<cnt[r]<<" "<<r<<el;
         if(cnt[1]>=1&&cnt[2]>=1&&cnt[3]>=1) ans=min(ans,r-l+1);
         cerr<<r<<":"<<cnt[1]<<" "<<cnt[2]<<" "<<cnt[3]<<" "<<l<<" "<<r<<el;
     }
