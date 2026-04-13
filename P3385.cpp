@@ -22,8 +22,8 @@ bool SPFA(){
             if(dis[x]+i.second>dis[i.first]){
                 dis[i.first]=dis[x]+i.second;
                 cnt[i.first]++;
+                cerr<<i.first<<" ";
                 if(!inq[i.first]) q.push(i.first);
-                cerr<<"dog";
             }
         }
     }
@@ -41,8 +41,8 @@ void solve(){
     }
     
     cout<<(SPFA()?"YES":"NO")<<el;
-    for(int i=1;i<=n;i++) cerr<<cnt[N]<<" ";
-    cerr<<el;
+    // for(int i=1;i<=n;i++) cerr<<cnt[N]<<" ";
+    // cerr<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
