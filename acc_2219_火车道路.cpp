@@ -16,11 +16,11 @@ void dfs(ll x,ll fa){
 ll LCA(ll u,ll v){
     if(dep[u]<dep[v]) swap(u,v);
     for(int i=mxlog;i>=0;i--){
-        if(dep[up[i][u]]==dep[v]){
+        if(dep[up[i][u]]>=dep[v]){
             u=up[i][u];
         }
     }
-    
+
 }
 void solve(){
     cin>>n>>m>>b;
