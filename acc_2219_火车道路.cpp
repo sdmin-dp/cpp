@@ -1,5 +1,5 @@
 #include<bits/stdc++.h>
-#define ll long long
+#define ll int
 using namespace std;
 #define el '\n'
 const ll N=5e5+5;
@@ -44,7 +44,8 @@ void solve(){
         g[y].push_back(x);
     }
     dfs(1,0);
-    ll last=b,ans=0;
+    long long ans=0;
+    ll last=0;
     ll lastlca=0;
     for(int i=1;i<=m;i++){
         ll x;
