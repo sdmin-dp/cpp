@@ -12,12 +12,12 @@ void solve(){
     ll ans=1e18;
     for(r=0;r<s.size();r++){
         cnt[r]++;
-        cout<<cnt[r]<<" "<<r<<el;
+        
         while(cnt[l]>1){
             l++;
             cnt[l]--;
-            cout<<"dog";
         }
+        cout<<cnt[r]<<" "<<r<<el;
         if(cnt[1]>=1&&cnt[2]>=1&&cnt[3]>=1) ans=min(ans,r-l+1);
         cerr<<r<<":"<<cnt[1]<<" "<<cnt[2]<<" "<<cnt[3]<<" "<<l<<" "<<r<<el;
     }
