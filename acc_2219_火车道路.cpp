@@ -61,7 +61,7 @@ void solve(){
             dfs2(x,fa);
         }
         else{
-            // dfs2(fa,lastlca);
+            if(i==3) dfs2(fa,lastlca);
             cerr<<x<<" "<<i<<":";
             cerr<<fa<<" "<<lastlca<<el;
         }
