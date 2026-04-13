@@ -21,8 +21,8 @@ void solve(){
         cerr<<r<<":"<<cnt[1]<<" "<<cnt[2]<<" "<<cnt[3]<<" "<<l<<" "<<r<<el;
     }
     if(cnt[1]>=1&&cnt[2]>=1&&cnt[3]>=1) ans=min(ans,r-l+1);
-    if(ans==1e18) cout<<0<<el;
-    else cout<<ans<<el;
+    // if(ans==1e18) cout<<0<<el;
+    // else cout<<ans<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
