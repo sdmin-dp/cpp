@@ -16,7 +16,7 @@ bool SPFA(){
         q.pop();
         inq[x]=0;
         for(auto i:g[x]){
-            if(cnt[i.first]>n){
+            if(cnt[i.first]>n+1){
                 return 1;
             }
             if(dis[x]+i.second>dis[i.first]){
