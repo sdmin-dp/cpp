@@ -4,17 +4,17 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n;
-ll ans=1e18;
+pair<ll,ll> ans={1e18,1e18};
 void solve(){
     cin>>n;
     // cout<<n;
     for(ll i=1;i*i<=n;i++){
         if(n%i) continue;
         if(__gcd(i,n/i)!=1) continue;
-        ans=min(ans,max(i,n/i));
+        if(max(ans.first,ans.second)>max(i,n/i))ans={i,n/i};
         // cout<<"dog";
     }
-    cout<<ans;
+    cout<<ans.first<<" "<<ans.second;
 }
 int main(){
     ios::sync_with_stdio(0);
