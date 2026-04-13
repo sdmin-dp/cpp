@@ -51,7 +51,7 @@ void solve(){
         cin>>x;
         if(vis[x]) continue;
         ll fa=LCA(last,x);
-        ll t=dep[fa]-dep[x]+dep[fa]-dep[last];
+        ll t=dep[x]-dep[fa]+dep[last]-dep[fa];
         if(lastlca==0){
             dfs2(x,fa);
             dfs2(last,fa);
