@@ -21,7 +21,7 @@ void solve(){
             ans+=i-min(last1,last2)+1;
         }
     }
-    cout<<ans;
+    cout<<ans<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
