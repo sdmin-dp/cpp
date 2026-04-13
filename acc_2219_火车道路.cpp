@@ -7,11 +7,17 @@ const ll mxlog=20;
 ll n,m,b;
 vector<ll> g[N];
 ll up[mxlog+5][N],dep[N];
+bool vis[N];
 void dfs(ll x,ll fa){
     dep[x]=dep[fa]+1;
     up[0][x]=fa;
     for(int i=1;i<=mxlog;i++) up[i][x]=up[i-1][up[i-1][x]];
     for(auto i:g[x]) if(i!=fa) dfs(i,x);
+}
+void dfs2(ll x,ll lca){
+    vis[x]=1;
+    if(x==lca) return;
+    dfs2(up[0][x],lca);
 }
 ll LCA(ll u,ll v){
     if(dep[u]<dep[v]) swap(u,v);
@@ -39,13 +45,25 @@ void solve(){
     }
     dfs(1,0);
     ll last=b,ans=0;
+    ll lastlca=0;
     for(int i=1;i<=m;i++){
         ll x;
         cin>>x;
+        if(vis[x]) continue;
         ll fa=LCA(last,x);
         ll t=llabs(dep[fa]-dep[x])+llabs(dep[fa]-dep[last]);
+        if(lastlca==0){
+            dfs2(x,fa);
+            dfs2(last,fa);
+        }else if(dep[fa]>dep[lastlca]){
+            dfs2(lastlca,fa);
+            dfs2(x,fa);
+        }else{
+            dfs2(fa,lastlca);
+        }
         ans+=t;
         last=x;
+        lastlca=fa;
     }
     cout<<ans;
 }
