@@ -38,7 +38,9 @@ void solve(){
         if(z>=0) g[x].push_back({y,z}),g[y].push_back({x,z});
         else g[x].push_back({y,z});
     }
+    
     cout<<(SPFA()?"YES":"NO")<<el;
+    for(int i=1;i<=n;i++) cerr<<cnt[N];
 }
 int main(){
     ios::sync_with_stdio(0);
