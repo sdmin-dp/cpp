@@ -7,8 +7,10 @@ ll n,m,b;
 vector<ll> g[N];
 void solve(){
     cin>>n>>m>>b;
-    for(int i=1;i<=n;i++){
-        
+    for(int i=1;i<n;i++){
+        ll x,y;
+        g[x].push_back(y);
+        g[y].push_back(x);
     }
 }
 int main(){
