@@ -62,7 +62,7 @@ void solve(){
         }
         else{
             // dfs2(fa,lastlca);
-            cout<<fa<<" "<<lastlca;
+            cerr<<fa<<" "<<lastlca;
         }
         // cout<<fa<<" "<<dep[fa]<<" "<<lastlca<<el;
         ans+=t;
