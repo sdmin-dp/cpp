@@ -7,8 +7,17 @@ const ll N=1e5+5;
 void solve(){
     string s;
     cin>>s;
-    for(int i=1;i<=n;i++){
-        
+    ll last1=0,last2=0;
+    //1:奇a偶b
+    //2:奇b偶a
+    for(int i=0;i<s.size();i++){
+        if(i%2==1&&s[i]=='a'||i%2==0&&s[i]=='b'){
+
+        }else if(i%2==1&&s[i]=='b'||i%2==0&&s[i]=='a'){
+
+        }else{
+            
+        }
     }
 }
 int main(){
