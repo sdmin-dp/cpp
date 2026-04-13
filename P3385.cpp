@@ -16,7 +16,7 @@ void SPFA(){
         q.pop();
         for(auto i:g[x.first]){
             if(i.first>n+1){
-                cout
+                cout<<"YES";
             }
             if(!inq[i.first]){
                 if(x.second+i.second>dis[i.first]){
