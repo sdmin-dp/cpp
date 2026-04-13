@@ -14,7 +14,7 @@ void solve(){
         cnt[s[r]-48]++;
         while(cnt[l]>1){
             l++;
-            cnt[l]--;
+            cnt[s[l]-48]--;
         }
         if(cnt[1]>=1&&cnt[2]>=1&&cnt[3]>=1) ans=min(ans,r-l+1);
         // cerr<<r<<":"<<cnt[1]<<" "<<cnt[2]<<" "<<cnt[3]<<" "<<l<<" "<<r<<el;
