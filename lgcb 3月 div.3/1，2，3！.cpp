@@ -24,11 +24,11 @@ void solve(){
         ll k1=lower_bound(num3.begin(),num3.end(),j)-num3.begin();
         ll k2=(k1-1>=0?k1-1:1e18);
         ll i=min(abs(num1[i1]-j),abs(num1[i2]-j)),k=min(abs(num3[k1]-j),abs(num3[k2]-j));
-        ll b=min({i,j,k}),e=max({i,j,k});
-        ans=min(ans,e-b+1);
-        cerr<<i<<" "<<j<<" "<<k<<el;
+        // ll b=min({i,j,k}),e=max({i,j,k});
+        // ans=min(ans,e-b+1);
+        printf("i1:%lld,i2:%lld,k1:%lld,k2:%lld,j:%lld\n",i1,i2,k1,k2,j);
     }
-    cout<<ans<<el;
+    // cout<<ans<<el;
 
 }
 int main(){
