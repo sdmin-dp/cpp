@@ -12,16 +12,13 @@ void solve(){
     for(int i=1;i<n;i++){
         // cerr<<cnt<<" "<<m<<el;
         if(cnt>m) break;
+        cnt+=a[cnt];
         if(cnt==m){
             cout<<"YES\n";
             // cerr<<el;
             return;
         }
-        cnt+=a[cnt];
-    }
-    if(cnt==m){
-        cout<<"YES\n";
-        return;
+        
     }
     cout<<"NO\n";
     // cerr<<el;
