@@ -1,25 +1,31 @@
 #include<bits/stdc++.h>
-#define ll long long
 using namespace std;
+#define ll long long
 #define el '\n'
 const ll N=1e5+5;
-bool isprime(ll x){
-    if(x<2) return 0;
-    for(ll i=2;i*i<=x;i++) if(x%i==0) return 0;
-    return 1;
-}
+string cmp,s;
+ll mp[30];
+ll mp2[30];
+ll cnt[30];
 void solve(){
-    for(int i=1;i<=40;i++){
-        cout<<isprime(i)<<",";
-    }   
+    cin>>cmp>>s;
+    for(size_t i=0;i<cmp.size();i++){
+        mp[cmp[i]-'a']=i;
+        mp2[i]=cmp[i];
+    }
+    for(size_t i=0;i<s.size();i++){
+        cnt[mp[s[i]]]++;
+    }
+    for(int i=0;i<=25;i++){
+        // cerr<<cnt[i]<<" ";
+        if(cnt[i]==0) continue;
+        for(int j=1;j<=cnt[i];j++) printf("%c",mp2[i]);
+        // cerr<<mp2[i];
+    }
 }
 int main(){
-    ios::sync_with_stdio(0);
-    cin.tie(0);cout.tie(0);
-    //freopen("xxx.in","r",stdin);
-    //freopen("xxx.out","w",stdout);
     ll T=1;
-    //cin>>T;
+    // cin>>T;
     while(T--){
         solve();
     }
