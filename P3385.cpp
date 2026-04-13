@@ -7,25 +7,22 @@ ll n,m;
 vector<pair<ll,ll>> g[N];
 ll dis[N],cnt[N];
 bool SPFA(){
-    queue<pair<ll,ll>> q;
+    queue<ll> q;
     vector<bool> inq(n+1,0);
-    q.push({1,0});
+    q.push(1);
     inq[1]=1;
     while(!q.empty()){
         auto x=q.front();
         q.pop();
-        inq[x.first]=0;
-        for(auto i:g[x.first]){
-            if(i.first>n+1){
+        inq[x]=0;
+        for(auto i:g[x]){
+            if(cnt[i.first]>n+1){
                 return 1;
             }
-            if(!inq[i.first]){
-                if(x.second+i.second>dis[i.first]){
-                    dis[i.first]=x.second+i.second;
-                    cnt[i.first]++;
-                }
-                q.push(i);
-                inq[i.first]=1;
+            if(x+i.second>dis[i.first]){
+                dis[i.first]=dis[x]+i.second;
+                cnt[i.first]++;
+                if(!inq[i.first]) q.push(i.first);
             }
         }
     }
