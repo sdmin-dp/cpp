@@ -25,6 +25,7 @@ bool SPFA(){
                     cnt[i.first]++;
                 }
                 q.push(i);
+                inq[i.first]=1;
             }
         }
     }
