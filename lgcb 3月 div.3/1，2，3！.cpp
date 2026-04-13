@@ -12,6 +12,7 @@ void solve(){
     ll ans=1e18;
     for(r=0;r<s.size();r++){
         cnt[r]++;
+        cout<<cnt[r]<<" "<<r;
         while(cnt[l]>1){
             l++;
             cnt[l]--;
