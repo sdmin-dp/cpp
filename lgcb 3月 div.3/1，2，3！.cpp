@@ -25,7 +25,7 @@ void solve(){
         ll k2=(k1-1>=0?k1-1:1e18);
         ll i=min(abs(num1[i1]-j),abs(num1[i2]-j)),k=min(abs(num3[k1]-j),abs(num3[k2]-j));
         ll I1,I2,K1,K2;
-        /*i1 越界*/ if(i1<0||i1>=num1.size())
+        /*i1 越界*/ if(i1<0||i1>=num1.size()) 
         /*i2 越界*/ if(i2<0||i2>=num1.size())
         /*k1 越界*/ if(k1<0||k1>=num1.size())
         /*k2 越界*/ if(k2<0||k2>=num1.size())
