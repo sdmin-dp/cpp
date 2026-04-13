@@ -12,8 +12,8 @@ void solve(){
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
-    freopen("word.in","r",stdin);
-    freopen("word.out","w",stdout);
+    // freopen("word.in","r",stdin);
+    // freopen("word.out","w",stdout);
     ll T=1;
     cin>>T;
     while(T--){
