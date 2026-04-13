@@ -6,7 +6,7 @@ const ll N=5e5+5;
 const ll mxlog=20;
 ll n,m,b;
 vector<ll> g[N];
-ll up[mxlog][N],dep[N];
+ll up[mxlog+5][N],dep[N];
 void dfs(ll x,ll fa){
     dep[x]=dep[fa]+1;
     up[0][x]=fa;
