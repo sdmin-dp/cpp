@@ -43,7 +43,7 @@ void solve(){
         ans=min(ans,e-b+1);
         printf("i1:%lld,i2:%lld,k1:%lld,k2:%lld,j:%lld\n",i1,i2,k1,k2,j);
     }
-    // cout<<ans<<el;
+    cout<<ans<<el;
     // cerr<<"num1:";for(int i:num1) cerr<<i<<" ";cerr<<el;
     // cerr<<"num2:";for(int i:num2) cerr<<i<<" ";cerr<<el;
     // cerr<<"num3:";for(int i:num3) cerr<<i<<" ";cerr<<el;
