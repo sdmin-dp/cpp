@@ -13,6 +13,12 @@ void dfs(ll x,ll fa){
     for(int i=1;i<=mxlog;i++) up[i][x]=up[i-1][up[i-1][x]];
     for(auto i:g[x]) if(i!=fa) dfs(i,x);
 }
+ll LCA(ll u,ll v){
+    if(dep[u]<dep[v]) swap(u,v);
+    for(int i=1;i<=n;i++){
+        
+    }
+}
 void solve(){
     cin>>n>>m>>b;
     for(int i=1;i<n;i++){
