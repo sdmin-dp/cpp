@@ -32,7 +32,7 @@ void solve(){
         if(I2!=1e18) I2=num1[i2];
         if(K1!=1e18) K1=num3[k1];
         if(K2!=1e18) K2=num3[k2];
-        cerr<<j<<el;
+        // cerr<<j<<el;
         ll i=(abs(I1-j+1)>abs(I2-j+1)?I2:I1),k=(abs(K1-j+1)>abs(K2-j+1)?K2:K1);
         ll b=min({i,j,k}),e=max({i,j,k});
         // cerr<<i<<" "<<k<<el;
