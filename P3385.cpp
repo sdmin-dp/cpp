@@ -40,7 +40,8 @@ void solve(){
     }
     
     cout<<(SPFA()?"YES":"NO")<<el;
-    for(int i=1;i<=n;i++) cerr<<cnt[N];
+    for(int i=1;i<=n;i++) cerr<<cnt[N]<<" ";
+    cerr<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
