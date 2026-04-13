@@ -35,7 +35,7 @@ void solve(){
     for(int i=1;i<=m;i++){
         ll x,y,z;
         cin>>x>>y>>z;
-        g[x].push_back({y,z});
+        if(z>0)g[x].push_back({y,z});
     }
     cout<<(SPFA()?"YES":"NO")<<el;
 }
