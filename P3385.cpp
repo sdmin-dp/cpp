@@ -11,6 +11,7 @@ bool SPFA(){
     vector<bool> inq(n+5,0);
     q.push(1);
     inq[1]=1;
+    dis[1]=0;
     while(!q.empty()){
         auto x=q.front();
         q.pop();
@@ -22,7 +23,7 @@ bool SPFA(){
                 // cerr<<cnt[i.first]<<" ";
                 if(!inq[i.first]) q.push(i.first);
             }
-            if(cnt[i.first]>n+1){
+            if(cnt[i.first]>=n+1){
                 return 1;
             }
         }
@@ -33,6 +34,7 @@ void solve(){
     
     for(int i=1;i<=n;i++) g[i].clear(); 
     cin>>n>>m;
+    memset(dis,0x3f,sizeof dis);
     for(int i=1;i<=n;i++) cnt[i]=1;
     for(int i=1;i<=m;i++){
         ll x,y,z;
