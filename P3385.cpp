@@ -6,7 +6,7 @@ const ll N=1e5+5;
 ll n,m;
 vector<pair<ll,ll>> g[N];
 ll dis[N],cnt[N];
-void SPFA(){
+bool SPFA(){
     queue<pair<ll,ll>> q;
     vector<bool> inq(n+1,0);
     q.push({1,0});
@@ -16,7 +16,7 @@ void SPFA(){
         q.pop();
         for(auto i:g[x.first]){
             if(i.first>n+1){
-                cout<<"YES";
+                return 1;
             }
             if(!inq[i.first]){
                 if(x.second+i.second>dis[i.first]){
@@ -27,7 +27,7 @@ void SPFA(){
             }
         }
     }
-
+    return 0;
 }
 void solve(){
     for(int i=1;i<=n;i++) g[i].clear(); 
@@ -37,7 +37,7 @@ void solve(){
         cin>>x>>y>>z;
         g[x].push_back({y,z});
     }
-
+    cout<<(SPFA()?"YES":"NO")<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
