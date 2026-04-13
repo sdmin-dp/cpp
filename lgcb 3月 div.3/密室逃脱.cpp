@@ -3,22 +3,20 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-ll n,m,x;
+ll n,m;
+ll a[N];
 void solve(){
     cin>>n>>m;
+    for(int i=1;i<=n;i++) cin>>a[i];
     ll cnt=1;
     for(int i=1;i<=n;i++){
-        cin>>x;
         if(cnt==m){
             cout<<"YES\n";
-            cerr<<el;
             return;
         }
-        cnt+=x;
-        cerr<<cnt<<" ";
+        cnt+=a[cnt];
     }
-    cout<<"NO\n";
-    cerr<<el;
+    return;
 }
 int main(){
     ios::sync_with_stdio(0);
