@@ -10,7 +10,7 @@ void solve(){
     ll l=0,r=0;
     ll cnt[]={0,0,0,0};
     ll ans=1e18;
-    for(r=0;r<s.size();r++){
+    for(;r<s.size();r++){
         cnt[s[r]-48]++;
         while(cnt[l]>1){
             l++;
