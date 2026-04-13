@@ -7,7 +7,7 @@ ll n,m;
 void solve(){
     cin>>n>>m;
     ll sqr=sqrt(n);
-    ll ans;
+    ll ans=1e18;
     for(ll i=1;i<=min(sqr,m);i++){
         if(n%i==0) ans=max({ans,i,n/i});
         cerr<<ans<<el;
