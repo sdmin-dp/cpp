@@ -13,6 +13,9 @@ void solve(){
         mp[cmp[i]-'a']=i;
         mp2[i]=cmp[i]-'a';
     }
+    char c;
+    while(cin>>c) cnt[mp[c-'a']]++;
+    
     for(int i=0;i<=25;i++){
         // cerr<<cnt[i]<<" ";
         if(cnt[i]==0) continue;
