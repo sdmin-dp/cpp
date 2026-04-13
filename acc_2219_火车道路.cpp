@@ -20,7 +20,14 @@ ll LCA(ll u,ll v){
             u=up[i][u];
         }
     }
-    
+    if(u==v) return u;
+    for(int i=mxlog;i>=0;i--){
+        if(up[i][u]!=up[i][v]){
+            u=up[i][u];
+            v=up[i][v];
+        }
+    }
+    return up[0][u];
 }
 void solve(){
     cin>>n>>m>>b;
