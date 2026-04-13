@@ -13,8 +13,8 @@ void solve(){
     for(;r<s.size();r++){
         cnt[s[r]-48]++;
         while(cnt[s[l]-48]>1){
-            l++;
             cnt[s[l]-48]--;
+            l++;
         }
         if(cnt[1]>=1&&cnt[2]>=1&&cnt[3]>=1) ans=min(ans,r-l+1);
         
