@@ -6,7 +6,10 @@ const ll N=5e5+5;
 const ll mxlog=20;
 ll n,m,b;
 vector<ll> g[N];
-ll up[mxlog][N];
+ll up[mxlog][N],dep[N];
+void dfs(ll x,ll fa){
+    
+}
 void solve(){
     cin>>n>>m>>b;
     for(int i=1;i<n;i++){
