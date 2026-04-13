@@ -11,6 +11,7 @@ void solve(){
         cin>>x;
         if(cnt==m){
             cout<<"Yes";
+            
         }
     }
 }
