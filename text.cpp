@@ -11,15 +11,15 @@ void solve(){
     cin>>cmp>>s;
     for(size_t i=0;i<cmp.size();i++){
         mp[cmp[i]-'a']=i;
-        mp2[i]=cmp[i];
+        mp2[i]=cmp[i]-'a';
     }
     for(size_t i=0;i<s.size();i++){
-        cnt[mp[s[i]]]++;
+        cnt[mp[s[i]-'a']]++;
     }
     for(int i=0;i<=25;i++){
         // cerr<<cnt[i]<<" ";
         if(cnt[i]==0) continue;
-        for(int j=1;j<=cnt[i];j++) printf("%c",mp2[i]);
+        for(int j=1;j<=cnt[i];j++) printf("%c",mp2[i]+'a');
         // cerr<<mp2[i];
     }
 }
