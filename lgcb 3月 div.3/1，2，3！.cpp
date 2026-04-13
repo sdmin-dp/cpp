@@ -13,6 +13,7 @@ void solve(){
         else if(s[i]=='2') num2.push_back(i);
         else num3.push_back(i);
     }
+    cerr<<num1.size()<<" "<<num2.size()<<" "<<num3.size()<<el;
     if(num1.size()==0||num2.size()==0||num3.size()==0){
         cout<<0<<el;
         return;
