@@ -8,6 +8,9 @@ vector<ll> num1,num2,num3;
 void solve(){
     cin>>s;
     ll len=s.size();
+    num1.clear();
+    num2.clear();
+    num3.clear();
     for(ll i=0;i<len;i++){
         if(s[i]=='1') num1.push_back(i);
         else if(s[i]=='2') num2.push_back(i);
