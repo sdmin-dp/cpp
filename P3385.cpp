@@ -14,6 +14,7 @@ bool SPFA(){
     while(!q.empty()){
         auto x=q.front();
         q.pop();
+        inq[x.first]=0;
         for(auto i:g[x.first]){
             if(i.first>n+1){
                 return 1;
