@@ -14,6 +14,7 @@ void solve(){
             return;
         }
         cnt+=x;
+        cerr<<cnt<<el;
     }
     cout<<"NO\n";
 }
