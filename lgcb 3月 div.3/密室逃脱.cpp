@@ -10,10 +10,12 @@ void solve(){
     for(int i=1;i<=n;i++){
         cin>>x;
         if(cnt==m){
-            cout<<"Yes";
-            
+            cout<<"YES\n";
+            return;
         }
+        cnt+=x;
     }
+    cout<<"NO\n";
 }
 int main(){
     ios::sync_with_stdio(0);
