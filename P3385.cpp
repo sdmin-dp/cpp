@@ -41,7 +41,7 @@ void solve(){
     }
     
     cout<<(SPFA()?"YES":"NO")<<el;
-    // for(int i=1;i<=n;i++) cerr<<cnt[N]<<" ";
+    for(int i=1;i<=n;i++) cerr<<cnt[i]<<" ";
     // cerr<<el;
 }
 int main(){
