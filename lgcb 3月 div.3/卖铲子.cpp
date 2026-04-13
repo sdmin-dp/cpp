@@ -12,7 +12,7 @@ void solve(){
     }else if(n<m){
         cnt=1;       
     }
-    cout<<cnt;
+    cout<<cnt<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
