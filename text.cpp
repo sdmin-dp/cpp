@@ -8,15 +8,19 @@ ll mp[30];
 ll mp2[30];
 ll cnt[30];
 void solve(){
-    scanf("%s",&cmp);
-    scanf("%s",&s);
+    cin>>cmp;
     for(size_t i=0;i<cmp.size();i++){
         mp[cmp[i]-'a']=i;
         mp2[i]=cmp[i]-'a';
     }
-    for(size_t i=0;i<s.size();i++){
+    ll i=0;
+    char c;
+    while(c=getchar()){
+        i++;
+        s.push_back(c);
         cnt[mp[s[i]-'a']]++;
     }
+    
     for(int i=0;i<=25;i++){
         // cerr<<cnt[i]<<" ";
         if(cnt[i]==0) continue;
