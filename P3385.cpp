@@ -19,7 +19,7 @@ bool SPFA(){
             if(cnt[i.first]>n+1){
                 return 1;
             }
-            if(x+i.second>dis[i.first]){
+            if(dis[x]+i.second>dis[i.first]){
                 dis[i.first]=dis[x]+i.second;
                 cnt[i.first]++;
                 if(!inq[i.first]) q.push(i.first);
