@@ -9,7 +9,9 @@ vector<ll> g[N];
 ll up[mxlog][N],dep[N];
 void dfs(ll x,ll fa){
     dep[x]=dep[fa]+1;
+    up[0][x]=fa;
     for(int i=1;i<=mxlog;i++) up[i][x]=up[i-1][up[i-1][x]];
+    for(auto i:g[x]) if(i!=fa) dfs(i,x);
 }
 void solve(){
     cin>>n>>m>>b;
@@ -18,6 +20,8 @@ void solve(){
         g[x].push_back(y);
         g[y].push_back(x);
     }
+    dfs(1,0);
+
 }
 int main(){
     ios::sync_with_stdio(0);
