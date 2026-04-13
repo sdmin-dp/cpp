@@ -45,7 +45,7 @@ void SPFA(){
 }
 void solve(){
     //b:begin，起点
-    //
+    //n点数，m边数
     cin>>n>>m>>b;
     for(int i=1;i<=m;i++){
         ll u,v,w;cin>>u>>v>>w;
