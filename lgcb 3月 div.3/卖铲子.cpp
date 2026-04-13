@@ -10,7 +10,7 @@ void solve(){
     ll ans;
     for(ll i=1;i<=min(sqr,m);i++){
         if(n%i==0) ans=max({ans,i,n/i});
-        cerr<<ans;
+        cerr<<ans<<el;
     }
     cout<<n/ans;
 }
