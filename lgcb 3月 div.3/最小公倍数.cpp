@@ -9,7 +9,7 @@ void solve(){
     cin>>n;
     // cout<<n;
     for(ll i=1;i*i<=n;i++){
-        if(n%i) continue;
+        // if(n%i) continue;
         if(__gcd(i,n/i)!=0) continue;
         ans=min(ans,max(i,n/i));
         cout<<"dog";
