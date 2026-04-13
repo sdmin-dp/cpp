@@ -43,7 +43,7 @@ void solve(){
         ll x;
         cin>>x;
         ll fa=LCA(last,x);
-        ll t=abs(dep[fa]-dep[x])+abs(dep[fa]-dep[last]);
+        ll t=llabs(dep[fa]-dep[x])+llabs(dep[fa]-dep[last]);
         ans+=t;
         last=x;
     }
