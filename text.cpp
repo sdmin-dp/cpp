@@ -13,11 +13,6 @@ void solve(){
         mp[cmp[i]-'a']=i;
         mp2[i]=cmp[i]-'a';
     }
-    char c;
-    while(c=getchar()){
-        s.push_back(c);
-        cnt[mp[c-'a']]++;
-    }
     
     for(int i=0;i<=25;i++){
         // cerr<<cnt[i]<<" ";
