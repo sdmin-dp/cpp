@@ -8,7 +8,7 @@ vector<pair<ll,ll>> g[N];
 ll dis[N],cnt[N];
 bool SPFA(){
     queue<ll> q;
-    vector<bool> inq(n+1,0);
+    vector<bool> inq(n+5,0);
     q.push(1);
     inq[1]=1;
     while(!q.empty()){
