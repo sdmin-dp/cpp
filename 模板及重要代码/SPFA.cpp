@@ -48,7 +48,8 @@ void solve(){
     //n点数，m边数
     cin>>n>>m>>b;
     for(int i=1;i<=m;i++){
-        ll u,v,w;cin>>u>>v>>w;
+        ll u,v,w;
+        cin>>u>>v>>w;
         g[u].push_back({v,w});
         g[v].push_back({u,w});
     }
