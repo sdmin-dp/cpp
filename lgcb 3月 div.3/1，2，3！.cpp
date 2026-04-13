@@ -20,10 +20,10 @@ void solve(){
     ll ans=1e18;
     for(auto j:num2){
         ll i1=lower_bound(num1.begin(),num1.end(),j)-num1.begin();
-        ll i2=(i1-1>=0?num1[i1-1]:1e18);
+        ll i2=(i1-1>=0?i1-1:1e18);
         ll k1=lower_bound(num3.begin(),num3.end(),j)-num3.begin();
-        ll k2=(k1-1>=0?num3[k1-1]:1e18);
-        ll i=min(abs(i1-j),abs(i2-j)),k=min(abs(k1-j),abs(k2-j));
+        ll k2=(k1-1>=0?k1-1:1e18);
+        ll i=min(abs(num1[i1]-j),abs(num1[i2]-j)),k=min(abs(num3[k1]-j),abs(num3[k2]-j));
         ll b=min({i,j,k}),e=max({i,j,k});
         ans=min(ans,e-b+1);
         cerr<<i<<" "<<j<<" "<<k<<el;
