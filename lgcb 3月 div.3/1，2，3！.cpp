@@ -7,7 +7,8 @@ string s;
 vector<ll> num1,num2,num3;
 void solve(){
     cin>>s;
-    for(int i=0;i<s.size();i++){
+    ll len=s.size();
+    for(ll i=0;i<len;i++){
         if(s[i]=='1') num1.push_back(i);
         else if(s[i]=='2') num2.push_back(i);
         else num3.push_back(i);
