@@ -29,7 +29,10 @@ void solve(){
         /*i2 越界*/ if(i2<0||i2>=num1.size()) I2=1e18;
         /*k1 越界*/ if(k1<0||k1>=num1.size()) K1=1e18;
         /*k2 越界*/ if(k2<0||k2>=num1.size()) K2=1e18;
-
+        if(I1!=1e18) I1=num1[i1];
+        if(I2!=1e18) I1=num1[i1];
+        if(K1!=1e18) I1=num1[i1];
+        if(K2!=1e18) I1=num1[i1];
         // ll b=min({i,j,k}),e=max({i,j,k});
         // ans=min(ans,e-b+1);
         printf("i1:%lld,i2:%lld,k1:%lld,k2:%lld,j:%lld\n",i1,i2,k1,k2,j);
