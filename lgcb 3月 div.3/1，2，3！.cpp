@@ -3,7 +3,7 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+string s;
 void solve(){
     
 }
@@ -13,7 +13,7 @@ int main(){
     //freopen("xxx.in","r",stdin);
     //freopen("xxx.out","w",stdout);
     ll T=1;
-    //cin>>T;
+    cin>>T;
     while(T--){
         solve();
     }
