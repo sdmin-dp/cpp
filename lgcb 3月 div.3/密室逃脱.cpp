@@ -10,23 +10,20 @@ void solve(){
     for(int i=1;i<n;i++) cin>>a[i];
     ll cnt=1;
     for(int i=1;i<n;i++){
-        // cerr<<cnt<<" "<<m<<el;
-        // if(cnt>m) break;
+        cnt+=a[cnt];
         if(cnt==m){
             cout<<"YES\n";
-            // cerr<<el;
             return;
         }
-        cnt+=a[cnt];
+        
     }
     cout<<"NO\n";
-    // cerr<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
-    freopen("escape.in","r",stdin);
-    freopen("escape.out","w",stdout);
+    // freopen("escape.in","r",stdin);
+    // freopen("escape.out","w",stdout);
     ll T=1;
     cin>>T;
     while(T--){
