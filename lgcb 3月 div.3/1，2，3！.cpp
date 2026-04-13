@@ -11,7 +11,7 @@ void solve(){
     ll cnt[]={0,0,0,0};
     ll ans=1e18;
     for(r=0;r<s.size();r++){
-        cnt[s[r]-'48'+1]++;
+        cnt[s[r]-48]++;
         while(cnt[l]>1){
             l++;
             cnt[l]--;
