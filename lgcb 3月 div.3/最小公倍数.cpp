@@ -9,12 +9,12 @@ void solve(){
     cin>>n;
     // cout<<n;
     for(ll i=1;i*i<=n;i++){
-        // if(n%i) continue;
-        // if(__gcd(i,n/i)!=0) continue;
+        if(n%i) continue;
+        if(__gcd(i,n/i)!=1) continue;
         ans=min(ans,max(i,n/i));
-        cout<<"dog";
+        // cout<<"dog";
     }
-    // cout<<ans;
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
