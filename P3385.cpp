@@ -31,7 +31,6 @@ bool SPFA(){
     return 0;
 }
 void solve(){
-    
     for(int i=1;i<=n;i++) g[i].clear(); 
     cin>>n>>m;
     memset(dis,0x3f,sizeof dis);
@@ -42,7 +41,6 @@ void solve(){
         if(z>=0) g[x].push_back({y,z}),g[y].push_back({x,z});
         else g[x].push_back({y,z});
     }
-    
     cout<<(SPFA()?"YES":"NO")<<el;
     for(int i=1;i<=n;i++) cerr<<cnt[i]<<" ";
     cerr<<el;
