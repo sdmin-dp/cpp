@@ -17,7 +17,7 @@ bool SPFA(){
         q.pop();
         inq[x]=0;
         for(auto i:g[x]){
-            if(dis[x]+i.second>dis[i.first]){
+            if(dis[x]+i.second<dis[i.first]){
                 dis[i.first]=dis[x]+i.second;
                 cnt[i.first]=cnt[x]+1;
                 // cerr<<cnt[i.first]<<" ";
