@@ -3,7 +3,12 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+void dfs(ll x,ll fa){
+    dep[x]=dep[fa]+1;
+    up[0][x]=fa;
+    for(int i=1;i<=mxlog;i++) up[i][x]=up[i-1][up[i-1][x]];
+    for(auto i:g[x]) if(i!=fa) dfs(i,x);
+}
 void solve(){
     
 }
