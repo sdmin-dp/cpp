@@ -8,11 +8,12 @@ pair<ll,ll> ans={1e18,1e18};
 void solve(){
     cin>>n;
     // cout<<n;
-    for(ll i=1;i*i<=n;i++){
+    for(ll i=sqrt(n);i>=1;i--){
         if(n%i) continue;
         if(__gcd(i,n/i)!=1) continue;
-        if(max(ans.first,ans.second)>max(i,n/i))ans={i,n/i};
+        // if(max(ans.first,ans.second)>max(i,n/i))ans={i,n/i};
         // cout<<"dog";
+        cout<<
     }
     cout<<ans.first<<" "<<ans.second;
 }
