@@ -8,6 +8,7 @@ ll n,m,b;
 vector<ll> g[N];
 ll up[mxlog][N],dep[N];
 void dfs(ll x,ll fa){
+    dep[x]=dep[fa]+1;
     
 }
 void solve(){
