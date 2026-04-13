@@ -20,7 +20,7 @@ ll LCA(ll u,ll v){
             u=up[i][u];
         }
     }
-
+    
 }
 void solve(){
     cin>>n>>m>>b;
