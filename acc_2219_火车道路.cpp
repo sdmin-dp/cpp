@@ -2,11 +2,14 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e5+5;
+const ll N=5e5+5;
 ll n,m,b;
-vector<ll> g[N]
+vector<ll> g[N];
 void solve(){
-    
+    cin>>n>>m>>b;
+    for(int i=1;i<=n;i++){
+        
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
