@@ -23,6 +23,7 @@ bool SPFA(){
                 dis[i.first]=dis[x]+i.second;
                 cnt[i.first]++;
                 if(!inq[i.first]) q.push(i.first);
+                cerr<<"dog";
             }
         }
     }
