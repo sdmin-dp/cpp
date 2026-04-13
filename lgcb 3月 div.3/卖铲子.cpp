@@ -5,6 +5,7 @@ using namespace std;
 const ll N=1e5+5;
 ll n,m;
 void solve(){
+    cin>>n>>m;
     ll cnt=0;
     if(n>=m){
         cnt=n/m;
