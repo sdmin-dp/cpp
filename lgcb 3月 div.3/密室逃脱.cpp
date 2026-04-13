@@ -10,12 +10,13 @@ void solve(){
     for(int i=1;i<=n;i++) cin>>a[i];
     ll cnt=1;
     for(int i=1;i<=n;i++){
+        cerr<<cnt<<" ";
         if(cnt==m){
             cout<<"YES\n";
             return;
         }
         cnt+=a[cnt];
-        cerr<<cnt<<" ";
+        
     }
     return;
 }
