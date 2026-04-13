@@ -30,17 +30,18 @@ void solve(){
         /*k2 越界*/ if(k2<0||k2>=num1.size()) K2=1e18;
         if(I1!=1e18) I1=num1[i1];
         if(I2!=1e18) I2=num1[i2];
-        if(K1!=1e18) K1=num2[k1];
-        if(K2!=1e18) K2=num2[k2];
+        if(K1!=1e18) K1=num3[k1];
+        if(K2!=1e18) K2=num3[k2];
         ll i=min(abs(I1-j),abs(I2-j)),k=min(abs(K1-j),abs(K2-j));
-        // ll b=min({i,j,k}),e=max({i,j,k});
-        // ans=min(ans,e-b+1);
+        ll b=min({i,j,k}),e=max({i,j,k});
+        ans=min(ans,e-b+1);
         // printf("i1:%lld,i2:%lld,k1:%lld,k2:%lld,j:%lld\n",i1,i2,k1,k2,j);
     }
     // cout<<ans<<el;
-    cerr<<"num1:";for(int i:num1) cerr<<i<<" ";cerr<<el;
-    cerr<<"num2:";for(int i:num2) cerr<<i<<" ";cerr<<el;
-    cerr<<"num3:";for(int i:num3) cerr<<i<<" ";cerr<<el;
+    // cerr<<"num1:";for(int i:num1) cerr<<i<<" ";cerr<<el;
+    // cerr<<"num2:";for(int i:num2) cerr<<i<<" ";cerr<<el;
+    // cerr<<"num3:";for(int i:num3) cerr<<i<<" ";cerr<<el;
+    cout<<ans<<el;
     
 }
 int main(){
@@ -59,9 +60,9 @@ int main(){
 /*
 I1:1000000000000000000
 i1:1
-I2:0
-i2:0
-K1:1
+I2:0 yes
+i2:0 
+K1:2 yes
 k1:0
 K2:1000000000000000000
 k2:1000000000000000000
