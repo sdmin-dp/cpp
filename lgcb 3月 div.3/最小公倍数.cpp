@@ -4,7 +4,7 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n;
-ll ans=0;
+ll ans=1e18;
 void solve(){
     for(ll i=1;i*i<=n;i++){
         if(n%i) continue;
