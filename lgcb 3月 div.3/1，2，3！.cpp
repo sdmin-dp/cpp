@@ -4,8 +4,26 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 string s;
+vector<ll> num1,num2,num3;
 void solve(){
-    
+    cin>>s;
+    for(int i=0;i<s.size();i++){
+        if(s[i]=='1') num1.push_back(i);
+        else if(s[i]=='2') num2.push_back(i);
+        else num3.push_back(i);
+    }
+    if(num1.size()==0||num2.size()==0||num3.size()==0){
+        cout<<0<<el;
+        return;
+    }
+    ll ans=1e18;
+    for(auto j:num2){
+        ll i=lower_bound(num1.begin(),num1.end(),j)-num1.begin();
+        ll k=lower_bound(num3.begin(),num3.end(),j)-num1.begin();
+        ll b=min(i,j,k),e=max(i,j,k);
+        ans=min(ans,e-b+1);
+    }
+    cout<<ans<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
