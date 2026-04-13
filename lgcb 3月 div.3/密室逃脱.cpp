@@ -15,6 +15,7 @@ void solve(){
             return;
         }
         cnt+=a[cnt];
+        cerr<<cnt<<" ";
     }
     return;
 }
