@@ -18,7 +18,8 @@ void solve(){
         }
         if(cnt[1]>=1&&cnt[2]>=1&&cnt[3]>=1) ans=min(ans,r-l+1);
     }
-    cout<<ans<<el;
+    if(ans==1e18) cout<<0;
+    else cout<<ans<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
