@@ -29,13 +29,13 @@ void solve(){
         /*k1 越界*/ if(k1<0||k1>=num1.size()) K1=1e18;
         /*k2 越界*/ if(k2<0||k2>=num1.size()) K2=1e18;
         if(I1!=1e18) I1=num1[i1];
-        if(I2!=1e18) I2=num1[i1];
+        if(I2!=1e18) I2=num1[i2];
         if(K1!=1e18) K1=num2[k1];
         if(K2!=1e18) K2=num2[k2];
         ll i=min(abs(I1-j),abs(I2-j)),k=min(abs(K1-j),abs(K2-j));
         // ll b=min({i,j,k}),e=max({i,j,k});
         // ans=min(ans,e-b+1);
-        printf("i1:%lld,i2:%lld,k1:%lld,k2:%lld,j:%lld\n",I1,I2,I1,I2,j);
+        printf("i1:%lld,i2:%lld,k1:%lld,k2:%lld,j:%lld\n",I1,I2,K1,K2,j);
     }
     // cout<<ans<<el;
 
