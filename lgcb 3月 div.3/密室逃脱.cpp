@@ -13,12 +13,14 @@ void solve(){
         cerr<<cnt<<" ";
         if(cnt==m){
             cout<<"YES\n";
+            cerr<<el;
             return;
         }
         cnt+=a[cnt];
         
     }
     cout<<"NO\n";
+    cerr<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
