@@ -5,6 +5,13 @@ using namespace std;
 const ll N=5e5+5;
 ll n,m,b;
 vector<ll> g[N];
+void dfs(ll x,ll fa){
+    for(auto i:g[x]){
+        if(i!=fa){
+            dfs(i,x);
+        }
+    }
+}
 void solve(){
     cin>>n>>m>>b;
     for(int i=1;i<n;i++){
