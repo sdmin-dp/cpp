@@ -3,9 +3,14 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+ll n;
+ll ans=0;
 void solve(){
-    
+    for(ll i=1;i*i<=n;i++){
+        if(n%i) continue;
+        if(__gcd(i,n/i)!=0) continue;
+        ans=min(ans,max(i,n/i));
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
