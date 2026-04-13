@@ -20,13 +20,13 @@ void solve(){
     ll ans=1e18;
     for(auto j:num2){
         ll i=lower_bound(num1.begin(),num1.end(),j)-num1.begin();
-        ll k=lower_bound(num3.begin(),num3.end(),j)-num1.begin();
+        ll k=lower_bound(num3.begin(),num3.end(),j)-num3.begin();
         ll b=min({i,j,k}),e=max({i,j,k});
         ans=min(ans,e-b+1);
         cerr<<i<<" "<<j<<" "<<k<<el;
     }
     cout<<ans<<el;
-    
+
 }
 int main(){
     ios::sync_with_stdio(0);
