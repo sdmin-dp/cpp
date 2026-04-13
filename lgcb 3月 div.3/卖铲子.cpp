@@ -13,7 +13,7 @@ void solve(){
         if(n%i==0) ans=max({ans,i,n/i});
         cerr<<ans<<el;
     }
-    cout<<n/ans;
+    // cout<<n/ans;
 }
 int main(){
     ios::sync_with_stdio(0);
