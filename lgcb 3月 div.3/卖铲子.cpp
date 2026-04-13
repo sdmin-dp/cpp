@@ -6,7 +6,7 @@ const ll N=1e5+5;
 ll n,m;
 void solve(){
     cin>>n>>m;
-    cout<<n<<" "<<m;
+    cout<<n<<" "<<m<<el;
     ll sqr=sqrt(n);
     ll ans=-1e18;
     for(ll i=1;i<=min(sqr,m);i++){
