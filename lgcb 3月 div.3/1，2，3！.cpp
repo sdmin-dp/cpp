@@ -35,7 +35,7 @@ void solve(){
         cerr<<j<<el;
         ll i=(abs(I1-j+1)>abs(I2-j+1)?I2:I1),k=(abs(K1-j+1)>abs(K2-j+1)?K2:K1);
         ll b=min({i,j,k}),e=max({i,j,k});
-        cerr<<i<<" "<<k<<el;
+        // cerr<<i<<" "<<k<<el;
         ans=min(ans,e-b+1);
         // printf("i1:%lld,i2:%lld,k1:%lld,k2:%lld,j:%lld\n",i1,i2,k1,k2,j);
     }
