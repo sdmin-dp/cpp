@@ -12,7 +12,7 @@ void solve(){
     ll ans=1e18;
     for(;r<s.size();r++){
         cnt[s[r]-48]++;
-        while(cnt[l]>1){
+        while(cnt[s[l]-48]>1){
             l++;
             cnt[s[l]-48]--;
         }
