@@ -11,9 +11,9 @@ void solve(){
         if(n%i) continue;
         if(__gcd(i,n/i)!=0) continue;
         ans=min(ans,max(i,n/i));
-        // cout<<max(i,n/i);
+        cout<<max(i,n/i);
     }
-    cout<<ans;
+    // cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
