@@ -7,10 +7,10 @@ const ll N=1e5+5;
 void solve(){
     string s;
     cin>>s;
-    ll l=0;
+    ll l=0,r=0;
     ll cnt[]={0,0,0,0};
     ll ans=1e18;
-    for(int r=0;r<s.size();r++){
+    for(r=0;r<s.size();r++){
         cnt[r]++;
         while(cnt[l]>1){
             l++;
@@ -18,7 +18,7 @@ void solve(){
         }
         if(cnt[1]>=1&&cnt[2]>=1&&cnt[3]>=1) ans=min(ans,r-l+1);
     }
-    if(cnt[1]>=1&&cnt[2]>=1&&cnt[3]>=1) ans=min(ans,(ll)s.size()-l+1);
+    if(cnt[1]>=1&&cnt[2]>=1&&cnt[3]>=1) ans=min(ans,r-l+1);
     if(ans==1e18) cout<<0<<el;
     else cout<<ans<<el;
 }
