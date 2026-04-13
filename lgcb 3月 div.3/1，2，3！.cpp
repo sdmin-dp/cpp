@@ -23,6 +23,7 @@ void solve(){
         ll k=lower_bound(num3.begin(),num3.end(),j)-num1.begin();
         ll b=min({i,j,k}),e=max({i,j,k});
         ans=min(ans,e-b+1);
+        cerr<<i<<" "<<j<<" "<<k<<el;
     }
     cout<<ans<<el;
 }
