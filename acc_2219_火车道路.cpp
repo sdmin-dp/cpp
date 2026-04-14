@@ -60,9 +60,7 @@ void solve(){
         cin>>a[i];
         pos[a[i]]=min(pos[a[i]],i);
     }
-
     dfs(r,0);
-
     ll last=r;
     ll ans=0;
     for(ll i=1;i<=m;i++){
@@ -74,8 +72,5 @@ void solve(){
     cout<<ans<<'\n';
 }
 int main(){
-    // ios::sync_with_stdio(0);
-    // cin.tie(0);cout.tie(0);
     
-    return 0;
 }
