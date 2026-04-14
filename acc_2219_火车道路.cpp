@@ -4,7 +4,7 @@ using namespace std;
 #define el '\n'
 const ll N=5e5;
 const ll M=4e5;
-vector<vector<ll>>e(N+2);
+vector<ll> g[N];
 ll pos[N+2],a[M+2];
 ll d[N+2];
 ll lca[22][N+2];
@@ -13,7 +13,7 @@ void dfs(ll u,ll f){
     for(ll i=1;i<=20;i++){
         lca[i][u]=lca[i-1][lca[i-1][u]];
     }
-    for(auto v:e[u]){
+    for(auto v:g[u]){
         if(v==f) continue;
         d[v]=d[u]+1;
         dfs(v,u);
@@ -32,14 +32,12 @@ ll LCA(ll u,ll  v){
     if(u==v){
         return u;
     }
-
     for(ll i=20;i>=0;i--){
         if(lca[i][u]!=lca[i][v]){
             u=lca[i][u];
             v=lca[i][v];
         }
     }
-
     return lca[0][u];
 }
 ll dis(ll u,ll v){
@@ -52,8 +50,8 @@ void solve(){
         pos[i]=m+2;
         ll u,v;
         cin>>u>>v;
-        e[u].push_back(v);
-        e[v].push_back(u);
+        g[u].push_back(v);
+        g[v].push_back(u);
     }
     pos[n]=m+2;
     for(ll i=1;i<=m;i++){
@@ -72,5 +70,14 @@ void solve(){
     cout<<ans<<'\n';
 }
 int main(){
-    
+    ios::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    //freopen("xxx.in","r",stdin);
+    //freopen("xxx.out","w",stdout);
+    ll T=1;
+    //cin>>T;
+    while(T--){
+        solve();
+    }
+    return 0;
 }
