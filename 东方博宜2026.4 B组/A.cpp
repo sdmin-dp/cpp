@@ -5,27 +5,21 @@ using namespace std;
 const ll N=2e3+5;
 ll n;
 ll a[N];
-ll binary_sear(ll mn,ll mx){
+ll binary(ll i,ll j){
     //返回满足条件的数量
-    //二分两次，一个是小于mn+mx的，一个是大于mx-mn的
-    //first
-    ll x=mn+mx;
-    ll res=0,tmp1=0,tmp2=0;
+    //小于i+j
+    ll x=a[i]+a[j];
     ll l=1,r=n,mid=0,ans=0;
     while(l<=r){
         mid=(l+r)/2;
-        if(a[mid]>x){
+        if(a[mid]>=x){
             r=mid-1;
-        }else{
             ans=mid;
+        }else{
             l=mid+1;
         }
     }
-    tmp1=ans;
-    x=mx-mn;
-    ans=upper_bound(a+1,a+n+1,x)-a;
-    res+=n-ans+1;
-    return res;
+    return ans;
 }
 void solve(){
     cin>>n;
@@ -33,8 +27,9 @@ void solve(){
     sort(a+1,a+n+1);
     ll ans=0;
     for(int i=1;i<n;i++){
-        for(int j=i+1;j<=n;j++){
-            ll x=min(a[i],a[j]),y=max(i,j);
+        for(int j=i+1;j<n;j++){
+            ll k=binary(i,j);
+            ans+=k-j;
         }
     }
     cout<<ans;
