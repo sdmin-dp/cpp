@@ -10,13 +10,18 @@ ll binary_search(ll mn,ll mx){
     //二分两次，一个是小于mn+mx的，一个是大于mx-mn的
     //first
     ll x=mn+mx;
+    ll res=0;
     ll l=1,r=n,mid=0,ans=0;
     while(l<=r){
         mid=(l+r)/2;
-        if(mid>=x){
-            
+        if(a[mid]>x){
+            r=mid-1;
+        }else{
+            ans=mid;
+            l=mid+1;
         }
     }
+    res+=ans;
 }
 void solve(){
     cin>>n;
