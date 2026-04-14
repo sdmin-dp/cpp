@@ -8,6 +8,7 @@ pair<ll,ll> a[N];
 ll inq[N];
 bool vis[N];
 ll cnt,sum;
+priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;
 void solve(){
     cin>>n>>k;
     for(int i=1;i<=n;i++){
@@ -23,8 +24,14 @@ void solve(){
         }
     }
     for(int i=1;i<=n;i++){
-        if()
-    }
+        if(!vis[i]&&sum<k){
+            if(!inq[a[i].second]) cnt++;
+            sum++;
+            inq[a[i].second]++;
+            vis[a[i].second]=1;
+        }
+    }   
+    
 }       
 int main(){
     ios::sync_with_stdio(0);
