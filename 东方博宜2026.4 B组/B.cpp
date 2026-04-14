@@ -6,7 +6,8 @@ const ll N=1e5+5;
 ll n,k; 
 pair<ll,ll> a[N];
 ll inq[N];
-ll cnt; 
+bool vis[N];
+ll cnt,sum;
 void solve(){
     cin>>n>>k;
     for(int i=1;i<=n;i++){
@@ -14,10 +15,16 @@ void solve(){
     }   
     sort(a+1,a+n+1,greater<pair<ll,ll>>());
     for(int i=1;i<=n;i++){
-        if(!inq[a[i].second]&&){
-            
+        if(!inq[a[i].second]&&sum<k){
+            cnt++;
+            sum++;
+            inq[a[i].second]++;
+            vis[a[i].second]=1;
         }
-    }   
+    }
+    for(int i=1;i<=n;i++){
+        
+    }
 }       
 int main(){
     ios::sync_with_stdio(0);
