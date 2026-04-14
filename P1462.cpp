@@ -18,7 +18,7 @@ bool check(ll mid){
         q.pop();
         if(x.first>dis[x.second]) continue;
         for(auto i:g[x.second]){
-            if(mon[i.first]<=mid&&dis[i.first]>x.first+i.second){
+            if(mon[i.first]<=mid&&dis[i.first]>=x.first+i.second){
                 dis[i.first]=x.first+i.second;
                 q.push({dis[i.first],i.first});
             }
