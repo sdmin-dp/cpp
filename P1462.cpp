@@ -26,6 +26,7 @@ bool check(ll mid){
     return (dis[n]<=bod);
 }
 ll binary_answer(){
+    if(check(1e9)) return -1;
     ll l=0,r=1e9,mid,ans;
     while(l<=r){
         mid=(l+r)/2;
@@ -48,7 +49,8 @@ void solve(){
         g[u].push_back({v,w});
         g[v].push_back({u,w});
     }
-    cout<<binary_answer();
+    ll ans=binary_answer();
+    cout<<(ans==-1?"AFK":ans)
 }
 int main(){
     ios::sync_with_stdio(0);
