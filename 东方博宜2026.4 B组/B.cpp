@@ -9,6 +9,13 @@ ll inq[N];
 bool vis[N];
 ll cnt,sum;
 priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;
+void ding(auto i,auto top){
+    q.pop();
+    q.push(a[i]);
+    inq[top.second]--;if(inq[top.second]==0) cnt--;
+    if(inq[a[i].second]==0) cnt++;
+    inq[a[i].second]++;
+}
 void solve(){
     cin>>n>>k;
     for(int i=1;i<=n;i++){
@@ -36,7 +43,14 @@ void solve(){
     for(int i=1;i<=n;i++){
         if(vis[i]) continue;
         auto top=q.top();
-        
+        if(inq[top.second]!=1&&inq[a[i].second]!=1||inq[top.second]==1&&inq[a[i].second]==1){
+            if(a[i].first>top.first){
+                ding(i,top);
+            }
+        }
+        else if(inq[top.second]==1&&inq[a[i].second]!=1){
+            
+        }
     }
 }       
 int main(){
