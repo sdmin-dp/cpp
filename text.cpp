@@ -10,10 +10,8 @@ void dfs(int u,int f){
     for(int i=1;i<=20;i++){
         lca[i][u]=lca[i-1][lca[i-1][u]];
     }
-
     for(auto v:e[u]){
         if(v==f) continue;
-
         d[v]=d[u]+1;
         dfs(v,u);
         pos[u]=min(pos[u],pos[v]);
