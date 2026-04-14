@@ -11,6 +11,7 @@ ll exgcd(ll a,ll b,ll &x,ll &y){
     }
     ll d=exgcd(b,a%b,y,x);
     y-=(a/b)*x;
+    
 }
 void solve(){
     
