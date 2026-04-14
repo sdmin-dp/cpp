@@ -3,10 +3,10 @@ using namespace std;
 #define ll long long
 #define el '\n'
 const int N=5e5;
-vector<vector<int>>e(maxn+2);
-int pos[maxn+2],a[maxm+2];
-int d[maxn+2];
-int lca[22][maxn+2];
+vector<vector<int>>e(N+2);
+int pos[N+2],a[maxm+2];
+int d[N+2];
+int lca[22][N+2];
 void dfs(int u,int f){
     lca[0][u]=f;
     for(int i=1;i<=20;i++){
