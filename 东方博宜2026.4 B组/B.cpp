@@ -39,7 +39,8 @@ void solve(){
             inq[a[i].second]++;
             vis[i]=1;
         }
-    }   
+    }
+    for(int i=1;i<=n;i++) if(vis[i]) cerr<<i<<" ";
     for(int i=1;i<=n;i++){
         if(vis[i]) continue;
         auto top=q.top();
