@@ -49,7 +49,6 @@ int main()
         e[v].push_back(u);
     }
     dfs(1,0);
-    
     for(int i=1;i<=m;i++){
         int a[3];
         scanf("%d%d%d",&a[0],&a[1],&a[2]);
