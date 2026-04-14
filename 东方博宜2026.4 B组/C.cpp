@@ -9,6 +9,7 @@ ll exgcd(ll a,ll b,ll &x,ll &y){
         y=0;
         return a;
     }
+    ll d=exgcd(a,b,y,x);
 }
 void solve(){
     
