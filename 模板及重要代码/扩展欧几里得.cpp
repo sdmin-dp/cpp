@@ -14,7 +14,9 @@ ll exgcd(ll a,ll b,ll &x,ll &y){
     return d;
 }
 void solve(){
-    
+    ll x,y;
+    ll ans=exgcd(2,3,x,y);
+    cout<<x<<" "<<y;
 }
 int main(){
     ios::sync_with_stdio(0);
