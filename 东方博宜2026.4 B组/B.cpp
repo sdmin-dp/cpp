@@ -58,7 +58,13 @@ void solve(){
             }
         }
     }
-    
+    ll ans=0;
+    while(!q.empty()){
+        ans+=q.top().second;
+        q.pop();
+    }
+    ans+=cnt*cnt;
+    cout<<ans;
 }       
 int main(){
     ios::sync_with_stdio(0);
