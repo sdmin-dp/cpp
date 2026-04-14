@@ -13,8 +13,8 @@ void ding(auto i,auto top){
     q.pop();
     q.push(a[i]);
     inq[top.second]--;if(inq[top.second]==0) cnt--;
-    if(inq[a[i].second]==0) cnt++;
-    inq[a[i].second]++;
+    // if(inq[a[i].second]==0) cnt++;
+    // inq[a[i].second]++;
 }
 void solve(){
     cin>>n>>k;
