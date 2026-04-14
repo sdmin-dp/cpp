@@ -15,7 +15,7 @@ ll exgcd(ll a,ll b,ll &x,ll &y){
 }
 void solve(){
     ll x,y;
-    ll ans=exgcd(3,5x,y);
+    ll ans=exgcd(3,5,x,y);
     cout<<x<<" "<<y;
 }
 int main(){
