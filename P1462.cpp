@@ -9,7 +9,7 @@ vector<pair<ll,ll>> g[N];
 ll dis[N];
 bool check(ll mid){
     priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;
-    q.push({0,b});
+    q.push({0,1});
     memset(dis,0x3f,sizeof(dis));
     dis[1]=0;
     while(!q.empty()){
@@ -17,12 +17,13 @@ bool check(ll mid){
         q.pop();
         if(x.first>dis[x.second]) continue;
         for(auto i:g[x.second]){
-            if(dis[i.first]>x.second+i.second){
+            if(mon[i.first]<=mid&&dis[i.first]>x.second+i.second){
                 dis[i.first]=x.second+i.second;
                 q.push({i.first,dis[i.first]});
             }
         }
     }
+    return (dis[n]<=bod);
 }
 ll binary_answer(){
     ll l=1,r=1e9,mid,ans;
