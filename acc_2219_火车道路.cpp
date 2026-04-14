@@ -2,11 +2,12 @@
 using namespace std;
 #define ll long long
 #define el '\n'
-const int N=5e5;
+const ll N=5e5;
+const ll M=4e5;
 vector<vector<int>>e(N+2);
-int pos[N+2],a[maxm+2];
-int d[N+2];
-int lca[22][N+2];
+ll pos[N+2],a[M+2];
+lld[N+2];
+lllca[22][N+2];
 void dfs(int u,int f){
     lca[0][u]=f;
     for(int i=1;i<=20;i++){
@@ -19,7 +20,7 @@ void dfs(int u,int f){
         pos[u]=min(pos[u],pos[v]);
     }
 }
-int LCA(int u,int v){
+int LCA(int u,ll  v){
     if(d[u]<d[v]){
         swap(u,v);
     }
