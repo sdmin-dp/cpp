@@ -19,7 +19,7 @@ bool check(ll mid){
         for(auto i:g[x.second]){
             if(mon[i.first]<=mid&&dis[i.first]>x.second+i.second){
                 dis[i.first]=x.second+i.second;
-                q.push({i.first,dis[i.first]});
+                q.push({dis[i.first],i.first});
             }
         }
     }
