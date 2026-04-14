@@ -21,7 +21,7 @@ void solve(){
             cnt++;
             sum++;
             inq[a[i].second]++;
-            vis[a[i].second]=1;
+            vis[i]=1;
         }
     }
     for(int i=1;i<=n;i++){
@@ -30,10 +30,17 @@ void solve(){
             if(!inq[a[i].second]) cnt++;
             sum++;
             inq[a[i].second]++;
-            vis[a[i].second]=1;
+            vis[i]=1;
         }
     }   
-    
+    for(int i=1;i<=n;i++){
+        if(vis[i]) continue;
+        
+        if(inq[a[i].second]==1){
+            ll tmp1=cnt*cnt,tmp2=(cnt-1)*(cnt-1);
+            ll t=a[i].first-
+        }
+    }
 }       
 int main(){
     ios::sync_with_stdio(0);
