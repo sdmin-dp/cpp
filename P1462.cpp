@@ -7,7 +7,12 @@ ll n,m,bod;
 ll mon[N];
 void solve(){
     cin>>n>>m>>bod;
-    cin>>mon[N];
+    for(int i=1;i<=n;i++) cin>>mon[i];
+    for(int i=1;i<=m;i++){
+        ll u,v;
+        cin>>u>>v;
+        
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
