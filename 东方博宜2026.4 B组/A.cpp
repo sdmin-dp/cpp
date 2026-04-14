@@ -22,6 +22,10 @@ ll binary_search(ll mn,ll mx){
         }
     }
     res+=ans;
+    x=mx-mn;
+    ans=upper_bound(a+1,a+n+1,x)-a;
+    res+=n-ans+1;
+    return res;
 }
 void solve(){
     cin>>n;
@@ -34,6 +38,7 @@ void solve(){
             ans+=binary_search(x,y);
         }
     }
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
