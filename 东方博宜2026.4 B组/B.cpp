@@ -14,7 +14,9 @@ void solve(){
     }   
     sort(a+1,a+n+1,greater<pair<ll,ll>>());
     for(int i=1;i<=n;i++){
-        
+        if(!inq[a[i].second]&&){
+            
+        }
     }   
 }       
 int main(){
