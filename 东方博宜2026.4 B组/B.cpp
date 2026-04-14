@@ -49,7 +49,13 @@ void solve(){
             }
         }
         else if(inq[top.second]==1&&inq[a[i].second]!=1){
-            
+            if(a[i].first+(cnt-1)*(cnt-1)>top.first+(cnt*cnt)){
+                ding(i,top);
+            }
+        }else if(inq[top.second]!=1&&inq[a[i].second]==1){
+            if(a[i].first+(cnt+1)*(cnt+1)>top.first){
+                ding(i,top);
+            }
         }
     }
 }       
