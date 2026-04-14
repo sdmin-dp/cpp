@@ -5,7 +5,7 @@ using namespace std;
 const ll N=2e3+5;
 ll n;
 ll a[N];
-ll binary_search(ll mn,ll mx){
+ll binary_sear(ll mn,ll mx){
     //返回满足条件的数量
     //二分两次，一个是小于mn+mx的，一个是大于mx-mn的
     //first
@@ -36,7 +36,7 @@ void solve(){
         for(int j=i+1;j<=n;j++){
             ll x=min(i,j),y=max(i,j);
             // ans+=binary_search(x,y);
-            cout<<binary_search(x,y)<<" ";
+            cout<<binary_sear(x,y)<<" ";
         }
     }
     cout<<ans;
