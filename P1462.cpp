@@ -23,7 +23,7 @@ bool check(ll mid){
             }
         }
     }
-    return (dis[n]<=bod);
+    return (dis[n]<bod);
 }
 ll binary_answer(){
     ll l=1,r=1e9,mid,ans;
