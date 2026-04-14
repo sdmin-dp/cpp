@@ -50,7 +50,7 @@ void solve(){
         g[v].push_back({u,w});
     }
     ll ans=binary_answer();
-    cout<<(ans==-1?"AFK":ans)
+    cout<<(ans==-1?"AFK":ans);
 }
 int main(){
     ios::sync_with_stdio(0);
