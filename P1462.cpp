@@ -11,6 +11,7 @@ ll dis[N];
 bool check(ll mid){
     priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;
     q.push({0,1});
+    if(a[1]>mid) return 0;
     memset(inq,0,sizeof inq);
     memset(dis,0x3f,sizeof(dis));
     dis[1]=0;
