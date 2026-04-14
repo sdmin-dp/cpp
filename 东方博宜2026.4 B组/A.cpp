@@ -35,7 +35,8 @@ void solve(){
     for(int i=1;i<n;i++){
         for(int j=i+1;j<=n;j++){
             ll x=min(i,j),y=max(i,j);
-            ans+=binary_search(x,y);
+            // ans+=binary_search(x,y);
+            cout<<binary_search(x,y)<<" ";
         }
     }
     cout<<ans;
