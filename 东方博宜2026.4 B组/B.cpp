@@ -17,6 +17,7 @@ void solve(){
     sort(a+1,a+n+1,greater<pair<ll,ll>>());
     for(int i=1;i<=n;i++){
         if(!inq[a[i].second]&&sum<k){
+            q.push({a[i].first,a[i].second});
             cnt++;
             sum++;
             inq[a[i].second]++;
@@ -25,6 +26,7 @@ void solve(){
     }
     for(int i=1;i<=n;i++){
         if(!vis[i]&&sum<k){
+            q.push({a[i].first,a[i].second});
             if(!inq[a[i].second]) cnt++;
             sum++;
             inq[a[i].second]++;
