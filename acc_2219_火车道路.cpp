@@ -2,13 +2,14 @@
 using namespace std;
 #define ll long long
 #define el '\n'
-const ll N=5e5;
-const ll M=4e5;
+const ll N=5e5+5;
+const ll M=4e5+5;
 vector<ll> g[N];
-ll pos[N+2],a[M+2];
-ll d[N+2];
-ll lca[22][N+2];
+ll pos[N],a[M];
+ll d[N];
+ll lca[22][N];
 void dfs(ll u,ll f){
+    lca[0][u]=f;
     for(ll i=1;i<=20;i++){
         lca[i][u]=lca[i-1][lca[i-1][u]];
     }
