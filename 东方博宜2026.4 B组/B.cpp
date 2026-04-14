@@ -61,7 +61,7 @@ void solve(){
     ll ans=0;
     while(!q.empty()){
         ans+=q.top().first;
-        cerr<<q.top().first<<" ";
+        // cerr<<q.top().first<<" ";
         q.pop();
     }
     ans+=cnt*cnt;
