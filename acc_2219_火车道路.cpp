@@ -9,7 +9,6 @@ ll pos[N+2],a[M+2];
 ll d[N+2];
 ll lca[22][N+2];
 void dfs(ll u,ll f){
-    lca[0][u]=f;
     for(ll i=1;i<=20;i++){
         lca[i][u]=lca[i-1][lca[i-1][u]];
     }
