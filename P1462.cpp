@@ -9,7 +9,7 @@ vector<pair<ll,ll>> g[N];
 ll dis[N];
 bool check(ll mid){
     priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;
-    q.push({1,0});
+    q.push({0,1});
     memset(dis,0x3f,sizeof(dis));
     dis[1]=0;
     while(!q.empty()){
