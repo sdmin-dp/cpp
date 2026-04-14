@@ -9,14 +9,14 @@ ll binary(ll i,ll j){
     //返回满足条件的数量
     //小于i+j
     ll x=a[i]+a[j];
-    ll l=1,r=n,mid=0,ans=n+1;
+    ll l=1,r=n,mid=0,ans=n;
     while(l<=r){
         mid=(l+r)/2;
         if(a[mid]>=x){
             r=mid-1;
-            ans=mid;
         }else{
             l=mid+1;
+            ans=mid;
         }
     }
     return ans;
