@@ -26,7 +26,7 @@ bool check(ll mid){
     return (dis[n]<=bod);
 }
 ll binary_answer(){
-    ll l=1,r=1e9,mid,ans;
+    ll l=0,r=1e9,mid,ans;
     while(l<=r){
         mid=(l+r)/2;
         if(check(mid)){
