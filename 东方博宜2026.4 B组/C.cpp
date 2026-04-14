@@ -17,10 +17,10 @@ ll exgcd(ll a,ll b,ll &x,ll &y){
 void solve(){
     cin>>a>>b>>c;
     if(c-1==a||c-1==b){
-        cout<<1;
+        cout<<1<<" "<<1;
         return;
     }else if(c-1==a+b){
-        cout<<2;
+        cout<<1<<" "<<2;
         return;
     }
     
