@@ -10,7 +10,7 @@ ll exgcd(ll a,ll b,ll &x,ll &y){
         return a;
     }
     ll d=exgcd(b,a%b,y,x);
-    y-=(a)
+    y-=(a/b)*x;
 }
 void solve(){
     
