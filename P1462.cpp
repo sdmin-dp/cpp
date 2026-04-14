@@ -3,10 +3,11 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-ll n,m,blood;
-ll money[N];
+ll n,m,bod;
+ll mon[N];
 void solve(){
-    
+    cin>>n>>m>>bod;
+    cin>>mon[N];
 }
 int main(){
     ios::sync_with_stdio(0);
