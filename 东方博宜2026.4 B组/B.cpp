@@ -35,10 +35,18 @@ void solve(){
     }   
     for(int i=1;i<=n;i++){
         if(vis[i]) continue;
-        
+        auto top=q.top();
         if(inq[a[i].second]==1){
             ll tmp1=cnt*cnt,tmp2=(cnt-1)*(cnt-1);
-            ll t=a[i].first-
+            ll t=a[i].first-top.first-tmp1+tmp2;
+            if(t>0){
+                q.pop();
+                q.push(a[i]);
+            }
+        }else{
+            if(a[i].first>top.first){
+                
+            }
         }
     }
 }       
