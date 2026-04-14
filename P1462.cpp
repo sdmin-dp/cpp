@@ -18,7 +18,7 @@ bool check(ll mid){
         q.pop();
         if(x.first>dis[x.second]) continue;
         for(auto i:g[x.second]){
-            if(mon[i.first]<=mid&&dis[i.first]>=x.first+i.second){
+            if(mon[i.first]<=mid&&dis[i.first]>x.first+i.second){
                 dis[i.first]=x.first+i.second;
                 q.push({dis[i.first],i.first});
             }
@@ -28,7 +28,7 @@ bool check(ll mid){
 }
 ll binary_answer(){
     if(!check(1e9)) return -1;
-    ll l=0,r=1e9,mid,ans;
+    ll l=0,r=1e9,mid,ans=-1;
     while(l<=r){
         mid=(l+r)/2;
         if(check(mid)){
