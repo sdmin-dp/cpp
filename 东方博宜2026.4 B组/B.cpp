@@ -13,8 +13,8 @@ void ding(auto i,auto top){
     q.pop();
     q.push(a[i]);
     inq[top.second]--;if(inq[top.second]==0) cnt--;
-    // if(inq[a[i].second]==0) cnt++;
-    // inq[a[i].second]++;
+    if(inq[a[i].second]==0) cnt++;
+    inq[a[i].second]++;
 }
 void solve(){
     cin>>n>>k;
@@ -42,34 +42,34 @@ void solve(){
     }
     // for(int i=1;i<=n;i++) if(vis[i]) cerr<<a[i].second<<" "<<a[i].first<<el;
     for(int i=1;i<=n;i++){
-        if(vis[i]&&inq[a[i].second]==0) continue;
+        if(vis[i]) continue;
         auto top=q.top();
-        if(inq[top.second]!=1/*&&inq[a[i].second]!=0*/){
+        if(inq[top.second]!=1&&inq[a[i].second]!=0){
             if(a[i].first>top.first){
                 ding(i,top);
                 // cerr<<"1:  "<<a[i].second<<" "<<a[i].first<<" "<<top.second<<" "<<top.first<<el;
             }
         }
-        // else if(inq[top.second]==1&&inq[a[i].second]==0){
-        //     if(a[i].first>top.first){
-        //         ding(i,top);
-        //         // cerr<<"2:  "<<a[i].second<<" "<<a[i].first<<" "<<top.second<<" "<<top.first<<el;
-        //     }
-        // }
-        else if(inq[top.second]==1/*&&inq[a[i].second]!=0*/){
+        else if(inq[top.second]==1&&inq[a[i].second]==0){
+            if(a[i].first>top.first){
+                ding(i,top);
+                // cerr<<"2:  "<<a[i].second<<" "<<a[i].first<<" "<<top.second<<" "<<top.first<<el;
+            }
+        }
+        else if(inq[top.second]==1&&inq[a[i].second]!=0){
             if(a[i].first+(cnt-1)*(cnt-1)>top.first+(cnt*cnt)){
                 ding(i,top);
                 // cerr<<"3:  "<<a[i].second<<" "<<a[i].first<<" "<<top.second<<" "<<top.first<<el;
 
             }
         }
-        // else if(inq[top.second]!=1&&inq[a[i].second]==0){
-        //     if(a[i].first+(cnt+1)*(cnt+1)>top.first){
-        //         ding(i,top);
-        //         // cerr<<"4:  "<<a[i].second<<" "<<a[i].first<<" "<<top.second<<" "<<top.first<<el;
+        else if(inq[top.second]!=1&&inq[a[i].second]==0){
+            if(a[i].first+(cnt+1)*(cnt+1)>top.first){
+                ding(i,top);
+                // cerr<<"4:  "<<a[i].second<<" "<<a[i].first<<" "<<top.second<<" "<<top.first<<el;
 
-        //     }
-        // }
+            }
+        }
     }
     ll ans=0;
     while(!q.empty()){
