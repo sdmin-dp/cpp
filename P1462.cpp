@@ -6,31 +6,25 @@ const ll N=1e4+5;
 ll n,m,bod;
 ll mon[N];
 vector<pair<ll,ll>> g[N];
-bool inq[N];
 ll dis[N];
 bool check(ll mid){
     priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;
     q.push({0,1});
     if(mon[1]>mid) return 0;
-    memset(inq,0,sizeof inq);
     memset(dis,0x3f,sizeof(dis));
     dis[1]=0;
-    inq[1]=1;
     while(!q.empty()){
         auto x=q.top();
         q.pop();
-        if(!inq[x.second]) continue;
-        inq[x.second]=0;
         if(x.first>dis[x.second]) continue;
         for(auto i:g[x.second]){
             if(mon[i.first]<=mid&&dis[i.first]>x.second+i.second){
-                dis[i.first]=x.second+i.second;
+                dis[i.first]=x.first+i.second;
                 q.push({dis[i.first],i.first});
-                inq[i.first]=1;
             }
         }
     }
-    return (dis[n]<=bod||dis[n]==0x3f3f3f3f3f3f3f3f);
+    return (dis[n]<=bod);
 }
 ll binary_answer(){
     if(!check(1e9)) return -1;
