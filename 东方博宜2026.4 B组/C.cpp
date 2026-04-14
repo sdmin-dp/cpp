@@ -4,7 +4,9 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll exgcd(ll a,ll b,ll &x,ll &y){
-    
+    if(b==0){
+        
+    }
 }
 void solve(){
     
