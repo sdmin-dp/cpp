@@ -47,25 +47,26 @@ void solve(){
         if(inq[top.second]!=1&&inq[a[i].second]!=0){
             if(a[i].first>top.first){
                 ding(i,top);
-                // cerr<<"1:  "<<a[i].second<<" "<<a[i].first<<" "<<top.second<<" "<<top.first<<el;
+                cerr<<"1:  "<<a[i].second<<" "<<a[i].first<<" "<<top.second<<" "<<top.first<<el;
             }
         }
         else if(inq[top.second]==1&&inq[a[i].second]==0){
             if(a[i].first>top.first){
                 ding(i,top);
-                // cerr<<"1:  "<<a[i].second<<" "<<a[i].first<<" "<<top.second<<" "<<top.first<<el;
+                cerr<<"2:  "<<a[i].second<<" "<<a[i].first<<" "<<top.second<<" "<<top.first<<el;
             }
         }
         else if(inq[top.second]==1&&inq[a[i].second]!=0){
             if(a[i].first+(cnt-1)*(cnt-1)>top.first+(cnt*cnt)){
                 ding(i,top);
-                // cerr<<"2:  "<<a[i].second<<" "<<a[i].first<<" "<<top.second<<" "<<top.first<<el;
+                cerr<<"3:  "<<a[i].second<<" "<<a[i].first<<" "<<top.second<<" "<<top.first<<el;
 
             }
-        }else if(inq[top.second]!=1&&inq[a[i].second]==0){
+        }
+        else if(inq[top.second]!=1&&inq[a[i].second]==0){
             if(a[i].first+(cnt+1)*(cnt+1)>top.first){
                 ding(i,top);
-                // cerr<<"3:  "<<a[i].second<<" "<<a[i].first<<" "<<top.second<<" "<<top.first<<el;
+                cerr<<"4:  "<<a[i].second<<" "<<a[i].first<<" "<<top.second<<" "<<top.first<<el;
 
             }
         }
