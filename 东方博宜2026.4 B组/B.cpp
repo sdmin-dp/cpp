@@ -40,7 +40,7 @@ void solve(){
             vis[i]=1;
         }
     }
-    for(int i=1;i<=n;i++) if(vis[i]) cerr<<i<<" ";
+    for(int i=1;i<=n;i++) if(vis[i]) cerr<<a[i].second<<" "<<a[i].first<<el;
     for(int i=1;i<=n;i++){
         if(vis[i]) continue;
         auto top=q.top();
