@@ -13,7 +13,7 @@ void dfs(ll x,ll fa){
         if(i==fa) continue;
         dfs(i,x);
         len[x]+=len[i];
-        dis[x]+=dis[i]+len[x];
+        dis[x]+=dis[i]+len[i];
     }
 }
 void dfs2(ll x,ll fa){
