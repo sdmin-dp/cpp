@@ -7,7 +7,7 @@ char str[N],str1[N];
 void solve(){
     sprintf(str,"%X",52342);
     ll n=0;
-    sscanf(str,"%d",&n);
+    sscanf(str,"%X",&n);
     cout<<n;
 }
 int main(){
