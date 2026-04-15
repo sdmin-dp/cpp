@@ -24,10 +24,11 @@ void solve(){
     for(int i=1;i<n;i++){
         ll x,y,z;cin>>x>>y>>z;
         ans+=llabs(len[a.find(x)]-len[a.find(y)])*z;
+        a.fa[a.find(y)]=a.find(x);
         len[a.find(x)]++;
         len[a.find(y)]++;
-        a.fa[a.find(y)]=a.find(x);
     }
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
