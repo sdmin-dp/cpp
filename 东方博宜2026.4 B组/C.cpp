@@ -8,7 +8,7 @@ unordered_set<pair<ll,ll>> st;
 void solve(){
     cin>>a>>b>>c;
     while(st.find({a,b})!=st.end()){
-        test
+        厕所
     }
 }   
 int main(){
