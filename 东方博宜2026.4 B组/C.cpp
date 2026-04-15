@@ -3,14 +3,28 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
+ll A,B,C;
+unordered_set<pair<ll,ll>> st;
 ll a,b,c;
-// unordered_set<pair<ll,ll>> st;
 void solve(){
-    cin>>a>>b>>c;
-    // while(st.find({a,b})!=st.end()){
-        
-    // }
-    cout<<_j1(3.13);
+    cin>>A>>B>>C;
+    a=0,b=0,c=C;
+    while(st.find({a,b})!=st.end()){
+        if(b==0){
+            c+=a;
+            a=0;
+            c-=B;
+            b=B;
+        }else if(b!=0){
+            if(a>=b){
+                a+=b;
+                b=0;
+            }else{
+                a=A;
+                b-=A;
+            }
+        }
+    }
 }   
 int main(){
     ios::sync_with_stdio(0);
