@@ -20,9 +20,13 @@ ll n;
 void solve(){
     cin>>n;
     bcj a(n);
+    ll ans=0;
     for(int i=1;i<n;i++){
-        ll x,y;cin>>x>>y;
-        len[a.find(x)]*   
+        ll x,y,z;cin>>x>>y>>z;
+        ans+=llabs(len[a.find(x)]-len[a.find(y)])*z;
+        len[a.find(x)]++;
+        len[a.find(y)]++;
+        a.fa[a.find(y)]=a.find(x);
     }
 }
 int main(){
