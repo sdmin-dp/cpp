@@ -35,6 +35,9 @@ void solve(){
         g[x].push_back({x,z});
         g[y].push_back({x,z});
     }
+    dfs(1,0);
+    dfs2(1,0);
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
