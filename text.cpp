@@ -2,10 +2,10 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e5+5;
-
+const ll N=100+5;
+char str[N];
 void solve(){
-    printf("%u",-11);
+    sprintf(str,"%X",52342);
 }
 int main(){
     // ios::sync_with_stdio(0);
