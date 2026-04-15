@@ -7,9 +7,10 @@ ll a,b,c;
 // unordered_set<pair<ll,ll>> st;
 void solve(){
     cin>>a>>b>>c;
-    while(st.find({a,b})!=st.end()){
-        cout<<_j1(3.13);
-    }
+    // while(st.find({a,b})!=st.end()){
+        
+    // }
+    cout<<_j1(3.13);
 }   
 int main(){
     ios::sync_with_stdio(0);
