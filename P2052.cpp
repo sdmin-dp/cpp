@@ -15,11 +15,15 @@ struct bcj{
         return fa[x]=find(fa[x]);
     }
 };
-ll n,m;
-vector<pair<ll,ll>> g[N];
+ll len[N];
+ll n;
 void solve(){
     cin>>n;
-    for(int i=1;i<=)
+    bcj a(n);
+    for(int i=1;i<n;i++){
+        ll x,y;cin>>x>>y;
+        len[a.find(x)]*   
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
