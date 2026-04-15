@@ -4,7 +4,7 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll a,b,c;
-unordered_set<pair<ll,ll>> st;
+// unordered_set<pair<ll,ll>> st;
 void solve(){
     cin>>a>>b>>c;
     while(st.find({a,b})!=st.end()){
