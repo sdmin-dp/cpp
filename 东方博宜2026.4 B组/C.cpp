@@ -37,6 +37,7 @@ void solve(){
         if(c<mn&&c){mn=c;ans=cnt;}
         st.insert(hsh({a,b}));
     }
+    cout<<mn<<"\n"<<ans;
 }   
 int main(){
     ios::sync_with_stdio(0);
