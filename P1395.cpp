@@ -50,7 +50,7 @@ void solve(){
     ans=n*n;
     dfs(1,0);
     dfs2(1,0);
-    cout<<ai<<" "<<ans;
+    cout<<ai-1<<" "<<ans-1;
 }
 int main(){
     ios::sync_with_stdio(0);
