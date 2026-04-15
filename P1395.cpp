@@ -23,7 +23,7 @@ void dfs2(ll x,ll fa){
         }else{
             ai=min(ai,x);
         }
-        ans=dis[x]
+        ans=dis[x];
     }
     for(auto i:g[x]){
         if(i==fa) continue;
