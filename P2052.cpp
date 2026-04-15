@@ -18,7 +18,7 @@ void dfs(ll x,ll fa){
 void dfs2(ll u,ll fa){
     for(auto i:g[u]){
         ll v=i.first,w=i.second;
-        if(v==fa) return;
+        if(v==fa) continue;
         ll lenu=len[u],lenv=len[v];
         len[u]-=len[v];
         ans+=abs(len[u]-len[v])*w;
