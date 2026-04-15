@@ -14,7 +14,10 @@ pair<ll,ll> rehsh(ll a){
 unordered_set<ll> st;
 void solve(){
     cin>>A>>B>>C;
-    if(A==B&&B==C) cout<<A<<" "<<0;
+    if(A==B&&B==C){
+        cout<<A<<" "<<0;
+        return;
+    }
     a=0,b=0,c=C;
     ll ans=0,mn=1e12,cnt=0;
     ll ans2=0,mn2=1e12;
@@ -44,7 +47,7 @@ void solve(){
         if(a<mn&&a){mn=a;ans=cnt;}
         if(b<mn&&b){mn=b;ans=cnt;}
         if(c<mn&&c){mn=c;ans=cnt;}
-        cerr<<a<<" "<<b<<" "<<c<<el;
+        // cerr<<a<<" "<<b<<" "<<c<<el;
     }
     st.clear();cnt=0;
     a=0,b=0,c=C;
@@ -75,7 +78,7 @@ void solve(){
         if(a<mn2&&a){mn2=a;ans2=cnt;}
         if(b<mn2&&b){mn2=b;ans2=cnt;}
         if(c<mn2&&c){mn2=c;ans2=cnt;}
-        cerr<<a<<" "<<b<<" "<<c<<el;
+        // cerr<<a<<" "<<b<<" "<<c<<el;
     }
     cout<<min(mn,mn2)<<"\n"<<min(ans,ans2);
 }   
