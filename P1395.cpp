@@ -48,6 +48,7 @@ void solve(){
         g[y].push_back(x);
     }
     ans=n*n;
+    ai=n_1;
     dfs(1,0);
     dfs2(1,0);
     cout<<ai<<" "<<ans;
