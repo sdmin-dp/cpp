@@ -20,19 +20,23 @@ void solve(){
         st.insert(hsh({a,b}));
         cnt++;
         if(b==0){
-            c+=a;
-            a=0;
-            c-=B;
-            b=B;
+            if(c<B){
+                b=c;
+                c=0;
+            }else{
+                c-=B;
+                b=B;
+            }
         }else if(b!=0){
-            if(A-a>=b){
+            if(a==A){
+                c+=a;
+                a=0;
+            }else if(A-a<b){
+                b-=A-a;
+                a=A;
+            }else{
                 a+=b;
                 b=0;
-            }else{
-                if(b>=A){
-                    a=A;
-                    b-=A;
-                }
             }
         }
         if(a<mn&&a){mn=a;ans=cnt;}
