@@ -16,6 +16,36 @@ void solve(){
     cin>>A>>B>>C;
     a=0,b=0,c=C;
     ll ans=0,mn=1e12,cnt=0;
+    ll ans2=0,mn2=1e12;
+    while(st.find(hsh({a,b}))==st.end()){
+        st.insert(hsh({a,b}));
+        cnt++;
+        if(b==0){
+            if(c<B){
+                b=c;
+                c=0;
+            }else{
+                c-=B;
+                b=B;
+            }
+        }else if(b!=0){
+            if(a==A){
+                c+=a;
+                a=0;
+            }else if(A-a<b){
+                b-=A-a;
+                a=A;
+            }else{
+                a+=b;
+                b=0;
+            }
+        }
+        if(a<mn&&a){mn=a;ans=cnt;}
+        if(b<mn&&b){mn=b;ans=cnt;}
+        if(c<mn&&c){mn=c;ans=cnt;}
+        cerr<<a<<" "<<b<<" "<<c<<el;
+    }
+    st.clear();
     while(st.find(hsh({a,b}))==st.end()){
         st.insert(hsh({a,b}));
         cnt++;
