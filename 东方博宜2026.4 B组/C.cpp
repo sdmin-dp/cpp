@@ -5,33 +5,32 @@ using namespace std;
 const ll N=1e5+5;
 ll A,B,C;
 ll a,b,c;
-ll hash(pair<ll,ll> a){
+ll hsh(pair<ll,ll> a){
     return a.first*10000+a.second;
 }
-pair<ll,ll> rehash(ll a){
+pair<ll,ll> rehsh(ll a){
     return {a%10000,a/10000};
 }
 unordered_set<ll> st;
-
 void solve(){
     cin>>A>>B>>C;
     a=0,b=0,c=C;
-    // while(st.find({a,b})!=st.end()){
-    //     if(b==0){
-    //         c+=a;
-    //         a=0;
-    //         c-=B;
-    //         b=B;
-    //     }else if(b!=0){
-    //         if(a>=b){
-    //             a+=b;
-    //             b=0;
-    //         }else{
-    //             a=A;
-    //             b-=A;
-    //         }
-    //     }
-    // }
+    while(st.find(hsh({a,b}))!=st.end()){
+        if(b==0){
+            c+=a;
+            a=0;
+            c-=B;
+            b=B;
+        }else if(b!=0){
+            if(a>=b){
+                a+=b;
+                b=0;
+            }else{
+                a=A;
+                b-=A;
+            }
+        }
+    }
 }   
 int main(){
     ios::sync_with_stdio(0);
