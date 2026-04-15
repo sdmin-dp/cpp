@@ -74,7 +74,7 @@ void solve(){
         if(c<mn2&&c){mn2=c;ans2=cnt;}
         cerr<<a<<" "<<b<<" "<<c<<el;
     }
-    cout<<mn<<"\n"<<ans;
+    cout<<min(mn,mn2)<<"\n"<<min(ans,ans2);
 }   
 int main(){
     ios::sync_with_stdio(0);
