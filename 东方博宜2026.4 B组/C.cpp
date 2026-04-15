@@ -4,14 +4,15 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll A,B,C;
+ll a,b,c;
 ll hash(pair<ll,ll> a){
-    return a.first*10000+b;
+    return a.first*10000+a.second;
 }
 pair<ll,ll> rehash(ll a){
     return {a%10000,a/10000};
 }
 unordered_set<ll> st;
-ll a,b,c;
+
 void solve(){
     cin>>A>>B>>C;
     a=0,b=0,c=C;
