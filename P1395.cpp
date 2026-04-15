@@ -31,7 +31,7 @@ void dfs2(ll x,ll fa){
         dis[x]-=dis[i]+len[i];
         len[i]+=len[x];
         dis[i]+=dis[x]+len[x];
-        dfs2(x,i);
+        dfs2(i,x);
         len[x]=lenu;
         len[i]=lenv;
         dis[x]=du;
