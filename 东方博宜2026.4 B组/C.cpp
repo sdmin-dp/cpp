@@ -15,22 +15,22 @@ ll a,b,c;
 void solve(){
     cin>>A>>B>>C;
     a=0,b=0,c=C;
-    while(st.find({a,b})!=st.end()){
-        if(b==0){
-            c+=a;
-            a=0;
-            c-=B;
-            b=B;
-        }else if(b!=0){
-            if(a>=b){
-                a+=b;
-                b=0;
-            }else{
-                a=A;
-                b-=A;
-            }
-        }
-    }
+    // while(st.find({a,b})!=st.end()){
+    //     if(b==0){
+    //         c+=a;
+    //         a=0;
+    //         c-=B;
+    //         b=B;
+    //     }else if(b!=0){
+    //         if(a>=b){
+    //             a+=b;
+    //             b=0;
+    //         }else{
+    //             a=A;
+    //             b-=A;
+    //         }
+    //     }
+    // }
 }   
 int main(){
     ios::sync_with_stdio(0);
