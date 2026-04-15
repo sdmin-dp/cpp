@@ -15,7 +15,7 @@ unordered_set<ll> st;
 void solve(){
     cin>>A>>B>>C;
     if(A==B&&B==C){
-        cout<<A<<" "<<0;
+        cout<<A<<"\n"<<0;
         return;
     }
     a=0,b=0,c=C;
