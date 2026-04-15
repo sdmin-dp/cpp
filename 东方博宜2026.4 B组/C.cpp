@@ -14,6 +14,7 @@ pair<ll,ll> rehsh(ll a){
 unordered_set<ll> st;
 void solve(){
     cin>>A>>B>>C;
+    if(A==B&&B==C) cout<<A<<" "<<0;
     a=0,b=0,c=C;
     ll ans=0,mn=1e12,cnt=0;
     ll ans2=0,mn2=1e12;
