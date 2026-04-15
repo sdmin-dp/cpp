@@ -15,14 +15,16 @@ unordered_set<ll> st;
 void solve(){
     cin>>A>>B>>C;
     a=0,b=0,c=C;
+    ll ans=0,mn=1e12,cnt=0;
     while(st.find(hsh({a,b}))!=st.end()){
+        cnt++;
         if(b==0){
             c+=a;
             a=0;
             c-=B;
             b=B;
         }else if(b!=0){
-            if(a>=b){
+            if(A-a>=b){
                 a+=b;
                 b=0;
             }else{
@@ -30,6 +32,10 @@ void solve(){
                 b-=A;
             }
         }
+        if(a<mn&&a){mn=a;ans=cnt;}
+        if(b<mn&&b){mn=b;ans=cnt;}
+        if(c<mn&&c){mn=c;ans=cnt;}
+        st.insert(hsh({a,b}));
     }
 }   
 int main(){
