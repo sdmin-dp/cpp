@@ -13,16 +13,14 @@ void dfs(ll x,ll fa){
         if(i==fa) continue;
         dfs(x,fa);
         len[x]+=len[i];
-        dis[x]+=len[x]-1;
+        dis[x]+=dis[i]+len[x];
     }
 }
 void dfs2(ll x,ll fa){
     for(auto i:g[x]){
         if(i==fa) continue;
-        ll lenu=len[x];
-        len[x]-=len[i];
-        len[i]+=len[x];
-        ans=max(ans,len[x]);
+        ll lenu=len[x],lenv=len[i],du=dis[x],dv=dis[i];
+        
     }
 }
 void solve(){
