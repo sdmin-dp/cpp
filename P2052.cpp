@@ -30,11 +30,13 @@ void dfs2(ll u,ll fa){
 void solve(){
     cin>>n;
     for(int i=1;i<n;i++){
+        len[i]=1;
         ll x,y,z;
         cin>>x>>y>>z;
         g[x].push_back({x,z});
         g[y].push_back({x,z});
     }
+    len[n]=1;
     dfs(1,0);
     dfs2(1,0);
     cout<<ans;
