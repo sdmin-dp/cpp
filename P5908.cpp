@@ -19,11 +19,8 @@ void solve(){
     }
     dfs(1,0);
     ll ans=0;
-    for(int i=2;i<=n;i++){
-        if(dep[i]-1>=m){
-
-        }
-    }
+    for(int i=2;i<=n;i++) if(dep[i]-1<=m) ans++;
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
