@@ -21,6 +21,7 @@ void solve(){
     cin>>n;
     bcj a(n);
     ll ans=0;
+    for(int i=1;i<=n;i++) len[i]=1;
     for(int i=1;i<n;i++){
         ll x,y,z;cin>>x>>y>>z;
         int fx=a.find(x),fy=a.find(y);
