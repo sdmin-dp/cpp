@@ -18,8 +18,11 @@ void solve(){
         g[y].push_back(x);
     }
     dfs(1,0);
-    for(int i=0;i<=n;i++){
-        
+    ll ans=0;
+    for(int i=2;i<=n;i++){
+        if(dep[i]-1>=m){
+
+        }
     }
 }
 int main(){
