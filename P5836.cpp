@@ -15,13 +15,13 @@ void dfs(ll x,ll f){
 }
 ll LCA(ll u,ll v){
     if(dep[u]<dep[v]) swap(v,u);
-    for(int i=19;i>=0;i--){
+    for(int i=20;i>=0;i--){
         if(dep[up[i][u]]>=dep[v]){
             u=up[i][u];
         }
     }
     if(u==v) return u;
-    for(int k=19;k>=0;k--){
+    for(int k=20;k>=0;k--){
         if(up[k][u]!=up[k][v]){
             u=up[k][u];
             v=up[k][v];
