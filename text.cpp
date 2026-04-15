@@ -6,7 +6,7 @@ const ll N=100+5;
 char str[N],str1[N];
 void solve(){
     sprintf(str,"%X",52342);
-    ll n;
+    ll n=0;
     sscanf(str,"%d",&n);
     cout<<n;
 }
