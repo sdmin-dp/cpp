@@ -59,6 +59,7 @@ void solve(){
         else h++;
         if(c=='G'&&g==0||c=='H'&&h==0) cout<<0;
         else cout<<1;
+        cerr<<g<<" "<<h<<el;
     }
 }
 int main(){
