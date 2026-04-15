@@ -22,6 +22,7 @@ void dfs2(ll u,ll fa){
         ll lenu=len[u],lenv=len[v];
         len[u]-=len[v];
         ans+=abs(len[u]-len[v])*w;
+        len[v]+=len[u];
         dfs2(v,u);
         len[u]=lenu;
         len[v]=lenv;
