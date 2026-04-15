@@ -41,7 +41,7 @@ void dfs2(ll x,ll fa){
 }
 void solve(){
     cin>>n;
-    for(int i=1;i<=n;i++){
+    for(int i=1;i<n;i++){
         len[i]=1;
         ll x,y;cin>>x>>y;
         g[x].push_back(y);
