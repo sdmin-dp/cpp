@@ -5,10 +5,20 @@ using namespace std;
 const ll N=5e4+5;
 ll n;
 vector<ll> g[N];
+ll len[N];
 void dfs(ll x,ll fa){
     for(auto i:g[x]){
         if(i==fa) continue;
+        dfs(x,fa);
+        len[x]+=len[i];
+    }
+}
+void dfs2(ll x,ll fa){
+    for(auto i:g[x]){
+        if(i==fa) continue;
+        ll lenu=len[x];
         
+        len[x]+=len[i];
     }
 }
 void solve(){
