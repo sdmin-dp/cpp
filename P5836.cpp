@@ -4,24 +4,24 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n,m;
-ll dep[N],up[15][N];
+ll dep[N],up[25][N];
 char a[N];
 vector<ll> g[N];
 pair<ll,ll> cnt[N];//pair<H,G>
 void dfs(ll x,ll f){
     dep[x]=dep[f]+1;up[0][x]=f;
-    for(int i=1;i<10;i++) up[i][x]=up[i-1][up[i-1][x]];
+    for(int i=1;i<20;i++) up[i][x]=up[i-1][up[i-1][x]];
     for(auto i:g[x]) if(i!=f) dfs(i,x);
 }
 ll LCA(ll u,ll v){
     if(dep[u]<dep[v]) swap(v,u);
-    for(int i=9;i>=0;i--){
+    for(int i=20;i>=0;i--){
         if(dep[up[i][u]]>=dep[v]){
             u=up[i][u];
         }
     }
     if(u==v) return u;
-    for(int k=9;k>=0;k--){
+    for(int k=20;k>=0;k--){
         if(up[k][u]!=up[k][v]){
             u=up[k][u];
             v=up[k][v];
