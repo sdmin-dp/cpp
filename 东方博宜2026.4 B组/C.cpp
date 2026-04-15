@@ -36,6 +36,7 @@ void solve(){
         if(b<mn&&b){mn=b;ans=cnt;}
         if(c<mn&&c){mn=c;ans=cnt;}
         st.insert(hsh({a,b}));
+        cerr<<a<<" "<<b<<" "<<c;
     }
     cout<<mn<<"\n"<<ans;
 }   
