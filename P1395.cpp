@@ -47,7 +47,7 @@ void solve(){
         g[x].push_back(y);
         g[y].push_back(x);
     }
-    le[n]=1;
+    len[n]=1;
     ans=n*n;
     ai=n+1;
     dfs(1,0);
