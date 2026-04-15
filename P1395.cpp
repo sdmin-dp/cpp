@@ -6,7 +6,7 @@ const ll N=5e4+5;
 ll n;
 vector<ll> g[N];
 ll len[N];
-ll ans;
+ll ans=n*n,ai;
 ll dis[N];
 void dfs(ll x,ll fa){
     for(auto i:g[x]){
@@ -17,6 +17,13 @@ void dfs(ll x,ll fa){
     }
 }
 void dfs2(ll x,ll fa){
+    if(ans>=dis[x]){
+        if(ans>dis[x]){
+            ai=x;
+        }else{
+            ai=min(ai,x);
+        }
+    }
     for(auto i:g[x]){
         if(i==fa) continue;
         ll lenu=len[x],lenv=len[i],du=dis[x],dv=dis[i];
