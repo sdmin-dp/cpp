@@ -20,7 +20,15 @@ void dfs2(ll x,ll fa){
     for(auto i:g[x]){
         if(i==fa) continue;
         ll lenu=len[x],lenv=len[i],du=dis[x],dv=dis[i];
-        
+        len[x]-=len[i];
+        dis[x]-=dis[i]+len[i];
+        len[i]+=len[x];
+        dis[i]+=dis[x]+len[x];
+        dfs2(x,i);
+        len[x]=lenu;
+        len[i]=lenv;
+        dis[x]=du;
+        dis[i]=dv;
     }
 }
 void solve(){
@@ -30,7 +38,9 @@ void solve(){
         g[x].push_back(y);
         g[y].push_back(x);
     }
-
+    dfs(1,0);
+    dfs2(1,0);
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
