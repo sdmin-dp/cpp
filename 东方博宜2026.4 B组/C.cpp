@@ -10,7 +10,7 @@ ll hash(pair<ll,ll> a){
 pair<ll,ll> rehash(ll a){
     return {a%10000,a/10000};
 }
-unordered_set<pair<ll,ll>> st;
+unordered_set<ll> st;
 ll a,b,c;
 void solve(){
     cin>>A>>B>>C;
