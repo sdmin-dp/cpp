@@ -48,7 +48,7 @@ void solve(){
     }
     dfs(1,0);
     dfs2(1,0);
-    cout<<ans;
+    cout<<ai<<" "<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
