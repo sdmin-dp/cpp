@@ -47,7 +47,7 @@ void solve(){
         g[y].push_back(x);
     }
     dfs(1,0);
-    // dfs2(1,0);
+    dfs2(1,0);
     cout<<ai<<" "<<ans;
 }
 int main(){
