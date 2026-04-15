@@ -31,10 +31,12 @@ ll LCA(ll u,ll v){
 }
 void dfs2(ll x,ll fa){
     cnt[x]=cnt[fa];
-    if(a[x]=='H') cnt[x].first++;
-    else cnt[x].second++;
+    
     for(auto i:g[x]){
         if(i!=fa){
+            cnt[i]=cnt[x];
+            if(a[x]=='H') cnt[i].first++;
+            else cnt[x].second++;
             dfs2(i,x);
         }
     }
