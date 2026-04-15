@@ -9,6 +9,7 @@ void solve(){
     cout<<str;
     ll n;
     sscanf(str,"%d",n);
+    cout<<a;
 }
 int main(){
     // ios::sync_with_stdio(0);
