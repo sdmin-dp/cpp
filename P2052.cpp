@@ -23,10 +23,10 @@ void solve(){
     ll ans=0;
     for(int i=1;i<n;i++){
         ll x,y,z;cin>>x>>y>>z;
-        ans+=llabs(len[a.find(x)]-len[a.find(y)])*z;
-        a.fa[a.find(y)]=a.find(x);
-        len[a.find(x)]++;
-        len[a.find(y)]++;
+        int fx=a.find(x),fy=a.find(y);
+        ans+=llabs(len[fx]-len[fy])*z;
+        a.fa[fy]=fx;
+        len[fx]+=len[fy];
     }
     cout<<ans;
 }
