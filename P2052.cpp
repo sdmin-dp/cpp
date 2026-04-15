@@ -20,9 +20,9 @@ vector<pair<ll,ll>> g[N];
 void solve(){
     cin>>n>>m;
     for(int i=1;i<=m;i++){
-        ll x,y;cin>>x>>y;
-        g[x].push_back(y);
-        g[y].push_back(x);
+        ll x,y,z;cin>>x>>y>>z;
+        g[x].push_back({y,z});
+        g[y].push_back({x,z});
     }
 }
 int main(){
