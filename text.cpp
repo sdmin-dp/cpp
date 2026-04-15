@@ -3,10 +3,12 @@
 using namespace std;
 #define el '\n'
 const ll N=100+5;
-char str[N];
+char str[N],str1[N];
 void solve(){
     sprintf(str,"%X",52342);
     cout<<str;
+    ll n;
+    sscanf(str,"%d",n);
 }
 int main(){
     // ios::sync_with_stdio(0);
