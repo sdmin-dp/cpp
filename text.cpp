@@ -6,7 +6,7 @@ const ll N=100+5;
 char str[N],str1[N];
 void solve(){
     string s="13r ef";
-    scanf("%s",&s);
+    scanf("%s",&s[0]);
     cout<<s;
 }
 int main(){
