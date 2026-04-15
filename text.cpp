@@ -5,10 +5,9 @@ using namespace std;
 const ll N=100+5;
 char str[N],str1[N];
 void solve(){
-    sprintf(str,"%X",52342);
-    ll n=0;
-    sscanf(str,"%X",&n);
-    cout<<n;
+    string s="13r ef";
+    scanf("%s",&s);
+    cout<<s;
 }
 int main(){
     // ios::sync_with_stdio(0);
