@@ -18,8 +18,8 @@ struct bcj{
 ll n,m;
 vector<pair<ll,ll>> g[N];
 void solve(){
-    cin>>n>>m;
-    for(int i=1)
+    cin>>n;
+    for(int i=1;i<=)
 }
 int main(){
     ios::sync_with_stdio(0);
