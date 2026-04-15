@@ -29,8 +29,10 @@ void solve(){
                 a+=b;
                 b=0;
             }else{
-                a=A;
-                b-=A;
+                if(b>=A){
+                    a=A;
+                    b-=A;
+                }
             }
         }
         if(a<mn&&a){mn=a;ans=cnt;}
