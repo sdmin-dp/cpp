@@ -46,6 +46,8 @@ void solve(){
         cerr<<a<<" "<<b<<" "<<c<<el;
     }
     st.clear();cnt=0;
+    a=0,b=0,c=C;
+    swap(A,B);
     while(st.find(hsh({a,b}))==st.end()){
         st.insert(hsh({a,b}));
         cnt++;
