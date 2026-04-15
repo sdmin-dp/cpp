@@ -11,7 +11,7 @@ ll dis[N];
 void dfs(ll x,ll fa){
     for(auto i:g[x]){
         if(i==fa) continue;
-        dfs(x,fa);
+        dfs(i,x);
         len[x]+=len[i];
         dis[x]+=dis[i]+len[x];
     }
@@ -46,7 +46,7 @@ void solve(){
         g[x].push_back(y);
         g[y].push_back(x);
     }
-    // dfs(1,0);
+    dfs(1,0);
     // dfs2(1,0);
     cout<<ai<<" "<<ans;
 }
