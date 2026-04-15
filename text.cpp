@@ -6,6 +6,7 @@ const ll N=100+5;
 char str[N];
 void solve(){
     sprintf(str,"%X",52342);
+    cout<<str;
 }
 int main(){
     // ios::sync_with_stdio(0);
