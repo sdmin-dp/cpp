@@ -6,19 +6,23 @@ const ll N=5e4+5;
 ll n;
 vector<ll> g[N];
 ll len[N];
+ll ans;
+ll dis[N];
 void dfs(ll x,ll fa){
     for(auto i:g[x]){
         if(i==fa) continue;
         dfs(x,fa);
         len[x]+=len[i];
+        dis[u]+=len[u]-1;
     }
 }
 void dfs2(ll x,ll fa){
     for(auto i:g[x]){
         if(i==fa) continue;
         ll lenu=len[x];
-        
-        len[x]+=len[i];
+        len[x]-=len[i];
+        len[i]+=len[x];
+        ans=max(ans,len[x]);
     }
 }
 void solve(){
