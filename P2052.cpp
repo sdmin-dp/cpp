@@ -34,7 +34,7 @@ void solve(){
         len[i]=1;
         ll x,y,z;
         cin>>x>>y>>z;
-        g[x].push_back({x,z});
+        g[x].push_back({y,z});
         g[y].push_back({x,z});
     }
     len[n]=1;
