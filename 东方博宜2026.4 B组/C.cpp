@@ -4,8 +4,12 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll a,b,c;
+unordered_set<ll> st;
 void solve(){
-    
+    cin>>a>>b>>c;
+    while(){
+
+    }
 }   
 int main(){
     ios::sync_with_stdio(0);
