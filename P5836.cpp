@@ -31,7 +31,7 @@ ll LCA(ll u,ll v){
 }
 void dfs2(ll x,ll fa){
     cnt[x]=cnt[fa];
-    if(a[x]=='H') cnt[x].first++;
+    if(a[x]=='G') cnt[x].first++;
     else cnt[x].second++;
     for(auto i:g[x]) if(i!=fa) dfs2(i,x);
 }
@@ -59,7 +59,6 @@ void solve(){
         else h++;
         if(c=='G'&&g==0||c=='H'&&h==0) cout<<0;
         else cout<<1;
-        cerr<<g<<" "<<h<<el;
     }
 }
 int main(){
