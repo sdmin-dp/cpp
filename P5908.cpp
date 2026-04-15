@@ -5,6 +5,11 @@ using namespace std;
 const ll N=1e5+5;
 ll n,m;
 vector<ll> g[N];
+ll dep[N];
+void dfs(ll x,ll fa){
+    dep[x]=dep[fa]+1;
+    for(auto &i:g[x]) if(i!=fa) dfs(i,x);
+}
 void solve(){
     cin>>n>>m;
     for(int i=1;i<n;i++){
@@ -12,6 +17,7 @@ void solve(){
         g[x].push_back(y);
         g[y].push_back(x);
     }
+    dfs(1,0);
     
 }
 int main(){
