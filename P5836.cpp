@@ -33,7 +33,11 @@ void dfs2(ll x,ll fa){
     a[x]=a[fa];
     if(a[x]=='H') cnt[x].first++;
     else cnt[x].second++;
-    for(auto i:g[x]) if(i!=fa) dfs2(i,x);
+    for(auto i:g[x]){
+        if(i!=fa){
+            dfs2(i,x);
+        }
+    }
 }
 void solve(){
     cin>>n>>m;
