@@ -45,7 +45,7 @@ void solve(){
         if(c<mn&&c){mn=c;ans=cnt;}
         cerr<<a<<" "<<b<<" "<<c<<el;
     }
-    st.clear();
+    st.clear();cnt=0;
     while(st.find(hsh({a,b}))==st.end()){
         st.insert(hsh({a,b}));
         cnt++;
@@ -69,9 +69,9 @@ void solve(){
                 b=0;
             }
         }
-        if(a<mn&&a){mn=a;ans=cnt;}
-        if(b<mn&&b){mn=b;ans=cnt;}
-        if(c<mn&&c){mn=c;ans=cnt;}
+        if(a<mn2&&a){mn2=a;ans2=cnt;}
+        if(b<mn2&&b){mn2=b;ans2=cnt;}
+        if(c<mn2&&c){mn2=c;ans2=cnt;}
         cerr<<a<<" "<<b<<" "<<c<<el;
     }
     cout<<mn<<"\n"<<ans;
