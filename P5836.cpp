@@ -30,7 +30,7 @@ ll LCA(ll u,ll v){
     return up[0][u];
 }
 void dfs2(ll x,ll fa){
-    a[x]=a[fa];
+    cnt[x]=cnt[fa];
     if(a[x]=='H') cnt[x].first++;
     else cnt[x].second++;
     for(auto i:g[x]){
