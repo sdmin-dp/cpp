@@ -6,7 +6,7 @@ const ll N=5e4+5;
 ll n;
 vector<ll> g[N];
 ll len[N];
-ll ans=n*n,ai;
+ll ans,ai;
 ll dis[N];
 void dfs(ll x,ll fa){
     for(auto i:g[x]){
@@ -46,6 +46,7 @@ void solve(){
         g[x].push_back(y);
         g[y].push_back(x);
     }
+    ans=n*n;
     dfs(1,0);
     dfs2(1,0);
     cout<<ai<<" "<<ans;
