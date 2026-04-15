@@ -49,7 +49,16 @@ void solve(){
         ll b,e;
         char c;
         cin>>b>>e>>c;
-        
+        ll g=0,h=0;
+        ll lca=LCA(b,e);
+        g+=cnt[e].first-cnt[lca].first;
+        h+=cnt[e].second-cnt[lca].second;
+        g+=cnt[b].first-cnt[lca].first;
+        h+=cnt[b].second-cnt[lca].second;
+        if(a[lca]=='G') g++;
+        else h++;
+        if(c=='G'&&g==0||c=='H'&&h==0) cout<<0;
+        else cout<<1;
     }
 }
 int main(){
