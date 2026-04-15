@@ -4,6 +4,12 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll A,B,C;
+ll hash(pair<ll,ll> a){
+    return a.first*10000+b;
+}
+pair<ll,ll> rehash(ll a){
+    return {a%10000,a/10000};
+}
 unordered_set<pair<ll,ll>> st;
 ll a,b,c;
 void solve(){
