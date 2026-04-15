@@ -16,7 +16,7 @@ void solve(){
     cin>>A>>B>>C;
     a=0,b=0,c=C;
     ll ans=0,mn=1e12,cnt=0;
-    while(st.find(hsh({a,b}))!=st.end()){
+    while(st.find(hsh({a,b}))==st.end()){
         cnt++;
         if(b==0){
             c+=a;
