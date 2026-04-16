@@ -5,7 +5,8 @@ using namespace std;
 const ll N=1e5+5;
 ll n,q,b;
 ll dep[N],up[20][N];
-vector<ll> g[N];void dfs(ll x,ll f){
+vector<ll> g[N];
+void dfs(ll x,ll f){
     dep[x]=dep[f]+1;up[0][x]=f;
     for(int i=1;i<20;i++) up[i][x]=up[i-1][up[i-1][x]];
     for(auto i:g[x]) if(i!=f) dfs(i,x);
