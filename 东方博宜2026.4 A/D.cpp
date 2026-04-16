@@ -3,12 +3,16 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
+const ll mod=11;
 string s;
 bool f1=0,f2=0;
 void solve(){
     cin>>s;
     f1=0,f2=0;
-    
+    for(auto i:s){
+        ll x=0;
+        if(i=='') 
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
