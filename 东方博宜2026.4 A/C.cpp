@@ -10,7 +10,9 @@ bool vis[N][N];
 void solve(){
     cin>>n>>m;
     for(int i=1;i<=m;i++) cin>>a[i].first>>a[i].second;
-    
+    for(int i=1;i<=n;i++){
+        
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
