@@ -26,7 +26,7 @@ void solve(){
             ans++;
             i=j;
         }
-        cerr<<i<<" "<<ans<<"\n";
+        // cerr<<i<<" "<<ans<<"\n";
     }
     cout<<ans;
 }
