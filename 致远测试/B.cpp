@@ -16,8 +16,8 @@ void solve(){
             ll j=i;
             ll sum=a[i];
             while(sum<0){
-                sum+=a[--j];
                 cerr<<sum<<" ";
+                sum+=a[--j];
             }
             ans++;
             i=j-1;
