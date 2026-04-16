@@ -9,7 +9,8 @@ void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
         ll x=rand()%n;
-        if(x==0) x==n;
+        if(x==0) x=n;
+        cout<<x<<" ";
     }
 }
 int main(){
