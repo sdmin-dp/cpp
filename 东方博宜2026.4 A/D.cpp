@@ -10,12 +10,15 @@ void solve(){
     cin>>s;
     f1=0,f2=0;
     ll sum=0;
+    ll j=1;
     for(auto i:s){
         ll x=0;
         if(i=='X') x=10;
         else x=i-48;
-        sum+=x*(1<<18-i+1);
+        sum+=(x*(1<<18-j))%mod;
+        j++;
     }
+    if(sum%mod==)
 }
 int main(){
     ios::sync_with_stdio(0);
