@@ -25,8 +25,8 @@ void solve(){
     ll y=0,m=0,d=0;
     for(int i=6;i<=9;i++) y=y*10+(s[i]-48);
     for(int i=10;i<=11;i++) m=m*10+(s[i]-48);
+    for(int i=12;i<=13;i++) d=d*10+(s[i]-48);
     cout<<y<<" "<<m<<" "<<d<<el;
-    // for(int i=12;i<=13;i++) d=d*10+(s[i]-48);
     // if(y==2025){
     //     if(m==5){
     //         if(d<=10){
