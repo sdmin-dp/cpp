@@ -6,24 +6,26 @@ const ll N=1e2+5;
 const ll M=1e3+5;
 ll n,m,k;
 ll dp[M],dp2[M];
-pair<ll,ll> a[N];//pair<高度,价值>
+pair<ll,ll> a[N];//pair<价值,高度>
 void solve(){
     cin>>n>>m>>k;
     for(int i=1;i<=n;i++) cin>>a[i].first>>a[i].second;
     for(int i=1;i<=n;i++){
-        for(int j=a[i].first;j<=m;j++){
-            dp[j]=max(dp[j],dp[j-(ll)(a[i].first*0.8)]+);
+        for(int j=a[i].second;j<=m;j++){
+            dp[j]=max(dp[j],dp[j-(ll)(a[i].second*0.8)]+a[i].first);
         }
     }
     for(int i=1;i<=n;i++){
-        for(int j=a[i].first;j<=m;j++){
-            dp2[j]=max(dp2[j],dp2[j-a[i].first]+a[i].second);
+        for(int j=a[i].second;j<=m;j++){
+            dp2[j]=max(dp2[j],dp2[j-a[i].second]+a[i].first);
         }
     }
     ll ans=dp2[m];
     for(int i=1;i<=n;i++){
-        if(a[i].first)
+        if(a[i].second<k) continue;
+        ans=max(ans,dp[m-a[i].second]+a[i].first);
     }
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
