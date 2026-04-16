@@ -17,7 +17,7 @@ void solve(){
     //     }
     // }
     for(int i=1;i<=n;i++){
-        for(int j=a[i].second;j<=m;j++){
+        for(int j=a[i].second;j<=m*1.25;j++){
             dp2[j]=max(dp2[j],dp2[j-a[i].second]+a[i].first);
         }
     }
