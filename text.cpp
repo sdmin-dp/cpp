@@ -7,7 +7,7 @@ ll n,k;
 ll a[N];
 void solve(){
     n=rand()%20,k=rand()%20;
-    cout<<n<<" "<<k;
+    cout<<n<<" "<<k<<el;
     for(int i=1;i<=n;i++){
         a[i]=rand()%100;
         cout<<a[i]<<" ";
