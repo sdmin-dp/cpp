@@ -7,7 +7,7 @@ ll n;
 vector<ll> g[N];
 ll len[N],ans[N],res=1e12;
 void dfs(ll x,ll fa){
-
+    
 }
 void solve(){
     cin>>n;
