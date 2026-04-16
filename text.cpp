@@ -3,11 +3,9 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+ll n,m;
 void solve(){
-    for(int i=1;i<=1e5;i++){
-        cout<<(ll)(1e9)<<" ";
-    }
+    
 }
 int main(){
     ios::sync_with_stdio(0);
@@ -16,6 +14,7 @@ int main(){
     //freopen("xxx.out","w",stdout);
     ll T=1;
     //cin>>T;
+    srand
     while(T--){
         solve();
     }
