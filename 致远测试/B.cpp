@@ -8,11 +8,21 @@ ll a[N];
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++) cin>>a[i];
+    ll ans=0;
     for(int i=n;i>=1;i--){
         if(a[i]>=0){
-            
+            ans++;            
+        }else{
+            ll j=i;
+            ll sum=a[i];
+            while(sum<0){
+                sum+=a[--j];
+            }
+            ans++;
+            i=j-1;
         }
     }
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
