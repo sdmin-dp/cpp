@@ -6,6 +6,11 @@ const ll N=1e5+5;
 ll n;
 ll a[N];
 vector<ll> g[N];
+ll ans=0;
+ll sum[N];
+void dfs(ll x,ll fa){
+    
+}
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++) cin>>a[i];
@@ -14,6 +19,7 @@ void solve(){
         g[x].push_back(y);
         g[y].push_back(x);
     }
+
 }
 int main(){
     ios::sync_with_stdio(0);
