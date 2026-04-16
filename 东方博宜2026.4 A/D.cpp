@@ -9,9 +9,12 @@ bool f1=0,f2=0;
 void solve(){
     cin>>s;
     f1=0,f2=0;
+    ll sum=0;
     for(auto i:s){
         ll x=0;
-        if(i=='') 
+        if(i=='X') x=10;
+        else x=i-48;
+        
     }
 }
 int main(){
