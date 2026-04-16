@@ -7,7 +7,13 @@ ll n;
 ll a[N];
 vector<ll> g[N];
 void solve(){
-    cin>>
+    cin>>n;
+    for(int i=1;i<=n;i++) cin>>a[i];
+    for(int i=1;i<n;i++){
+        ll x,y;cin>>x>>y;
+        g[x].push_back(y);
+        g[y].push_back(x);
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
