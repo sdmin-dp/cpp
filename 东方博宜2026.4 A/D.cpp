@@ -65,6 +65,7 @@ void solve(){
             }
         }
     }
+    if(f1&&f2) cout<<""
 }
 int main(){
     ios::sync_with_stdio(0);
