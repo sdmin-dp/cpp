@@ -9,8 +9,13 @@ vector<ll> g[N];
 ll ans=0;
 ll sum[N];
 void dfs(ll x,ll fa){
-    for(auto i:g[x]) if(i!=fa) dfs(i,x);
-    sum[x]+=max(0ll,sum[]) 
+    for(auto i:g[x]){
+        if(i!=fa){
+            dfs(i,x);
+            sum[x]+=max(0ll,sum[i]);
+            ans=max(sum[x],ans);
+        }
+    }
 }
 void solve(){
     cin>>n;
@@ -20,7 +25,8 @@ void solve(){
         g[x].push_back(y);
         g[y].push_back(x);
     }
-
+    dfs(1,0);
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
