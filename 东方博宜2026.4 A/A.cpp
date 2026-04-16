@@ -7,8 +7,9 @@ ll a;
 bool flag1=0,flag2=0;
 void solve(){
     cin>>a;
-    if(a/100>=0&&a/100<=99&&a%100) flag1=0;
-    if(a)
+    if(a/100>=0&&a/100<=99&&a%100>=1&&a%100<=12) flag1=1;
+    if(a/100>=1&&a/100<=12&&a%100>=0&&a%100<=99) flag2=1;
+    
 }
 int main(){
     ios::sync_with_stdio(0);
