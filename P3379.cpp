@@ -4,7 +4,7 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n,q,b;
-ll dep[N],up[20][N];
+ll dep[N],up[22][N];
 vector<ll> g[N];
 void dfs(ll x,ll f){
     dep[x]=dep[f]+1;up[0][x]=f;
