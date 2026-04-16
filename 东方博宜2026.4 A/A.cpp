@@ -10,7 +10,7 @@ void solve(){
     if(a/100>=0&&a/100<=99&&a%100>=1&&a%100<=12) f1=1;
     if(a/100>=1&&a/100<=12&&a%100>=0&&a%100<=99) f2=1;
     if(f1&&!f2) cout<<"YYMM";
-    if(!f1&&f2) cout<<"YYMM";
+    if(!f1&&f2) cout<<"MMYY";
     if(f1&&f2) cout<<"YYMM";
     if(!f1&&!f2) cout<<"YYMM";
     
