@@ -14,7 +14,7 @@ void solve(){
         ll x=0;
         if(i=='X') x=10;
         else x=i-48;
-        
+        sum+=x*(1<<18-i+1);
     }
 }
 int main(){
