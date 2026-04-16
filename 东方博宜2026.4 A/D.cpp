@@ -7,7 +7,8 @@ string s;
 bool f1=0,f2=0;
 void solve(){
     cin>>s;
-    
+    f1=0,f2=0;
+    for()
 }
 int main(){
     ios::sync_with_stdio(0);
@@ -15,7 +16,7 @@ int main(){
     //freopen("xxx.in","r",stdin);
     //freopen("xxx.out","w",stdout);
     ll T=1;
-    //cin>>T;
+    cin>>T;
     while(T--){
         solve();
     }
