@@ -19,10 +19,14 @@ void solve(){
         j++;
     }
     if(sum%mod==1) f1=1;
-    ll y,m,d;
-    for(int i=6;i<=13;i++){
-        
+    ll y=0,m=0,d=0;
+    for(int i=6;i<=9;i++){
+        y=y*10+(s[i]-48);
     }
+    for(int i=10;i<=12;i++){
+        m=m*10+(s[i]-48);
+    }
+    for(int i=13)
 }
 int main(){
     ios::sync_with_stdio(0);
