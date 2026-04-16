@@ -27,7 +27,7 @@ void solve(){
     for(int i=1;i<=n;i++){
         if(a[i].second<k) continue;
         ans=max(ans,dp[m-a[i].second]+a[i].first);
-        cerr<<i<<" "<<dp[m-a[i].second]+a[i].first<<" "<<ans<<el;
+        cerr<<i<<" "<<dp[m-a[i].second]+a[i].first<<" "<<m-a[i].second<<" "<<ans<<el;
     }
     cout<<ans;
 
