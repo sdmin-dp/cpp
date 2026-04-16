@@ -3,9 +3,10 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+ll a;
 void solve(){
-    
+    cin>>a;
+    if(a/100)
 }
 int main(){
     ios::sync_with_stdio(0);
