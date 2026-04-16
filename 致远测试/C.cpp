@@ -20,7 +20,6 @@ void solve(){
         }
     }
     cout<<ans;
-    cerr<<rand();
 }
 int main(){
     ios::sync_with_stdio(0);
