@@ -21,10 +21,10 @@ void solve(){
         }
     }
     ll ans=dp2[m];
-    // for(int i=1;i<=n;i++){
-    //     if(a[i].second<k) continue;
-    //     ans=max(ans,dp[m-a[i].second]+a[i].first);
-    // }
+    for(int i=1;i<=n;i++){
+        if(a[i].second<k) continue;
+        ans=max(ans,dp[m-a[i].second]+a[i].first);
+    }
     cout<<ans;
 }
 int main(){
