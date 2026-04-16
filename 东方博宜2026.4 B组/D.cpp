@@ -11,7 +11,7 @@ void solve(){
     cin>>n>>m>>k;
     for(int i=1;i<=n;i++) cin>>a[i].first>>a[i].second;
     for(int i=1;i<=n;i++){
-        for(int j=a[i].second;j<=m;j++){
+        for(int j=a[i].second*0.8;j<=m;j++){
             dp[j]=max(dp[j],dp[j-(ll)(a[i].second*0.8)]+a[i].first);
             cerr<<(ll)(a[i].second*0.8)<<" "<<dp[j]<<el;
         }
