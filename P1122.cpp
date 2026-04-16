@@ -9,7 +9,8 @@ vector<ll> g[N];
 ll ans=0;
 ll sum[N];
 void dfs(ll x,ll fa){
-    
+    for(auto i:g[x]) if(i!=fa) dfs(i,x);
+    sum[x]+=max(0ll,sum[]) 
 }
 void solve(){
     cin>>n;
