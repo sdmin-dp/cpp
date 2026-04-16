@@ -10,6 +10,22 @@ vector<ll> g[N];void dfs(ll x,ll f){
     for(int i=1;i<17;i++) up[i][x]=up[i-1][up[i-1][x]];
     for(auto i:g[x]) if(i!=f) dfs(i,x);
 }
+ll LCA(ll u,ll v){
+    if(dep[u]<dep[v]) swap(v,u);
+    for(int i=17;i>=0;i--){
+        if(dep[up[i][u]]>=dep[v]){
+            u=up[i][u];
+        }
+    }
+    if(u==v) return u;
+    for(int k=17;k>=0;k--){
+        if(up[k][u]!=up[k][v]){
+            u=up[k][u];
+            v=up[k][v];
+        }
+    }
+    return up[0][u];
+}
 void solve(){
     cin>>n>>q>>b;
     for(int i=1;i<n;i++){
@@ -17,7 +33,6 @@ void solve(){
         g[x].push_back(y);
         g[y].push_back(x);
     }
-    
 }
 int main(){
     ios::sync_with_stdio(0);
