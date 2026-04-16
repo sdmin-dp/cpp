@@ -18,11 +18,11 @@ void solve(){
         if(s[i]=='X') x=10;
         else x=s[i]-48;
         sum+=(x*pow(2,(18-i-1)));
-        cout<<x;
+        // cout<<x;
     }
     if(sum%mod==1) f1=1;
-    cout<<el;
-    // cout<<sum%mod<<" ";
+    // cout<<el;
+    cout<<sum%mod<<" ";
     ll y=0,m=0,d=0;
     for(int i=6;i<=9;i++) y=y*10+(s[i]-48);
     for(int i=10;i<=11;i++) m=m*10+(s[i]-48);
