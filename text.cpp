@@ -10,8 +10,9 @@ void solve(){
     cout<<n<<" "<<k<<el;
     for(int i=1;i<=n;i++){
         a[i]=rand()%100;
-        cout<<a[i]<<" ";
+        // cout<<a[i]<<" ";
     }
+
 }
 int main(){
     ios::sync_with_stdio(0);
