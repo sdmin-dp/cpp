@@ -65,7 +65,8 @@ void solve(){
             }
         }
     }
-    if(f1&&f2) cout<<""
+    if(f1&&f2) cout<<"PASS\n";
+    else cout<<""
 }
 int main(){
     ios::sync_with_stdio(0);
