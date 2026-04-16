@@ -29,7 +29,6 @@ int main(){
     //freopen("xxx.out","w",stdout);
     ll T=1;
     //cin>>T;
-    srand(time(0));
     while(T--){
         solve();
     }
