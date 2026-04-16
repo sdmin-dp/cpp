@@ -31,9 +31,11 @@ void solve(){
     cin>>n;
     for(int i=1;i<n;i++){
         ll x,y;cin>>x>>y;
+        len[i]=1;
         g[x].push_back(y);
         g[y].push_back(x);
     }
+    len[n]=1;
     dfs(1,0);
     dfs2(1,0);
     cout<<res;
