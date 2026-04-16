@@ -7,7 +7,25 @@ ll n;
 vector<ll> g[N];
 ll len[N],ans[N],res=1e12;
 void dfs(ll x,ll fa){
-    
+    for(auto i:g[x]){
+        if(i==fa) continue;
+        dfs(i,x);
+        len[x]+=len[i];
+    }
+}
+void dfs2(ll x,ll fa){
+    ans[x]=max(ans[x],len[fa]);
+    for(auto i:g[x]){
+        if(i==fa) continue;
+        ans[x]=max(ans[x],len[i]);
+        ll lenx=len[x],leni=len[i];
+        len[x]-=len[i];
+        len[i]+=len[x];
+        dfs2(i,x);
+        len[x]=lenx;
+        len[i]=leni;
+    }
+    res=min(res,ans[x]);
 }
 void solve(){
     cin>>n;
@@ -16,7 +34,9 @@ void solve(){
         g[x].push_back(y);
         g[y].push_back(x);
     }
-    
+    dfs(1,0);
+    dfs2(1,0);
+    cout<<res;
 }
 int main(){
     ios::sync_with_stdio(0);
