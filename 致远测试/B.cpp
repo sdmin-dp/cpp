@@ -6,7 +6,13 @@ const ll N=2e5+5;
 ll n;
 ll a[N];
 void solve(){
-    
+    cin>>n;
+    for(int i=1;i<=n;i++) cin>>a[i];
+    for(int i=n;i>=1;i--){
+        if(a[i]>=0){
+            
+        }
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
