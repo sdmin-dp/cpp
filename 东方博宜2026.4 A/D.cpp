@@ -19,6 +19,7 @@ void solve(){
         j++;
     }
     if(sum%mod==1) f1=1;
+    ll y,m,d;
     for(int i=6;i<=13;i++){
         
     }
