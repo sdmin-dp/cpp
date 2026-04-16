@@ -16,7 +16,11 @@ void solve(){
             ll j=i;
             ll sum=a[i];
             while(sum<0){
-                cerr<<sum<<" ";
+                if(j<=0){
+                    cout<<-1;
+                    return;
+                }
+                // cerr<<sum<<" ";
                 sum+=a[--j];
             }
             ans++;
