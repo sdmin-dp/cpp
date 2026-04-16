@@ -14,7 +14,7 @@ int main(){
     //freopen("xxx.out","w",stdout);
     ll T=1;
     //cin>>T;
-    srand
+    
     while(T--){
         solve();
     }
