@@ -13,13 +13,11 @@ void solve(){
     cin>>s;
     f1=0,f2=0;
     ll sum=0;
-    ll j=1;
-    for(auto i:s){
+    for(ll i=0;i<s.size()-1;i++){
         ll x=0;
-        if(i=='X') x=10;
-        else x=i-48;
-        sum+=(x*(1<<18-j));
-        j++;
+        if(s[i]=='X') x=10;
+        else x=s[i]-48;
+        sum+=(x*(1<<(i+1)));
     }
     if(sum%mod==1) f1=1;
     cout<<sum%mod<<" ";
