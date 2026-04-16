@@ -18,7 +18,8 @@ void solve(){
         sum+=(x*(1<<18-j))%mod;
         j++;
     }
-    if(sum%mod==)
+    if(sum%mod==1) f1=1;
+    for()
 }
 int main(){
     ios::sync_with_stdio(0);
