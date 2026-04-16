@@ -60,7 +60,7 @@ void solve(){
                 }else if(!isrunnian(y)){
                     if(d>=1&&d<=28) f2=1;
                 }
-            }else{
+            }else if(m==4){
                 if(d>=1&&d<=30) f2=1;
             }
         }
