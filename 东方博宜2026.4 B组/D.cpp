@@ -13,7 +13,7 @@ void solve(){
     for(int i=1;i<=n;i++){
         for(int j=a[i].second*0.8;j<=m;j++){
             dp[j]=max(dp[j],dp[j-(ll)(a[i].second*0.8)]+a[i].first);
-            cerr<<(ll)(a[i].second*0.8)<<" "<<dp[j]<<el;
+            // cerr<<(ll)(a[i].second*0.8)<<" "<<dp[j]<<el;
         }
     }
     for(int i=1;i<=n;i++){
