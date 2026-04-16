@@ -20,13 +20,14 @@ void solve(){
             dp2[j]=max(dp2[j],dp2[j-a[i].second]+a[i].first);
         }
     }
-    for(int i=0;i<=m;i++) cerr<<dp[i]<<" ";
-    cerr<<el;
-    for(int i=0;i<=m;i++) cerr<<dp2[i]<<" ";
+    // for(int i=0;i<=m;i++) cerr<<dp[i]<<" ";
+    // cerr<<el;
+    // for(int i=0;i<=m;i++) cerr<<dp2[i]<<" ";
     ll ans=dp2[m];
     for(int i=1;i<=n;i++){
         if(a[i].second<k) continue;
         ans=max(ans,dp[m-a[i].second]+a[i].first);
+        cerr<<i<<" "<<dp[m-a[i].second]+a[i].first<<" "<<ans<<el;
     }
     cout<<ans;
 
