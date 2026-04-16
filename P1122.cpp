@@ -24,7 +24,10 @@ void solve(){
         ll x,y;cin>>x>>y;
         g[x].push_back(y);
         g[y].push_back(x);
+        sum[i]=a[i];
     }
+    sum[n]=a[n];
+    ans=sum[1];
     dfs(1,0);
     cout<<ans;
 }
