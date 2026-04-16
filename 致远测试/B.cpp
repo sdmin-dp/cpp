@@ -17,7 +17,7 @@ void solve(){
             ll sum=a[i];
             while(sum<0){
                 sum+=a[--j];
-                cout<<sum<<" ";
+                cerr<<sum<<" ";
             }
             ans++;
             i=j-1;
