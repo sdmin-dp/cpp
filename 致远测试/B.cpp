@@ -20,7 +20,6 @@ void solve(){
             }
             ans++;
             i=j-1;
-            cerr<<j<<" ";
         }
     }
     cout<<ans;
