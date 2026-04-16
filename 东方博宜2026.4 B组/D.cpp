@@ -20,12 +20,16 @@ void solve(){
             dp2[j]=max(dp2[j],dp2[j-a[i].second]+a[i].first);
         }
     }
+    for(int i=0;i<=m;i++) cout<<dp[i]<<" ";
+    cerr<<el;
+    for(int i=0;i<=m;i++) cout<<dp2[i]<<" ";
     ll ans=dp2[m];
     for(int i=1;i<=n;i++){
         if(a[i].second<k) continue;
         ans=max(ans,dp[m-a[i].second]+a[i].first);
     }
     cout<<ans;
+
 }
 int main(){
     ios::sync_with_stdio(0);
