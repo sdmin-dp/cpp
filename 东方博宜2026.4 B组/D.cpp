@@ -13,6 +13,7 @@ void solve(){
     for(int i=1;i<=n;i++){
         for(int j=a[i].second;j<=m;j++){
             dp[j]=max(dp[j],dp[j-(ll)(a[i].second*0.8)]+a[i].first);
+            cerr<<(ll)(a[i].second*0.8)<<" "<<dp[j]<<el;
         }
     }
     for(int i=1;i<=n;i++){
@@ -27,7 +28,7 @@ void solve(){
     for(int i=1;i<=n;i++){
         if(a[i].second<k) continue;
         ans=max(ans,dp[m-a[i].second]+a[i].first);
-        cerr<<i<<" "<<dp[m-a[i].second]+a[i].first<<" "<<m-a[i].second<<" "<<ans<<" "<<dp[28]<<el;
+        // cerr<<i<<" "<<dp[m-a[i].second]+a[i].first<<" "<<m-a[i].second<<" "<<ans<<" "<<dp[28]<<el;
     }
     cout<<ans;
 
