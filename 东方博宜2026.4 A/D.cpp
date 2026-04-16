@@ -54,15 +54,15 @@ void solve(){
                 if(d>=1&&d<=31){
                     f2=1;
                 }
-            }else if(m==2){
-                if(isrunnian(y)){
-                    if(d>=1&&d<=29) f2=1;
-                }else if(!isrunnian(y)){
-                    if(d>=1&&d<=28) f2=1;
-                }
-            }else{
-                if(d>=1&&d<=30) f2=1;
             }
+        }else if(m==2){
+            if(isrunnian(y)){
+                if(d>=1&&d<=29) f2=1;
+            }else if(!isrunnian(y)){
+                if(d>=1&&d<=28) f2=1;
+            }
+        }else{
+            if(d>=1&&d<=30) f2=1;
         }
     }
     if(f1&&f2) cout<<"PASS\n";
