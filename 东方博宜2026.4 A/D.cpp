@@ -22,7 +22,7 @@ void solve(){
         j++;
     }
     if(sum%mod==1) f1=1;
-    cout<<sum%mod;
+    cout<<sum%mod<<" ";
     ll y=0,m=0,d=0;
     for(int i=6;i<=9;i++) y=y*10+(s[i]-48);
     for(int i=10;i<=11;i++) m=m*10+(s[i]-48);
