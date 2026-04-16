@@ -7,7 +7,7 @@ ll n;
 ll a[N];
 vector<ll> g[N];
 void solve(){
-    
+    cin>>
 }
 int main(){
     ios::sync_with_stdio(0);
