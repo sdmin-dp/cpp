@@ -17,7 +17,7 @@ void solve(){
         ll x=0;
         if(s[i]=='X') x=10;
         else x=s[i]-48;
-        sum+=(x*(1<<(i+1)));
+        sum+=(x*pow(2,(18-i-1)));
     }
     if(sum%mod==1) f1=1;
     cout<<sum%mod<<" ";
