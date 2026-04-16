@@ -19,7 +19,9 @@ void solve(){
         j++;
     }
     if(sum%mod==1) f1=1;
-    for()
+    for(int i=6;i<=13;i++){
+        
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
