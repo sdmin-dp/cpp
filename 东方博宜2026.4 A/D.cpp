@@ -8,7 +8,7 @@ bool f1=0,f2=0;
 void solve(){
     cin>>s;
     f1=0,f2=0;
-    for()
+    
 }
 int main(){
     ios::sync_with_stdio(0);
