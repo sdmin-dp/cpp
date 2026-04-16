@@ -4,6 +4,7 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll a;
+bool flag1=0,flag2=0;
 void solve(){
     cin>>a;
     if(a/100)
