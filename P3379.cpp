@@ -3,17 +3,9 @@
 using namespace std;
 #define el '\n'
 const ll N = 1e5 + 5;
-ll n, q, m;
-vector<ll> g[N];
+
 void solve()
 {
-    cin >> n >> q >> m;
-    for (ll i = 1; i <= n; i++)
-    {
-        ll x, y;
-        cin >> x >> y;
-        g[x].push_back(y);
-    }
 }
 int main()
 {
