@@ -26,7 +26,9 @@ void solve(){
     for(int i=6;i<=9;i++) y=y*10+(s[i]-48);
     for(int i=10;i<=11;i++) m=m*10+(s[i]-48);
     for(int i=12;i<=13;i++) d=d*10+(s[i]-48);
-    if(y)
+    if(y==1900){
+        if()
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
