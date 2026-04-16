@@ -3,9 +3,9 @@
 using namespace std;
 #define el '\n'
 const ll N=1e2+5;
-const ll M=1e3+5;
+const ll M=1e3*1.25+5;
 ll n,m,k;
-ll dp[M],dp2[M];
+ll dp2[M];
 pair<ll,ll> a[N];//pair<价值,高度>
 void solve(){
     cin>>n>>m>>k;
