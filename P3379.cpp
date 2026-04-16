@@ -37,7 +37,7 @@ void solve(){
     for(int i=1;i<=q;i++){
         ll x,y;
         cin>>x>>y;
-        cout<<LCA(x,y);
+        cout<<LCA(x,y)<<'\n';
     }
 }
 int main(){
