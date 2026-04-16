@@ -48,8 +48,7 @@ void solve(){
                     }
                 }
         }
-    }else{
-        if(y>=1900){
+    }else if(y>=1900){
             if(m>=1&&m<=12){
                 if(m==1||m==3||m==5||m==7||m==8||m==10||m==12){
                     if(d>=1&&d<=31){
@@ -66,7 +65,6 @@ void solve(){
                 }
             }
         }
-    }
     if(f1&&f2) cout<<"PASS\n";
     else cout<<"FAIL\n";
 }
