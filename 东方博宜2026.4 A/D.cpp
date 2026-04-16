@@ -13,7 +13,7 @@ void solve(){
     cin>>s;
     f1=0,f2=0;
     ll sum=0;
-    for(ll i=0;i<s.size()-1;i++){
+    for(ll i=0;i<=s.size()-1;i++){
         ll x=0;
         if(s[i]=='X') x=10;
         else x=s[i]-48;
