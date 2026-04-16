@@ -18,7 +18,7 @@ void solve(){
         ll x=0;
         if(i=='X') x=10;
         else x=i-48;
-        sum+=(x*(1<<18-j))%mod;
+        sum+=(x*(1<<18-j));
         j++;
     }
     if(sum%mod==1) f1=1;
