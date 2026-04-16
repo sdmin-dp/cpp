@@ -35,7 +35,9 @@ void solve(){
     }
     dfs(b,0);
     for(int i=1;i<=q;i++){
-        
+        ll x,y;
+        cin>>x>>y;
+        cout<<LCA(x,y);
     }
 }
 int main(){
