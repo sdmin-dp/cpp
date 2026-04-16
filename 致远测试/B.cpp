@@ -24,7 +24,7 @@ void solve(){
                 sum+=a[--j];
             }
             ans++;
-            i=j-1;
+            // i=j-1;
         }
         cerr<<i<<" "<<ans<<"\n";
     }
