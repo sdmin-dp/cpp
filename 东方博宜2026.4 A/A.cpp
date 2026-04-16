@@ -4,12 +4,12 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll a;
-bool flag1=0,flag2=0;
+bool f1=0,f2=0;
 void solve(){
     cin>>a;
-    if(a/100>=0&&a/100<=99&&a%100>=1&&a%100<=12) flag1=1;
-    if(a/100>=1&&a/100<=12&&a%100>=0&&a%100<=99) flag2=1;
-    
+    if(a/100>=0&&a/100<=99&&a%100>=1&&a%100<=12) f1=1;
+    if(a/100>=1&&a/100<=12&&a%100>=0&&a%100<=99) f2=1;
+    if(f1&&f2)
 }
 int main(){
     ios::sync_with_stdio(0);
