@@ -21,7 +21,7 @@ void solve(){
         sum+=(x*(1<<18-j))%mod;
         j++;
     }
-    cout<<sum%mod;
+    cout<<sum%mod<<el;
     if(sum%mod==1) f1=1;
     ll y=0,m=0,d=0;
     for(int i=6;i<=9;i++) y=y*10+(s[i]-48);
