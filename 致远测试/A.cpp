@@ -8,7 +8,7 @@ ll a[N];
 void solve(){
     cin>>n>>l>>r;
     for(int i=1;i<=n;i++) cin>>a[i];
-    ll mx=
+    ll mn=1e12,k=0;
     for(int i=l;i<=r;i++){
         for(int j=1;j<=n;j++){
 
