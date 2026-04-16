@@ -33,6 +33,10 @@ void solve(){
         g[x].push_back(y);
         g[y].push_back(x);
     }
+    dfs(b,0);
+    for(int i=1;i<=q;i++){
+        
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
