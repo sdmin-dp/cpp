@@ -5,7 +5,7 @@ using namespace std;
 const ll N=1e5+5;
 
 void solve(){
-    
+    ll n=rand();
 }
 int main(){
     ios::sync_with_stdio(0);
@@ -14,6 +14,7 @@ int main(){
     //freopen("xxx.out","w",stdout);
     ll T=1;
     //cin>>T;
+    srand(time(0));
     while(T--){
         solve();
     }
