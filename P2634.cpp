@@ -22,7 +22,7 @@ void dfs2(ll u,ll fa){
         if(v==fa) continue;
         ll sumu[3],sumv[3];
         for(int j=0;j<=2;j++){
-            
+            sumu[(j+w)%3]=sum
         }
     }
 }
