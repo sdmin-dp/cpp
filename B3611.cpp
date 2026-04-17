@@ -4,18 +4,19 @@ using namespace std;
 #define el '\n'
 const ll N=1e2+5;
 ll n;
-ll dis[N][N];
+bool dis[N][N];
 void solve(){
     cin>>n;
-    memset(dis,0x3f,sizeof(dis));
-    for(int i=1;i<=n;i++){
-        for(int j=1;j<=n;j++){
-            bool x;
-            cin>>x;
-            if(x!=0) dis[i][j]=x;
-        }
-    }
-    
+    for(int i=1;i<=n;i++)
+        for(int j=1;j<=n;j++)
+            cin>>dis[i][j];
+    for(int k=1;k<=n;k++)
+        for(int i=1;i<=n;i++)
+            for(int j=1;j<=n;j++)
+                dis[i][j]=(dis[i][j]|(dis[i][k]&dis[k][j]));
+    for(int i=1;i<=n;i++)
+        for(int j=1;j<=n;j++)
+            cin>>dis[i][j];
 }
 int main(){
     ios::sync_with_stdio(0);
