@@ -49,7 +49,7 @@ void solve(){
     ll tn=n*n;
     ll t=__gcd(ans,n*n);
     ans/=t,tn/=t;
-    cout<<an<<"/"<<tn;
+    cout<<ans<<"/"<<tn;
 }
 int main(){
     ios::sync_with_stdio(0);
