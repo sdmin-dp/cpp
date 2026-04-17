@@ -47,10 +47,10 @@ void solve(){
     dfs(1,0);
     dfs2(1,0);
     ll tn=n*n;
-    cout<<ans;
-    // ll t=__gcd(ans,n*n);
-    // ans/=t,tn/=t;
-    // cout<<ans<<"/"<<tn;
+    // cout<<ans;
+    ll t=__gcd(ans,n*n);
+    ans/=t,tn/=t;
+    cout<<ans<<"/"<<tn;
 }
 int main(){
     ios::sync_with_stdio(0);
