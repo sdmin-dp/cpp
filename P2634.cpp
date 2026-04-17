@@ -5,12 +5,16 @@ using namespace std;
 const ll N=2e4+5;
 ll n;
 vector<pair<ll,ll>> g[N];
+ll sum[N][3];
 void dfs(ll x,ll fa){
     for(auto i:g[x]){
-        if(i==fa) continue;
-        
+        if(i.first==fa) continue;
+        for(int j=0;j<=2;j++){
+            sum[x][(j+i.second)%3]+=sum[i.first][j];
+        }
     }
 }
+
 void solve(){
     cin>>n;
     for(int i=1;i<n;i++){
