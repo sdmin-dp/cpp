@@ -27,6 +27,15 @@ void dfs2(ll x,ll fa){
             m2=max(m2,w[i]);
         }
     }
+    
+    for(auto i:g[x]){
+        if(i==fa) continue;
+        ll sumx=sum[x],mxx=mx[x],sumi=sum[i],mxi=mx[i];
+
+
+
+
+    }
 }
 void solve(){
     cin>>n;
