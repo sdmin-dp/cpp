@@ -5,8 +5,9 @@ using namespace std;
 const ll N=1e5+5;
 
 void solve(){
-    ll n=rand();
-    cout<<n%7891;
+    while(1){
+        new int [N];
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
