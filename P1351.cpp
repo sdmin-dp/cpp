@@ -14,7 +14,7 @@ void dfs(ll x,ll fa){
         if(i!=fa){
             dfs(i,x);
             sum[x]=(sum[x]+w[i])%mod;
-            mx[i]=max(mx[i],w[i]);
+            mx[x]=max(mx[x],w[i]);
         }
     }
 }
