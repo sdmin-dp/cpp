@@ -28,7 +28,7 @@ void solve(){
         }
         c+=x[i];
     }
-    
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
