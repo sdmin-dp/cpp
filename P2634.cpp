@@ -28,7 +28,7 @@ void dfs2(ll u,ll fa){
         }
         for(int j=0;j<=2;j++){
             sumv[(j+w)%3]=sum[v][(j+w)%3];
-            sum[v][(j+w)%3]+=sum[v][j];
+            sum[v][(j+w)%3]+=sum[u][j];
         }
         dfs2(v,u);
         for(int j=0;j<=2;j++){
