@@ -8,17 +8,18 @@ ll n;
 vector<ll> g[N];
 ll w[N];
 ll sum[N],mx[N];
-ll ans,res;
+ll ans,res;//ans->max ans ,res->sum
 void dfs(ll x,ll fa){
     for(auto i:g[x]){
         if(i!=fa){
-            sum[fa]=(sum[fa]+(w[fa]*w[i]%mod))%mod;
-            mx[fa]=max(mx[fa],w[fa]*w[i]%mod);
+            sum[i]=max(sum[1],sssssu)
         }
     }
 }
 void dfs2(ll x,ll fa){
+    for(auto i:g[x]){
 
+    }
 }
 void solve(){
     cin>>n;
