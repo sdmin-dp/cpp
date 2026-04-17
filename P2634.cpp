@@ -8,6 +8,7 @@ vector<pair<ll,ll>> g[N];
 ll sum[N][3];
 ll ans;
 void dfs(ll x,ll fa){
+    sum[x][0]++;
     for(auto i:g[x]){
         if(i.first==fa) continue;
         for(int j=0;j<=2;j++){
