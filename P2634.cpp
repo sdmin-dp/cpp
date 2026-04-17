@@ -4,11 +4,20 @@ using namespace std;
 #define el '\n'
 const ll N=2e4+5;
 ll n;
-vector<ll> g[N];
+vector<pair<ll,ll>> g[N];
+void dfs(ll x,ll fa){
+    for(auto i:g[x]){
+        if(i==fa) continue;
+        
+    }
+}
 void solve(){
     cin>>n;
-    for(int i=1;i<=n;i++){
-        ll x,y;
+    for(int i=1;i<n;i++){
+        ll x,y,z;
+        cin>>x>>y>>z;
+        g[x].push_back({y,z});
+        g[y].push_back({x,z});
     }
 }
 int main(){
