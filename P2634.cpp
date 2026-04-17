@@ -6,6 +6,7 @@ const ll N=2e4+5;
 ll n;
 vector<pair<ll,ll>> g[N];
 ll sum[N][3];
+ll ans;
 void dfs(ll x,ll fa){
     for(auto i:g[x]){
         if(i.first==fa) continue;
@@ -14,9 +15,11 @@ void dfs(ll x,ll fa){
         }
     }
 }
-
+void dfs2(ll x,ll fa){
+    
+}
 void solve(){
-    cin>>n;
+    cin>>n; 
     for(int i=1;i<n;i++){
         ll x,y,z;
         cin>>x>>y>>z;
