@@ -8,16 +8,13 @@ ll cnt[30];
 void solve(){
     cin>>s;
     for(auto i:s) cnt[i-'a']++;
-    ll sum1=0;char c=' ';
     for(auto i=0;i<26;i++){
-        cerr<<cnt[i]<<" ";
         if(cnt[i]==1){
-            sum1++;
-            c=char(i+'a');
+            cout<<char(i+'a');
+            return;
         }
     }
-    if(sum1==1) cout<<c;
-    else cout<<"Impossible";
+    cout<<"Impossible";
 }
 int main(){
     ios::sync_with_stdio(0);
