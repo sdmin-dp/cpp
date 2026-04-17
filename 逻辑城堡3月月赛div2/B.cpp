@@ -4,13 +4,25 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n;
+ll ans=0;
 ll a[N];
 vector<pair<ll,ll>> res;
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++) cin>>a[i];
-    ll ans=0;
-    
+    for(int i=1;i<=n;i++){
+        for(int j=i+1;j<=n;j++){
+            if(i>j){
+                res.push_back({i,j});
+                swap(a[i],a[j]);
+                ans++;
+            }
+        }
+    }
+    cout<<ans<<el;
+    for(auto i:res){
+        cout<<i.first<<" "<<i.second<<el;
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
