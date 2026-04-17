@@ -14,9 +14,12 @@ void solve(){
         for(int i=1;i<=n;i++)
             for(int j=1;j<=n;j++)
                 dis[i][j]=(dis[i][j]|(dis[i][k]&dis[k][j]));
-    for(int i=1;i<=n;i++)
+    for(int i=1;i<=n;i++){
         for(int j=1;j<=n;j++)
-            cin>>dis[i][j];
+            cout<<dis[i][j]<<" ";
+        cout<<el;
+    }
+        
 }
 int main(){
     ios::sync_with_stdio(0);
