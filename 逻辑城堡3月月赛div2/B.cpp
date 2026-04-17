@@ -19,17 +19,17 @@ void solve(){
             }
         }
     }
-    for(int i=1;i<=n;i++) cerr<<a[i]<<" ";
+    // for(int i=1;i<=n;i++) cerr<<a[i]<<" ";
     cout<<ans<<el;
     for(auto i:res){
-        cout<<i.first<<" "<<i.second<<el;
+        cout<<i.first-1<<" "<<i.second-1<<el;
     }
 }
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
-    // freopen("no.in","r",stdin);
-    // freopen("no.out","w",stdout);
+    freopen("no.in","r",stdin);
+    freopen("no.out","w",stdout);
     ll T=1;
     //cin>>T;
     while(T--){
