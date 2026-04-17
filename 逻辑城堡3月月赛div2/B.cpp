@@ -11,7 +11,7 @@ void solve(){
     for(int i=1;i<=n;i++) cin>>a[i];
     ll ans=0;
     for(int i=1;i<=n-2;i++){
-        
+        g
     }
 }
 int main(){
