@@ -18,7 +18,7 @@ void solve(){
         }
     }
     double c=x[n];
-    ll ans=n;
+    ll ans=n-1;
     for(int i=n-1;i>=1;i--){
         double li=x[i]-l/2.0,ri=x[i]+l/2.0;
         double lI=x[i+1]-l/2.0,rI=x[i+1]+l/2.0;
