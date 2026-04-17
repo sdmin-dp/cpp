@@ -19,7 +19,7 @@ void solve(){
             }
         }
     }
-    // for(int i=1;i<=n;i++) cerr<<a[i]<<" ";
+    for(int i=1;i<=n;i++) cerr<<a[i]<<" ";
     cout<<ans<<el;
     for(auto i:res){
         cout<<i.first<<" "<<i.second<<el;
