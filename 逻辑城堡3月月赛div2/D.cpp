@@ -5,6 +5,8 @@ using namespace std;
 const ll N=1e5+5;
 ll n,l;
 ll x[N];
+double c;
+
 void solve(){
     cin>>n>>l;
     for(int i=2;i<=n;i++){
