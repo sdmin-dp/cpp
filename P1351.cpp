@@ -45,6 +45,7 @@ void dfs2(ll x,ll fa){
         ans=max(ans,mx[i]*w[x]);
         res=(res+sum[i]*w[x]%mod)%mod;
     }
+    
 }
 void solve(){
     cin>>n;
