@@ -8,7 +8,7 @@ ll cnt[30];
 void solve(){
     cin>>s;
     for(auto i:s) cnt[i-'a']++;
-    ll sum1=0;char c;
+    ll sum1=0;char c=' ';
     for(auto i=0;i<26;i++){
         if(cnt[i]==1){
             sum1++;
