@@ -4,9 +4,7 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n,l;
-ll x[N];
-double c;
-
+double x[N];
 void solve(){
     cin>>n>>l;
     for(int i=2;i<=n;i++){
@@ -17,6 +15,10 @@ void solve(){
             cout<<-1;
             return;
         }
+    }
+    double c=x[n];
+    for(int i=n-1;i>=1;i--){
+        if()
     }
 }
 int main(){
