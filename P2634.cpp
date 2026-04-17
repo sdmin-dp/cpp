@@ -27,11 +27,12 @@ void dfs2(ll u,ll fa){
         }
         for(int j=0;j<=2;j++){
             sumv[(j+w)%3]=sum[v][(j+w)%3];
-            sum[v][(j+w)%3]+=sum[v][j];1
+            sum[v][(j+w)%3]+=sum[v][j];
         }
         dfs2(v,u);
         for(int j=0;j<=2;j++){
-
+            sum[u][j]=sumu[j];
+            sum[v][j]=sumv[j];
         }
     }
 }
@@ -43,6 +44,12 @@ void solve(){
         g[x].push_back({y,z});
         g[y].push_back({x,z});
     }
+    dfs(1,0);
+    dfs2(1,0);
+    ll tn=n*n;
+    ll t=__gcd(ans,n*n);
+    ans/=t,tn/=t;
+    cout<<an<<"/"<<tn;
 }
 int main(){
     ios::sync_with_stdio(0);
