@@ -3,16 +3,22 @@
 using namespace std;
 #define el '\n'
 const ll N=2e5+5;
+const ll mod=10007;
 ll n;
 vector<ll> g[N];
 ll w[N];
 ll sum[N],mx[N];
+ll ans,res;
 void dfs(ll x,ll fa){
     for(auto i:g[x]){
         if(i!=fa){
-            sum[fa]=sum[fa]
+            sum[fa]=(sum[fa]+(w[fa]*w[i]%mod))%mod;
+            mx[fa]=max(mx[fa],w[fa]*w[i]%mod);
         }
     }
+}
+void dfs2(ll x,ll fa){
+
 }
 void solve(){
     cin>>n;
