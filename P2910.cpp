@@ -9,11 +9,10 @@ ll dis[N][N];
 void solve(){
     cin>>n>>m;
     for(int i=1;i<=m;i++) cin>>a[i];
-    memset(dis,0x3f,sizeof(dis));
     for(int i=1;i<=n;i++){
         for(int j=1;j<=n;j++){
             ll x;cin>>x;
-            if(x!=0) dis[i][j]=x;
+            dis[i][j]=x;
         }
         dis[i][i]=0;
     }
