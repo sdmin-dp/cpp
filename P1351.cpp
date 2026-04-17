@@ -41,7 +41,7 @@ void dfs2(ll x,ll fa){
         }
         mx[i]=max(mx[i],w[x]);
         dfs2(i,x);
-        sum[x]=sumx;mx[x]=mxx;sum[i]=sumi;mxi=mx[i];
+        sum[x]=sumx;mx[x]=mxx;sum[i]=sumi;mx[i]=mxi;
         ans=max(ans,mx[i]*w[x]);
         res=(res+sum[i]*w[x]%mod)%mod;
     }
