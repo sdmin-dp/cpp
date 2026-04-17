@@ -22,7 +22,7 @@ void solve(){
     for(int i=n-1;i>=1;i--){
         double li=x[i]-l/2.0,ri=x[i]+l/2.0;
         double lI=x[i+1]-l/2.0,rI=x[i+1]+l/2.0;
-        ll C=c/((n-i)*1.0);
+        double C=c/((n-i)*1.0);
         if(C>=li&&C<=ri&&C>=lI&&C<=rI){
             ans--;
         }
