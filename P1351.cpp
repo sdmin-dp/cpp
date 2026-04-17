@@ -32,7 +32,17 @@ void dfs2(ll x,ll fa){
     for(auto i:g[x]){
         if(i==fa) continue;
         ll sumx=sum[x],mxx=mx[x],sumi=sum[i],mxi=mx[i];
-        
+        sum[x]-=sum[i];
+        sum[i]+=sum[x];
+        mx[x]=m1;
+        if(w[i]==m1){
+            mx[x]==m2;
+        }
+        dfs2(i,x);
+        sum[x]=sumx;mx[x]=mxx;sum[i]=sumi;mxi=mx[i];
+        ans=max(ans,mx[i]*w[x]);
+        ans=max(ans,mx[i]*w[x]);
+        res=(res+sum[i]*w[x]%mod)%mod;
     }
 }
 void solve(){
@@ -44,7 +54,8 @@ void solve(){
         g[y].push_back(x);
     }
     for(int i=1;i<=n;i++) cin>>w[i];
-
+    dfs(1,0);dfs2(1,0);
+    cout<<ans<<" "<<res;
 }
 int main(){
     ios::sync_with_stdio(0);
