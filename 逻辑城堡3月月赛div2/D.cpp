@@ -27,6 +27,7 @@ void solve(){
             ans--;
         }
         c+=x[i];
+        cerr<<li<<" "<<ri<<" "<<lI<<" "<<rI<<el;
     }
     cout<<ans;
 }
