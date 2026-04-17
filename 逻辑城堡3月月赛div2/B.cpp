@@ -11,7 +11,9 @@ void solve(){
     for(int i=1;i<=n-2;i++){
         ll x=a[i],y=a[i]+1,z=a[i]+2;
         if(x==y||y==z||x==z) continue;
-        if((x>y&&y<z)||(x<y&&y>z)) continue;
+        if((x>y&&y<z)||(x<y&&y>z)){
+            
+        }
     }
 }
 int main(){
