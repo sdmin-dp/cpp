@@ -33,8 +33,8 @@ void dfs2(ll x,ll fa){
     for(auto i:g[x]){
         if(i==fa) continue;
         ll sumx=sum[x],mxx=mx[x],sumi=sum[i],mxi=mx[i];
-        sum[x]-=sum[i];
-        sum[i]+=sum[x];
+        sum[x]-=w[i];
+        sum[i]+=w[x];
         mx[x]=m1;
         if(w[i]==m1){
             mx[x]==m2;
