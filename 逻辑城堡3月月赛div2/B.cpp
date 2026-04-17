@@ -4,8 +4,15 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n;
+ll a[N];
 void solve(){
-    
+    cin>>n;
+    for(int i=1;i<=n;i++) cin>>a[i];
+    for(int i=1;i<=n-2;i++){
+        ll x=a[i],y=a[i]+1,z=a[i]+2;
+        if(x==y||y==z||x==z) continue;
+        if((x>y&&y<z)||(x<y&&y>z)) continue;
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
