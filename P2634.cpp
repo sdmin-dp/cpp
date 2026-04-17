@@ -15,8 +15,16 @@ void dfs(ll x,ll fa){
         }
     }
 }
-void dfs2(ll x,ll fa){
-    
+void dfs2(ll u,ll fa){
+    ans+=sum[u][0];
+    for(auto i:g[u]){
+        ll v=i.first,w=i.second;
+        if(v==fa) continue;
+        ll sumu[3],sumv[3];
+        for(int j=0;j<=2;j++){
+            
+        }
+    }
 }
 void solve(){
     cin>>n; 
