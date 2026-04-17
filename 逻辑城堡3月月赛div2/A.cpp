@@ -16,7 +16,7 @@ void solve(){
         }
     }
     if(sum1==1) cout<<c;
-    else cout<<
+    else cout<<"Impossible";
 }
 int main(){
     ios::sync_with_stdio(0);
