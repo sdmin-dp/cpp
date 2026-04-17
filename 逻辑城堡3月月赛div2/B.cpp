@@ -11,17 +11,7 @@ void solve(){
     for(int i=1;i<=n;i++) cin>>a[i];
     ll ans=0;
     for(int i=1;i<=n-2;i++){
-        ll x=a[i],y=a[i]+1,z=a[i]+2;
-        if(x==y||y==z||x==z) continue;
-        if(x>y&&y<z){
-            ans++;
-            if(x<z){
-                res.push_back({i,i+1});
-                swap(a[i],a[i+1]);
-            }else{
-                res.push_back({});
-            }
-        }
+        
     }
 }
 int main(){
