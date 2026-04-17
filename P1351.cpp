@@ -37,7 +37,7 @@ void dfs2(ll x,ll fa){
         sum[i]+=w[x];
         mx[x]=m1;
         if(w[i]==m1){
-            mx[x]==m2;
+            mx[x]=m2;
         }
         mx[i]=max(mx[i],w[x]);
         dfs2(i,x);
