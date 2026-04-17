@@ -11,6 +11,7 @@ void dfs(ll x,ll fa){
     sum[x][0]++;
     for(auto i:g[x]){
         if(i.first==fa) continue;
+        dfs(i,x);
         for(int j=0;j<=2;j++){
             sum[x][(j+i.second)%3]+=sum[i.first][j];
         }
