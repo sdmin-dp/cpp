@@ -25,7 +25,7 @@ void solve(){
         double C=c/((n-i)*1.0);
         if(C>=li&&C<=ri&&C>=lI&&C<=rI) ans--;
         c+=x[i];
-        cerr<<li<<" "<<ri<<" "<<lI<<" "<<rI<<el;
+        cerr<<li<<" "<<ri<<" "<<lI<<" "<<rI<<" "<<x[i]<<el;
     }
     cout<<ans;
 }
