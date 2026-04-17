@@ -47,9 +47,9 @@ void solve(){
     dfs(1,0);
     dfs2(1,0);
     ll tn=n*n;
-    ll t=__gcd(ans,n*n);
-    ans/=t,tn/=t;
-    cout<<ans<<"/"<<tn;
+    // ll t=__gcd(ans,n*n);
+    // ans/=t,tn/=t;
+    // cout<<ans<<"/"<<tn;
 }
 int main(){
     ios::sync_with_stdio(0);
