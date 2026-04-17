@@ -5,8 +5,25 @@ using namespace std;
 const ll N=2e5+5;
 ll n;
 vector<ll> g[N];
+ll w[N];
+ll sum[N],mx[N];
+void dfs(ll x,ll fa){
+    for(auto i:g[x]){
+        if(i!=fa){
+            sum[fa]=sum[fa]
+        }
+    }
+}
 void solve(){
-    
+    cin>>n;
+    for(int i=1;i<n;i++){
+        ll x,y;
+        cin>>x>>y;
+        g[x].push_back(y);
+        g[y].push_back(x);
+    }
+    for(int i=1;i<=n;i++) cin>>w[i];
+
 }
 int main(){
     ios::sync_with_stdio(0);
