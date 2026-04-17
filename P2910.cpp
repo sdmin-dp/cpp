@@ -23,7 +23,7 @@ void solve(){
                 if(dis[i][k]+dis[k][j]<dis[i][j]) dis[i][j]=dis[i][k]+dis[k][j];
             }
         }
-    }=
+    }
     ll sum=0;
     for(int i=2;i<=m;i++){
         sum+=dis[a[i-1]][a[i]];
