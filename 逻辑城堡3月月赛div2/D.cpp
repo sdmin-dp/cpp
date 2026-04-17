@@ -3,7 +3,8 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-ll n,l;
+ll n;
+double l;
 double x[N];
 void solve(){
     cin>>n>>l;
@@ -18,7 +19,8 @@ void solve(){
     }
     double c=x[n];
     for(int i=n-1;i>=1;i--){
-        if()
+        double li=x[i]-l/2.0,ri=x[i]+l/2.0;
+        double lI=x[i-1]-l/2.0
     }
 }
 int main(){
