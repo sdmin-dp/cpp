@@ -10,7 +10,7 @@ void solve(){
     for(auto i:s) cnt[i-'a']++;
     ll sum1=0;char c;
     for(auto i=0;i<26;i++){
-        if(cnt[i]==1){
+        if(cnt[i]%2==1){
             sum1++;
             c=char(i+'a');
         }
