@@ -22,7 +22,16 @@ void dfs2(ll u,ll fa){
         if(v==fa) continue;
         ll sumu[3],sumv[3];
         for(int j=0;j<=2;j++){
-            sumu[(j+w)%3]=sum
+            sumu[(j+w)%3]=sum[u][(j+w)%3];
+            sum[u][(j+w)%3]-=sum[v][j];
+        }
+        for(int j=0;j<=2;j++){
+            sumv[(j+w)%3]=sum[v][(j+w)%3];
+            sum[v][(j+w)%3]+=sum[v][j];
+        }
+        dfs2(v,u);
+        for(int j=0;j<=2;j++){
+            
         }
     }
 }
