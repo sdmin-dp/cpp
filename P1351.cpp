@@ -12,7 +12,8 @@ ll ans,res;//ans->max ans ,res->sum
 void dfs(ll x,ll fa){
     for(auto i:g[x]){
         if(i!=fa){
-            sum[i]+=w[i];
+            dfs(i,x);
+            sum[x]=(sum[x]+w[i])%mod;
             mx[i]=max(mx[i],w[i]);
         }
     }
