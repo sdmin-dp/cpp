@@ -18,8 +18,14 @@ void dfs(ll x,ll fa){
     }
 }
 void dfs2(ll x,ll fa){
+    ll m1=0,m2=0;
     for(auto i:g[x]){
-
+        if(w[i]>=m1){
+            m2=m1;
+            m1=w[i];
+        }else{
+            m2=max(m2,w[i]);
+        }
     }
 }
 void solve(){
