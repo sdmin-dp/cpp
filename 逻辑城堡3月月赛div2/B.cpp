@@ -16,8 +16,10 @@ void solve(){
         if(x>y&&y<z){
             ans++;
             if(x<z){
-                res.push_back({x,y});
-                swap()
+                res.push_back({i,i+1});
+                swap(a[i],a[i+1]);
+            }else{
+                res.push_back({});
             }
         }
     }
