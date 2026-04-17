@@ -27,14 +27,12 @@ void dfs2(ll x,ll fa){
             m2=max(m2,w[i]);
         }
     }
-    
+    ans=max(ans,mx[fa]*w[x]);
+    res=(res+sum[fa]*w[x]%mod)%mod;
     for(auto i:g[x]){
         if(i==fa) continue;
         ll sumx=sum[x],mxx=mx[x],sumi=sum[i],mxi=mx[i];
-
-
-
-
+        
     }
 }
 void solve(){
