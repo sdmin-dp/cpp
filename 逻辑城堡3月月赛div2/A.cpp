@@ -15,6 +15,8 @@ void solve(){
             c=char(i+'a');
         }
     }
+    if(sum1==1) cout<<c;
+    else cout<<
 }
 int main(){
     ios::sync_with_stdio(0);
