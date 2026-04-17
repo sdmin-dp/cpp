@@ -6,7 +6,7 @@ const ll N=1e5+5;
 
 void solve(){
     ll n=rand();
-    cout<<n;
+    cout<<n%7891;
 }
 int main(){
     ios::sync_with_stdio(0);
