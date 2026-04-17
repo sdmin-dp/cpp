@@ -11,7 +11,10 @@ void solve(){
         cin>>x[i];
     }
     for(int i=2;i<=n;i++){
-        if(abs(x[i]-x[i-1]))
+        if(abs(x[i]-x[i-1])+1<1){
+            cout<<-1;
+            return;
+        }
     }
 }
 int main(){
