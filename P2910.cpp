@@ -14,7 +14,7 @@ void solve(){
             ll x;cin>>x;
             dis[i][j]=x;
         }
-        dis[i][i]=0;
+        dis[i][i]=0;z
     }
     for(int k=1;k<=n;k++){
         for(int i=1;i<=n;i++){
