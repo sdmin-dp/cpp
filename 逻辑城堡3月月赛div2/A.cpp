@@ -14,6 +14,10 @@ void solve(){
             sum1++;
             c=char(i+'a');
         }
+        if(cnt[i]>=3){
+            cout<<"Impossible";
+            return;
+        }
     }
     if(sum1==1) cout<<c;
     else cout<<"Impossible";
