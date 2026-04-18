@@ -1,15 +1,14 @@
 #include <bits/stdc++.h>
 using namespace std;
-bool is_prime[10000];
+#define ll long long 
+#define el '\n'
+const ll N=1e4;
+bool isprime[10000];
 int dist[10000];
 void sieve(){
-    fill(is_prime, is_prime + 10000, true);
-    is_prime[0] = is_prime[1] = false;
-    for (int i = 2; i < 10000; i++) {
-        if (is_prime[i]) {
-            for (int j = i * i; j < 10000; j += i)
-                is_prime[j] = false;
-        }
+    isprime[0]=isprime[1]=1;
+    for(int i=1;i<=N;i++){
+        
     }
 }
 int bfs(int start, int end) {
