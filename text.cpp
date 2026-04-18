@@ -20,7 +20,7 @@ void init(){
 void solve(){
     cin>>n;
     init();
-    for(auto i:prime) cout<<i<<" ";
+    for(auto i:prime) if(i>=1000) cout<<i<<" ";
 }
 int main(){
     ios::sync_with_stdio(0);
