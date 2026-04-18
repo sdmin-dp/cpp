@@ -2,9 +2,9 @@
 using namespace std;
 #define ll long long 
 #define el '\n'
-const ll N=1e4;
-bool isprime[10000];
-ll dist[10000];
+const ll N=1e4+5;
+bool isprime[N];
+ll dist[N];
 void sieve(){
     isprime[0]=isprime[1]=1;
     for(ll i=1;i<=N;i++){
