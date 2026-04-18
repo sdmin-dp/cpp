@@ -35,7 +35,7 @@ ll bfs(ll b,ll e) {
                 if (i==0&&j==0) continue;
                 p[i]=j;
                 ll next_num=p[0]*1000+p[1]*100+p[2]*10+p[3];
-                if (isprime[next_num]&&dist[next_num]==-1) {
+                if (!isprime[next_num]&&dist[next_num]==-1) {
                     dist[next_num]=dist[t]+1;
                     q.push(next_num);
                 }
