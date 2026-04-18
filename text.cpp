@@ -2,7 +2,7 @@
 using namespace std;
 bool is_prime[10000];
 int dist[10000];
-void sieve() {
+void sieve(){
     fill(is_prime, is_prime + 10000, true);
     is_prime[0] = is_prime[1] = false;
     for (int i = 2; i < 10000; i++) {
@@ -44,17 +44,18 @@ int bfs(int start, int end) {
     return -1;
 }
 void solve(){
-    sieve();
-    ll n;
-    cin>>n;
-    while(n--){
-        int a, b;
-        cin >> a >> b;
-        int res = bfs(a, b);
-        if (res == -1) cout << "Impossible" << endl;
-        else cout << res << endl;
-    }
+    ll a,b;
+    cin>>a>>b;
+    ll res=bfs(a,b);
+    if(res==-1) cout<<"Impossible"<<el;
+    else cout<<res<<el;
 }
 int main() {
-    
+    ll T=1;
+    cin>>T;
+    sieve();
+    while(T--){
+        solve();
+    }
+    return 0;
 }
