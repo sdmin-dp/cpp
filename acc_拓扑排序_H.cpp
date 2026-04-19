@@ -41,9 +41,6 @@ void solve(){
             cur=i;
         }
     }
-    for(int i=1;i<=n;i++){
-        cerr<<pre[i]<<" ";
-    }
     while(cur){
         res.push_front(cur);
         cur=pre[cur];
