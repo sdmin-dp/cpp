@@ -3,9 +3,22 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-vector<ll> g[N];
+ll n,m;
+vector<pair<ll,ll>> g[N];
+ll in[N];
+void bfs(){
+    for(int i=1;i<=n;i++){
+        
+    }    
+}
 void solve(){
-    
+    cin>>n>>m;
+    for(int i=1;i<=m;i++){
+        ll u,v,w;
+        cin>>u>>v>>w;
+        g[u].push_back({v,w});
+        in[v]++;
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
