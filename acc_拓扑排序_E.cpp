@@ -28,6 +28,8 @@ void solve(){
         for(ll i=0;i<last.size();i++){
             if(s[i]>last[i]){
                 g[ctoll(last[i])].push_back(ctoll(s[i]));
+                if(in[ctoll(last[i])]==-1) in[ctoll(last[i])]=0;
+                if(in[ctoll(s[i])]==-1) in[ctoll(s[i])]=0;
                 in[ctoll(s[i])]++;
             }
         }
