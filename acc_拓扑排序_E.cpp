@@ -41,6 +41,7 @@ void solve(){
     for(int i=2;i<=n;i++){
         cin>>s;
         for(ll i=0;i<last.size();i++){
+            if(s.size()<=i) no();
             if(s[i]!=last[i]){
                 g[ctoll(last[i])].push_back(ctoll(s[i]));
                 if(in[ctoll(last[i])]==-1) in[ctoll(last[i])]=0;
