@@ -20,9 +20,9 @@ void bfs(){
             }else if(dis[i.first]==x.second+i.second){
                 pre[i.first]=min(x.first,pre[i.first]);
             }
+            q.push({i.first,dis[i.first]});
         }
     }
-    
 }
 void solve(){
     cin>>n>>m;
@@ -32,7 +32,20 @@ void solve(){
         g[u].push_back({v,w});
         in[v]++;
     }
-
+    bfs();
+    ll ans=0,cur=0;
+    deque<ll> res;
+    for(int i=1;i<=n;i++){
+        if(ans<dis[i]){
+            ans=dis[i];
+            cur=i;
+        }
+    
+    while(!cur){
+        res.push_front(cur);
+        cur=pre[cur];
+    }
+    
 }
 int main(){
     ios::sync_with_stdio(0);
