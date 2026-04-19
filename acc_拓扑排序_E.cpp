@@ -7,9 +7,12 @@ ll ctoll(char c){
     return (c-'a'+1);
 }
 void tpsort(ll n){
-    
+    for(int i=1;i<=n;i++){
+        
+    }
 }
 ll n;
+ll in[N];
 string s,last;
 vector<ll> g[N];
 void solve(){
@@ -23,7 +26,8 @@ void solve(){
         }
         for(ll i=0;i<last.size();i++){
             if(s[i]>last[i]){
-                g[ctoll(last[i])].push_back(s[i]);
+                g[ctoll(last[i])].push_back(ctoll(s[i]));
+                in[ctoll(s[i])]++;
             }
         }
         last=s;
