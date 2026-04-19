@@ -40,9 +40,9 @@ void solve(){
     for(int i=1;i<=26;i++) in[i]=-1;
     for(int i=2;i<=n;i++){
         cin>>s;
-        // if(s<last) no();
+        
         for(ll i=0;i<last.size();i++){
-            if(s[i]>last[i]){
+            if(s[i]!=last[i]){
                 g[ctoll(last[i])].push_back(ctoll(s[i]));
                 if(in[ctoll(last[i])]==-1) in[ctoll(last[i])]=0;
                 if(in[ctoll(s[i])]==-1) in[ctoll(s[i])]=0;
