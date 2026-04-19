@@ -15,7 +15,7 @@ void solve(){
         }
         last=c;
     }
-    ans=n-1-s+(s%2&&s/2<=k)+min(s/2,k)*2;
+    ans=n-1-s+(s%2&&s/2<k)+min(s/2,k)*2;
     cout<<ans;
 }
 int main(){
