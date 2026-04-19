@@ -4,9 +4,20 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n;
-
+string s,last;
 void solve(){
-    
+    cin>>n;
+    cin>>last;
+    for(int i=2;i<=n;i++){
+        cin>>s;
+        if(s>=last){
+            cout<<0;
+            return;
+        }
+        for(auto i:last){
+            
+        }
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
