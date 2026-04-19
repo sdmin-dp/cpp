@@ -58,6 +58,7 @@ void solve(){
     //     }
     //     cerr<<el;
     // }
+    sort();
     cin>>t;
     for(auto i:t) if(in[ctoll(i)]==-1) no();
     for(auto i:t){
