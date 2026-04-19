@@ -3,10 +3,7 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-void bfs(){
-    queue<pair<ll,ll>> q;
-    
-}
+vector<ll> g[N];
 void solve(){
     
 }
