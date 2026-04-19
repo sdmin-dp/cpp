@@ -7,9 +7,19 @@ ll n,m;
 vector<pair<ll,ll>> g[N];
 ll in[N];
 void bfs(){
-    for(int i=1;i<=n;i++){
-        
-    }    
+    queue<pair<ll,ll>> q;
+    for(int i=1;i<=n;i++) if(!in[i]) q.push({i,0});
+    ll ans=0;
+    while(!q.empty()){
+        auto x=q.front();
+        ll u=x.first,step=x.second;
+        ans=max(ans,step);
+        for(auto i:g[u]){
+            ll v=i.first,w=i.second;
+            q.push({v,step+w});
+        }
+    }
+    
 }
 void solve(){
     cin>>n>>m;
