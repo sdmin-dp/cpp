@@ -52,6 +52,13 @@ void solve(){
         }
         last=s;
     }
+    for(int i=1;i<=26;i++){
+        cerr<<char(i-1+'a')<<":";
+        for(auto j:g[i]){
+            cerr<<char(j-1+'a')<<" ";
+        }
+        cerr<<el;
+    }
     cin>>t;
     for(auto i:t) if(in[ctoll(i)]==-1) no();
     for(auto i:t){
