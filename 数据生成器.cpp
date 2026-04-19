@@ -5,7 +5,16 @@ using namespace std;
 const ll N=1e5+5;
 string ans;
 void solve(){
-    ll n=rand();
+    ll n=rand()%10;
+    ll m=rand()%10;
+    cout<<n<<" "<<m<<el;
+    for(int i=1;i<=m;i++){
+        ll x=rand()%n,y=rand()%n;
+        if(x==0) x=n;
+        if(y==0) y=n;
+        if(y==x) y=x-1;
+        cout<<x<<" "<<y<<el;
+    }
 
 }
 int main(){
