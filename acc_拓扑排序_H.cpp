@@ -44,7 +44,7 @@ void solve(){
     for(int i=1;i<=n;i++){
         cerr<<pre[i]<<" ";
     }
-    while(!cur){
+    while(cur){
         res.push_front(cur);
         cur=pre[cur];
     }
