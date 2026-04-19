@@ -52,9 +52,9 @@ void solve(){
         last=s;
     }
     sort();
-    for(int i=1;i<=26;i++){
-        cout<<char(i-1+'a')<<":"<<dep[i]<<el;
-    }
+    // for(int i=1;i<=26;i++){
+    //     cout<<char(i-1+'a')<<":"<<dep[i]<<el;
+    // }
     cin>>t;
     for(auto i:t) if(in[ctoll(i)]==-1) no();
     for(auto i:t){
