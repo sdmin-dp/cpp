@@ -41,7 +41,7 @@ void solve(){
             cur=i;
         }
     }
-    cout<<cur;
+    cerr<<cur;
     while(!cur){
         res.push_front(cur);
         cur=pre[cur];
