@@ -3,22 +3,22 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
 ll ctoll(char c){
     return (c-'a'+1);
 }
-void tpsort(ll n){
+void sort(ll n){
     for(int i=1;i<=n;i++){
         
     }
 }
 ll n;
 ll in[N];
-string s,last;
+string s,last,t;
 vector<ll> g[N];
 void solve(){
     cin>>n;
     cin>>last;
+    for(int i=1;i<=26;i++) in[i]=-1;
     for(int i=2;i<=n;i++){
         cin>>s;
         if(s<last){
@@ -33,6 +33,7 @@ void solve(){
         }
         last=s;
     }
+    cin>>t;
 }
 int main(){
     ios::sync_with_stdio(0);
