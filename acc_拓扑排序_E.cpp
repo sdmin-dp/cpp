@@ -3,6 +3,7 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
+
 ll ctoll(char c){
     return (c-'a'+1);
 }
