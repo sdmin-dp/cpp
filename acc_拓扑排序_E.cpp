@@ -54,14 +54,9 @@ void solve(){
         last=s;
     }
     sort();
-    // for(int i=1;i<=26;i++){
-    //     cout<<char(i-1+'a')<<":"<<dep[i]<<el;
-    // }
     cin>>t;
     for(auto i:t) if(in[ctoll(i)]==-1) no();
-    for(auto i:t){
-        cout<<char(dep[ctoll(i)]+'a');
-    }
+    for(auto i:t) cout<<char(dep[ctoll(i)]+'a');
 }
 int main(){
     ios::sync_with_stdio(0);
