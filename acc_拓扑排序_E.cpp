@@ -33,6 +33,11 @@ void sort(){
             }
         }       
     }
+    for(int i=1;i<=26;i++){
+        if(in[i]>0){
+            no();
+        }
+    }
 }
 void solve(){
     cin>>n;
