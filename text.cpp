@@ -5,8 +5,11 @@ using namespace std;
 const ll N=1e5+5;
 
 void solve(){
-    for(int i=2;i<=100000;i++){
-        cout<<i-1<<" "<<i<<el;
+    for(int i=2;i<=50000;i++){
+        cout<<i<<" "<<1<<el;
+    }
+    for(int i=50000;i<=100000;i++){
+        cout<<1<<" "<<i<<el;
     }
 }
 int main(){
