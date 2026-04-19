@@ -5,8 +5,8 @@ using namespace std;
 const ll N=1e5+5;
 
 void solve(){
-    for(int i=1;i<=n;i++){
-        
+    for(int i=2;i<=100000;i++){
+        cout<<i-1<<" "<<i<<el;
     }
 }
 int main(){
