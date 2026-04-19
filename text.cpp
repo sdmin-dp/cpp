@@ -10,9 +10,7 @@ void solve(){
     cin>>last;
     for(int i=2;i<=n;i++){
         cin>>c;
-        if(c!=last){
-            s++;
-        }
+        if(c!=last) s++;
         last=c;
     }
     ans=n-1-s+(s%2&&s/2<k)+min(s/2,k)*2;
