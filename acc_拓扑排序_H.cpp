@@ -40,7 +40,7 @@ void solve(){
             ans=dis[i];
             cur=i;
         }
-    
+    }
     while(!cur){
         res.push_front(cur);
         cur=pre[cur];
