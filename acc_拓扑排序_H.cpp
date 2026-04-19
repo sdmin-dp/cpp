@@ -19,7 +19,7 @@ void bfs(){
             q.push({v,step+w});
         }
     }
-    
+    cout<<ans;
 }
 void solve(){
     cin>>n>>m;
