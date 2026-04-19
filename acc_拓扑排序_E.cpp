@@ -58,7 +58,7 @@ void solve(){
     cin>>t;
     for(auto i:t) if(in[ctoll(i)]==-1) no();
     for(auto i:t){
-        cout<<char(dep[ctoll(t[i])]+'a');
+        cout<<char(dep[ctoll(i)]+'a');
     }
 }
 int main(){
