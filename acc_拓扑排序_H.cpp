@@ -45,7 +45,8 @@ void solve(){
         res.push_front(cur);
         cur=pre[cur];
     }
-    
+    cout<<ans<<el;
+    for(auto i:res) cout<<i<<" ";
 }
 int main(){
     ios::sync_with_stdio(0);
