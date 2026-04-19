@@ -47,6 +47,7 @@ void solve(){
                 if(in[ctoll(last[i])]==-1) in[ctoll(last[i])]=0;
                 if(in[ctoll(s[i])]==-1) in[ctoll(s[i])]=0;
                 in[ctoll(s[i])]++;
+                break;
             }
         }
         last=s;
