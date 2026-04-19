@@ -3,7 +3,7 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+string ans;
 void solve(){
     ll n=rand();
 
