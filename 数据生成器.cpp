@@ -9,11 +9,11 @@ void solve(){
     ll m=rand()%10;
     cout<<n<<" "<<m<<el;
     for(int i=1;i<=m;i++){
-        ll x=rand()%n,y=rand()%n;
+        ll x=rand()%n,y=rand()%n,w=rand()%20;
         if(x==0) x=n;
         if(y==0) y=n;
         if(y==x) y=x-1;
-        cout<<x<<" "<<y<<el;
+        cout<<x<<" "<<y<<" "<<w<<el;
     }
 
 }
