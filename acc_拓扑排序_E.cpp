@@ -40,7 +40,6 @@ void solve(){
     for(int i=1;i<=26;i++) in[i]=-1;
     for(int i=2;i<=n;i++){
         cin>>s;
-        
         for(ll i=0;i<last.size();i++){
             if(s[i]!=last[i]){
                 g[ctoll(last[i])].push_back(ctoll(s[i]));
@@ -52,13 +51,13 @@ void solve(){
         }
         last=s;
     }
-    for(int i=1;i<=26;i++){
-        cerr<<char(i-1+'a')<<":";
-        for(auto j:g[i]){
-            cerr<<char(j-1+'a')<<" ";
-        }
-        cerr<<el;
-    }
+    // for(int i=1;i<=26;i++){
+    //     cerr<<char(i-1+'a')<<":";
+    //     for(auto j:g[i]){
+    //         cerr<<char(j-1+'a')<<" ";
+    //     }
+    //     cerr<<el;
+    // }
     cin>>t;
     for(auto i:t) if(in[ctoll(i)]==-1) no();
     for(auto i:t){
