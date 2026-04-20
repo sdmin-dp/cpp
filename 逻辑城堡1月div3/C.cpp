@@ -12,7 +12,7 @@ void solve(){
     cin>>n;
     for(int i=2;i*i<=n;i++){
         
-        if(!n%i){
+        if(n%i==0){
             cerr<<"dog";
             ll j=find(n/i);
             if(j==0) continue;
