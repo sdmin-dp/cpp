@@ -7,7 +7,7 @@ ll n;
 ll a[N];
 void solve(){
     cin>>n;
-    for(ll i=0;(1<<n)<=64;i++){
+    for(ll i=0;(1<<i)<=n;i++){
         a[i]=(1ll<<i);
     }
     cout<<n<<"=";
