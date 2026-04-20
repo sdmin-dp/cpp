@@ -21,7 +21,7 @@ void solve(){
             n-=a[i];
         }
         else{
-            if(n!=0) cout<<'+'<<x-n;
+            if(n>0) cout<<'+'<<x-n;
             return;
         }
     }
