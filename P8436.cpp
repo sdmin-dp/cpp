@@ -35,6 +35,7 @@ void solve(){
         g[x].push_back(y);
         g[y].push_back(x);
     }
+    for(int i=1;i<=n;i++) if(!dfn[i]) dfs(i,0);
     
 }
 int main(){
