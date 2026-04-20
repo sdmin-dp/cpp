@@ -3,9 +3,22 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+ll n;
+deque<ll> dq;
 void solve(){
-    
+    cin>>n;
+    ll x=n;
+    do{
+        ll k=x%2;
+        dq.push_front(k);
+        k/=2;
+    }while(n);
+    ll i=1;
+    for(auto &j:dq){
+        if(j==0){
+            
+        }
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
