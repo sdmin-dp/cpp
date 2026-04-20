@@ -3,7 +3,10 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-vector<pair<ll,ll>> v;
+ll n;
+void (){
+
+}
 void solve(){
     
 }
@@ -13,7 +16,7 @@ int main(){
     //freopen("xxx.in","r",stdin);
     //freopen("xxx.out","w",stdout);
     ll T=1;
-    //cin>>T;
+    cin>>T;
     while(T--){
         solve();
     }
