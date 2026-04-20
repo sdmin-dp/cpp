@@ -7,15 +7,16 @@ ll n,m,k;
 ll b,e;
 vector<pair<ll,ll>> g[N];
 void dijkstra(){
-
+    priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;
+    
 }
 void solve(){
     cin>>n>>m>>k>>b>>e;
     for(int i=1;i<=n;i++){
         ll u,v,w;
         cin>>u>>v>>w;
-        g[u].push_back({v,w});
-        g[v].push_back({u,w});
+        g[u+1].push_back({v+1,w});
+        g[v+1].push_back({u+1,w});
     }
 }
 int main(){
