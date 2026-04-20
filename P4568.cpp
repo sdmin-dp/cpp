@@ -16,15 +16,8 @@ void dijkstra(){
         auto x=q.top();
         q.pop();
         for(int i=1;i<=k;i++){
-            if(x.first>dis[x.second]) continue;
-            for(auto i:g[x.second]){
-                if(dis[i.first]>x.second+i.second){
-                    dis[i.first]=x.second+i.second;
-                    q.push({i.first,dis[i.first]});
-                }
-            }
+            if(dis[])
         }
-        
     }
 }
 void solve(){
