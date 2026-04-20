@@ -4,13 +4,15 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n;
+vector<ll> ans;
 void prime(ll x){
-    for(int i=1;i<=n;i++){
+    for(int i=2;i*i<=n;i++){
         
     }
 }
 void solve(){
     cin>>n;
+    ans.clear();
 }
 int main(){
     ios::sync_with_stdio(0);
