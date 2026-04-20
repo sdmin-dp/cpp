@@ -9,7 +9,7 @@ pair<char,pair<ll,ll>> walk(char f,ll s,pair<ll,ll> x){
     if(f=='D'){x.second-=s;c='L';}
     if(f=='L'){x.first-=s;c='U';}
     if(f=='R'){x.first+=s;c='D';}
-    return {}
+    return {c,x};
 }
 void solve(){
     
