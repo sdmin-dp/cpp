@@ -6,8 +6,11 @@ const ll N=1e5+5;
 ll n;
 vector<ll> ans;
 void prime(ll x){
-    for(int i=2;i*i<=n;i++){
-        
+    for(int i=2;i*i<=x;i++){
+        while(x%i==0){
+            ans.push_back(i);
+            x/=i;
+        }
     }
 }
 void solve(){
