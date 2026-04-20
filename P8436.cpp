@@ -7,6 +7,7 @@ ll n,m,idx;
 vector<ll> g[N];
 ll dfn[N],low[N];
 vector<pair<ll,ll>> bridge;
+map<pair<ll,ll>,bool> mp;
 void dfs(ll x,ll fa){
     low[x]=dfn[x]=++idx;
     bool flag=0;
