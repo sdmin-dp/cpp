@@ -6,12 +6,14 @@ const ll N=5e5+5;
 ll n,m,idx;
 vector<ll> g[N];
 ll dfn[N],low[N];
+vector<pair<ll,ll>> bridge;
 void dfs(ll x,ll fa){
     low[x]=dfn[x]=++idx;
     for(auto i:g[x]){
         if(!dfn[i]){
             dfs(i,x);
             low[x]=min(low[x],low[i]);
+            if(low[i]>x)
         }
     }
 }
