@@ -50,6 +50,7 @@ void solve(){
             change(i);
         }
     }
+    cout<<idx<<el;
     vector<ll> ans;
     for(int i=1;i<=idx;i++){
         ll cnt=0;
