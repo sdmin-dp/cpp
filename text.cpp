@@ -9,7 +9,7 @@ void solve(){
     cin>>n;
     for(int i=2;i<=n;i++){
         for(int j=i+1;j<=n;j++){
-            k=n/i/j;
+            ll k=n/i/j;
             if(i*j*k==n){
                 cout<<i<<" "<<j<<" "<<k<<el;
                 return;
