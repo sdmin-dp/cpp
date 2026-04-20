@@ -5,7 +5,7 @@ using namespace std;
 const ll N=1e5+5;
 
 void solve(){
-    ll t=rand()%101;
+    ll t=10000;
     cout<<t<<el;
     for(int i=1;i<=t;i++){
         ll n=rand()%200001;
