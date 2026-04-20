@@ -36,7 +36,7 @@ void solve(){
         g[y].push_back(x);
     }
     for(int i=1;i<=n;i++) if(!dfn[i]) dfs(i,0);
-    
+    for(auto &i:bridge) mp[{i.first,i.second}]=1;
 }
 int main(){
     ios::sync_with_stdio(0);
