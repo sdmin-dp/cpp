@@ -8,6 +8,7 @@ vector<ll> g[N];
 ll dfn[N],low[N];
 vector<pair<ll,ll>> bridge;
 map<pair<ll,ll>,bool> mp;
+ll color[N];
 void dfs(ll x,ll fa){
     low[x]=dfn[x]=++idx;
     bool flag=0;
@@ -28,6 +29,10 @@ void dfs(ll x,ll fa){
             low[x]=min(low[x],dfn[i]);
         }
     }
+}
+void change(ll x){
+    color[x]=idx;
+    for(auto i:g[x]) if(!mp[{min(x,i),max(x,i)}]&&!color[i]) change(i);
 }
 void solve(){
     cin>>n>>m;
