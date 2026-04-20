@@ -2,7 +2,7 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e5+5;
+const ll N=1e4+5;
 ll n,m,k;
 vector<pair<ll,ll>> g[N];
 ll dis[N][20];
@@ -11,7 +11,7 @@ void dijkstra(){
     priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;
     q.push({0,b});
     memset(dis,0x3f,sizeof(dis));
-    for(ll i=1;i<=k;i++) dis[1][0]=0;
+    for(ll i=0;i<=k;i++) dis[b][i]=0;
     while(!q.empty()){
         auto x=q.top();
         q.pop();
