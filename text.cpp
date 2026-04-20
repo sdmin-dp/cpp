@@ -11,6 +11,7 @@ void solve(){
         for(int j=i+1;j<=n;j++){
             if(n%(i*j)==0){
                 ll k=n/(i*j);
+                if(k==1) continue;
                 if(i!=j&&j!=k&&i!=k){
                     cout<<i<<" "<<j<<" "<<k<<el;
                     return;
