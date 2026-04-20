@@ -4,6 +4,9 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n;
+void prime(ll x){
+    
+}
 void solve(){
     cin>>n;
 }
