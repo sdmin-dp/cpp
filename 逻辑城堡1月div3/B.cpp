@@ -10,6 +10,7 @@ void solve(){
     for(int i=1;(1<<i)<=n;i++){
         a[i]=(1<<i);
     }
+    
     cout<<n<<"=";
     bool flag=1;
     for(int i=1;i<=n;i++){
