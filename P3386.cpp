@@ -2,7 +2,7 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e5+5;
+const ll N=1e3+5;
 ll n1,n2,m;
 vector<ll> g[N];
 ll match[N];
