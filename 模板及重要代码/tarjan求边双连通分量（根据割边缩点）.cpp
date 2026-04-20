@@ -2,90 +2,74 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-
-const ll N = 2e5 + 5; // 注意：缩点后的图点数 = 原图点 + 点双数量，所以开 2 倍
-ll n, m;
-vector<ll> g[N], ng[N]; // g: 原图, ng: 缩点后的新图(圆方树)
-ll dfn[N], low[N], idx; // idx 用于 Tarjan 的时间戳
-stack<ll> st;           // 栈：像一个箩筐，DFS 走过的点先存里面
-ll bcc_cnt;             // 计数器：记录发现了多少个点双分量（相当于方点个数）
-
-// 第一步：用 Tarjan 算法把所有的点双圈子找出来
-void dfs(ll x, ll root) {
-    dfn[x] = low[x] = ++idx; // 进场：给自己盖个时间戳戳，初始 low 是自己
-    st.push(x);              // 进栈：把当前点扔进箩筐
-
-    // 情况 A：这个点是个没人理的孤立点
-    if (x == root && g[x].empty()) {
-        bcc_cnt++; // 发现一个人的分量
-        ll square_node = n + bcc_cnt; // 方点编号
-        ng[x].push_back(square_node);
-        ng[square_node].push_back(x);
-        st.pop(); 
-        return;
-    }
-
-    for (auto i : g[x]) {
-        if (dfn[i] == 0) { // 没走过，说明 i 是 x 的儿子
-            dfs(i, root);
-            low[x] = min(low[x], low[i]); // 儿子回溯时，更新 x 的 low 值
-            
-            // 【核心判定】如果儿子 i 无论如何跑不到 x 的上面
-            // 说明从 x 到 i 这一坨东西形成了一个坚固的“点双分量”
-            if (low[i] >= dfn[x]) {
-                bcc_cnt++; // 发现一个新的分量，记个号
-                ll square_node = n + bcc_cnt; // 给这个分量造一个“方点”
-
-                // 重点：我们要把这个圈子里所有的点都和这个“方点”连起来
-                while (true) {
-                    ll node = st.top(); // 从箩筐顶拿出一个点
-                    st.pop();
-                    // 在新图里，圆点 node 和 方点 square_node 互相连边
-                    ng[node].push_back(square_node);
-                    ng[square_node].push_back(square_node); // 这里笔误修正: 应该是 ng[square_node].push_back(node)
-                    // 修正后代码逻辑：
-                    ng[square_node].push_back(node);
-                    
-                    if (node == i) break; // 一直弹出到当前这个儿子 i 为止
-                }
-                // 特别注意：x 是这个分量的“头儿”，它也属于这个分量
-                // 但 x 可能还是其他分量的“头儿”，所以 x 不能弹出栈，只能连边
-                ng[x].push_back(square_node);
-                ng[square_node].push_back(x);
-            }
-        } 
-        else {
-            // 如果 i 已经走过了，说明是一条回边，直接更新 low
-            low[x] = min(low[x], dfn[i]);
+const ll N=1e5+5;
+ll n,m;
+vector<ll> g[N],ng[N]; // g: 原图邻接表, ng: 缩点后的新图(树)
+ll dfn[N],low[N];       // Tarjan 算法的时间戳与回溯值
+ll idx;                 // 全局计数器：先用于 dfn 编号，后用于 color 编号
+vector<pair<ll,ll>> bridge; // 存储所有找出的割边
+map<pair<ll,ll>,bool> mp;   // 标记割边，用于染色时阻断连接
+ll color[N];            // color[i] 表示点 i 属于哪个边双连通分量
+// 第一步：DFS 寻找割边
+void dfs(ll x,ll fa){
+    dfn[x]=++idx;
+    low[x]=idx;
+    for(auto i:g[x]){
+        if(dfn[i]==0){ // 未访问过的节点（树枝边）
+            dfs(i,x);
+            low[x]=min(low[i],low[x]);
+            // 【割边判定】子节点 i 无法通过其他路径回到 x 或 x 以上的祖先
+            if(low[i]>dfn[x]) bridge.push_back({x,i});
         }
+        // 【关键点】此处通过 x!=fa 忽略父节点。
+        // 注意：若原图有重边（x, fa 之间多条边），此逻辑会误判，建议改用边编号判断。
+        else if(x!=fa) low[x]=min(low[x],dfn[i]); 
     }
 }
-
-void solve() {
-    if(!(cin >> n >> m)) return;
-    for (int i = 1; i <= m; i++) {
-        ll x, y;
-        cin >> x >> y;
-        if (x == y) continue; // 自环没用，滚粗
+// 第二步：Flood Fill 染色（缩点）
+void change(ll x){
+    color[x]=idx; // 为当前点赋予新的分量编号
+    for(auto i:g[x]) {
+        // 【核心逻辑】在原图上扩展，但满足两个条件：
+        // 1. 当前边不是割边 (通过 mp 判断)
+        // 2. 目标点还没有被染色
+        if(!mp[{min(x,i),max(x,i)}] && !color[i]) change(i);
+    }
+}
+void solve(){
+    cin>>n>>m;
+    for(int i=1;i<=m;i++){
+        ll x,y;
+        cin>>x>>y;
         g[x].push_back(y);
         g[y].push_back(x);
     }
-
-    // 1. 开始大扫除，把每个连通块里的点双都找出来并连好新图
-    idx = 0;
-    bcc_cnt = 0;
-    for (int i = 1; i <= n; i++) {
-        if (!dfn[i]) dfs(i, i);
+    // 1. 跑 Tarjan 寻找割边（假设原图连通，否则需循环检查未访问点）
+    dfs(1,0);
+    // 2. 预处理割边：排序并存入 map，方便 change 函数 O(log E) 判定
+    for(auto &i:bridge) if(i.first>i.second) swap(i.first,i.second);
+    for(auto &i:bridge) mp[{i.first,i.second}]=1;
+    // 3. 染色：将每个边双连通分量缩成一个点
+    idx=0; 
+    for(int i=1;i<=n;i++){
+        if(!color[i]){
+            idx++; // 每个新的分量拥有唯一 ID
+            change(i);
+        }
     }
-
-    // 2. 此时 ng 数组里已经是缩点后的“圆方树”了
-    // 圆点编号：1 ~ n
-    // 方点编号：n+1 ~ n+bcc_cnt
+    // 4. 建立新图：遍历所有割边，连接它们所属的缩点
+    for(auto i:bridge){
+        ng[color[i.first]].push_back(color[i.second]);
+        ng[color[i.second]].push_back(color[i.first]);
+    }
 }
 
-int main() {
+int main(){
     ios::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
-    solve();
+    cin.tie(0);cout.tie(0);
+    ll T=1;
+    while(T--){
+        solve();
+    }
     return 0;
 }
