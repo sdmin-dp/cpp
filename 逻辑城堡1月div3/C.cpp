@@ -21,6 +21,7 @@ void solve(){
         cout<<"NO";
         return;
     }
+    
 }
 int main(){
     ios::sync_with_stdio(0);
