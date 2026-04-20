@@ -10,7 +10,9 @@ void solve(){
     for(int i=1;i<=t;i++){
         ll n=rand()%200001;
         cout<<n<<el;
-        
+        for(int i=1;i<=n;i++){
+            
+        }
     }
 }
 int main(){
