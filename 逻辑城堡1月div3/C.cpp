@@ -20,8 +20,7 @@ void solve(){
     if(ans.size()<=2){
         cout<<"NO";
         return;
-    }
-    
+    }Z1
 }
 int main(){
     ios::sync_with_stdio(0);
