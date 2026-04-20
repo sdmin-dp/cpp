@@ -5,7 +5,11 @@ using namespace std;
 const ll N=1e5+5;
 ll n1,n2,m;
 vector<ll> g[N];
-
+ll match[N];
+ll vis[N];
+bool dfs(ll x){
+    
+}
 void solve(){
     cin>>n1>>n2>>m;
     for(int i=1;i<=m;i++){
