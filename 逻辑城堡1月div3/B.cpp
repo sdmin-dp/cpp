@@ -21,7 +21,6 @@ void solve(){
         }
         else{
             if(n>0) cout<<'+'<<n;
-            else if(n==0) return;
             return;
         }
     }
