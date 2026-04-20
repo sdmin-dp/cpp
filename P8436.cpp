@@ -5,6 +5,7 @@ using namespace std;
 const ll N=1e5+5;
 ll n,m;
 vector<ll> g[N];
+ll dfn[N],low[N];
 void solve(){
     cin>>n>>m;
     for(int i=1;i<=m;i++){
