@@ -19,7 +19,9 @@ void dfs(ll x,ll fa){
         else if(i==fa){
             if(!flag){
                 flag=1;
-                low[x]=min(low[x],dfn[i]);
+                continue;
+            }else{
+                
             }
         }
     }
