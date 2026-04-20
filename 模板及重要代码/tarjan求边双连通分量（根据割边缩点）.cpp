@@ -21,9 +21,9 @@ void dfs(ll x,ll fa){
             // 【割边判定】子节点 i 无法通过其他路径回到 x 或 x 以上的祖先
             if(low[i]>dfn[x]) bridge.push_back({x,i});
         }
-        // 【关键点】此处通过 x!=fa 忽略父节点。
+        // 【关键点】此处通过 i!=fa 忽略父节点。
         // 注意：若原图有重边（x, fa 之间多条边），此逻辑会误判，建议改用边编号判断。
-        else if(x!=fa) low[x]=min(low[x],dfn[i]); 
+        else if(i!=fa) low[x]=min(low[x],dfn[i]); 
     }
 }
 // 第二步：Flood Fill 染色（缩点）
