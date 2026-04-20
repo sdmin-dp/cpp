@@ -14,9 +14,12 @@ void solve(){
         k/=2;
     }while(n);
     ll i=1;
+    cout<<n<<"=";
     for(auto &j:dq){
-        if(j==0){
-            
+        if(j){
+            if(i==1){
+                cout<<(1<<i);
+            }
         }
     }
 }
