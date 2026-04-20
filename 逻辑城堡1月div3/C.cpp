@@ -15,7 +15,8 @@ void solve(){
         if(n%i==0){
             // cerr<<"dog";
             ll j=find(n/i);
-            cerr<<i<<" "<<j;
+            cerr<<i<<" "<<j<<" ";
+            
             if(j==0) continue;
             if(i==j||j==(n/i)/j||i==(n/i)/j) continue;
             cout<<i<<" "<<j<<" "<<(n/i)/j<<el;
