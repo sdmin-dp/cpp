@@ -3,18 +3,19 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-pair<char,pair<ll,ll>> walk(char f,ll s,pair<ll,ll> x){
-    char c;
-    if(f=='U'){x.second+=s;c='R';}
-    if(f=='D'){x.second-=s;c='L';}
-    if(f=='L'){x.first-=s;c='U';}
-    if(f=='R'){x.first+=s;c='D';}
-    return {c,x};
+void walk(char &f,ll &s,pair<ll,ll> &x){
+    if(f=='U'){x.second+=s;f='R';}
+    else if(f=='D'){x.second-=s;f='L';}
+    else if(f=='L'){x.first-=s;f='U';}
+    else if(f=='R'){x.first+=s;f='D';}
 }
 void solve(){
     char c;
     ll n;
-    
+    pair<ll,ll> ans={0,0};
+    cin>>c>>n;
+    for(ll i=1;i<=n;i++) walk(c,i,ans);
+    cout<<ans.first<<" "<<ans.second<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
