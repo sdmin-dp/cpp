@@ -14,7 +14,7 @@ void solve(){
     }
     ll ans=0;
     for(auto i:cnt){
-        cerr<<i.first<<" "<<i.second;
+        cerr<<i.first<<" "<<i.second<<el;
         ans+=i.second/2+i.second%2;
     }
     cout<<ans<<el;
