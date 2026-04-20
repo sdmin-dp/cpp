@@ -27,7 +27,7 @@ void solve(){
         g[x].push_back(y);
         g[y].push_back(x);
     }
-    dfs();
+    dfs(1);
 }
 int main(){
     ios::sync_with_stdio(0);
