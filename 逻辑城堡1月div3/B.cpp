@@ -10,15 +10,17 @@ void solve(){
     for(int i=1;(1<<i)<=n;i++){
         a[i]=(1<<i);
     }
-    
+
     cout<<n<<"=";
     bool flag=1;
+    ll x=n;
     for(int i=1;i<=n;i++){
         if(n>=a[i]){
             if(flag){cout<<a[i];flag=0;}
             else cout<<'+'<<a[i];
         }
         else{
+            if(n!=0) cout<<'+'<<x-n;
             return;
         }
     }
