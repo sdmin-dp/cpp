@@ -12,7 +12,9 @@ void solve(){
         ll a;cin>>a;
         cnt[a-i]++;
     }
-    
+    for(int i=1;i<=n;i++){
+        
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
