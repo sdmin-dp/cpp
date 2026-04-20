@@ -3,12 +3,14 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+ll sum=200000;
 void solve(){
     ll t=10000;
     cout<<t<<el;
     for(int i=1;i<=t;i++){
         ll n=rand()%200001;
+        if(n>sum) n=sum;
+        sum-=n;
         cout<<n<<el;
         for(int i=1;i<=n;i++){
             ll a=rand()%(n+1);
