@@ -20,7 +20,8 @@ void solve(){
     ans.clear();
     pf(n);
     if(ans.size()==1) if(ans[0].second<6) no;
-    else if()
+    if(ans.size()==2) if(ans[0].second+ans[1].second<4) no;
+    
 }
 int main(){
     ios::sync_with_stdio(0);
