@@ -5,16 +5,18 @@ using namespace std;
 const ll N=1e5+5;
 ll n;
 ll find(ll x){
-    for(int i=2;i*i<=x;i++){
-        
-    }
+    for(int i=2;i*i<=x;i++) if(x%i==0) return i;
+    return 0;
 }
 void solve(){
     cin>>n;
     ll a,b,c;
     for(int i=2;i*i<=n;i++){
         if(!n%i){
-            
+            ll j=find(n/i);
+            if(j==0) continue;
+            cout<<i<<" "<<j<<" "<<(n/i)/j;
+            return;
         }
     }
 }
