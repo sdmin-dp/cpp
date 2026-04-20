@@ -8,7 +8,7 @@ ll b,e;
 vector<pair<ll,ll>> g[N];
 void dijkstra(){
     priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;
-    1
+    
 }
 void solve(){
     cin>>n>>m>>k>>b>>e;
