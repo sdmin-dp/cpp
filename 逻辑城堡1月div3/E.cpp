@@ -8,14 +8,13 @@ void solve(){
     cnt.clear();
     ll n;
     cin>>n;
-    ll mx=0;
     for(int i=0;i<n;i++){
         ll a;cin>>a;
         cnt[a-i]++;
-        mx=max(mx,a-i);
     }
     ll ans=0;
     for(auto i:cnt){
+        cerr<<i.first<<" "<<i.second;
         ans+=i.second/2+i.second%2;
     }
     cout<<ans<<el;
