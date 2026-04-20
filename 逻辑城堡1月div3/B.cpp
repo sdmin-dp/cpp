@@ -11,7 +11,7 @@ void solve(){
     do{
         ll k=x%2;
         dq.push_front(k);
-        k/=2;
+        x/=2;
     }while(n);
     ll i=0;
     cout<<n<<"=";
