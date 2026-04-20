@@ -19,7 +19,7 @@ void solve(){
             }
         }
     }
-    cout<<"NO";
+    cout<<"NO"<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
