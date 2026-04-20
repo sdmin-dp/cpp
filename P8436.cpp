@@ -8,6 +8,7 @@ vector<ll> g[N];
 ll dfn[N],low[N];
 vector<pair<ll,ll>> bridge;
 map<pair<ll,ll>,bool> mp;
+vector<ll> ans[N];
 ll color[N];
 void dfs(ll x,ll fa){
     low[x]=dfn[x]=++idx;
@@ -51,18 +52,11 @@ void solve(){
         }
     }
     cout<<idx<<el;
-    vector<ll> ans;
-    for(int i=1;i<=idx;i++){
-        ll cnt=0;
-        ans.clear();
-        for(int j=1;j<=n;j++){
-            if(color[j]==i){
-                cnt++;
-                ans.push_back(j);
-            }
-        }
-        cout<<cnt<<" ";
-        for(auto i:ans) cout<<i<<" "; 
+    for(int i=1;i<=n;i++) ans[color[i]].push_back(i);
+    for(ll i=1;i<=idx;i++){
+        cout<<ans[i].size()<<" ";
+        for(auto &j:ans[i]) cout<<j<<" ";
+        cout<<el;
     }
 }
 int main(){
