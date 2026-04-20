@@ -9,11 +9,18 @@ ll dfn[N],low[N];
 vector<pair<ll,ll>> bridge;
 void dfs(ll x,ll fa){
     low[x]=dfn[x]=++idx;
+    bool flag=0;
     for(auto i:g[x]){
         if(!dfn[i]){
             dfs(i,x);
             low[x]=min(low[x],low[i]);
             if(low[i]>dfn[x]) bridge.push_back({min(x,i),max(x,i)});
+        }
+        else if(i==fa){
+            if(!flag){
+                flag=1;
+                low[x]=min(low[x],dfn[i]);
+            }
         }
     }
 }
