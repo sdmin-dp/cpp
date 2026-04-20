@@ -3,8 +3,12 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-pair<ll,ll> walk(char f,ll s,pair<ll,ll> x){
-    if(f=='U') x.first
+pair<char,pair<ll,ll>> walk(char f,ll s,pair<ll,ll> x){
+    if(f=='U'){x.second+=s;1}
+    if(f=='D'){x.second-=s;}
+    if(f=='L'){x.first-=s;}
+    if(f=='R'){x.first+=s;}
+    return {}
 }
 void solve(){
     
