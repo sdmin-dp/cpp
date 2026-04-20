@@ -20,9 +20,6 @@ void solve(){
     if(ans.size()<=2){
         cout<<"NO";
         return;
-    } 
-    for(){
-        
     }
 }
 int main(){
