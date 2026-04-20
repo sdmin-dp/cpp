@@ -13,7 +13,7 @@ void solve(){
     cout<<n<<"=";
     bool flag=1;
     ll x=n;
-    for(int i=0;i<=i;i++){
+    for(int i=0;;i++){
         if(n>=a[i]){
             if(flag){cout<<a[i];flag=0;}
             else cout<<'+'<<a[i];
