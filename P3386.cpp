@@ -4,12 +4,13 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n1,n2,m;
+vector<ll> g[N];
 
 void solve(){
     cin>>n1>>n2>>m;
     for(int i=1;i<=m;i++){
         ll x,y;
-        
+        g[x].push_back(y);
     }
 }
 int main(){
