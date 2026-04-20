@@ -3,40 +3,19 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-ll n;
-ll find(ll x){
-    for(int i=2;i*i<=x;i++) if(x%i==0) return i;
-    return 0;
-}
-void solve(){
-    cin>>n;
-    for(int i=2;i*i<=n;i++){
-        
-        if(n%i==0){
-            // cerr<<"dog";
-            ll j=find(n/i);
-            cerr<<i<<" "<<j<<"\n";
 
-            if(j==0) continue;
-            if(i==j||j==(n/i)/j||i==(n/i)/j) continue;
-            cout<<i<<" "<<j<<" "<<(n/i)/j<<el;
-            return;
-        }
-    }
-    cout<<"NO"<<el;
+void solve(){
+    
 }
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
-    // freopen("abc.in","r",stdin);
-    // freopen("abc.out","w",stdout);
+    //freopen("xxx.in","r",stdin);
+    //freopen("xxx.out","w",stdout);
     ll T=1;
-    cin>>T;
+    //cin>>T;
     while(T--){
         solve();
     }
     return 0;
 }
-/*
-
-*/
