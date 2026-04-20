@@ -21,12 +21,12 @@ bool dfs(ll x){
 }
 void solve(){
     cin>>n1>>n2>>m;
-    for(int i=1;i<=m;i++){
-        ll x,y;
-        y+=n1;
-        g[x].push_back(y);
-        g[y].push_back(x);
-    }
+    // for(int i=1;i<=m;i++){
+    //     ll x,y;
+    //     y+=n1;
+    //     g[x].push_back(y);
+    //     g[y].push_back(x);
+    // }
     ll cnt=0;
     for(int i=1;i<=n1;i++){
 		memset(vis,0,sizeof(vis));
