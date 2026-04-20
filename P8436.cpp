@@ -13,7 +13,7 @@ void dfs(ll x,ll fa){
         if(!dfn[i]){
             dfs(i,x);
             low[x]=min(low[x],low[i]);
-            if(low[i]>x)
+            if(low[i]>dfn[x]) bridge.push_back();
         }
     }
 }
