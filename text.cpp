@@ -3,15 +3,20 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-bool isprime(ll x){
-    if(x<2) return 0;
-    for(int i=2;i*i<=x;i++) if(x%i==0) return 0;
-    return 1;
-}
 void solve(){
-    for(int i=100;i>=1;i--){
-        cout<<999999937<<el;
+    ll n;
+    cin>>n;
+    for(int i=2;i<=n;i++){
+        for(int j=i+1;j<=n;j++){
+            for(int k=j+1;k<=n;k++){
+                if(i*j*k==n){
+                    cout<<i<<" "<<j<<" "<<k<<el;
+                    return;
+                }
+            }
+        }
     }
+    cout<<"NO"<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
@@ -19,7 +24,7 @@ int main(){
     //freopen("xxx.in","r",stdin);
     //freopen("xxx.out","w",stdout);
     ll T=1;
-    //cin>>T;
+    cin>>T;
     while(T--){
         solve();
     }
