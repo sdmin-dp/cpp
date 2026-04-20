@@ -27,7 +27,12 @@ void solve(){
         g[x].push_back(y);
         g[y].push_back(x);
     }
-    dfs(1);
+    ll cnt=0;
+    for(int i=1;i<=n;i++){
+		memset(vis,0,sizeof(vis));
+		if(dfs(i)) cnt++;
+	}
+	cout<<cnt;
 }
 int main(){
     ios::sync_with_stdio(0);
