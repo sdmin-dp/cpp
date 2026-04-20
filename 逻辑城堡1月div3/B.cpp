@@ -10,7 +10,6 @@ void solve(){
     for(int i=0;(1<<i)<=n;i++){
         a[i]=(1<<i);
     }
-
     cout<<n<<"=";
     bool flag=1;
     ll x=n;
@@ -29,8 +28,8 @@ void solve(){
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
-    //freopen("xxx.in","r",stdin);
-    //freopen("xxx.out","w",stdout);
+    freopen("number.in","r",stdin);
+    freopen("number.out","w",stdout);
     ll T=1;
     //cin>>T;
     while(T--){
