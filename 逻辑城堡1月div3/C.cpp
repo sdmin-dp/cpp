@@ -5,17 +5,23 @@ using namespace std;
 const ll N=1e5+5;
 ll n;
 vector<ll> ans;
+ll cnt=0;
 void prime(ll x){
     for(int i=2;i*i<=x;i++){
-        while(x%i==0){
+        if(cnt>=3){
+            return;
+        }
+        if(x%i==0){
             ans.push_back(i);
-            x/=i;
+            cnt++;
+            while(x%i==0) x/=i;
         }
     }
 }
 void solve(){
     cin>>n;
     ans.clear();
+    
 }
 int main(){
     ios::sync_with_stdio(0);
