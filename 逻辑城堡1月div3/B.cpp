@@ -18,6 +18,7 @@ void solve(){
         if(n>=a[i]){
             if(flag){cout<<a[i];flag=0;}
             else cout<<'+'<<a[i];
+            n-=a[i];
         }
         else{
             if(n!=0) cout<<'+'<<x-n;
