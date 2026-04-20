@@ -8,7 +8,12 @@ vector<ll> g[N];
 ll dfn[N],low[N];
 void dfs(ll x,ll fa){
     low[x]=dfn[x]=++idx;
-    
+    for(auto i:g[x]){
+        if(!dfn[i]){
+            dfs(i,x);
+            
+        }
+    }
 }
 void solve(){
     cin>>n>>m;
