@@ -2,6 +2,7 @@
 #define ll long long
 using namespace std;
 #define el '\n'
+#define no {cout<<"NO";return;}
 const ll N=1e5+5;
 ll n;
 vector<pair<ll,ll>> ans;
@@ -18,11 +19,8 @@ void solve(){
     cin>>n;
     ans.clear();
     pf(n);
-    if(ans.size()==1){
-        if(ans[0].second<6){
-            cout<<
-        }
-    }
+    if(ans.size()==1) if(ans[0].second<6) no;
+    else if()
 }
 int main(){
     ios::sync_with_stdio(0);
