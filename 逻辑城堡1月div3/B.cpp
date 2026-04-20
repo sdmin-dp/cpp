@@ -7,8 +7,8 @@ ll n;
 ll a[N];
 void solve(){
     cin>>n;
-    for(int i=1;a[i-1]*2<=n;i++){
-        a[i]=a[i-1]*2;
+    for(int i=1;(1<<i)<=n;i++){
+        a[i]=(1<<i);
     }
     cout<<n<<"=";
     bool flag=1;
