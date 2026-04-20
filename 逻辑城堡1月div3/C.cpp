@@ -13,13 +13,14 @@ void solve(){
     for(int i=2;i*i<=n;i++){
         
         if(n%i==0){
-            cerr<<"dog";
+            // cerr<<"dog";
             ll j=find(n/i);
             if(j==0) continue;
             cout<<i<<" "<<j<<" "<<(n/i)/j<<el;
             return;
         }
     }
+    cout<<"NO";
 }
 int main(){
     ios::sync_with_stdio(0);
