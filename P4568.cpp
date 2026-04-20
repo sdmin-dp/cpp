@@ -4,6 +4,9 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 
+void dijkstra(){
+
+}
 void solve(){
     
 }
