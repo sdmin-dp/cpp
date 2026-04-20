@@ -9,7 +9,7 @@ bool isprime(ll x){
     return 1;
 }
 void solve(){
-    for(int i=1000000000;i>=1;i--){
+    for(int i=100;i>=1;i--){
         cout<<999999937<<el;
     }
 }
