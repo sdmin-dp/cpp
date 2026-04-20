@@ -4,23 +4,19 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n;
-vector<ll> prime(){
-    vector<ll> ans;
-    for(ll i=2;i*i<=n;i++){
-        while(n%i==0){
-            ans.push_back(i);
-            n/=i;
-        }
+ll find(ll x){
+    for(int i=2;i*i<=x;i++){
+        
     }
-    return ans;
 }
 void solve(){
     cin>>n;
-    vector<ll> ans=prime();
-    if(ans.size()<=2){
-        cout<<"NO";
-        return;
-    }Z1
+    ll a,b,c;
+    for(int i=2;i*i<=n;i++){
+        if(!n%i){
+            
+        }
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
