@@ -28,7 +28,7 @@ void solve(){
         g[y].push_back(x);
     }
     ll cnt=0;
-    for(int i=1;i<=n;i++){
+    for(int i=1;i<=n1;i++){
 		memset(vis,0,sizeof(vis));
 		if(dfs(i)) cnt++;
 	}
