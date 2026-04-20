@@ -3,9 +3,13 @@
 using namespace std;
 #define el '\n'
 const ll N=5e5+5;
-ll n,m;
+ll n,m,idx;
 vector<ll> g[N];
 ll dfn[N],low[N];
+void dfs(ll x,ll fa){
+    low[x]=dfn[x]=++idx;
+    
+}
 void solve(){
     cin>>n>>m;
     for(int i=1;i<=m;i++){
