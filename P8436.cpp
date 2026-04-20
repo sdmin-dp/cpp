@@ -2,7 +2,7 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e5+5;
+const ll N=5e5+5;
 ll n,m;
 vector<ll> g[N];
 ll dfn[N],low[N];
@@ -13,6 +13,7 @@ void solve(){
         g[x].push_back(y);
         g[y].push_back(x);
     }
+    
 }
 int main(){
     ios::sync_with_stdio(0);
