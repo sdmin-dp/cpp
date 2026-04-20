@@ -13,12 +13,14 @@ void solve(){
         dq.push_front(k);
         k/=2;
     }while(n);
-    ll i=1;
+    ll i=0;
     cout<<n<<"=";
     for(auto &j:dq){
         if(j){
-            if(i==1){
+            if(i==0){
                 cout<<(1<<i);
+            }else{
+                cout<<"+"<<(1<<i);
             }
         }
     }
