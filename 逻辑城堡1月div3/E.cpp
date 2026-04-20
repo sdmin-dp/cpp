@@ -13,6 +13,7 @@ void solve(){
         ll a;cin>>a;
         cnt[a-i]++;
         mx=max(mx,a-i);
+        cout<<a-i<<" ";
     }
     ll ans=0;
     for(int i=0;i<=mx;i++){
