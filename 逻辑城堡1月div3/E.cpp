@@ -3,9 +3,9 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-ll cnt[N];
+map<ll,ll> cnt;
 void solve(){
-    memset(cnt,0,sizeof(cnt));
+    cnt.clear();
     ll n;
     cin>>n;
     ll mx=0;
@@ -13,11 +13,10 @@ void solve(){
         ll a;cin>>a;
         cnt[a-i]++;
         mx=max(mx,a-i);
-        cerr<<a-i<<" ";
     }
     ll ans=0;
-    for(int i=0;i<=mx;i++){
-        ans+=cnt[i]/2+i%2;
+    for(auto i:cnt){
+        ans+=i.second/2+i.second%2;
     }
     cout<<ans<<el;
 }
