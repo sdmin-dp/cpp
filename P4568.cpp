@@ -5,6 +5,7 @@ using namespace std;
 const ll N=1e5+5;
 ll n,m,k;
 ll b,e;
+vector<pair<ll,ll>> g[N];
 void dijkstra(){
 
 }
