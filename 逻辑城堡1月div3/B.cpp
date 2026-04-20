@@ -4,19 +4,19 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n;
-deque<ll> dq;
+vector<ll> v;
 void solve(){
     cin>>n;
     ll x=n;
     do{
         ll k=x%2;
-        dq.push_front(k);
+        v.push_back(k);
         x/=2;
     }while(x);
-    for(auto i:dq) cerr<<i;
+    for(auto i:v) cerr<<i;
     ll i=0;
     cout<<n<<"=";
-    for(auto &j:dq){
+    for(auto &j:v){
         if(j){
             if(i==0){
                 cout<<(1<<i);
