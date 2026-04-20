@@ -5,7 +5,9 @@ using namespace std;
 const ll N=1e5+5;
 ll n;
 void prime(ll x){
-    
+    for(int i=1;i<=n;i++){
+        
+    }
 }
 void solve(){
     cin>>n;
