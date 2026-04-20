@@ -13,6 +13,7 @@ void solve(){
         dq.push_front(k);
         x/=2;
     }while(x);
+    for(auto i:dq) cerr<<i;
     ll i=0;
     cout<<n<<"=";
     for(auto &j:dq){
