@@ -10,7 +10,10 @@ bool isprime(ll x){
 }
 void solve(){
     for(int i=1000000000;i>=1;i--){
-        
+        if(isprime(i)){
+            cout<<i;
+            return;
+        }
     }
 }
 int main(){
