@@ -43,6 +43,14 @@ void solve(){
     }
     for(int i=1;i<=n;i++) if(!dfn[i]) dfs(i,0);
     for(auto &i:bridge) mp[{i.first,i.second}]=1;
+    idx=0;
+    for(int i=1;i<=n;i++){
+        if(!color[i]){
+            idx++;
+            change(i);
+        }
+    }
+    
 }
 int main(){
     ios::sync_with_stdio(0);
