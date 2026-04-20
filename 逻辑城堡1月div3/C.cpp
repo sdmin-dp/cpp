@@ -20,6 +20,7 @@ void solve(){
     cin>>n;
     ans.clear();
     prime(n);
+    for(auto i:ans) cerr<<i<<" ";
     if(ans.size()<=2){
         cout<<"NO"<<el;
         return;
