@@ -8,8 +8,9 @@ void solve(){
     ll t=rand()%101;
     cout<<t<<el;
     for(int i=1;i<=t;i++){
-        ll n=rand()%1000000001;
+        ll n=rand()%200001;
         cout<<n<<el;
+        
     }
 }
 int main(){
