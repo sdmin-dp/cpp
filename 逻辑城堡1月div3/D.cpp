@@ -12,6 +12,8 @@ pair<char,pair<ll,ll>> walk(char f,ll s,pair<ll,ll> x){
     return {c,x};
 }
 void solve(){
+    char c;
+    ll n;
     
 }
 int main(){
