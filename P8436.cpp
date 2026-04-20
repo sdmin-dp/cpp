@@ -50,13 +50,18 @@ void solve(){
             change(i);
         }
     }
+    vector<ll> ans;
     for(int i=1;i<=idx;i++){
-        
+        ll cnt=0;
+        ans.clear();
         for(int j=1;j<=n;j++){
             if(color[j]==i){
-
+                cnt++;
+                ans.push_back(j);
             }
         }
+        cout<<cnt<<" ";
+        for(auto i:ans) cout<<i<<" "; 
     }
 }
 int main(){
