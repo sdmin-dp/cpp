@@ -14,6 +14,7 @@ void bfs(){
     while(!q.empty()){
         auto x=q.front();q.pop();
         for(auto i:g[x.first]){
+            in[i.first]--;
             if(dis[i.first]<x.second+i.second){
                 dis[i.first]=x.second+i.second;
                 pre[i.first]=x.first;
