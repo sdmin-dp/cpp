@@ -15,7 +15,7 @@ void solve(){
         mx=max(mx,a-i);
     }
     ll ans=0;
-    for(int i=1;i<=mx;i++){
+    for(int i=0;i<=mx;i++){
         ans+=cnt[i]/2+i%2;
     }
     cout<<ans<<el;
