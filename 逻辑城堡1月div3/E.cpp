@@ -3,8 +3,15 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+ll cnt[N];
 void solve(){
+    memset(cnt,0,sizeof(cnt));
+    ll n;
+    cin>>n;
+    for(int i=0;i<n;i++){
+        ll a;cin>>a;
+        cnt[a-i]++;
+    }
     
 }
 int main(){
