@@ -10,9 +10,10 @@ ll find(ll x){
 }
 void solve(){
     cin>>n;
+    cerr<<"dog";
     for(int i=2;i*i<=n;i++){
         if(!n%i){
-            cerr<<"dog";
+            
             ll j=find(n/i);
             if(j==0) continue;
             cout<<i<<" "<<j<<" "<<(n/i)/j;
