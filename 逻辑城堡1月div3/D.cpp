@@ -3,7 +3,9 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+pair<ll,ll> walk(char f,ll s,pair<ll,ll> x){
+    if(f=='U') x.first
+}
 void solve(){
     
 }
