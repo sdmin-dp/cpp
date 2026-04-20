@@ -12,7 +12,7 @@ void solve(){
         ll k=x%2;
         dq.push_front(k);
         x/=2;
-    }while(n);
+    }while(x);
     ll i=0;
     cout<<n<<"=";
     for(auto &j:dq){
