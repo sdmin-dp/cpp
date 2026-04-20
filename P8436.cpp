@@ -23,6 +23,8 @@ void dfs(ll x,ll fa){
             }else{
                 low[x]=min(low[x],dfn[i]);
             }
+        }else{
+            low[x]=min(low[x],dfn[i]);
         }
     }
 }
