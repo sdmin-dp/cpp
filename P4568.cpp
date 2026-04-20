@@ -17,7 +17,7 @@ void dijkstra(){
         q.pop();
         for(auto i:g[x.second]){
             for(int j=0;j<=k;j++){
-                if(dis[i.first][j]>dis[x.second]1[j]+i.second){
+                if(dis[i.first][j]>dis[x.second][j]+i.second){
                     dis[i.first][j]=dis[x.second][j]+i.second;
                     q.push({dis[i.first][j],i.first});
                 }
