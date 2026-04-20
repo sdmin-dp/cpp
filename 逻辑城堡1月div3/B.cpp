@@ -14,6 +14,7 @@ void solve(){
     cout<<n<<"=";
     bool flag=1;
     ll x=n;
+    cout<<x;
     for(int i=0;i<=n;i++){
         if(n>=a[i]){
             if(flag){cout<<a[i];flag=0;}
