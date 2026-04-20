@@ -8,13 +8,17 @@ void solve(){
     memset(cnt,0,sizeof(cnt));
     ll n;
     cin>>n;
+    ll mx=0;
     for(int i=0;i<n;i++){
         ll a;cin>>a;
         cnt[a-i]++;
+        mx=max(mx,a-i);
     }
-    for(int i=1;i<=n;i++){
-        
+    ll ans=0;
+    for(int i=1;i<=mx;i++){
+        ans+=cnt[i]/2+i%2;
     }
+    cout<<ans<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
