@@ -18,8 +18,10 @@ void solve(){
     ll ans=0;
     for(auto i:t){
         for(auto j:mp[i]){
-            
-        }
+            if(j>(ans%s.size()==0?s.size():ans%s.size())){
+                
+            }
+        }   
     }
 }
 int main(){
