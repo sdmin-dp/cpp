@@ -14,10 +14,12 @@ void solve(){
     sort(a+1,a+n+1,cmp);
     ll cnt=0,time=0;
     for(int i=1;i<=n;i++){
+        cout<<a[i].first<<" "<<a[i].second<<el;
         if(a[i].first>a[i].second) continue;
         if(time>=a[i].second-a[i].first) continue;
         time+=a[i].first;
         cnt++;
+        
     }
     cout<<cnt;
 }
