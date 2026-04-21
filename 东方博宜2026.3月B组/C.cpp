@@ -20,7 +20,7 @@ void solve(){
         cerr<<i<<" ";
         bool f=0;
         ll pos=lower_bound(mp[i].begin(),mp[i].end(),ans%s.size())-mp[i].begin();
-        cerr<<pos<<el;
+        // cerr<<pos<<el;
         if(pos!=mp[i].size()) f=1;
         if(f){
             f=1;
