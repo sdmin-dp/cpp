@@ -18,7 +18,7 @@ void solve(){
         }
     }
     ll ans=0;
-    for(auto i:t){
+    for(auto &i:t){
         bool f=0;
         for(auto j:mp[i]){
             if(j>ans%s.size()){
