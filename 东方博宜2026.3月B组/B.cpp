@@ -2,7 +2,7 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e5+5;
+const ll N=150000+5;
 ll n;
 pair<ll,ll> a[N];
 priority_queue<pair<ll,ll>> q;
