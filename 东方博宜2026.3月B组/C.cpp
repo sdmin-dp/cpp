@@ -30,6 +30,7 @@ void solve(){
             ans+=mp[i][0];
         }
     }
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
