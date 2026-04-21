@@ -21,19 +21,15 @@ void solve(){
         ll pos=lower_bound(mp[i].begin(),mp[i].end(),ans%s.size())-mp[i].begin();
         cerr<<pos<<" ";
         if(pos!=mp[i].size()) f=1;
-        // for(auto j:mp[i]){
-            if(f){
-                f=1;
-                ans=(ans/s.size())*s.size()+mp[i][pos];
-                break;
-            }
-        // }
+        if(f){
+            f=1;
+            ans=(ans/s.size())*s.size()+mp[i][pos];
+            break;
+        }
         if(!f){
-        //     cerr<<ans<<" "<<(ans/s.size()+1)*s.size();
             if(ans%s.size()!=0) ans=(ans/s.size()+1)*s.size();
             ans+=mp[i][0];
         }
-        // cerr<<i<<" "<<(ans/s.size()+1)*s.size()<<el;
         
     }
     cout<<ans;
