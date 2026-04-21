@@ -29,7 +29,7 @@ void solve(){
             if(ans%s.size()!=0) ans=(ans/s.size()+1)*s.size();
             ans+=mp[i][0];
         }
-        cerr<<ans<<" ";
+        cerr<<ans<<" "<<f<<el;
     }
     cout<<ans;
 }
