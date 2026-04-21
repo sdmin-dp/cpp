@@ -16,7 +16,7 @@ void solve(){
     sort(a+1,a+n+1,cmp);
     ll time=0;
     for(int i=1;i<=n;i++){
-        if(time<a[i].second-a[i].first){
+        if(time<=a[i].second-a[i].first){
             time+=a[i].first;
             q.push(a[i]);
         }else{
