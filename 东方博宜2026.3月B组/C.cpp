@@ -11,7 +11,7 @@ void solve(){
     for(int i=0;i<t.size();i++){
         if(mp[t[i]].empty()){
             cout<<-1;
-            cerr<<t[i]<<" ";
+            // cerr<<t[i]<<" ";
             return;
         }
     }
