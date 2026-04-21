@@ -21,7 +21,7 @@ void solve(){
         for(auto j:mp[i]){
             if(j>ans%s.size()){
                 f=1;
-                ans=ans/s.size()+j;
+                ans=(ans/s.size())*s.size()+j;
                 cerr<<j<<" ";
                 break;
             }
