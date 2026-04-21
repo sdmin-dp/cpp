@@ -19,6 +19,7 @@ void solve(){
     for(auto i:t){
         bool f=0;
         ll pos=lower_bound(mp[i].begin(),mp[i].end(),ans%s.size())-mp[i].begin();
+        cerr<<pos<<" ";
         if(pos!=mp[i].size()) f=1;
         // for(auto j:mp[i]){
             if(f){
@@ -33,7 +34,7 @@ void solve(){
             ans+=mp[i][0];
         }
         // cerr<<i<<" "<<(ans/s.size()+1)*s.size()<<el;
-        cerr<<pos<<" ";
+        
     }
     cout<<ans;
 }
