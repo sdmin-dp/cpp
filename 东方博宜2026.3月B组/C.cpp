@@ -26,7 +26,7 @@ void solve(){
             }
         }
         if(!f){
-            cerr<<ans<<" "
+            cerr<<ans<<" "<<(ans/s.size()+1);
             if(ans%s.size()!=0) ans=(ans/s.size()+1)*s.size();
             ans+=mp[i][0];
         }
