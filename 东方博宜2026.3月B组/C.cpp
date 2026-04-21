@@ -23,6 +23,7 @@ void solve(){
         if(pos!=mp[i].size()) f=1;
         // for(auto j:mp[i]){
             if(f){
+                cout<<pos;
                 f=1;
                 ans=(ans/s.size())*s.size()+mp[i][pos];
                 break;
