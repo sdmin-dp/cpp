@@ -11,7 +11,8 @@ void solve(){
     for(int i=1;i<s.size();i++) mp[s[i]].push_back(i);
     for(int i=0;i<t.size();i++){
         if(mp[t[i]].empty()){
-            cout<<"NO";
+            cout<<-1;
+            return;
         }
     }
 }
