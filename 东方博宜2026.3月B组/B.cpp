@@ -15,8 +15,11 @@ void solve(){
     ll cnt=0,time=0;
     for(int i=1;i<=n;i++){
         if(a[i].first>a[i].second) continue;
-        
+        if(time>=a[i].second-a[i].first) continue;
+        time+=a[i].first;
+        cnt++;
     }
+    cout<<cnt;
 }
 int main(){
     ios::sync_with_stdio(0);
