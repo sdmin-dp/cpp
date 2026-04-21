@@ -19,7 +19,7 @@ void solve(){
     for(auto i:t){
         // cerr<<i<<" ";
         bool f=0;
-        ll pos=lower_bound(mp[i].begin(),mp[i].end(),ans%s.size())-mp[i].begin();
+        ll pos=lower_bound(mp[i].begin(),mp[i].end(),ans%s.size()+1)-mp[i].begin();
         // cerr<<pos<<el;
         if(pos!=mp[i].size()) f=1;
         if(f){
