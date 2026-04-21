@@ -7,8 +7,9 @@ ll n;
 pair<ll,ll> a[N];
 priority_queue<pair<ll,ll>> q;
 bool cmp(pair<ll,ll> x,pair<ll,ll> y){
-    if(x.second-x.first!=y.second-y.first) return (x.second-x.first)<(y.second-y.first);
-    else return x.first<y.first;
+    // if(x.second-x.first!=y.second-y.first) return (x.second-x.first)<(y.second-y.first);
+    // else return x.first<y.first;
+    return x.second<y.second;
 }
 void solve(){
     cin>>n;
