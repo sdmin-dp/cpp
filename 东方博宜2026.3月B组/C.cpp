@@ -17,11 +17,13 @@ void solve(){
     }
     ll ans=0;
     for(auto i:t){
+        bool f=0;
         for(auto j:mp[i]){
-            if(j>(ans%s.size()==0?s.size():ans%s.size())){
-                
+            if(j>ans%s.size()){
+                f=1;
+                ans/s.size()+
             }
-        }   
+        }
     }
 }
 int main(){
