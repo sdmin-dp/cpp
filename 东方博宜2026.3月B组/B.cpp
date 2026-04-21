@@ -4,27 +4,26 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n;
-vector<ll> v;
-priority_queue<ll,vector<ll>,greater<ll>> q;
+priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
         ll x,y;cin>>x>>y;
         if(x<=y){
-            v.push_back(x);
-            q.push(y-x);
+            q.push({y-x,x});
         }
     }
     ll cnt=0;
     ll time=0;
     while(!q.empty()){
-        ll x=q.top();
+        auto x=q.top();
         q.pop();
-        if(time<x){
+        if(time<x.first){
             cnt++;
-            
+            time+=x.second;
         }
     }
+    cout<<cnt;
 }
 int main(){
     ios::sync_with_stdio(0);
