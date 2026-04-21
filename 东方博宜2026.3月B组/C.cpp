@@ -7,7 +7,7 @@ string s,t;
 map<char,vector<ll>> mp;
 void solve(){
     cin>>s>>t;
-    for(int i=1;i<s.size();i++) mp[s[i]].push_back(i+1);
+    for(int i=0;i<s.size();i++) mp[s[i]].push_back(i+1);
     for(int i=0;i<t.size();i++){
         if(mp[t[i]].empty()){
             cout<<-1;
