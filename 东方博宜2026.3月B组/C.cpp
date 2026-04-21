@@ -4,7 +4,7 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 string s,t;
-vector<ll> a[N];
+vector<ll> mp[500];
 void solve(){
     cin>>s>>t;
     for(int i=0;i<s.size();i++) mp[s[i]].push_back(i+1);
