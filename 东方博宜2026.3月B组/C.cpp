@@ -22,6 +22,7 @@ void solve(){
             if(j>ans%s.size()){
                 f=1;
                 ans=(ll)(ans/s.size())+j;
+                cerr<<j<<" ";
                 break;
             }
         }
