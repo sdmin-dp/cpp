@@ -15,6 +15,10 @@ void solve(){
             return;
         }
     }
+    ll ans=0;
+    for(auto i:t){
+        
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
