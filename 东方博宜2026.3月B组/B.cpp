@@ -22,7 +22,7 @@ void solve(){
             time+=a[i].first;
             q.push(a[i]);
         }else{
-            if(q.top().first>a[i].first){
+            if(q.top().first<a[i].first){
                 time-=q.top().first;
                 q.pop();
                 time+=a[i].first;
