@@ -4,7 +4,7 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 string s,t;
-vector<ll> mp[500];
+map<char,vector<ll>> mp;
 void solve(){
     cin>>s>>t;
     for(int i=0;i<s.size();i++) mp[s[i]].push_back(i+1);
@@ -17,20 +17,20 @@ void solve(){
     }
     ll ans=0;
     for(auto i:t){
-        cerr<<i<<" ";
         bool f=0;
-        ll pos=lower_bound(mp[i].begin(),mp[i].end(),ans%s.size())-mp[i].begin();
-        // cerr<<pos<<el;
-        if(pos!=mp[i].size()) f=1;
-        if(f){
-            f=1;
-            ans=(ans/s.size())*s.size()+mp[i][pos];
+        for(auto j:mp[i]){
+            if(j>ans%s.size()){
+                f=1;
+                ans=(ans/s.size())*s.size()+j;
+                break;
+            }
         }
         if(!f){
+        //     cerr<<ans<<" "<<(ans/s.size()+1)*s.size();
             if(ans%s.size()!=0) ans=(ans/s.size()+1)*s.size();
             ans+=mp[i][0];
         }
-        
+        // cerr<<i<<" "<<(ans/s.size()+1)*s.size()<<el;
     }
     cout<<ans;
 }
