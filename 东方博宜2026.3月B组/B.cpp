@@ -18,6 +18,7 @@ void solve(){
     while(!q.empty()){
         auto x=q.top();
         q.pop();
+        cout<<x.first<<" "<<x.second;
         if(time<=x.first){
             cnt++;
             time+=x.second;
