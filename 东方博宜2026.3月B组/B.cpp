@@ -6,7 +6,8 @@ const ll N=1e5+5;
 ll n;
 pair<ll,ll> a[N];
 bool cmp(pair<ll,ll> x,pair<ll,ll> y){
-    return (x.second-x.first)<(y.second-y.first);
+    if(x.second-x.first!=y.second-y.first) return (x.second-x.first)<(y.second-y.first);
+    
 }
 void solve(){
     cin>>n;
