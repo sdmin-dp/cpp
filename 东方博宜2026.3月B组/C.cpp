@@ -18,13 +18,15 @@ void solve(){
     ll ans=0;
     for(auto i:t){
         bool f=0;
-        for(auto j:mp[i]){
-            if(j>ans%s.size()){
+        ll pos=lower_bound(mp[i].begin(),mp[i].end(),ans%s.size())-mp[i].begin();
+        if(pos!=mp[i].size()) f=1;
+        // for(auto j:mp[i]){
+            if(f){
                 f=1;
-                ans=(ans/s.size())*s.size()+j;
+                ans=(ans/s.size())*s.size()+mp[i][pos];
                 break;
             }
-        }
+        // }
         if(!f){
         //     cerr<<ans<<" "<<(ans/s.size()+1)*s.size();
             if(ans%s.size()!=0) ans=(ans/s.size()+1)*s.size();
