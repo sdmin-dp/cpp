@@ -9,7 +9,11 @@ void solve(){
     cin>>s>>t;
     s=' '+s;
     for(int i=1;i<s.size();i++) mp[s[i]].push_back(i);
-    
+    for(int i=0;i<t.size();i++){
+        if(mp[t[i]].empty()){
+            cout<<"NO";
+        }
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
