@@ -4,7 +4,7 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 string s,t;
-map<char,vector<ll,ll>> mp;
+map<char,vector<ll>> mp;
 void solve(){
     cin>>s>>t;
     s=' '+s;
@@ -17,7 +17,9 @@ void solve(){
     }
     ll ans=0;
     for(auto i:t){
-        
+        for(auto j:mp[i]){
+            
+        }
     }
 }
 int main(){
