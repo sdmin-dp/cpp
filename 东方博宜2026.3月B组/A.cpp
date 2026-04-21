@@ -14,6 +14,7 @@ void solve(){
     ll cnt=0;
     for(int i=1;i<=n;i++){
         ll t=lower_bound(s+i,s+n+1,m+s[i-1])-s;
+        t=n-t+1;
         cnt+=t;
     }
     cout<<cnt;
