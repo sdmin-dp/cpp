@@ -18,10 +18,11 @@ void solve(){
     while(!q.empty()){
         auto x=q.top();
         q.pop();
-        cerr<<x.first<<" "<<x.second<<el;
+        
         if(time<=x.first){
             cnt++;
             time+=x.second;
+            cerr<<x.first<<" "<<x.second<<el;
         }
     }
     cout<<cnt;
