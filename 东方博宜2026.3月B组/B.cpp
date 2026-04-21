@@ -17,11 +17,13 @@ void solve(){
     ll time=0;
     for(int i=1;i<=n;i++){
         if(time<a[i].second-a[i].first){
+            time+=a[i].first;
             q.push(a[i]);
         }else{
             if(q.top().first>a[i].first){
                 time-=q.top().first;
                 q.pop();
+                time+=a[i].first;
                 q.push(a[i]);
             }
         }
