@@ -20,12 +20,11 @@ void solve(){
         cerr<<i<<" ";
         bool f=0;
         ll pos=lower_bound(mp[i].begin(),mp[i].end(),ans%s.size())-mp[i].begin();
-        // cerr<<(lower_bound(mp[i].begin(),mp[i].end(),ans%s.size())==mp[i].end());
+        cerr<<pos<<el;
         if(pos!=mp[i].size()) f=1;
         if(f){
             f=1;
             ans=(ans/s.size())*s.size()+mp[i][pos];
-            break;
         }
         if(!f){
             if(ans%s.size()!=0) ans=(ans/s.size()+1)*s.size();
