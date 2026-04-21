@@ -22,7 +22,7 @@ void solve(){
         if(time<=x.first){
             cnt++;
             time+=x.second;
-            cerr<<x.first<<" "<<x.second<<el;
+            cerr<<x.first<<" "<<x.second<<time<<el;
         }
     }
     cout<<cnt;
