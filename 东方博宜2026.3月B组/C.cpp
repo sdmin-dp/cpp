@@ -33,6 +33,7 @@ void solve(){
             ans+=mp[i][0];
         }
         // cerr<<i<<" "<<(ans/s.size()+1)*s.size()<<el;
+        cerr<<pos<<" ";
     }
     cout<<ans;
 }
