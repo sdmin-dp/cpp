@@ -25,11 +25,9 @@ void solve(){
             }
         }
         if(!f){
-        //     cerr<<ans<<" "<<(ans/s.size()+1)*s.size();
             if(ans%s.size()!=0) ans=(ans/s.size()+1)*s.size();
             ans+=mp[i][0];
         }
-        // cerr<<i<<" "<<(ans/s.size()+1)*s.size()<<el;
     }
     cout<<ans;
 }
