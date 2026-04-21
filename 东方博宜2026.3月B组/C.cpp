@@ -6,7 +6,7 @@ const ll N=1e5+5;
 string s,t;
 vector<ll> mp[505];
 void solve(){
-    for(int i=1;i<=)
+    for(int i='a';i<='a'+25;i++)
     cin>>s>>t;
     for(int i=0;i<s.size();i++){
         mp[s[i]].push_back(i+1);
