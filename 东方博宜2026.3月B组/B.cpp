@@ -18,7 +18,7 @@ void solve(){
     while(!q.empty()){
         auto x=q.top();
         q.pop();
-        if(time<x.first){
+        if(time<=x.first){
             cnt++;
             time+=x.second;
         }
