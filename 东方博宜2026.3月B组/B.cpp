@@ -7,7 +7,7 @@ ll n;
 pair<ll,ll> a[N];
 bool cmp(pair<ll,ll> x,pair<ll,ll> y){
     if(x.second-x.first!=y.second-y.first) return (x.second-x.first)<(y.second-y.first);
-    
+    else return x.first<y.first;
 }
 void solve(){
     cin>>n;
