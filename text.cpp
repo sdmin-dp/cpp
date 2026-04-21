@@ -5,7 +5,7 @@ using namespace std;
 const ll N=1e5+5;
 
 void solve(){
-    cout<<char('a'+25);
+    cout<<'a'+25;
 }
 int main(){
     ios::sync_with_stdio(0);
