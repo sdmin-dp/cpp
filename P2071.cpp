@@ -2,8 +2,8 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=2e2+5;
-ll n,m;
+const ll N=4e4+5;
+ll n;
 vector<ll> g[N];
 bool vis[N];
 ll match[N];
@@ -20,13 +20,15 @@ bool dfs(ll u){
     return 0;
 }
 void solve(){
-    cin>>n>>m;
+    cin>>n;
+    n*=2;
     for(int i=1;i<=n;i++){
-        ll len;cin>>len;
-        for(ll j=1;j<=len;j++){
-            ll x;cin>>x;
-            g[i].push_back(x);
-        }
+        ll x,y;
+        cin>>x>>y;
+        g[i].push_back(y);
+        g[i].push_back(n+y);
+        g[i].push_back(x);
+        g[i].push_back(n+x);
     }
     ll cnt=0;
     for(int i=1;i<=n;i++){
