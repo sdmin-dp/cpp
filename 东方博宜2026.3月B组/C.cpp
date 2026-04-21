@@ -4,7 +4,7 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 string s,t;
-map<char,vector<ll>> mp;
+unordered_map<char,vector<ll>> mp;
 void solve(){
     cin>>s>>t;
     for(int i=0;i<s.size();i++) mp[s[i]].push_back(i+1);
