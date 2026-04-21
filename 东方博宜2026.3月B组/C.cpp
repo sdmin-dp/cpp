@@ -19,7 +19,7 @@ void solve(){
     for(auto i:t){
         bool f=0;
         ll pos=lower_bound(mp[i].begin(),mp[i].end(),ans%s.size())-mp[i].begin();
-        cerr<<lower_bound(mp[i].begin(),mp[i].end(),ans%s.size())-mp[i].begin();
+        cerr<<(lower_bound(mp[i].begin(),mp[i].end(),ans%s.size())==mp[i].end());
         if(pos!=mp[i].size()) f=1;
         if(f){
             f=1;
