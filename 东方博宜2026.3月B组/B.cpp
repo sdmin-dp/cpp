@@ -13,9 +13,12 @@ void solve(){
     cin>>n;
     for(int i=1;i<=n;i++) cin>>a[i].first>>a[i].second;
     sort(a+1,a+n+1,cmp);
-    ll cnt=0,time=0;
     for(int i=1;i<=n;i++){
         cerr<<a[i].first<<" "<<a[i].second<<el;
+    }
+    ll cnt=0,time=0;
+    for(int i=1;i<=n;i++){
+        // cerr<<a[i].first<<" "<<a[i].second<<el;
         if(a[i].first>a[i].second) continue;
         if(time>=a[i].second-a[i].first) continue;
         time+=a[i].first;
