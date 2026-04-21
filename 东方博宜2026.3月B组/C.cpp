@@ -21,8 +21,13 @@ void solve(){
         for(auto j:mp[i]){
             if(j>ans%s.size()){
                 f=1;
-                ans/s.size()+
+                ans=(ll)(ans/s.size())+j;
+                break;
             }
+        }
+        if(!f){
+            if(ans%s.size()!=0) ans=ans%s.size();
+            ans+=mp[i][0];
         }
     }
 }
