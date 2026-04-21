@@ -9,6 +9,7 @@ void solve(){
     cin>>s>>t;
     s=' '+s;
     for(int i=1;i<s.size();i++) mp[s[i]].push_back(i);
+    
 }
 int main(){
     ios::sync_with_stdio(0);
