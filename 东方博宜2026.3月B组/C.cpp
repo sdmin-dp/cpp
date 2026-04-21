@@ -4,14 +4,13 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 string s,t;
-unordered_map<char,vector<ll>> mp;
+vector<ll> mp[505];
 void solve(){
     cin>>s>>t;
     for(int i=0;i<s.size();i++) mp[s[i]].push_back(i+1);
     for(int i=0;i<t.size();i++){
         if(mp[t[i]].empty()){
             cout<<-1;
-            // cerr<<t[i]<<" ";
             return;
         }
     }
