@@ -22,7 +22,7 @@ bool dfs(ll u){
         }
     }
     return 0;
-}       
+}
 void solve(){
     cin>>n>>m;
     for(int i=1;i<=n;i++) cin>>a[i].first>>a[i].second;
