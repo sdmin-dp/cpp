@@ -2,37 +2,22 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e3+5;
-ll n1,n2,m;
-vector<ll> g[N];
-ll match[N];
-ll vis[N];
-bool dfs(ll x){
-	for(auto i:g[x]){
-		if(!vis[i]){
-			vis[i]=1;
-			if(!match[i]||dfs(match[i])){
-				match[i]=x;
-				return 1;
-			}
-		}
-	}
-	return 0;
+const ll N=1e5+5;
+ll n;
+pair<ll,ll> a[N];
+bool cmp(pair<ll,ll> x,pair<ll,ll> y){
+	return x.first*y.second<y.first*x.second;
 }
 void solve(){
-    cin>>n1>>n2>>m;
-    for(int i=1;i<=m;i++){
-        ll x,y;
-        y+=n1;
-        g[x].push_back(y);
-        g[y].push_back(x);
-    }
-    ll cnt=0;
-    for(int i=1;i<=n1;i++){
-		memset(vis,0,sizeof(vis));
-		if(dfs(i)) cnt++;
+	cin>>n;
+	for(int i=1;i<=n;i++) cin>>a[i].first>>a[i].second;
+	sort(a+1,a+n+1,cmp);
+	ll time=0,sum=0;
+	for(int i=1;i<=n;i++){
+		time+=a[i].first;
+		sum+=time*a[i].second;
 	}
-	cout<<cnt;
+	cout<<sum;
 }
 int main(){
     ios::sync_with_stdio(0);
@@ -46,3 +31,4 @@ int main(){
     }
     return 0;
 }
+
