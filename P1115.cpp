@@ -11,7 +11,7 @@ void solve(){
     for(int i=1;i<=n;i++) cin>>a[i];
     dp[1]=a[1];
     for(int i=2;i<=n;i++){
-        if(dp[i-1]+a[i]<=0) dp[i]=dp[i-1];
+        if(dp[i-1]+a[i]<=0) dp[i]=0;
         else dp[i]=dp[i-1]+a[i];
     }
     for(int i=1;i<=n;i++) cerr<<dp[i]<<" ";
