@@ -6,13 +6,18 @@ const ll N=30+5;
 ll n;
 ll dis[N];
 ll dp[N][N];
-ll rot[N][N];
-ll root;
+ll root[N][N];
+void dfs(ll l,ll r){
+    if(l>r) return;
+    cout<<root[l][r]<<" ";
+    dfs(l,root[l][r]-1);
+    dfs(root[l][r]+1,r);
+}
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
         cin>>dis[i];
-        rot[i][i]=i;
+        root[i][i]=i;
         dp[i][i]=dis[i];
     }
     for(int len=2;len<=n;len++){
@@ -20,14 +25,13 @@ void solve(){
             ll j=i+len-1;
             for(int k=i;k<=j;k++){
                 if(max(dp[i][k-1],1ll)*max(dp[k+1][j],1ll)+dis[k]>dp[i][j]){
-                    rot[i][j]=k;
+                    root[i][j]=k;
                     dp[i][j]=max(dp[i][k-1],1ll)*max(dp[k+1][j],1ll)+dis[k];
                 }
             }
         }
     }
     cout<<dp[1][n]<<el;
-    root=rot[1][n];
 }
 int main(){
     ios::sync_with_stdio(0);
