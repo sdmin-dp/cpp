@@ -17,6 +17,9 @@ void dfs(ll x){
     if(len>0){
         len--;
         dfs(x);
+    }else{
+        cnt++;
+        return;
     }
 }
 void solve(){
