@@ -5,21 +5,14 @@ using namespace std;
 const ll N=1e5+5;
 ll n;
 ll cnt=0;
-ll len=0;
-void dfs(ll x){
+void dfs(ll x,ll len){
     if(x==n+1){
         cnt++;
         return;
     }
-    len++;
-    dfs(x+1);
-    len--;
+    dfs(x+1,len+1);
     if(len>0){
-        len--;
-        dfs(x);
-    }else{
-        cnt++;
-        return;
+        dfs(x,len-1);
     }
 }
 void solve(){
