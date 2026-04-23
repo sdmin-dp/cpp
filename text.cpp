@@ -2,20 +2,21 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e2+5;
-const ll M=1e3+5;
+const ll N=2e3+5;
 ll n,m;
-pair<ll,ll> a[N];
-ll dp[M];
+ll a[N],b[N];
+ll dp[N][N];
 void solve(){
     cin>>n>>m;
-    for(int i=1;i<=n;i++) cin>>a[i].first>>a[i].second;
+    for(int i=1;i<=n;i++) cin>>a[i];
+    for(int i=1;i<=m;i++) cin>>b[i];
     for(int i=1;i<=n;i++){
-        for(int j=m;j>=a[i].first;j--){
-            dp[j]=max(dp[j],dp[j-a[i].first]+a[i].second);
+        for(int j=1;j<=m;j++){
+            dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+            if(a[i]==b[j]) dp[i][j]=max(dp[i-1][j-1]+1,dp[i][j]);
         }
     }
-    cout<<dp[m];
+    cout<<dp[n][m];
 }
 int main(){
     ios::sync_with_stdio(0);
