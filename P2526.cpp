@@ -2,7 +2,7 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e2+5;
+const ll N=5e2+5;
 ll n,m;
 pair<ll,ll> a[N],b[N];
 vector<ll> g[N];
@@ -17,6 +17,7 @@ bool dfs(ll u){
             vis[i]=1;
             if(!match[i]||dfs(match[i])){
                 match[i]=u;
+                rematch[u]=i;
                 return 1;
             }
         }
@@ -30,9 +31,22 @@ void solve(){
     for(int i=2;i<=n;i++){
         for(int j=1;j<=m;j++){
             if(dis(a[i-1],a[i])*2>=dis(a[i-1],b[j])+dis(b[j],a[i])){
-                g[i].push_back(j);
+                g[i].push_back(j+n);
             }
         }
+    }
+    for(int i=1;i<=n;i++){
+        memset(vis,0,sizeof(vis));
+        if(!rematch[i]) dfs(i);
+    }
+    vector<pair<ll,ll>> ans;
+    for(int i=1;i<=n;i++){
+        if(rematch[i]) ans.push_back(b[rematch[i]-n]);
+        ans.push_back(a[i]);
+    }
+    cout<<ans.size()<<el;
+    for(auto i:ans){
+        cout<<i.first<<" "<<i.second<<" ";
     }
 }       
 int main(){
@@ -46,4 +60,4 @@ int main(){
         solve();
     }    
     return 0;
-}    k;d
+}
