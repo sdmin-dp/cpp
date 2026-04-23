@@ -12,13 +12,15 @@ void solve(){
         cin>>a[i];
         dp[i][i]=1;
     }
-    for(int len=1;len<=n;len++){
-        for(int i=n-len+1;i>=1;i--){
+    for(int len=2;len<=n;len++){
+        for(int i=1;i<=n-len+1;i++){
             ll j=i+len-1;
-            // dp[i][j]=min(dp[i+1][j],dp[i][j-1]);
-            cout<<i<<" "<<j<<el; 
+            dp[i][j]=max(dp[i+1][j],dp[i][j-1]);
+            // cout<<i<<" "<<j<<el; 
+            if(a[i]==a[j]) dp[i][j]=max(dp[i][j],dp[i+1][j-1]+2);
         }
     }
+    cout<<dp[n][n];
 }
 int main(){
     ios::sync_with_stdio(0);
