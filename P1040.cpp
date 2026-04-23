@@ -2,20 +2,29 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=20+5;
+const ll N=30+5;
 ll n;
 ll dis[N];
 ll dp[N][N];
-ll r[N][N];
+ll root[N][N];
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
         cin>>dis[i];
-        r[i][i]=i;
+        root[i][i]=i;
     }
-    for(int i=1;i<=n;i++){
-
+    for(int len=1;len<=n;len++){
+        for(int i=1;i<=n-len+1;i++){
+            ll j=i+len-1;
+            for(int k=i;k<=j;k++){
+                if(dp[i][k-1]*dp[k+1][j]+dis[k]>dp[i][j]){
+                    root[i][j]=k;
+                    dp[i][j]=dp[i][k-1]*dp[k+1][j]+dis[k];
+                }
+            }
+        }
     }
+    cout<<dp[1][n];
 }
 int main(){
     ios::sync_with_stdio(0);
