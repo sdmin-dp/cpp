@@ -32,7 +32,7 @@ void solve(){
         }
     }
     cout<<dp[1][n]<<el;
-    dfs();
+    dfs(1,n);
 }
 int main(){
     ios::sync_with_stdio(0);
