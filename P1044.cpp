@@ -17,7 +17,7 @@ void dfs(ll x,ll len){
 }
 void solve(){
     cin>>n;
-    dfs(1);
+    dfs(1,0);
     cout<<cnt-1;
 }
 int main(){
