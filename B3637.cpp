@@ -4,9 +4,16 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n;
-
+vector<ll> v;
 void solve(){
-    
+    cin>>n;
+    for(int i=1;i<=n;i++){
+        ll x;cin>>x;
+        ll pos=lower_bound(v.begin(),v.end(),x)-v.begin();
+        if(pos==v.size()) v.push_back(x);
+        else v[pos]=x;
+    }
+    cout<<v.size();
 }
 int main(){
     ios::sync_with_stdio(0);
