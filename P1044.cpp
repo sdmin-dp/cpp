@@ -18,7 +18,7 @@ void dfs(ll x,ll len){
 void solve(){
     cin>>n;
     dfs(1,0);
-    cout<<cnt-1;
+    cout<<cnt;
 }
 int main(){
     ios::sync_with_stdio(0);
