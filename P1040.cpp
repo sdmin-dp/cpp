@@ -12,6 +12,7 @@ void solve(){
     for(int i=1;i<=n;i++){
         cin>>dis[i];
         root[i][i]=i;
+        dp[i][i]=dis[i];
     }
     for(int len=2;len<=n;len++){
         for(int i=1;i<=n-len+1;i++){
