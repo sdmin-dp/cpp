@@ -3,9 +3,26 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+ll n;
+ll cnt=0;
+ll len=0;
+void dfs(ll x){
+    if(x==n+1){
+        cnt++;
+        return;
+    }
+    len++;
+    dfs(x+1);
+    len--;
+    if(len>0){
+        len--;
+        dfs(x);
+    }
+}
 void solve(){
-    
+    cin>>n;
+    dfs(1);
+    cout<<cnt;
 }
 int main(){
     ios::sync_with_stdio(0);
