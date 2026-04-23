@@ -9,8 +9,8 @@ void solve(){
     cin>>s>>t;
     s=' '+s;
     t=' '+t;
-    for(int i=1;i<s.size();i++) dp[0][i]=i;
-    for(int i=1;i<t.size();i++) dp[i][0]=i;
+    for(int i=1;i<t.size();i++) dp[0][i]=i;
+    for(int i=1;i<s.size();i++) dp[i][0]=i;
     for(int i=1;i<s.size();i++){
         for(int j=1;j<=t.size();j++){
             if(s[i]==t[j]) dp[i][j]=dp[i-1][j-1];
