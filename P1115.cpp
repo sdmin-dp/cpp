@@ -6,9 +6,19 @@ const ll N=2e5+5;
 ll n;
 ll a[N];
 ll dp[N];
+bool check(){
+    for(int i=1;i<=n;i++) if(a[i]>=0) return 0;
+    return 1;
+}
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++) cin>>a[i];
+    if(check()){
+        ll mx=-1e12;
+        for(int i=1;i<=n;i++) mx=max(mx,a[i]);
+        cout<<mx;
+        return;
+    }
     dp[1]=a[1];
     for(int i=2;i<=n;i++){
         if(dp[i-1]+a[i]<=0) dp[i]=0; 
