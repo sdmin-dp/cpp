@@ -17,9 +17,9 @@ void solve(){
         for(int i=1;i<=n-len+1;i++){
             ll j=i+len-1;
             for(int k=i;k<=j;k++){
-                if(dp[i][k-1]*dp[k+1][j]+dis[k]>dp[i][j]){
+                if(max(dp[i][k-1],1ll)*max(dp[k+1][j],1ll)+dis[k]>dp[i][j]){
                     root[i][j]=k;
-                    dp[i][j]=dp[i][k-1]*dp[k+1][j]+dis[k];
+                    dp[i][j]=max(dp[i][k-1],1ll)*max(dp[k+1][j],1ll)+dis[k];
                 }
             }
         }
