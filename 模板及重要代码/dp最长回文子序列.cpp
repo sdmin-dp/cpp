@@ -20,7 +20,7 @@ void solve(){
             if(a[i]==a[j]) dp[i][j]=max(dp[i][j],dp[i+1][j-1]+2);
         }
     }
-    cout<<dp[n][n];
+    cout<<dp[1][n];
 }
 int main(){
     ios::sync_with_stdio(0);
