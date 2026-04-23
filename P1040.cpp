@@ -13,7 +13,7 @@ void solve(){
         cin>>dis[i];
         root[i][i]=i;
     }
-    for(int len=1;len<=n;len++){
+    for(int len=2;len<=n;len++){
         for(int i=1;i<=n-len+1;i++){
             ll j=i+len-1;
             for(int k=i;k<=j;k++){
