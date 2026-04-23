@@ -15,8 +15,8 @@ void solve(){
     for(int len=1;len<=n;len++){
         for(int i=n-len+1;i>=1;i--){
             ll j=i+len-1;
-            dp[i][j]=min(dp[i+1][j],dp[i][j-1]);
-            
+            // dp[i][j]=min(dp[i+1][j],dp[i][j-1]);
+            cout<<i<<" "<<j<<el; 
         }
     }
 }
