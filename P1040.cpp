@@ -2,16 +2,19 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e5+5;
+const ll N=20+5;
 ll n;
 ll dis[N];
 ll dp[N][N];
-ll root=0;
+ll r[N][N];
 void solve(){
     cin>>n;
-    for(int i=1;i<=n;i++) cin>>dis[i];
     for(int i=1;i<=n;i++){
-`
+        cin>>dis[i];
+        r[i][i]=i;
+    }
+    for(int i=1;i<=n;i++){
+
     }
 }
 int main(){
