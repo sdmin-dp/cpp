@@ -14,6 +14,7 @@ void solve(){
         if(dp[i-1]+a[i]<=0) dp[i]=dp[i-1];
         else dp[i]=dp[i-1]+a[i];
     }
+    for(int i=1;i<=n;i++) cerr<<dp[i]<<" ";
     cout<<dp[n];
 }
 int main(){
