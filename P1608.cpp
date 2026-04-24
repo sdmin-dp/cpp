@@ -42,7 +42,6 @@ void solve(){
     dijkstra();
     if(dis[n]==0x3f3f3f3f3f3f3f3f) cout<<"No answer"<<el;
     else cout<<dis[n]<<" "<<sum[n];
-    //echo "text"
 }
 int main(){
     ios::sync_with_stdio(0);
