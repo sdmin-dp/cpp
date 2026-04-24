@@ -23,9 +23,6 @@ void dijkstra(){
         }
     }
 }
-void dfs(ll x){
-
-}
 void solve(){
     cin>>n>>m;
     for(int i=1;i<=m;i++){
