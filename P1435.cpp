@@ -1,12 +1,4 @@
-#include<bits/stdc++.h>
-#define ll long long
-using namespace std;
-#define el '\n'
-const ll N=1e3+5;
-ll n;
-string s;
-ll dp[N][N];
-void solve(){
+
     cin>>s;
     n=s.size();
     s=' '+s;
