@@ -20,25 +20,22 @@ void solve(){
     
     string s;
 //    cin>>s;
-	char c;
-	while(c=getchar()){
-		s.push_back(c);
-	}
+	getline(cin,s);
 //    getline(cin,s);
     cout<<s;
-    cout<<"dog";
-    for(int i=0;i<s.size();i++){
-        if(!isnum(s[i])) continue;
-        ll x=0;
-        ll len=0;
-        while(i<s.size()&&isnum(s[i])){
-            x=x*10+int(s[i]-48);
-            i++;
-            len++;
-        }
-        v.push_back({x,len});
-    }
-    ll cnt=0;
+//    cout<<"dog";
+//    for(int i=0;i<s.size();i++){
+//        if(!isnum(s[i])) continue;
+//        ll x=0;
+//        ll len=0;
+//        while(i<s.size()&&isnum(s[i])){
+//            x=x*10+int(s[i]-48);
+//            i++;
+//            len++;
+//        }
+//        v.push_back({x,len});
+//    }
+//    ll cnt=0;
 //    for(int i=0;i<s.size();i++){
 //        if(i=='#'){
 //            cout<<v[cnt++].first;
