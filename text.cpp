@@ -3,21 +3,18 @@ using namespace std;
 #define ll long long 
 #define el '\n'
 const ll N=1e5+5;
-ll n,q;
-ll a[N];
+ll n;
+map<ll,string> mp;
 void solve(){
-    cin>>n>>q;
+    cin>>n;
     for(int i=1;i<=n;i++){
-        cin>>a[i];
+        ll x;string s;
+        cin>>x;
+        cin>>s;
+        mp[x]=s;
     }
-    for(int i=1;i<=q;i++){
-        ll l,r,x;
-        cin>>l>>r>>x;
-        for(int j=l;j<=r;j++){
-            a[j]=x;
-        }
-    }
-    for(int i=1;i<=n;i++) cout<<a[i]<<" ";
+    string s;
+    getline(cin,s);
 }
 int main(){
     ios::sync_with_stdio(0);
