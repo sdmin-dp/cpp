@@ -3,25 +3,47 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-string s;
-map<char,ll> mp;
+ll n;
+map<ll,string> mp;
+bool isnum(char c){
+	return (c>='0'&&c<='9');
+}
+vector<pair<ll,ll>> v;
 void solve(){
+	cin>>n;
+	for(int i=1;i<=n;i++){
+		ll x;string t;
+		cin>>x;
+		cin>>t;
+		mp[x]=t;
+	}
+	string s,t;
 	cin>>s;
-	for(auto &i:s) mp[i]++;
-	//MATIJI  matiji
-	ll M=mp['M'];
-	ll A=mp['A'];
-	ll T=mp['T'];
-	ll I=mp['I']/2;
-	ll J=mp['J'];
-	ll m=mp['m'];
-	ll a=mp['a'];
-	ll t=mp['t'];
-	ll i=mp['i']/2;
-	ll j=mp['j'];
-	ll ans1=min({M,A,T,I,J});
-	ll ans2=min({m,a,t,i,j});
-	cout<<ans1<<" "<<ans2;
+	getline(cin,t);
+	s=s+t;
+	for(int i=0;i<s.size();i++){
+		if(s[i]=='#'){
+			ll x=0;
+			i++;
+			ll len=0;
+			while(i<s.size()&&isnum(s[i])){
+				x=x*10+int(s[i]-48);
+				i++;
+			}
+			i--;
+			v.push_back({x,i});
+		}
+	}
+	ll cnt=0;
+	for(int i=0;i<s.size();i++){
+		if(s[i]=='#'){
+			cout<<mp[v[cnt].first];
+			i=v[cnt].second;
+			cnt++;
+		}else{
+			cout<<s[i];
+		}
+	}
 }
 int main(){
     ios::sync_with_stdio(0);
