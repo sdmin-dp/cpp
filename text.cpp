@@ -6,7 +6,7 @@ const ll N=1e5+5;
 ll n;
 map<ll,string> mp;
 void solve(){
-    // cin>>n;
+    cin>>n;
     // for(int i=1;i<=n;i++){
     //     ll x;string s;
     //     cin>>x;
