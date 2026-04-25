@@ -19,7 +19,7 @@ void solve(){
     }
     string s;
     getline(cin,s);
-    // cout<<s;
+    cout<<s;
     for(int i=0;i<s.size();i++){
         if(!isnum(s[i])) continue;
         ll x=0;
