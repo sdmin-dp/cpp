@@ -7,14 +7,15 @@ ll n;
 map<ll,string> mp;
 void solve(){
     cin>>n;
-    for(int i=1;i<=n;i++){
-        ll x;string s;
-        cin>>x;
-        cin>>s;
-        mp[x]=s;
-    }
+    // for(int i=1;i<=n;i++){
+    //     ll x;string s;
+    //     cin>>x;
+    //     cin>>s;
+    //     mp[x]=s;
+    // }
     string s;
     getline(cin,s);
+    cout<<s;
 }
 int main(){
     ios::sync_with_stdio(0);
