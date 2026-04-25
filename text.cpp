@@ -19,6 +19,7 @@ void solve(){
     }
     string s;
     getline(cin,s);
+    cout<<s;
     for(int i=0;i<s.size();i++){
         if(!isnum(s[i])) continue;
         ll x=0;
@@ -39,8 +40,7 @@ void solve(){
             cout<<s[i];
         }
     }
-    cout<<s;
-    cout<<v.size();
+    
 }
 int main(){
     ios::sync_with_stdio(0);
