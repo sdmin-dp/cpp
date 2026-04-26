@@ -6,7 +6,7 @@ const ll N=1e5+5;
 ll n,k;
 //m->厂家个数
 pair<ll,ll> a[N];
-set<pair<ll,ll>> st;
+set<pair<ll,ll>,greater<pair<ll,ll>>> st;
 //由于要排序,q的pair是个反的
 ll ans=0;
 ll vis[N];
