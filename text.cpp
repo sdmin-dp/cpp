@@ -40,7 +40,7 @@ void solve(){
             new_ans+=x*x;
         }
         new_ans+=a[i].second;
-        ans[a[i].first]++;
+        vis[a[i].first]++;
         new_ans-=x*x;
         x++;
         new_ans+=x*x;
