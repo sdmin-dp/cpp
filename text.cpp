@@ -6,12 +6,12 @@ const ll N=1e5+5;
 ll A,B,C,a,b,c;
 ll to;
 ll cnt1,cnt2;
-unordered_set<ll> st;
+// unordered_set<ll> st;
 void solve(){
     cin>>A>>B>>C;
     a=b=0;c=C;
     to=__gcd(A,__gcd(B,C));
-    while(st.find(a*10000+b)==st.end()){
+    while(a!=to&&b!=to&&c!=to){
         if(b==0){
             if(c<b) b=c,c=0;
             else if(c>=b) b=B,c-=B;
@@ -23,7 +23,6 @@ void solve(){
             else if(A-a<b) b-=(A-a),a=A;
         }
         cnt1++;
-        st.insert
     }
     swap(A,B);
     a=0,b=0,c=C;
