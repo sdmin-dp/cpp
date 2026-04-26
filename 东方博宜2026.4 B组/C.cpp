@@ -17,12 +17,12 @@ void solve(){
             bx+=k;
             cx-=k;
             ans1++;
-            if (bx && (bx < minx || bx == minx && ans1 < ans))
-                minx = bx, ans = ans1;
-            if (ax && (ax < minx || ax == minx && ans1 < ans))
-                minx = ax, ans = ans1;
-            if (cx && (cx < minx || cx == minx && ans1 < ans))
-                minx = cx, ans = ans1;
+            if (bx && (bx < mx || bx == mx && ans1 < ans))
+                mx = bx, ans = ans1;
+            if (ax && (ax < mx || ax == mx && ans1 < ans))
+                mx = ax, ans = ans1;
+            if (cx && (cx < mx || cx == mx && ans1 < ans))
+                mx = cx, ans = ans1;
             if (st.find(ax * 5000 + bx) == st.end())
             {
                 st.insert(ax * 5000 + bx);
