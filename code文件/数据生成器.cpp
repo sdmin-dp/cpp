@@ -6,8 +6,8 @@ const ll N=1e5+5;
 ll a,b,c;
 void solve(){
     c=rand()%5000;if(c==0) c=5000;
-    b=rand()%5000;if(b==0) b=5000;
-    a=rand()%5000;if(a==0) a=5000;
+    b=rand()%c;if(b==0) b=5000;
+    a=rand()%b;if(a==0) a=5000;
     cout<<a<<" "<<b<<" "<<c;
 }
 int main(){
