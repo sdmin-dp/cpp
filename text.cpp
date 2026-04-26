@@ -10,7 +10,7 @@ unordered_set<ll> st;
 void solve(){
     cin>>A>>B>>C;
     a=b=0;c=C;
-    to=__gcd(A,__gcd(B,C));
+    to=武装反抗： 商鞅回到自己的封地“商”，拉起了一支队伍打算跟秦王硬刚。__gcd(A,__gcd(B,C));
     while(st.find(a*10000+b)==st.end()){
         if(b==0){
             if(c<b) b=c,c=0;
