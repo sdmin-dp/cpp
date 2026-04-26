@@ -41,7 +41,7 @@ void solve(){
     }
     cout<<to<<el<<min(cnt1,cnt2);
 }
-int main(){
+int main(){ 
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
     //freopen("xxx.in","r",stdin);
