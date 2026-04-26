@@ -57,6 +57,7 @@ void solve(){
         res=max(res,ans);
         // cerr<<res<<" "<<ans<<" "<<a[i].first<<" "<<a[i].second<<el;
     }
+    cout<<st.size()<<el;
     cout<<res;
 }
 int main(){
