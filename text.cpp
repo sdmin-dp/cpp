@@ -4,14 +4,12 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll A,B,C,a,b,c;
-ll to;
 ll cnt1,cnt2;
-// unordered_set<ll> st;
+unordered_set<ll> st;
 void solve(){
     cin>>A>>B>>C;
     a=b=0;c=C;
-    to=__gcd(A,__gcd(B,C));
-    while(a!=to&&b!=to&&c!=to){
+    while(st.find(a*10000+b)==st.end()){
         if(b==0){
             if(c<B) b=c,c=0;
             else if(c>=B) b=B,c-=B;
@@ -22,11 +20,11 @@ void solve(){
             if(A-a>=b) a+=b,b=0;
             else if(A-a<b) b-=(A-a),a=A;
         }
-        cnt1++;
+        st.insert(a*10000+b);
     }
     swap(A,B);
     a=0,b=0,c=C;
-    while(a!=to&&b!=to&&c!=to){
+    while(st.find(a*10000+b)==st.end()){
         if(b==0){
             if(c<B) b=c,c=0;
             else if(c>=B) b=B,c-=B;
@@ -37,7 +35,7 @@ void solve(){
             if(A-a>=b) a+=b,b=0;
             else if(A-a<b) b-=(A-a),a=A;
         }
-        cnt2++;
+        st.insert(a*10000+b);
     }
     cout<<to<<el<<min(cnt1,cnt2);
 }
