@@ -29,7 +29,7 @@ void solve(){
     ans+=x*x;
     ll res=ans;
     for(int i=k+1;i<=n;i++){
-        if(vis[i]) continue;
+        if(vis[a[i].first]) continue;
         pair<ll,ll> t;
         for(auto i:st){
             if(vis[i.second]>1){
