@@ -9,7 +9,7 @@ pair<ll,ll> a[N];
 priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;
 //由于要排序,q的pair是个反的
 ll ans=0;
-bool vis[N];
+ll vis[N];
 bool cmp(pair<ll,ll> x,pair<ll,ll> y){
     return x.second>y.second;
 }
@@ -23,16 +23,34 @@ void solve(){
     ll x=0;
     for(int i=1;i<=k;i++){
         ans+=a[i].second;
-        if(!vis[a[i].first]){
-            x++;
-            vis[a[i].first]=1;
-        }
+        if(!vis[a[i].first]) x++;
         q.push({a[i].second,a[i].first});
+        vis[a[i].first]++;
     }
     ans+=x*x;
-    for(int i=1;i<=n;i++){
-        
+    ll res=ans;
+    for(int i=k+1;i<=n;i++){
+        if(vis[i]) continue;
+        auto t=q.top();
+        swap(t.first,t.second);
+        ll new_ans=ans-t.second;
+        if(vis[t.first]==1){
+            new_ans-=x*x;
+            x--;
+            new_ans+=x*x;
+        }
+        new_ans+=a[i].second;
+        new_ans-=x*x;
+        x++;
+        new_ans+=x*x;
+        if(new_ans>ans){
+            q.pop();
+            q.push({a[i].second,a[i].first});
+            ans=new_ans;
+        }
+        res=max(res,ans);
     }
+    cout<<res;
 }
 int main(){
     ios::sync_with_stdio(0);
