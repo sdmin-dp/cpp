@@ -5,9 +5,9 @@ using namespace std;
 const ll N=1e5+5;
 ll a,b,c;
 void solve(){
-    c=rand()%5000;if(c==0) c=5000;
-    b=rand()%c;if(b==0) b=5000;
-    a=rand()%b;if(a==0) a=5000;
+    c=rand()%200;if(c==0) c=200;
+    b=rand()%c;if(b==0) b=c;
+    a=rand()%b;if(a==0) a=b;
     cout<<a<<" "<<b<<" "<<c;
 }
 int main(){
