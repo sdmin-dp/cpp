@@ -3,8 +3,10 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
+ll A,B,C;
 
 void solve(){
+
 }
 int main(){
     ios::sync_with_stdio(0);
