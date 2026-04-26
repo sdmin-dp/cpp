@@ -37,7 +37,7 @@ void solve(){
         }
         st.insert(a*10000+b);
     }
-    cout<<to<<el<<min(cnt1,cnt2);
+    
 }
 int main(){ 
     ios::sync_with_stdio(0);
