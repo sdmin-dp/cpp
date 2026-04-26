@@ -31,6 +31,33 @@ void solve(){
             if (type==0){
                 type=1;}
         }
+        else if (type == 1)
+        {
+            if (bx > 0)
+            {
+                if (ax == a)
+                    cx += ax, ax = 0;
+                else if (bx >= a - ax)
+                    bx -= a - ax, ax = a;
+                else
+                    ax += bx, bx = 0;
+            }
+            ans1++;
+            if (bx && (bx < mx || bx == mx && ans1 < ans))
+                mx = bx, ans = ans1;
+            if (ax && (ax < mx || ax == mx && ans1 < ans))
+                mx = ax, ans = ans1;
+            if (cx && (cx < mx || cx == mx && ans1 < ans))
+                mx = cx, ans = ans1;
+            if (st.find(ax * 5000 + bx) == st.end())
+            {
+                st.insert(ax * 5000 + bx);
+            }
+            else
+                type = 2;
+            if (type == 1 && bx == 0)
+                type = 0;
+        }
     }
 }
 int main(){
