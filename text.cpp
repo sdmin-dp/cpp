@@ -1,134 +1,70 @@
-#include <bits/stdc++.h>
-typedef long long ll;
+#include<bits/stdc++.h>
+#define ll long long
 using namespace std;
-unordered_set<int> st;
-void solve()
-{
-    ll a, b, c, ax = 0, bx = 0, cx, ans1 = 0, ans, minx, type = 0;
-    cin >> a >> b >> c;
-    cx = minx = c;
-    while (type < 2)
-    {
-        if (type == 0)
-        {
-            ll k = min(b, cx);
-            bx += k;
-            cx -= k;
-            ans1++;
-            if (bx && (bx < minx || bx == minx && ans1 < ans))
-                minx = bx, ans = ans1;
-            if (ax && (ax < minx || ax == minx && ans1 < ans))
-                minx = ax, ans = ans1;
-            if (cx && (cx < minx || cx == minx && ans1 < ans))
-                minx = cx, ans = ans1;
-            if (st.find(ax * 5000 + bx) == st.end())
-            {
-                st.insert(ax * 5000 + bx);
-            }
-            else
-                type = 2;
-            if (type == 0)
-                type = 1;
-        }
-        else if (type == 1)
-        {
-            if (bx > 0)
-            {
-                if (ax == a)
-                    cx += ax, ax = 0;
-                else if (bx >= a - ax)
-                    bx -= a - ax, ax = a;
-                else
-                    ax += bx, bx = 0;
-            }
-            ans1++;
-            if (bx && (bx < minx || bx == minx && ans1 < ans))
-                minx = bx, ans = ans1;
-            if (ax && (ax < minx || ax == minx && ans1 < ans))
-                minx = ax, ans = ans1;
-            if (cx && (cx < minx || cx == minx && ans1 < ans))
-                minx = cx, ans = ans1;
-            if (st.find(ax * 5000 + bx) == st.end())
-            {
-                st.insert(ax * 5000 + bx);
-            }
-            else
-                type = 2;
-            if (type == 1 && bx == 0)
-                type = 0;
-        }
-    }
-    swap(a, b);
-    st.clear();
-    type = ax = bx = ans1 = 0;
-    cx = c;
-    if (a == b && b == c)
-    {
-        cout << a << "\n0";
+#define el '\n'
+const ll N=1e5+5;
+ll A,B,C;
+ll a,b,c;
+ll hsh(pair<ll,ll> a){
+    return a.first*10000+a.second;
+}
+pair<ll,ll> rehsh(ll a){
+    return {a%10000,a/10000};
+}
+unordered_set<ll> st;
+void solve(){
+    cin>>A>>B>>C;
+    if(A==B&&B==C){
+        cout<<A<<"\n"<<0;
         return;
     }
-    while (type < 2)
-    {
-        if (type == 0)
-        {
-            ll k = min(b, cx);
-            bx += k;
-            cx -= k;
-            ans1++;
-            if (bx && (bx < minx || bx == minx && ans1 < ans))
-                minx = bx, ans = ans1;
-            if (ax && (ax < minx || ax == minx && ans1 < ans))
-                minx = ax, ans = ans1;
-            if (cx && (cx < minx || cx == minx && ans1 < ans))
-                minx = cx, ans = ans1;
-            if (st.find(ax * 5000 + bx) == st.end())
-            {
-                st.insert(ax * 5000 + bx);
-            }
-            else
-                type = 2;
-            if (type == 0)
-                type = 1;
+    a=0,b=0,c=C;
+    ll ans=0,mn=1e12,cnt=0;
+    ll ans2=0,mn2=1e12;
+    while(st.find(hsh({a,b}))==st.end()){
+        st.insert(hsh({a,b}));
+        cnt++;
+        if(b==0){
+            if(c<B) b=c,c=0;
+            else c-=B,b=B;
+        }else if(b!=0){
+            if(a==A) c+=a,a=0;
+            else if(A-a<b) b-=A-a,a=A;
+            else a+=b,b=0;
         }
-        else if (type == 1)
-        {
-            if (bx > 0)
-            {
-                if (ax == a)
-                    cx += ax, ax = 0;
-                else if (bx >= a - ax)
-                    bx -= a - ax, ax = a;
-                else
-                    ax += bx, bx = 0;
-            }
-            ans1++;
-            if (bx && (bx < minx || bx == minx && ans1 < ans))
-                minx = bx, ans = ans1;
-            if (ax && (ax < minx || ax == minx && ans1 < ans))
-                minx = ax, ans = ans1;
-            if (cx && (cx < minx || cx == minx && ans1 < ans))
-                minx = cx, ans = ans1;
-            if (st.find(ax * 5000 + bx) == st.end())
-            {
-                st.insert(ax * 5000 + bx);
-            }
-            else
-                type = 2;
-            if (type == 1 && bx == 0)
-                type = 0;
-        }
+        if(a<mn&&a){mn=a;ans=cnt;}
+        if(b<mn&&b){mn=b;ans=cnt;}
+        if(c<mn&&c){mn=c;ans=cnt;}
     }
-    cout << minx << '\n' << ans;
-}
-
-int main()
-{
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr), cout.tie(0);
-
-    int T = 1; // cin >> T;
-    while (T--)
+    st.clear();cnt=0;
+    a=0,b=0,c=C;
+    swap(A,B);
+    while(st.find(hsh({a,b}))==st.end()){
+        st.insert(hsh({a,b}));
+        cnt++;
+        if(b==0){
+            if(c<B) b=c,c=0;
+            else c-=B,b=B;
+        }else if(b!=0){
+            if(a==A) c+=a,a=0;
+            else if(A-a<b) b-=A-a,a=A;
+            else a+=b,b=0;
+        }
+        if(a<mn2&&a){mn2=a;ans2=cnt;}
+        if(b<mn2&&b){mn2=b;ans2=cnt;}
+        if(c<mn2&&c){mn2=c;ans2=cnt;}
+    }
+    cout<<min(mn,mn2)<<"\n"<<min(ans,ans2);
+}   
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    //freopen("xxx.in","r",stdin);
+    //freopen("xxx.out","w",stdout);
+    ll T=1;
+    //cin>>T;
+    while(T--){
         solve();
-
+    }
     return 0;
 }
