@@ -34,11 +34,11 @@ void solve(){
         swap(t.first,t.second);
         ll new_ans=ans-t.second;
         if(vis[t.first]==1){
-            vis[t.first]--;
             new_ans-=x*x;
             x--;
             new_ans+=x*x;
         }
+        vis[t.first]--;
         new_ans+=a[i].second;
         vis[a[i].first]++;
         new_ans-=x*x;
