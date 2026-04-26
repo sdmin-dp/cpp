@@ -29,27 +29,27 @@ void solve(){
     }
     ans+=x*x;
     ll res=ans;
-    for(int i=k+1;i<=n;i++){
-        if(vis[i]) continue;
-        auto t=q.top();
-        swap(t.first,t.second);
-        ll new_ans=ans-t.second;
-        if(vis[t.first]==1){
-            new_ans-=x*x;
-            x--;
-            new_ans+=x*x;
-        }
-        new_ans+=a[i].second;
-        new_ans-=x*x;
-        x++;
-        new_ans+=x*x;
-        if(new_ans>ans){
-            q.pop();
-            q.push({a[i].second,a[i].first});
-            ans=new_ans;
-        }
-        res=max(res,ans);
-    }
+    // for(int i=k+1;i<=n;i++){
+    //     if(vis[i]) continue;
+    //     auto t=q.top();
+    //     swap(t.first,t.second);
+    //     ll new_ans=ans-t.second;
+    //     if(vis[t.first]==1){
+    //         new_ans-=x*x;
+    //         x--;
+    //         new_ans+=x*x;
+    //     }
+    //     new_ans+=a[i].second;
+    //     new_ans-=x*x;
+    //     x++;
+    //     new_ans+=x*x;
+    //     if(new_ans>ans){
+    //         q.pop();
+    //         q.push({a[i].second,a[i].first});
+    //         ans=new_ans;
+    //     }
+    //     res=max(res,ans);
+    // }
     cout<<res;
 }
 int main(){
