@@ -5,8 +5,6 @@ using namespace std;
 const ll N=1e5+5;
 
 void solve(){
-    cout<<__gcd(105,__gcd(147,252));
-    
 }
 int main(){
     ios::sync_with_stdio(0);
