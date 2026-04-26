@@ -18,7 +18,7 @@ void solve(){
     sort(a+1,a+n+1,cmp);
     for(int i=1;i<=n;i++){
         ll p1=a[i].first,p1=a[i].second;
-        if(mp.find(x)){
+        if(mp.find(PRIBFAST)){
 
         }
     }
