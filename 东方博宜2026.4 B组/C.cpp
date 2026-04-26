@@ -4,6 +4,7 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll a,b,c,ax,bx,cx,ans1,ans,mx,type=0;
+unordered_set<int> st;
 void solve(){
     cin>>a>>b>>c;
     cx=mx=c;
@@ -17,20 +18,18 @@ void solve(){
             bx+=k;
             cx-=k;
             ans1++;
-            if (bx && (bx < mx || bx == mx && ans1 < ans))
-                mx = bx, ans = ans1;
-            if (ax && (ax < mx || ax == mx && ans1 < ans))
-                mx = ax, ans = ans1;
-            if (cx && (cx < mx || cx == mx && ans1 < ans))
-                mx = cx, ans = ans1;
-            if (st.find(ax * 5000 + bx) == st.end())
-            {
-                st.insert(ax * 5000 + bx);
-            }
-            else
-                type = 2;
-            if (type == 0)
-                type = 1;
+            if(bx&&(bx<mx||bx==mx&&ans1<ans))
+                mx=bx,ans=ans1;
+            if(ax&&(ax<mx||ax==mx&&ans1<ans))
+                mx=ax,ans=ans1;
+            if(cx&&(cx<mx||cx==mx&&ans1<ans))
+                mx=cx,ans=ans1;
+            if(st.find(ax*5000+bx)==st.end()){
+                st.insert(ax*5000+bx);}
+            else{
+                type=2;}
+            if (type==0){
+                type=1;}
         }
     }
 }
