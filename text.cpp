@@ -3,7 +3,7 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-ll n,k;
+ll n,k,sum,cnt,p1,p2;
 pair<ll,ll> a[N];
 priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;
 unordered_map<ll,ll> mp;
@@ -17,10 +17,18 @@ void solve(){
     }
     sort(a+1,a+n+1,cmp);
     for(int i=1;i<=n;i++){
-        ll p1=a[i].first,p1=a[i].second;
-        if(mp.find(PRIBFAST)){
-
+        p1=a[i].first,p2=a[i].second;
+        if(mp.find(p1)==mp.end()&&cnt<k){
+            mp[p1]++;
+            q.push({p2,p1});
+            cnt++;
+            a[i].second=0;
         }
+    }
+    for(int i=1;i<=n;i++){
+        p1=a[i].first,p2=a[i].second;
+        if(p2==0) continue;
+        cout<<p1<<" "<<
     }
 }
 int main(){
