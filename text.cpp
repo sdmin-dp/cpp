@@ -6,6 +6,7 @@ const ll N=1e5+5;
 ll A,B,C,a,b,c;
 ll to;
 ll cnt1,cnt2;
+// unordered_set<ll> st;
 void solve(){
     cin>>A>>B>>C;
     a=b=0;c=C;
