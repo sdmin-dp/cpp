@@ -42,7 +42,7 @@ void solve(){
         new_ans-=x*x;
         x++;
         new_ans+=x*x;
-        cout<<ans<<" "<<new_ans<<" "<<a[i].first<<" "<<a[i].second<<el;
+        cerr<<ans<<" "<<new_ans<<" "<<a[i].first<<" "<<a[i].second<<el;
         if(new_ans>ans){
             q.pop();
             q.push({a[i].second,a[i].first});
