@@ -38,7 +38,7 @@ void solve(){
         }
         cnt2++;
     }
-    cout<min(cnt1,cnt2);
+    cout<<min(cnt1,cnt2);
 }
 int main(){
     ios::sync_with_stdio(0);
