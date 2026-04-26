@@ -39,7 +39,7 @@ void solve(){
             } 
         }
         ll new_ans=ans-t.second;
-        cerr<<t.first<<" "<<t.second<<" "<<a[i].first<<" "<<a[i].second<<el;
+        // cerr<<t.first<<" "<<t.second<<" "<<a[i].first<<" "<<a[i].second<<el;
         if(vis[t.first]==1){
             new_ans-=x*x;
             x--;
