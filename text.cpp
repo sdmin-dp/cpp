@@ -2,21 +2,37 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=2e3+5;
-ll n,m;
-ll a[N],b[N];
-ll dp[N][N];
+const ll N=1e5+5;
+ll n,k,m;
+//m->厂家个数
+pair<ll,ll> a[N];
+priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;
+//由于要排序,q的pair是个反的
+ll ans=0;
+bool vis[N];
+bool cmp(pair<ll,ll> x,pair<ll,ll> y){
+    return x.second>y.second;
+}
 void solve(){
-    cin>>n>>m;
-    for(int i=1;i<=n;i++) cin>>a[i];
-    for(int i=1;i<=m;i++) cin>>b[i];
+    cin>>n>>k;
     for(int i=1;i<=n;i++){
-        for(int j=1;j<=m;j++){
-            dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
-            if(a[i]==b[j]) dp[i][j]=max(dp[i-1][j-1]+1,dp[i][j]);
-        }
+        cin>>a[i].first>>a[i].second;
+        m=max(m,a[i].first);
     }
-    cout<<dp[n][m];
+    sort(a+1,a+n+1,cmp);
+    ll x=0;
+    for(int i=1;i<=k;i++){
+        ans+=a[i].second;
+        if(!vis[a[i].first]){
+            x++;
+            vis[a[i].first]=1;
+        }
+        q.push({a[i].second,a[i].first});
+    }
+    ans+=x*x;
+    for(int i=1;i<=n;i++){
+        
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
