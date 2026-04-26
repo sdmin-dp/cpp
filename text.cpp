@@ -8,7 +8,7 @@ pair<ll,ll> a[N];
 priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;
 unordered_map<ll,ll> mp;
 bool cmp(pair<ll,ll> x,pair<ll,ll> y){
-    return x.second<y.second;
+    return x.second>y.second;
 }
 void solve(){
     cin>>n>>k;
