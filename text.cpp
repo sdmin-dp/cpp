@@ -36,7 +36,7 @@ void solve(){
                 t.first=i.second;
                 t.second=i.first;
                 break;
-            } 
+            }
         }
         ll new_ans=ans-t.second;
         // cerr<<t.first<<" "<<t.second<<" "<<a[i].first<<" "<<a[i].second<<el;
