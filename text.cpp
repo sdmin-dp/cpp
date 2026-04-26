@@ -3,7 +3,7 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-ll n,k,m;
+ll n,k;
 //m->厂家个数
 pair<ll,ll> a[N];
 priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;
@@ -17,7 +17,6 @@ void solve(){
     cin>>n>>k;
     for(int i=1;i<=n;i++){
         cin>>a[i].first>>a[i].second;
-        m=max(m,a[i].first);
     }
     sort(a+1,a+n+1,cmp);
     ll x=0;
@@ -29,27 +28,28 @@ void solve(){
     }
     ans+=x*x;
     ll res=ans;
-    // for(int i=k+1;i<=n;i++){
-    //     if(vis[i]) continue;
-    //     auto t=q.top();
-    //     swap(t.first,t.second);
-    //     ll new_ans=ans-t.second;
-    //     if(vis[t.first]==1){
-    //         new_ans-=x*x;
-    //         x--;
-    //         new_ans+=x*x;
-    //     }
-    //     new_ans+=a[i].second;
-    //     new_ans-=x*x;
-    //     x++;
-    //     new_ans+=x*x;
-    //     if(new_ans>ans){
-    //         q.pop();
-    //         q.push({a[i].second,a[i].first});
-    //         ans=new_ans;
-    //     }
-    //     res=max(res,ans);
-    // }
+    for(int i=k+1;i<=n;i++){
+        if(vis[i]) continue;
+        auto t=q.top();
+        swap(t.first,t.second);
+        ll new_ans=ans-t.second;
+        if(vis[t.first]==1){
+            new_ans-=x*x;
+            x--;
+            new_ans+=x*x;
+        }
+        new_ans+=a[i].second;
+        new_ans-=x*x;
+        x++;
+        new_ans+=x*x;
+        cout<<ans<<" "<<new_ans<<" "<<a[i].first<<" "<<a[i].second<<el;
+        if(new_ans>ans){
+            q.pop();
+            q.push({a[i].second,a[i].first});
+            ans=new_ans;
+        }
+        res=max(res,ans);
+    }
     cout<<res;
 }
 int main(){
