@@ -52,7 +52,7 @@ void solve(){
         new_ans-=x*x;
         x++;
         new_ans+=x*x;
-        st.pop();
+        st.erase(st.begin());
         st.insert({a[i].second,a[i].first});
         ans=new_ans;
         res=max(res,ans);
