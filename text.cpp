@@ -5,6 +5,7 @@ using namespace std;
 const ll N=1e5+5;
 ll A,B,C,a,b,c;
 ll to;
+ll cnt1,cnt2;
 void solve(){
     cin>>A>>B>>C;
     a=b=0;c=C;
@@ -16,8 +17,28 @@ void solve(){
         }else if(a==A){
             c+=a;
             a=0;
-        }els
+        }else{
+            if(A-a>=b) a+=b,b=0;
+            else if(A-a<b) b-=(A-a),a=A;
+        }
+        cnt1++;
     }
+    swap(A,B);
+    a=0,b=0,c=C;
+    while(a!=to&&b!=to&&c!=to){
+        if(b==0){
+            if(c<b) b=c,c=0;
+            else if(c>=b) b=B,c-=B;
+        }else if(a==A){
+            c+=a;
+            a=0;
+        }else{
+            if(A-a>=b) a+=b,b=0;
+            else if(A-a<b) b-=(A-a),a=A;
+        }
+        cnt2++;
+    }
+    cout<min(cnt1,cnt2);
 }
 int main(){
     ios::sync_with_stdio(0);
