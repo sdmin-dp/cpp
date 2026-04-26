@@ -38,7 +38,6 @@ void solve(){
                 break;
             } 
         }
-        swap(t.first,t.second);
         ll new_ans=ans-t.second;
         cerr<<t.first<<t.second<<el;
         if(vis[t.first]==1){
