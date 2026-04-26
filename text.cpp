@@ -13,8 +13,8 @@ void solve(){
     to=__gcd(A,__gcd(B,C));
     while(a!=to&&b!=to&&c!=to){
         if(b==0){
-            if(c<b) b=c,c=0;
-            else if(c>=b) b=B,c-=B;
+            if(c<B) b=c,c=0;
+            else if(c>=B) b=B,c-=B;
         }else if(a==A){
             c+=a;
             a=0;
