@@ -9,6 +9,7 @@ ll color[N];
 vector<ll> g[N];
 bool dfs(ll u,ll c){
     color[u]=c;
+    cnt[c]++;
     for(auto v:g[u]){
         if(color[v]==color[u]) return 0;
         if(!color[v]){
@@ -25,10 +26,14 @@ void solve(){
     }
     ll ans=0;
     for(int i=1;i<=n;i++){
+        cnt[1]=cnt[2]=0;
         if(!color[i]&&!dfs(i,1)){
-            cout<<""
+            cout<<"Impossible";
+            return;
         }
+        ans+=min(cnt[1],cnt[2]);
     }
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
