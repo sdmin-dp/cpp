@@ -24,7 +24,7 @@ void solve(){
         ans+=a[i].second;
         if(!vis[a[i].first]) x++;
         vis[a[i].first]++;
-        
+        st.insert({a[i].second,a[i].first});
     }
     ans+=x*x;
     ll res=ans;
