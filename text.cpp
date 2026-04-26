@@ -10,7 +10,7 @@ void solve(){
     while(type<2){
         if(type==0){
             ll k=min(b,cx);
-            bxX
+            bx
         }
     }
 }
