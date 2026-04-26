@@ -12,9 +12,8 @@ bool cmp(pair<ll,ll> x,pair<ll,ll> y){
 }
 void solve(){
     cin>>n>>k;
-    for(int i=1;i<=n;i++){
+    for(int i=1;i<=n;i++)
         cin>>a[i].first>>a[i].second;
-    }
     sort(a+1,a+n+1,cmp);
     for(int i=1;i<=n;i++){
         p1=a[i].first,p2=a[i].second;
