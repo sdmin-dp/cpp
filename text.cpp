@@ -58,6 +58,7 @@ void solve(){
         // cerr<<res<<" "<<ans<<" "<<a[i].first<<" "<<a[i].second<<el;
     }
     cout<<st.size()<<el;
+    for(auto i:st) cout<<i.first<<" "<<i.second<<el;
     cout<<res;
 }
 int main(){
