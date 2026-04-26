@@ -57,9 +57,7 @@ void solve(){
         res=max(res,ans);
         // cerr<<res<<" "<<ans<<" "<<a[i].first<<" "<<a[i].second<<el;
     }
-    cout<<st.size()<<el;
-    for(auto i:st) cout<<i.first<<" "<<i.second<<el;
-    cout<<res;
+    cout<<res<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
