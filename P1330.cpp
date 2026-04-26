@@ -4,9 +4,17 @@ using namespace std;
 #define el '\n'
 const ll N=1e4+5;
 ll n,m;
+ll cnt[3];
+ll color[N];
 vector<ll> g[N];
 bool dfs(ll u,ll c){
-
+    color[u]=c;
+    for(auto v:g[u]){
+        if(color[v]==color[u]) return 0;
+        if(!color[v]){
+            dfs(v,3-c);
+        }
+    }
 }
 void solve(){
     cin>>n>>m;
@@ -15,8 +23,11 @@ void solve(){
         g[u].push_back(v);
         g[v].push_back(u);
     }
+    ll ans=0;
     for(int i=1;i<=n;i++){
-        
+        if(!color[i]&&!dfs(i,1)){
+            cout<<""
+        }
     }
 }
 int main(){
