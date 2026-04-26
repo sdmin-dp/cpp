@@ -33,6 +33,7 @@ void solve(){
         auto t=q.top();
         swap(t.first,t.second);
         ll new_ans=ans-t.second;
+        cerr<<t.first<<t.second<<el;
         if(vis[t.first]==1){
             new_ans-=x*x;
             x--;
@@ -48,7 +49,7 @@ void solve(){
         q.push({a[i].second,a[i].first});
         ans=new_ans;
         res=max(res,ans);
-        cerr<<res<<" "<<ans<<" "<<a[i].first<<" "<<a[i].second<<el;
+        // cerr<<res<<" "<<ans<<" "<<a[i].first<<" "<<a[i].second<<el;
     }
     cout<<res;
 }
