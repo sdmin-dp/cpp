@@ -4,12 +4,12 @@ using namespace std;
 #define el '\n'
 const ll N=5e4+5;
 ll n,m;
-ll fa[N];
+vector<pair<ll,ll>> g[N];
 ll dep[N],up[20][N];
 void dfs(ll x,ll f){
     dep[x]=dep[f]+1;up[0][x]=f;
     for(int i=1;i<17;i++) up[i][x]=up[i-1][up[i-1][x]];
-    for(int i=2;i<=n;i++) if(fa[i]==x) dfs(i,x);
+    for(auto i:g[x]) if(i.first!=f) dfs(i.first,x);
 }
 ll LCA(ll u,ll v){
     if(dep[u]<dep[v]) swap(v,u);
