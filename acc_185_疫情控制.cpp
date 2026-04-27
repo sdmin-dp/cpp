@@ -28,9 +28,12 @@ ll LCA(ll u,ll v){
     return up[0][u];
 }
 void solve(){
-    cin>>n>>m;
-    for(int i=2;i<=n;i++) cin>>fa[i];
-    fa[1]=0;
+    cin>>n;
+    for(int i=2;i<=n;i++){
+        ll x,y,z;cin>>x>>y>>z;
+        g[x].push_back({y,z});
+        g[y].push_back({x,z});
+    }
     dfs(1,0);
     for(int i=0;i<m;i++){
         ll x,y;
