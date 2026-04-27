@@ -35,11 +35,7 @@ void solve(){
         g[y].push_back({x,z});
     }
     dfs(1,0);
-    for(int i=0;i<m;i++){
-        ll x,y;
-        cin>>x>>y;
-        cout<<LCA(x,y)<<el;
-    }
+    
 }
 int main(){
     ll T=1;
