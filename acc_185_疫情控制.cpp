@@ -2,7 +2,7 @@
 using namespace std;
 #define ll long long
 #define el '\n'
-const ll N=1e5+5;
+const ll N=5e4+5;
 ll n,m;
 ll fa[N];
 ll dep[N],up[20][N];
