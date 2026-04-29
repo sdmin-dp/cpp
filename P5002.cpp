@@ -5,6 +5,7 @@ using namespace std;
 const ll N=1e5+5;
 ll n,q,root;
 void solve(){
+    cin>>n>>root>>q;
     
 }
 int main(){
