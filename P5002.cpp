@@ -25,6 +25,7 @@ void solve(){
     }
     dfs(root,0);
     for(int i=1;i<=n;i++){
+        cerr<<len[i]<<" ";
         ll cnt=0;
         for(auto j:g[i]){
             cnt+=(len[i]-len[j]-1)*len[j];
