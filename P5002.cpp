@@ -24,7 +24,9 @@ void solve(){
         g[v].push_back(u);
     }
     dfs(root,0);
-    
+    for(int i=1;i<=n;i++){
+        
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
