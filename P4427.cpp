@@ -62,7 +62,6 @@ void solve(){
             res=res*dep[i]%mod;
             // cerr<<num[i][j]<<" ";
         }
-        
         // cerr<<el;
     }
     dfs2(1,0);
