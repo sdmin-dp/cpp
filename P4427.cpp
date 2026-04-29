@@ -54,12 +54,14 @@ void solve(){
     dfs(1,0);
 
     for(int i=1;i<=n;i++){
-        cerr<<dep[i]<<" ";
+        // cerr<<dep[i]<<" ";
         ll res=dep[i];
         for(int j=1;j<=50;j++){
             num[i][j]=res;
             res=res*dep[i]%mod;
+            cerr<<num[i][j]<<" ";
         }
+        cerr<<el;
     }
     dfs2(1,0);
     ll q;
