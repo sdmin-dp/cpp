@@ -35,7 +35,7 @@ void solve(){
         g[i].push_back(x);
         g[x].push_back(i);
     }
-    dfs(0);
+    dfs(0,-1);
     cin>>m;
     for(int i=1;i<=m;i++){
         ll len,x,lca;
