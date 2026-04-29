@@ -28,7 +28,7 @@ ll LCA(ll u,ll v){
     return up[0][u];
 }
 void solve(){
-    cin>>n>>m;
+    cin>>n;
     for(int i=2;i<=n;i++) cin>>fa[i];
     fa[1]=0;
     dfs(1,0);
