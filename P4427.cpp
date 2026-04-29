@@ -68,7 +68,8 @@ void solve(){
         ll lca=LCA(l,r);
         ll ans=(dis(l,lca,k)+dis(r,lca,k)+num[lca][k])%mod;
         cout<<ans<<el;
-        cerr<<lca<<el;
+        // cerr<<lca<<el;
+        cerr<<dep[l]<<" "<<dep[r]<<el;
     }
 }
 int main(){
