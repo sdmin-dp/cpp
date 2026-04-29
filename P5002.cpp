@@ -10,7 +10,7 @@ void dfs(ll x,ll f){
     dep[x]=dep[f]+1;up[0][x]=f;
     for(int i=1;i<20;i++) up[i][x]=up[i-1][up[i-1][x]];
     for(auto i:g[x]) if(i!=f) dfs(i,x);
-}
+}r(au
 ll LCA(ll u,ll v){
     if(dep[u]<dep[v]) swap(v,u);
     for(int i=20;i>=0;i--){
