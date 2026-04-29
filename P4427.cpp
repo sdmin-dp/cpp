@@ -8,8 +8,8 @@ vector<ll> g[N];
 void solve(){
     cin>>n;
     for(int i=1;i<n;i++){
-        ll u,v;cin>>u>>c;
-        
+        ll u,v;cin>>u>>v;
+        cin
     }
 }
 int main(){
