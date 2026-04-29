@@ -25,7 +25,9 @@ void solve(){
     }
     dfs(root,0);
     for(int i=1;i<=n;i++){
-        
+        for(auto j:g[i]){
+            
+        }
     }
 }
 int main(){
