@@ -7,6 +7,7 @@ const ll mod=998244353;
 ll n;
 ll dep[N],up[22][N];
 ll num[N][52];
+ll sum[N][52];
 vector<ll> g[N];
 void dfs(ll x,ll f){
     dep[x]=dep[f]+1;up[0][x]=f;
@@ -29,6 +30,20 @@ ll LCA(ll u,ll v){
     }
     return up[0][u];
 }
+ll dis(ll x,ll y,ll k){
+    if(dep[x]>dep[y]) return (sum[x][k]-sum[y][k]+mod)%mod;
+    else return (sum[y][k]-sum[x][k]+mod)%mod;
+}
+ll dfs2(ll x,ll f){
+    for(auto i:g[x]){
+        if(i!=f){
+            for(int k=1;k<=50;k++){
+                sum[i][k]=sum[x][k]+num[i][k];
+            }
+            dfs2(i,x);
+        }
+    }
+}
 void solve(){
     cin>>n;
     for(int i=1;i<n;i++){
@@ -44,7 +59,16 @@ void solve(){
             res=res*dep[i]%mod;
         }
     }
-    fo
+    dfs2(1,0);
+    ll q;
+    cin>>q;
+    while(q--){
+        ll l,r,k;
+        cin>>l>>r>>k;
+        ll lca=LCA(l,r);
+        ll ans=(dis(l,lca,k)+dis(r,lca,k)+num[lca][k])%mod;
+        cout<<ans<<el;
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
