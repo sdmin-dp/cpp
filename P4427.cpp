@@ -54,7 +54,7 @@ void solve(){
     dfs(1,0);
 
     for(int i=1;i<=n;i++){
-        cerr<<dep[i];
+        cerr<<dep[i]<<" ";
         ll res=dep[i];
         for(int j=1;j<=50;j++){
             num[i][j]=res;
@@ -71,7 +71,7 @@ void solve(){
         ll ans=(dis(l,lca,k)+dis(r,lca,k)+num[lca][k])%mod;
         cout<<ans<<el;
         // cerr<<lca<<el;
-        cerr<<sum[l][5]<<" "<<sum[r][5]<<el;
+        // cerr<<sum[l][5]<<" "<<sum[r][5]<<el;
     }
 }
 int main(){
