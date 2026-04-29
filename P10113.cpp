@@ -3,14 +3,20 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-ll n;
+ll n,m;
 vector<ll> g[N];
+
 void solve(){
     cin>>n;
-    for(int i=1;i<=n;i++){
+    for(int i=1;i<n;i++){
         ll x;
         cin>>x;
-
+        g[i].push_back(x);
+        g[x].push_back(i);
+    }
+    cin>>m;
+    for(int i=1;i<=m;i++){
+        ll len,x,lca;
     }
 }
 int main(){
