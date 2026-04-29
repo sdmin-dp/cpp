@@ -35,6 +35,9 @@ void solve(){
         g[y].push_back(x);
     }
     dfs(1,0);
+    for(int i=1;i<=n;i++){
+        
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
