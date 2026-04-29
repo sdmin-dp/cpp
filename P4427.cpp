@@ -59,7 +59,7 @@ void solve(){
             res=res*dep[i]%mod;
         }
     }
-    dfs2(1,0);
+    // dfs2(1,0);
     ll q;
     cin>>q;
     while(q--){
