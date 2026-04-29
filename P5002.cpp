@@ -6,10 +6,12 @@ const ll N=1e4+5;
 ll n,q,root;
 vector<ll> g[N];
 ll len[N];
-void dfs(ll x,ll fa){
+ll fa[N];
+void dfs(ll x,ll f){
+    fa[x]=f;
     if(g[x].empty()) return;
     for(auto i:g[x]){
-        if(i==fa) continue;
+        if(i==f) continue;
         dfs(i,x);
         len[x]+=len[i];
     }
@@ -29,9 +31,9 @@ void solve(){
         cin>>x;
         cerr<<len[i]<<" ";
         ll cnt=0;
-        for(auto j:g[x]){
-            cnt+=(len[x]-len[j]-1)*len[j];
-        }
+        for(auto j:g[x])
+            if(j!=fa[x])
+                cnt+=(len[x]-len[j]-1)*len[j];
         cnt+=(len[x]-1)*2+1;
         cout<<cnt<<el;
     }
