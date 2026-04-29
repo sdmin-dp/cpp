@@ -37,6 +37,7 @@ void solve(){
         cnt+=(len[x]-1)*2+1;
         cout<<cnt<<el;
     }
+    
 }
 int main(){
     ios::sync_with_stdio(0);
