@@ -6,6 +6,7 @@ const ll N=1e5+5;
 ll n,m;
 vector<ll> g[N];
 ll dep[N],up[25][N];
+ll fa[N];
 void dfs(ll x,ll f){
     dep[x]=dep[f]+1;up[0][x]=f;
     for(int i=1;i<20;i++) up[i][x]=up[i-1][up[i-1][x]];
@@ -29,9 +30,11 @@ ll LCA(ll u,ll v){
 }
 void solve(){
     cin>>n;
+    fa[0]=-1;
     for(int i=1;i<n;i++){
         ll x;
         cin>>x;
+        fa[i]=x;
         g[i].push_back(x);
         g[x].push_back(i);
     }
@@ -44,7 +47,13 @@ void solve(){
             cin>>x;
             lca=LCA(lca,x);
         }
-        cout<<lca<<el;
+        ll cur=lca;
+        ll ans=lca;
+        while(cur!=-1){
+            ans=max(ans,cur);
+            cur=fa[cur];
+        }
+        cout<<ans<<el;
     }
 }
 int main(){
