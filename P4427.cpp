@@ -31,7 +31,7 @@ ll LCA(ll u,ll v){
     return up[0][u];
 }
 ll dis(ll x,ll y,ll k){
-    if(dep[x]<dep[y]) return (sum[x][k]-sum[y][k]+mod)%mod;
+    if(dep[x]>dep[y]) return (sum[x][k]-sum[y][k]+mod)%mod;
     else return (sum[y][k]-sum[x][k]+mod)%mod;
 }
 void dfs2(ll x,ll f){
