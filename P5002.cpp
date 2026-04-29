@@ -24,13 +24,14 @@ void solve(){
         g[v].push_back(u);
     }
     dfs(root,0);
-    for(int i=1;i<=n;i++){
+    for(int i=1;i<=q;i++){
+        ll x;
         cerr<<len[i]<<" ";
         ll cnt=0;
-        for(auto j:g[i]){
-            cnt+=(len[i]-len[j]-1)*len[j];
+        for(auto j:g[x]){
+            cnt+=(len[x]-len[j]-1)*len[j];
         }
-        cnt+=(len[i]-1)*2+1;
+        cnt+=(len[x]-1)*2+1;
         cout<<cnt<<el;
     }
 }
