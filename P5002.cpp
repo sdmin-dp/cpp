@@ -25,9 +25,12 @@ void solve(){
     }
     dfs(root,0);
     for(int i=1;i<=n;i++){
+        ll cnt=0;
         for(auto j:g[i]){
-            
+            cnt+=(len[i]-len[j]-1)*len[j];
         }
+        cnt+=(len[i]-1)*2+1;
+        cout<<cnt<<el;
     }
 }
 int main(){
