@@ -2,10 +2,10 @@
 #define ll int
 using namespace std;
 #define el '\n'
-const ll N=5e5+5;
+const ll N=3e5+5;
 ll n;
 ll dep[N],up[22][N];
-ll num[N][50];
+ll num[N][52];
 vector<ll> g[N];
 void dfs(ll x,ll f){
     dep[x]=dep[f]+1;up[0][x]=f;
