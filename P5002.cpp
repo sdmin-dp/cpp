@@ -26,6 +26,7 @@ void solve(){
     dfs(root,0);
     for(int i=1;i<=q;i++){
         ll x;
+        cin>>x;
         cerr<<len[i]<<" ";
         ll cnt=0;
         for(auto j:g[x]){
