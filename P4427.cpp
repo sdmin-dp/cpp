@@ -51,6 +51,7 @@ void solve(){
         g[x].push_back(y);
         g[y].push_back(x);
     }
+    dep[1]=1;
     dfs(1,0);
     for(int i=1;i<=n;i++){
         ll res=dep[i];
