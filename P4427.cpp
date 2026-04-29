@@ -60,9 +60,9 @@ void solve(){
         for(int j=1;j<=50;j++){
             num[i][j]=res;
             res=res*dep[i]%mod;
-            cerr<<num[i][j]<<" ";
+            // cerr<<num[i][j]<<" ";
         }
-        cerr<<el;
+        // cerr<<el;
     }
     dfs2(1,0);
     ll q;
