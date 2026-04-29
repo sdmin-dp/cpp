@@ -29,7 +29,7 @@ void solve(){
     for(int i=1;i<=q;i++){
         ll x;
         cin>>x;
-        cerr<<len[i]<<" ";
+        // cerr<<len[i]<<" ";
         ll cnt=0;
         for(auto j:g[x])
             if(j!=fa[x])
