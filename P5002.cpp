@@ -1,41 +1,44 @@
 #include<bits/stdc++.h>
-#define ll long long
+#define ll int
 using namespace std;
 #define el '\n'
-const ll N=1e4+5;
-ll n,q,root;
+const ll N=5e5+5;
+ll n,q,b;
+ll dep[N],up[22][N];
 vector<ll> g[N];
-ll len[N];
-ll fa[N];
 void dfs(ll x,ll f){
-    fa[x]=f;
-    if(g[x].empty()) return;
-    for(auto i:g[x]){
-        if(i==f) continue;
-        dfs(i,x);
-        len[x]+=len[i];
+    dep[x]=dep[f]+1;up[0][x]=f;
+    for(int i=1;i<20;i++) up[i][x]=up[i-1][up[i-1][x]];
+    for(auto i:g[x]) if(i!=f) dfs(i,x);
+}
+ll LCA(ll u,ll v){
+    if(dep[u]<dep[v]) swap(v,u);
+    for(int i=20;i>=0;i--){
+        if(dep[up[i][u]]>=dep[v]){
+            u=up[i][u];
+        }
     }
+    if(u==v) return u;
+    for(int k=20;k>=0;k--){
+        if(up[k][u]!=up[k][v]){
+            u=up[k][u];
+            v=up[k][v];
+        }
+    }
+    return up[0][u];
 }
 void solve(){
-    cin>>n>>root>>q;
-    len[1]=1;
-    for(int i=2;i<=n;i++){
-        len[i]=1;
-        ll u,v;cin>>u>>v;
-        g[u].push_back(v);
-        g[v].push_back(u);
+    cin>>n>>q>>b;
+    for(int i=1;i<n;i++){
+        ll x,y;cin>>x>>y;
+        g[x].push_back(y);
+        g[y].push_back(x);
     }
-    dfs(root,0);
+    dfs(b,0);
     for(int i=1;i<=q;i++){
-        ll x;
-        cin>>x;
-        // cerr<<len[i]<<" ";
-        ll cnt=0;
-        for(auto j:g[x])
-            if(j!=fa[x])
-                cnt+=(len[x]-len[j]-1)*len[j];
-        cnt+=(len[x]-1)*2+1;
-        cout<<cnt<<el;
+        ll x,y;
+        cin>>x>>y;
+        cout<<LCA(x,y)<<'\n';
     }
 }
 int main(){
