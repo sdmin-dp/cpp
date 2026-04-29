@@ -39,8 +39,10 @@ void solve(){
         cin>>x;
         lca=x;
         for(int i=2;i<=len;i++){
-            
+            cin>>x;
+            lca=LCA(lca,x);
         }
+        cout<<lca<<el;
     }
 }
 int main(){
