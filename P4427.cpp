@@ -69,7 +69,7 @@ void solve(){
         ll ans=(dis(l,lca,k)+dis(r,lca,k)+num[lca][k])%mod;
         cout<<ans<<el;
         // cerr<<lca<<el;
-        cerr<<dep[l]<<" "<<dep[r]<<el;
+        cerr<<sum[l][5]<<" "<<sum[r][5]<<el;
     }
 }
 int main(){
