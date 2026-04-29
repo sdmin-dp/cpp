@@ -5,6 +5,7 @@ using namespace std;
 const ll N=5e5+5;
 ll n;
 ll dep[N],up[22][N];
+ll num[N][50];
 vector<ll> g[N];
 void dfs(ll x,ll f){
     dep[x]=dep[f]+1;up[0][x]=f;
@@ -36,7 +37,9 @@ void solve(){
     }
     dfs(1,0);
     for(int i=1;i<=n;i++){
-        
+        for(int j=1;j<=50;j++){
+
+        }
     }
 }
 int main(){
