@@ -3,11 +3,9 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+ll n=2026202520242023;
 void solve(){
-    for(int i=2;i<=100;i++){
-        cout<<i-1<<" "<<i<<el;
-    }    
+    cout<<1013101260121012;
 }
 int main(){
     ios::sync_with_stdio(0);

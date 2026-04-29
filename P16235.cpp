@@ -3,11 +3,26 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+ll n;
+ll a[N];
 void solve(){
-    for(int i=2;i<=100;i++){
-        cout<<i-1<<" "<<i<<el;
-    }    
+    cin>>n;
+    ll sum=0;
+    for(int i=1;i<=n;i++){
+        cin>>a[i];
+        sum+=a[i];
+    }
+    if(sum%5!=0){
+        cout<<"F\n";
+        return;
+    }
+    for(int i=1;i<=n;i++){
+        if(a[i]>sum/5){
+            cout<<"F\n";
+            return;
+        }
+    }
+    cout<<"T\n";
 }
 int main(){
     ios::sync_with_stdio(0);
@@ -15,7 +30,7 @@ int main(){
     //freopen("xxx.in","r",stdin);
     //freopen("xxx.out","w",stdout);
     ll T=1;
-    //cin>>T;
+    cin>>T;
     while(T--){
         solve();
     }

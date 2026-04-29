@@ -3,11 +3,10 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+ll n,x,y;
 void solve(){
-    for(int i=2;i<=100;i++){
-        cout<<i-1<<" "<<i<<el;
-    }    
+    cin>>n>>x>>y;
+    cout<<max(y-x+1,0ll)<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
@@ -15,7 +14,7 @@ int main(){
     //freopen("xxx.in","r",stdin);
     //freopen("xxx.out","w",stdout);
     ll T=1;
-    //cin>>T;
+    cin>>T;
     while(T--){
         solve();
     }
