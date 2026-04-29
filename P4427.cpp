@@ -38,7 +38,7 @@ void dfs2(ll x,ll f){
     for(auto i:g[x]){
         if(i!=f){
             for(int k=1;k<=50;k++){
-                sum[i][k]=sum[x][k]+num[i][k];
+                sum[i][k]=(sum[x][k]+num[i][k])%mod;
             }
             dfs2(i,x);
         }
