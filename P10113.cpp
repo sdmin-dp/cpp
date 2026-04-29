@@ -32,10 +32,9 @@ void solve(){
     for(int i=2;i<=n;i++){cin>>fa[i];fa[i]++;}
     fa[1]=0;
     dfs(1,0);
-    for(int i=0;i<m;i++){
-        ll x,y;
-        cin>>x>>y;
-        cout<<LCA(x,y)<<el;
+    cin>>m;
+    while(m--){
+        
     }
 }
 int main(){
