@@ -3,6 +3,7 @@
 using namespace std;
 #define el '\n'
 const ll N=3e5+5;
+const ll mod=998244353;
 ll n;
 ll dep[N],up[22][N];
 ll num[N][52];
@@ -43,6 +44,7 @@ void solve(){
             res=res*dep[i]%mod;
         }
     }
+    for(int i=1;i)
 }
 int main(){
     ios::sync_with_stdio(0);
