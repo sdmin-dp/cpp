@@ -9,7 +9,7 @@ ll dep[N],up[20][N];
 void dfs(ll x,ll f){
     dep[x]=dep[f]+1;up[0][x]=f;
     for(int i=1;i<17;i++) up[i][x]=up[i-1][up[i-1][x]];
-    for(int i=2;i<=n;i++) if(fa[i]==x) dfs(i,x);
+    for(int i=1;i<n;i++) if(fa[i]==x) dfs(i,x);
 }
 ll LCA(ll u,ll v){
     if(dep[u]<dep[v]) swap(v,u);
@@ -29,12 +29,18 @@ ll LCA(ll u,ll v){
 }
 void solve(){
     cin>>n;
-    for(int i=2;i<=n;i++){cin>>fa[i];fa[i]++;}
-    fa[1]=0;
+    for(int i=1;i<n;i++) cin>>fa[i];
+    fa[0]=-1;
     dfs(1,0);
     cin>>m;
     while(m--){
-        
+        ll len,x,lca;
+        cin>>len;
+        cin>>x;
+        lca=x;
+        for(int i=2;i<=len;i++){
+            
+        }
     }
 }
 int main(){
