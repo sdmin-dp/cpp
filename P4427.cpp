@@ -34,7 +34,7 @@ ll dis(ll x,ll y,ll k){
     if(dep[x]>dep[y]) return (sum[x][k]-sum[y][k]+mod)%mod;
     else return (sum[y][k]-sum[x][k]+mod)%mod;
 }
-ll dfs2(ll x,ll f){
+void dfs2(ll x,ll f){
     for(auto i:g[x]){
         if(i!=f){
             for(int k=1;k<=50;k++){
@@ -59,7 +59,7 @@ void solve(){
             res=res*dep[i]%mod;
         }
     }
-    // dfs2(1,0);
+    dfs2(1,0);
     ll q;
     cin>>q;
     while(q--){
