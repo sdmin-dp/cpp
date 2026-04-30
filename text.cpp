@@ -17,6 +17,12 @@ void solve(){
             dis[v][u]=max(w,dis[v][u]);
         }
     }
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=n;j++){
+            cerr<<dis[i][j]<<" ";
+        }
+        cerr<<el;
+    }
     for(int k=1;k<=n;k++)
         for(int i=1;i<=n;i++)
             for(int j=1;j<=n;j++)
@@ -28,7 +34,6 @@ void solve(){
         }
         cout<<el;
     }
-    cerr<<0x3f3f3f3f3f3f3f3f;
 }
 int main(){
     ios::sync_with_stdio(0);
