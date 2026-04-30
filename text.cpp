@@ -3,9 +3,13 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+string s,t;
 void solve(){
-    
+    while(1){
+        if(s=='#'){
+            
+        }
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
