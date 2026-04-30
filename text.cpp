@@ -11,13 +11,19 @@ void insert(string s){
     ll p=0;
     for(auto &i:s){
         ll x=i-'a';
-        if(trie[p][x]!=0) p=trie[p][x];
-        else p=++idx;
+        if(trie[p][x]!=0)p=trie[p][x];
+        else{trie[p][x]=++idx;p=idx;}
     }
-    
+    cnt[p]++;
 }
 ll query(string s){
-
+    ll p=0;
+    for(auto &i:s){
+        ll x=i-'a';
+        if(trie[p][x]!=0)p=trie[p][x];
+        else return 0;
+    }
+    return cnt[p];
 }
 void solve(){
     cin>>n;
