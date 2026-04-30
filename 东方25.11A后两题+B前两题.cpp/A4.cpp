@@ -15,6 +15,7 @@ void solve(){
         for(int j=n;j>=1;j--){
             if(a[i]!=a[j]){
                 ans=max(ans,llabs(j-i));
+                break;
             }
         }
     }
