@@ -5,10 +5,25 @@ using namespace std;
 const ll N=1e5+5;
 ll n,m;
 ll b;
+ll dis[N];
 vector<pair<ll,ll>> g[N];
 priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;
 void dijkstra(){
-
+    q.push({0,b});
+    memset(dis,0x3f,sizeof dis);
+    dis[b]=0;
+    while(!q.empty()){
+        auto x=q.top();
+        swap(x.first,x.second);
+        if(x.second>dis[x.first]) continue;
+        dis[x.first]=x.second;
+        for(auto i:g[x.first]){
+            if(dis[x.first]+i.second>dis[i.first]){
+                dis[i.first]=dis[x.first]+i.second;
+                q.push({dis[i.first],i.first});
+            }
+        }
+    }
 }
 void solve(){
     cin>>n>>m;
