@@ -8,7 +8,8 @@ ll nxt[N];
 void solve(){
     while(1){
         cin>>s;
-        if(s==)
+        if(s=="#") break;
+        cin>>t;
         for(int i=1,j=0;i<t.size();i++){
             while(j>0&&t[i]!=t[j]) j=nxt[j-1];
             if(t[i]==t[j]) j++;
