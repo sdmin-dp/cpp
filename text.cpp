@@ -2,7 +2,7 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e5+5;
+const ll N=5e5+5;
 ll low_bit(ll x){
     return (x&(-x));
 }
