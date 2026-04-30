@@ -13,8 +13,8 @@ void solve(){
         ll u,v,w;
         cin>>u>>v>>w;
         if(dis[u][v]!=0x7f7f7f7f7f7f7f7f){
-            dis[u][v]=max(w,dis[u][v]);
-            dis[v][u]=max(w,dis[v][u]);
+            dis[u][v]=min(w,dis[u][v]);
+            dis[v][u]=min(w,dis[v][u]);
         }else{
             dis[u][v]=w;
             dis[v][u]=w;
