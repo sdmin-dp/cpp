@@ -20,6 +20,11 @@ void solve(){
             for(int j=1;j<=n;j++)
                 if(dis[i][k]+dis[k][j]<dis[i][j])
                     dis[i][j]=dis[i][k]+dis[k][j];
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=n;j++){
+            cout<<dis[i][j]<<" ";
+        }
+    }
     
 }
 int main(){
