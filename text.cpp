@@ -10,7 +10,9 @@ void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
         ll op;string s;
-        cin>>op>输出格式>s;
+        cin>>op>>s;
+        if(op=='I') insert(s);
+        else 
     }
 }
 int main(){
