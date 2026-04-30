@@ -5,7 +5,7 @@ using namespace std;
 const ll N=1e5+5;
 
 void solve(){
-    cout<<(8^(-8));
+    cout<<(8&(-8));
 }
 int main(){
     ios::sync_with_stdio(0);
