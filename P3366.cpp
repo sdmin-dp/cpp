@@ -20,7 +20,7 @@ struct bcj{
 void solve(){
     cin>>n>>m;
     bcj a(n);
-    for(int i=1;i<=n;i++){
+    for(int i=1;i<=m;i++){
         ll u,v,w;cin>>u>>v>>w;
         g[i].first=w;
         g[i].second={min(u,v),max(u,v)};
