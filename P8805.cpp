@@ -28,7 +28,7 @@ ll LCA(ll u,ll v){
     }
     return up[0][u];
 }
-void dfs(ll x,ll fa){
+void dfs2(ll x,ll fa){
     for(auto i:g[x]){
         if(i!=fa){
             sum[i]=sum[x]+g[i].size();
@@ -43,8 +43,9 @@ void solve(){
         g[u].push_back(v);
         g[v].push_back(u);
     }
-    sum[1]=g[1].size();
     dfs(1,0);
+    sum[1]=g[1].size();
+    dfs2(1,0);
     for(int i=1;i<=m;i++){
         ll l,r;
         cin>>l>>r;
