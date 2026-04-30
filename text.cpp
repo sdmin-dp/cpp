@@ -23,7 +23,7 @@ void solve(){
     ll last,x;
     cin>>last;
     ll a1=last;
-    add(1,0);
+    add(1,a1);
     for(int i=2;i<=n;i++){
         cin>>x;
         add(i,x-last);
