@@ -23,8 +23,8 @@ void solve(){
         ll x;cin>>x;
         add(i,x);
     }
-    for(int i=1;i<=m;i++){
-        
+    for(int i=1;i<=q;i++){
+        i()
     }
 }
 int main(){
