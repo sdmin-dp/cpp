@@ -7,12 +7,12 @@ ll n,m;
 ll dis[N][N];
 void solve(){
     cin>>n>>m;
-    memset(dis,0x5f,sizeof dis);
+    memset(dis,0x4f,sizeof dis);
     for(int i=1;i<=n;i++) dis[i][i]=0;
     for(int i=1;i<=m;i++){
         ll u,v,w;
         cin>>u>>v>>w;
-        if(dis[u][v]!=0x5f5f5f5f5f5f5f5f){
+        if(dis[u][v]!=0x4f4f4f4f4f4f4f4f){
             dis[u][v]=max(w,dis[u][v]);
             dis[v][u]=max(w,dis[v][u]);
         }else{
