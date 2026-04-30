@@ -14,7 +14,7 @@ void solve(){
     for(int i=1;i<=n;i++){
         ll l,r;
         cin>>l>>r;
-        
+        cout<<a[r]-a[l-1]<<el;
     }
 }
 int main(){
