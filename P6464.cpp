@@ -48,7 +48,7 @@ void solve(){
         // cerr<<el;
     }
     // cerr<<sum/2<<" "<<ans;
-    cout<<sum/2-ans;
+    cout<<sum/2;
 }
 int main(){
     ios::sync_with_stdio(0);
