@@ -17,6 +17,7 @@ ll get_sum(ll l,ll r){
     for(int i=l-1;i>=1;i-=low_bit(i)) sum1+=tree[i];
     for(int i=r;i>=1;i-=low_bit(i)) sum2+=tree[i];
     return sum2-sum1;
+    cerr<<sum2<<" "<<sum1<<el;
 }
 void solve(){
     cin>>n>>q;
