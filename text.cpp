@@ -31,7 +31,12 @@ void solve(){
         ll op,l,r,k;
         cin>>op;
         if(op==1){
-            
+            cin>>l>>r>>k;
+            add(l,k);
+            add(r+1,-k);
+        }else{
+            cin>>k;
+            cout<<get_sum(1,k)<<el;
         }
     }
 }
