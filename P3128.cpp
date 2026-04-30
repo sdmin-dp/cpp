@@ -8,10 +8,19 @@ vector<ll> g[N];
 ll d[N];
 ll dep[N],up[22][N];
 vector<ll> g[N];
+ll ans[N];
 void dfs(ll x,ll f){
     dep[x]=dep[f]+1;up[0][x]=f;
     for(int i=1;i<20;i++) up[i][x]=up[i-1][up[i-1][x]];
     for(auto i:g[x]) if(i!=f) dfs(i,x);
+}
+void dfs2(ll x,ll fa,ll res){
+    for(auto i:g[x]){
+        if(i!=fa){
+            ans
+            dfs2(i,x,res+d[i]);
+        }
+    } 
 }
 ll LCA(ll u,ll v){
     if(dep[u]<dep[v]) swap(v,u);
@@ -45,7 +54,7 @@ void solve(){
         for(auto i:g[l]) if(i!=up[0][l]) d[i]--;
         for(auto i:g[r]) if(i!=up[0][r]) d[i]--;
     }
-    
+
 }
 int main(){
     ios::sync_with_stdio(0);
