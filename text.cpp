@@ -6,13 +6,19 @@ const ll N=1e5+5;
 ll n;
 ll idx;
 ll trie[N][30];
+void insert(string s){
+
+}
+ll query(string s){
+
+}
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
         ll op;string s;
         cin>>op>>s;
         if(op=='I') insert(s);
-        else 
+        else cout<<query(s);
     }
 }
 int main(){
