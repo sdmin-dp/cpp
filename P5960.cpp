@@ -38,7 +38,7 @@ void solve(){
         cin>>u>>v>>w;
         g[v].push_back({u,w});
     }
-    
+    bool f=
 }
 int main() {
     ios::sync_with_stdio(0);
