@@ -6,14 +6,13 @@ const ll N=1e5+5;
 ll n,m;
 vector<ll> g[N];
 ll sum[N];
-ll dfs(ll x,ll fa){
-    if(g[x].size()==1) return sum[x]=1;
+void dfs(ll x,ll fa){
     for(auto i:g[x]){
         if(i!=fa){
-            sum[x]+=dfs(i,x);
+            sum[i]=sum[x]+g[i].size();
+            dfs(i,x);
         }
     }
-    return sum[x];
 }
 void solve(){
     cin>>n>>m;
@@ -22,7 +21,9 @@ void solve(){
         g[u].push_back(v);
         g[v].push_back(u);
     }
-    
+    sum[1]=g[1].size();
+    dfs(1,0);
+    for(int i=1)
 }
 int main(){
     ios::sync_with_stdio(0);
