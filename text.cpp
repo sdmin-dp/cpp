@@ -13,7 +13,7 @@ void solve(){
     cin>>lcm;
     for(int i=2;i<=n;i++){
         ll x;cin>>x;
-        lcm=lcm(x);
+        lcm=lcm(lcm,x);
     }
 }
 int main(){
