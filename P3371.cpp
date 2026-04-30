@@ -3,10 +3,15 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-ll n,m;
-
+ll n,m,b;
+vector<pair<ll,ll>> g[N];
 void solve(){
-    
+    cin>>n>>m>>b;
+    for(int i=1;i<=m;i++){
+        ll u,v,w;cin>>u>>v>>w;
+        g[u].push_back({v,w});
+        g[v].push_back({u,w});
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
