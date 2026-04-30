@@ -2,45 +2,25 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=5e5+5;
-ll low_bit(ll x){
-    return (x&(-x));
-}
-ll n,q;
-ll tree[N];
-void add(ll x,ll y){
-    for(int i=x;i<=n;i+=low_bit(i)) tree[i]+=y;
-}
-ll get_sum(ll r){
-    ll sum=0;
-    for(int i=r;i>=1;i-=low_bit(i)) sum+=tree[i];
-    cerr<<sum<<el;
-    return sum;
-    
-}
+const ll N=1e5+5;
+ll n,m;
+ll dis[N][N];
 void solve(){
-    cin>>n>>q;
-    ll last,x;
-    cin>>last;
-    ll a1=last;
-    add(1,a1);
-    for(int i=2;i<=n;i++){
-        cin>>x;
-        add(i,x-last);
-        last=x;
+    cin>>n>>m;
+    memset(dis,0x3f,sizeof dis);
+    for(int i=1;i<=n;i++) dis[i][i]=0;
+    for(int i=1;i<=m;i++){
+        ll u,v,w;
+        cin>>u>>v>>w;
+        dis[u][v]=w;
+        dis[v][u]=w;
     }
-    for(int i=1;i<=q;i++){
-        ll op,l,r,k;
-        cin>>op;
-        if(op==1){
-            cin>>l>>r>>k;
-            add(l,k);
-            add(r+1,-k);
-        }else{
-            cin>>k;
-            cout<<get_sum(k)<<el;
-        }
-    }
+    for(int k=1;k<=n;k++)
+        for(int i=1;i<=n;i++)
+            for(int j=1;j<=n;j++)
+                if(dis[i][k]+dis[k][j]<dis[i][j])
+                    dis[i][j]=dis[i][k]+dis[k][j];
+    
 }
 int main(){
     ios::sync_with_stdio(0);
