@@ -36,8 +36,8 @@ int main(){
     //freopen("xxx.out","w",stdout);
     ll T=1;
     //cin>>T;
-    while(T--){
-        solve();
-    }
+    // while(T--){
+    //     solve();
+    // }
     return 0;
 }
