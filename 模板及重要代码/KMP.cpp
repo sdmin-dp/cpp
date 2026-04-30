@@ -5,7 +5,7 @@ using namespace std;
 const ll N=1e5+5;
 string s,t;  // s: 主串（文本串）, t: 模式串（待查找的字符串）
 ll n,m;      // n: 主串s的长度, m: 模式串t的长度
-ll nxt[N];   // next数组（部分匹配表），存储模式串每个位置的最长公共前后缀长度
+ll nxt[N];   // next数组（部分匹配表），存储模式串每个位置的最长公共真前后缀长度
 
 void solve(){
     cin>>s>>t;  // 输入主串s和模式串t
