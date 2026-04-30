@@ -20,12 +20,12 @@ void solve(){
             dis[v][u]=w;
         }
     }
-    for(int i=1;i<=n;i++){
-        for(int j=1;j<=n;j++){
-            cerr<<dis[i][j]<<" ";
-        }
-        cerr<<el;
-    }
+    // for(int i=1;i<=n;i++){
+    //     for(int j=1;j<=n;j++){
+    //         cerr<<dis[i][j]<<" ";
+    //     }
+    //     cerr<<el;
+    // }
     for(int k=1;k<=n;k++)
         for(int i=1;i<=n;i++)
             for(int j=1;j<=n;j++)
