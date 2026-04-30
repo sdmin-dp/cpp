@@ -22,6 +22,7 @@ void solve(){
     cin>>n>>q;
     ll last,x;
     cin>>last;
+    ll a1=last;
     for(int i=2;i<=n;i++){
         cin>>x;
         add(i,x-last);
@@ -36,7 +37,7 @@ void solve(){
             add(r+1,-k);
         }else{
             cin>>k;
-            cout<<get_sum(1,k)+1<<el;
+            cout<<get_sum(1,k)+last<<el;
         }
     }
 }
