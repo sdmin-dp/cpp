@@ -29,8 +29,8 @@ void solve(){
     for(int i=1;i<=m;i++){
         ll u,v,w;cin>>u>>v>>w;
         g[u].push_back({v,w});
-        g[v].push_back({u,w});
     }
+    
 }
 int main(){
     ios::sync_with_stdio(0);
