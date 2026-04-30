@@ -36,9 +36,11 @@ void solve(){
             a.fa[fu]=fv;
         }
         if(cnt==n-1){
-            cout<<
+            cout<<sum;
+            return;
         }
     }
+    cout<<
 }
 int main(){
     ios::sync_with_stdio(0);
