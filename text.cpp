@@ -3,19 +3,9 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-ll n;
-ll lcm(ll x,ll y){
-    return x/__gcd(x,y)*y;
-}
+
 void solve(){
-    cin>>n;
-    ll lm;
-    cin>>lm;
-    for(int i=2;i<=n;i++){
-        ll x;cin>>x;
-        lm=lcm(lm,x);
-    }
-    cout<<lm;
+    
 }
 int main(){
     ios::sync_with_stdio(0);
