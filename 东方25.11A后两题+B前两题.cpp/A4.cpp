@@ -17,8 +17,8 @@ void solve(){
     }
     v.push_back(0);
     for(int i=1;i<=n;i++){
-        if(a[i].first!=1e18) v.push_back(a[i].second);
-        if(a[i].second!=0&&a[i].second!=a[i].first) v.push_back(a[i].first); 
+        if(a[i].first!=1e18) v.push_back(a[i].first);
+        if(a[i].second!=0&&a[i].second!=a[i].first) v.push_back(a[i].second); 
     }
     n=v.size()-1;
     ll ans=0;
