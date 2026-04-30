@@ -7,10 +7,26 @@ ll n,m;
 ll dis[N][N];
 void solve(){
     cin>>n>>m;
+    memset(dis,0x3f,sizeof dis);
     for(int i=1;i<=m;i++){
         ll u,v,w;cin>>u>>v>>w;
-        dis[u][v]
+        dis[u][v]=w;
+        dis[v][u]=w;
     }
+    for(int k=1;k<=n;k++)
+        for(int i=1;i<=n;i++)
+            for(int j=1;j<=n;j++)
+                if(dis[i][k]+dis[k][j]<dis[i][j])
+                    dis[i][j]=dis[i][k]+dis[k][j];
+    ll sum=0,ans=0;
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=n;j++){
+            if(dis[i][j]>=0x3f3f3f3f3f3f3f3f) continue;
+            sum+=dis[i][j];
+            ans=max(ans,dis[i][j]);
+        }
+    }
+    cout<<sum-ans;
 }
 int main(){
     ios::sync_with_stdio(0);
