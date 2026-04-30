@@ -30,7 +30,7 @@ void solve(){
         ll u,v,w;cin>>u>>v>>w;
         g[u].push_back({v,w});
     }
-    dijkstra();
+    // dijkstra();
     for(int i=1;i<=n;i++) cout<<dis[i]<<" ";
 }
 int main(){
