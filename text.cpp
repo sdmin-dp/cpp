@@ -3,7 +3,8 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-ll st[N][]
+const ll mxlg=20;
+ll st[N][mxlg];
 void solve(){
     
 }
