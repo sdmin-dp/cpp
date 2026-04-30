@@ -28,7 +28,7 @@ ll query(string s){
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
-        ll op;string s;
+        char op;string s;
         cin>>op>>s;
         if(op=='I') insert(s);
         else cout<<query(s)<<el;
