@@ -18,7 +18,12 @@ void solve(){
             if(t[i]==t[j]) j++;
             nxt[i]=j;
         }
-        
+        j=0;
+        for(int i=0;i<s.size();i++){
+            while(j>0&&t[i]!=t[j]) j=nxt[j-1];
+            if(s[i]==t[j]) j++;
+            
+        }
     }
 }
 int main(){
