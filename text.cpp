@@ -15,6 +15,7 @@ void solve(){
         ll x;cin>>x;
         lm=lcm(lm,x);
     }
+    cout<<lm;
 }
 int main(){
     ios::sync_with_stdio(0);
