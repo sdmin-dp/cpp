@@ -7,7 +7,13 @@ ll n,m;
 vector<ll> g[N];
 ll sum[N];
 ll dfs(ll x,ll fa){
-    if(g[x].size()==1) return 1;
+    if(g[x].size()==1) return sum[x]=1;
+    for(auto i:g[x]){
+        if(i!=fa){
+            sum[x]+=dfs(i,x);
+        }
+    }
+    return sum[x];
 }
 void solve(){
     cin>>n>>m;
