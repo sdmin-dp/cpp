@@ -13,8 +13,8 @@ void solve(){
             return;
         cin>>t;
         ll j=0;
-        for(int i=0;i<t.size();i++){
-            while(t[i]!=t[j]) j=nxt[j-1];
+        for(int i=1;i<t.size();i++){
+            while(j>0&&t[i]!=t[j]) j=nxt[j-1];
             nxt[j]++;
         }
     }
