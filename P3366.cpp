@@ -23,10 +23,17 @@ void solve(){
     for(int i=1;i<=n;i++){
         ll u,v,w;cin>>u>>v>>w;
         g[i].first=w;
-        g[i].second={min(u,v)}
+        g[i].second={min(u,v),max(u,v)};
     }
+    sort(g+1,g+m+1);
+    ll cnt=0,sum=0;
     for(int i=1;i<=m;i++){
+        ll u=g[i].second.first,v=g[i].second.second,w=g[i].first;
+        ll fu=a.find(u),fv=a.find(v);
+        if(fu!=fv){
+            cnt++;
 
+        }
     }
 }
 int main(){
