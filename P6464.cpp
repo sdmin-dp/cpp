@@ -21,10 +21,12 @@ void solve(){
     ll sum=0,ans=0;
     for(int i=1;i<=n;i++){
         for(int j=1;j<=n;j++){
+            cerr<<dis[i][j]<<" ";
             if(dis[i][j]>=0x3f3f3f3f3f3f3f3f) continue;
             sum+=dis[i][j];
             ans=max(ans,dis[i][j]);
         }
+        cerr<<el;
     }
     cout<<sum-ans;
 }
