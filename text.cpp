@@ -1,5 +1,5 @@
 #include<bits/stdc++.h>
-#define ll long long
+#define ll int
 using namespace std;
 #define el '\n'
 const ll N=1e6+5;
