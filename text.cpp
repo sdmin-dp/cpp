@@ -6,8 +6,10 @@ const ll N=1e5+5;
 ll n;
 ll idx;
 ll trie[N][30];
+ll cnt[N];
 void insert(string s){
-
+    ll p;
+    for(auto )
 }
 ll query(string s){
 
