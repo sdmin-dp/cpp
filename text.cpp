@@ -2,7 +2,7 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e5+5;
+const ll N=1e2+5;
 ll n,m;
 ll dis[N][N];
 void solve(){
