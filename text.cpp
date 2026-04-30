@@ -37,7 +37,7 @@ void solve(){
             add(r+1,-k);
         }else{
             cin>>k;
-            cout<<get_sum(1,k)+last<<el;
+            cout<<get_sum(1,k)+a1<<el;
         }
     }
 }
