@@ -12,8 +12,10 @@ void solve(){
     for(int i=1;i<=m;i++){
         ll u,v,w;
         cin>>u>>v>>w;
-        dis[u][v]=w;
-        dis[v][u]=w;
+        if(dis[u][v]!=0x3f3f3f3f3f3f3f3f){
+            dis[u][v]=max(w,dis[u][v]);
+            dis[v][u]=max(w,dis[v][u]);
+        }
     }
     for(int k=1;k<=n;k++)
         for(int i=1;i<=n;i++)
