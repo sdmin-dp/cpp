@@ -12,6 +12,7 @@ void add(ll x,ll y){
     for(int i=x;i<=n;i+=low_bit(i)) tree[i]+=y;
 }
 ll get_sum(ll l,ll r){
+    if(l>r) swap(l,r);
     ll sum1=0,sum2=0;
     for(int i=l-1;i>=1;i-=low_bit(i)) sum1+=tree[i];
     for(int i=r;i>=1;i-=low_bit(i)) sum2+=tree[i];
