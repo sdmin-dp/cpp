@@ -3,18 +3,21 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-ll n;
+ll n,m;
 ll a[N];
 void solve(){
-    cin>>n;
+    cin>>n>>m;
     for(int i=1;i<=n;i++){
         cin>>a[i];
         a[i]+=a[i-1];
     }
     for(int i=1;i<=n;i++){
+        cerr<<a[i]<<" ";
+    }
+    for(int i=1;i<=m;i++){
         ll l,r;
         cin>>l>>r;
-        cout<<a[r]-a[l-1]<<el;
+        cout<<a[r+1]-a[l]<<el;
     }
 }
 int main(){
