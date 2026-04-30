@@ -29,9 +29,10 @@ void solve(){
     }
     for(int i=1;i<=q;i++){
         ll op,l,r,k;
-        cin>>op>>l,r;
-        if(op==1){add(x,y);add()}
-        else cout<<get_sum(x,y)<<el;
+        cin>>op;
+        if(op==1){
+            
+        }
     }
 }
 int main(){
