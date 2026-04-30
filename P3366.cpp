@@ -40,7 +40,7 @@ void solve(){
             return;
         }
     }
-    cout<<
+    cout<<"orz";
 }
 int main(){
     ios::sync_with_stdio(0);
