@@ -2,7 +2,7 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e5+5;
+const ll N=5e4+5;
 ll n,m;
 vector<ll> g[N];
 ll d[N];
@@ -13,13 +13,14 @@ void dfs(ll x,ll f){
     for(int i=1;i<20;i++) up[i][x]=up[i-1][up[i-1][x]];
     for(auto i:g[x]) if(i!=f) dfs(i,x);
 }
-void dfs2(ll x,ll fa,ll res){
+void dfs2(ll x,ll fa){
     for(auto i:g[x]){
         if(i!=fa){
-            ans=max(ans,res+d[i]);
-            dfs2(i,x,res+d[i]);
+            dfs2(i,x);
+            d[x]+=d[i];
         }
     } 
+    ans=max(ans,d[x]);
 }
 ll LCA(ll u,ll v){
     if(dep[u]<dep[v]) swap(v,u);
