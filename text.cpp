@@ -28,7 +28,7 @@ void solve(){
         }
         cout<<el;
     }
-    
+    cerr<<0x3f3f3f3f3f3f3f3f;
 }
 int main(){
     ios::sync_with_stdio(0);
