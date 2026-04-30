@@ -47,7 +47,7 @@ void solve(){
     dfs(1,0);
     for(int i=1;i<=m;i++){
         ll l,r,lca;
-        cin>>l>>r;没捂热乎，账号就没了。
+        cin>>l>>r;
         lca=LCA(l,r);
         d[lca]++;
         for(auto i:g[l]) if(i!=up[0][l]) d[i]--;
