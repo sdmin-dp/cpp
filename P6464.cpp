@@ -8,6 +8,7 @@ ll dis[N][N];
 void solve(){
     cin>>n>>m;
     memset(dis,0x3f,sizeof dis);
+    for(int i=1;i<=n;i++) dis[i][i]=0;
     for(int i=1;i<=m;i++){
         ll u,v,w;cin>>u>>v>>w;
         dis[u][v]=w;
