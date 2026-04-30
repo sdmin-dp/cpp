@@ -9,11 +9,11 @@ ll lcm(ll x,ll y){
 }
 void solve(){
     cin>>n;
-    ll lcm;
-    cin>>lcm;
+    ll lm;
+    cin>>lm;
     for(int i=2;i<=n;i++){
         ll x;cin>>x;
-        lcm=lcm(lcm,x);
+        lm=lcm(lm,x);
     }
 }
 int main(){
