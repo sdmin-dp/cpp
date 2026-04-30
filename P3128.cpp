@@ -50,11 +50,12 @@ void solve(){
         ll l,r,lca;
         cin>>l>>r;
         lca=LCA(l,r);
-        d[lca]++;
-        for(auto i:g[l]) if(i!=up[0][l]) d[i]--;
-        for(auto i:g[r]) if(i!=up[0][r]) d[i]--;
+        d[lca]--;
+        d[up[0][lca]]--;
+        d[l]++;
+        d[r]++;
     }
-    dfs2(1,0,0);
+    dfs2(1,0);
     cout<<ans;
 }
 int main(){
