@@ -4,11 +4,19 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 string s,t;
+ll nxt[N];
 void solve(){
     while(1){
+        memset(nxt,0,sizeof(nxt));
+        cin>>s;
         if(s=="#")
             return;
-        
+        cin>>t;
+        ll j=0;
+        for(int i=0;i<t.size();i++){
+            while(t[i]!=t[j]) j=nxt[j-1];
+            nxt[j]++;
+        }
     }
 }
 int main(){
