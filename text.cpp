@@ -26,7 +26,8 @@ void solve(){
     for(int i=1;i<=q;i++){
         ll op,x,y;
         cin>>op>>x>>y;
-        if(op==1) 
+        if(op==1) add(x,y);
+        else
     }
 }
 int main(){
