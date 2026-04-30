@@ -17,7 +17,7 @@ void SPFA(){
         inq[x]=0;
         q.pop();
         for(auto i:g[x]){
-            if(dis[x]+i.second>dis[i.first]){
+            if(dis[x]+i.second<dis[i.first]){
                 dis[i.first]=dis[x]+i.second;
                 if(!inq[i.first]){
                     inq[i.first]=1;
@@ -33,7 +33,8 @@ void solve(){
         ll u,v,w;cin>>u>>v>>w;
         g[u].push_back({v,w});
     }
-
+    SPFA();
+    for(int i=1;i<=n;i++) cout<<dis[i]<<" ";
 }
 int main(){
     ios::sync_with_stdio(0);
