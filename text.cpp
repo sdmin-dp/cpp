@@ -15,6 +15,9 @@ void solve(){
         if(dis[u][v]!=0x3f3f3f3f3f3f3f3f){
             dis[u][v]=max(w,dis[u][v]);
             dis[v][u]=max(w,dis[v][u]);
+        }else{
+            dis[u][v]=w;
+            dis[v][u]=w;
         }
     }
     for(int i=1;i<=n;i++){
