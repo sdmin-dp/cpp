@@ -4,12 +4,23 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n;
-ll a[N];
+pair<ll,ll> a[N];
+vector<ll> v;
 void solve(){
     cin>>n;
+    for(int i=1;i<=n;i++) a[i].first=1e18;
     for(int i=1;i<=n;i++){
-        cin>>a[i];
+        ll x;
+        cin>>x;
+        a[x].first=min(a[x].first,(ll)(i));
+        a[x].second=max(a[x].second,(ll)(i));
     }
+    v.push_back(0);
+    for(int i=1;i<=n;i++){
+        if(a[i].first!=1e18) v.push_back(a[i].second);
+        if(a[i].second!=0&&a[i].second!=a[i].first) v.push_back(a[i].first); 
+    }
+    n=v.size()-1;
     ll ans=0;
     for(int i=1;i<=n;i++){
         for(int j=n;j>=1;j--){
