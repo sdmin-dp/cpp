@@ -26,7 +26,7 @@ void solve(){
         for(int j=1;j<=n;j++){
             cout<<dis[i][j]<<" ";
         }
-        cerr<<el;
+        cout<<el;
     }
     
 }
