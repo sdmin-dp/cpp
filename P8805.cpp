@@ -32,7 +32,7 @@ void dfs2(ll x,ll fa){
     for(auto i:g[x]){
         if(i!=fa){
             sum[i]=sum[x]+g[i].size();
-            dfs(i,x);
+            dfs2(i,x);
         }
     }
 }
