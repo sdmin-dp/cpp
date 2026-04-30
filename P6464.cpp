@@ -28,6 +28,7 @@ void solve(){
         }
         cerr<<el;
     }
+    cerr<<sum<<" "<<ans;
     cout<<sum-ans;
 }
 int main(){
