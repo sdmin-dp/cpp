@@ -2,10 +2,11 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e5+5;
+const ll mod2=1e5+5;
+const ll mod=1e5+1;
 ll n,m;
 void solve(){
-    n=rand(),m=rand();
+    n=rand()%,m=rand();
 }
 int main(){
     ios::sync_with_stdio(0);
