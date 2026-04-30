@@ -46,7 +46,10 @@ void solve(){
     sum[1]=g[1].size();
     dfs(1,0);
     for(int i=1;i<=m;i++){
-        
+        ll l,r;
+        cin>>l>>r;
+        ll lca=LCA(l,r);
+        cout<<(sum[l]-sum[lca]+sum[r]-sum[lca]+g[lca].size())<<el;
     }
 }
 int main(){
