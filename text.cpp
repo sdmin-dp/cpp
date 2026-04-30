@@ -27,7 +27,7 @@ void solve(){
         ll op,x,y;
         cin>>op>>x>>y;
         if(op==1) add(x,y);
-        else
+        else cout<<get_sum(x,y);
     }
 }
 int main(){
