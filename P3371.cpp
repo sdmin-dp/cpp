@@ -14,6 +14,7 @@ void dijkstra(){
     dis[b]=0;
     while(!q.empty()){
         auto x=q.top();
+        q.pop();
         swap(x.first,x.second);
         if(x.second>dis[x.first]) continue;
         for(auto i:g[x.first]){
@@ -30,7 +31,7 @@ void solve(){
         ll u,v,w;cin>>u>>v>>w;
         g[u].push_back({v,w});
     }
-    // dijkstra();
+    dijkstra();
     for(int i=1;i<=n;i++) cout<<dis[i]<<" ";
 }
 int main(){
