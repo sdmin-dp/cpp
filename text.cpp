@@ -4,7 +4,7 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll idx;
-ll tr
+ll trie[N][30];
 void solve(){
     
 }
