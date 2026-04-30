@@ -10,7 +10,7 @@ ll lg[N];
 void init(){
     for(int i=2;i<=n;i++) lg[i]=lg[i/2]+1;
     for(int i=1;i<=mxlog;i++){
-        for(int j=1;j+(1<<i)<=n;j++){
+        for(int j=1;j+(1<<i)-1<=n;j++){
             st[j][i]=max(st[j][i-1],st[j+(1<<i-1)][i-1]);
         }
     }
