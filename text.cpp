@@ -24,7 +24,9 @@ void solve(){
         add(i,x);
     }
     for(int i=1;i<=q;i++){
-        i()
+        ll op,x,y;
+        cin>>op>>x>>y;
+        if(op==1) 
     }
 }
 int main(){
