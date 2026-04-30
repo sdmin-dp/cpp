@@ -16,7 +16,8 @@ void init(){
     }
 }
 void query(ll l,ll r){
-    
+    ll k=lg[r-l+1];
+    return max(st[l][k-1],st[r-(1<<k-1)+1][k-1]);
 }
 void solve(){
     cin>>n>>m;
