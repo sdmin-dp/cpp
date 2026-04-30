@@ -8,8 +8,10 @@ vector<ll> g[N];
 ll d[N];
 void solve(){
     cin>>n>>m;
-    for(int i=1;i<=m;i++){
-        
+    for(int i=1;i<n;i++){
+        ll x,y;cin>>x>>y;
+        g[x].push_back(y);
+        g[y].push_back(x);
     }
 }
 int main(){
