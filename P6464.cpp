@@ -29,7 +29,7 @@ void solve(){
         }
         cerr<<el;
     }
-    cerr<<sum<<" "<<ans;
+    cerr<<sum/2<<" "<<ans;
     cout<<sum-ans;
 }
 int main(){
