@@ -4,7 +4,13 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll low_bit(ll x){
-    return ()
+    return (x&(-x));
+}
+ll n;
+void add(ll x,ll y){
+    for(int i=x;i<=n;i+=low_bit(i)){
+
+    }
 }
 void solve(){
     
