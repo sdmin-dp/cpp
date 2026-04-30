@@ -9,6 +9,7 @@ void solve(){
     cin>>n;
     cout<<n;
     
+    
 }
 int main(){
     ios::sync_with_stdio(0);
