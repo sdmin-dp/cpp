@@ -8,8 +8,13 @@ ll idx;
 ll trie[N][30];
 ll cnt[N];
 void insert(string s){
-    ll p;
-    for(auto )
+    ll p=0;
+    for(auto &i:s){
+        ll x=i-'a';
+        if(trie[p][x]!=0) p=trie[p][x];
+        else p=++idx;
+    }
+    
 }
 ll query(string s){
 
