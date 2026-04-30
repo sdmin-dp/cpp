@@ -25,7 +25,11 @@ void solve(){
         cin>>st[i][0];
     }
     init();
-    
+    for(int i=1;i<=m;i++){
+        ll l,r;
+        cin>>l>>r;
+        cout<<query(l,r)<<el;
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
