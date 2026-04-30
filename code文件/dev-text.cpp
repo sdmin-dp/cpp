@@ -43,4 +43,3 @@ int main(){
     }
     return 0;
 }
-한국어  中文  فارسی  English  ไทย
