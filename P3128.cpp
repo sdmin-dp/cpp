@@ -7,7 +7,6 @@ ll n,m;
 vector<ll> g[N];
 ll d[N];
 ll dep[N],up[22][N];
-vector<ll> g[N];
 ll ans;
 void dfs(ll x,ll f){
     dep[x]=dep[f]+1;up[0][x]=f;
