@@ -32,7 +32,11 @@ void solve(){
         ll fu=a.find(u),fv=a.find(v);
         if(fu!=fv){
             cnt++;
-
+            sum+=w;
+            a.fa[fu]=fv;
+        }
+        if(cnt==n-1){
+            cout<<
         }
     }
 }
