@@ -3,9 +3,11 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+ll low_bit(ll x){
+    return ()
+}
 void solve(){
-    cout<<(8&(-8));
+    
 }
 int main(){
     ios::sync_with_stdio(0);
