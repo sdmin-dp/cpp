@@ -3,13 +3,14 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
-
+ll n,m;
 void solve(){
-    
+    n=rand(),m=rand();
 }
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
+    srand(time(0));
     //freopen("xxx.in","r",stdin);
     //freopen("xxx.out","w",stdout);
     ll T=1;
