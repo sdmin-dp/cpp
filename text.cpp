@@ -24,7 +24,7 @@ void solve(){
                 cnt++;
             }
         }
-        cout<<cnt;
+        cout<<cnt<<el;
     }
     
 }
