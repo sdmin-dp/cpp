@@ -38,8 +38,12 @@ void solve(){
         cin>>u>>v>>w;
         g[v].push_back({u,w});
     }
-    bool f=
+    for(int i=1;i<=n;i++) g[0].push_back({i,0});
+    bool flag=SPFA();
+    if(!flag) cout<<"NO";
+    else for(int i=1;i<=n;i++) cout<<dis[i]<<" ";
 }
+
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
