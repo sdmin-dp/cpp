@@ -19,11 +19,16 @@ void solve(){
             nxt[i]=j;
         }
         j=0;
+        ll cnt=0;
         for(int i=0;i<s.size();i++){
             while(j>0&&s[i]!=t[j]) j=nxt[j-1];
             if(s[i]==t[j]) j++;
-            
+            if(j==t.size()){
+                j=0;
+                cnt++;
+            }
         }
+        cout<<cnt;
     }
 }
 int main(){
