@@ -49,7 +49,7 @@ void solve(){
         ll l,r,lca;
         cin>>l>>r;
         lca=LCA(l,r);
-        d[lca'++;
+        d[lca]++;
         for(auto i:g[l]) if(i!=up[0][l]) d[i]--;
         for(auto i:g[r]) if(i!=up[0][r]) d[i]--;
     }
