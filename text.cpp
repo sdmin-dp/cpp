@@ -2,7 +2,7 @@
 #define ll int
 using namespace std;
 #define el '\n'
-const ll N=1e6+5;
+const ll N=1e5+5;
 const ll mxlog=20;
 ll n,m;
 ll st[N][mxlog];
