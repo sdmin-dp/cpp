@@ -3,10 +3,15 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
+ll n;
 ll idx;
 ll trie[N][30];
 void solve(){
-    
+    cin>>n;
+    for(int i=1;i<=n;i++){
+        ll op;string s;
+        cin>>op>>s;
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
