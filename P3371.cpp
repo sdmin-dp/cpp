@@ -6,12 +6,26 @@ const ll N=1e5+5;
 ll n,m,b;
 ll dis[N];
 vector<pair<ll,ll>> g[N];
+bool inq[N];
 void SPFA(){
     queue<ll> q;
     for(int i=1;i<=n;i++) dis[i]=(1<<31)-1;
     q.push(b);
     dis[b]=0;
-    while(!q.empy)
+    while(!q.empty()){
+        auto x=q.front();
+        inq[x]=0;
+        q.pop();
+        for(auto i:g[x]){
+            if(dis[x]+i.second>dis[i.first]){
+                dis[i.first]=dis[x]+i.second;
+                if(!inq[i.first]){
+                    inq[i.first]=1;
+                    q.push(i.first);
+                }
+            }
+        }
+    }
 }
 void solve(){
     cin>>n>>m>>b;
