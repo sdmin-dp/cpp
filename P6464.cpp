@@ -20,17 +20,23 @@ void solve(){
                 if(dis[i][k]+dis[k][j]<dis[i][j])
                     dis[i][j]=dis[i][k]+dis[k][j];
     ll sum=0,ans=0;
+    ll idx=0,idy=0;
     for(int i=1;i<=n;i++){
         for(int j=1;j<=n;j++){
-            cerr<<dis[i][j]<<" ";
+            // cerr<<dis[i][j]<<" ";
             if(dis[i][j]>=0x3f3f3f3f3f3f3f3f) continue;
-            sum+=dis[i][j];
-            ans=max(ans,dis[i][j]);
+            if(dis[i][j]>ans){
+                ans=dis[i][j];
+                idx=i,idy=j;
+            }
+            
         }
-        cerr<<el;
+        // cerr<<el;
     }
-    cerr<<sum/2<<" "<<ans;
-    cout<<sum/2-ans;
+    dis[idx][idy]=0;
+    
+    // cerr<<sum/2<<" "<<ans;
+    // cout<<sum/2-ans;
 }
 int main(){
     ios::sync_with_stdio(0);
