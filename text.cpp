@@ -15,8 +15,10 @@ void solve(){
         ll j=0;
         for(int i=1;i<t.size();i++){
             while(j>0&&t[i]!=t[j]) j=nxt[j-1];
-            nxt[j]++;
+            if(t[i]==t[j]) j++;
+            nxt[i]=j;
         }
+        
     }
 }
 int main(){
