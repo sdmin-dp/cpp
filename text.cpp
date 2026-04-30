@@ -10,7 +10,7 @@ vector<pair<ll,ll>> g[N];
 priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;
 void dijkstra(){
     q.push({0,b});
-    memset(dis,0x3f,sizeof dis);
+    for(int i=1;i<=n;i++) dis[i]=(1<<31)-1;
     dis[b]=0;
     while(!q.empty()){
         auto x=q.top();
@@ -30,7 +30,8 @@ void solve(){
         ll u,v,w;cin>>u>>v>>w;
         g[u].push_back({v,w});
     }
-
+    dijkstra();
+    
 }
 int main(){
     ios::sync_with_stdio(0);
