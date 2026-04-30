@@ -31,7 +31,7 @@ void solve(){
         ll op;string s;
         cin>>op>>s;
         if(op=='I') insert(s);
-        else cout<<query(s);
+        else cout<<query(s)<<el;
     }
 }
 int main(){
