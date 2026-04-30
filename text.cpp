@@ -10,7 +10,7 @@ void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
         ll op;string s;
-        cin>>op>>s;
+        cin>>op>输出格式>s;
     }
 }
 int main(){
