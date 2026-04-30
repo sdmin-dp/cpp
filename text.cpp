@@ -16,7 +16,6 @@ void dijkstra(){
         auto x=q.top();
         swap(x.first,x.second);
         if(x.second>dis[x.first]) continue;
-        dis[x.first]=x.second;
         for(auto i:g[x.first]){
             if(dis[x.first]+i.second>dis[i.first]){
                 dis[i.first]=dis[x.first]+i.second;
