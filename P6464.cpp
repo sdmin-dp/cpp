@@ -7,7 +7,10 @@ ll n,m;
 ll dis[N][N];
 void solve(){
     cin>>n>>m;
-    for(int i=1;i<=m;i++) 
+    for(int i=1;i<=m;i++){
+        ll u,v,w;cin>>u>>v>>w;
+        dis[u][v]
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
