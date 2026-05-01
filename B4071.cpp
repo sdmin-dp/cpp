@@ -4,11 +4,11 @@ using namespace std;
 #define el '\n'
 const ll N=1e3+5;
 ll n;
-ll a[N];
+pair<ll,ll> a[N];
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
-        cin>>a[i];
+        cin>>a[i].first>>a[i].second;
     }
     
 }
