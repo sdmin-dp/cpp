@@ -22,8 +22,8 @@ void solve(){
         ll sum=cnt[1],num=0;
         for(int j=2;j<=n;j++){
             if(cnt[j]>=i){
-                sum+=cnt[j]-i;
-                for(int k=0;k<cnt[j]-i;k++){
+                sum+=cnt[j]-i+1;
+                for(int k=0;k<=cnt[j]-i;k++){
                     num+=v[j][k];
                 }
             }
