@@ -33,7 +33,7 @@ void solve(){
         for(int j=0;j<i-cnt;j++){
             sum+=v2[j];
         }
-        // ans=min(ans,sum);
+        ans=min(ans,sum);
     }
     cout<<ans;
 }
