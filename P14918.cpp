@@ -8,7 +8,7 @@ ll a[N];
 vector<ll> v[N];
 ll fenjie(ll x){
     ll k=x;
-    for(ll i=1;i*i<=k;i++){
+    for(ll i=2;i*i<=k;i++){
         ll cnt=0;
         while(k%i==0){
             cnt++;
