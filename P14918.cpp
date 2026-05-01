@@ -47,7 +47,7 @@ void solve(){
         }
         ans+=(n-v[i].size())*mid;
     }
-    // cout<<ans+3;
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
