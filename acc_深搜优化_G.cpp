@@ -13,9 +13,9 @@ void solve(){
         sum+=a[i];
     }
     sort(a+1,a+n+1,greater<ll>());
-    for(int i=n;i>=1;i--){
+    for(int i=1;i<=sum;i++){
         if(sum%i!=0) continue;
-        
+        dfs();
     }
 }
 int main(){
