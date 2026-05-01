@@ -27,7 +27,7 @@ void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
         cin>>a[i];
-        fenjie(a[i]);
+        // fenjie(a[i]);
     }
     ll ans=0;
     for(int i=1;i<=mx;i++){
