@@ -17,7 +17,7 @@ void solve(){
     }
     ll ans=1e18;
     vector<ll> v2;
-    for(int i=v[1].size();i<=m;i++){
+    for(int i=max(v[1].size(),size_t(1));i<=m;i++){
         ll sum=0,cnt=v[1].size();
         v2.clear();
         for(int j=2;j<=n;j++){
