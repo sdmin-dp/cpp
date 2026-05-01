@@ -13,14 +13,17 @@ void dfs(ll le,ll len,ll tar){
         exit(0);
     }
     if(len==tar) dfs(le-1,0,tar);
+    ll last=0;
     for(int i=1;i<=n;i++){
         if(vis[i]) continue;
         if(len+a[i]>tar) continue;
         vis[i]=1;
         dfs(le,len+a[i],tar);
         vis[i]=0;
+        last=a[i];
+        while(a[i]==last) i++;
+        i--;
     }
-    
 }
 void solve(){
     cin>>n;
