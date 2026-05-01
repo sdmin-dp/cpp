@@ -8,7 +8,7 @@ pair<ll,ll> a[N];
 vector<ll> v[N];
 void solve(){
     cin>>n>>m;
-    for(int i=1;i<=n;i++){
+    for(int i=1;i<=m;i++){
         cin>>a[i].first>>a[i].second;
         v[a[i].first].push_back(a[i].second);
     }
