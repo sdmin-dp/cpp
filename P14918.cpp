@@ -26,7 +26,13 @@ void solve(){
         cin>>a[i];
         fenjie(a[i]);
     }
-    
+    for(int i=1;i<10;i++){
+        cerr<<i<<":";
+        for(auto j:v[i]){
+            cerr<<j<<" ";
+        }
+        cerr<<el;
+    }
     // ll ans=0;
     // for(int i=0;i<N-5;i++){
     //     sort(v[i].begin(),v[i].end());
