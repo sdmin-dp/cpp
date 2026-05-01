@@ -36,13 +36,12 @@ void solve(){
         sum+=a[i];
     }
     sort(a+1,a+n+1,greater<ll>());
-    for(int i=1;i<=n;i++){
+    for(int i=n;i>=1;i--){
         memset(sz,0,sizeof(sz));
         if(sum%i!=0) continue;
         ll len=sum/i;
         // cerr<<len<<el;
-        dfs(i,len,1);
-        
+        if(dfs(i,len,1)) break;        
         // cerr<<el;
     }
     cout<<ans;
