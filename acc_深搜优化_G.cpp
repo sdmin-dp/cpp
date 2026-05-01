@@ -20,7 +20,7 @@ bool dfs(ll num,ll len,ll x){
         return 1;
     }
     for(int i=1;i<=num;i++){
-        if(!vis[i]&&sz[i]+a[x]<=len){
+        if(!vis[x]&&sz[i]+a[x]<=len){
             vis[x]=1;
             sz[i]+=a[x];
             bool f=dfs(num,len,x+1);
