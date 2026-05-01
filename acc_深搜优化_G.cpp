@@ -12,7 +12,10 @@ void dfs(ll le,ll len,ll tar,ll cur){
         cout<<tar;
         exit(0);
     }
-    if(len==tar) dfs(le-1,0,tar,1);
+    if(len==tar){
+        dfs(le-1,0,tar,1);
+        return;
+    }
     ll last=0;
     for(int i=cur;i<=n;i++){
         if(vis[i]) continue;
