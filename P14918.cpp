@@ -26,13 +26,13 @@ void solve(){
         cin>>a[i];
         fenjie(a[i]);
     }
-    // for(int i=1;i<10;i++){
-    //     cerr<<i<<":";
-    //     for(auto j:v[i]){
-    //         cerr<<j<<" ";
-    //     }
-    //     cerr<<el;
-    // }
+    for(int i=1;i<10;i++){
+        cerr<<i<<":";
+        for(auto j:v[i]){
+            cerr<<j<<" ";
+        }
+        cerr<<el;
+    }
     ll ans=0;
     for(int i=0;i<N;i++){
         if(v[i].empty()) continue;
@@ -40,7 +40,7 @@ void solve(){
         ll mid;
         if(v[i].size()*2<=n) mid=0; 
         else mid=v[i][v[i].size()-n+n/2];
-        cerr<<i<<":"<<mid<<"\n";
+        // cerr<<i<<":"<<mid<<"\n";
         for(auto j:v[i]){
             ans+=abs(j-mid);
         }
