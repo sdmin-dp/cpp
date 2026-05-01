@@ -21,13 +21,13 @@ bool dfs(ll num,ll len,ll x){
     }
     for(int i=1;i<=num;i++){
         if(!vis[i]&&sz[i]+a[x]<=len){
-            vis[i]=1;
+            vis[x]=1;
             sz[i]+=a[x];
             bool f=dfs(num,len,x+1);
             if(f) return 1;
             // if(sz[i]==a[x]&&!f) return 0;
             sz[i]-=a[x];
-            vis[i]=0;
+            vis[x]=0;
         }
     }
     return 0;
