@@ -6,7 +6,7 @@ const ll N=1e5+5;
 ll n;
 ll a[N];
 vector<ll> v[N];
-ll fenjie(ll x){
+void fenjie(ll x){
     ll k=x;
     for(ll i=2;i*i<=k;i++){
         ll cnt=0;
