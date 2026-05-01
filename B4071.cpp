@@ -21,7 +21,7 @@ void solve(){
         ll sum=0,cnt=v[1].size();
         v2.clear();
         for(int j=2;j<=n;j++){
-            ll ned=max(0ll,(ll)(v[i].size()-i));
+            ll ned=max(0ll,(ll)(v[i].size()-i+1));
             cnt+=ned;
             for(ll k=0;k<ned;k++)
                 sum+=v[j][k];
