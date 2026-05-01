@@ -23,14 +23,14 @@ void solve(){
         for(int j=2;j<=n;j++){
             ll ned=max(size_t(0),v[i].size()-i+1);
             cnt+=ned;
-            // for(ll k=0;k<ned;k++)
-        //         sum+=v[j][k];
-        //     for(ll k=ned;k<v[j].size();k++)
-        //         v2.push_back(v[j][k]);
-        // }
-        // if(v2.size()+cnt<i) continue;
-        // sort(v2.begin(),v2.end());
-        // for(int j=0;j<i-cnt;j++){
+            for(ll k=0;k<ned;k++)
+                sum+=v[j][k];
+            for(ll k=ned;k<v[j].size();k++)
+                v2.push_back(v[j][k]);
+        }
+        if(v2.size()+cnt<i) continue;
+        sort(v2.begin(),v2.end());
+        for(int j=0;j<i-cnt;j++){
         //     sum+=v2[j];
         }
         // ans=min(ans,sum);
