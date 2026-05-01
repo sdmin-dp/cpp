@@ -26,15 +26,16 @@ void solve(){
         cin>>a[i];
         fenjie(a[i]);
     }
-    ll ans=0;
-    for(int i=0;i<N-5;i++){
-        sort(v[i].begin(),v[i].end());
-        ll mid=v[i][v[i].size()/2+1];
-        for(auto &i:v[i]){
-            ans+=abs(i-mid);
-        }
-    }
-    cout<<ans;
+    
+    // ll ans=0;
+    // for(int i=0;i<N-5;i++){
+    //     sort(v[i].begin(),v[i].end());
+    //     ll mid=v[i][v[i].size()/2+1];
+    //     for(auto &i:v[i]){
+    //         ans+=abs(i-mid);
+    //     }
+    // }
+    // cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
