@@ -27,12 +27,14 @@ void dfs(ll le,ll len,ll tar,ll cur){
 }
 void solve(){
     cin>>n;
+    ll mx=0;
     for(int i=1;i<=n;i++){
         cin>>a[i];
         sum+=a[i];
+        mx=max(a[i],mx);
     }
     sort(a+1,a+n+1,greater<ll>());
-    for(int i=1;i<=sum;i++){
+    for(int i=mx;i<=sum;i++){
         if(sum%i!=0) continue;
         dfs(sum/i,0,i,1);
     }
