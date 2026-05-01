@@ -32,10 +32,10 @@ void solve(){
         sort(v2.begin(),v2.end());
         for(int j=0;j<i-cnt;j++){
             sum+=v2[j];
-            cerr<<v2[j]/*<<" "<<sum*/<<el;
+            cerr<<v2[j]<<" "<<sum<<el;
         }
         // cerr<<sum<<" "<<cnt<<el;
-        ans=min(ans,sum);
+        // ans=min(ans,sum);
     }
     cout<<ans;
 }
