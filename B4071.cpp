@@ -17,11 +17,11 @@ void solve(){
     }
     ll ans=1e18;
     vector<ll> v2;
-    for(int i=max(v[1].size(),size_t(1));i<=m;i++){
+    for(int i=max((ll)(v[1].size()),1ll);i<=m;i++){
         ll sum=0,cnt=v[1].size();
         v2.clear();
         for(int j=2;j<=n;j++){
-            ll ned=max(size_t(0),v[i].size()-i+1);
+            ll ned=max(0ll,(ll)(v[i].size()-i+1));
             cnt+=ned;
             for(ll k=0;k<ned;k++)
                 sum+=v[j][k];
@@ -35,7 +35,7 @@ void solve(){
             cerr<<v2[j]/*<<" "<<sum*/<<el;
         }
         // cerr<<sum<<" "<<cnt<<el;
-        ans=min(ans,sum);
+        // ans=min(ans,sum);
     }
     cout<<ans;
 }
