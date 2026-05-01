@@ -14,7 +14,7 @@ void dfs(ll le,ll len,ll tar,ll cur){
     }
     if(len==tar) dfs(le-1,0,tar,1);
     ll last=0;
-    for(int i=1;i<=n;i++){
+    for(int i=cur;i<=n;i++){
         if(vis[i]) continue;
         if(len+a[i]>tar) continue;
         vis[i]=1;
