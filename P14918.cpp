@@ -6,13 +6,11 @@ const ll N=1e5+5;
 ll n;
 ll a[N];
 vector<ll> v[N];
-ll mx;
 ll fenjie(ll x){
     ll k=x;
     for(ll i=1;i*i<=k;i++){
         ll cnt=0;
         while(k%i==0){
-            mx=max(mx,i);
             cnt++;
             k/=i;
         }
@@ -20,17 +18,16 @@ ll fenjie(ll x){
     }
     if(k){
         v[k].push_back(1);
-        mx=max(mx,k);
     }
 }
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
         cin>>a[i];
-        // fenjie(a[i]);
+        fenjie(a[i]);
     }
     ll ans=0;
-    for(int i=1;i<=mx;i++){
+    for(int i=0;i<N-5;i++){
         sort(v[i].begin(),v[i].end());
         ll mid=v[i][v[i].size()/2+1];
         for(auto &i:v[i]){
