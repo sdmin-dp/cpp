@@ -23,6 +23,7 @@ void dfs(ll le,ll len,ll tar,ll cur){
         vis[i]=1;
         dfs(le,len+a[i],tar,i+1);
         vis[i]=0;
+        if(len==0||len+a[i]==tar) return; 
         last=a[i];
         while(a[i]==last) i++;
         i--;
