@@ -18,7 +18,7 @@ void solve(){
         sort(v[i].begin(),v[i].end());
     }
     ll ans=1e18;
-    for(int i=1;i<=n;i++){
+    for(int i=1;i<=m;i++){
         ll sum=cnt[1],num=0;
         for(int j=2;j<=n;j++){
             if(cnt[j]>=i){
