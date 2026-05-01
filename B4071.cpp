@@ -28,10 +28,10 @@ void solve(){
                 for(int k=0;k<=cnt[j]-i;k++){
                     num+=v[j][k];
                 }
-                for(int k=cnt[j]-i+1;k<v[j].size();k++){
+            }
+            for(int k=cnt[j]-i+1;k<v[j].size();k++){
                     v2.push_back(v[j][k]);
                 }
-            }
         }
         if(v2.size()+sum<i) continue;
         sort(v2.begin(),v2.end());
