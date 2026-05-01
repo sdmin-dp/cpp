@@ -5,13 +5,11 @@ using namespace std;
 const ll N=1e3+5;
 ll n,m;
 pair<ll,ll> a[N];
-ll cnt[N];
 vector<ll> v[N];
 void solve(){
     cin>>n>>m;
     for(int i=1;i<=n;i++){
         cin>>a[i].first>>a[i].second;
-        cnt[a[i].first]++;
         v[a[i].first].push_back(a[i].second);
     }
     for(int i=1;i<=n;i++){
@@ -19,30 +17,21 @@ void solve(){
     }
     ll ans=1e18;
     vector<ll> v2;
-    for(int i=max(1ll,cnt[1]);i<=m;i++){
-        ll sum=cnt[1],num=0;
+    for(int i=v[1].size();i<=m;i++){
+        ll sum=0,cnt=v[1].size();
         v2.clear();
         for(int j=2;j<=n;j++){
-            if(cnt[j]>=i){
-                sum+=cnt[j]-i+1;
-                for(int k=0;k<=cnt[j]-i;k++){
-                    num+=v[j][k];
-                }
-                for(int k=cnt[j]-i+1;k<v[j].size();k++){
-                    v2.push_back(v[j][k]);
-                }
-            }else{
-                for(int k=0;k<v[j].size();k++){
-                    v2.push_back(v[j][k]);
-                }
-            }
+            ll ned=max(size_t(0),v[i].size()-i+1);
+            cnt+=ned;
+            for(ll k=0;k<ned;k++)
+                sum+=v[j][k];
+            for(ll k=ned;k<v[j].size();k++)
+                v2.push_back(v[j][k]);
         }
-        if(v2.size()+sum<i) continue;
+        if(v2.size()+cnt<i) continue;
         sort(v2.begin(),v2.end());
-        for(auto k:v2){
-            if(sum>=i) break;
-            num+=k;
-            sum++;
+        for(int j=0;j<i-cnt;j++){
+            sum+=v2[j];
         }
         ans=min(ans,sum);
     }
