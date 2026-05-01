@@ -45,7 +45,7 @@ void solve(){
             ans+=abs(j-mid);
         }
     }
-    cout<<ans+2;
+    cout<<ans+3;
 }
 int main(){
     ios::sync_with_stdio(0);
