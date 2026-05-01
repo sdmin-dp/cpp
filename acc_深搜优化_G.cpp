@@ -18,6 +18,7 @@ void dfs(ll le,ll len,ll tar,ll cur){
     }
     ll last=0;
     for(int i=cur;i<=n;i++){
+        if(a[i]==last) continue;
         if(vis[i]) continue;
         if(len+a[i]>tar) continue;
         vis[i]=1;
@@ -25,8 +26,8 @@ void dfs(ll le,ll len,ll tar,ll cur){
         vis[i]=0;
         if(len==0||len+a[i]==tar) return; 
         last=a[i];
-        while(a[i]==last) i++;
-        i--;
+        // while(a[i]==last) i++;
+        // i--;
     }
 }
 void solve(){
