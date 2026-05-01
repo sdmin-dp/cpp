@@ -7,18 +7,18 @@ ll n;
 ll a[N];
 ll sum;
 bool vis[N];
-void dfs(ll le,ll len,ll tar){
+void dfs(ll le,ll len,ll tar,ll cur){
     if(le==0){
         cout<<tar;
         exit(0);
     }
-    if(len==tar) dfs(le-1,0,tar);
+    if(len==tar) dfs(le-1,0,tar,1);
     ll last=0;
     for(int i=1;i<=n;i++){
         if(vis[i]) continue;
         if(len+a[i]>tar) continue;
         vis[i]=1;
-        dfs(le,len+a[i],tar);
+        dfs(le,len+a[i],tar,i+1);
         vis[i]=0;
         last=a[i];
         while(a[i]==last) i++;
@@ -34,7 +34,7 @@ void solve(){
     sort(a+1,a+n+1,greater<ll>());
     for(int i=1;i<=sum;i++){
         if(sum%i!=0) continue;
-        dfs(sum/i,0,i);
+        dfs(sum/i,0,i,1);
     }
 }
 int main(){
