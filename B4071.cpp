@@ -18,17 +18,29 @@ void solve(){
         sort(v[i].begin(),v[i].end());
     }
     ll ans=1e18;
+    vector<ll> v2;
     for(int i=max(1ll,cnt[1]);i<=m;i++){
         ll sum=cnt[1],num=0;
+        v2.clear();
         for(int j=2;j<=n;j++){
             if(cnt[j]>=i){
                 sum+=cnt[j]-i+1;
                 for(int k=0;k<=cnt[j]-i;k++){
                     num+=v[j][k];
                 }
+                for(int k=cnt[j]-i+1;k<v[j].size();k++){
+                    v2.push_back(v[j][k]);
+                }
             }
         }
-        if(sum>=i) ans=min(ans,num);
+        if(v2.size()+sum<i) continue;
+        sort(v2.begin(),v2.end());
+        for(auto k:v2){
+            if(sum>=i) break;
+            num+=k;
+            sum++;
+        }
+        ans=min(ans,sum);
     }
     cout<<ans;
 }
