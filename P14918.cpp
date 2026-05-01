@@ -14,7 +14,7 @@ void fenjie(ll x){
             cnt++;;
             k/=i;
         }
-        // v[i].push_back(cnt);
+        if(cnt) v[i].push_back(cnt);
     }
     if(k>1){
         v[k].push_back(1);
