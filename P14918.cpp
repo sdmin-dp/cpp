@@ -45,6 +45,7 @@ void solve(){
         for(auto j:v[i]){
             ans+=abs(j-mid);
         }
+        ans+=(n/2-v[i].size())*mid;
     }
     cout<<ans+3;
 }
