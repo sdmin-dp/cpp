@@ -34,7 +34,7 @@ void solve(){
             sum+=v2[j];
             cerr<<v2[j]<<" "<<sum<<el;
         }
-        // cerr<<sum<<" "<<cnt<<el;
+        cerr<<sum<<" "<<cnt<<el;
         ans=min(ans,sum);
     }
     cout<<ans;
