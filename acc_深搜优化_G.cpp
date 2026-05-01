@@ -6,6 +6,7 @@ const ll N=50+5;
 ll n;
 ll a[N],sum,ans=1e12;
 ll sz[N];
+bool vis[N];
 bool dfs(ll num,ll len,ll x){
     if(x==n+1){
         // for(int j=1;j<=num;j++) cerr<<sz[j]<<" "; 
@@ -19,12 +20,14 @@ bool dfs(ll num,ll len,ll x){
         return 1;
     }
     for(int i=1;i<=num;i++){
-        if(sz[i]+a[x]<=len){
+        if(!vis[i]&&sz[i]+a[x]<=len){
+            vis[i]=1;
             sz[i]+=a[x];
             bool f=dfs(num,len,x+1);
             if(f) return 1;
             // if(sz[i]==a[x]&&!f) return 0;
             sz[i]-=a[x];
+            vis[i]=0;
         }
     }
     return 0;
