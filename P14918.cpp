@@ -37,7 +37,7 @@ void solve(){
     for(int i=0;i<N;i++){
         if(v[i].empty()) continue;
         sort(v[i].begin(),v[i].end());
-        ll mid=v[i][v[i].size()/2];
+        ll mid=v[i][v[i].size()-n/2];
         for(auto j:v[i]){
             ans+=abs(j-mid);
         }
