@@ -6,6 +6,22 @@ const ll N=1e5+5;
 ll n;
 ll a[N];
 ll sum;
+bool vis[N];
+void dfs(ll le,ll len,ll tar){
+    if(le==0){
+        cout<<tar;
+        exit(0);
+    }
+    if(len==tar) dfs(le-1,0,tar);
+    for(int i=1;i<=n;i++){
+        if(vis[i]) continue;
+        if(len+a[i]>tar) continue;
+        vis[i]=1;
+        dfs(le,len+a[i],tar);
+        vis[i]=0;
+    }
+    
+}
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
@@ -15,7 +31,7 @@ void solve(){
     sort(a+1,a+n+1,greater<ll>());
     for(int i=1;i<=sum;i++){
         if(sum%i!=0) continue;
-        dfs();
+        dfs(sum/i,0,i);
     }
 }
 int main(){
