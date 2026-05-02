@@ -14,7 +14,7 @@ void solve(){
         cin>>a[i].x>>a[i].y>>a[i].h;
     for(int cx=1;cx<=100;cx++){
         for(int cy=1;cy<=100;cy++){
-            ll h=abs(a[1].x-cx)+abs(a[1].y-cy);
+            ll h=a[1].h-abs(a[1].x-cx)+abs(a[1].y-cy);
             bool f=1;
             for(int i=2;i<=n;i++){
                 ll k=abs(a[i].x-cx)+abs(a[i].y-cy);
