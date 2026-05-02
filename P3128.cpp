@@ -2,15 +2,25 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e5+5;
+const ll N=5e4+5;
 ll n,m;
 vector<ll> g[N];
-ll dep[N],up[25][N];
-ll fa[N];
+ll d[N];
+ll dep[N],up[22][N];
+ll ans;
 void dfs(ll x,ll f){
     dep[x]=dep[f]+1;up[0][x]=f;
     for(int i=1;i<20;i++) up[i][x]=up[i-1][up[i-1][x]];
     for(auto i:g[x]) if(i!=f) dfs(i,x);
+}
+void dfs2(ll x,ll fa){
+    for(auto i:g[x]){
+        if(i!=fa){
+            dfs2(i,x);
+            d[x]+=d[i];
+        }
+    } 
+    ans=max(ans,d[x]);
 }
 ll LCA(ll u,ll v){
     if(dep[u]<dep[v]) swap(v,u);
@@ -29,32 +39,24 @@ ll LCA(ll u,ll v){
     return up[0][u];
 }
 void solve(){
-    cin>>n;
-    fa[0]=-1;
+    cin>>n>>m;
     for(int i=1;i<n;i++){
-        ll x;
-        cin>>x;
-        fa[i]=x;
-        g[i].push_back(x);
-        g[x].push_back(i);
+        ll x,y;cin>>x>>y;
+        g[x].push_back(y);
+        g[y].push_back(x);
     }
-    dfs(0,-1);
-    cin>>m;
+    dfs(1,0);
     for(int i=1;i<=m;i++){
-        ll len,x,lca;
-        cin>>len>>lca;
-        for(int j=2;j<=len;j++){
-            cin>>x;
-            lca=LCA(lca,x);
-        }
-        ll cur=lca;
-        ll ans=lca;
-        while(cur!=-1){
-            ans=max(ans,cur);
-            cur=fa[cur];
-        }
-        cout<<ans<<el;
+        ll l,r,lca;
+        cin>>l>>r;
+        lca=LCA(l,r);
+        d[lca]--;
+        d[up[0][lca]]--;
+        d[l]++;
+        d[r]++;
     }
+    dfs2(1,0);
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);

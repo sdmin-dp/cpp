@@ -2,7 +2,9 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll N=1e5+5;
+const ll N=2e5+5;
+ll n,m;
+pair<ll,pair<ll,ll>> g[N];
 struct bcj{
     vector<ll> fa;
     bcj(ll len){
@@ -11,27 +13,26 @@ struct bcj{
         for(int i=1;i<=len;i++) fa[i]=i;
     }
     ll find(ll x){
-        if(x==fa[x]) return x;
+        if(fa[x]==x) return x;
         return fa[x]=find(fa[x]);
     }
 };
-ll n,m;
-vector<pair<ll,pair<ll,ll>>> g;
 void solve(){
     cin>>n>>m;
     bcj a(n);
     for(int i=1;i<=m;i++){
-        ll u,v,w;
-        cin>>u>>v>>w;
-        g.push_back({w,{min(u,v),max(u,v)}});
+        ll u,v,w;cin>>u>>v>>w;
+        g[i].first=w;
+        g[i].second={min(u,v),max(u,v)};
     }
-    sort(g.begin(),g.end());
+    sort(g+1,g+m+1);
     ll cnt=0,sum=0;
-    for(auto i:g){
-        ll w=i.first,u=i.second.first,v=i.second.second;
+    for(int i=1;i<=m;i++){
+        ll u=g[i].second.first,v=g[i].second.second,w=g[i].first;
         ll fu=a.find(u),fv=a.find(v);
         if(fu!=fv){
-            cnt++;sum+=w;
+            cnt++;
+            sum+=w;
             a.fa[fu]=fv;
         }
         if(cnt==n-1){

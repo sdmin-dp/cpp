@@ -2,26 +2,24 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll mod2=1e9+1;
-const ll mod=1e5+1;
-ll n,m;
+const ll N=1e5+5;
+ll n;
+ll lcm(ll x,ll y){
+    return x/__gcd(x,y)*y;
+}
 void solve(){
-    n=rand()%mod,m=rand()%mod;
-    cout<<n<<" "<<m<<el;
-    for(int i=1;i<=n;i++){
-        ll x=rand()%mod2;
-        cout<<x<<" ";
+    cin>>n;
+    ll lm;
+    cin>>lm;
+    for(int i=2;i<=n;i++){
+        ll x;cin>>x;
+        lm=lcm(lm,x);
     }
-    cout<<el;
-    for(int i=1;i<=m;i++){
-        ll l=rand()%mod2,r=rand()%mod2;
-        cout<<l<<" "<<r<<el;
-    }
+    cout<<lm;
 }
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
-    srand(time(0));
     //freopen("xxx.in","r",stdin);
     //freopen("xxx.out","w",stdout);
     ll T=1;

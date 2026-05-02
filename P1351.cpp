@@ -45,8 +45,7 @@ void dfs2(ll x,ll fa){
         ans=max(ans,mx[i]*w[x]);
         res=(res+sum[i]*w[x]%mod)%mod;
     }
-    
-}
+}   
 void solve(){
     cin>>n;
     for(int i=1;i<n;i++){
@@ -58,7 +57,7 @@ void solve(){
     for(int i=1;i<=n;i++) cin>>w[i];
     dfs(1,0);dfs2(1,0);
     cout<<ans<<" "<<res;
-}
+}   
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
@@ -70,4 +69,4 @@ int main(){
         solve();
     }
     return 0;
-}
+}   

@@ -3,6 +3,7 @@
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
+ll n;
 struct bcj{
     vector<ll> fa;
     bcj(ll len){
@@ -15,15 +16,17 @@ struct bcj{
         return fa[x]=find(fa[x]);
     }
 };
-ll n,m;
 vector<pair<ll,pair<ll,ll>>> g;
 void solve(){
-    cin>>n>>m;
+    cin>>n;
     bcj a(n);
-    for(int i=1;i<=m;i++){
-        ll u,v,w;
-        cin>>u>>v>>w;
-        g.push_back({w,{min(u,v),max(u,v)}});
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=n;j++){
+            ll w;
+            cin>>w;
+            if(i==j) continue;
+            g.push_back({w,{i,j}});
+        }
     }
     sort(g.begin(),g.end());
     ll cnt=0,sum=0;
@@ -31,7 +34,8 @@ void solve(){
         ll w=i.first,u=i.second.first,v=i.second.second;
         ll fu=a.find(u),fv=a.find(v);
         if(fu!=fv){
-            cnt++;sum+=w;
+            cnt++;
+            sum+=w;
             a.fa[fu]=fv;
         }
         if(cnt==n-1){
@@ -39,7 +43,6 @@ void solve(){
             return;
         }
     }
-    cout<<"orz";
 }
 int main(){
     ios::sync_with_stdio(0);

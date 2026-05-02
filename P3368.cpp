@@ -2,22 +2,23 @@
 using namespace std;
 #define ll long long
 const ll N=5e5+5;
-ll n,m;
-ll a[N],c[N];
+ll n,m,op,x,y,k;
+ll a[N];
+ll t[N];
 ll lowbit(ll x){
-     return (x&-x);
+    return (x&-x);
 }
 ll getsum(ll x){
-    ll t=0;
-    while(x>0){
-        t+=c[x];
+    ll res=0;
+    while(x>=1){
+        res+=t[x];
         x-=lowbit(x);
     }
-    return t;
+    return res;
 }
 void add(ll x,ll d){
     while(x<=n){
-        c[x]+=d;
+        t[x]+=d;
         x+=lowbit(x);
     }
 }
@@ -25,17 +26,17 @@ void solve(){
     cin>>n>>m;
     for(int i=1;i<=n;i++){
         cin>>a[i];
-        add(i,a[i]);
+        add(i,a[i]-a[i-1]);
     }
     for(int i=1;i<=m;i++){
-        ll k,x,y;
-        cin>>k>>x>>y;
-        if(k==1){
-            add(x,y);
+        cin>>op;
+        if(op==1){
+            cin>>x>>y>>k;
+            add(x,k);add(y+1,-k);
         }
         else{
-            cout<<getsum(y)-getsum(x-1);
-            cout<<'\n';
+            cin>>x;
+            cout<<getsum(x)<<'\n';
         }
     }
 }
@@ -49,5 +50,4 @@ int main(){
     while(T--){
         solve();
     }
-    return 0;
 }

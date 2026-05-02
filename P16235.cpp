@@ -2,30 +2,35 @@
 #define ll long long
 using namespace std;
 #define el '\n'
-const ll mod2=1e9+1;
-const ll mod=1e5+1;
-ll n,m;
+const ll N=1e5+5;
+ll n;
+ll a[N];
 void solve(){
-    n=rand()%mod,m=rand()%mod;
-    cout<<n<<" "<<m<<el;
+    cin>>n;
+    ll sum=0;
     for(int i=1;i<=n;i++){
-        ll x=rand()%mod2;
-        cout<<x<<" ";
+        cin>>a[i];
+        sum+=a[i];
     }
-    cout<<el;
-    for(int i=1;i<=m;i++){
-        ll l=rand()%mod2,r=rand()%mod2;
-        cout<<l<<" "<<r<<el;
+    if(sum%5!=0){
+        cout<<"F\n";
+        return;
     }
+    for(int i=1;i<=n;i++){
+        if(a[i]>sum/5){
+            cout<<"F\n";
+            return;
+        }
+    }
+    cout<<"T\n";
 }
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
-    srand(time(0));
     //freopen("xxx.in","r",stdin);
     //freopen("xxx.out","w",stdout);
     ll T=1;
-    //cin>>T;
+    cin>>T;
     while(T--){
         solve();
     }

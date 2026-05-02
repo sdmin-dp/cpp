@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include<bits/stdc++.h>
 using namespace std;
 #define ll long long 
@@ -61,3 +62,5 @@ int main(){
     }
     return 0;
 }
+=======
+>>>>>>> f422e9f9310ed6966c1d231f260a30b1f3a9c3d9
