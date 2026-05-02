@@ -3526,3 +3526,103 @@ int main(){
 - 就是把每个点都遍历一遍，如果这个点可以匹配一个新的没被匹配的点，就匹配他，结束
 - 或者，他把别人的匹配抢走，让别人再去匹配，如果别人抢到了新的，同样成功，结束
 - 如果都没有，死
+### 代码
+```cpp
+#include<bits/stdc++.h>
+
+#define ll long long
+
+using namespace std;
+
+#define el '\n'
+
+const ll N=1e3+5;
+
+ll n1,n2,m;
+
+vector<ll> g[N];
+
+ll match[N];
+
+ll vis[N];
+
+bool dfs(ll x){
+
+    for(auto i:g[x]){
+
+        if(!vis[i]){
+
+            vis[i]=1;
+
+            if(!match[i]||dfs(match[i])){
+
+                match[i]=x;
+
+                return 1;
+
+            }
+
+        }
+
+    }
+
+    return 0;
+
+}
+
+void solve(){
+
+    cin>>n1>>n2>>m;
+
+    for(int i=1;i<=m;i++){
+
+        ll x,y;
+
+        cin>>x>>y;
+
+        y+=n1;
+
+        g[x].push_back(y);
+
+        g[y].push_back(x);
+
+    }
+
+    ll cnt=0;
+
+    for(int i=1;i<=n1;i++){
+
+        memset(vis,0,sizeof(vis));
+
+        if(dfs(i)) cnt++;
+
+    }
+
+    cout<<cnt;
+
+}
+
+int main(){
+
+    ios::sync_with_stdio(0);
+
+    cin.tie(0);cout.tie(0);
+
+    //freopen("xxx.in","r",stdin);
+
+    //freopen("xxx.out","w",stdout);
+
+    ll T=1;
+
+    //cin>>T;
+
+    while(T--){
+
+        solve();
+
+    }
+
+    return 0;
+
+}
+```
