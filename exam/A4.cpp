@@ -26,6 +26,7 @@ void solve(){
                     break;
                 }
             }
+            cerr<<cx<<" "<<cy<<" "<<h<<el;
             if(f){
                 cout<<cx<<" "<<cy<<" "<<h;
                 return;
