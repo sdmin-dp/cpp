@@ -5,7 +5,7 @@ using namespace std;
 const ll N=1e5+5;
 ll n;
 ll erfen(){
-    ll l=0,r=n,mid=0,ans=0;
+    ll l=0,r=sqrt(n),mid=0,ans=0;
     while(l<=r){
         mid=(l+r)/2;
         if(mid*mid*mid<=n){
