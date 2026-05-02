@@ -8,7 +8,7 @@ ll erfen(){
     ll l=0,r=n,mid=0,ans=0;
     while(l<=r){
         mid=(l+r)/2;
-        if(mid*mid*mid<n){
+        if(mid*mid*mid<=n){
             ans=mid;
             l=mid+1;
         }else{
