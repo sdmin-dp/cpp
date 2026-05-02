@@ -1,26 +1,14 @@
 #include<bits/stdc++.h>
-#define ll long long
+#define ll unsigned long long
 using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n;
-ll erfen(){
-    ll l=0,r=sqrt(n),mid=0,ans=0;
-    while(l<=r){
-        mid=(l+r)/2;
-        if(mid*mid*mid<=n){
-            ans=mid;
-            l=mid+1;
-        }else{
-            r=mid-1;
-        }
-    }
-    return ans;
-}
 void solve(){
     cin>>n;
-    ll ans=erfen();
-    cout<<ans<<" "<<ans+1;
+    ll i=1;
+    for(i=1;i*i*i<=n;i++);
+    cout<<i<<" "<<i+1;
 }
 int main(){
     ios::sync_with_stdio(0);
