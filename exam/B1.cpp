@@ -8,7 +8,7 @@ void solve(){
     cin>>n;
     ll i=1;
     for(i=1;i*i*i<=n;i++);
-    cout<<i<<" "<<i+1;
+    cout<<i-1<<" "<<i;
 }
 int main(){
     ios::sync_with_stdio(0);
