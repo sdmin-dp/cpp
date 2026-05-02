@@ -27,7 +27,7 @@ void solve(){
                 ll k=abs(a[i].x-cx)+abs(a[i].y-cy);
                 if(a[i].h==0){
                     continue;
-                }else if(h!=a[i].h-k){
+                }else if(h!=a[i].h+k){
                     f=0;
                     break;
                 }
