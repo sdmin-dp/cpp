@@ -3465,4 +3465,57 @@ int main() {
 
 ### 代码
 ```cpp
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define el '\n'
+const ll N=1e3+5;
+ll n,m;
+vector<ll> g[N];
+ll vis[N];
+void dfs(ll x,ll c){
+//	cerr << x << " ";
+	if(vis[x]!=0){
+		if(vis[x]!=c){
+			cout<<"NO";
+			exit(0);
+		}
+		return;
+	}
+	vis[x]=c;
+	for(auto i:g[x]){
+		dfs(i,-c);
+	}
+}
+void solve(){
+	cin>>n>>m;
+	for(int i=1;i<=m;i++){
+		ll u,v;
+		cin>>u>>v;
+		g[u].push_back(v);
+		g[v].push_back(u);
+	}
+	for(int i=1;i<=n;i++){
+		if(vis[i]==0){
+			dfs(i,1);
+		}
+	}
+	for(int i=1;i<=n;i++){
+		if(vis[i]==vis[1]) cout<<i<<" ";
+	}
+	cout<<el;
+	for(int i=1;i<=n;i++){
+		if(vis[i]!=vis[1]) cout<<i<<" ";
+	}
+}
+int main(){
+	ll T=1;
+	//cin>>T;
+	while(T--){
+		solve();
+	}
+	return 0;
+}
+
 ```
+
