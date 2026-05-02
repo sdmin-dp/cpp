@@ -1,7 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 #define ll long long
-ll ans[3],n,m,vis[10005];vector<vector<ll>> v;
+ll ans[5],n,m,vis[10005];
+vector<ll> v[10005];
 bool dfs(ll x,ll color){
 	vis[x]=color;
 	ans[color]++;
@@ -18,7 +19,7 @@ int main(){
 	std::ios::sync_with_stdio(0);
 	cin.tie(0);
 	cout.tie(0);
-	cin>>n>>m;v.resize(n+5);
+	cin>>n>>m;
 	for(int i=0,x,y;i<m;i++){
 		cin>>x>>y;
 		v[x].push_back(y);
@@ -27,7 +28,7 @@ int main(){
 	ll cnt=0;
 	for(int i=1;i<=n;i++){
 		ans[1]=ans[2]=0;
-		if(!vis[i]/*&&!dfs(i,1)*/){
+		if(!vis[i]&&!dfs(i,1)){
 			cout<<"Impossible";
 			return 0;
 		}
