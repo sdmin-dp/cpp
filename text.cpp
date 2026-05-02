@@ -24,15 +24,15 @@ int main(){
 		v[x].push_back(y);
 		v[y].push_back(x);
 	}
-	ll cnt=0;
-	for(int i=1;i<=n;i++){
-		ans[1]=ans[2]=0;
-		if(!vis[i]&&!dfs(i,1)){
-			cout<<"Impossible";
-			return 0;
-		}
-		cnt+=min(ans[1],ans[2]);
-	}
-	cout<<cnt;
-	return 0;
+	// ll cnt=0;
+	// for(int i=1;i<=n;i++){
+	// 	ans[1]=ans[2]=0;
+	// 	if(!vis[i]&&!dfs(i,1)){
+	// 		cout<<"Impossible";
+	// 		return 0;
+	// 	}
+	// 	cnt+=min(ans[1],ans[2]);
+	// }
+	// cout<<cnt;
+	// return 0;
 }
