@@ -320,7 +320,7 @@ int main() {
 给定：
 - 一个容量为W的背包
 - N种物品，每种物品有：
-  - 重量weight[i]
+  - 重量 weight[i]
   - 价值value[i]
   - 数量限制amount[i]
 

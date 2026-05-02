@@ -104,8 +104,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -201,6 +200,8 @@
   },
   "active": "0be744693c281af0",
   "lastOpenFiles": [
+    "未命名 1.md",
+    "c++.md",
     "信奥c++.md",
     "未命名.md",
     "2026-04-04.md",
