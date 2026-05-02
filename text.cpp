@@ -1,66 +1,38 @@
-<<<<<<< HEAD
 #include<bits/stdc++.h>
 using namespace std;
-#define ll long long 
-#define el '\n'
-const ll N=1e5+5;
-ll n;
-map<ll,string> mp;
-bool isnum(char c){
-    return (c>='0'&&c<='9');
-}
-vector<pair<ll,ll>> v;
-void solve(){
-    cin>>n;
-    for(int i=1;i<=n;i++){
-        ll x;string s;
-        cin>>x;
-        getline(cin,s);
-        mp[x]=s;
-    }
-    string s;
-//    cin>>s;
-	getline(cin,s);
-//    getline(cin,s);
-//    cout<<s;
-//    cout<<"dog";
-    for(int i=0;i<s.size();i++){
-//    	cout<<i<<" ";
-        if(!isnum(s[i])) continue;
-        ll x=0;
-        ll len=0;
-        while(i<s.size()&&isnum(s[i])){
-            x=x*10+int(s[i]-48);
-            i++;
-            len++;
-        }
-        v.push_back({x,len});
-    }
-//    for(auto i:v){
-//    	cout<<i.first<<" "<<i.second<<el;
-//	}
-    ll cnt=0;
-    for(int i=0;i<s.size();i++){
-    	
-        if(s[i]=='#'){
-//        	cnt++;
-            cout<<mp[v[cnt++].first];
-            i+=v[cnt].second+1;
-        }else{
-            cout<<s[i];
-        }
-        cerr<<i<<" ";
-    }
+#define ll long long
+ll ans[3],n,m,vis[10005];vector<vector<ll>> v;
+bool dfs(ll x,ll color){
+	vis[x]=color;
+	ans[color]++;
+	for(auto i:v[x]){
+		if(vis[i]==vis[x]) return 0;
+		if(!vis[i]){
+			dfs(i,3-color);
+		}
+	}
 }
 int main(){
-    ios::sync_with_stdio(0);
-    cin.tie(0);cout.tie(0);
-    ll T=1;
-    //cin>>T;
-    while(T--){
-        solve();
-    }
-    return 0;
+	//freopen(".in","r",stdin);
+	//freopen(".out","w",stdout);
+	std::ios::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+	cin>>n>>m;v.resize(n+5);
+	for(int i=0,x,y;i<m;i++){
+		cin>>x>>y;
+		v[x].push_back(y);
+		v[y].push_back(x);
+	}
+	ll cnt=0;
+	for(int i=1;i<=n;i++){
+		ans[1]=ans[2]=0;
+		if(!vis[i]&&!dfs(i,1)){
+			cout<<"Impossible";
+			return 0;
+		}
+		cnt+=min(ans[1],ans[2]);
+	}
+	cout<<cnt;
+	return 0;
 }
-=======
->>>>>>> f422e9f9310ed6966c1d231f260a30b1f3a9c3d9
