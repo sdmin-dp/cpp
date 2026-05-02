@@ -3468,57 +3468,54 @@ int main() {
 ### 代码
 ```cpp
 #include<bits/stdc++.h>
-using namespace std;
 #define ll long long
+using namespace std;
 #define el '\n'
-const ll N=1e3+5;
+const ll N=1e4+5;
 ll n,m;
+ll cnt[3];
+ll color[N];
 vector<ll> g[N];
-ll vis[N];
-void dfs(ll x,ll c){
-//	cerr << x << " ";
-	if(vis[x]!=0){
-		if(vis[x]!=c){
-			cout<<"NO";
-			exit(0);
-		}
-		return;
-	}
-	vis[x]=c;
-	for(auto i:g[x]){
-		dfs(i,-c);
-	}
+bool dfs(ll u,ll c){
+    color[u]=c;
+    cnt[c]++;
+    for(auto v:g[u]){
+        if(color[v]==color[u]) return 0;
+        if(!color[v]){
+            dfs(v,3-c);
+        }
+    }
 }
 void solve(){
-	cin>>n>>m;
-	for(int i=1;i<=m;i++){
-		ll u,v;
-		cin>>u>>v;
-		g[u].push_back(v);
-		g[v].push_back(u);
-	}
-	for(int i=1;i<=n;i++){
-		if(vis[i]==0){
-			dfs(i,1);
-		}
-	}
-	for(int i=1;i<=n;i++){
-		if(vis[i]==vis[1]) cout<<i<<" ";
-	}
-	cout<<el;
-	for(int i=1;i<=n;i++){
-		if(vis[i]!=vis[1]) cout<<i<<" ";
-	}
+    cin>>n>>m;
+    for(int i=1;i<=m;i++){
+        ll u,v;cin>>u>>v;
+        g[u].push_back(v);
+        g[v].push_back(u);
+    }
+    ll ans=0;
+    for(int i=1;i<=n;i++){
+        cnt[1]=cnt[2]=0;
+        if(!color[i]&&!dfs(i,1)){
+            cout<<"Impossible";
+            return;
+        }
+        ans+=min(cnt[1],cnt[2]);
+    }
+    cout<<ans;
 }
 int main(){
-	ll T=1;
-	//cin>>T;
-	while(T--){
-		solve();
-	}
-	return 0;
+    ios::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    //freopen("xxx.in","r",stdin);
+    //freopen("xxx.out","w",stdout);
+    ll T=1;
+    //cin>>T;
+    while(T--){
+        solve();
+    }
+    return 0;
 }
-
 ```
 
 ## 二分图最大匹配（匈牙利）
