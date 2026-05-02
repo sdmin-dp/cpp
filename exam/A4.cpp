@@ -16,8 +16,8 @@ void solve(){
     for(int i=1;i<=n;i++)
         cin>>a[i].x>>a[i].y>>a[i].h;
     sort(a+1,a+n+1,cmp);
-    for(int cx=1;cx<=100;cx++){
-        for(int cy=1;cy<=100;cy++){
+    for(int cx=0;cx<=100;cx++){
+        for(int cy=0;cy<=100;cy++){
 
             ll h=a[1].h+abs(a[1].x-cx)+abs(a[1].y-cy);
 
