@@ -1,18 +1,20 @@
-#include<bits/stdc++.h>
-#define ll long long
+#include<iostream>
+#define ll int
 using namespace std;
 #define el '\n'
 const ll N=5e2+5;
 ll n;
 ll a[N][N];
-void solve(){
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
     cin>>n;
     for(int i=1;i<=n;i++){
         for(int j=1;j<=n;j++){
             cin>>a[i][j];
         }
     }
-    ll ans=0;
+    long long ans=0;
     for(int x1=1;x1<=n;x1++){
         for(int y1=1;y1<=n;y1++){
             for(int x2=1;x2<=n;x2++){
@@ -31,16 +33,5 @@ void solve(){
         }
     }
     cout<<ans;
-}
-int main(){
-    ios::sync_with_stdio(0);
-    cin.tie(0);cout.tie(0);
-    //freopen("xxx.in","r",stdin);
-    //freopen("xxx.out","w",stdout);
-    ll T=1;
-    //cin>>T;
-    while(T--){
-        solve();
-    }
     return 0;
 }
