@@ -104,7 +104,8 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -200,11 +201,11 @@
   },
   "active": "0be744693c281af0",
   "lastOpenFiles": [
+    "信奥c++.md",
+    "c++.md",
     "GESP 7级 查漏补缺.md",
     "GESP六级编程题考点与应对策略.md",
-    "c++.md",
     "Pasted image 20260315214749.png",
-    "信奥c++.md",
     "题库OJ.md",
     "未命名.md",
     "未命名 1.md",
