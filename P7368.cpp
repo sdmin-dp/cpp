@@ -1,40 +1,38 @@
 #include<bits/stdc++.h>
-#define ll long long
 using namespace std;
+#define ll long long
 #define el '\n'
-const ll N=1e4+5;
+const ll N=1e5+5;
 ll n,m;
 vector<ll> g[N];
-ll color[N];
 bool vis[N];
 ll match[N];
-ll cnt[3];
-bool dfs(ll u,ll c){
-    color[u]=c;
-    cnt[c]++;
+bool dfs(ll u){
     for(auto v:g[u]){
-        if(!color[v]) {if(!dfs(v,3-c)) return 0;}
-        else if(color[v]==color[u]){return 0;}
+        if(!vis[v]){
+            vis[v]=1;
+            if(!match[v]||dfs(match[v])){
+                match[v]=u;
+                return 1;
+            }
+        }
     }
-    return 1;
+    return 0;
 }
 void solve(){
     cin>>n>>m;
     for(int i=1;i<=m;i++){
-        ll u,v;cin>>u>>v;
+        ll u,v;
+        cin>>u>>v;
         g[u].push_back(v);
-        g[v].push_back(u);
+        // g[v].push_back(u);
     }
-    ll ans=0;
+    ll cnt=0;
     for(int i=1;i<=n;i++){
-        cnt[1]=cnt[2]=0;
-        if(!color[i]&&!dfs(i,1)){
-            cout<<"Impossible";
-            return;
-        }
-        ans+=min(cnt[1],cnt[2]);
+        memset(vis,0,sizeof vis);
+        if(dfs(i)) cnt++;
     }
-    cout<<ans;
+    cout<<cnt;
 }
 int main(){
     ios::sync_with_stdio(0);
