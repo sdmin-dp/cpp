@@ -3703,54 +3703,29 @@ void solve(){
     for(int i=1;i<=m;i++){
 
         ll u,v;
-
         cin>>u>>v;
-
         g[u].push_back(v);
-
         g[v].push_back(u);
-
     }
-
     for(int i=1;i<=n;i++){
-
         if(!num[i]){
-
             root=i;
-
             dfs(i,0);
-
         }
-
     }
-
     //从一开始开始dfs
-
     //输出割点
-
     vector<ll> ans;
-
     for(int i=1;i<=n;i++) if(flag[i]==1) ans.push_back(i);
-
     cout<<ans.size()<<el;
-
     for(auto i:ans) cout<<i<<" ";
-
 }
-
 int main(){
-
     ll T=1;
-
     // cin>>T;
-
     while(T--){
-
         solve();
-
     }
-
     return 0;
-
 }
 ```
