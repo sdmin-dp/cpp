@@ -6,8 +6,17 @@ const ll N=1e5+5;
 ll n,m;
 vector<array<ll,3>> g[N];
 vector<array<ll,4>> e;
-void dijstra(ll b,ll mx){
-    
+void dijkstra(ll b,ll mx){
+    priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;
+    q.push({0,1});
+    vector<ll> dis(0,n+1);
+    dis[1]=0;
+    while(!q.empty()){
+        auto x=q.top();
+        q.pop();
+        if(dis[x.first]>x.second) continue;
+        
+    }
 }
 void solve(){
     cin>>n>>m;
