@@ -31,6 +31,7 @@ void solve(){
     cin>>n>>m;
     for(int i=1;i<=m;i++){
         ll u,v,w,w2;
+        cin>>u>>v>>w>>w2;
         g[u].push_back({v,w,w2});
         g[v].push_back({u,w,w2});
         e.push_back({u,v,w,w2});
