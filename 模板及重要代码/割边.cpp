@@ -50,9 +50,6 @@ void solve(){
     for(auto i:sorted){
         cout<<i.first<<" "<<i.second<<el;
     }
-    if(sorted.empty()){
-        cout<<"None";
-    }
 }
 int main(){
     ll T=1;
