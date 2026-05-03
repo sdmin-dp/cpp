@@ -6,7 +6,6 @@ const ll N=6e3+5;
 ll n;
 vector<ll> g[N];
 ll happy[N];
-ll fa[N];
 void dfs(ll u,ll fa){
     
 }
@@ -19,7 +18,6 @@ void solve(){
         ll u,v;cin>>u>>v;
         g[u].push_back(v);
         g[v].push_back(u);
-        fa[v]=u;
     }
 }
 int main(){
