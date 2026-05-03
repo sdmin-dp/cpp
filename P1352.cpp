@@ -6,7 +6,8 @@ const ll N=6e3+5;
 ll n;
 vector<ll> g[N];
 ll happy[N];
-void dfs(ll u,ll fa){
+ll dp[N];
+void bfs(){
     
 }
 void solve(){
