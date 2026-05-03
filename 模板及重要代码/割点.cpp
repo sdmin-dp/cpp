@@ -50,7 +50,10 @@ void solve(){
         g[v].push_back(u);
     }
     root=1;
-    dfs(1,root);//从一开始开始dfs
+    for(int i=1;i<=n;i++){
+        if(!num[i]) dfs(1,i);
+    }
+    //从一开始开始dfs
     //输出割点
     for(int i=1;i<=n;i++) if(flag[i]==1) cout<<i<<el;
 }
