@@ -28,7 +28,7 @@ void solve(){
         if(dep[i]%2) sum1+=happy[i];
         else sum2+=happy[i];
     }
-    cout<<max(sum1,sum2)-1;
+    cout<<max(sum1,sum2);
 }
 int main(){
     ios::sync_with_stdio(0);
