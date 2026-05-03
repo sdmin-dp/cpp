@@ -25,11 +25,11 @@ void dfs(ll x,ll fa){//x->当前节点编号,fa->当前节点的爸爸(生成树
             //维护low数组
             low[x]=min(low[x],low[i]);
             //1.当前点不是根节点，2.low[i]>=num[x]（说明我的儿子不能不通过我上到我的头上）
-            if(x!=root&&low[i]>=num[x]){
+            if(fa!=0&&low[i]>=num[x]){
                 flag[x]=1;
             }
             //如果当前节点是根节点，在生成树中必须要有两个儿子，根节点才是割点（一个点断了儿子成根节点就没事呀）
-            if(x==root&&child>=2){
+            if(fa==0&&child>=2){
                 flag[x]=1;
             }
         }
