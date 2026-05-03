@@ -21,7 +21,6 @@ void solve(){
     else if(n%3==1) cout<<qpow(3,n/3-1)*4%mod;
     else cout<<qpow(3,n/3)*2%mod;
     cout<<el;
-    
 }
 int main(){
     ios::sync_with_stdio(0);
