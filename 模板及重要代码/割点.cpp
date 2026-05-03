@@ -70,13 +70,3 @@ int main(){
     }
     return 0;
 }
-
-/*
-curl http://localhost:3030/v1/chat/completions \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "gpt-4o-mini",
-    "messages": [{"role": "user", "content": "你好，你是谁？"}],
-    "stream": false
-  }'
-*/
