@@ -2,7 +2,7 @@
 using namespace std;
 #define ll long long
 #define el '\n'
-const ll N=1e5+5;
+const ll N=2e4+5;
 ll n,m;//n->点数,m->边数
 vector<ll> g[N];
 ll idx=0;//时间戳
@@ -33,7 +33,7 @@ void dfs(ll x,ll fa){//x->当前节点编号,fa->当前节点的爸爸(生成树
                 flag[x]=1;
             }
         }
-        else if(i!=fa){
+        else{
             //如果节点i被访问过并且不受当前节点的父亲，则说明i为x的祖先，要更新当前节点的low
             //i都已经是x的祖先了，肯定是可以到的
             low[x]=min(low[x],num[i]);
