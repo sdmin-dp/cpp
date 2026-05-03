@@ -15,7 +15,9 @@ void dijkstra(ll b,ll mx){
         auto x=q.top();
         q.pop();
         if(dis[x.first]>x.second) continue;
-        
+        for(auto i:){
+
+        }
     }
 }
 void solve(){
