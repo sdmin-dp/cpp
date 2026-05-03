@@ -22,7 +22,7 @@ void solve(){
     else cout<<qpow(3,n/3)*2%mod;
     cout<<el;
 }
-int maNin(){
+int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
     //freopen("xxx.in","r",stdin);
