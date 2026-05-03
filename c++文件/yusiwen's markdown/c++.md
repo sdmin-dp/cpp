@@ -3611,7 +3611,7 @@ int main(){
 只要我的儿子不通过我回不到更早的祖宗，我就是割点
 #### 代码
 ```cpp
-#include<bits/stdc+.h>
+#include<bits/stdc++.h>
 using namespace std;
 #define ll long long
 #define el '\n'
