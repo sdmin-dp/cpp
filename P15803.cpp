@@ -15,7 +15,7 @@ vector<ll> dijkstra(ll b,ll mx){
     while(!q.empty()){
         auto x=q.top();
         q.pop();
-        if(dis[x.second]>x.first) continue;
+        if(dis[x.second]<x.first) continue;
         for(auto i:g[x.second]){
             ll u=x.second,v=i[0],w=i[1],w2=i[2];
             if(w2>mx) continue;
