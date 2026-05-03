@@ -3635,17 +3635,11 @@ ll root;
 ll num[N];//i节点的时间戳
 
 ll low[N];//i节点当前可以回到的最早时间戳
-
 //核心！！！dfs来啦
-
 void dfs(ll x,ll fa){//x->当前节点编号,fa->当前节点的爸爸(生成树角度)
-
     ll child=0;//孩子个数
-
     idx++;
-
     num[x]=idx;//记录时间戳
-
     low[x]=idx;//刚开始还没算就是自己（初始化）
     for(auto i:g[x]){
         if(num[i]==0){//说明没被访问过（这里是当vis用的）
