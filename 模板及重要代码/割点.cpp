@@ -52,7 +52,7 @@ void solve(){
     for(int i=1;i<=n;i++){
         if(!num[i]){
             root=i;
-            dfs(1,i);
+            dfs(i,0);
         }
     }
     //从一开始开始dfs
