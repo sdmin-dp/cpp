@@ -6,6 +6,9 @@ const ll N=1e5+5;
 ll n,m;
 vector<array<ll,3>> g[N];
 vector<array<ll,4>> e;
+void dijstra(ll b,ll mx){
+    
+}
 void solve(){
     cin>>n>>m;
     for(int i=1;i<=m;i++){
@@ -15,7 +18,7 @@ void solve(){
         e.push_back({u,v,w,w2});
     }
     for(int i=1;i<=n;i++){
-        
+
     }
 }
 int main(){
