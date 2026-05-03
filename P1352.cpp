@@ -10,7 +10,7 @@ ll dep[N];
 void dfs(ll u,ll fa){
     dep[u]=dep[fa]+1;
     for(auto i:g[u]) if(i!=fa) dfs(i,u);
-}
+}   
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
@@ -33,8 +33,7 @@ void solve(){
         ans=max(max(sum1,sum2),ans);
     }
     cout<<ans;
-    
-}
+}   
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
