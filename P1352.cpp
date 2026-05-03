@@ -10,7 +10,7 @@ ll dp[N];
 ll dep[N];
 void dfs(ll u,ll fa){
     dep[u]=dep[fa]+1;
-    for(auto i:g[u]) if(i==fa) dfs(i,u);
+    for(auto i:g[u]) if(i!=fa) dfs(i,u);
 }
 void solve(){
     cin>>n;
