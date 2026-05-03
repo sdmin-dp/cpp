@@ -6,7 +6,6 @@ const ll N=6e3+5;
 ll n;
 vector<ll> g[N];
 ll happy[N];
-ll dp[N];
 ll dep[N];
 void dfs(ll u,ll fa){
     dep[u]=dep[fa]+1;
@@ -22,13 +21,19 @@ void solve(){
         g[u].push_back(v);
         g[v].push_back(u);
     }
-    dfs(1,0);
-    ll sum1=0,sum2=0;
+    ll ans=0;
     for(int i=1;i<=n;i++){
-        if(dep[i]%2) sum1+=happy[i];
-        else sum2+=happy[i];
+        memset(dep,0,sizeof(dep));
+        dfs(1,0);
+        ll sum1=0,sum2=0;
+        for(int i=1;i<=n;i++){
+            if(dep[i]%2) sum1+=happy[i];
+            else sum2+=happy[i];
+        }
+        ans=max(max(sum1,sum2),ans);
     }
-    cout<<max(sum1,sum2);
+    cout<<ans;
+    
 }
 int main(){
     ios::sync_with_stdio(0);
