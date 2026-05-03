@@ -14,9 +14,9 @@ void dijkstra(ll b,ll mx){
     while(!q.empty()){
         auto x=q.top();
         q.pop();
-        if(dis[x.first]>x.second) continue;
-        for(auto i:){
-
+        if(dis[x.second]>x.first) continue;
+        for(auto i:g[x.second]){
+            
         }
     }
 }
