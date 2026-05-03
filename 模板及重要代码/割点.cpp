@@ -60,7 +60,7 @@ void solve(){
     vector<ll> ans;
     for(int i=1;i<=n;i++) if(flag[i]==1) ans.push_back(i);
     cout<<ans.size()<<el;
-    for(auto i:ans) cout<<i<<el;
+    for(auto i:ans) cout<<i<<" ";
 }
 int main(){
     ll T=1;
