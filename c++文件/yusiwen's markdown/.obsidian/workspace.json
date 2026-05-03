@@ -104,8 +104,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -199,7 +198,7 @@
       "bases:新建数据库": false
     }
   },
-  "active": "0be744693c281af0",
+  "active": "94fb295582f7dd0a",
   "lastOpenFiles": [
     "未命名 1.md",
     "c++.md",
