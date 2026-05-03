@@ -1,5 +1,5 @@
 #include<bits/stdc++.h>
-#define ll int
+#define ll long long
 using namespace std;
 #define el '\n'
 const ll N=5e2+5;
@@ -12,7 +12,7 @@ void solve(){
             cin>>a[i][j];
         }
     }
-    long long ans=0;
+    ll ans=0;
     for(int x1=1;x1<=n;x1++){
         for(int y1=1;y1<=n;y1++){
             for(int x2=x1;x2<=n;x2++){
