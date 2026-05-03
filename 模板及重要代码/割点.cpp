@@ -52,7 +52,7 @@ void solve(){
     root=1;
     dfs(1,root);//从一开始开始dfs
     //输出割点
-    for(int i=1;i<=n;i++) if(flag[i]==1) cout<<i<<" ";
+    for(int i=1;i<=n;i++) if(flag[i]==1) cout<<i<<el;
 }
 int main(){
     ll T=1;
