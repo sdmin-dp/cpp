@@ -12,7 +12,7 @@ ll qpow(ll a,ll b){
         b/=2;
     }
     return res;
-}   
+}
 void solve(){
     ll n;
     cin>>n;
