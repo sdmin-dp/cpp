@@ -25,7 +25,7 @@ void solve(){
     for(int i=1;i<n;i++){
         ll u,v;
         cin>>v>>u;
-        fa[u]=1;
+        fa[v]=1;
         g[u].push_back(v);
     }
     ll root=0;
