@@ -3647,19 +3647,12 @@ void dfs(ll x,ll fa){//x->当前节点编号,fa->当前节点的爸爸(生成树
     num[x]=idx;//记录时间戳
 
     low[x]=idx;//刚开始还没算就是自己（初始化）
-
     for(auto i:g[x]){
-
         if(num[i]==0){//说明没被访问过（这里是当vis用的）
-
             //从生成树的角度来说，此时i为x的儿子
-
             child++;
-
             dfs(i,x);//继续dfs
-
             //维护low数组
-
             low[x]=min(low[x],low[i]);
             //1.当前点不是根节点，2.low[i]>=num[x]（说明我的儿子不能不通过我上到我的头上）
             if(fa!=0&&low[i]>=num[x]){
