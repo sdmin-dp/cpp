@@ -48,7 +48,7 @@ void solve(){
     //还要排序
     sort(sorted.begin(),sorted.end());
     for(auto i:sorted){
-        cout<<i.first<<"-"<<i.second<<el;
+        cout<<i.first<<" "<<i.second<<el;
     }
     if(sorted.empty()){
         cout<<"None";
