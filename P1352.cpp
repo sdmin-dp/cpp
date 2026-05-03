@@ -7,8 +7,10 @@ ll n;
 vector<ll> g[N];
 ll happy[N];
 ll dp[N];
-void bfs(){
-    
+ll dep[N];
+void dfs(ll u,ll fa){
+    dep[u]=dep[fa]+1;
+    for(auto i:g[u]) if(i==fa) dfs(i,u);
 }
 void solve(){
     cin>>n;
@@ -20,6 +22,12 @@ void solve(){
         g[u].push_back(v);
         g[v].push_back(u);
     }
+    ll sum1=0,sum2=0;
+    for(int i=1;i<=n;i++){
+        if(dep[i]%2) sum1+=happy[i];
+        else sum2+=happy[i];
+    }
+    cout<<max(sum1,sum2);
 }
 int main(){
     ios::sync_with_stdio(0);
