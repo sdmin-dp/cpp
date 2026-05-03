@@ -3617,23 +3617,14 @@ using namespace std;
 #define ll long long
 
 #define el '\n'
-
 const ll N=2e4+5;
-
 ll n,m;//n->点数,m->边数
-
 vector<ll> g[N];
-
 ll idx=0;//时间戳
-
 bool flag[N];//点i是割点的话，flag[i]=1,反之则不是割点
-
 //特色数组
-
 ll root;
-
 ll num[N];//i节点的时间戳
-
 ll low[N];//i节点当前可以回到的最早时间戳
 //核心！！！dfs来啦
 void dfs(ll x,ll fa){//x->当前节点编号,fa->当前节点的爸爸(生成树角度)
