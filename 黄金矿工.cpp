@@ -20,9 +20,9 @@ pair<ll,ll> a[N];
 vector<pair<ll,ll>> g[N];
 vector<array<ll,3>> e; 
 ll mn=1e18,mx=-mn;
-
 bool check(ll x){
-
+    bcj b(n);
+    
 }
 ll erfen(){
     ll l=mn,r=mx,mid=0,ans=-1;
