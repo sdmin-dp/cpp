@@ -37,7 +37,7 @@ void solve(){
         ans1=min(ans1,dp[i][i+n-1].first);
         ans2=max(ans2,dp[i][i+n-1].second);
     }
-    cout<<ans1<<" "<<ans2;
+    cout<<ans1<<el<<ans2;
 }
 int main(){
     ios::sync_with_stdio(0);
