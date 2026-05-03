@@ -17,7 +17,7 @@ void solve(){
     ll n;
     cin>>n;
     if(n<3) cout<<n;
-    else if(!n%3) cout<<qpow(3,n/3);
+    else if(!n%3) cout<<qpow(3,n/3)%mod;
     else if(n%3==1) cout<<qpow(3,n/3-1)*4%mod;
     else cout<<qpow(3,n/3)*2%mod;
     cout<<el;
