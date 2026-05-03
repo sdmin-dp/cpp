@@ -27,8 +27,8 @@ void solve(){
         dfs(1,0);
         ll sum1=0,sum2=0;
         for(int i=1;i<=n;i++){
-            if(dep[i]%2) sum1+=happy[i];
-            else sum2+=happy[i];
+            if(dep[i]%2) if(happy[i]>0) sum1+=happy[i];
+            else if(happy[i]>0) sum2+=happy[i];
         }
         ans=max(max(sum1,sum2),ans);
     }
