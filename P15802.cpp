@@ -7,7 +7,7 @@ const ll mod=1e9;
 ll qpow(ll a,ll b){
     ll res=1;
     while(b){
-        if(b%2) res*=a;
+        if(b%2) res=res*a%mod;
         a=a*a%mod;
         b/=2;
     }
