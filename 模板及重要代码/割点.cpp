@@ -5,10 +5,10 @@ using namespace std;
 const ll N=1e5+5;
 ll n,m;//n->点数,m->边数
 vector<ll> g[N];
-ll root;
 ll idx=0;//时间戳
 bool flag[N];//点i是割点的话，flag[i]=1,反之则不是割点
 //特色数组
+ll root;
 ll num[N];//i节点的时间戳
 ll low[N];//i节点当前可以回到的最早时间戳
 //核心！！！dfs来啦
@@ -49,9 +49,11 @@ void solve(){
         g[u].push_back(v);
         g[v].push_back(u);
     }
-    root=1;
     for(int i=1;i<=n;i++){
-        if(!num[i]) dfs(1,i);
+        if(!num[i]){
+            root=i;
+            dfs(1,i);
+        }
     }
     //从一开始开始dfs
     //输出割点
