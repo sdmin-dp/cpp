@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "题库OJ.md",
+                "file": "c++.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "题库OJ"
+              "title": "c++"
             }
           }
         ],
@@ -68,13 +68,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "题库OJ.md",
+                "file": "c++.md",
                 "followCursor": true,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "题库OJ 的大纲"
+              "title": "c++ 的大纲"
             }
           },
           {
@@ -200,9 +200,9 @@
   },
   "active": "0be744693c281af0",
   "lastOpenFiles": [
+    "题库OJ.md",
     "未命名.md",
     "未命名 1.md",
-    "题库OJ.md",
     "c++.md",
     "信奥c++.md",
     "2026-04-04.md",
