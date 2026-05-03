@@ -22,6 +22,7 @@ void solve(){
         g[u].push_back(v);
         g[v].push_back(u);
     }
+    dfs(1,0);
     ll sum1=0,sum2=0;
     for(int i=1;i<=n;i++){
         if(dep[i]%2) sum1+=happy[i];
