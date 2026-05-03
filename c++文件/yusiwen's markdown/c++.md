@@ -3675,33 +3675,19 @@ void dfs(ll x,ll fa){//x->当前节点编号,fa->当前节点的爸爸(生成树
             if(fa==0&&child>=2){
 
                 flag[x]=1;
-
             }
-
         }
-
         else{
-
             //如果节点i被访问过并且不受当前节点的父亲，则说明i为x的祖先，要更新当前节点的low
-
             //i都已经是x的祖先了，肯定是可以到的
-
             low[x]=min(low[x],num[i]);
-
         }
-
     }
-
     return;
-
 }
-
 void solve(){
-
     cin>>n>>m;
-
     for(int i=1;i<=m;i++){
-
         ll u,v;
         cin>>u>>v;
         g[u].push_back(v);
