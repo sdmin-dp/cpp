@@ -1,39 +1,75 @@
 #include<bits/stdc++.h>
-using namespace std;
 #define ll long long
-ll ans[5],n,m,vis[10005];
-vector<ll> v[10005];
-bool dfs(ll x,ll color){
-	vis[x]=color;
-	ans[color]++;
-	for(auto i:v[x]){
-		if(vis[i]==vis[x]) return 0;
-		if(!vis[i]){
-			dfs(i,3-color);
-		}
-	}
+using namespace std;
+#define el '\n'
+const ll N=5e5+5;
+ll n,m,idx;
+vector<ll> g[N];
+ll dfn[N],low[N];
+vector<pair<ll,ll>> bridge;
+map<pair<ll,ll>,bool> mp;
+vector<ll> ans[N];
+ll color[N];
+void dfs(ll x,ll fa){
+    low[x]=dfn[x]=++idx;
+    bool flag=0;
+    for(auto i:g[x]){
+        if(!dfn[i]){
+            dfs(i,x);
+            low[x]=min(low[x],low[i]);
+            if(low[i]>dfn[x]) bridge.push_back({min(x,i),max(x,i)});
+        }
+        else if(i==fa){
+            if(!flag){
+                flag=1;
+                continue;
+            }else{
+                low[x]=min(low[x],dfn[i]);
+            }
+        }else{
+            low[x]=min(low[x],dfn[i]);
+        }
+    }
 }
+void change(ll x){
+    color[x]=idx;
+    for(auto i:g[x])
+        if(!mp[{min(x,i),max(x,i)}]&&!color[i]) change(i);
+}
+
+void solve(){
+    cin>>n>>m;
+    for(int i=1;i<=m;i++){
+        ll x,y;cin>>x>>y;
+        g[x].push_back(y);
+        g[y].push_back(x);
+    }
+    for(int i=1;i<=n;i++) if(!dfn[i]) dfs(i,0);
+    for(auto &i:bridge) mp[{i.first,i.second}]=1;
+    
+    idx=0;
+    for(int i=1;i<=n;i++){
+        if(!color[i]){
+            idx++;
+            change(i);
+        }
+    }
+    cout<<idx<<el;
+    for(int i=1;i<=n;i++) ans[color[i]].push_back(i);
+    for(ll i=1;i<=idx;i++){
+        cout<<ans[i].size()<<" ";
+        for(auto &j:ans[i]) cout<<j<<" ";
+        cout<<el;
+    }
+}
+
 int main(){
-	//freopen(".in","r",stdin);
-	//freopen(".out","w",stdout);
-	std::ios::sync_with_stdio(0);
-	cin.tie(0);
-	cout.tie(0);
-	cin>>n>>m;
-	for(int i=0,x,y;i<m;i++){
-		cin>>x>>y;
-		v[x].push_back(y);
-		v[y].push_back(x);
-	}
-	ll cnt=0;
-	for(int i=1;i<=n;i++){
-		ans[1]=ans[2]=0;
-		if(!vis[i]&&!dfs(i,1)){
-			cout<<"Impossible";
-			return 0;
-		}
-		cnt+=min(ans[1],ans[2]);
-	}
-	cout<<cnt;
-	return 0;
+    ios::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    ll T=1;
+    //cin>>T;
+    while(T--){
+        solve();
+    }
+    return 0;
 }
