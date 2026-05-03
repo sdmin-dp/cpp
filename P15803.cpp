@@ -12,9 +12,11 @@ void solve(){
         ll u,v,w,w2;
         g[u].push_back({v,w,w2});
         g[v].push_back({u,w,w2});
-        e.push_back({u,v,w2,});
+        e.push_back({u,v,w,w2});
     }
-
+    for(int i=1;i<=n;i++){
+        
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
