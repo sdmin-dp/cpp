@@ -41,6 +41,7 @@ void solve(){
                 if(a[i][j]=='D') ex=i,ey=j;
             }
         }
+        vis[bx][by]=1;
         dfs(bx,by,0);
         if(flag) cout<<"YES"<<el;
         else cout<<"NO"<<el;
