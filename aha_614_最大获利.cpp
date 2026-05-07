@@ -10,7 +10,6 @@ ll dis[N][25];
 void init(){
     g.clear();
     memset(eat,0,sizeof(eat));
-    memset(dis,0x3f,sizeof(dis));
 }
 void solve(){
     
