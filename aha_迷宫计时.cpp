@@ -32,7 +32,6 @@ void solve(){
     scanf("%d%d%d",&n,&m,&t);
     while(n!=0||m!=0||t!=0){
         // printf("%d %d %d",n,m,t);
-        scanf("%d%d%d",&n,&m,&t);
         memset(vis,0,sizeof vis);
         flag=0;
         if(n==0&&m==0&&t==0) return;
@@ -52,6 +51,7 @@ void solve(){
         dfs(bx,by,0);
         if(flag) printf("YES\n");
         else printf("NO\n");
+        scanf("%d%d%d",&n,&m,&t);
     }
 }
 int main(){
