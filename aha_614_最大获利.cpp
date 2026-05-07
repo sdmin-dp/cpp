@@ -3,6 +3,12 @@ using namespace std;
 #define ll long long
 #define el '\n'
 const ll N=1e4+5;
+struct node{
+    ll x,time,cola,food;
+    bool operator <(const node b)const {
+        return time<b.time;
+    }
+};
 ll n,m,k;
 vector<vector<pair<ll,ll>>> g;
 ll eat[N];
@@ -12,7 +18,7 @@ ll& dis(ll x,ll y){
     return dist[x][y+10];
 }
 void dijkstra(){
-    priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;
+    priority_queue<node> q;
     q.push({0,b});
     memset(dis,0x3f,sizeof(dis));
     dis(b,1)=0;
