@@ -7,14 +7,16 @@ ll n,m,k;
 vector<vector<pair<ll,ll>>> g;
 ll eat[N];
 ll dist[N][25]; 
+ll b,e;
 ll& dis(ll x,ll y){
     return dist[x][y+10];
 }
 void dijkstra(){
     priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;
-    q.push({0,1});
+    q.push({0,b});
     memset(dis,0x3f,sizeof(dis));
-    
+    dis(b,1)=0;
+
 }
 void solve(){
     scanf("%lld%lld%lld",&n,&m,&k);
@@ -29,6 +31,7 @@ void solve(){
         g[u].push_back({v,w});
         g[v].push_back({u,w});
     }
+    cin>>b>>e;
 }
 int main(){
     // ios::sync_with_stdio(0);
