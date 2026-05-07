@@ -5,6 +5,22 @@ using namespace std;
 const ll N=1e5+5;
 ll n;
 ll a[N];
+inline __int128 read(){
+    char c=getchar();
+    ll ret=0;
+    while(!isdigit(c)) c=getchar();
+    do{ret=ret*10+c-'0';}while(isdigit(c=getchar()));
+    return ret;
+}
+void print(__int128 x){
+    string s;
+    while(x){
+        s.push_back('0'+x%10);
+        x/=10;
+    }
+    reverse(s.begin(),s.end());
+    cout<<s;
+}
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++) cin>>a[i];
