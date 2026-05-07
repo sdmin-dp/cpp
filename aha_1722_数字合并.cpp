@@ -9,9 +9,13 @@ ll a[N];
 ll dp[maxn][N];
 void solve(){
     cin>>n;
-    for(int i=1;i<=n;i++){
-        
+    for(int i=1;i<=n;i++) cin>>a[i];
+    for(int i=1;i<=maxn;i++){
+        for(int j=1;j<=n;j++){
+            dp[i][j]=dp[i-1][dp[i-1][j]];
+        }
     }
+    
 }
 int main(){
     ios::sync_with_stdio(0);
