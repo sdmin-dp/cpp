@@ -9,7 +9,7 @@ char a[N][N];
 bool vis[N][N];
 ll bx,by,ex,ey;
 bool flag=0;
-void dfs(ll x,ll y,ll step){
+bool dfs(ll x,ll y,ll step){
     if(step>t) return;
     if(flag) return;
     ll dis=abs(x-ex)+abs(y-ey);
