@@ -50,7 +50,7 @@ void solve(){
         }
         dfs(bx,by,0);
         if(flag) printf("YES\n");
-        else printf("%NO\n");
+        else printf("NO\n");
     }
 }
 int main(){
