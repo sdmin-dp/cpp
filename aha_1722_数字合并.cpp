@@ -12,12 +12,12 @@ void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
         cin>>a[i];
-        dp[a[i]][i]=i+1;
+        dp[a[i]][i]=i;
         ans=max(ans,a[i]);
     }
     for(ll i=1;i<=maxn;i++){
         for(int j=1;j<=n;j++){
-            dp[i][j]=dp[i-1][dp[i-1][j]];
+            dp[i][j]=dp[i-1][dp[i-1][j]+1];
             if(dp[i][j]!=0) ans=max(i,ans);
         }
     }
