@@ -15,8 +15,7 @@ void solve(){
         ll k=(1<<(s[i]-'a'));
         xr[i]=xr[i-1]^k;
     }
-    ll cnt=0;
-    mp[0]=1;
+    ll cnt=0;mp[0]=1;
     for(int i=1;i<=n;i++){
         cnt+=mp[xr[i]];
         mp[xr[i]]++;
