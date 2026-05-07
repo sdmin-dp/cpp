@@ -1,60 +1,74 @@
 #include<bits/stdc++.h>
 using namespace std;
-
-int n, m, t;
-char maze[10][10];
-bool vis[10][10];
-int dx[] = {0, 1, 0, -1}, dy[] = {1, 0, -1, 0};
-int sx, sy, ex, ey;
-
-// 改成 bool 类型，一旦找到答案立刻收工
-bool dfs(int x, int y, int step) {
-    // 1. 距离剪枝
-    int dis = abs(x - ex) + abs(y - ey);
-    int shenyu = t - step;
-    if (dis > shenyu || (shenyu - dis) % 2 != 0) return false;
-
-    // 2. 到达终点
-    if (x == ex && y == ey) {
-        return step == t; // 只有步数刚好等于 t 才叫真找到了
+#define ll int
+#define el '\n'
+const ll N=7+3;
+ll dx[]={0,1,0,-1},dy[]={1,0,-1,0};
+ll n,m,t;
+char a[N][N];
+bool vis[N][N];
+ll bx,by,ex,ey;
+bool flag=0;
+void dfs(ll x,ll y,ll step){
+    if(step>t) return;
+    if(flag) return;
+    ll dis=abs(x-ex)+abs(y-ey);
+    ll shenyu=t-step;
+    if(dis>shenyu||abs(dis-shenyu)%2!=0) return;
+    if(x==ex&&y==ey&&step==t){
+        flag=1;
+        return;
     }
-
-    // 3. 继续探索
-    for (int i = 0; i < 4; i++) {
-        int nx = x + dx[i], ny = y + dy[i];
-        if (nx >= 1 && nx <= n && ny >= 1 && ny <= m && maze[nx][ny] != 'X' && !vis[nx][ny]) {
-            vis[nx][ny] = 1;
-            if (dfs(nx, ny, step + 1)) return true; // 如果深层找到了，立刻报喜并退出
-            vis[nx][ny] = 0; // 回溯
+    for(int i=0;i<4;i++){
+        ll xx=x+dx[i],yy=y+dy[i];
+        if(xx>=1&&xx<=n&&yy>=1&&yy<=m&&!vis[xx][yy]&&a[xx][yy]!='X'){
+            vis[xx][yy]=1;
+            dfs(xx,yy,step+1);
+            vis[xx][yy]=0;
         }
     }
-    return false;
 }
-
-int main() {
-    // 极其标准的读入方式，防死循环，防多读
-    while (scanf("%d%d%d", &n, &m, &t) == 3 && (n || m || t)) {
-        int can_walk = 0;
-        for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= m; j++) {
-                scanf(" %c", &maze[i][j]);
-                if (maze[i][j] == 'S') { sx = i; sy = j; }
-                else if (maze[i][j] == 'D') { ex = i; ey = j; }
-                if (maze[i][j] != 'X') can_walk++; // 数数有多少地儿能踩
+void solve(){
+    while(scanf("%d%d%d",&n,&m,&t)==3&&(n!=0||m!=0||t!=0)){
+        // printf("%d %d %d",n,m,t);
+        memset(vis,0,sizeof vis);
+        flag=0;
+        if(n==0&&m==0&&t==0) return;
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=m;j++){
+                scanf(" %c",&a[i][j]);
+                if(a[i][j]=='S') bx=i,by=j;
+                if(a[i][j]=='D') ex=i,ey=j;
             }
         }
-
-        // 强力剪枝：如果地皮不够踩，直接抬走，下一位
-        if (can_walk < t + 1) { // +1 是因为算上了起点
+        vis[bx][by]=1;
+        if(abs(bx-ex)+abs(by-ey)>t){
+            // cout<<"NO"<<el;
             printf("NO\n");
             continue;
         }
-
-        memset(vis, 0, sizeof(vis));
-        vis[sx][sy] = 1; // 起点先踩塌
-
-        if (dfs(sx, sy, 0)) printf("YES\n");
+        dfs(bx,by,0);
+        if(flag) printf("YES\n");
         else printf("NO\n");
+    }
+}
+int main(){
+    // ios::sync_with_stdio(0);
+    // cin.tie(0);cout.tie(0);
+    //freopen("xxx.in","r",stdin);
+    //freopen("xxx.out","w",stdout);
+    ll T=1;
+    //cin>>T;
+    while(T--){
+        solve();
     }
     return 0;
 }
+
+/*
+4 4 6
+S...
+....
+....
+...D
+*/
