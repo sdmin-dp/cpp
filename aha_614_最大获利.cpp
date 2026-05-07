@@ -3,6 +3,7 @@ using namespace std;
 #define ll long long
 #define el '\n'
 const ll N=1e4+5;
+const ll inf=1e12;
 struct node{
     ll x,time,cola,food;
     bool operator <(const node b)const {
@@ -20,6 +21,7 @@ ll& dis(ll x,ll y){
 void dijkstra(){
     priority_queue<node> q;
     q.push({0,b});
+    for(int i=1;i<=n;i++) for(int j=-10;j<=10;j++) dis(i,j)=inf;
     memset(dist,0x3f,sizeof(dist));
     dis(b,1)=0;
     while(!q.empty()){
@@ -52,9 +54,9 @@ void solve(){
     }
     cin>>b>>e;
     dijkstra();
-    ll ans=0;
+    ll ans=inf;
     for(int i=-k;i<=k;i++) ans=min(ans,dis(e,i));
-    cout<<ans<<el;
+    cout<<(ans==inf?-1:ans)<<el;
 }
 int main(){
     // ios::sync_with_stdio(0);
