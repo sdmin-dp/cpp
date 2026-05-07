@@ -39,9 +39,8 @@ void solve(){
         flag=0;
         if(n==0&&m==0&&t==0) return;
         for(int i=1;i<=n;i++){
-            getchar();
             for(int j=1;j<=m;j++){
-                scanf("%c",&a[i][j]);
+                scanf(" %c",&a[i][j]);
                 if(a[i][j]=='S') bx=i,by=j;
                 if(a[i][j]=='D') ex=i,ey=j;
             }
