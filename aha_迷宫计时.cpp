@@ -17,7 +17,7 @@ bool dfs(ll x,ll y,ll step){
     if(dis>shenyu||abs(dis-shenyu)%2!=0) return;
     if(x==ex&&y==ey&&step==t){
         flag=1;
-        return;
+        return 1;
     }
     for(int i=0;i<4;i++){
         ll xx=x+dx[i],yy=y+dy[i];
