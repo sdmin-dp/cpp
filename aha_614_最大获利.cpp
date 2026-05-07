@@ -10,6 +10,12 @@ ll dist[N][25];
 ll& dis(ll x,ll y){
     return dist[x][y+10];
 }
+void dijkstra(){
+    priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;
+    q.push({0,1});
+    memset(dis,0x3f,sizeof(dis));
+    
+}
 void solve(){
     scanf("%lld%lld%lld",&n,&m,&k);
     // cin>>n>>m>>k;
