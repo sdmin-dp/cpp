@@ -29,7 +29,7 @@ void dfs(ll x,ll y,ll step){
     }
 }
 void solve(){
-    while(n!=0||m!=0||t!=0){
+    while(scanf("%d%d%d",&n,&m,&t)==3&&(n!=0||m!=0||t!=0)){
         // printf("%d %d %d",n,m,t);
         memset(vis,0,sizeof vis);
         flag=0;
