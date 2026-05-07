@@ -9,7 +9,9 @@ ll a[N];
 ll dp[maxn][N];
 void solve(){
     cin>>n;
-    for(int i=1;i<=n;i++) cin>>a[i];
+    for(int i=1;i<=n;i++){
+        cin>>a[i];
+    }
     ll ans=0;
     for(ll i=1;i<=maxn;i++){
         for(int j=1;j<=n;j++){
