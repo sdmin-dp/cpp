@@ -2,7 +2,7 @@
 using namespace std;
 #define ll long long
 #define el '\n'
-const ll N=5e3+5;
+const ll N=1e4+5;
 vector<ll> g[N];
 ll eat[N];
 
