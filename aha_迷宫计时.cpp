@@ -10,11 +10,11 @@ bool vis[N][N];
 ll bx,by,ex,ey;
 bool flag=0;
 bool dfs(ll x,ll y,ll step){
-    if(step>t) return;
-    if(flag) return;
+    if(step>t) return 0;
+    if(flag) return 0;
     ll dis=abs(x-ex)+abs(y-ey);
     ll shenyu=t-step;
-    if(dis>shenyu||abs(dis-shenyu)%2!=0) return;
+    if(dis>shenyu||abs(dis-shenyu)%2!=0) return 0;
     if(x==ex&&y==ey&&step==t){
         flag=1;
         return 1;
