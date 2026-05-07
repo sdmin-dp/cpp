@@ -4,6 +4,8 @@ using namespace std;
 #define el '\n'
 const ll N=5e3+5;
 vector<ll> g[N];
+ll eat[N];
+
 void solve(){
     
 }
