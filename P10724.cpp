@@ -31,10 +31,3 @@ int main(){
     }
     return 0;
 }
-inline __int128 read128(){
-    char c=getchar();
-    ll ret=0;
-    while(!isdigit(c)) c=getchar();
-    do{ret=ret*10+c-'0';}while(isdigit(c=getchar()));
-    return ret;
-}
