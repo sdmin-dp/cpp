@@ -20,11 +20,16 @@ ll& dis(ll x,ll y){
 }
 void dijkstra(){
     priority_queue<node> q;
-    if(eat[b]==1) q.push({b,0,1,0});
-    else q.push({b,0,0,1});
+    if(eat[b]==1){
+        q.push({b,0,1,0});
+        dis(b,-1)=0;
+    }
+    else{
+        q.push({b,0,0,1});
+        dis(b,1)=0;
+    }
     for(int i=1;i<=n;i++) for(int j=-10;j<=10;j++) dis(i,j)=inf;
-    memset(dist,0x3f,sizeof(dist));
-    dis(b,1)=0;
+    // memset(dist,0x3f,sizeof(dist));
     while(!q.empty()){
         auto t=q.top();
         q.pop();
