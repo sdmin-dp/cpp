@@ -7,14 +7,14 @@ const ll maxn=60;
 ll n;
 ll a[N];
 ll dp[maxn][N];
+ll ans=0;
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
         cin>>a[i];
         dp[a[i]][i]=i+1;
-        
+        ans=max(ans,a[i]);
     }
-    ll ans=0;
     for(ll i=1;i<=maxn;i++){
         for(int j=1;j<=n;j++){
             dp[i][j]=dp[i-1][dp[i-1][j]];
