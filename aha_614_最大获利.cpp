@@ -3,7 +3,8 @@ using namespace std;
 #define ll long long
 #define el '\n'
 const ll N=1e4+5;
-vector<vector<ll>>g;
+ll n,m;
+vector<vector<pair<ll,ll>>> g;
 ll eat[N];
 void init(){
     
