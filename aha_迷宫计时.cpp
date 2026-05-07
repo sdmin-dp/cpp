@@ -32,6 +32,7 @@ void dfs(ll x,ll y,ll step){
 }
 void solve(){
     while(cin>>n>>m>>t){
+        memset(vis,0,sizeof vis);
         flag=0;
         if(n==0&&m==0&&t==0) return;
         for(int i=1;i<=n;i++){
