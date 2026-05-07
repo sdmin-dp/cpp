@@ -31,7 +31,8 @@ void dfs(ll x,ll y,ll step){
     }
 }
 void solve(){
-    while(~scanf("%d%d%d",&n,&m,&t)){
+    while(1){
+        scanf("%d%d%d",&n,&m,&t);
         memset(vis,0,sizeof vis);
         flag=0;
         if(n==0&&m==0&&t==0) return;
