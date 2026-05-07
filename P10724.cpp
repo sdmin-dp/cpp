@@ -31,3 +31,6 @@ int main(){
     }
     return 0;
 }
+/*
+'0xproto Nerd Font Mono','microsoft YaHei',monospace
+*/
