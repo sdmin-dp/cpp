@@ -5,14 +5,14 @@ using namespace std;
 const ll N=1e5+5;
 ll n;
 ll a[N];
-inline __int128 read(){
+inline __int128 read128(){
     char c=getchar();
     ll ret=0;
     while(!isdigit(c)) c=getchar();
     do{ret=ret*10+c-'0';}while(isdigit(c=getchar()));
     return ret;
 }
-void print(__int128 x){
+void print128(__int128 x){
     string s;
     while(x){
         s.push_back('0'+x%10);
