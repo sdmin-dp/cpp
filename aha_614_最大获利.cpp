@@ -33,6 +33,7 @@ void dijkstra(){
     while(!q.empty()){
         auto t=q.top();
         q.pop();
+        if (t.time>dis(t.x,t.food-t.cola)) continue;
         for(auto i:g[t.x]){
             ll fod=t.food,cla=t.cola;
             if(eat[i.first]==1) cla++;
