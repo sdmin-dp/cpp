@@ -11,6 +11,8 @@ void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
         cin>>a[i];
+        dp[a[i]][i]=i+1;
+        
     }
     ll ans=0;
     for(ll i=1;i<=maxn;i++){
