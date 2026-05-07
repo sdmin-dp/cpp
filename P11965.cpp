@@ -18,7 +18,7 @@ void solve(){
     ll cnt=0;
     mp[0]=1;
     for(int i=1;i<=n;i++){
-        cnt+=mp.count(xr[i]);
+        cnt+=mp[xr[i]];
         mp[xr[i]]++;
     }
     cout<<cnt;
