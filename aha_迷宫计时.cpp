@@ -42,6 +42,10 @@ void solve(){
             }
         }
         vis[bx][by]=1;
+        if(abs(bx-ex)+abs(by-ey)>t){
+            cout<<"NO"<<el;
+            return;
+        }
         dfs(bx,by,0);
         if(flag) cout<<"YES"<<el;
         else cout<<"NO"<<el;
