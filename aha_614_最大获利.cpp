@@ -3,9 +3,11 @@ using namespace std;
 #define ll long long
 #define el '\n'
 const ll N=1e4+5;
-vector<ll> g[N];
+vector<vector<ll>>g;
 ll eat[N];
-
+void init(){
+    
+}
 void solve(){
     
 }
@@ -15,8 +17,9 @@ int main(){
     //freopen("xxx.in","r",stdin);
     //freopen("xxx.out","w",stdout);
     ll T=1;
-    //cin>>T;
+    cin>>T;
     while(T--){
+        init();
         solve();
     }
     return 0;
