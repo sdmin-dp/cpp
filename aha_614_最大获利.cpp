@@ -7,7 +7,7 @@ const ll inf=1e12;
 struct node{
     ll x,time,cola,food;
     bool operator <(const node b)const {
-        return time<b.time;
+        return time>b.time;
     }
 };
 ll n,m,k;
