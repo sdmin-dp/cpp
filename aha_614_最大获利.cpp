@@ -39,7 +39,7 @@ void dijkstra(){
             if(eat[i.first]==1) cla++;
             else fod++;
             ll offset=fod-cla;
-            if(dis(i.first,offset)>t.time+i.second){
+            if(abs(offset)<=k&&dis(i.first,offset)>t.time+i.second){
                 dis(i.first,offset)=t.time+i.second;
                 q.push({i.first,dis(i.first,offset),cla,fod});
             }
