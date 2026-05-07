@@ -23,7 +23,7 @@ bool dfs(ll x,ll y,ll step){
         ll xx=x+dx[i],yy=y+dy[i];
         if(xx>=1&&xx<=n&&yy>=1&&yy<=m&&!vis[xx][yy]&&a[xx][yy]!='X'){
             vis[xx][yy]=1;
-            dfs(xx,yy,step+1);
+            if(dfs(xx,yy,step+1))
             vis[xx][yy]=0;
         }
     }
