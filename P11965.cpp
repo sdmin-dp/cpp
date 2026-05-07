@@ -20,6 +20,7 @@ void solve(){
         cnt+=mp.count(xr[i]);
         mp[xr[i]]++;
     }
+    cout<<cnt;
 }
 int main(){
     ios::sync_with_stdio(0);
