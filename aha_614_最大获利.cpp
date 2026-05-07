@@ -36,7 +36,6 @@ void dijkstra(){
             }
         }
     }
-    
 }
 void solve(){
     scanf("%lld%lld%lld",&n,&m,&k);
@@ -52,6 +51,10 @@ void solve(){
         g[v].push_back({u,w});
     }
     cin>>b>>e;
+    dijkstra();
+    ll ans=0;
+    for(int i=-k;i<=k;i++) ans=min(ans,dis(e,i));
+    cout<<ans<<el;
 }
 int main(){
     // ios::sync_with_stdio(0);
