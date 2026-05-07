@@ -13,7 +13,10 @@ bool dfs(ll x,ll y,ll step){
     ll dis=abs(x-ex)+abs(y-ey);
     ll shenyu=t-step;
     if(dis>shenyu||abs(dis-shenyu)%2!=0) return 0;
-    if(x==ex&&y==ey&&step==t) return 1;
+    if(x==ex&&y==ey){
+        if(step==t) return 1;
+        else return 0;
+    }
     for(int i=0;i<4;i++){
         ll xx=x+dx[i],yy=y+dy[i];
         if(xx>=1&&xx<=n&&yy>=1&&yy<=m&&!vis[xx][yy]&&a[xx][yy]!='X'){
