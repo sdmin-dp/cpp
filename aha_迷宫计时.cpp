@@ -5,8 +5,8 @@ using namespace std;
 const ll N=7+5;
 ll n,m,t;
 void solve(){
-    while(~(scanf("%d%d%d",&n,&m,&t))){
-        
+    while(scanf("%d%d%d",&n,&m,&t)==3&&(n&&m&&t)){
+
     }
 }
 int main(){
