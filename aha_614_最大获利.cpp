@@ -14,7 +14,7 @@ void solve(){
     cin>>n>>m>>k;
     g.clear();
     for(int i=1;i<=m;i++){
-        
+        ll u,v,w;
     }
 }
 int main(){
