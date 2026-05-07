@@ -14,7 +14,6 @@ ll bx,by,ex,ey;
 bool flag=0;
 void dfs(ll x,ll y,ll step){
     if(step>t) return;
-    if(step==t&&(x!=ex||y!=ey)) return;
     if(flag) return;
     ll dis=abs(x-ex)+abs(y-ey);
     ll shenyu=t-step;
