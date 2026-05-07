@@ -7,7 +7,7 @@ ll n,m;
 vector<vector<pair<ll,ll>>> g;
 ll eat[N];
 void init(){
-    
+    g.clear();
 }
 void solve(){
     
