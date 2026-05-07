@@ -16,7 +16,7 @@ void solve(){
         xr[i]=xr[i-1]^k;
     }
     ll cnt=0;
-    mp[0]=1;
+    mp[0]=0;
     for(int i=1;i<=n;i++){
         cnt+=mp.count(xr[i]);
         mp[xr[i]]++;
