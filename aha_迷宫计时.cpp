@@ -45,12 +45,12 @@ void solve(){
         vis[bx][by]=1;
         if(abs(bx-ex)+abs(by-ey)>t){
             // cout<<"NO"<<el;
-            printf("NO\n");
+            printf("NO1\n");
             continue;
         }
         dfs(bx,by,0);
         if(flag) printf("YES\n");
-        else printf("NO\n");
+        else printf("NO2\n");
     }
 }
 int main(){
