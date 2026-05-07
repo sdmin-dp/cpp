@@ -1,11 +1,13 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define ll long long
+#define ll int
 #define el '\n'
 const ll N=7+5;
 ll n,m,t;
 void solve(){
-    
+    while(~(scanf("%d%d%d",&n,&m,&t))){
+        
+    }
 }
 int main(){
     // ios::sync_with_stdio(0);
