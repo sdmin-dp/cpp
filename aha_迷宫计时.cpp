@@ -33,7 +33,7 @@ void dfs(ll x,ll y,ll step){
 void solve(){
     while(1){
         scanf("%d%d%d",&n,&m,&t);
-        printf("%d %d %d",n,m,t);
+        // printf("%d %d %d",n,m,t);
         memset(vis,0,sizeof vis);
         flag=0;
         if(n==0&&m==0&&t==0) return;
@@ -49,12 +49,12 @@ void solve(){
         vis[bx][by]=1;
         if(abs(bx-ex)+abs(by-ey)>t){
             // cout<<"NO"<<el;
-            printf("NO1\n");
+            printf("NO\n");
             continue;
         }
         dfs(bx,by,0);
         if(flag) printf("YES\n");
-        else printf("NO2\n");
+        else printf("NO\n");
     }
 }
 int main(){
