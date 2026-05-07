@@ -18,8 +18,11 @@ void solve(){
     for(ll i=1;i<=maxn;i++){
         for(int j=1;j<=n;j++){
             if(dp[i][j]==0){
-                dp[i][j]=dp[i-1][dp[i-1][j]+1];
-                if(dp[i][j]!=0) ans=max(i,ans);
+                ll k=dp[i-1][j];
+                if(k!=0&&k<n&&dp[i-1][k+1]!=0){
+                    dp[i][j]=dp[i-1][k+1];
+                    ans=max(ans,i);
+                }
             }
         }
     }
