@@ -31,25 +31,26 @@ void dfs(ll x,ll y,ll step){
     }
 }
 void solve(){
-    while(cin>>n>>m>>t){
+    while(~scanf("%d%d%d",&n,&m,&t)){
         memset(vis,0,sizeof vis);
         flag=0;
         if(n==0&&m==0&&t==0) return;
         for(int i=1;i<=n;i++){
             for(int j=1;j<=m;j++){
-                cin>>a[i][j];
+                scanf("%c",&a[i][j]);
                 if(a[i][j]=='S') bx=i,by=j;
                 if(a[i][j]=='D') ex=i,ey=j;
             }
         }
         vis[bx][by]=1;
         if(abs(bx-ex)+abs(by-ey)>t){
-            cout<<"NO"<<el;
+            // cout<<"NO"<<el;
+            printf("NO\n");
             continue;
         }
         dfs(bx,by,0);
-        if(flag) cout<<"YES"<<el;
-        else cout<<"NO"<<el;
+        if(flag) printf("YES\n");
+        else printf("%NO\n");
     }
 }
 int main(){
