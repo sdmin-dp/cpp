@@ -8,17 +8,12 @@ ll n,m,t;
 char a[N][N];
 bool vis[N][N];
 ll bx,by,ex,ey;
-bool flag=0;
 bool dfs(ll x,ll y,ll step){
     if(step>t) return 0;
-    if(flag) return 0;
     ll dis=abs(x-ex)+abs(y-ey);
     ll shenyu=t-step;
     if(dis>shenyu||abs(dis-shenyu)%2!=0) return 0;
-    if(x==ex&&y==ey&&step==t){
-        flag=1;
-        return 1;
-    }
+    if(x==ex&&y==ey&&step==t) return 1;
     for(int i=0;i<4;i++){
         ll xx=x+dx[i],yy=y+dy[i];
         if(xx>=1&&xx<=n&&yy>=1&&yy<=m&&!vis[xx][yy]&&a[xx][yy]!='X'){
@@ -33,7 +28,6 @@ void solve(){
     while(scanf("%d%d%d",&n,&m,&t)==3&&(n!=0||m!=0||t!=0)){
         // printf("%d %d %d",n,m,t);
         memset(vis,0,sizeof vis);
-        flag=0;
         if(n==0&&m==0&&t==0) return;
         for(int i=1;i<=n;i++){
             for(int j=1;j<=m;j++){
@@ -48,8 +42,8 @@ void solve(){
             printf("NO\n");
             continue;
         }
-        dfs(bx,by,0);
-        if(flag) printf("YES\n");
+        
+        if(dfs(bx,by,0)) printf("YES\n");
         else printf("NO\n");
     }
 }
