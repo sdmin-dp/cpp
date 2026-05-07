@@ -20,9 +20,23 @@ ll& dis(ll x,ll y){
 void dijkstra(){
     priority_queue<node> q;
     q.push({0,b});
-    memset(dis,0x3f,sizeof(dis));
+    memset(dist,0x3f,sizeof(dist));
     dis(b,1)=0;
-
+    while(!q.empty()){
+        auto t=q.top();
+        q.pop();
+        for(auto i:g[t.x]){
+            ll fod=t.food,cla=t.cola;
+            if(eat[i.first]==1) cla++;
+            else fod++;
+            ll offset=fod-cla;
+            if(dis(i.first,offset)>t.time+i.second){
+                dis(i.first,offset)=t.time+i.second;
+                q.push({i.first,dis(i.first,offset),cla,fod});
+            }
+        }
+    }
+    
 }
 void solve(){
     scanf("%lld%lld%lld",&n,&m,&k);
