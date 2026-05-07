@@ -31,13 +31,11 @@ void dfs(ll x,ll y,ll step){
     }
 }
 void solve(){
-    while(1){
-        scanf("%d%d%d",&n,&m,&t);
+    while(~(scanf("%d%d%d",&n,&m,&t))){
         // printf("%d %d %d",n,m,t);
         memset(vis,0,sizeof vis);
         flag=0;
         if(n==0&&m==0&&t==0) return;
-        
         for(int i=1;i<=n;i++){
             getchar();
             for(int j=1;j<=m;j++){
