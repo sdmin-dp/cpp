@@ -53,7 +53,7 @@ void solve(){
         g[u].push_back({v,w});
         g[v].push_back({u,w});
     }
-    cin>>b>>e;
+    scanf("%lld%lld",b,e);
     dijkstra();
     ll ans=inf;
     for(int i=-k;i<=k;i++) ans=min(ans,dis(e,i));
