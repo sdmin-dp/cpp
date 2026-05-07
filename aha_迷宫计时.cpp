@@ -2,7 +2,7 @@
 using namespace std;
 #define ll int
 #define el '\n'
-const ll N=15+5;
+const ll N=10+5;
 struct node{
     ll x,y,step;
 };
