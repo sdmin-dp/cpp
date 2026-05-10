@@ -7,13 +7,15 @@ ll n;
 vector<pair<ll,ll>> g[N];
 ll ans=-1e12,k;
 ll dis[N];
+ll b;
+ll pre[N];
 void bfs(ll x,ll fa){
     queue<pair<ll,ll>> q;
     q.push({x,fa});
     while(!q.empty()){
         pair<ll,ll> t=q.front();
         q.pop();
-        
+        pre[t.first]=t.second;
         for(auto i:g[t.first]){
             ll v=i.first,w=i.second;
             if(v!=t.second){
@@ -36,10 +38,12 @@ void solve(){
         g[y].push_back({x,z});
     }
     bfs(1,0);
+    b=k;
     ans=-1e12;
     memset(dis,0,sizeof dis);
     bfs(k,0);
     cout<<ans;
+    cerr<<b<<" "<<k;
 }
 int main(){
     ios::sync_with_stdio(0);
