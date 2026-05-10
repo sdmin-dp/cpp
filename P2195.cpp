@@ -28,6 +28,8 @@ void solve(){
         g[v].push_back(u);
     }
     for(int i=1;i<=q;i++){
+        ll op,x,y;
+        cin>>op>>x;
         
     }
 }
