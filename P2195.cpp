@@ -46,6 +46,19 @@ void solve(){
             ans=-1e12;
             dfs(k,0,0);
             cout<<ans<<el;
+        }else{
+            cin>>y;
+            ll disx=0,disy=0;
+            dfs(x,0,0);
+            ans=-1e12;
+            dfs(k,0,0);
+            disx=ans;
+            ans=-1e12,k=0;
+            dfs(y,0,0);
+            ans=-1e12;
+            dfs(k,0,0);
+            disy=ans;
+            
         }
     }
 }
