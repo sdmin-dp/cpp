@@ -17,6 +17,7 @@ struct bcj{
 };
 ll n,m,q;
 vector<ll> g[N];
+
 void solve(){
     cin>>n>>m>>q;
     bcj a(n);
@@ -30,7 +31,7 @@ void solve(){
     for(int i=1;i<=q;i++){
         ll op,x,y;
         cin>>op>>x;
-        
+
     }
 }
 int main(){
