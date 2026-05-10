@@ -1,13 +1,13 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define ll int
+#define ll long long
 #define el '\n'
 const ll N=3e5+5;
 struct bcj{
     vector<ll> fa;
     bcj(ll len){
-        fa.reserve(len+1);
-        fa.resize(len+1);
+        fa.reserve(len+5);
+        fa.resize(len+5);
         for(int i=1;i<=len;i++) fa[i]=i;
     }
     ll find(ll x){
