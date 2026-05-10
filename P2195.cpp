@@ -30,6 +30,13 @@ void dfs(ll x,ll fa,ll dis){
         dfs(v,x,dis+1);
     }
 }
+ll get_d(int u){
+    ans=-1e12;
+    dfs(u,-1,0);
+    ans=-1e12;
+    dfs(k,-1,0);
+    return ans;
+}
 void solve(){
     cin>>n>>m>>q;
     bcj a(n);
@@ -41,7 +48,11 @@ void solve(){
         g[v].push_back(u);
     }
     for(int i=1;i<=n;i++){
-        
+        int fi=a.find(i);
+        if(!vis[fi]){
+            dis[fi]=get_d(i);
+            vis[fi]=1;
+        }
     }
     for(int i=1;i<=q;i++){
         ll op,x,y;
