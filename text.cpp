@@ -10,6 +10,7 @@ ll dis[N];
 ll b;
 ll pre[N];
 bool vis[N];
+ll len[N];
 void bfs(ll x,ll fa){
     queue<pair<ll,ll>> q;
     q.push({x,fa});
@@ -30,8 +31,12 @@ void bfs(ll x,ll fa){
         }
     }
 }
-void dfs(ll ){
-
+void dfs(ll x,ll fa){
+    for(auto i:g[x]){
+        if(i.first==fa||vis[i.first]) continue;
+        len[i.first]=len[x]+i.second;
+        dfs(i.first,x);
+    }
 }
 void solve(){
     cin>>n;
