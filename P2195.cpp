@@ -43,7 +43,8 @@ void solve(){
     for(int i=1;i<=m;i++){
         ll u,v;
         cin>>u>>v;
-        a.fa[a.find(u)]=a.find(v);
+        ll fu=a.find(u),fv=a.find(v);
+        if(fu!=fv) a.fa[fu]=fv;
         g[u].push_back(v);
         g[v].push_back(u);
     }
