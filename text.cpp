@@ -37,8 +37,8 @@ void dfs(ll u, ll fa) {
 void solve() {
     cin >> n >> m >> q;
     init();
-    // for (int i = 1; i <= n; i++)
-    //     cout << f[i] << '\n';
+    for (int i = 1; i <= n; i++)
+        cout << f[i] << '\n';
 
     for (int i = 1; i <= m; i++) {
         int x, y;
