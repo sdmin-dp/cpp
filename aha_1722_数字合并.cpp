@@ -15,7 +15,7 @@ void solve(){
         dp[a[i]][i]=i;
         ans=max(ans,a[i]);
     }
-    for(ll i=2;i<=maxn;i++){
+    for(ll i=2;i<maxn;i++){
         for(int j=1;j<=n;j++){
             if(dp[i][j]==0){
                 ll k=dp[i-1][j];
