@@ -58,7 +58,7 @@ void solve(){
         ll op,x,y;
         cin>>op>>x;
         if(op==1){
-            cout<<dis[a.find(x)]+1<<el;
+            cout<<dis[a.find(x)]<<el;
         }else{
             cin>>y;
             ll fx=a.fa[x],fy=a.fa[y];
