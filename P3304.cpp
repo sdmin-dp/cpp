@@ -14,11 +14,7 @@ bool inpath[N];
 void dfs(ll x,ll fa,ll dis){
     pre[x]=fa;
     if(dis>ans) k=x,ans=dis;
-    for(auto i:g[x]){
-        if(i.first!=fa){
-            dfs(i.first,x,dis+i.second);
-        }
-    }
+    for(auto i:g[x]) if(i.first!=fa) dfs(i.first,x,dis+i.second);
 }
 void dfs2(ll x,ll num){
     if(num==path.size()) return;
@@ -46,12 +42,10 @@ void solve(){
         g[u].push_back({v,w});
         g[v].push_back({u,w});
     }
-    ans=inf;
-    dfs(1,0,0);
-    b=k;
-    ans=-1e12;
-    dfs(k,0,0);
-    e=k;
+    
+    ans=inf;dfs(1,0,0);b=k;
+    ans=inf;dfs(k,0,0);e=k;
+    
     ll cur=e;
     while(cur!=b){
         inpath[cur]=1;
@@ -61,20 +55,15 @@ void solve(){
     inpath[b]=1;
     path.push_back(b);
     reverse(path.begin(),path.end());
+
     dfs2(path[0],1);
+
     for(auto i:path) odis[i]=dfs3(i,0,0);
 
-
     ll l=0,r=path.size()-1;
+    for(ll i=0;i<path.size();i++) if(odis[path[i]]==dis[path[i]]) l=i;
+    for(ll i=path.size()-1;i>=0;i--) if(odis[path[i]]==ans-dis[path[i]]) r=i;
 
-    for(ll i=0;i<path.size();i++)
-        if(odis[path[i]]==dis[path[i]])
-            l=i;
-
-    
-    for(ll i=path.size()-1;i>=0;i--)
-        if(odis[path[i]]==ans-dis[path[i]])
-            r=i;
     cout<<ans<<el<<r-l;
 }
 int main(){
