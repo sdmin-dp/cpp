@@ -35,7 +35,6 @@ void dfs(int x, int fa)
     g[x] = max(dd, ddd);
     res = max(res, g[x]);
 }
-
 void solve() {
     cin >> n >> m >> q;
     init();
@@ -45,7 +44,6 @@ void solve() {
         G[x].push_back(y);
         G[y].push_back(x);
     }
- 
     for (int i = 1; i <= n; i++) {
         if (vis[i] || f[i] != i) {
             continue;
@@ -56,7 +54,6 @@ void solve() {
         ans[i] = res;
         vis[i] = true;
     }
-
     for (int i = 1; i <= q; i++) {
         int op;
         cin >> op;
