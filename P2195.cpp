@@ -18,7 +18,6 @@ struct bcj{
 ll n,m,q,ans,k;
 ll dis[N];
 vector<ll> g[N];
-bool vis[N];
 void dfs(ll x,ll fa,ll dis){
     if(dis>ans){
         k=x;
@@ -41,29 +40,24 @@ void solve(){
         g[v].push_back(u);
     }
     for(int i=1;i<=n;i++){
-        
+        ans=-1e12,k=0;
+        dfs(i,0,0);
+        ans=-1e12;
+        dfs(k,0,0);
+        dis[a.find(i)]=ans;
     }
     for(int i=1;i<=q;i++){
         ll op,x,y;
         cin>>op>>x;
         if(op==1){
-            dfs(x,0,0);
-            ans=-1e12;
-            dfs(k,0,0);
-            cout<<ans<<el;
+            cout<<dis[a.find(x)]<<el;
         }else{
             cin>>y;
-            ll disx=0,disy=0;
-            dfs(x,0,0);
-            ans=-1e12;
-            dfs(k,0,0);
-            disx=ans;
-            ans=-1e12,k=0;
-            dfs(y,0,0);
-            ans=-1e12;
-            dfs(k,0,0);
-            disy=ans;
-            ll fx=a.find(x);
+            ll fx=a.fa[x],fy=a.fa[y];
+            if(fx!=fy){
+                a.fa[fx]=fy;
+                dis[fy]=max({dis[fx],dis[fy],(dis[fx]+1)/2+(dis[fy]+1)/2+1});
+            }
         }
     }
 }
