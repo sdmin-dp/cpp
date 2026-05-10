@@ -11,7 +11,6 @@ bool vis[N];
 int fr (int x) {
     return (f[x] == x ? x : f[x] = fr(f[x]));
 }
-
 void init () {
     for (int i = 1; i <= n; i++)
         f[i] = i;
