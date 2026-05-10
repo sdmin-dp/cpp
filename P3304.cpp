@@ -6,9 +6,11 @@ const ll N=2e5+5;
 const ll inf=-1e12;
 ll n;
 vector<pair<ll,ll>> g[N];
-ll ans,k;
-
+ll ans,k,b,e;
+ll pre[N];
+vector<ll> path;
 void dfs(ll x,ll fa,ll dis){
+    pre[x]=fa;
     if(dis>ans) k=x,ans=dis;
     for(auto i:g[x]){
         if(i.first!=fa){
@@ -17,8 +19,17 @@ void dfs(ll x,ll fa,ll dis){
     }
     ans=inf;
     dfs(1,0,0);
+    b=k;
     ans=-1e12;
-
+    dfs(k,0,0);
+    e=k;
+    ll cur=e;
+    while(cur!=b){
+        path.push_back(cur);
+        cur=pre[cur];
+   }
+   
+    
 }
 void solve(){
     cin>>n;
