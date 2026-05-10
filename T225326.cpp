@@ -36,7 +36,7 @@ void solve(){
     bfs(1,0);
     ans=-1e12;
     bfs(k,0);
-    cout<<ans*2;
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
