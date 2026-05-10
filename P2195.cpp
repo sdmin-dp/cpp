@@ -19,9 +19,11 @@ ll n,m,q;
 vector<ll> g[N];
 void solve(){
     cin>>n>>m>>q;
+    bcj a(n);
     for(int i=1;i<=m;i++){
         ll u,v;
         cin>>u>>v;
+        a.fa[a.find(u)]=a.find(v);
         g[u].push_back(v);
         g[v].push_back(u);
     }
