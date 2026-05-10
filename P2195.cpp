@@ -43,7 +43,9 @@ void solve(){
         cin>>op>>x;
         if(op==1){
             dfs(x,0,0);
-            
+            ans=-1e12;
+            dfs(k,0,0);
+            cout<<ans<<el;
         }
     }
 }
