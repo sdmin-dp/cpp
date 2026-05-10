@@ -17,7 +17,6 @@ struct bcj{
 };
 ll n,m,q;
 vector<ll> g[N];
-
 void solve(){
     cin>>n>>m>>q;
     bcj a(n);
