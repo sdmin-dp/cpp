@@ -33,8 +33,8 @@ void bfs(ll x,ll fa){
 }
 void dfs(ll x,ll fa){
     for(auto i:g[x]){
-        if(i.first==fa||vis[i.first]) continue;
-        len[i.first]=len[x]+i.second;
+        if(i.first==fa) continue;
+        if(!vis[i.first]) len[i.first]=len[x]+i.second;
         dfs(i.first,x);
     }
 }
@@ -58,6 +58,8 @@ void solve(){
     }
     vis[b]=1;
     cout<<ans;
+    dfs(b,0);
+    for(int i=1;i<=n;i++) cout<<len[i]<<" ";
 }
 int main(){
     ios::sync_with_stdio(0);
