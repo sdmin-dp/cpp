@@ -17,6 +17,7 @@ struct bcj{
 };
 ll n,m,q,ans,k;
 ll dis[N];
+bool vis[N];
 vector<ll> g[N];
 void dfs(ll x,ll fa,ll dis){
     if(dis>ans){
@@ -40,11 +41,7 @@ void solve(){
         g[v].push_back(u);
     }
     for(int i=1;i<=n;i++){
-        ans=-1e12,k=0;
-        dfs(i,0,0);
-        ans=-1e12;
-        dfs(k,0,0);
-        dis[a.find(i)]=ans;
+        
     }
     for(int i=1;i<=q;i++){
         ll op,x,y;
