@@ -12,11 +12,12 @@ vector<ll> path;
 ll dis[N],odis[N];
 bool inpath[N];
 void dfs(ll x,ll fa,ll dis){
-    pre[x]=fa;
+    
     if(dis>ans) k=x,ans=dis;
     for(auto i:g[x]){
         if(i.first!=fa){
             dfs(i.first,x,dis+i.second);
+            pre[x]=fa;
         }
     }
 }
