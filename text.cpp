@@ -51,6 +51,7 @@ void solve() {
             continue;
         }
         res = 0;
+        memset(dis,0,sizeof(dis));
         dfs(i, 0);
         ans[i] = res;
         vis[i] = true;
