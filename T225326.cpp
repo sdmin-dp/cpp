@@ -6,8 +6,24 @@ const ll N=4e4+5;
 ll n;
 vector<pair<ll,ll>> g[N];
 ll ans=-1e12,k;
+ll dis[N];
 void bfs(ll x,ll fa){
-    
+    queue<pair<ll,ll>> q;
+    q.push({x,fa});
+    while(!q.empty()){
+        pair<ll,ll> t=q.front();
+        q.pop();
+        for(auto i:g[t.first]){
+            ll v=i.first,w=i.second;
+            if(v!=t.second){
+                dis[v]=max(dis[v],dis[t.first]+w);
+                if(dis[v]>ans){
+                    ans=dis[v];
+                    k=v;
+                }
+            }
+        }
+    }
 }
 void dfs(ll x,ll fa,ll dis){
     if(dis>ans){
@@ -28,7 +44,7 @@ void solve(){
         g[x].push_back({y,z});
         g[y].push_back({x,z});
     }
-    dfs(1,0,0);
+    bfs(1,0);
     ans=-1e12;
     dfs(k,0,0);
     cout<<ans;
