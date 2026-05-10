@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define ll long long
+#define ll int
 #define el '\n'
 const ll N=3e5+5;
 struct bcj{
