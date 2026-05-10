@@ -1,61 +1,65 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 #define ll long long
 #define el '\n'
-const ll N = 4e4 + 10;
-#define pll pair<ll, ll>
-ll n, s, u, v, w, ans = -1e18;
-ll dis[N];
-vector<pll> e[N];
-void bfs(ll x, ll f)
-{
-    queue<pll> q;
-    q.push({x, f});
-    while (!q.empty())
-    {
-        auto p = q.front();
-        q.pop();
-        ll x = p.first, f = p.second;
-        for (auto i:e[x])
-        {
-            ll v = i.first, w = i.second;
-            if (v != f)
-            {
-                dis[v] = max(dis[v], dis[x] + w);
-                if (dis[v] > ans)
-                {
-                    ans = dis[v];
-                    s = v;
-                }
-                q.push({v, x});
+const int N=3e5+5;
+vector<int>g[N];
+ll n,m,q;
+ll f[N],d[N],v[N];
+ll L,P;
+ll find(ll x){
+    if(x==f[x]) return x;
+    return f[x]=find(f[x]);
+}
+void dfs(int u,int p,int s){
+    if(s>L) L=s,P=u;
+    for(int v:g[u]) if(v!=p) dfs(v,u,s+1);
+}
+int get_d(int u){
+    L=-1;
+    dfs(u,-1,0);
+    L=-1;
+    dfs(P,-1,0);
+    return L;
+}
+void solve(){
+    cin>>n>>m>>q;
+    for(int i=1;i<=n;i++)f[i]=i;
+    while(m--){
+        int u,v;cin>>u>>v;
+        g[u].push_back(v);
+        g[v].push_back(u);
+        ll fu=find(u),fv=find(v);
+        if(fu!=fv) f[fu]=fv;
+    }
+    for(int i=1;i<=n;i++){
+        int r=find(i);
+        if(!v[r]){
+            d[r]=get_d(i);
+            v[r]=1;
+        }
+    }
+    while(q--){
+        int o,x,y;cin>>o>>x;
+        if(o==1) cout<<d[find(x)]<<el;
+        else{
+            cin>>y;
+            int fx=find(x),fy=find(y);
+            if(fx!=fy){
+                d[fy]=max({d[fx],d[fy],(d[fx]+1)/2+(d[fy]+1)/2+1});
+                f[fx]=fy;
             }
         }
     }
 }
-void solve()
-{
-    cin >> n;
-    for (int i = 0; i < n - 1; i++)
-    {
-        cin >> u >> v >> w;
-        e[u].push_back({v, w});
-        e[v].push_back({u, w});
-    }
-    bfs(1, -1);
-    ans = LLONG_MIN;
-    fill(dis+1, dis + n+1, 0);
-    bfs(s, -1);
-    cout << ans << el;
-}
-int main()
-{
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cout.tie(nullptr);
-    ll T = 1;
-    // cin >> T;
-    while (T--)
-    {
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    //freopen("xxx.in","r",stdin);
+    //freopen("xxx.out","w",stdout);
+    ll T=1;
+    //cin>>T;
+    while(T--){
         solve();
     }
     return 0;
