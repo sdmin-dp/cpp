@@ -6,9 +6,10 @@ const ll N=2e5+5;
 const ll inf=-1e12;
 ll n;
 vector<pair<ll,ll>> g[N];
-ll ans,k,b,e;
+ll ans,k,b,e,len;
 ll pre[N];
 vector<ll> path;
+ll dis[N],odis[N];
 void dfs(ll x,ll fa,ll dis){
     pre[x]=fa;
     if(dis>ans) k=x,ans=dis;
@@ -16,6 +17,25 @@ void dfs(ll x,ll fa,ll dis){
         if(i.first!=fa){
             dfs(i.first,x,dis+i.second);
         }
+    }
+}
+void dfs2(ll x,ll num){
+    if(num==path.size()) return;
+    for(auto i:g[x]){
+        if(i.first==path[num]){
+            dis[i.first]=dis[x]+i.second;
+            dfs2(i.first,num+1);
+            return;
+        }
+    }
+}
+void solve(){
+    cin>>n;
+    for(int i=1;i<n;i++){
+        ll u,v,w;
+        cin>>u>>v>>w;
+        g[u].push_back({v,w});
+        g[v].push_back({u,w});
     }
     ans=inf;
     dfs(1,0,0);
@@ -27,19 +47,10 @@ void dfs(ll x,ll fa,ll dis){
     while(cur!=b){
         path.push_back(cur);
         cur=pre[cur];
-   }
-   
-    
-}
-void solve(){
-    cin>>n;
-    for(int i=1;i<n;i++){
-        ll u,v,w;
-        cin>>u>>v>>w;
-        g[u].push_back({v,w});
-        g[v].push_back({u,w});
     }
-
+    path.push_back(b);
+    reverse(path.begin(),path.end());
+    dfs2(path[0],1);
 }
 int main(){
     ios::sync_with_stdio(0);
