@@ -15,7 +15,6 @@ void init () {
     for (int i = 1; i <= n; i++)
         f[i] = i;
 }
-
 void dfs(ll u, ll fa) {
     int dd = -1, ddd = -1;
     for (auto v : G[u]) {
@@ -36,9 +35,6 @@ void dfs(ll u, ll fa) {
 void solve() {
     cin >> n >> m >> q;
     init();
-    // for (int i = 1; i <= n; i++)
-    //     cout << f[i] << '\n';
-
     for (int i = 1; i <= m; i++) {
         int x, y;
         cin >> x >> y;
@@ -46,7 +42,6 @@ void solve() {
         G[x].push_back(y);
         G[y].push_back(x);
     }
-
     for (int i = 1; i <= n; i++) {
         if (vis[i] || f[i] != i) {
             continue;
@@ -56,7 +51,6 @@ void solve() {
         ans[i] = res;
         vis[i] = true;
     }
-
     for (int i = 1; i <= q; i++) {
         int op;
         cin >> op;
@@ -74,8 +68,8 @@ void solve() {
             // for (int i = 1; i <= n; i++)
             //     cout << ans[i] << ' ';
             int t = max(((ans[x] + 1) >> 1 + (ans[y] + 1) >> 1) + 1, max(ans[x], ans[y]));
-            f[fr(x)] = fr (y);
-            ans[fr(x)] = t;
+            f[x] =y;
+            ans[x] = t;
         }
     }
 }
