@@ -58,7 +58,7 @@ void solve(){
             ans=-1e12;
             dfs(k,0,0);
             disy=ans;
-            
+            ll fx=a.find(x);
         }
     }
 }
