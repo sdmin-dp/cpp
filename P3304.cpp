@@ -68,7 +68,7 @@ void solve(){
     for(ll i=path.size()-1;i>=0;i--)
         if(odis[path[i]]==dis[path[i]])
             r=i;
-    cout<<ans<<el<<r-l;
+    cout<<ans<<el<<r-l+1;
 }
 int main(){
     ios::sync_with_stdio(0);
