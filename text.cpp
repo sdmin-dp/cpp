@@ -1,87 +1,68 @@
 #include<bits/stdc++.h>
-typedef long long ll;
+#define ll long long
 using namespace std;
-
-const int N = 3e5 + 10;
-
-int n, m, q, dis[N], g[N], f[N], ans[N], res;
-vector<int> G[N];
+#define el '\n'
+const ll N=4e4+5;
+ll n;
+vector<pair<ll,ll>> g[N];
+ll ans=-1e12,k;
+ll dis[N];
+ll b;
+ll pre[N];
 bool vis[N];
-
-int fr (int x) {
-    return (f[x] == x ? x : f[x] = fr(f[x]));
-}
-
-void init () {
-    for (int i = 1; i <= n; i++)
-        f[i] = i;
-}
-
-void dfs(int x, int fa)
-{
-    int dd = -1, ddd = -1;
-    for (auto v : G[x])
-    {
-        if (v == fa)
-            continue;
-        dfs(v, x);
-        int t = dis[v] + 1;
-        dis[x] = max(t, dis[x]);
-        if (t > dd)
-            ddd = dd, dd = t;
-        else if (t > ddd)
-            ddd = t;
-    }
-    g[x] = max(dd, ddd);
-    res = max(res, g[x]);
-}
-void solve() {
-    cin >> n >> m >> q;
-    init();
-    for (int i = 1; i <= m; i++) {
-        int x, y;
-        cin >> x >> y;
-        G[x].push_back(y);
-        G[y].push_back(x);
-    }
-    for (int i = 1; i <= n; i++) {
-        if (vis[i] || f[i] != i) {
-            continue;
-        }
-        res = 0;
-        memset(dis,0,sizeof(dis));
-        dfs(i, 0);
-        ans[i] = res;
-        vis[i] = true;
-    }
-    for (int i = 1; i <= q; i++) {
-        int op;
-        cin >> op;
-        if (op == 1) {
-            int x;
-            cin >> x;
-            cout << ans[fr(x)] << '\n';
-        } else if (op == 2) {
-            // cout << "you are dog" << '\n';
-            int x, y;
-            cin >> x >> y;
-            x = fr(x), y = fr(y);
-            if (x == y)
-                continue;
-            // for (int i = 1; i <= n; i++)
-                // cout << ans[i] << ' ';
-            int t = max((((ans[x] + 1) >> 1) + ((ans[y] + 1) >> 1)) + 1, max(ans[x], ans[y]));
-            f[fr(x)] = fr (y);
-            ans[fr(x)] = t;
+void bfs(ll x,ll fa){
+    queue<pair<ll,ll>> q;
+    q.push({x,fa});
+    while(!q.empty()){
+        pair<ll,ll> t=q.front();
+        q.pop();
+        pre[t.first]=t.second;
+        for(auto i:g[t.first]){
+            ll v=i.first,w=i.second;
+            if(v!=t.second){
+                dis[v]=max(dis[v],dis[t.first]+w);
+                if(dis[v]>ans){
+                    ans=dis[v];
+                    k=v;
+                }
+                q.push({v,t.first});
+            }
         }
     }
 }
-int main() {
-    ios::sync_with_stdio (false);
-    cin.tie(nullptr), cout.tie(0);
-    int T = 1; // cin >> T;
-    while(T--) 
+void dfs(ll ){
+
+}
+void solve(){
+    cin>>n;
+    for(int i=1;i<n;i++){
+        ll x,y,z;
+        cin>>x>>y>>z;
+        g[x].push_back({y,z});
+        g[y].push_back({x,z});
+    }
+    bfs(1,0);
+    b=k;
+    ans=-1e12;
+    memset(dis,0,sizeof dis);
+    bfs(k,0);
+    ll cur=k;
+    while(cur!=b){
+        vis[cur]=1;
+        cur=pre[cur];
+    }
+    vis[b]=1;
+    cout<<ans;
+}
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    //freopen("xxx.in","r",stdin);
+    //freopen("xxx.out","w",stdout);
+    ll T=1;
+    //cin>>T;
+    while(T--){
         solve();
-
+    }
     return 0;
 }
