@@ -1,74 +1,61 @@
-#include<bits/stdc++.h>
-#define ll long long
+#include <bits/stdc++.h>
 using namespace std;
+#define ll long long
 #define el '\n'
-const ll N=5e5+5;
-ll n,m,idx;
-vector<ll> g[N];
-ll dfn[N],low[N];
-vector<pair<ll,ll>> bridge;
-map<pair<ll,ll>,bool> mp;
-vector<ll> ans[N];
-ll color[N];
-void dfs(ll x,ll fa){
-    low[x]=dfn[x]=++idx;
-    bool flag=0;
-    for(auto i:g[x]){
-        if(!dfn[i]){
-            dfs(i,x);
-            low[x]=min(low[x],low[i]);
-            if(low[i]>dfn[x]) bridge.push_back({min(x,i),max(x,i)});
-        }
-        else if(i==fa){
-            if(!flag){
-                flag=1;
-                continue;
-            }else{
-                low[x]=min(low[x],dfn[i]);
+const ll N = 4e4 + 10;
+#define pll pair<ll, ll>
+ll n, s, u, v, w, ans = -1e18;
+ll dis[N];
+vector<pll> e[N];
+void bfs(ll x, ll f)
+{
+    queue<pll> q;
+    q.push({x, f});
+    while (!q.empty())
+    {
+        auto p = q.front();
+        q.pop();
+        ll x = p.first, f = p.second;
+        for (int i = 0; i < e[x].size(); i++)
+        {
+            ll v = e[x][i].first, w = e[x][i].second;
+            if (v != f)
+            {
+                dis[v] = max(dis[v], dis[x] + w);
+                if (dis[v] > ans)
+                {
+                    ans = dis[v];
+                    s = v;
+                }
+                q.push({v, x});
             }
-        }else{
-            low[x]=min(low[x],dfn[i]);
         }
     }
 }
-void change(ll x){
-    color[x]=idx;
-    for(auto i:g[x])
-        if(!mp[{min(x,i),max(x,i)}]&&!color[i]) change(i);
+void solve()
+{
+    cin >> n;
+    for (int i = 0; i < n - 1; i++)
+    {
+        cin >> u >> v >> w;
+        e[u].push_back({v, w});
+        e[v].push_back({u, w});
+    }
+    bfs(1, -1);
+    ans = LLONG_MIN;
+    fill(dis, dis + n, LLONG_MIN);
+    bfs(s, 1);
+    cout << ans << el;
 }
-
-void solve(){
-    cin>>n>>m;
-    for(int i=1;i<=m;i++){
-        ll x,y;cin>>x>>y;
-        g[x].push_back(y);
-        g[y].push_back(x);
-    }
-    for(int i=1;i<=n;i++) if(!dfn[i]) dfs(i,0);
-    for(auto &i:bridge) mp[{i.first,i.second}]=1;
-    
-    idx=0;
-    for(int i=1;i<=n;i++){
-        if(!color[i]){
-            idx++;
-            change(i);
-        }
-    }
-    cout<<idx<<el;
-    for(int i=1;i<=n;i++) ans[color[i]].push_back(i);
-    for(ll i=1;i<=idx;i++){
-        cout<<ans[i].size()<<" ";
-        for(auto &j:ans[i]) cout<<j<<" ";
-        cout<<el;
-    }
-}
-
-int main(){
-    ios::sync_with_stdio(0);
-    cin.tie(0);cout.tie(0);
-    ll T=1;
-    //cin>>T;
-    while(T--){
+int main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    ll T = 1;
+    // cin >> T;
+    while (T--)
+    {
         solve();
     }
     return 0;
