@@ -20,15 +20,8 @@ ll dis[N];
 bool vis[N];
 vector<ll> g[N];
 void dfs(ll x,ll fa,ll dis){
-    if(dis>ans){
-        k=x;
-        ans=dis;
-    }
-    for(auto i:g[x]){
-        ll v=i;
-        if(v==fa) continue;
-        dfs(v,x,dis+1);
-    }
+    if(dis>ans) k=x,ans=dis;
+    for(auto i:g[x]) if(i!=fa) dfs(i,x,dis+1);
 }
 ll get_d(int u){
     ans=-1e12;
