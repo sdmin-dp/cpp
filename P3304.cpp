@@ -15,10 +15,11 @@ void dfs(ll x,ll fa,ll ds){
     dis[x]=ds;
     if(ds>ans) k=x,ans=ds;
     for(auto i:g[x]){
-        if(i.first!=fa){
-            dfs(i.first,x,ds+i.second);
-            pre[x]=fa;
-        }
+        ll v=i.first;
+        if(v==fa) continue;
+        pre[v]=x;
+        dis[v]=ds+i.second;
+        dfs(v,x,ds+i.second);
     }
 }
 void dfs2(ll x,ll num){
