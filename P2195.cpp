@@ -46,6 +46,7 @@ void solve(){
         if(!vis[fi]){
             dis[fi]=get_d(i);
             vis[fi]=1;
+            cerr<<dis[fi]<<" ";
         }
     }
     for(int i=1;i<=q;i++){
