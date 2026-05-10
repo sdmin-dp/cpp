@@ -3,9 +3,23 @@ using namespace std;
 #define ll long long
 #define el '\n'
 const ll N=2e5+5;
+const ll inf=-1e12;
 ll n;
 vector<pair<ll,ll>> g[N];
+ll ans,k;
 
+void dfs(ll x,ll fa,ll dis){
+    if(dis>ans) k=x,ans=dis;
+    for(auto i:g[x]){
+        if(i.first!=fa){
+            dfs(i.first,x,dis+i.second);
+        }
+    }
+    ans=inf;
+    dfs(1,0,0);
+    ans=-1e12;
+
+}
 void solve(){
     cin>>n;
     for(int i=1;i<n;i++){
@@ -14,6 +28,7 @@ void solve(){
         g[u].push_back({v,w});
         g[v].push_back({u,w});
     }
+
 }
 int main(){
     ios::sync_with_stdio(0);
