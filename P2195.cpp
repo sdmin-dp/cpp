@@ -15,8 +15,19 @@ struct bcj{
         return fa[x]=find(fa[x]);
     }
 };
-ll n,m,q;
+ll n,m,q,ans,k;
 vector<ll> g[N];
+void dfs(ll x,ll fa,ll dis){
+    if(dis>ans){
+        k=x;
+        ans=dis;
+    }
+    for(auto i:g[x]){
+        ll v=i;
+        if(v==fa) continue;
+        dfs(v,x,dis+1);
+    }
+}
 void solve(){
     cin>>n>>m>>q;
     bcj a(n);
@@ -30,7 +41,9 @@ void solve(){
     for(int i=1;i<=q;i++){
         ll op,x,y;
         cin>>op>>x;
-
+        if(op==1){
+            
+        }
     }
 }
 int main(){
