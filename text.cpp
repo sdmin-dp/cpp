@@ -49,15 +49,10 @@ void solve() {
     }
 
     for (int i = 1; i <= n; i++) {
-        // cout << "dog" << '\n';
         if (vis[i] || f[i] != i) {
-            // cout << "dog";
-            // cout << f[i] << " " << vis[i] << '\n';
             continue;
         }
-        // cout << "dog" << '\n';
         res = 0;
-        // cout << res;
         dfs(i, 0);
         ans[i] = res;
         vis[i] = true;
@@ -69,7 +64,7 @@ void solve() {
         if (op == 1) {
             int x;
             cin >> x;
-            // cout << ans[fr(x)] << '\n';
+            cout << ans[fr(x)] << '\n';
         } else if (op == 2) {
             // cout << "you are dog" << '\n';
             int x, y;
