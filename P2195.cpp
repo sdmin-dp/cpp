@@ -23,7 +23,7 @@ void dfs(ll x,ll fa,ll dis){
     if(dis>ans) k=x,ans=dis;
     for(auto i:g[x]) if(i!=fa) dfs(i,x,dis+1);
 }
-ll get_d(int u){
+ll get_d(ll u){
     ans=-1e12;
     dfs(u,-1,0);
     ans=-1e12;
