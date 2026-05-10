@@ -33,7 +33,7 @@ void dfs(ll x,ll fa,ll dis){
     for(auto i:g[x]){
         ll v=i.first;
         if(v==fa) continue;
-        dfs(v,x,dis+i.second);
+        dfs(v,x,max(dis+i.second,dis));
     }
 }
 void solve(){
