@@ -16,8 +16,18 @@ struct bcj{
     }
 };
 ll n,m,q;
+vector<ll> g[N];
 void solve(){
-    
+    cin>>n>>m>>q;
+    for(int i=1;i<=m;i++){
+        ll u,v;
+        cin>>u>>v;
+        g[u].push_back(v);
+        g[v].push_back(u);
+    }
+    for(int i=1;i<=q;i++){
+        
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
