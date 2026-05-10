@@ -77,8 +77,8 @@ void solve() {
             x = fr(x), y = fr(y);
             if (x == y)
                 continue;
-            for (int i = 1; i <= n; i++)
-                cout << ans[i] << ' ';
+            // for (int i = 1; i <= n; i++)
+            //     cout << ans[i] << ' ';
             int t = max(((ans[x] + 1) >> 1 + (ans[y] + 1) >> 1) + 1, max(ans[x], ans[y]));
             f[fr(x)] = fr (y);
             ans[fr(x)] = t;
