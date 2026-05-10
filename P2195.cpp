@@ -16,6 +16,7 @@ struct bcj{
     }
 };
 ll n,m,q,ans,k;
+ll dis[N];
 vector<ll> g[N];
 void dfs(ll x,ll fa,ll dis){
     if(dis>ans){
@@ -37,6 +38,9 @@ void solve(){
         a.fa[a.find(u)]=a.find(v);
         g[u].push_back(v);
         g[v].push_back(u);
+    }
+    for(int i=1;i<=n;i++){
+        
     }
     for(int i=1;i<=q;i++){
         ll op,x,y;
