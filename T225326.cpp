@@ -25,17 +25,6 @@ void bfs(ll x,ll fa){
         }
     }
 }
-void dfs(ll x,ll fa,ll dis){
-    if(dis>ans){
-        k=x;
-        ans=dis;
-    }
-    for(auto i:g[x]){
-        ll v=i.first;
-        if(v==fa) continue;
-        dfs(v,x,max(dis+i.second,dis));
-    }
-}
 void solve(){
     cin>>n;
     for(int i=1;i<n;i++){
@@ -44,9 +33,9 @@ void solve(){
         g[x].push_back({y,z});
         g[y].push_back({x,z});
     }
-    dfs(1,0,0);
+    bfs(1,0);
     ans=-1e12;
-    dfs(k,0,0);
+    bfs(k,0);
     cout<<ans;
 }
 int main(){
