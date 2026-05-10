@@ -57,7 +57,7 @@ void solve(){
         cur=pre[cur];
     }
     vis[b]=1;
-    cout<<ans;
+    cout<<ans<<el;
     dfs(b,0);
     for(int i=1;i<=n;i++) cout<<len[i]<<" ";
 }
