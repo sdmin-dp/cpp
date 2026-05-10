@@ -57,7 +57,7 @@ void solve() {
         }
         // cout << "dog" << '\n';
         res = 0;
-        cout << res;
+        // cout << res;
         dfs(i, 0);
         ans[i] = res;
         vis[i] = true;
