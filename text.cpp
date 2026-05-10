@@ -16,9 +16,9 @@ void bfs(ll x, ll f)
         auto p = q.front();
         q.pop();
         ll x = p.first, f = p.second;
-        for (int i = 0; i < e[x].size(); i++)
+        for (auto i:e[x])
         {
-            ll v = e[x][i].first, w = e[x][i].second;
+            ll v = i.first, w = i.second;
             if (v != f)
             {
                 dis[v] = max(dis[v], dis[x] + w);
