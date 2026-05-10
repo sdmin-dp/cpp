@@ -10,6 +10,7 @@ ll ans,k,b,e,len;
 ll pre[N];
 vector<ll> path;
 ll dis[N],odis[N];
+bool inpath[N];
 void dfs(ll x,ll fa,ll dis){
     pre[x]=fa;
     if(dis>ans) k=x,ans=dis;
@@ -28,6 +29,14 @@ void dfs2(ll x,ll num){
             return;
         }
     }
+}
+ll dfs3(ll x,ll fa,ll ds){
+    ll res=0;
+    for(auto i:g[x]){
+        ll v=i.first;
+        if(v!=fa&&!inpath[v]) res=max(res,dfs3(v,x,ds+i.second)+i.second);
+    }
+    return res;
 }
 void solve(){
     cin>>n;
