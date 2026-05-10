@@ -56,7 +56,7 @@ void solve(){
             cout<<dis[a.find(x)]<<el;
         }else{
             cin>>y;
-            ll fx=a.fa[x],fy=a.fa[y];
+            ll fx=a.find(x),fy=a.find(y);
             if(fx!=fy){
                 a.fa[fx]=fy;
                 dis[fy]=max({dis[fx],dis[fy],(dis[fx]+1)/2+(dis[fy]+1)/2+1});
