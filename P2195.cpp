@@ -42,6 +42,7 @@ void solve(){
         ll op,x,y;
         cin>>op>>x;
         if(op==1){
+            dfs(x,0,0);
             
         }
     }
