@@ -54,9 +54,11 @@ void solve(){
     e=k;
     ll cur=e;
     while(cur!=b){
+        inpath[cur]=1;
         path.push_back(cur);
         cur=pre[cur];
     }
+    inpath[b]=1;
     path.push_back(b);
     reverse(path.begin(),path.end());
     dfs2(path[0],1);
