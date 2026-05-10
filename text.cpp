@@ -69,7 +69,7 @@ void solve() {
             //     cout << ans[i] << ' ';
             int t = max(((ans[x] + 1) >> 1 + (ans[y] + 1) >> 1) + 1, max(ans[x], ans[y]));
             f[x] =y;
-            ans[x] = t;
+            ans[y] = t;
         }
     }
 }
