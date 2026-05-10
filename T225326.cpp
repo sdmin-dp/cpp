@@ -6,6 +6,9 @@ const ll N=4e4+5;
 ll n;
 vector<pair<ll,ll>> g[N];
 ll ans=-1e12,k;
+void bfs(ll ){
+
+}
 void dfs(ll x,ll fa,ll dis){
     if(dis>ans){
         k=x;
