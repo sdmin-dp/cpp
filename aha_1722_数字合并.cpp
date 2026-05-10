@@ -2,7 +2,7 @@
 using namespace std;
 #define ll long long
 #define el '\n'
-const ll N=(1<<18)+100;
+const ll N=(1<<18)+5;
 const ll maxn=60;
 ll n;
 ll a[N];
