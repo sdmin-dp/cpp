@@ -2,7 +2,19 @@
 using namespace std;
 #define ll long long
 #define el '\n'
-const ll N=1e5+5;
+const ll N=3e5+5;
+struct bcj{
+    vector<ll> fa;
+    bcj(ll len){
+        fa.reserve(len+1);
+        fa.resize(len+1);
+        for(int i=1;i<=len;i++) fa[i]=i;
+    }
+    ll find(ll x){
+        if(x==fa[x]) return x;
+        return fa[x]=find(fa[x]);
+    }
+};
 ll n,m,q;
 void solve(){
     
