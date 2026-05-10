@@ -43,7 +43,7 @@ void solve()
     }
     bfs(1, -1);
     ans = LLONG_MIN;
-    fill(dis, dis + n, LLONG_MIN);
+    fill(dis, dis + n, 0);
     bfs(s, 1);
     cout << ans << el;
 }
