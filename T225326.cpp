@@ -42,6 +42,7 @@ void solve(){
     ans=-1e12;
     memset(dis,0,sizeof dis);
     bfs(k,0);
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
