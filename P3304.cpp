@@ -22,16 +22,6 @@ void dfs(ll x,ll fa,ll ds){
         dfs(v,x,ds+i.second);
     }
 }
-void dfs2(ll x,ll num){
-    if(num==path.size()) return;
-    for(auto i:g[x]){
-        if(i.first==path[num]){
-            dis[i.first]=dis[x]+i.second;
-            dfs2(i.first,num+1);
-            return;
-        }
-    }
-}
 ll dfs3(ll x,ll fa,ll ds){
     ll res=0;
     for(auto i:g[x]){
@@ -63,7 +53,6 @@ void solve(){
     inpath[b]=1;
     path.push_back(b);
     reverse(path.begin(),path.end());
-    dfs2(path[0],1);
     for(auto i:path) odis[i]=dfs3(i,0,0);
 
 
