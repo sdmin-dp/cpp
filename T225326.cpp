@@ -13,6 +13,7 @@ void bfs(ll x,ll fa){
     while(!q.empty()){
         pair<ll,ll> t=q.front();
         q.pop();
+        
         for(auto i:g[t.first]){
             ll v=i.first,w=i.second;
             if(v!=t.second){
@@ -36,6 +37,7 @@ void solve(){
     }
     bfs(1,0);
     ans=-1e12;
+    memset(dis,0,sizeof dis);
     bfs(k,0);
     cout<<ans;
 }
