@@ -21,7 +21,7 @@ void bfs(ll x,ll fa){
                     ans=dis[v];
                     k=v;
                 }
-                q.push({v,v});
+                q.push({v,t.second});
             }
         }
     }
