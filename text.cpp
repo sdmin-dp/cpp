@@ -1,66 +1,98 @@
 #include<bits/stdc++.h>
+typedef long long ll;
 using namespace std;
-#define ll long long
-#define el '\n'
-const int N=3e5+5;
-vector<int>g[N];
-ll n,m,q;
-ll f[N],d[N],v[N];
-ll L,P;
-ll find(ll x){
-    if(x==f[x]) return x;
-    return f[x]=find(f[x]);
+
+const int N = 3e5 + 10;
+
+int n, m, q, dis[N], g[N], f[N], ans[N], res;
+vector<int> G[N];
+bool vis[N];
+
+int fr (int x) {
+    return (f[x] == x ? x : f[x] = fr(f[x]));
 }
-void dfs(int u,int p,int s){
-    if(s>L) L=s,P=u;
-    for(int v:g[u]) if(v!=p) dfs(v,u,s+1);
+
+void init () {
+    for (int i = 1; i <= n; i++)
+        f[i] = i;
 }
-int get_d(int u){
-    L=-1;
-    dfs(u,-1,0);
-    L=-1;
-    dfs(P,-1,0);
-    return L;
-}
-void solve(){
-    cin>>n>>m>>q;
-    for(int i=1;i<=n;i++)f[i]=i;
-    while(m--){
-        int u,v;cin>>u>>v;
-        g[u].push_back(v);
-        g[v].push_back(u);
-        ll fu=find(u),fv=find(v);
-        if(fu!=fv) f[fu]=fv;
+
+void dfs(ll u, ll fa) {
+    int dd = -1, ddd = -1;
+    for (auto v : G[u]) {
+        if (v == fa)
+            continue;
+        dfs(v, u);
+        int t = dis[v] + 1;
+        dis[u] = max(dis[u], t);
+        if (t > dd)
+            ddd = dd, dd = t;
+        else if (t > ddd)
+            ddd = t;
     }
-    for(int i=1;i<=n;i++){
-        int r=find(i);
-        if(!v[r]){
-            d[r]=get_d(i);
-            v[r]=1;
+    g[u] = max(dd, ddd);
+    res = max(res, g[u]);
+}
+
+void solve() {
+    cin >> n >> m >> q;
+    // init();
+    // for (int i = 1; i <= n; i++)
+    //     cout << f[i] << '\n';
+
+    for (int i = 1; i <= m; i++) {
+        int x, y;
+        f[fr(x)] = fr(y);
+        cin >> x >> y;
+        G[x].push_back(y);
+        G[y].push_back(x);
+    }
+
+    for (int i = 1; i <= n; i++) {
+        // cout << "dog" << '\n';
+        if (vis[i] || f[i] != i) {
+            // cout << "dog";
+            // cout << f[i] << " " << vis[i] << '\n';
+            continue;
+        }
+        // cout << "dog" << '\n';
+        res = 0;
+        cout << res;
+        dfs(i, 0);
+        ans[i] = res;
+        vis[i] = true;
+    }
+
+    for (int i = 1; i <= q; i++) {
+        int op;
+        cin >> op;
+        if (op == 1) {
+            int x;
+            cin >> x;
+            // cout << ans[fr(x)] << '\n';
+        } else if (op == 2) {
+            // cout << "you are dog" << '\n';
+            int x, y;
+            cin >> x >> y;
+            x = fr(x), y = fr(y);
+            if (x == y)
+                continue;
+            for (int i = 1; i <= n; i++)
+                cout << ans[i] << ' ';
+            int t = max(((ans[x] + 1) >> 1 + (ans[y] + 1) >> 1) + 1, max(ans[x], ans[y]));
+            f[fr(x)] = fr (y);
+            ans[fr(x)] = t;
         }
     }
-    while(q--){
-        int o,x,y;cin>>o>>x;
-        if(o==1) cout<<d[find(x)]<<el;
-        else{
-            cin>>y;
-            int fx=find(x),fy=find(y);
-            if(fx!=fy){
-                d[fy]=max({d[fx],d[fy],(d[fx]+1)/2+(d[fy]+1)/2+1});
-                f[fx]=fy;
-            }
-        }
-    }
 }
-int main(){
-    ios::sync_with_stdio(0);
-    cin.tie(0);cout.tie(0);
-    //freopen("xxx.in","r",stdin);
-    //freopen("xxx.out","w",stdout);
-    ll T=1;
-    //cin>>T;
-    while(T--){
+
+int main() {
+    ios::sync_with_stdio (false);
+    cin.tie(nullptr), cout.tie(0);
+
+    int T = 1; // cin >> T;
+    while(T--) 
         solve();
-    }
+
     return 0;
 }
