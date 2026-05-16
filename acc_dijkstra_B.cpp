@@ -2,49 +2,43 @@
 using namespace std;
 #define ll long long
 #define el '\n'
-const ll N=1e5+5;
+const ll N=5e3+5;
 const ll inf=0x3f3f3f3f3f3f3f3f;
-ll n,m,b;
+ll n,m;
 vector<pair<ll,ll>> g[N];
-ll dis[N],dis2[N];
-void dijkstra(ll s){
+ll dis[N][2];
+void dijstra(){
     priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;
-    q.push({0,s});
+    q.push({0,1});
     memset(dis,0x3f,sizeof(dis));
-    dis[s]=0;
+    dis[1][0]=0;
     while(!q.empty()){
         auto x=q.top();
         q.pop();
-        if(x.first>dis[x.second]) continue;
+        if(x.first>dis[x.second][1]) continue;
         for(auto i:g[x.second]){
-            if(dis[i.first]>x.first+i.second){
-                dis[i.first]=x.first+i.second;
-                q.push({dis[i.first],i.first});
+            if(dis[i.first][0]>x.first+i.second){
+                dis[i.first][1]=dis[i.first][0];
+                dis[i.first][0]=x.first+i.second;
+                q.push({dis[i.first][0],i.first});
+                q.push({dis[i.first][1],i.first});
+            }else if(dis[i.first][1]>x.first+i.second&&dis[i.first][0]!=x.first+i.second){
+                dis[i.first][1]=x.first+i.second;
+                q.push({dis[i.first][1],i.first});
             }
         }
     }
 }
 void solve(){
-    cin>>n>>m>>b;
+    cin>>n>>m;
     for(int i=1;i<=m;i++){
         ll u,v,w;
         cin>>u>>v>>w;
         g[u].push_back({v,w});
+        g[v].push_back({u,w});
     }
-    dijkstra(b);
-    // ll ans=-inf;
-    for(int i=1;i<=n;i++) dis2[i]=dis[i];
-    // cout<<ans;
-    ll res=-inf,id=0;
-    for(int i=1;i<=n;i++){
-        dijkstra(i);
-        res=max(res,dis[b]);
-        if(res<dis[b]+dis2[i]){
-            res=dis[b]+dis2[i];
-            id=i;
-        }
-    }
-    cout<<res;
+    dijstra();
+    cout<<dis[n][1];
 }
 int main(){
     ios::sync_with_stdio(0);

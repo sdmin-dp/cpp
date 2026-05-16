@@ -3,22 +3,20 @@ using namespace std;
 #define ll long long
 #define el '\n'
 const ll N=1e5+5;
-ll n,q;
-ll a[N];
-map<ll,vector<ll>> cnt;
+ll n,m;
+ll dx[]={0,1,0,-1},dy[]={1,0,-1,0};
 void solve(){
-    cnt.clear();
-    cin>>n;
+    cin>>n>>m;
     for(int i=1;i<=n;i++){
-        cin>>a[i];
-        cnt[a[i]].push_back(i);
-    }
-    cin>>q;
-    for(int i=1;i<=q;i++){
-        ll l,r,x;
-        cin>>l>>r>>x;
-        ll t=upper_bound(cnt[x].begin(),cnt[x].end(),r)-lower_bound(cnt[x].begin(),cnt[x].end(),l);
-        cout<<t<<el;
+        for(int j=1;j<=m;j++){
+            ll cnt=0;
+            for(int k=0;k<4;k++){
+                ll xx=i+dx[k],yy=j+dy[k];
+                if(xx>=1&&xx<=n&&yy>=1&&yy<=m) cnt++;
+            }
+            cout<<cnt<<" ";
+        }
+        cout<<el;
     }
 }
 int main(){
@@ -27,7 +25,7 @@ int main(){
     //freopen("xxx.in","r",stdin);
     //freopen("xxx.out","w",stdout);
     ll T=1;
-    cin>>T;
+    //cin>>T;
     while(T--){
         solve();
     }
