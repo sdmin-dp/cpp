@@ -3999,6 +3999,10 @@ int main(){
     return 0;
 }
 ```
+
+## 扩展
+我们善良的大山给我们斩了！
+[33个扩展链接](https://tv7x543ftn5.feishu.cn/docx/FbICdxtzXo8fooxyr4Ac5CA5nDg) 
 # 树上差分
 要学树上差分，要先学树上**最近公共祖先(LCA)**.
 如果要学LCA,**请看上一章** 
