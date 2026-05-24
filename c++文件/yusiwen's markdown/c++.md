@@ -684,7 +684,7 @@ ll oulashai(ll n){
 
 # 同余
 ## 定义
-a,b,m为正整数,则当(a-b)%m==0(可理解为a%m==b%m)，则称a和b对模m同余，记作：
+a,b,m为正整数,则当(a-b)%m== 0(可理解为a%m== b%m)，则称a和b对模m同余，记作：
 $$
 a /timesb
 $$
@@ -3856,3 +3856,246 @@ int main(){
 }
 ```
 
+
+# 树上最近公共祖先(LCA)
+树上最近公共祖先，顾名思义，就是两个点深度最大的一个公共的祖先。
+一个点($u$)被称为$v_1,v_2$的**公共**祖先，**当且仅当**:
+**以** $u$ **为根的子树内的所有点构成的点集** $s$,包含 $v_1$ 和 $v_2$  
+## 倍增法求LCA
+这是在线求LCA的一种方法。
+### 核心思想
+1. 先算出每个点往上$2^i$步的祖宗，用数组存起来($up_{i,u}$ 表示点u往上跳$2^i$步的节点是谁。跳飞了就是0) 
+2. 两个点，先把他拉到同一层，然后以二进制为往上跳。
+### 代码
+```cpp
+#include<bits/stdc++.h>
+#define ll long long
+using namespace std;
+#define el '\n'
+const ll N=5e5+5;
+ll n,q,b;
+ll dep[N],up[22][N];
+vector<ll> g[N];
+void dfs(ll x,ll f){
+    dep[x]=dep[f]+1;up[0][x]=f;
+    for(int i=1;i<20;i++) up[i][x]=up[i-1][up[i-1][x]];
+    for(auto i:g[x]) if(i!=f) dfs(i,x);
+}
+ll LCA(ll u,ll v){
+    if(dep[u]<dep[v]) swap(v,u);
+    for(int i=20;i>=0;i--){
+        if(dep[up[i][u]]>=dep[v]){
+            u=up[i][u];
+        }
+    }
+    if(u==v) return u;
+    for(int k=20;k>=0;k--){
+        if(up[k][u]!=up[k][v]){
+            u=up[k][u];
+            v=up[k][v];
+        }
+    }
+    return up[0][u];
+}
+void solve(){
+    cin>>n>>q>>b;
+    for(int i=1;i<n;i++){
+        ll x,y;cin>>x>>y;
+        g[x].push_back(y);
+        g[y].push_back(x);
+    }
+    dfs(b,0);
+    for(int i=1;i<=q;i++){
+        ll x,y;
+        cin>>x>>y;
+        cout<<LCA(x,y)<<'\n';
+    }
+}
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    //freopen("xxx.in","r",stdin);
+    //freopen("xxx.out","w",stdout);
+    ll T=1;
+    //cin>>T;
+    while(T--){
+        solve();
+    }
+    return 0;
+}
+
+```
+## tarjan离线求LCA
+[我懒得写了，自己看](https://www.cnblogs.com/ECJTUACM-873284962/p/6613379.html)
+
+### code
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define el '\n'
+const ll N=5e5+5;
+ll n,m,root;
+vector<ll> g[N];
+vector<pair<ll,ll>> q[N];
+ll ans[N],vis[N];
+struct bcj{
+    vector<ll> fa;
+    void RESIZE(ll len){
+        fa.reserve(len+1);
+        fa.resize(len+1);
+        for(int i=1;i<=len;i++) fa[i]=i;
+    }
+    ll find(ll x){
+        if(x==fa[x]) return x;
+        return fa[x]=find(fa[x]);
+    }
+};
+bcj a;
+void tarjan(ll x){
+    vis[x]=1;
+    for(auto i:g[x]){
+        if(vis[i]) continue;
+        tarjan(i);
+        a.fa[i]=x;
+    }
+    for(auto i:q[x]){
+        ll v=i.first,id=i.second;
+        if(vis[v]==2) ans[id]=a.find(v);
+    }
+    vis[x]=2;
+}
+void solve(){
+    cin>>n>>m>>root;
+    a.RESIZE(n);
+    for(int i=1;i<n;i++){
+        ll u,v;
+        cin>>u>>v;
+        g[u].push_back(v);
+        g[v].push_back(u);
+    }
+    for(int i=1;i<=m;i++){
+        ll u,v;
+        cin>>u>>v;
+        if(u==v) ans[i]=u;
+        else{
+            q[u].push_back({v,i});
+            q[v].push_back({u,i});
+        }
+    }
+    tarjan(root);
+    for(int i=1;i<=m;i++) cout<<ans[i]<<el;
+}
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    //freopen("xxx.in","r",stdin);
+    //freopen("xxx.out","w",stdout);
+    ll T=1;
+    //cin>>T;
+    while(T--){
+        solve();
+    }
+    return 0;
+}
+```
+# 树上差分
+要学树上差分，要先学树上**最近公共祖先(LCA)**.
+如果要学LCA,**请看上一章** 
+顾名思义，就是树上的差分~~(废话)~~ 
+## 标记点走了多少遍
+题型大致如下：[洛谷P3128 [USACO15DEC] Max Flow P](https://www.luogu.com.cn/problem/P3128)   
+很简单，首先，一棵树：
+```
+      1
+      |
+      5
+      |
+      4
+    /   \
+   3     2
+很帅对吧？
+```
+然后，我们要标记3->2的路径。
+应该这么走：
+3->4->2
+把3+1，4+1，2+1解决~~(这跟暴力有什么区别?)~~
+当然，我们肯定要优雅的解决问题。
+就用差分的思想，把自己的往上面传：
+```
+      1
+      |
+      5
+      |
+      4 +1(来自3)+1(来自2)=+2!!!
+    /   \
+   3 +1  2 +1
+```
+所以，4要-1。
+对，就这么**简单直白**。
+你已经知道思路了。
+那4应该以**什么身份**出场呢？
+很简单的道理：4=LCA(3,2).
+3和2是题目给的。
+### 代码
+```cpp
+ll l,r,lca;
+cin>>l>>r;
+lca=LCA(l,r);
+d[lca]--;
+d[up[0][lca]]--;
+d[l]++;
+d[r]++;
+//简单明了，真帅！
+```
+## 标记边走了多少遍
+不讲废话，直接开始。
+1. 差分(d)数组$d_i$ 表示点i到他的父亲这条边走了多少次。
+2. 然后，树界降临！
+```
+      1
+      |
+      5
+      |
+      4
+    /   \
+   3     2
+依旧是这颗很帅的树。
+```
+依旧求从3->2.
+开始加一。
+3->4,+1.($d_3$++)
+2->4,+1.($d_2$++)
+好的，加完了！
+然后，以差分的角度看世界。
+```
+      1
+      |
+      5
+      |
+      4 +1(3给的)+1(2给的)=2！！！
+    /   \
+   3 +1  2 +1
+```
+$d_4$应该是0才对。
+所以，$d_4$-=2;
+华丽结束。
+### 代码
+```cpp
+ll lca=LCA(i,i-1);
+cnt[i]++;cnt[i-1]++;cnt[lca]-=2;
+```
+## 最后用前缀和算出数组
+这个部分就是普通dfs，不再赘述
+### 代码
+```cpp
+ll dfs2(ll x,ll fa){
+    for(auto i:g[x]){
+        if(i[0]!=fa){
+            cnt[x]+=dfs2(i[0],x);
+            ans+=min(i[2],cnt[i[0]]*i[1]);
+        }
+    }
+    return cnt[x];
+}
+```
