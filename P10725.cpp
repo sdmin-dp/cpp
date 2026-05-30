@@ -4,15 +4,28 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n;
-bool color[N];
+ll color[N];
 vector<ll> g[N];
 ll dep[N];
-ll dfs(ll x,ll fa){
+ll dep_black,dep_white,b;
+ll dist;
+void dfs(ll x,ll fa){
     dep[x]=dep[fa]+1;
+    if(color[x]&&dep[x]>dep[dep_black]) dep_black=x;
+    if(!color[x]&&dep[x]>dep[dep_white]) dep_white=x;
     for(auto i:g[x]){
         if(i==fa) continue;
         dfs(i,x);
-
+    }
+}
+void dfs2(ll x,ll fa,ll dis){
+    if(dis>dist&&color[x]!=color[b]){
+        // b=x;
+        dist=dis;
+    }
+    for(auto i:g[x]){
+        if(i==fa) continue;
+        dfs2(i,x,dis+1);
     }
 }
 void solve(){
@@ -24,7 +37,13 @@ void solve(){
         g[u].push_back(v);
         g[v].push_back(u);
     }
-
+    dfs(1,0);
+    // cerr<<dep_white<<" "<<dep_black;
+    b=dep_white;
+    dfs2(b,0,0);
+    b=dep_black;
+    dfs2(b,0,0);
+    cout<<dist;
 }
 int main(){
     ios::sync_with_stdio(0);
