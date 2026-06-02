@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "c++.md",
-                "mode": "source",
+                "file": "GESP7级复习计划.md",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "c++"
+              "title": "GESP7级复习计划"
             }
           }
         ],
@@ -68,13 +68,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "c++.md",
+                "file": "GESP7级复习计划.md",
                 "followCursor": true,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "c++ 的大纲"
+              "title": "GESP7级复习计划 的大纲"
             }
           },
           {
@@ -104,8 +104,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -201,8 +200,8 @@
   },
   "active": "0be744693c281af0",
   "lastOpenFiles": [
-    "信奥c++.md",
     "c++.md",
+    "信奥c++.md",
     "GESP 7级 查漏补缺.md",
     "GESP六级编程题考点与应对策略.md",
     "Pasted image 20260315214749.png",
