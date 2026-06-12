@@ -33,7 +33,7 @@ void solve(){
         if((i.first-1)%mod!=0){
             ll x=qpow(i.first,i.second+1)-1;
             ll y=qpow(i.first-1,mod-2);
-            ans=ans*x%mod*y%mod;
+            ans=ans*x%mod*y%mod;  
         }else{
             ans=ans*(i.second+1)%mod;
         }
