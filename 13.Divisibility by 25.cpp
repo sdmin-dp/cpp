@@ -11,7 +11,7 @@ void solve(){
         m=n;
         cnt=0;
         bool flag[2]={0,0};
-        for(int j=1;j>=0;j--  ){
+        for(int j=1;j>=0;j--){
             for(int k=m.size()-1;k>=0;k--){
                 if(m[k]==s[i][j]){
                     cnt+=m.size()-1-k;
