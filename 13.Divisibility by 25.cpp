@@ -6,7 +6,7 @@ string n,m,s[4]={"00","25","50","75"};
 ll ans=1e9,cnt;
 
 void solve(){
-    cin>>n;
+    cin>>n; 
     for(int i=0;i<4;i++){
         m=n;
         cnt=0;
