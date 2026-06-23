@@ -4103,3 +4103,112 @@ ll dfs2(ll x,ll fa){
     return cnt[x];
 }
 ```
+
+
+# 树状数组
+树状数组有两种**基本功能**:
+1. 单点修改，区间查询
+2. 区间修改，单点查询
+实际上就是一个维护原数组，一个维护差分数组。
+然后他是一个类似于前缀和+分块的东西来维护的，把这些东西一块一块的分开，然后把每块的最后一个点的位置存下这块的和。通过lowbit函数来分块，就能达到**维护时不重复，查询时不重叠**。
+## 单点修改区间查询
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define el '\n'
+const ll N=5e5+5;
+ll n,m;
+ll tree[N];
+ll lowbit(ll x){
+    return (x&-x);
+}
+void add(ll x,ll k){
+    for(int i=x;i<=n;i+=lowbit(i)) tree[i]+=k;
+}
+ll getsum(ll x){
+    ll res=0;
+    for(int i=x;i>=1;i-=lowbit(i)) res+=tree[i];
+    return res;
+}
+void solve(){
+    cin>>n>>m;
+    for(int i=1;i<=n;i++){
+        ll x;
+        cin>>x;
+        add(i,x);
+    }
+    for(int i=1;i<=m;i++){
+        ll op,x,y;
+        cin>>op>>x>>y;
+        if(op==1) add(x,y);
+        else cout<<getsum(y)-getsum(x-1)<<el;
+    }
+}
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    //freopen("xxx.in","r",stdin);
+    //freopen("xxx.out","w",stdout);
+    ll T=1;
+    //cin>>T;
+    while(T--){
+        solve();
+    }
+    return 0;
+}
+```
+
+## 区间修改单点查询
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define el '\n'
+const ll N=5e5+5;
+ll n,m;
+ll tree[N];
+ll a[N],d[N];
+ll lowbit(ll x){
+    return (x&-x);
+}
+void add(ll x,ll k){
+    for(int i=x;i<=n;i+=lowbit(i)) tree[i]+=k;
+}
+ll getsum(ll x){
+    ll res=0;
+    for(int i=x;i>=1;i-=lowbit(i)) res+=tree[i];
+    return res;
+}
+void solve(){
+    cin>>n>>m;
+    for(int i=1;i<=n;i++) cin>>a[i];
+    for(int i=1;i<=n;i++){
+        d[i]=a[i]-a[i-1];
+        add(i,d[i]);
+    }
+    for(int i=1;i<=m;i++){
+        ll op,x;
+        cin>>op>>x;
+        if(op==1){
+            ll y,k;cin>>y>>k;
+            add(x,k);add(y+1,-k);
+        }
+        else{
+            cout<<getsum(x)<<el;
+        }
+    }
+}
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    //freopen("xxx.in","r",stdin);
+    //freopen("xxx.out","w",stdout);
+    ll T=1;
+    //cin>>T;
+    while(T--){
+        solve();
+    }
+    return 0;
+}
+```
