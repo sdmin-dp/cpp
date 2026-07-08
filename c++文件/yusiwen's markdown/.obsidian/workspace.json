@@ -4,39 +4,20 @@
     "type": "split",
     "children": [
       {
-        "id": "bd78954720fcff8a",
+        "id": "f9e81183822ced68",
         "type": "tabs",
         "children": [
           {
-            "id": "019f056cb4c642d9",
+            "id": "6a7786b548281c28",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "信奥c++.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "信奥c++"
-            }
-          },
-          {
-            "id": "0be744693c281af0",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "c++.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "c++"
+              "title": "新标签页"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -68,13 +49,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "c++.md",
+                "file": "项目描述.md",
                 "followCursor": true,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "c++ 的大纲"
+              "title": "项目描述 的大纲"
             }
           },
           {
@@ -104,8 +85,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -199,16 +179,18 @@
       "bases:新建数据库": false
     }
   },
-  "active": "0be744693c281af0",
+  "active": "94fb295582f7dd0a",
   "lastOpenFiles": [
-    "信奥c++.md",
+    "未命名.md",
+    "2026-07-04.md",
     "c++.md",
+    "项目描述.md",
+    "信奥c++.md",
     "GESP7级复习计划.md",
     "GESP 7级 查漏补缺.md",
     "GESP六级编程题考点与应对策略.md",
     "Pasted image 20260315214749.png",
     "题库OJ.md",
-    "未命名.md",
     "未命名 1.md",
     "2026-04-04.md",
     "2026-03-29.md",
