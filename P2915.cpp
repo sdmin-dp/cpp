@@ -24,7 +24,7 @@ void solve(){
             if(g[j]&&(j&t[i])==j)
                 for(int k=0;k<s;k++)
                     if(!(j&k))
-                        f[i][j]+=f[i-1][k];
+                        f[i][j]=(f[i][j]+f[i-1][k])%mod;
     for(int i=0;i<s;i++) ans=(ans+f[m][i])%mod;
     cout<<ans;
 }
