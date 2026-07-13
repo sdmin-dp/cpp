@@ -9,6 +9,7 @@ void solve(){
     cin>>n;
     system("g++ -std=c++14 -O2 ac.cpp -o ac.exe");
     system("g++ -std=c++14 -O2 baoli.cpp -o baoli.exe");
+    system("g++ -std=c++14 -O2 gen.cpp -o gen.exe");
     for(int i=1;i<=n;i++){
         system("./ac.exe");
         system("./baoli.exe");
