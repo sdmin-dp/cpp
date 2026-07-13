@@ -7,13 +7,12 @@ ll l,r;
 ll min_prime[N];
 bool is_power[N];
 vector<ll> prime;
-
-void init(int n){
+void init(ll n){
     is_power[1]=1;
-    for(ll i=2; i<=n; i++){
+    for(ll i=2;i<=n;i++){
         if(!min_prime[i]){
-            min_prime[i] = i;
-            is_power[i] = true;
+            min_prime[i]=i;
+            is_power[i]=1;
             prime.push_back(i);
         }
         for(auto j:prime){
