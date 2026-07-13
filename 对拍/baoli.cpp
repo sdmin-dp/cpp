@@ -5,6 +5,7 @@ using namespace std;
 const ll N=1e5+5;
 ll a,b;
 void solve(){
+    cin>>a>>b;
     cout<<a*b;
 }
 int main(){
