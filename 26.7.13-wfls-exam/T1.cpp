@@ -9,7 +9,7 @@ bool is_power[N];
 vector<ll> prime;
 
 void init(int n){
-    is_power[1] = false;
+    is_power[1]=1;
     for(ll i=2; i<=n; i++){
         if(!min_prime[i]){
             min_prime[i] = i;
@@ -17,10 +17,10 @@ void init(int n){
             prime.push_back(i);
         }
         for(auto j:prime){
-            if(i*j > n) break;
-            min_prime[i*j] = j;
-            if(i % j == 0){
-                is_power[i*j]=(is_power[i]&& (min_prime[i] == j));
+            if(i*j>n) break;
+            min_prime[i*j]=j;
+            if(!(i%j)){
+                is_power[i*j]=(is_power[i]&&(min_prime[i]==j));
                 break;
             }
             is_power[i*j]=0;
