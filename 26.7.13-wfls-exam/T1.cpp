@@ -16,15 +16,13 @@ void init(){
             if(!i%j) break;
         }
     }
-    isprime[0]=isprime[1]=0;
 }
 void solve(){
     cin>>l>>r;
     init();
     ll ans=0;
     for(int i=l;i<=r;i++){
-        cout<<isprime[i];
-        if(isprime[i]) ans+=i;
+        if(!isprime[i]) ans+=i;
         else ans++;
     }    
     cout<<ans;
