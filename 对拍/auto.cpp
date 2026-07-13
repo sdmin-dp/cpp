@@ -5,6 +5,7 @@ using namespace std;
 const ll N=1e5+5;
 ll n;
 void solve(){
+    system("chcp 65001 > nul");
     cout<<"请输入想运行的测试样例组数:";
     cin>>n;
     system("g++ -std=c++14 -O2 ac.cpp -o ac.exe");
