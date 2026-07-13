@@ -14,9 +14,11 @@ void solve(){
         system("gen.exe");
         system("ac.exe");
         system("baoli.exe");
-        if(system("fc output1.out output2.out")){
-            cout<<"发现错误,请查看input和output文件";
+        if(system("fc output1.out output2.out > nul")){
+            cout<<"发现错误,请查看input和output文件!";
             break;
+        }else{
+            
         }
     }
 }
