@@ -5,17 +5,8 @@ using namespace std;
 const ll N=1e7+5;
 ll l,r;
 bool isprime[N];
-vector<ll> prime;
 void init(){
-    isprime[1]=isprime[0]=1;
-    for(ll i=2;i<=r;i++){
-        if(!isprime[i]) prime.push_back(i);
-        for(auto j:prime){
-            if(i*j>r) break;
-            isprime[i*j]=1;
-            if(!(i%j)) break;
-        }
-    }
+    
 }
 void solve(){
     cin>>l>>r;
