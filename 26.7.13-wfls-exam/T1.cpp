@@ -23,6 +23,7 @@ void solve(){
     init();
     ll ans=0;
     for(int i=l;i<=r;i++){
+        cout<<isprime[i];
         if(isprime[i]) ans+=i;
         else ans++;
     }    
