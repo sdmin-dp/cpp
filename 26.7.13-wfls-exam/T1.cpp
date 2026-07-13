@@ -13,7 +13,7 @@ void init(){
         for(auto j:prime){
             if(i*j>r) break;
             isprime[i*j]=1;
-            if(!i%j) break;
+            if(!(i%j)) break;
         }
     }
 }
