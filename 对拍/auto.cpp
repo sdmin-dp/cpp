@@ -7,11 +7,15 @@ ll n;
 void solve(){
     cout<<"请输入想运行的测试样例组数:";
     cin>>n;
-    system("g++ -std=c++14 -O2 ac.cpp -o ac");
-    system("g++ -std=c++14 -O2 ac.cpp -o ac");
-
+    system("g++ -std=c++14 -O2 ac.cpp -o ac.exe");
+    system("g++ -std=c++14 -O2 baoli.cpp -o baoli.exe");
     for(int i=1;i<=n;i++){
-        
+        system("ac.exe");
+        system("baoli.exe");
+        if(system("fc output1 output2")){
+            cout<<"发现错误,请查看input和output文件";
+            break;
+        }
     }
 }
 int main(){
