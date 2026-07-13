@@ -22,7 +22,7 @@ void solve(){
     for(ll i = 1; i <= m; i++){
         ll x;
         cin >> x;
-        if(x >= (1 << 20)) cout << "no"<<el;
+        if(x >= (1 << 20)) cout<<"no"<<el;
         else if(vis[x]) cout<<"yes"<<el;
         else cout<<"no"<<el;
     }
