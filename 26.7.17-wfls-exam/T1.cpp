@@ -8,7 +8,7 @@ vector<ll> t;
 void solve(){
     cin>>n>>m;
     ll ans=0,x=0;
-    for(int i=1;i<=n;i++){
+    for(int i=1;i<=m;i++){
         ll u,v;
         cin>>u>>v;
         ans+=abs(u-v);
@@ -20,7 +20,7 @@ void solve(){
     x=t[t.size()/2-1];
     for(auto i:t){
         ans+=abs(i-x);
-        cerr<<i<<" ";
+        // cerr<<i<<" ";
     }
     cout<<x<<" "<<ans;
 }
