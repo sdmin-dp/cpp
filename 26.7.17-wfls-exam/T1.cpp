@@ -18,7 +18,7 @@ void solve(){
     sort(t.begin(),t.end());
     x=t[t.size()/2-1];
     for(auto i:t) ans+=abs(i-x);
-    cout<<ans;
+    cout<<x<<" "<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
