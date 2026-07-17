@@ -3,10 +3,13 @@ using namespace std;
 #define ll long long
 #define el '\n'
 const ll N=1e5+5;
-ll a,b;
+ll n,m;
+pair<ll,ll> a[N];
 void solve(){
-    cin>>a>>b;
-    cout<<a*b;
+    cin>>n>>m;
+    for(int i=1;i<=m;i++){
+
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
