@@ -3,7 +3,8 @@ using namespace std;
 #define ll long long
 #define el '\n'
 const ll N=1e5+5;
-
+ll n,m;
+pair<ll,ll> a[N];
 void solve(){
     
 }
