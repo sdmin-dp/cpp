@@ -9,6 +9,7 @@ void solve(){
     cin>>n>>m;
     for(int i=1;i<=m;i++){
         cin>>a[i].first>>a[i].second;
+        
     }
 }
 int main(){
