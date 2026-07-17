@@ -14,10 +14,14 @@ void solve(){
         ans+=abs(u-v);
         t.push_back(u);
         t.push_back(v);
+        cerr<<ans<<" ";
     }
     sort(t.begin(),t.end());
     x=t[t.size()/2-1];
-    for(auto i:t) ans+=abs(i-x);
+    for(auto i:t){
+        ans+=abs(i-x);
+        cerr<<ans<<" ";
+    }
     cout<<x<<" "<<ans;
 }
 int main(){
