@@ -2,16 +2,33 @@
 using namespace std;
 #define ll long long
 #define el '\n'
-const ll N=1e5+5;
-int a,b;
+const ll N=5e5+5;
+ll n,m;
+vector<ll> t;
 void solve(){
-    
+    cin>>n>>m;
+    ll ans=0,x=0;
+    for(int i=1;i<=m;i++){
+        ll u,v;
+        cin>>u>>v;
+        ans+=abs(u-v);
+        t.push_back(u);
+        t.push_back(v);
+        // cerr<<ans<<" ";
+    }
+    sort(t.begin(),t.end());
+    x=t[t.size()/2-1];
+    for(auto i:t){
+        ans+=abs(i-x);
+        // cerr<<i<<" ";
+    }
+    cout<<x<<" "<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
-    freopen("input.in","r",stdin);
-    freopen("output1.out","w",stdout);
+    //freopen("xxx.in","r",stdin);
+    //freopen("xxx.out","w",stdout);
     ll T=1;
     //cin>>T;
     while(T--){
