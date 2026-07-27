@@ -16,11 +16,9 @@ void solve(){
     sort(a+1,a+n+1);
     while(q--){
         cin>>k;
-        ll l=1,r=k,ans;
-        while(!check(r,k))
-            r*=2;
+        ll l=1,r=2e18+2e5,ans;
         while(l<=r){
-            int mid=(l+r)>>1;
+            ll mid=(l+r)>>1;
             if(check(mid,k)){
                 ans=mid;
                 r=mid-1;
