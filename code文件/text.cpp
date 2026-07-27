@@ -2,20 +2,16 @@
 using namespace std;
 #define ll long long
 #define el '\n'
-const ll N=5e6;
-const double g=(1.0+sqrt(5.0))/2.0;
+const ll N=1e5+5;
 
 void solve(){
-    ll a,b;cin>>a>>b;
-    if(a>b) swap(a,b); 
-    ll k=b-a;
-    cout<<(a==floor(g*(k*1.0))?"0":"1");
+    
 }
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
     //freopen("xxx.in","r",stdin);
-    // freopen("wywolff.out","w",stdout);
+    //freopen("xxx.out","w",stdout);
     ll T=1;
     //cin>>T;
     while(T--){
