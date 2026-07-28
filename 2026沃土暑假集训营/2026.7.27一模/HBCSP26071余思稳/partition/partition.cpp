@@ -7,15 +7,13 @@ ll n,k;
 ll a[N];
 ll sum;
 bool check(ll x){
-    ll sum=0,cnt=1;
+    ll num=0,cnt=1;
     for(int i=1;i<=n;i++){
         if(a[i]>x) return 0;
-        if(sum+a[i]>x){
-            cnt++;
-            sum=0;
-        }else sum+=a[i];
+        if(num+a[i]>x) cnt++,num=0;
+        num+=a[i];
     }
-    if(sum!=0) cnt++;
+    // if(num!=0) cnt++;
     return cnt<=k;
 }
 void erfen(){
@@ -42,8 +40,8 @@ void solve(){
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
-    //freopen("partition.in","r",stdin);
-    //freopen("partition.out","w",stdout);
+    freopen("partition.in","r",stdin);
+    freopen("partition.out","w",stdout);
     ll T=1;
     //cin>>T;
     while(T--){
