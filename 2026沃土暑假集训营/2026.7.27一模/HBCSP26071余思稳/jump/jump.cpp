@@ -2,17 +2,28 @@
 using namespace std;
 #define ll long long
 #define el '\n'
-const ll N=1e5+5;
-
+const ll N=2e5+5;
+ll n,k;
+ll a[N];
+priority_queue<pair<ll,ll>> q;
+ll ans;
 void solve(){
-    ll n,k;
     cin>>n>>k;
-    ll sum=0;
     for(int i=1;i<=n;i++){
-        ll x;cin>>x;
-        sum+=x;
+        cin>>a[i];
     }
-    cout<<sum;
+    q.push({0,0});
+    for(int i=1;i<=n;i++){
+        while(q.top().second+k<i){
+            q.pop();
+        }
+        ll sc=q.top().first;
+        q.push({sc+a[i],i});
+        if(i==n){
+            ans=sc+a[i];
+        }
+    }
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
