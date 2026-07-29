@@ -26,7 +26,7 @@ double get_l(double x){
 double get_r(double x){
     double len=0,time=0,v=1;
     for(int i=n;i>=0;i--){
-        double t=a[i]-a[i-1];
+        double t=a[i+1]-a[i];
         if(time+t/v<=x){
             len+=t;
             time+=t/v;
@@ -39,6 +39,22 @@ double get_r(double x){
     }
     return len;
 }
+bool check(double x){
+    return (get_l(x)+get_r(x))>=h;
+}
+void erfen(){
+    double l=0,r=h,ans=0,mid=0;
+    while(r-l>eps){
+        mid=(l+r)/2;
+        if(check(mid)){
+            r=mid;
+            ans=mid;
+        }else{
+            l=mid;
+        }
+    }
+    printf("%.15lf\n",ans);
+}
 void solve(){
     cin>>n>>h;
     a[0]=0;
@@ -46,6 +62,7 @@ void solve(){
         cin>>a[i];
     }
     a[n+1]=h;
+    erfen();
 }
 int main(){
     ios::sync_with_stdio(0);
@@ -53,7 +70,7 @@ int main(){
     //freopen("xxx.in","r",stdin);
     //freopen("xxx.out","w",stdout);
     ll T=1;
-    //cin>>T;
+    cin>>T;
     while(T--){
         solve();
     }

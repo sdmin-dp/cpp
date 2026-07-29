@@ -4,31 +4,26 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n,k;
-ll a[N];
-bool check(ll x){
-    ll sum=0;
-    for(int i=1;i<=n;i++){
-        sum+=min(a[i]-x,0ll);
-    }
-    return sum<=k;
-}
-void erfen(){
-    ll l=1,r=1e9,ans=0,mid=0;
-    while(l<=r){
-        mid=(l+r)/2;
-        if(check(mid)){
-            r=mid-1;
-            ans=mid;
-        }else{
-            l=mid+1;
-        }
-    }
-    cout<<ans;
-}
+ll a[N],b[N];
+
 void solve(){
     cin>>n>>k;
+    priority_queue<ll> q;
     for(int i=1;i<=n;i++) cin>>a[i];
-    erfen();
+    for(int i=1;i<=n;i++){
+        cin>>b[i];
+        q.push(b[i]);
+    }
+    sort(a+1,a+n+1);
+    for(int i=1;i<=k;i++){
+        if(a[i]<q.top()) a[i]=q.top();
+        q.pop();
+    }
+    ll sum=0;
+    for(int i=1;i<=n;i++){
+        sum+=a[i];
+    }
+    cout<<sum<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
@@ -36,7 +31,7 @@ int main(){
     //freopen("xxx.in","r",stdin);
     //freopen("xxx.out","w",stdout);
     ll T=1;
-    //cin>>T;
+    cin>>T;
     while(T--){
         solve();
     }
