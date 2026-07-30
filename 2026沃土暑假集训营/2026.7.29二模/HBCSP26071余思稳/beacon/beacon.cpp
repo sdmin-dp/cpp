@@ -7,7 +7,7 @@ ll n,h;
 ll a[N];
 bool check(ll x){
     ll len=0,last=0;
-    for(int i=1;i<=n;i++){
+    for(int i=1;i<=n;i++){;
         if(last<=a[i]){
             len+=x;
             last=a[i]+x;
