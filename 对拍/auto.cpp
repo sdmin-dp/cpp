@@ -16,7 +16,7 @@ void solve(){
         system("ac.exe");
         system("baoli.exe");
         cout<<"测试点 #"<<i;
-        if(system("fc output1.out output2.out > nul")){
+        if(system("diff output1.out output2.out > nul")){
             cout<<"发现错误,请查看input和output文件!"<<el;
             break;
         }else{

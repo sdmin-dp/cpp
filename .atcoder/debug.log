@@ -1,0 +1,273 @@
+[2026-07-30T01:03:03.850Z] Problems webview resolved
+[2026-07-30T01:03:04.043Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "script loaded",
+  "extra": ""
+}
+[2026-07-30T01:03:04.044Z] Webview debug: script loaded
+""
+[2026-07-30T01:04:39.920Z] Problems webview resolved
+[2026-07-30T01:04:40.040Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "script loaded",
+  "extra": ""
+}
+[2026-07-30T01:04:40.040Z] Webview debug: script loaded
+""
+[2026-07-30T01:05:03.835Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "script loaded",
+  "extra": ""
+}
+[2026-07-30T01:05:03.835Z] Webview debug: script loaded
+""
+[2026-07-30T01:05:36.439Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "script loaded",
+  "extra": ""
+}
+[2026-07-30T01:05:36.439Z] Webview debug: script loaded
+""
+[2026-07-30T01:06:06.099Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "fetchContest input",
+  "extra": "Atcoder abc 123"
+}
+[2026-07-30T01:06:06.099Z] Webview debug: fetchContest input
+"Atcoder abc 123"
+[2026-07-30T01:06:06.099Z] Received webview message: fetchContest
+{
+  "type": "fetchContest",
+  "url": "Atcoder abc 123"
+}
+[2026-07-30T01:06:06.149Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "script loaded",
+  "extra": ""
+}
+[2026-07-30T01:06:06.149Z] Webview debug: script loaded
+""
+[2026-07-30T01:06:06.908Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "script loaded",
+  "extra": ""
+}
+[2026-07-30T01:06:06.908Z] Webview debug: script loaded
+""
+[2026-07-30T01:06:26.306Z] Received webview message: login
+{
+  "type": "login"
+}
+[2026-07-30T01:06:51.366Z] Received webview message: login
+{
+  "type": "login"
+}
+[2026-07-30T01:08:54.915Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "script loaded",
+  "extra": ""
+}
+[2026-07-30T01:08:54.915Z] Webview debug: script loaded
+""
+[2026-07-30T01:11:56.332Z] Received webview message: login
+{
+  "type": "login"
+}
+[2026-07-30T01:11:57.744Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "script loaded",
+  "extra": ""
+}
+[2026-07-30T01:11:57.744Z] Webview debug: script loaded
+""
+[2026-07-30T01:13:04.755Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "fetchContest input",
+  "extra": "codefoces 1999"
+}
+[2026-07-30T01:13:04.755Z] Webview debug: fetchContest input
+"codefoces 1999"
+[2026-07-30T01:13:04.755Z] Received webview message: fetchContest
+{
+  "type": "fetchContest",
+  "url": "codefoces 1999"
+}
+[2026-07-30T01:13:04.802Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "script loaded",
+  "extra": ""
+}
+[2026-07-30T01:13:04.802Z] Webview debug: script loaded
+""
+[2026-07-30T01:13:06.764Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "script loaded",
+  "extra": ""
+}
+[2026-07-30T01:13:06.764Z] Webview debug: script loaded
+""
+[2026-07-30T01:13:46.659Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "fetchContest input",
+  "extra": "atcoder abc 469"
+}
+[2026-07-30T01:13:46.659Z] Webview debug: fetchContest input
+"atcoder abc 469"
+[2026-07-30T01:13:46.660Z] Received webview message: fetchContest
+{
+  "type": "fetchContest",
+  "url": "atcoder abc 469"
+}
+[2026-07-30T01:13:46.706Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "script loaded",
+  "extra": ""
+}
+[2026-07-30T01:13:46.706Z] Webview debug: script loaded
+""
+[2026-07-30T01:13:47.682Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "script loaded",
+  "extra": ""
+}
+[2026-07-30T01:13:47.682Z] Webview debug: script loaded
+""
+[2026-07-30T01:13:53.893Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "direct fetch button click",
+  "extra": ""
+}
+[2026-07-30T01:13:53.893Z] Webview debug: direct fetch button click
+""
+[2026-07-30T01:13:53.893Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "fetchContest input",
+  "extra": "https://atcoder.jp/contests/abc469"
+}
+[2026-07-30T01:13:53.894Z] Webview debug: fetchContest input
+"https://atcoder.jp/contests/abc469"
+[2026-07-30T01:13:53.894Z] Received webview message: fetchContest
+{
+  "type": "fetchContest",
+  "url": "https://atcoder.jp/contests/abc469"
+}
+[2026-07-30T01:13:53.937Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "script loaded",
+  "extra": ""
+}
+[2026-07-30T01:13:53.938Z] Webview debug: script loaded
+""
+[2026-07-30T01:13:54.901Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "script loaded",
+  "extra": ""
+}
+[2026-07-30T01:13:54.901Z] Webview debug: script loaded
+""
+[2026-07-30T01:14:12.790Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "fetchContest input",
+  "extra": "AtCoder ABC123"
+}
+[2026-07-30T01:14:12.791Z] Webview debug: fetchContest input
+"AtCoder ABC123"
+[2026-07-30T01:14:12.791Z] Received webview message: fetchContest
+{
+  "type": "fetchContest",
+  "url": "AtCoder ABC123"
+}
+[2026-07-30T01:14:12.834Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "script loaded",
+  "extra": ""
+}
+[2026-07-30T01:14:12.834Z] Webview debug: script loaded
+""
+[2026-07-30T01:14:14.017Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "script loaded",
+  "extra": ""
+}
+[2026-07-30T01:14:14.017Z] Webview debug: script loaded
+""
+[2026-07-30T01:14:19.227Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "fetchContest input",
+  "extra": "AtCoder abc123"
+}
+[2026-07-30T01:14:19.227Z] Webview debug: fetchContest input
+"AtCoder abc123"
+[2026-07-30T01:14:19.227Z] Received webview message: fetchContest
+{
+  "type": "fetchContest",
+  "url": "AtCoder abc123"
+}
+[2026-07-30T01:14:19.274Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "script loaded",
+  "extra": ""
+}
+[2026-07-30T01:14:19.274Z] Webview debug: script loaded
+""
+[2026-07-30T01:14:20.465Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "script loaded",
+  "extra": ""
+}
+[2026-07-30T01:14:20.465Z] Webview debug: script loaded
+""
+[2026-07-30T01:14:29.222Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "fetchContest input",
+  "extra": "AtCoder abc123"
+}
+[2026-07-30T01:14:29.222Z] Webview debug: fetchContest input
+"AtCoder abc123"
+[2026-07-30T01:14:29.223Z] Received webview message: fetchContest
+{
+  "type": "fetchContest",
+  "url": "AtCoder abc123"
+}
+[2026-07-30T01:14:29.266Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "script loaded",
+  "extra": ""
+}
+[2026-07-30T01:14:29.266Z] Webview debug: script loaded
+""
+[2026-07-30T01:14:30.187Z] Received webview message: debug
+{
+  "type": "debug",
+  "text": "script loaded",
+  "extra": ""
+}
+[2026-07-30T01:14:30.187Z] Webview debug: script loaded
+""
