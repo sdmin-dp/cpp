@@ -29,6 +29,7 @@ void solve(){
             else break;
         }
     }
+    
     ll ans=0;
     while(!q.empty()){
         ans+=q.top();
