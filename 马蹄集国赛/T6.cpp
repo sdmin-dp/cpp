@@ -5,17 +5,24 @@ using namespace std;
 const ll N=300+5;
 ll n;
 string s[N];
-void qianzhui(){
-    
+ll qianzhui(string s,string t){
+    ll cnt=0;
+    for(int i=0;i<min(s.size(),t.size());i++){
+        if(s[i]==t[i]) cnt++;
+        else break;
+    }
+    return cnt;
 }
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
         cin>>s[i];
     }
+    ll ans=0;
     for(int i=1;i<=n;i++){
         for(int j=1;j<=n;j++){
-            
+            ll cnt=qianzhui(s[i],s[j]);
+            ans^=cnt;
         }
     }
 }
