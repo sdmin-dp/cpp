@@ -18,8 +18,12 @@ void init(){
         }
     }
 }
-void query(ll x,ll y){
-    
+pair<ll,ll> query(ll x,ll y){
+    ll k=lg[y-x+1];
+    if(x+(1<<k)<y) k++;
+    ll mx=max(st[k-1][x].first,st[k-1][y-(1<<k-1)].first);
+    ll mn=min(st[k-1][x].second,st[k-1][y-(1<<k-1)].second);
+    return {mx,mn};
 }
 void solve(){
     cin>>n>>m;
