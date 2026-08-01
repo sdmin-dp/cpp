@@ -24,7 +24,7 @@ void solve(){
             for(int rx=lx;rx<=n;rx++){
                 for(int ry=ly;ry<=m;ry++){
                     dp[rx][ry].first=max({dp[rx-1][ry].first,dp[rx][ry-1].first,a[rx][ry]});
-                    if(rx==lx&&ry==ly) dp[rx][ry].second=a[1][1];
+                    if(rx==lx&&ry==ly) dp[rx][ry].second=a[lx][ly];
                     else if(rx==lx&&ry!=ly) dp[rx][ry].second=min(dp[rx][ry-1].second,a[rx][ry]);
                     else if(rx!=lx&&ry==ly) dp[rx][ry].second=min(dp[rx-1][ry].second,a[rx][ry]);
                     else dp[rx][ry].second=min({dp[rx-1][ry].second,dp[rx][ry-1].second,a[rx][ry]});
