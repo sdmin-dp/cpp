@@ -18,6 +18,7 @@ void solve(){
     // for(int i=1;i<=m;i++) dp[0][i]={a[1][i],a[1][i]};
     for(int lx=1;lx<=n;lx++){
         for(int ly=1;ly<=m;ly++){
+            memset(dp,0,sizeof(dp));
             dp[lx][ly]={a[lx][ly],a[lx][ly]};
             cerr<<lx<<" "<<ly<<el;
             for(int rx=lx;rx<=n;rx++){
