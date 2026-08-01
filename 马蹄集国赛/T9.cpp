@@ -21,7 +21,7 @@ void solve(){
             dp[lx][ly]={a[lx][ly],a[lx][ly]};
             cerr<<lx<<" "<<ly<<el;
             for(int rx=lx;rx<=n;rx++){
-                for(int ry=ly;ry<=n;ry++){
+                for(int ry=ly;ry<=m;ry++){
                     dp[rx][ry].first=max({dp[rx-1][ry].first,dp[rx][ry-1].first,a[rx][ry]});
                     if(rx==1&&ry==1) dp[rx][ry].second=a[1][1];
                     else if(rx==1&&ry!=1) dp[rx][ry].second=min(dp[rx][ry-1].second,a[rx][ry]);
