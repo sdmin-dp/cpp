@@ -2,9 +2,14 @@
 using namespace std;
 #define ll long long
 #define el '\n'
-const ll N=1e5+5;
+const ll N=300+5;
 ll n;
+string s[N];
 void solve(){
+    cin>>n;
+    for(int i=1;i<=n;i++){
+        cin>>s[i];
+    }
     
 }
 int main(){
