@@ -7,34 +7,37 @@ const ll mxlog=20;
 ll n,m;
 ll a[N];
 pair<ll,ll> st[20][N];
-ll lg[N];
-// void init(){
-//     for(int i=1;i<=n;i++) lg[i]=lg[i/2]+1;
-//     for(int i=1;i<=n;i++) st[0][i].first=st[0][i].second=a[i];
-//     for(int k=1;k<=mxlog;k++){
-//         for(int i=1;i<=n;i++){
-//             st[k][i].first=max(st[k-1][i].first,st[k-1][i+(1<<k-1)+1].first);
-//             st[k][i].second=min(st[k-1][i].second,st[k-1][i+(1<<k-1)+1].second);
-//         }
-//     }
-// }
-pair<ll,ll> query(ll x,ll y){
-    ll k=lg[y-x+1];
-    if(x+(1<<k)<y) k++;
-    ll mx=max(st[k-1][x].first,st[k-1][y-(1<<k-1)].first);
-    ll mn=min(st[k-1][x].second,st[k-1][y-(1<<k-1)].second);
-    return {mx,mn};
+ll lg2[N];
+void init(){
+    for(int i=1;i<=n;i++) st[i][0].first=a[i];
+    for(int i=1;i<=n;i++) st[i][0].second=a[i];
+    for(int j=1;j<=mxlog;j++){
+        for(int i=1;i+(1<<j)-1<=n;i++){
+            st[i][j].first=max(st[i][j-1].first,st[i+(1<<(j-1))][j-1].first); 
+        }
+    }
+    for(int j=1;j<=mxlog;j++){
+        for(int i=1;i+(1<<j)-1<=n;i++){
+            st[i][j].second=min(st[i][j-1].second,st[i+(1<<(j-1))][j-1].second); 
+        }
+    }
+    for(int i=2;i<=n;i++) lg2[i]=lg2[i/2]+1;
+}
+pair<ll,ll> query(ll l,ll r){
+    ll k=lg2[r-l+1];
+    // ll t1=
+    return {max(st[l][k].first,st[r-(1<<k)+1][k].first),min(st[l][k].second,st[r-(1<<k)+1][k].second)};
 }
 void solve(){
     cin>>n>>m;
     for(int i=1;i<=n;i++) cin>>a[i];
-    // init();
+    init();
     // ll mx=-1e12,mn=1e12;
     ll cnt=0;
     for(int i=1;i<=n;i++){
         for(int j=1;j<=n;j++){
-            // auto t=query(i,j);
-            // if(t.first-t.second<=m) cnt++;
+            auto t=query(i,j);
+            if(t.first-t.second<=m) cnt++;
         }
     }
     cout<<cnt;
