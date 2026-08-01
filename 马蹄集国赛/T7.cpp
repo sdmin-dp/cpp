@@ -3,9 +3,11 @@ using namespace std;
 #define ll long long
 #define el '\n'
 const ll N=1e5+5;
+string s,t;
 
 void solve(){
-    
+    cin>>s>>t;
+
 }
 int main(){
     ios::sync_with_stdio(0);
