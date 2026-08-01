@@ -9,13 +9,17 @@ ll a[N];
 pair<ll,ll> st[20][N];
 ll lg[N];
 void init(){
-    for(int i=;i<=n;i++) lg[i]=lg[i-1]/2;
+    for(int i=1;i<=n;i++) lg[i]=lg[i/2]+1;
     for(int i=1;i<=n;i++) st[0][i].first=st[0][i].second=a[i];
     for(int k=1;k<=mxlog;k++){
         for(int i=1;i<=n;i++){
-            st[k][i]
+            st[k][i].first=max(st[k-1][i].first,st[k-1][i+(1<<k-1)+1].first);
+            st[k][i].second=min(st[k-1][i].second,st[k-1][i+(1<<k-1)+1].second);
         }
     }
+}
+void query(ll x,ll y){
+    
 }
 void solve(){
     cin>>n>>m;
