@@ -15,7 +15,7 @@ void solve(){
     }
     ll cnt=0;
     for(int lx=1;lx<=n;lx++){
-        for(int ly=1;ly<=n;ly++){
+        for(int ly=1;ly<=m;ly++){
             dp[lx][ly]={a[lx][ly],a[lx][ly]};
             for(int rx=1;rx<=n;rx++){
                 for(int ry=1;ry<=n;ry++){
