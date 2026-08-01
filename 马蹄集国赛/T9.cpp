@@ -27,7 +27,7 @@ void solve(){
                         
                         cerr<<dp.first<<" "<<dp.second<<" "<<lx<<" "<<ly<<" "<<rx<<" "<<ry<<el;
                     }
-                    if(lx==1&&ly==1&&rx==2&&ry==2) cerr<<"shabi  "<<dp.first<<" "<<dp.second<<" "<<lx<<" "<<ly<<" "<<rx<<" "<<ry<<el;
+                    // if(lx==1&&ly==1&&rx==2&&ry==2) cerr<<"shabi  "<<dp.first<<" "<<dp.second<<" "<<lx<<" "<<ly<<" "<<rx<<" "<<ry<<el;
                 }
             }
         }
