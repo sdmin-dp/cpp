@@ -2,7 +2,7 @@
 using namespace std;
 #define ll long long
 #define el '\n'
-const ll N=1e5+5;
+const ll N=1e6+5;
 ll n;
 pair<ll,ll> a[N];
 void solve(){
@@ -10,6 +10,7 @@ void solve(){
     for(int i=1;i<=n;i++){
         cin>>a[i].first>>a[i].second;
     }
+    
 }
 int main(){
     ios::sync_with_stdio(0);
