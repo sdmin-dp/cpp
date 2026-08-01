@@ -16,7 +16,7 @@ void solve(){
     ll cnt=0;
     for(int lx=1;lx<=n;lx++){
         for(int ly=1;ly<=n;ly++){
-            pair<ll,ll> dp={0,0};
+            pair<ll,ll> dp={a[lx][ly],a[lx][ly]};
             for(int rx=lx;rx<=n;rx++){
                 for(int ry=ly;ry<=n;ry++){
                     dp.first=max(dp.first,a[rx][ry]);
