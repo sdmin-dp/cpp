@@ -19,7 +19,7 @@ void solve(){
     for(int lx=1;lx<=n;lx++){
         for(int ly=1;ly<=m;ly++){
             dp[lx][ly]={a[lx][ly],a[lx][ly]};
-            cerr<<dp[lx][ly].second<<el;
+            cerr<<lx<<" "<<ly<<el;
             for(int rx=lx;rx<=n;rx++){
                 for(int ry=ly;ry<=n;ry++){
                     dp[rx][ry].first=max({dp[rx-1][ry].first,dp[rx][ry-1].first,a[rx][ry]});
@@ -29,7 +29,7 @@ void solve(){
                     else dp[rx][ry].second=min({dp[rx-1][ry].second,dp[rx][ry-1].second,a[rx][ry]});
                     if(dp[rx][ry].first-dp[rx][ry].second<=k){
                         cnt++;
-                        cerr<<lx<<" "<<ly<<" "<<rx<<" "<<ry<<" "<<dp[rx][ry].first<<" "<<dp[rx][ry].second<<el;
+                        cerr<<" "<<rx<<" "<<ry<<" "<<dp[rx][ry].first<<" "<<dp[rx][ry].second<<el;
                     }
                     
                 }
