@@ -16,7 +16,7 @@ void solve(){
             mp[t[i]]--;
             ans++;
         }else{
-            continue;
+            break;
         }
     }
     cout<<ans;
