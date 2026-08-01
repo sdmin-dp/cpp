@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+#define ll long long
+using namespace std;
+#define el '\n'
+const ll N=1e5+5;
+ll n,k;
+ll a[N];
+void solve(){
+    cin>>n>>k;
+    for(int i=1;i<=n;i++){
+        cin>>a[i];
+    }
+    ll ans=1e12;
+    for(int i=1;i<=n-k+1;i++){
+        ll L= a[i];
+        ll R=a[i+k-1];
+        ll mn=min(abs(L)+(R-L),abs(R)+(R-L));
+        ans=min(ans, mn);
+    }
+    cout<<ans;
+}
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    //freopen("xxx.in","r",stdin);
+    //freopen("xxx.out","w",stdout);
+    ll T=1;
+    //cin>>T;
+    while(T--){
+        solve();
+    }
+    return 0;
+}
