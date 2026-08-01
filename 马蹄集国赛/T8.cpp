@@ -39,6 +39,7 @@ void solve(){
             ll t1=t.first,t2=t.second;
             if(t1-t2<=m){
                 cnt++;
+                cerr<<i<<" "<<j;
             }
         }
     }
