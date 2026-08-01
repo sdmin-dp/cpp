@@ -8,6 +8,7 @@ ll n,m;
 ll a[N];
 pair<ll,ll> st[20][N];
 ll lg2[N];
+ll cnt;
 void init(){
     for(int i=1;i<=n;i++) st[i][0].first=a[i];
     for(int i=1;i<=n;i++) st[i][0].second=a[i];
@@ -32,8 +33,6 @@ void solve(){
     cin>>n>>m;
     for(int i=1;i<=n;i++) cin>>a[i];
     init();
-    // ll mx=-1e12,mn=1e12;
-    ll cnt=0;
     for(int i=1;i<=n;i++){
         for(int j=1;j<=n;j++){
             auto t=query(i,j);
