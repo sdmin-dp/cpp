@@ -25,7 +25,7 @@ void solve(){
                     if(dp.first-dp.second<=k){
                         cnt++;
                         
-                        if(lx!=rx||ly!=ry) cerr<<dp.first<<" "<<dp.second<<" "<<lx<<" "<<ly<<" "<<rx<<" "<<ry<<el;
+                        cerr<<dp.first<<" "<<dp.second<<" "<<lx<<" "<<ly<<" "<<rx<<" "<<ry<<el;
                     }
                 }
             }
