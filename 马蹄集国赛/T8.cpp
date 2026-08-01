@@ -29,7 +29,7 @@ void solve(){
     cin>>n>>m;
     for(int i=1;i<=n;i++) cin>>a[i];
     init();
-    ll mx=-1e12,mn=1e12;
+    // ll mx=-1e12,mn=1e12;
     ll cnt=0;
     for(int i=1;i<=n;i++){
         for(int j=1;j<=n;j++){
