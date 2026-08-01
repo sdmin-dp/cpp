@@ -16,8 +16,8 @@ void solve(){
         dp[i].first=a[i];
         dp[i].second=a[i];
         for(int j=i+1;j<=n;j++){
-            dp[j].first=max(dp[j-1].first,a[i]);
-            dp[j].second=min(dp[j-1].second,a[i]);
+            dp[j].first=max(dp[j-1].first,a[j]);
+            dp[j].second=min(dp[j-1].second,a[j]);
         }
         for(int j=i+1;j<=n;j++){
             if(dp[i].first-dp[j].second<=m){
