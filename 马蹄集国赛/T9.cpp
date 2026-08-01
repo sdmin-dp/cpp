@@ -24,6 +24,7 @@ void solve(){
                     if(dp[rx][ry].first-dp[rx][ry].second<=k){
                         cnt++;
                     }
+                    cerr<<rx<<" "<<ry<<" "<<dp[rx][ry].first<<" "<<dp[rx][ry].second<<el;
                 }
             }
         }
