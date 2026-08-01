@@ -18,14 +18,14 @@ void solve(){
         for(int ly=1;ly<=m;ly++){
             dp[lx][ly]={a[lx][ly],a[lx][ly]};
             cerr<<dp[lx][ly].second<<el;
-            for(int rx=1;rx<=n;rx++){
-                for(int ry=1;ry<=n;ry++){
+            for(int rx=2;rx<=n;rx++){
+                for(int ry=2;ry<=n;ry++){
                     dp[rx][ry].first=max({dp[rx-1][ry].first,dp[rx][ry-1].first,a[rx][ry]});
                     dp[rx][ry].second=min({dp[rx-1][ry].second,dp[rx][ry-1].second,a[rx][ry]});
                     if(dp[rx][ry].first-dp[rx][ry].second<=k){
                         cnt++;
                     }
-                    // cerr<<rx<<" "<<ry<<" "<<dp[rx][ry].first<<" "<<dp[rx][ry].second<<el;
+                    cerr<<rx<<" "<<ry<<" "<<dp[rx][ry].first<<" "<<dp[rx][ry].second<<el;
                 }
             }
         }
