@@ -14,8 +14,8 @@ void solve(){
         }
     }
     ll cnt=0;
-    for(int i=1;i<=n;i++) dp[i][0]=dp[i][1];
-    for(int i=1;i<=m;i++) dp[0][i]=dp[1][i];
+    // for(int i=1;i<=n;i++) dp[i][0]={a[i][1],a[i][1]};
+    // for(int i=1;i<=m;i++) dp[0][i]={a[1][i],a[1][i]};
     for(int lx=1;lx<=n;lx++){
         for(int ly=1;ly<=m;ly++){
             dp[lx][ly]={a[lx][ly],a[lx][ly]};
