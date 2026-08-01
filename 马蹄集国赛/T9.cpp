@@ -23,7 +23,7 @@ void solve(){
                     dp.second=min(dp.second,a[rx][ry]);
                     if(dp.first-dp.second<=k){
                         cnt++;
-                        cerr<<dp.first<<" "<<dp.second<<" "<<lx<<" "<<ly<<" "<<rx<<" "<<ry<<el;
+                        if(lx!=rx||ly!=ry) cerr<<dp.first<<" "<<dp.second<<" "<<lx<<" "<<ly<<" "<<rx<<" "<<ry<<el;
                     }
                 }
             }
