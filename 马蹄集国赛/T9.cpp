@@ -21,9 +21,10 @@ void solve(){
                 for(int ry=ly;ry<=n;ry++){
                     dp.first=max(dp.first,a[rx][ry]);
                     dp.second=min(dp.second,a[rx][ry]);
+                    cerr<<lx<<" "<<ly<<" "<<rx<<" "<<ry<<el;
                     if(dp.first-dp.second<=k){
                         cnt++;
-                        if(lx!=rx||ly!=ry) cerr<<dp.first<<" "<<dp.second<<" "<<lx<<" "<<ly<<" "<<rx<<" "<<ry<<el;
+                        // if(lx!=rx||ly!=ry) cerr<<dp.first<<" "<<dp.second<<" "<<lx<<" "<<ly<<" "<<rx<<" "<<ry<<el;
                     }
                 }
             }
