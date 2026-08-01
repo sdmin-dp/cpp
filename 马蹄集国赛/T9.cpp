@@ -17,8 +17,8 @@ void solve(){
     for(int lx=1;lx<=n;lx++){
         for(int ly=1;ly<=n;ly++){
             pair<ll,ll> dp={a[lx][ly],a[lx][ly]};
-            for(int rx=lx;rx<=n;rx++){
-                for(int ry=ly;ry<=n;ry++){
+            for(int rx=1;rx<=n;rx++){
+                for(int ry=1;ry<=n;ry++){
                     dp.first=max(dp.first,a[rx][ry]);
                     dp.second=min(dp.second,a[rx][ry]);
                     if(dp.first-dp.second<=k){
