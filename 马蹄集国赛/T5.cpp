@@ -12,13 +12,19 @@ bool ishuiwen(ll x){
 }
 void solve(){
     cin>>n;
-    ll cnt=0;
+    ll ans=0;
+    bool flag=0;
     for(int i=1;i<=n;i++){
         if(ishuiwen(i)){
-            cnt++;
+            if(!flag){
+                ans=i;
+                flag=1;
+            }else{
+                ans^=i;
+            }
         }
     }
-    cout<<cnt;
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
