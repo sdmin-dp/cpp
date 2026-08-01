@@ -13,6 +13,7 @@ void solve(){
             cin>>a[i][j];
         }
     }
+    ll cnt=0;
     for(int lx=1;lx<=n;lx++){
         for(int ly=1;ly<=n;ly++){
             pair<ll,ll> dp;
@@ -20,13 +21,14 @@ void solve(){
                 for(int ry=ly;ry<=n;ry++){
                     dp.first=max(dp.first,a[rx][ry]);
                     dp.second=min(dp.second,a[rx][ry]);
-                    if(dp.first-dp.second==0){
-                        
+                    if(dp.first-dp.second<=k){
+                        cnt++;
                     }
                 }
             }
         }
     }
+    cout<<cnt;
 }
 int main(){
     ios::sync_with_stdio(0);
