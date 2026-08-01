@@ -29,9 +29,9 @@ void solve(){
                     else dp[rx][ry].second=min({dp[rx-1][ry].second,dp[rx][ry-1].second,a[rx][ry]});
                     if(dp[rx][ry].first-dp[rx][ry].second<=k){
                         cnt++;
-                        // cerr<<rx<<" "<<ry<<" "<<dp[rx][ry].first<<" "<<dp[rx][ry].second<<el;
+                        cerr<<rx<<" "<<ry<<" "<<dp[rx][ry].first<<" "<<dp[rx][ry].second<<el;
                     }
-                    cerr<<rx<<" "<<ry<<" "<<dp[rx][ry].first<<" "<<dp[rx][ry].second<<el;
+                    // cerr<<rx<<" "<<ry<<" "<<dp[rx][ry].first<<" "<<dp[rx][ry].second<<el;
                 }
             }
         }
