@@ -5,9 +5,30 @@ using namespace std;
 const ll N=1e2+5;
 ll n,m,k;
 ll a[N][N];
-ll dp[N][N][N][N];
+pair<ll,ll> dp[N][N];
 void solve(){
-    
+    cin>>n>>m>>k;
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=m;j++){
+            cin>>a[i][j];
+        }
+    }
+    ll cnt=0;
+    for(int lx=1;lx<=n;lx++){
+        for(int ly=1;ly<=n;ly++){
+            dp[lx][ly]={a[lx][ly],a[lx][ly]};
+            for(int rx=1;rx<=n;rx++){
+                for(int ry=1;ry<=n;ry++){
+                    dp[rx][ry].first=max({dp[rx-1][ry].first,dp[rx][ry-1].first,a[rx][ry]});
+                    dp[rx][ry].second=min({dp[rx-1][ry].second,dp[rx][ry-1].second,a[rx][ry]});
+                    if(dp[rx][ry].first-dp[rx][ry].second<=k){
+                        cnt++;
+                    }
+                }
+            }
+        }
+    }
+    cout<<cnt;
 }
 int main(){
     ios::sync_with_stdio(0);
