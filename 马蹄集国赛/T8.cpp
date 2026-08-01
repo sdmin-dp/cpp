@@ -26,7 +26,7 @@ void solve(){
             }
         }
     }
-    cout<<cnt;
+    cout<<cnt+n;
     
 }
 int main(){
