@@ -2,10 +2,19 @@
 using namespace std;
 #define ll long long
 #define el '\n'
-const ll N=1e5+5;
+const ll N=1e4+5;
 ll n,m;
+ll a[N];
 void solve(){
-    
+    cin>>n>>m;
+    for(int i=1;i<=n;i++) cin>>a[i];
+    ll mx=-1e12,mn=1e12;
+    for(int i=1;i<=n;i++){
+        mx=max(mx,a[i]);mn=min(mn,a[i]);
+        while(mx){
+
+        }
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
