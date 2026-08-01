@@ -30,7 +30,7 @@ void solve(){
             }
         }
     }
-    cout<<cnt;
+    cout<<cnt+n*m;
 }
 int main(){
     ios::sync_with_stdio(0);
