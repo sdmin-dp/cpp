@@ -38,7 +38,7 @@ void solve(){
         for(int j=1;j<=n;j++){
             auto t=query(i,j);
             ll t1=t.first,t2=t.second;
-            if(t1-t2<=m) cnt;
+            if(t1-t2<=m) cnt=cnt+1;
         }
     }
     cout<<cnt;
