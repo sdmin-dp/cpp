@@ -20,7 +20,7 @@ void solve(){
             dp[j].second=min(dp[j-1].second,a[j]);
         }
         for(int j=i+1;j<=n;j++){
-            if(dp[i].first-dp[j].second<=m){
+            if(dp[j].first-dp[j].second<=m){
                 cnt++;
                 cerr<<i<<" "<<j<<" "<<dp[j].first<<" "<<dp[j].second<<el;
             }
