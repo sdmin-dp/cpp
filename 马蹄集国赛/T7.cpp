@@ -10,11 +10,14 @@ void solve(){
     for(int i=0;i<s.size();i++){
         mp[s[i]]++;
     }
+    ll ans=0;
     for(int i=0;i<t.size();i++){
-        if(mp[t[i]]){
-
+        if(mp[t[i]]>0){
+            mp[t[i]]--;
+            ans++;
         }
     }
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
