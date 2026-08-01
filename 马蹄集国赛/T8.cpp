@@ -22,7 +22,7 @@ void solve(){
         for(int j=i+1;j<=n;j++){
             if(dp[i].first-dp[j].second<=m){
                 cnt++;
-                cerr<<i<<" "<<j<<el;
+                cerr<<i<<" "<<j<<" "<<dp[j].first<<" "<<dp[j].second<<el;
             }
         }
     }
