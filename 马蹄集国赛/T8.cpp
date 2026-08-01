@@ -5,11 +5,15 @@ using namespace std;
 const ll N=1e4+5;
 ll n,m;
 ll a[N];
-
+ll mx[N][N];
+ll mn[N][N];
 void solve(){
     cin>>n>>m;
     for(int i=1;i<=n;i++) cin>>a[i];
     ll mx=-1e12,mn=1e12;
+    for(int i=1;i<=n;i++){
+
+    }
     for(int i=1;i<=n;i++){
         for(int j=1;j<=n;j++){
 
