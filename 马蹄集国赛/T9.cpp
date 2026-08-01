@@ -2,7 +2,8 @@
 using namespace std;
 #define ll long long
 #define el '\n'
-const ll N=1e5+5;
+const ll N=1e2+5;
+ll n,m,k;
 
 void solve(){
     
