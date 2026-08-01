@@ -1,11 +1,16 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define ll long long
+#define ll int
 #define el '\n'
-const ll N=1e5+5;
-
+const ll N=1e4+5;
+ll n;
+ll a[N];
+pair<ll,ll> dp[N][N];
 void solve(){
-    
+    cin>>n;
+    for(int i=1;i<=n;i++){
+        cin>>a[i];
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
