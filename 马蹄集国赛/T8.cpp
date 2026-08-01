@@ -37,6 +37,7 @@ void solve(){
     for(int i=1;i<=n;i++){
         for(int j=1;j<=n;j++){
             auto t=query(i,j);
+            ll t1=t.first,t2=t.second;
             // if(t.first-t.second<=m) cnt++;
         }
     }
