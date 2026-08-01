@@ -3,14 +3,30 @@ using namespace std;
 #define ll int
 #define el '\n'
 const ll N=1e4+5;
-ll n;
+ll n,m;
 ll a[N];
-pair<ll,ll> dp[N][N];
+pair<ll,ll> dp[N];
 void solve(){
-    cin>>n;
+    cin>>n>>m;
     for(int i=1;i<=n;i++){
         cin>>a[i];
     }
+    ll cnt=0;
+    for(int i=1;i<=n;i++){
+        dp[i].first=a[i];
+        dp[i].second=a[i];
+        for(int j=i+1;j<=n;i++){
+            dp[j].first=max(dp[j-1].first,a[i]);
+            dp[j].second=min(dp[j-1].second,a[i]);
+        }
+        for(int j=i+1;j<=n;j++){
+            if(dp[i].first-dp[j].second<=m){
+                cnt++;
+            }
+        }
+    }
+    cout<<cnt;
+    
 }
 int main(){
     ios::sync_with_stdio(0);
