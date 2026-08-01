@@ -4,10 +4,17 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 string s,t;
-
+map<char,ll> mp;
 void solve(){
     cin>>s>>t;
+    for(int i=0;i<s.size();i++){
+        mp[s[i]]++;
+    }
+    for(int i=0;i<t.size();i++){
+        if(mp[t[i]]){
 
+        }
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
