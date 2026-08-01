@@ -1,14 +1,10 @@
-<<<<<<< HEAD
 *.o
 *.exe
 *.obj
+*.in
 *.out
 *.tmp
 .vscode/
 .idea/
 Thumbs.db
 .cph-ng/
-=======
-cpp/.cph/
-cpp/.cph-ng/
->>>>>>> dc16c6c01fb6ac99ca5648a22e1ca87f351809a0

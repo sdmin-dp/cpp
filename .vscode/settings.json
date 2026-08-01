@@ -3,6 +3,4 @@
     "breadcrumbs.showBooleans": true,
     "breadcrumbs.showClasses": true,
     "gitdoc.enabled": true,
-    "xClaude.model": "kimi-k2.5",
-    "xClaude.baseUrl": "https://api.moonshot.cn/v1"
 }
