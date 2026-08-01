@@ -3,9 +3,17 @@ using namespace std;
 #define ll long long
 #define el '\n'
 const ll N=1e5+5;
-set<ll> st;
+ll n;
+set<ll,greater<ll>> st;
 void solve(){
-    
+    cin>>n;
+    for(int i=1;i<=n;i++){
+        ll x;cin>>x;
+        st.insert(x);
+    }
+    auto t=st.begin();
+    t++;
+    cout<<*t;
 }
 int main(){
     ios::sync_with_stdio(0);
