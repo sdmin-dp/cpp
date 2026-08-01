@@ -15,6 +15,8 @@ void solve(){
         if(mp[t[i]]>0){
             mp[t[i]]--;
             ans++;
+        }else{
+            continue;
         }
     }
     cout<<ans;
@@ -31,3 +33,7 @@ int main(){
     }
     return 0;
 }
+/*
+wukairuishigay
+wukairuishishabi
+*/
