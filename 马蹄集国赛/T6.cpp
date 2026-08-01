@@ -5,6 +5,9 @@ using namespace std;
 const ll N=300+5;
 ll n;
 string s[N];
+void qianzhui(){
+    
+}
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
