@@ -7,8 +7,9 @@ ll n;
 
 vector<pair<ll,ll>> prime;
 void fjzys(){
+    prime.reserve(ceil(sqrt(n)));
     ll x=n;
-    for(int i=2;i*i<=x;i++){
+    for(ll i=2;i*i<=x;i++){
         if(x%i==0){
             ll cnt=0;
             while(x%i==0){
