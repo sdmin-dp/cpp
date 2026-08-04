@@ -3,9 +3,18 @@ using namespace std;
 #define ll long long
 #define el '\n'
 const ll N=1e5+5;
-
+ll n,m;
 void solve(){
-    cout<<(100/25)*18;
+    
+    cin>>n>>m;
+    ll ans=0;
+    while(m>n){
+        if(m%2==1) m++;
+        else m/=2;
+        ans++;
+    }
+    ans+=n-m;
+    cout<<ans<<el;
 }
 int main(){
     ios::sync_with_stdio(0);

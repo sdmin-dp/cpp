@@ -5,7 +5,8 @@ using namespace std;
 const ll N=1e5+5;
 
 void solve(){
-    cout<<(100/25)*18;
+    ll n,k;cin>>n>>k;
+    cout<<n-k+1;
 }
 int main(){
     ios::sync_with_stdio(0);

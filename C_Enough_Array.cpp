@@ -3,9 +3,23 @@ using namespace std;
 #define ll long long
 #define el '\n'
 const ll N=1e5+5;
-
+ll n,m;
+ll a[N];
+ll sum[N];
 void solve(){
-    cout<<(100/25)*18;
+    cin>>n>>m;
+    for(int i=1;i<=n;i++){
+       cin>>a[i]; 
+       sum[i]=sum[i-1]+a[i];
+    }
+    ll cnt=0;
+    for(int i=1;i<=n;i++){
+        ll pos=lower_bound(sum+i,sum+n+1,m+sum[i-1])-sum;
+        pos=n-pos+1;
+        //cout<<pos<<'\n';
+        cnt+=pos;
+    }
+    cout<<cnt;
 }
 int main(){
     ios::sync_with_stdio(0);
