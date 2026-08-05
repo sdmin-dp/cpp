@@ -53,10 +53,11 @@ void solve(){
     }
 
     //cerr<<mp.size();
-    for(auto i:mp){
-        //cerr<<i.second.size()<<el;
+    for(auto &i:mp){
+        sort(i.second.begin(),i.second.end());
+        i.second.erase(unique(i.second.begin(),i.second.end()),i.second.end());
         if(i.second.size()!=1) continue;
-        air[{i.second[0]}]+=cnt[i.first];
+        air[i.second[0]]+=cnt[i.first];
 //        cerr<<"dog";
 //        cnt[vis[i][i.second[0].second]]
     }
@@ -74,7 +75,7 @@ void solve(){
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
-    freopen("liberty.in","r",stdin);1
+    freopen("liberty.in","r",stdin);
     freopen("liberty.out","w",stdout);
     ll T=1;
     //cin>>T;
