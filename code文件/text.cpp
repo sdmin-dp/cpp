@@ -1,22 +1,32 @@
 #include<bits/stdc++.h>
+typedef long long ll;
 using namespace std;
-#define ll long long
-#define el '\n'
-const ll N=1e5+5;
 
-void solve(){
-    double n=1e7;
-    cerr<<(n-2*log2(n))/n;
-}
-int main(){
-    ios::sync_with_stdio(0);
-    cin.tie(0);cout.tie(0);
-    //freopen("xxx.in","r",stdin);
-    //freopen("xxx.out","w",stdout);
-    ll T=1;
-    //cin>>T;
-    while(T--){
-        solve();
+map<ll, ll> mp;
+
+void solve() {
+    ll n;
+    cin >> n;
+    vector<ll> a (n + 1);
+    for (int i = 1; i <= n; i++) {
+        cin >> a[i];
+        mp[a[i]]++;
     }
+    vector<ll> dp (100005, 0);
+    dp[1] = mp[1];+
+    for (int i = 2; i <= n; i++) {
+        dp[i] = max (dp[i - 1], dp[i - 2] + (mp[i] * i));
+    }
+    cout << dp[100000] << " ";
+}
+
+int main() {
+    ios::sync_with_stdio (false);
+    cin.tie(nullptr), cout.tie(0);
+
+    int T = 1; // cin >> T;
+    while(T--) 
+        solve();
+
     return 0;
 }
