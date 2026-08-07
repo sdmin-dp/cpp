@@ -5,24 +5,21 @@ using namespace std;
 const ll N=5e2+5;
 ll n,m,b,mod;
 ll bug[N];
-pair<ll,ll> dp[N][N];
+ll dp[N][N];
 void solve(){
     cin>>n>>m>>b>>mod;
     for(int i=1;i<=n;i++) cin>>bug[i];
-    dp[0][0]={1,0};
+    dp[0][0]=1;
     for(int i=1;i<=n;i++){
         for(int j=1;j<=m;j++){
-            for(int k=1;k<=j;k++){
-                if(bug[i]*k+dp[i-1][j-k].second<=b){
-                    dp[i][j].first=(dp[i][j].first+dp[i-1][j-k].first)%mod;
-                    dp[i][j].second=bug[i]*k+dp[i-1][j-k].second;
-                }else{
-                    dp[i][j]=dp[i-1][j-k];
-                }
+            for(int k=bug[i];k<=b;k++){
+                dp[j][k]=(dp[j][k]+dp[j-1][k-bug[i]])%mod;
             }
         }
     }
-    cout<<dp[n][m].first;
+    ll ans=0;
+    for(int k=0;k<=b;k++) ans=(ans+dp[m][k])%mod;
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
