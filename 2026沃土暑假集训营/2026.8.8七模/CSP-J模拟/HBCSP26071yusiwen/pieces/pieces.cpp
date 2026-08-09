@@ -14,9 +14,11 @@ void solve(){
     ll ans=0;
     dp[0]=1;
     for(int i=1;i<n;i++){
-        for(int j=a[i+1]+d;j>=a[i];j--){
+        for(int j=4000;j>=a[i];j--){
             dp[j]=(dp[j]+dp[j-a[i]])%mod;
-            if(j>=a[i+1]-d) ans=(ans+dp[j])%mod;
+        }
+        for(int j=max(1ll,a[i+1]-d);j<=a[i+1]+d;j++){
+            ans=(ans+dp[j])%mod;
         }
     }
     cout<<ans;
