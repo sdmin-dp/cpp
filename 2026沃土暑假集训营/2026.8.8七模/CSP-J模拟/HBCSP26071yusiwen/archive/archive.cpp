@@ -6,7 +6,7 @@ const ll N=1e5+5;
 ll n;
 string s;
 multiset<char> st;
-set<char> st2;
+unordered_set<char> st2;
 void solve(){
     cin>>n;
     cin>>s;
@@ -18,7 +18,6 @@ void solve(){
         else if('A'<=i&&i<='Z'){
             st.insert(char(i-'A'+'a'));
             st2.insert(char(i-'A'+'a'));
-           // cerr<<i<<" "<<char(i-'A'+'a')<<el;
         }
     }
     if(st.empty()){
