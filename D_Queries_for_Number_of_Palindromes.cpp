@@ -1,10 +1,11 @@
 #include<bits/stdc++.h>
 using namespace std;
+#define ll long long
 #define el '\n'
-const int N=5000+5;
-int n;
+const ll N=5000+5;
+ll n;
 string s;
-int dp[N][N];
+ll dp[N][N];
 bool ispal[N][N];
 void solve(){
     cin>>s;
@@ -14,22 +15,23 @@ void solve(){
         ispal[i][i]=1;
         dp[i][i]=1;
     }
-    for(int len=2;len<=n;len++){
-        for(int l=1;l+len-1<=n;l++){
-            int r=l+len-1;
-            if(s[l]==s[r]&&(len==2||ispal[l+1][r-1])) ispal[l][r]=1;
+    ispal[0][0]=1;
+    for(ll len=2;len<=n;len++){
+        for(ll l=1;l+len-1<=n;l++){
+            ll r=l+len-1;
+            if(s[l]==s[r]&&ispal[l+1][r-1]||s[l]==s[r]&&r-l+1==2) ispal[l][r]=1;
         }
     }
-    for(int len=2;len<=n;len++){
+    for(ll len=2;len<=n;len++){
         for(int l=1;l+len-1<=n;l++){
-            int r=l+len-1;
+            ll r=l+len-1;
             dp[l][r]=dp[l+1][r]+dp[l][r-1]-dp[l+1][r-1]+ispal[l][r];
         }
     }
-    int q;
+    ll q;
     cin>>q;
     while(q--){
-        int l,r;cin>>l>>r;
+        ll l,r;cin>>l>>r;
         cout<<dp[l][r]<<el;
     }
 }
@@ -38,7 +40,7 @@ int main(){
     cin.tie(0);cout.tie(0);
     //freopen("xxx.in","r",stdin);
     //freopen("xxx.out","w",stdout);
-    int T=1;
+    ll T=1;
     //cin>>T;
     while(T--){
         solve();
