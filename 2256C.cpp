@@ -8,7 +8,7 @@ string s;
 void solve(){
     cin>>n>>k;
     cin>>s;
-    s=" "+s;
+    s=" "+s; 
     ll sum1=0,sum2=0;
     for(int i=1;i<=2*n;i++){
         if(s[i]=='0') continue;
