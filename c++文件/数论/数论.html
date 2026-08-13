@@ -1,0 +1,1876 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="信息学奥赛数论专题互动课件：整除、同余、质因数、gcd、筛法、欧拉函数、模逆元与CRT。">
+  <title>数论专题</title>
+  <style>
+    :root {
+      --header-h: 62px;
+      --sidebar-w: 260px;
+      --ink: #e0e0e0;
+      --text: #d1d5db;
+      --muted: #9ca3af;
+      --line: #374151;
+      --paper: #1f2937;
+      --paper-soft: #111827;
+      --teal: #14b8a6;
+      --teal-soft: #0f766e;
+      --blue: #3b82f6;
+      --blue-soft: #1e40af;
+      --amber: #f59e0b;
+      --amber-soft: #d97706;
+      --red: #ef4444;
+      --red-soft: #dc2626;
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      --glass-bg: rgba(31, 41, 55, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.1);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      font-family: "Microsoft YaHei", "Noto Sans SC", Arial, sans-serif;
+      line-height: 1.75;
+      backdrop-filter: blur(10px);
+    }
+    .glass-effect {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(10px);
+    }
+    button, input, select { font: inherit; }
+    button { letter-spacing: 0; }
+    code, pre { font-family: Consolas, "Courier New", monospace; }
+    code {
+      padding: 0 2px;
+      color: #24473f;
+      background: transparent;
+      border-radius: 0;
+    }
+    sup, sub { position: relative; line-height: 0; font-size: .68em; vertical-align: baseline; }
+    sup { top: -.58em; }
+    sub { bottom: -.18em; }
+    h1, h2, h3, h4 { color: var(--ink); line-height: 1.35; letter-spacing: 0; }
+    h1 { margin: 0 0 12px; font-size: 36px; }
+    h2 { margin: 0 0 12px; font-size: 29px; }
+    h3 { margin: 24px 0 10px; font-size: 20px; }
+    h4 { margin: 10px 0 6px; font-size: 16px; }
+    p { margin: 8px 0; }
+    a { color: inherit; }
+    .topbar {
+      position: fixed;
+      z-index: 40;
+      inset: 0 0 auto;
+      height: var(--header-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 22px;
+      color: #fff;
+      background: var(--glass-bg);
+      border-bottom: 1px solid var(--glass-border);
+      backdrop-filter: blur(10px);
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand strong { display: block; font-size: 18px; line-height: 1.2; }
+    .brand small { display: block; color: #9ca3af; line-height: 1.2; }
+    .menu-btn {
+      display: none;
+      width: 38px;
+      height: 38px;
+      color: #d1d5db;
+      background: rgba(31, 41, 55, 0.5);
+      border: 1px solid var(--glass-border);
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 22px;
+    }
+    .top-meta { color: #9ca3af; font-size: 13px; }
+    .sidebar {
+      position: fixed;
+      z-index: 35;
+      top: var(--header-h);
+      bottom: 0;
+      left: 0;
+      width: var(--sidebar-w);
+      padding: 22px 14px 28px;
+      overflow-y: auto;
+      background: var(--glass-bg);
+      border-right: 1px solid var(--glass-border);
+      backdrop-filter: blur(10px);
+    }
+    .sidebar-title { margin: 0 10px 12px; color: var(--muted); font-size: 13px; font-weight: 800; }
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 11px;
+      color: var(--text);
+      text-decoration: none;
+      border-left: 3px solid transparent;
+      font-size: 14px;
+    }
+    .nav-link:hover, .nav-link.active {
+      color: #14b8a6;
+      background: rgba(16, 185, 129, 0.2);
+      border-left-color: #14b8a6;
+      font-weight: 800;
+    }
+    .nav-num { color: #6b7280; font: 11px Consolas, monospace; }
+    .overlay { display: none; }
+    main { margin-left: var(--sidebar-w); padding-top: var(--header-h); }
+    .chapter {
+      background: var(--paper);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+    .chapter:nth-child(even) { background: var(--paper-soft); }
+    .section-inner {
+      width: min(1120px, calc(100% - 56px));
+      margin: 0 auto;
+      padding: 54px 0 62px;
+      background: var(--glass-bg);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+    .chapter-kicker {
+      margin-bottom: 8px;
+      color: var(--teal);
+      font: 800 13px Consolas, "Microsoft YaHei", sans-serif;
+    }
+    .lead { max-width: 940px; margin-bottom: 24px; color: #51645d; font-size: 17px; }
+    .memory, .warning, .interactive-answer {
+      margin: 16px 0;
+      padding: 14px 16px;
+      border-left: 4px solid var(--teal);
+      background: rgba(16, 185, 129, 0.2);
+      backdrop-filter: blur(10px);
+    }
+    .warning { border-left-color: var(--red); background: rgba(239, 68, 68, 0.2); }
+    .interactive-answer { border-left-color: var(--amber); background: rgba(245, 158, 11, 0.2); }
+    .interactive-answer strong { color: #d97706; margin-right: 8px; }
+    .point-grid, .grid-2, .grid-3, .formula-row {
+      display: grid;
+      gap: 14px;
+      margin: 16px 0;
+    }
+    .point-grid, .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .formula-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .panel, .point-card {
+      min-width: 0;
+      padding: 17px 18px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 6px;
+      backdrop-filter: blur(10px);
+    }
+    .point-card { border-top: 4px solid var(--teal); }
+    .point-card:nth-child(2) { border-top-color: var(--blue); }
+    .point-card:nth-child(3) { border-top-color: var(--amber); }
+    .point-card h3, .panel h3 { margin-top: 0; }
+    .formula {
+      min-height: 104px;
+      display: grid;
+      place-items: center;
+      padding: 16px;
+      text-align: center;
+      background: rgba(31, 41, 55, 0.5);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(10px);
+    }
+    .formula strong { color: #d1d5db; font: 800 20px Georgia, "Times New Roman", serif; }
+    .formula span { display: block; color: var(--muted); font-size: 13px; }
+    .formula .math-product { display: inline-flex; flex-wrap: nowrap; gap: 5px; color: #d1d5db; font-size: 18px; white-space: nowrap; }
+    .formula .math-product > span { display: inline-flex; width: auto; color: #d1d5db; font-size: inherit; }
+    .interactive-lab {
+      margin: 24px 0;
+      padding: 20px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 6px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+    .panel-title { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .panel-title h3 { margin: 0; }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 25px;
+      padding: 3px 8px;
+      color: #155e56;
+      background: #e5f2ef;
+      border: 1px solid #b9d8d1;
+      border-radius: 3px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .tag.blue { color: #245889; background: var(--blue-soft); border-color: #bed4ea; }
+    .tag.amber { color: #7a4700; background: var(--amber-soft); border-color: #ead09a; }
+    .controls {
+      display: flex;
+      align-items: end;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 16px 0;
+    }
+    .controls label { color: #40534d; font-size: 14px; font-weight: 700; }
+    .control-input, .control-select {
+      width: 94px;
+      min-height: 40px;
+      padding: 7px 9px;
+      color: #203a34;
+      background: #fff;
+      border: 1px solid #aebfba;
+      border-radius: 4px;
+    }
+    .control-select { width: 154px; }
+    .btn, .seg-btn {
+      min-height: 40px;
+      padding: 8px 13px;
+      color: #fff;
+      background: var(--teal);
+      border: 1px solid var(--teal);
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+    .btn:hover, .seg-btn:hover { filter: brightness(.95); }
+    .btn.secondary, .seg-btn { color: #27564e; background: #fff; border-color: #9db4ae; }
+    .seg-btn.active { color: #fff; background: var(--blue); border-color: var(--blue); }
+    .stage {
+      min-height: 150px;
+      padding: 16px;
+      overflow-x: auto;
+      background: #f7faf9;
+      border: 1px dashed #9db6af;
+    }
+    .congruence-board {
+      display: grid;
+      gap: 8px;
+      min-width: 760px;
+    }
+    .mod-compare-head, .mod-compare-row {
+      display: grid;
+      grid-template-columns: 92px repeat(var(--q-cols), minmax(82px, 1fr)) minmax(118px, 1fr);
+      align-items: center;
+      gap: 5px;
+    }
+    .mod-compare-head { color: #50655f; font-size: 12px; font-weight: 800; }
+    .mod-compare-head > span { padding: 3px 5px; text-align: center; }
+    .mod-compare-row {
+      min-height: 68px;
+      padding: 8px;
+      background: #fff;
+      border: 1px solid #d3dfdb;
+    }
+    .mod-compare-row.same-class { box-shadow: inset 4px 0 0 var(--teal); }
+    .mod-row-label { text-align: center; }
+    .mod-row-label strong { display: block; color: #173f37; font-size: 17px; }
+    .mod-row-label small { color: var(--muted); }
+    .mod-cell {
+      position: relative;
+      min-height: 48px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border: 2px solid #fff;
+      font-weight: 800;
+    }
+    .mod-cell.full {
+      color: #fff;
+      background: var(--blue);
+      border-color: #1f5d94;
+    }
+    .mod-cell.ghost {
+      color: #7b8e88;
+      background: repeating-linear-gradient(135deg, #fff 0 7px, #f2f6f5 7px 14px);
+      border: 2px dashed #9dafaa;
+    }
+    .mod-cell.remainder-cell {
+      justify-items: start;
+      background: #f6f9f8;
+      border: 2px dashed #9dafaa;
+    }
+    .remainder-fill {
+      height: 100%;
+      min-width: 8px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      white-space: nowrap;
+      transition: width .25s ease;
+    }
+    .remainder-label {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: #173f37;
+      text-shadow: 0 1px #fff;
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .mod-compare-note { padding: 10px 12px; background: #edf5f2; border-left: 4px solid var(--teal); }
+    .legend-row { display: flex; flex-wrap: wrap; gap: 14px; margin: 10px 0 2px; font-size: 13px; }
+    .legend-dot { display: inline-block; width: 12px; height: 12px; margin-right: 5px; vertical-align: -1px; border-radius: 50%; }
+    .factor-tree-wrap { min-width: 700px; }
+    .factor-tree-svg { display: block; width: 100%; height: auto; }
+    .factor-progress {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      margin-top: 12px;
+    }
+    .factor-progress-track { height: 12px; overflow: hidden; background: #e2ebe8; border: 1px solid #bdd0ca; }
+    .factor-progress-fill { height: 100%; background: var(--teal); transition: width .2s ease; }
+    .division-board { min-width: 690px; }
+    .division-equation {
+      padding: 14px;
+      color: #173c35;
+      text-align: center;
+      background: #fff;
+      border: 1px solid #bdcdc8;
+      font: 800 24px Georgia, "Times New Roman", serif;
+    }
+    .division-strip {
+      display: flex;
+      align-items: stretch;
+      min-height: 72px;
+      margin: 14px 0;
+      border: 1px solid #9fb5ae;
+      background: #fff;
+    }
+    .division-piece {
+      display: grid;
+      place-items: center;
+      min-width: 55px;
+      padding: 8px;
+      color: #fff;
+      background: var(--blue);
+      border-right: 2px solid #fff;
+      font-weight: 800;
+    }
+    .division-piece.remainder { color: #714100; background: #ffdc88; }
+    .beaker-row {
+      display: grid;
+      grid-template-columns: 1fr 70px 1fr 70px 1fr;
+      align-items: end;
+      gap: 14px;
+      min-width: 720px;
+      padding: 12px 18px;
+    }
+    .beaker-card { text-align: center; }
+    .beaker {
+      position: relative;
+      width: 130px;
+      height: 190px;
+      margin: 0 auto 10px;
+      overflow: hidden;
+      background:
+        repeating-linear-gradient(to top, transparent 0 27px, #cbd8d3 28px, transparent 29px),
+        #fff;
+      border: 4px solid #6f8981;
+      border-top: 0;
+      border-radius: 0 0 16px 16px;
+    }
+    .beaker::before, .beaker::after {
+      content: "";
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      width: 25px;
+      height: 4px;
+      background: #6f8981;
+    }
+    .beaker::before { left: -4px; }
+    .beaker::after { right: -4px; }
+    .beaker-liquid {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      min-height: 8px;
+      background: rgba(40, 103, 168, .78);
+      transition: height .25s ease;
+    }
+    .beaker-liquid.negative { background: rgba(180, 60, 50, .72); }
+    .beaker-liquid.result { background: rgba(15, 118, 110, .8); }
+    .beaker-value { font: 800 16px Consolas, monospace; }
+    .beaker-op { align-self: center; color: var(--amber); text-align: center; font-size: 34px; font-weight: 900; }
+    .substitution-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+    .power-machine {
+      display: grid;
+      grid-template-columns: minmax(230px, 1fr) 120px minmax(230px, 1fr);
+      align-items: center;
+      gap: 18px;
+      min-width: 700px;
+      padding: 12px 4px 18px;
+    }
+    .power-side {
+      min-height: 160px;
+      display: grid;
+      align-content: end;
+      justify-items: center;
+      padding: 14px;
+      background: #fff;
+      border: 1px solid #c4d1cd;
+    }
+    .power-bar {
+      width: 68%;
+      min-width: 62px;
+      display: grid;
+      place-items: center;
+      padding: 9px;
+      color: #fff;
+      background: var(--blue);
+      transition: width .25s ease, height .25s ease;
+      font-weight: 800;
+    }
+    .power-bar.shrink { background: var(--amber); }
+    .power-math {
+      display: inline-flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 6px;
+      min-height: 38px;
+      line-height: 1;
+    }
+    .power-base-symbol { font: 900 30px Georgia, serif; }
+    .power-exp-symbol { margin-top: -2px; padding: 2px 4px; background: #ffffff26; font: 800 16px Consolas, monospace; }
+    .power-exp-symbol sup { position: static; margin-left: 2px; font-size: 11px; vertical-align: super; }
+    .power-mod-line { display: block; margin-top: 8px; font-size: 15px; }
+    .power-center { text-align: center; }
+    .power-bit {
+      width: 70px;
+      height: 70px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 8px;
+      color: #fff;
+      background: var(--teal);
+      border-radius: 50%;
+      font: 900 28px Consolas, monospace;
+    }
+    .prime-summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .prime-summary > div { padding: 10px; text-align: center; background: #fff; border: 1px solid var(--line); }
+    .prime-boundary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin: 12px 0;
+    }
+    .prime-boundary > div { padding: 10px; text-align: center; background: #fff; border: 1px solid var(--line); }
+    .trial-ruler { display: flex; align-items: end; gap: 5px; min-width: 560px; margin: 12px 0; }
+    .trial-mark {
+      min-width: 42px;
+      min-height: 50px;
+      display: grid;
+      place-items: center;
+      background: #fff;
+      border: 1px solid #aabbb6;
+      font-weight: 800;
+    }
+    .trial-mark.tested { color: #fff; background: var(--blue); border-color: var(--blue); }
+    .trial-mark.factor { color: #fff; background: var(--amber); border-color: var(--amber); }
+    .trial-mark.boundary { border-style: dashed; border-width: 2px; }
+    .trial-list { display: grid; gap: 6px; margin-top: 10px; }
+    .trial-row {
+      display: grid;
+      grid-template-columns: minmax(190px, 1fr) 110px;
+      gap: 10px;
+      align-items: center;
+      padding: 8px 10px;
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+    .trial-row strong { font-family: Consolas, monospace; }
+    .trial-result { padding: 4px 7px; text-align: center; white-space: nowrap; color: #27564e; background: #edf5f2; }
+    .trial-row.factor-row { border-color: var(--amber); background: #fff8e5; }
+    .trial-row.factor-row .trial-result { color: #fff; background: var(--amber); }
+    .status { min-height: 30px; margin-top: 10px; color: var(--muted); font-size: 14px; }
+    .segment-row, .chip-row, .bit-row, .sequence-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      min-height: 52px;
+    }
+    .segment {
+      min-width: 66px;
+      min-height: 54px;
+      display: grid;
+      place-items: center;
+      padding: 7px;
+      color: #fff;
+      background: var(--teal);
+      border: 2px solid #0b625b;
+      font-weight: 800;
+    }
+    .segment.remainder { color: #744414; background: #ffdf92; border-color: var(--amber); }
+    .chip, .factor-chip, .bit-chip, .number-cell {
+      display: inline-grid;
+      place-items: center;
+      min-width: 42px;
+      min-height: 38px;
+      padding: 5px 8px;
+      background: #fff;
+      border: 1px solid #9eb4ae;
+      border-radius: 3px;
+      font-weight: 800;
+    }
+    .chip.active, .number-cell.active { color: #fff; background: var(--teal); border-color: var(--teal); }
+    .bit-chip.active { color: #fff; background: var(--teal); border-color: var(--teal); }
+    .bit-chip small { display: block; font-size: 10px; }
+    .chip.blue { color: #1f5d94; background: var(--blue-soft); border-color: #91b7dc; }
+    .chip.amber { color: #7a4700; background: var(--amber-soft); border-color: #d9ac5e; }
+    .chip.crossed, .number-cell.crossed {
+      color: #8e514b;
+      background: #f7e7e5;
+      border-color: #d9aaa5;
+      text-decoration: line-through;
+    }
+    .factor-expression { font: 800 22px Georgia, serif; text-align: center; margin: 12px 0; }
+    .math-product { display: inline-flex; align-items: center; flex-wrap: wrap; justify-content: center; gap: 9px; }
+    .math-power { display: inline-flex; align-items: flex-start; gap: 3px; white-space: nowrap; }
+    .math-power sup { position: static; margin-top: -3px; font-size: .66em; line-height: 1; }
+    .exponent-board { display: flex; align-items: end; justify-content: center; gap: 24px; min-height: 150px; }
+    .prime-column { display: flex; flex-direction: column-reverse; align-items: center; gap: 3px; }
+    .prime-column i { width: 48px; height: 22px; display: grid; place-items: center; color: #fff; background: var(--blue); font-style: normal; }
+    .prime-column b { margin-top: 6px; }
+    .number-grid {
+      display: grid;
+      grid-template-columns: repeat(10, minmax(44px, 1fr));
+      gap: 6px;
+      min-width: 560px;
+    }
+    button.number-cell { cursor: pointer; }
+    .number-cell.prime { color: #fff; background: var(--teal); border-color: var(--teal); text-decoration: none; }
+    .number-cell.current { color: #704000; background: #ffda78; border: 2px solid var(--amber); text-decoration: none; }
+    .number-cell small { display: block; font-size: 10px; font-weight: 600; }
+    .step-table, .table-wrap { margin: 16px 0; overflow-x: auto; border: 1px solid var(--line); }
+    table { width: 100%; border-collapse: collapse; background: #fff; }
+    th, td { padding: 9px 11px; text-align: left; border-bottom: 1px solid var(--line); }
+    th { color: #26443d; background: #edf3f1; font-size: 13px; }
+    .step-table table { min-width: 560px; }
+    .visual-svg { display: block; width: 100%; min-width: 620px; height: auto; }
+    .code-block {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      margin: 16px 0;
+      padding: 16px;
+      overflow-x: auto;
+      color: #d1d5db;
+      background: rgba(31, 41, 55, 0.7);
+      border: 1px solid var(--glass-border);
+      border-left: 4px solid #14b8a6;
+      border-radius: 4px;
+      font: 13px/1.65 Consolas, "Courier New", monospace;
+      backdrop-filter: blur(10px);
+    }
+    .code-block code { padding: 0; color: inherit; background: transparent; }
+    .exercise-set {
+      position: relative;
+      margin-top: 28px;
+      padding: 18px 20px 62px;
+      background: #fffdf5;
+      border: 1px solid #e8d7a5;
+      border-left: 4px solid var(--amber);
+    }
+    .exercise-set h3 { margin-top: 0; color: #79500e; }
+    .exercise-set ol { margin-bottom: 0; }
+    .exercise-set sup { margin-left: 2px; }
+    .blank { display: inline-block; min-width: 72px; height: 1.2em; vertical-align: bottom; border-bottom: 1px solid #50615b; }
+    .answer-link {
+      position: absolute;
+      right: 18px;
+      bottom: 14px;
+      padding: 6px 11px;
+      color: #754d11;
+      background: #fff;
+      border: 1px solid #c9b78c;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .answer-key { margin-top: 20px; padding: 20px; background: #f0f6f4; border: 1px solid #b8ccc6; }
+    .answer-group { margin: 15px 0; padding: 12px 14px; scroll-margin-top: 88px; }
+    .answer-group:target { background: #fff7dc; box-shadow: 0 0 0 2px rgba(182, 107, 0, .2); }
+    .answer-group h4 { margin: 0 0 5px; color: #0d625b; }
+    .answer-group p { margin: 0; }
+    .flow-line {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0;
+    }
+    .flow-node { padding: 9px 12px; background: #fff; border: 1px solid #9fb5ae; border-radius: 4px; font-weight: 800; }
+    .flow-arrow { color: var(--amber); font-weight: 900; }
+    .choice-stack { display: grid; gap: 8px; }
+    .choice-line { display: grid; grid-template-columns: 76px 1fr; gap: 10px; align-items: center; }
+    .divisor-choice-grid { display: flex; flex-wrap: wrap; gap: 9px; }
+    .divisor-choice-card {
+      min-width: 92px;
+      padding: 0;
+      overflow: hidden;
+      color: inherit;
+      background: #fff;
+      border: 2px solid #9eb4ae;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .divisor-choice-card.selected { border-color: var(--amber); box-shadow: 0 0 0 2px #ffe7ad; }
+    .divisor-choice-value { display: block; padding: 8px; color: #fff; background: var(--blue); font: 900 19px Consolas, monospace; }
+    .divisor-choice-index { display: block; padding: 5px 7px; color: #754600; background: #ffedbd; font-size: 11px; font-weight: 800; }
+    .divisor-builder-summary { margin: 13px 0; padding: 10px 12px; text-align: center; background: #fff; border: 1px solid #bdcdc8; font-weight: 800; }
+    .general-sieve-panel { margin-top: 16px; padding: 14px; background: #eef5f3; border: 1px solid #b9cec8; }
+    .general-sieve-panel h4 { margin: 0 0 10px; color: #164c43; }
+    .sieve-value-grid { display: grid; grid-template-columns: repeat(8, minmax(70px, 1fr)); gap: 6px; min-width: 640px; }
+    .sieve-value-card { overflow: hidden; text-align: center; background: #fff; border: 1px solid #a9bcb6; }
+    .sieve-value-top { display: block; padding: 6px; color: #fff; background: var(--teal); font-weight: 900; }
+    .sieve-value-bottom { display: block; min-height: 34px; padding: 5px; color: #31534b; background: #fff; font-size: 11px; font-weight: 700; }
+    .sieve-value-card.active .sieve-value-top { background: var(--amber); }
+    .sieve-flow-note { margin-top: 10px; padding: 9px 11px; background: #fff; border-left: 4px solid var(--blue); }
+    .crt-step-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-bottom: 12px; }
+    .crt-step-card { padding: 10px; background: #fff; border: 1px solid var(--line); }
+    .crt-step-card strong { display: block; color: #0d625b; margin-bottom: 4px; }
+    .crt-block-grid { display: grid; grid-template-columns: 1fr 50px 1fr; align-items: stretch; gap: 8px; margin: 12px 0; }
+    .crt-block-card { padding: 12px; text-align: center; background: #fff; border: 2px solid #91b7dc; }
+    .crt-block-card.amber { border-color: #d9ac5e; }
+    .crt-plus { display: grid; place-items: center; color: var(--amber); font-size: 30px; font-weight: 900; }
+    .crt-checks { display: flex; justify-content: center; flex-wrap: wrap; gap: 7px; margin-top: 8px; }
+    .crt-checks span { padding: 4px 7px; background: #edf5f2; border: 1px solid #bdd0ca; font-size: 12px; }
+    .crt-final { padding: 12px; color: #fff; text-align: center; background: var(--teal); font-weight: 900; }
+    .mini-bar { height: 18px; background: var(--blue); }
+    .pair-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+    .pair-card { padding: 10px; text-align: center; background: #fff; border: 1px solid var(--line); }
+    .pair-card.active-pair { color: #744414; background: var(--amber-soft); border-color: var(--amber); }
+    .footer-note { margin-top: 24px; color: var(--muted); text-align: center; font-size: 12px; }
+    .portal-home-link {
+      position: fixed;
+      z-index: 50;
+      right: 24px;
+      bottom: 24px;
+      padding: 9px 14px;
+      color: #fff;
+      background: #153e37;
+      border: 1px solid #d2a24c;
+      border-radius: 4px;
+      box-shadow: 0 6px 18px #0003;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    @media (max-width: 940px) {
+      .menu-btn { display: grid; place-items: center; }
+      .sidebar { transform: translateX(-100%); transition: transform .2s ease; box-shadow: 6px 0 18px #0002; }
+      .sidebar.open { transform: translateX(0); }
+      .overlay { position: fixed; z-index: 34; inset: var(--header-h) 0 0; background: #0006; }
+      .overlay.open { display: block; }
+      main { margin-left: 0; }
+    }
+    @media (max-width: 720px) {
+      .topbar { padding: 0 12px; }
+      .top-meta { display: none; }
+      .section-inner { width: calc(100% - 28px); padding: 42px 0 48px; }
+      h1 { font-size: 30px; }
+      h2 { font-size: 25px; }
+      .point-grid, .grid-2, .grid-3, .formula-row { grid-template-columns: 1fr; }
+      .point-grid > *, .grid-2 > *, .grid-3 > *, .formula-row > * { min-width: 0; }
+      .interactive-lab { padding: 14px; }
+      .panel-title { align-items: flex-start; }
+      .pair-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .factor-progress { grid-template-columns: 1fr; }
+      .prime-summary { grid-template-columns: 1fr; }
+      .prime-boundary, .crt-step-grid { grid-template-columns: 1fr; }
+      .crt-block-grid { grid-template-columns: 1fr; }
+      .crt-plus { min-height: 28px; }
+      .portal-home-link { right: 10px; bottom: 10px; padding: 7px 10px; }
+      .derivation { overflow-x: auto; }
+    }
+    @media print {
+      body { background: #fff; font-size: 10.5pt; }
+      .topbar, .sidebar, .overlay, .controls, .portal-home-link { display: none !important; }
+      main { margin: 0; padding: 0; }
+      .chapter { background: #fff !important; }
+      .section-inner { width: 100%; padding: 14mm 12mm; }
+      .panel, .point-card, .formula, table, .exercise-set { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <a class="portal-home-link" href="../index.html">← 资料主页</a>
+  <header class="topbar">
+    <div class="brand">
+      <button class="menu-btn" id="menuBtn" aria-label="打开章节目录">☰</button>
+      <div><strong>数论专题</strong><small>信息学奥赛互动复习课件</small></div>
+    </div>
+    <div class="top-meta" id="topMeta">从整除结构到同余方程</div>
+  </header>
+  <aside class="sidebar" id="sidebar" aria-label="章节目录">
+    <div class="sidebar-title">课程目录</div>
+    <nav id="chapterNav"></nav>
+  </aside>
+  <div class="overlay" id="overlay"></div>
+  <main id="courseRoot"></main>
+
+  <script>
+    const $ = (selector, root = document) => root.querySelector(selector);
+    const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+
+    const chapters = [
+      {
+        id: 'divisibility',
+        title: '整除结构与同余入口',
+        lead: '先看“能否整除”，再把整数按固定长度切成若干整段和一个余段。同余不是近似相等，而是落在同一个余数类别。',
+        points: [
+          ['整除关系和传递性', 'a|b 表示存在整数 k 使 b=ak。若 a|b 且 b|c，则 a|c；若 a 同时整除 b、c，也整除它们的任意整数线性组合。', 'a|b，a|c ⇒ a|(xb+yc)'],
+          ['带余除法与同余记号', '对 m>0，任意整数 a 都能唯一写成 a=qm+r，其中 0≤r&lt;m。a≡b (mod m) 等价于 m|(a-b)。', 'a=qm+r，0≤r&lt;m'],
+          ['同余类和代表元', '模 m 时只有 0,1,…,m-1 共 m 种状态。相差 m 的整数落入同一类，可用标准余数代表整个无限集合。', '[r]={r+km | k∈Z}']
+        ],
+        lab: 'remainder',
+        code: `int mod(int a, int m) {\n\treturn (a % m + m) % m;\n}\n\nbool congruent(int a, int b, int m) {\n\treturn mod(a - b, m) == 0;\n}`,
+        exercises: [
+          ['若 7|35 且 35|140，则 7 <span class="blank"></span> 140。', '|'],
+          ['23=4×5+<span class="blank"></span>。', '3'],
+          ['−2 模 5 的标准余数是 <span class="blank"></span>。', '3'],
+          ['17≡5 (mod <span class="blank"></span>)。', '12']
+        ]
+      },
+      {
+        id: 'factorization',
+        title: '质因数指数与整数结构',
+        lead: '把整数写成质因数幂的乘积，相当于为每个质数建立一份“指数档案”。整除、gcd、lcm、因数个数与因数和都可转化为指数运算。',
+        points: [
+          ['算术基本定理', '每个大于 1 的整数都能唯一分解成若干质数的乘积，忽略质因数书写顺序后表示唯一。', '<span class="math-product"><span>n =</span><span class="math-power">p₁<sup>a₁</sup></span><span>·</span><span class="math-power">p₂<sup>a₂</sup></span><span>· … ·</span><span class="math-power">pₖ<sup>aₖ</sup></span></span>'],
+          ['质因数指数表示', '指数记录某个质数能从 n 中连续除出多少次。分解时试除到平方根，最后若剩余大于 1，它本身就是质因子。', 'vₚ(n)=a'],
+          ['指数整除判定', 'a|b 当且仅当 a 的每个质因数指数都不超过 b 中对应指数。指数向量逐位比较即可。', 'a|b ⇔ ∀p, vₚ(a)≤vₚ(b)']
+        ],
+        lab: 'factor',
+        code: `vector&lt;pii&gt; factor(int n) {\n\tvector&lt;pii&gt; f;\n\tfor (int p = 2; p * p &lt;= n; p++) {\n\t\tif (n % p) continue;\n\t\tint e = 0;\n\t\twhile (n % p == 0) n /= p, e++;\n\t\tf.push_back({p, e});\n\t}\n\tif (n &gt; 1) f.push_back({n, 1});\n\treturn f;\n}`,
+        exercises: [
+          ['72=2<sup>3</sup>×3<sup><span class="blank"></span></sup>。', '2'],
+          ['整数 2<sup>4</sup>3<sup>2</sup> 是否被 12 整除：<span class="blank"></span>。', '是'],
+          ['若 n 的质因数分解中不含 5，则 v₅(n)=<span class="blank"></span>。', '0'],
+          ['91 的质因数分解是 <span class="blank"></span>。', '7×13']
+        ]
+      },
+      {
+        id: 'gcd',
+        title: '最大公因数与辗转相除',
+        lead: 'gcd 是两个整数公共尺度中的最大者。辗转相除把“大数除小数”的余数继续送回下一轮，每轮都缩小数据，却保持最大公因数不变。',
+        points: [
+          ['公因数与最大公因数', '若 d 同时整除 a、b，则 d 是公因数。gcd(a,b) 是最大的正公因数，也是能同时量尽 a、b 的最大整数单位。', 'd|a 且 d|b'],
+          ['辗转相除不变量', '若 a=bq+r，则 a、b 与 b、r 拥有完全相同的公因数，因此可以把问题替换为更小的一对数。', 'gcd(a,b)=gcd(b,a mod b)'],
+          ['与最小公倍数的关系', '对非零整数，先除后乘能减少中间溢出风险。', 'lcm(a,b)=|a/gcd(a,b)·b|']
+        ],
+        lab: 'gcd',
+        code: `int gcd(int a, int b) {\n\twhile (b != 0) {\n\t\tint r = a % b;\n\t\ta = b;\n\t\tb = r;\n\t}\n\treturn a;\n}`,
+        exercises: [
+          ['gcd(48,18)=<span class="blank"></span>。', '6'],
+          ['48=18×2+<span class="blank"></span>。', '12'],
+          ['若 gcd(a,b)=12，则 gcd(a+b,b)=<span class="blank"></span>。', '12'],
+          ['已知 gcd(a,b)=6、a·b=540，则 lcm(a,b)=<span class="blank"></span>。', '90']
+        ]
+      },
+      {
+        id: 'bezout',
+        title: '贝祖等式与扩展欧几里得',
+        lead: '辗转相除只回答 gcd 是多少；把每个余数算式倒着代回，才能说明 gcd 如何由原来的 a、b 线性组合得到。量杯图把正贡献看作倒入、负贡献看作取出。',
+        points: [
+          ['贝祖等式', '存在整数 x,y 使 ax+by=gcd(a,b)。因此 ax+by 能得到的最小正整数就是 gcd(a,b)。', 'ax+by=gcd(a,b)'],
+          ['逐层代回', '从最后一个非零余数开始，把 r=a−bq 逐层代回，最终只保留原来的 a、b。', 'r←a−bq'],
+          ['扩展欧几里得', '递归返回时同步更新系数，既得到 gcd，也得到一组贝祖系数。系数通常不唯一。', 'exgcd(a,b)→(g,x,y)']
+        ],
+        lab: 'bezout',
+        code: `int exgcd(int a, int b, int &amp;x, int &amp;y) {\n\tif (b == 0) {\n\t\tx = 1;\n\t\ty = 0;\n\t\treturn a;\n\t}\n\tint x1, y1;\n\tint g = exgcd(b, a % b, x1, y1);\n\tx = y1;\n\ty = x1 - a / b * y1;\n\treturn g;\n}`,
+        exercises: [
+          ['由 65=40×1+25、40=25×1+15、25=15×1+10、15=10×1+5，写出 5=65×<span class="blank"></span>+40×<span class="blank"></span>。', '5，−8'],
+          ['若 ax+by=1 有整数解，则 gcd(a,b)=<span class="blank"></span>。', '1'],
+          ['一组贝祖系数为 (x₀,y₀)，则 x=x₀+b/g·t、y=y₀−a/g·t 仍满足 <span class="blank"></span>。', 'ax+by=g'],
+          ['扩展欧几里得递归返回时，x=y₁，y=x₁−⌊a/b⌋·<span class="blank"></span>。', 'y₁']
+        ]
+      },
+      {
+        id: 'diophantine',
+        title: '一次不定方程',
+        lead: 'ax+by=c 的整数解不是靠枚举碰出来的。先判断 gcd(a,b) 是否整除 c，再由贝祖系数得到特解，最后沿固定步长移动。',
+        points: [
+          ['有解条件', '方程 ax+by=c 有整数解，当且仅当 gcd(a,b)|c。若不能整除，任何枚举都不会成功。', 'gcd(a,b)|c'],
+          ['特解与通解', '把 ax₀+by₀=g 乘以 c/g 得到一组特解，再利用抵消关系生成全部整数解。', 'x=x₀+(b/g)t，y=y₀-(a/g)t'],
+          ['范围筛选', '若要求 x,y 非负或落在区间内，就把上下界代入通解，转化成对整数参数 t 的区间限制。', 'L≤t≤R']
+        ],
+        lab: 'diophantine',
+        code: `// 已知 exgcd(a, b, x, y) 返回 g\nif (c % g != 0) return;          // 无整数解\nx *= c / g;\ny *= c / g;\n// 通解：x += b / g * t，y -= a / g * t`,
+        exercises: [
+          ['6x+9y=20 是否有整数解：<span class="blank"></span>。', '否'],
+          ['6x+9y=21 的有解依据是 3 <span class="blank"></span> 21。', '|'],
+          ['通解中 x 的步长绝对值是 <span class="blank"></span>。', 'b/g'],
+          ['加入 x,y≥0 后，需要求参数 t 的 <span class="blank"></span>。', '整数区间']
+        ]
+      },
+      {
+        id: 'modular',
+        title: '模运算体系',
+        lead: '模运算把无限整数压缩到有限状态。加、减、乘可以先取模；负数必须规范化；除法不能直接取模，需要逆元或先处理公因子。',
+        points: [
+          ['加减乘封闭性', '和、差、积的余数只由各操作数余数决定，可以在每一步及时取模，避免数值快速膨胀。', '(a∘b) mod m=((a mod m)∘(b mod m)) mod m'],
+          ['负数与规范余数', 'C++ 的负数 % 结果可能为负。统一使用 (x%m+m)%m，把状态放回 0 到 m−1。', 'norm(x)=(x%m+m)%m'],
+          ['乘法消去', 'ac≡bc (mod m) 不能总推出 a≡b。只有 c 与 m 互质时，才可以直接消去 c。', 'gcd(c,m)=1 才可消去']
+        ],
+        lab: 'modular',
+        code: `long long add_mod(long long a, long long b, long long mod) {\n\treturn ((a % mod + b % mod) % mod + mod) % mod;\n}\n\nlong long mul_mod(long long a, long long b, long long mod) {\n\treturn (a % mod) * (b % mod) % mod;\n}`,
+        exercises: [
+          ['(17+20) mod 7=<span class="blank"></span>。', '2'],
+          ['−11 模 6 的标准余数是 <span class="blank"></span>。', '1'],
+          ['若 gcd(c,m)=1，则同余式两边可消去因子 <span class="blank"></span>。', 'c'],
+          ['模 8 下 2×1 与 2×5 同余，但 1 与 5 不同余，说明不能随意 <span class="blank"></span>。', '消去']
+        ]
+      },
+      {
+        id: 'fast-power',
+        title: '快速幂与模快速幂',
+        lead: '指数不必做 b 次乘法。把 b 写成二进制，只在二进制位为 1 时把当前平方幂乘入答案，循环次数降为 O(log b)。',
+        points: [
+          ['指数的二进制分解', 'b 的每个二进制 1 位对应一个 2 的幂。例如 13=8+4+1，所以 a¹³=a⁸·a⁴·a。', 'b=Σbitᵢ·2ⁱ'],
+          ['平方倍增', '每轮令底数 base 自乘，依次得到 a、a²、a⁴、a⁸……，同时把指数右移一位。', 'base←base²，b←b/2'],
+          ['模快速幂', '每次乘法后立刻取模，状态始终小于 mod。若中间乘法仍可能溢出，需要更宽类型或快速乘。', 'ans=ans·base mod m']
+        ],
+        lab: 'fast-power',
+        code: `long long qpow(long long a, long long b, long long mod) {\n\tlong long ans = 1 % mod;\n\ta %= mod;\n\twhile (b) {\n\t\tif (b &amp; 1) ans = ans * a % mod;\n\t\ta = a * a % mod;\n\t\tb &gt;&gt;= 1;\n\t}\n\treturn ans;\n}`,
+        exercises: [
+          ['13 的二进制为 <span class="blank"></span>。', '1101'],
+          ['快速幂循环次数是 O(<span class="blank"></span>)。', 'log b'],
+          ['指数最低位是否为 1，可用 b&amp;<span class="blank"></span> 判断。', '1'],
+          ['3<sup>13</sup> 中需要乘入 a、a⁴ 和 <span class="blank"></span>。', 'a⁸']
+        ]
+      },
+      {
+        id: 'prime-test',
+        title: '质数判定',
+        lead: '先用朴素试除完整看清“为什么只检查到平方根”，再做偶数剪枝和候选过滤。互动区默认检查 91，会逐行写出每一次取模算式，发现第一个因数后立即停止。',
+        points: [
+          ['边界与偶数剪枝', 'n<2 不是质数；2 是唯一偶质数。处理 2 后只枚举奇数，可把无效尝试减半。', '2 特判，i+=2'],
+          ['因数对与平方根', '非平凡因数成对出现 d 与 n/d，至少一个不超过 √n，因此试除到 n/i 即可安全停止。', 'i≤n/i'],
+          ['候选形态与更大范围', '大于 3 的质数一定形如 6k±1，但 6k±1 不一定是质数。64 位大整数常用 Miller-Rabin，批量小范围仍用筛法。', '6k±1 是必要非充分条件']
+        ],
+        lab: 'prime-test',
+        code: `// 朴素版本：按 2,3,4,... 逐个试除\nbool isPrimeBasic(int n) {\n\tif (n &lt; 2) return false;\n\tfor (int i = 2; i &lt;= n / i; i++) {\n\t\tif (n % i == 0) return false;\n\t}\n\treturn true;\n}\n\n// 优化版本：单独处理 2，只检查奇数\nbool isPrime(int n) {\n\tif (n &lt; 2) return false;\n\tif (n == 2) return true;\n\tif (n % 2 == 0) return false;\n\tfor (int i = 3; i &lt;= n / i; i += 2) {\n\t\tif (n % i == 0) return false;\n\t}\n\treturn true;\n}`,
+        exercises: [
+          ['只按 6k±1 筛选时，25 会被保留但它仍是 <span class="blank"></span>。', '合数'],
+          ['判定 221 时，第一次发现的非平凡因数是 <span class="blank"></span>。', '13'],
+          ['循环条件写成 i≤n/i，主要避免 i·i 的 <span class="blank"></span> 风险。', '溢出'],
+          ['有 10⁵ 次 n≤10⁶ 的判质询问，应选用 <span class="blank"></span>。', '筛法预处理']
+        ]
+      },
+      {
+        id: 'eratosthenes',
+        title: '埃拉托斯特尼筛',
+        lead: '埃筛的本质是“从一个数向它的所有倍数传播信息”。筛质数只是把“合数标记”向倍数传播；换一种信息，就能统计特殊约数、累加约数贡献和统计集合中的整除数对。',
+        points: [
+          ['批量判质', '先假设 2 到 n 都可能是质数，从小到大找到未被标记的数 p，再标记 p 的倍数。', 'p,2p,3p,…'],
+          ['从 p² 开始', '小于 p² 的 p 倍数已经含有更小质因子，会在更早轮次被标记，因此当前轮从 p² 开始即可。', 'j=p²,p²+p,…'],
+          ['复杂度与筛表', '不同质数对倍数的访问总量约为 n log log n。筛表还能继续做质数前缀和、区间质数计数等预处理。', 'O(n log log n)'],
+          ['广义倍数传播', '若特殊数 d 携带权值 w[d]，就对 d,2d,3d,… 更新。把“赋值”换成计数、求和或最值，即得到一整类广义筛。', 'for (j=d; j≤N; j+=d) 传播贡献']
+        ],
+        lab: 'eratosthenes',
+        code: `vector&lt;bool&gt; isPrime(n + 1, true);\nisPrime[0] = isPrime[1] = false;\nfor (int p = 2; p * p &lt;= n; p++) {\n\tif (!isPrime[p]) continue;\n\tfor (int j = p * p; j &lt;= n; j += p) {\n\t\tisPrime[j] = false;\n\t}\n}\n\n// 广义筛：特殊数 d 向自己的全部倍数传播贡献\nfor (int d = 1; d &lt;= n; d++) {\n\tif (!special[d]) continue;\n\tfor (int j = d; j &lt;= n; j += d) {\n\t\tcnt[j]++;       // 特殊约数数量\n\t\tsum[j] += d;    // 特殊约数贡献和\n\t}\n}`,
+        exercises: [
+          ['埃筛处理质数 p 时，可以从 <span class="blank"></span> 开始。', 'p²'],
+          ['筛 2 时首先划去的数是 <span class="blank"></span>。', '4'],
+          ['未被划去且不小于 2 的数是 <span class="blank"></span>。', '质数'],
+          ['埃筛复杂度约为 <span class="blank"></span>。', 'O(n log log n)']
+        ]
+      },
+      {
+        id: 'linear-sieve',
+        title: '线性筛与最小质因子',
+        lead: '线性筛不只是“更快地筛质数”。它利用最小质因子，让每个合数只生成一次；当 i 生成 i·p 时，还能同步递推 φ、μ、因数个数等质因数相关函数。',
+        points: [
+          ['最小质因子表', 'lp[x] 记录 x 的最小质因子。若 lp[i]=0，则 i 是新质数，令 lp[i]=i 并加入质数表。', 'lp[i]=最小质因子'],
+          ['每个合数筛一次', '枚举质数 p 生成 i·p；当 p=lp[i] 后停止，保证 i·p 的最小质因子就是 p，避免重复来源。', 'p≤lp[i]'],
+          ['预处理副产物', '沿 lp 链可快速分解整数，也可在线性时间递推 φ、莫比乌斯函数、因数个数等积性函数。', 'x→x/lp[x]'],
+          ['同质因子与新质因子', '生成 i·p 时要分两类：若 p|i，指数继续增加；若 p∤i，就加入一个新质因子。两类递推公式不同。', 'p|i 与 p∤i 分开递推']
+        ],
+        lab: 'linear-sieve',
+        code: `vector&lt;int&gt; primes, lp(n + 1), phi(n + 1), mu(n + 1);\nphi[1] = mu[1] = 1;\nfor (int i = 2; i &lt;= n; i++) {\n\tif (lp[i] == 0) {\n\t\tlp[i] = i;\n\t\tphi[i] = i - 1;\n\t\tmu[i] = -1;\n\t\tprimes.push_back(i);\n\t}\n\tfor (int j = 0; j &lt; (int)primes.size(); j++) {\n\t\tint p = primes[j];\n\t\tif (i * p &gt; n) break;\n\t\tlp[i * p] = p;\n\t\tif (i % p == 0) {\n\t\t\tphi[i * p] = phi[i] * p;\n\t\t\tmu[i * p] = 0;\n\t\t\tbreak;\n\t\t}\n\t\tphi[i * p] = phi[i] * (p - 1);\n\t\tmu[i * p] = -mu[i];\n\t}\n}`,
+        exercises: [
+          ['lp[35]=<span class="blank"></span>。', '5'],
+          ['若 lp[i]=0，则 i 是 <span class="blank"></span>。', '质数'],
+          ['线性筛保证每个合数被生成 <span class="blank"></span> 次。', '1'],
+          ['沿 x←x/lp[x] 可完成 <span class="blank"></span>。', '质因数分解']
+        ]
+      },
+      {
+        id: 'divisors',
+        title: '因数个数与因数和',
+        lead: '若 n 的质因数指数已经知道，构造因数就是为每个质数独立选择指数。乘法原理立即给出因数个数与因数和公式。',
+        points: [
+          ['因数个数公式', '对 pᵃ，因数中 p 的指数可选 0 到 a，共 a+1 种；不同质因子的选择互相独立。', 'τ(n)=∏(aᵢ+1)'],
+          ['因数和公式', '每个质因子的可选贡献形成等比数列，再把各质因子贡献相乘。', 'σ(n)=∏(1+pᵢ+⋯+pᵢᵃⁱ)'],
+          ['平方数与因数奇偶', '因数通常成对出现 d 与 n/d。只有完全平方数存在 d=n/d 的孤立因数，因此仅平方数的因数个数为奇数。', 'τ(n)为奇数 ⇔ n是平方数']
+        ],
+        lab: 'divisors',
+        code: `long long cnt = 1, sum = 1;\nfor (auto f : factor(n)) {\n\tint p = f.first, e = f.second;\n\tcnt *= e + 1;\n\tlong long cur = 1, pw = 1;\n\tfor (int i = 1; i &lt;= e; i++) pw *= p, cur += pw;\n\tsum *= cur;\n}`,
+        exercises: [
+          ['72=2³×3² 的因数个数是 (3+1)(2+1)=<span class="blank"></span>。', '12'],
+          ['12 的正因数和是 <span class="blank"></span>。', '28'],
+          ['36 的因数个数为奇数，因为 36 是 <span class="blank"></span>。', '完全平方数'],
+          ['pᵃ 的因数中 p 的指数有 <span class="blank"></span> 种选择。', 'a+1']
+        ]
+      },
+      {
+        id: 'phi',
+        title: '欧拉函数',
+        lead: 'φ(n) 统计 1 到 n 中与 n 互质的整数个数，也就是模 n 下拥有乘法逆元的剩余类数量。',
+        points: [
+          ['互质计数', '枚举 1≤x≤n，只要 gcd(x,n)=1 就计入。它们构成模 n 的可逆剩余类。', 'φ(n)=#{x | 1≤x≤n,gcd(x,n)=1}'],
+          ['质数与质数幂', '若 p 为质数，1 到 p−1 都与 p 互质；对 pᵏ，只需排除 p 的倍数。', 'φ(pᵏ)=pᵏ−pᵏ⁻¹'],
+          ['乘法公式直觉', '从全部 n 个数中依次排除各质因子的倍数；不同质因子影响可用乘法比例合并。', 'φ(n)=n∏(1−1/p)']
+        ],
+        lab: 'phi',
+        code: `int phi(int n) {\n\tint ans = n;\n\tfor (int p = 2; p * p &lt;= n; p++) {\n\t\tif (n % p) continue;\n\t\tans = ans / p * (p - 1);\n\t\twhile (n % p == 0) n /= p;\n\t}\n\tif (n &gt; 1) ans = ans / n * (n - 1);\n\treturn ans;\n}`,
+        exercises: [
+          ['φ(7)=<span class="blank"></span>。', '6'],
+          ['φ(8)=<span class="blank"></span>。', '4'],
+          ['模 n 下可逆剩余类的数量是 <span class="blank"></span>。', 'φ(n)'],
+          ['φ(12)=12(1−1/2)(1−1/3)=<span class="blank"></span>。', '4']
+        ]
+      },
+      {
+        id: 'phi-sieve',
+        title: '欧拉函数的计算与筛法',
+        lead: '单次求 φ(n) 可以分解质因数；需要 1 到 N 的全部 φ 时，应让每个质数向自己的倍数传播一次比例更新。',
+        points: [
+          ['单点分解计算', '初值 ans=n。每发现一个不同质因子 p，执行 ans=ans/p·(p−1)，并把 n 中所有 p 除尽。', 'ans←ans/p·(p−1)'],
+          ['批量 φ 筛', '先令 φ[i]=i。若 φ[p]=p，则 p 为质数，对 p 的每个倍数 j 执行 φ[j]=φ[j]/p·(p−1)。', 'φ[j]←φ[j]/p·(p−1)'],
+          ['求和结构', 'φ 的前缀和能回答大量区间互质计数，并出现在可见格点、约分分数等模型中。', 'pre[n]=Σᵢ₌₁ⁿφ(i)']
+        ],
+        lab: 'phi-sieve',
+        code: `vector&lt;int&gt; phi(n + 1);\nfor (int i = 0; i &lt;= n; i++) phi[i] = i;\nfor (int p = 2; p &lt;= n; p++) {\n\tif (phi[p] != p) continue;\n\tfor (int j = p; j &lt;= n; j += p) {\n\t\tphi[j] = phi[j] / p * (p - 1);\n\t}\n}`,
+        exercises: [
+          ['φ 筛的初值是 φ[i]=<span class="blank"></span>。', 'i'],
+          ['若处理时 φ[p]=p，则 p 是 <span class="blank"></span>。', '质数'],
+          ['更新 p 的倍数时乘上的比例是 <span class="blank"></span>。', '(p−1)/p'],
+          ['大量区间 φ 求和可预处理 <span class="blank"></span>。', '前缀和']
+        ]
+      },
+      {
+        id: 'fermat-euler',
+        title: '费马小定理与欧拉定理',
+        lead: '幂在模意义下会进入周期。费马小定理处理质数模，欧拉定理处理与模数互质的底数；使用前必须检查条件。',
+        points: [
+          ['费马小定理', '若 p 为质数且 p∤a，则 aᵖ⁻¹≡1 (mod p)。常用于质数模下的降幂与逆元。', 'aᵖ⁻¹≡1 (mod p)'],
+          ['欧拉定理', '若 gcd(a,m)=1，则 a^φ(m)≡1 (mod m)。费马小定理是 m 为质数时的特例。', 'a^φ(m)≡1 (mod m)'],
+          ['指数降幂与反例', '只有满足互质等条件时才能直接对指数取周期。底数与模数不互质时，机械降幂可能得到错误答案。', '先验条件，再降幂']
+        ],
+        lab: 'power-orbit',
+        code: `// gcd(a, mod) == 1 时\nlong long reduced = exponent % phi(mod);\nlong long ans = qpow(a, reduced, mod);\n\n// 质数 mod 且 a % mod != 0 时\nlong long inv = qpow(a, mod - 2, mod);`,
+        exercises: [
+          ['若 p 为质数且 p∤a，则 a<sup>p−1</sup>≡<span class="blank"></span> (mod p)。', '1'],
+          ['欧拉定理要求 gcd(a,m)=<span class="blank"></span>。', '1'],
+          ['φ(10)=4，所以与 10 互质的 a 满足 a⁴≡<span class="blank"></span>。', '1'],
+          ['指数降幂前必须检查定理的 <span class="blank"></span>。', '使用条件']
+        ]
+      },
+      {
+        id: 'inverse',
+        title: '模逆元',
+        lead: '模意义下的除法要变成乘法。若 ax≡1 (mod m)，则 x 是 a 的逆元；它存在的充要条件是 a 与 m 互质。',
+        points: [
+          ['存在条件', 'a 在模 m 下有逆元，当且仅当 gcd(a,m)=1。若不互质，乘法映射无法覆盖余数 1。', 'a⁻¹存在 ⇔ gcd(a,m)=1'],
+          ['扩展欧几里得求逆元', '由 ax+my=1 可知 x 就是逆元。扩欧求出 x 后再规范到 0 到 m−1。', 'inv=(x%m+m)%m'],
+          ['费马法与预处理', '质数模 p 下可用 a^(p−2) 求逆元。连续逆元还能用递推在 O(n) 内预处理。', 'inv[i]=(p−p/i)·inv[p%i] mod p']
+        ],
+        lab: 'inverse',
+        code: `int inverse(int a, int mod) {\n\tint x, y;\n\tint g = exgcd(a, mod, x, y);\n\tif (g != 1) return -1;\n\treturn (x % mod + mod) % mod;\n}`,
+        exercises: [
+          ['3 在模 7 下的逆元是 <span class="blank"></span>。', '5'],
+          ['2 在模 6 下是否有逆元：<span class="blank"></span>。', '否'],
+          ['质数 p 下 a 的费马逆元是 a<sup><span class="blank"></span></sup>。', 'p−2'],
+          ['求得负的贝祖系数后要做 <span class="blank"></span>。', '规范取模']
+        ]
+      },
+      {
+        id: 'wilson',
+        title: '威尔逊定理',
+        lead: '模质数 p 时，1 到 p−1 中大多数数都能与不同的逆元配成积 1 的一对，只剩 1 和 p−1 自逆。',
+        points: [
+          ['定理内容', 'p 为质数当且仅当 (p−1)!≡−1 (mod p)。它给出精确判质条件。', '(p−1)!≡−1 (mod p)'],
+          ['逆元配对证明', '若 x 不等于自己的逆元，就把 x 与 x⁻¹ 配对，乘积为 1。自逆元素满足 x²≡1，只剩 ±1。', 'x·x⁻¹≡1'],
+          ['判质价值与局限', '直接计算阶乘仍需 O(p)，实际判大质数并不高效；它更适合证明、推导和小范围计算。', '理论强，直接算法慢']
+        ],
+        lab: 'wilson',
+        code: `bool wilson(int p) {\n\tif (p &lt; 2) return false;\n\tlong long f = 1;\n\tfor (int i = 1; i &lt; p; i++) f = f * i % p;\n\treturn f == p - 1;\n}`,
+        exercises: [
+          ['模 7 下 3 的逆元是 <span class="blank"></span>。', '5'],
+          ['模质数 p 下两个自逆元素是 1 和 <span class="blank"></span>。', 'p−1'],
+          ['5 为质数，因此 4! mod 5=<span class="blank"></span>。', '4'],
+          ['威尔逊直接判质的时间复杂度约为 <span class="blank"></span>。', 'O(p)']
+        ]
+      },
+      {
+        id: 'crt',
+        title: '中国剩余定理',
+        lead: '多个互质周期可以合并成一个更大的周期。每个构造块只负责满足一条同余式，在其他模数下归零。',
+        points: [
+          ['两同余式合并', '当 m₁、m₂ 互质时，x≡r₁ (mod m₁) 与 x≡r₂ (mod m₂) 必有唯一的模 m₁m₂ 解类。', 'x≡r (mod m₁m₂)'],
+          ['构造解', '令 M=m₁m₂，Mᵢ=M/mᵢ，再乘 Mᵢ 在模 mᵢ 下的逆元，使这一块在目标模数下为 1、在其他模数下为 0。', 'r=ΣrᵢMᵢinv(Mᵢ,mᵢ)'],
+          ['唯一模积', '得到的不是唯一整数，而是唯一剩余类：所有解为 r+kM。区间询问再按这个等差数列计数。', 'x=r+kM']
+        ],
+        lab: 'crt',
+        code: `// 两个模数互质\nlong long M = 1LL * m1 * m2;\nlong long M1 = M / m1, M2 = M / m2;\nlong long x = r1 * M1 % M * inverse(M1, m1) % M;\nx = (x + r2 * M2 % M * inverse(M2, m2)) % M;`,
+        exercises: [
+          ['x≡2 (mod 3)，x≡3 (mod 5) 的最小非负解是 <span class="blank"></span>。', '8'],
+          ['互质模数 3、5 合并后的周期是 <span class="blank"></span>。', '15'],
+          ['CRT 的所有解写成 r+k<span class="blank"></span>。', 'M'],
+          ['标准 CRT 要求模数两两 <span class="blank"></span>。', '互质']
+        ]
+      },
+      {
+        id: 'linear-congruence',
+        title: '线性同余与广义 CRT',
+        lead: 'ax≡b (mod m) 等价于 ax+my=b。它的有解条件来自一次不定方程；广义 CRT 则在模数不互质时先检查两条余数要求是否冲突。',
+        points: [
+          ['线性同余', '令 g=gcd(a,m)。方程有解当且仅当 g|b；约去 g 后，a/g 在模 m/g 下拥有逆元。', 'ax≡b (mod m)，g|b'],
+          ['解的个数与表示', '若有解，则模 m 下恰有 g 个不同解；先求模 m/g 的一个解，再按 m/g 的步长展开。', 'x=x₀+k(m/g)，0≤k&lt;g'],
+          ['广义 CRT 合并', '合并 x≡r₁ (mod m₁)、x≡r₂ (mod m₂) 时，必须满足 gcd(m₁,m₂)|(r₂−r₁)，否则无解。', 'g|(r₂−r₁)']
+        ],
+        lab: 'linear-congruence',
+        code: `int g = gcd(a, mod);\nif (b % g != 0) return;          // 无解\nint a1 = a / g, b1 = b / g, m1 = mod / g;\nint x0 = 1LL * b1 * inverse(a1, m1) % m1;\n// 模 mod 下共有 g 个解：x0 + k * m1`,
+        exercises: [
+          ['6x≡9 (mod 15) 中 g=gcd(6,15)=<span class="blank"></span>。', '3'],
+          ['上式在模 15 下共有 <span class="blank"></span> 个解。', '3'],
+          ['若 g∤b，则线性同余 <span class="blank"></span>。', '无解'],
+          ['广义 CRT 冲突判定检查 g 是否整除 <span class="blank"></span>。', 'r₂−r₁']
+        ]
+      },
+      {
+        id: 'modeling',
+        title: '数论综合建模',
+        lead: '最后一步不是再记一个公式，而是从题目语言中选择工具：单次还是多询问、上界是否固定、需要存在性还是完整解、是否存在溢出风险。',
+        points: [
+          ['工具选择', '单次判质用试除，批量判质用埃筛；大量分解用 lp；求方程解用 gcd 与扩欧；周期合并用 CRT。', '先识别任务，再选算法'],
+          ['预处理与多询问', '若询问共享同一上界，把昂贵计算前移：筛质数、lp、φ、前缀和、逆元表都属于预处理。', '预处理一次，查询复用'],
+          ['综合流程与边界', '检查 0、1、负数、模数为 1、无解条件、数组上界和乘法溢出；答案必须包含存在性证明和复杂度。', '模型→条件→算法→边界']
+        ],
+        lab: 'modeling',
+        code: `// 建模检查表\n// 1. 单次还是多询问？\n// 2. 上界能否预处理？\n// 3. 是否要求互质、质数模或两两互质？\n// 4. 无解时输出什么？\n// 5. 乘法与数组下标是否安全？`,
+        exercises: [
+          ['10⁵ 次询问 n≤10⁶ 是否为质数，优先 <span class="blank"></span>。', '筛法预处理'],
+          ['大量整数分解且上界固定，优先预处理 <span class="blank"></span>。', '最小质因子 lp'],
+          ['同余方程先检查 <span class="blank"></span> 条件。', '有解'],
+          ['计算 a·b mod m 前要检查整数 <span class="blank"></span>。', '溢出']
+        ]
+      }
+    ];
+
+    const advancedExercises = {
+      divisibility: [
+        ['−37 模 8 的标准余数是 <span class="blank"></span>。', '3'],
+        ['若 a≡5 (mod 12)，则 3a+7≡<span class="blank"></span> (mod 12)。', '10'],
+        ['使 83≡11 (mod m) 成立的最大整数 m&gt;1 是 <span class="blank"></span>。', '72'],
+        ['若 a≡b (mod 6) 且 a≡b (mod 10)，则 a≡b (mod <span class="blank"></span>)。', '30']
+      ],
+      factorization: [
+        ['756 的质因数分解是 <span class="blank"></span>。', '2²×3³×7'],
+        ['满足 2<sup>3</sup>×3<sup>2</sup>|n 且 n|2<sup>5</sup>×3<sup>4</sup>×5 的正整数 n 共有 <span class="blank"></span> 个。', '18'],
+        ['gcd(2⁴3²5,2²3⁵7)=<span class="blank"></span>。', '36'],
+        ['若 n 是完全平方数，则质因数分解中的所有指数均为 <span class="blank"></span>。', '偶数']
+      ],
+      gcd: [
+        ['用辗转相除计算 gcd(123456,7890)=<span class="blank"></span>。', '6'],
+        ['若 gcd(a,b)=14、lcm(a,b)=840，则 ab=<span class="blank"></span>。', '11760'],
+        ['若 gcd(a,b)=9，则 gcd(2a,2b)=<span class="blank"></span>。', '18'],
+        ['两个相邻正整数的最大公因数一定是 <span class="blank"></span>。', '1']
+      ],
+      bezout: [
+        ['由辗转相除倒推可得 5=65×<span class="blank"></span>+40×<span class="blank"></span>。', '5，−8'],
+        ['若 ax+by=1 有整数解，则 gcd(a,b)=<span class="blank"></span>。', '1'],
+        ['若 ax₀+by₀=g，则 x=x₀+b/g·t、y=y₀−a/g·t 仍满足 <span class="blank"></span>。', 'ax+by=g'],
+        ['扩欧返回时若下一层系数为 x₁,y₁，则本层 x=<span class="blank"></span>。', 'y₁']
+      ],
+      diophantine: [
+        ['14x+21y=20 是否有整数解：<span class="blank"></span>。', '否'],
+        ['14x+21y=35 的一组特解可取 (x,y)=<span class="blank"></span>。', '(1,1)'],
+        ['6x+9y=30 的非负整数解共有 <span class="blank"></span> 组。', '2'],
+        ['由通解筛选 x,y≥0，本质上是求参数 t 的 <span class="blank"></span> 区间。', '整数']
+      ],
+      modular: [
+        ['−123 模 17 的标准余数是 <span class="blank"></span>。', '13'],
+        ['若 a≡7、b≡11 (mod 13)，则 ab−a≡<span class="blank"></span>。', '5'],
+        ['由 4x≡4y (mod 10) 不能推出 x≡y，因为 gcd(4,10)=<span class="blank"></span>。', '2'],
+        ['规范负余数时应使用 ((x%m)+m)<span class="blank"></span>m。', '%']
+      ],
+      'fast-power': [
+        ['45 的二进制表示是 <span class="blank"></span>。', '101101'],
+        ['7¹⁰⁰ mod 10=<span class="blank"></span>。', '1'],
+        ['指数 45 共含 <span class="blank"></span> 个二进制位，因此只需对数量级相同的轮数。', '6'],
+        ['用平方倍增计算 3¹³ mod 17=<span class="blank"></span>。', '12']
+      ],
+      'prime-test': [
+        ['只按 6k±1 筛选时，25 会被保留但它仍是 <span class="blank"></span>。', '合数'],
+        ['判定 221 时，第一次发现的非平凡因数是 <span class="blank"></span>。', '13'],
+        ['循环条件写成 i≤n/i，主要避免 i·i 的 <span class="blank"></span> 风险。', '溢出'],
+        ['有 10⁵ 次 n≤10⁶ 的判质询问，应选用 <span class="blank"></span>。', '筛法预处理']
+      ],
+      eratosthenes: [
+        ['在从 p² 开始的埃筛中，49 第一次由质数 <span class="blank"></span> 划去。', '7'],
+        ['筛到 N=100 时，外层最后一个需要处理的质数是 <span class="blank"></span>。', '7'],
+        ['区间 [L,R] 很大但长度较小时，可用不超过 √R 的质数做 <span class="blank"></span>。', '分段筛'],
+        ['若要回答区间质数个数，可在筛表后继续预处理 <span class="blank"></span>。', '质数前缀和']
+      ],
+      'linear-sieve': [
+        ['lp[84]=<span class="blank"></span>，沿 lp 链下一步得到 42。', '2'],
+        ['在线性筛中，45 的唯一生成来源可写为 15×<span class="blank"></span>。', '3'],
+        ['若 lp[x]=x，则 x 是 <span class="blank"></span>。', '质数'],
+        ['在线性筛上递推 φ、μ 等函数的总复杂度通常为 <span class="blank"></span>。', 'O(n)']
+      ],
+      divisors: [
+        ['n=2<sup>4</sup>×3<sup>2</sup>×5 的正因数个数为 <span class="blank"></span>。', '30'],
+        ['72 的全部正因数和 σ(72)=<span class="blank"></span>。', '195'],
+        ['小于 100 且因数个数为奇数的正整数共有 <span class="blank"></span> 个。', '9'],
+        ['恰有 6 个正因数的整数形态为 p⁵ 或 <span class="blank"></span>。', 'p²q（p、q 为不同质数）']
+      ],
+      phi: [
+        ['φ(36)=<span class="blank"></span>。', '12'],
+        ['不同质数 p、q 满足 φ(pq)=<span class="blank"></span>。', '(p−1)(q−1)'],
+        ['k≥1 时，φ(2ᵏ)=<span class="blank"></span>。', '2ᵏ⁻¹'],
+        ['分母固定为 n、且 1≤a≤n 与 n 互质的分数 a/n 有 <span class="blank"></span> 个。', 'φ(n)']
+      ],
+      'phi-sieve': [
+        ['φ 筛中，12 先经质数 2 更新为 6，再经质数 3 更新为 <span class="blank"></span>。', '4'],
+        ['恒等式 Σ<sub>d|n</sub>φ(d)=<span class="blank"></span>。', 'n'],
+        ['大量查询 Σ<sub>i=L</sub><sup>R</sup>φ(i) 时应预处理 <span class="blank"></span>。', '前缀和'],
+        ['若还要同时得到最小质因子，可改用 <span class="blank"></span> 递推 φ。', '线性筛']
+      ],
+      'fermat-euler': [
+        ['利用费马小定理，3¹⁰⁰ mod 7=<span class="blank"></span>。', '4'],
+        ['模质数 13 下，2 的逆元可写成 2¹¹，标准余数是 <span class="blank"></span>。', '7'],
+        ['当 gcd(a,m)&gt;1 时，不能直接把指数对 <span class="blank"></span> 取模。', 'φ(m)'],
+        ['10¹⁰⁰ mod 12=<span class="blank"></span>，该题不能机械套欧拉定理。', '4']
+      ],
+      inverse: [
+        ['17 在模 43 下的逆元是 <span class="blank"></span>。', '38'],
+        ['14x≡8 (mod 20) 的解类为 x≡<span class="blank"></span> (mod 10)。', '2'],
+        ['a 在模 m 下没有逆元，当且仅当 gcd(a,m)<span class="blank"></span>1。', '≠'],
+        ['质数模 p 下连续逆元递推需要先给出 inv[1]=<span class="blank"></span>。', '1']
+      ],
+      wilson: [
+        ['由威尔逊定理，10! mod 11=<span class="blank"></span>。', '10'],
+        ['p 为质数时，(p−2)!≡<span class="blank"></span> (mod p)。', '1'],
+        ['若 (n−1)!≡−1 (mod n)，则 n 一定是 <span class="blank"></span>。', '质数'],
+        ['威尔逊定理适合证明，但直接判质需要约 <span class="blank"></span> 次乘法。', 'n']
+      ],
+      crt: [
+        ['x≡1 (mod 4)，x≡3 (mod 5) 的最小非负解是 <span class="blank"></span>。', '13'],
+        ['x≡2 (mod 3)、x≡3 (mod 5)、x≡2 (mod 7) 的最小非负解是 <span class="blank"></span>。', '23'],
+        ['0≤x≤100 且 x≡8 (mod 15) 的整数共有 <span class="blank"></span> 个。', '7'],
+        ['标准 CRT 的解在模所有模数之积下 <span class="blank"></span>。', '唯一']
+      ],
+      'linear-congruence': [
+        ['8x≡12 (mod 20) 在模 20 下共有 <span class="blank"></span> 个解。', '4'],
+        ['上式约分后得到 2x≡3 (mod 5)，所以 x≡<span class="blank"></span> (mod 5)。', '4'],
+        ['x≡r₁ (mod m₁)、x≡r₂ (mod m₂) 可合并的条件是 gcd(m₁,m₂)|<span class="blank"></span>。', 'r₂−r₁'],
+        ['x≡1 (mod 4)、x≡3 (mod 6) 合并为 x≡<span class="blank"></span> (mod 12)。', '9']
+      ],
+      modeling: [
+        ['10⁵ 次询问 n≤10⁶ 是否为质数，推荐“筛法 + <span class="blank"></span>”。', 'O(1) 查询'],
+        ['大量整数分解且共享上界，推荐预处理 <span class="blank"></span> 表。', 'lp'],
+        ['看到“每隔 m 天余 r 天”并要求同时满足多组条件，应优先想到 <span class="blank"></span>。', 'CRT'],
+        ['看到 ax≡b (mod m)，第一步不是求逆元，而是检查 gcd(a,m) 是否 <span class="blank"></span>b。', '整除']
+      ]
+    };
+    chapters.forEach(chapter => {
+      if (advancedExercises[chapter.id]) chapter.exercises = advancedExercises[chapter.id];
+    });
+
+    function labHtml(type) {
+      const labs = {
+        remainder: `
+          <div class="interactive-lab" id="remainderLab">
+            <div class="panel-title"><h3>同余线段对比</h3><span class="tag amber">共同余数相同，差值只剩完整模段</span></div>
+            <div class="controls">
+              <label>待比较整数 <input class="control-input" id="remValues" type="text" value="5,17,29" aria-label="待比较整数，逗号分隔"></label>
+              <label>模数 m <input class="control-input" id="remM" type="number" min="2" max="12" value="6"></label>
+              <button class="btn" id="remBuild">重画线段</button>
+            </div>
+            <div class="legend-row"><span><i class="legend-dot" style="background:#2867a8"></i>每个蓝块都是完整的 m</span><span><i class="legend-dot" style="background:#b66b00"></i>同余数拥有同色、同长余数块</span><span>虚线格表示较短线段缺少的完整 m 段</span></div>
+            <div class="stage"><div class="congruence-board" id="remLines"></div></div>
+            <div class="status" id="remStatus"></div><div class="interactive-answer" id="remAnswer"></div>
+          </div>`,
+        factor: `
+          <div class="interactive-lab">
+            <div class="panel-title"><h3>逐步填写因数树</h3><span class="tag blue">从候选因子 2 开始</span></div>
+            <div class="controls">
+              <label>整数 n <input class="control-input" id="factorN" type="number" min="2" max="1000000" value="360"></label>
+              <button class="btn" id="factorBuild">重建因数树</button>
+              <label>填写质因子 <input class="control-input" id="factorPick" type="number" min="2" max="1000000" value="2"></label>
+              <button class="btn secondary" id="factorTry">填写并拆分</button>
+              <button class="btn secondary" id="factorNext">候选 +1</button>
+            </div>
+            <div class="stage"><div class="factor-expression" id="factorExpression"></div><div class="factor-tree-wrap" id="factorTree"></div><div class="factor-progress"><div class="factor-progress-track"><div class="factor-progress-fill" id="factorProgress"></div></div><strong id="factorRemain"></strong></div></div>
+            <div class="status" id="factorStatus"></div><div class="interactive-answer" id="factorAnswer"></div>
+          </div>`,
+        gcd: `
+          <div class="interactive-lab">
+            <div class="panel-title"><h3>辗转相除算式图</h3><span class="tag">整段被拿走，余数送入下一轮</span></div>
+            <div class="controls">
+              <label>a <input class="control-input" id="gcdA" type="number" min="1" max="10000" value="252"></label>
+              <label>b <input class="control-input" id="gcdB" type="number" min="1" max="10000" value="105"></label>
+              <button class="btn" id="gcdBuild">建立余数链</button>
+              <button class="btn secondary" id="gcdPrev">上一步</button>
+              <button class="btn secondary" id="gcdNext">下一步</button>
+            </div>
+            <div class="stage"><div class="division-board" id="gcdStage"></div></div><div class="status" id="gcdStatus"></div><div class="interactive-answer" id="gcdAnswer"></div>
+          </div>`,
+        bezout: `
+          <div class="interactive-lab">
+            <div class="panel-title"><h3>贝祖量杯</h3><span class="tag amber">正系数倒入，负系数取出</span></div>
+            <div class="controls">
+              <label>a <input class="control-input" id="bezA" type="number" min="1" max="10000" value="252"></label>
+              <label>b <input class="control-input" id="bezB" type="number" min="1" max="10000" value="105"></label>
+              <button class="btn" id="bezBuild">计算贝祖系数</button>
+            </div>
+            <div class="stage"><div class="beaker-row" id="bezBeakers"></div><div class="substitution-row" id="bezSubstitution"></div></div>
+            <div class="status" id="bezStatus"></div><div class="interactive-answer" id="bezAnswer"></div>
+          </div>`,
+        diophantine: `
+          <div class="interactive-lab">
+            <div class="panel-title"><h3>整数格点解</h3><span class="tag blue">存在性 + 通解方向</span></div>
+            <div class="controls">
+              <label>a <input class="control-input" id="dioA" type="number" min="1" max="12" value="3"></label>
+              <label>b <input class="control-input" id="dioB" type="number" min="1" max="12" value="5"></label>
+              <label>c <input class="control-input" id="dioC" type="number" min="1" max="120" value="30"></label>
+              <button class="btn" id="dioBuild">绘制整数解</button>
+            </div>
+            <div class="stage"><svg class="visual-svg" id="dioSvg" viewBox="0 0 760 420" role="img" aria-label="一次不定方程整数格点图"></svg></div>
+            <div class="status" id="dioStatus"></div><div class="interactive-answer" id="dioAnswer"></div>
+          </div>`,
+        modular: `
+          <div class="interactive-lab">
+            <div class="panel-title"><h3>模运算时钟</h3><span class="tag amber">有限余数状态</span></div>
+            <div class="controls">
+              <label>a <input class="control-input" id="modA" type="number" min="-100" max="100" value="-11"></label>
+              <label>b <input class="control-input" id="modB" type="number" min="-100" max="100" value="17"></label>
+              <label>运算 <select class="control-select" id="modOp"><option value="+">加</option><option value="-">减</option><option value="*">乘</option></select></label>
+              <label>m <input class="control-input" id="modM" type="number" min="2" max="16" value="6"></label>
+              <button class="btn" id="modBuild">计算</button>
+            </div>
+            <div class="stage"><svg class="visual-svg" id="modSvg" viewBox="0 0 760 390" role="img" aria-label="模运算余数时钟"></svg></div>
+            <div class="status" id="modStatus"></div><div class="interactive-answer" id="modAnswer"></div>
+          </div>`,
+        'fast-power': `
+          <div class="interactive-lab">
+            <div class="panel-title"><h3>平方放大与指数缩小机器</h3><span class="tag blue">左边权重翻倍，右边指数减半</span></div>
+            <div class="controls">
+              <label>a <input class="control-input" id="powA" type="number" min="0" max="100000" value="3"></label>
+              <label>b <input class="control-input" id="powB" type="number" min="0" max="1000000" value="13"></label>
+              <label>mod <input class="control-input" id="powM" type="number" min="2" max="100000" value="1000"></label>
+              <button class="btn" id="powBuild">重新分解</button>
+              <button class="btn secondary" id="powNext">执行下一位</button>
+            </div>
+            <div class="stage"><div class="power-machine" id="powMachine"></div><div class="bit-row" id="powBits"></div><div class="step-table" id="powTable"></div></div>
+            <div class="status" id="powStatus"></div><div class="interactive-answer" id="powAnswer"></div>
+          </div>`,
+        'prime-test': `
+          <div class="interactive-lab">
+            <div class="panel-title"><h3>朴素试除全过程</h3><span class="tag">先完整枚举，再学习剪枝</span></div>
+            <div class="controls">
+              <label>n <input class="control-input" id="primeN" type="number" min="1" max="1000000" value="91"></label>
+              <button class="btn" id="primeBuild">开始判定</button>
+              <button class="btn secondary" id="primeNext">试下一个因子</button>
+            </div>
+            <div class="stage"><div class="flow-line" id="primeFlow"></div><div class="prime-boundary" id="primeBoundary"></div><div class="trial-ruler" id="primeRuler"></div><div class="trial-list" id="primePairs"></div><div class="prime-summary" id="primeSummary"></div></div>
+            <div class="status" id="primeStatus"></div><div class="interactive-answer" id="primeAnswer"></div>
+          </div>`,
+        eratosthenes: `
+          <div class="interactive-lab">
+            <div class="panel-title"><h3>点击互动埃筛</h3><span class="tag amber">点击质数筛除倍数</span></div>
+            <div class="controls">
+              <label>上界 N <input class="control-input" id="eratN" type="number" min="20" max="100" value="60"></label>
+              <button class="btn" id="eratBuild">重建筛表</button>
+              <button class="btn secondary" id="eratNext">筛下一个质数</button>
+            </div>
+            <div class="stage"><div class="number-grid" id="eratGrid"></div></div>
+            <div class="general-sieve-panel">
+              <h4>广义筛：从特殊数向倍数传播信息</h4>
+              <div class="controls"><label>特殊数集合 <input class="control-input" id="eratSpecial" type="text" value="2,3,5"></label><label>传播任务 <select class="control-select" id="eratGeneralMode"><option value="mark">标记特殊数的倍数</option><option value="count">统计特殊约数数量</option><option value="sum">累加特殊约数贡献</option><option value="pairs">统计集合内整除数对</option></select></label><button class="btn secondary" id="eratGeneralBuild">执行广义传播</button></div>
+              <div class="stage"><div class="sieve-value-grid" id="eratGeneralGrid"></div></div><div class="sieve-flow-note" id="eratGeneralNote"></div>
+            </div>
+            <div class="status" id="eratStatus"></div><div class="interactive-answer" id="eratAnswer"></div>
+          </div>`,
+        'linear-sieve': `
+          <div class="interactive-lab">
+            <div class="panel-title"><h3>每个合数唯一来源</h3><span class="tag blue">显示最小质因子 lp</span></div>
+            <div class="controls">
+              <label>上界 N <input class="control-input" id="linearN" type="number" min="20" max="80" value="50"></label>
+              <button class="btn" id="linearBuild">重建</button>
+              <button class="btn secondary" id="linearNext">处理下一个 i</button>
+            </div>
+            <div class="stage"><div class="number-grid" id="linearGrid"></div><div class="sequence-row" id="linearGenerated"></div></div>
+            <div class="general-sieve-panel">
+              <h4>线性递推副产物</h4>
+              <div class="controls"><label>查看函数 <select class="control-select" id="linearGeneralMode"><option value="lp">最小质因子 lp</option><option value="phi">欧拉函数 φ</option><option value="mu">莫比乌斯函数 μ</option><option value="tau">因数个数 τ</option></select></label><button class="btn secondary" id="linearGeneralBuild">切换展示</button></div>
+              <div class="stage"><div class="sieve-value-grid" id="linearGeneralGrid"></div><div class="flow-line" id="linearGeneralFlow"></div></div><div class="sieve-flow-note" id="linearGeneralNote"></div>
+            </div>
+            <div class="status" id="linearStatus"></div><div class="interactive-answer" id="linearAnswer"></div>
+          </div>`,
+        divisors: `
+          <div class="interactive-lab">
+            <div class="panel-title"><h3>因数构造器</h3><span class="tag">每个指数独立选择</span></div>
+            <div class="controls"><label>n <input class="control-input" id="divN" type="number" min="2" max="1000000" value="72"></label><button class="btn" id="divBuild">列出因数</button></div>
+            <div class="stage"><div class="factor-expression" id="divExpression"></div><div class="choice-stack" id="divChoices"></div><div class="divisor-builder-summary" id="divSelected"></div><div class="chip-row" id="divList"></div></div>
+            <div class="status" id="divStatus"></div><div class="interactive-answer" id="divAnswer"></div>
+          </div>`,
+        phi: `
+          <div class="interactive-lab">
+            <div class="panel-title"><h3>互质剩余类环</h3><span class="tag amber">点亮 gcd(x,n)=1</span></div>
+            <div class="controls"><label>n <input class="control-input" id="phiN" type="number" min="2" max="30" value="12"></label><button class="btn" id="phiBuild">重新计数</button></div>
+            <div class="stage"><svg class="visual-svg" id="phiSvg" viewBox="0 0 760 420" role="img" aria-label="欧拉函数互质剩余类圆环"></svg><div class="chip-row" id="phiList"></div></div>
+            <div class="status" id="phiStatus"></div><div class="interactive-answer" id="phiAnswer"></div>
+          </div>`,
+        'phi-sieve': `
+          <div class="interactive-lab">
+            <div class="panel-title"><h3>φ 筛逐轮更新</h3><span class="tag blue">质数向倍数传播比例</span></div>
+            <div class="controls"><label>上界 N <input class="control-input" id="phiSN" type="number" min="10" max="50" value="30"></label><button class="btn" id="phiSBuild">重建</button><button class="btn secondary" id="phiSNext">处理下一个质数</button></div>
+            <div class="stage"><div class="number-grid" id="phiSGrid"></div></div>
+            <div class="status" id="phiSStatus"></div><div class="interactive-answer" id="phiSAnswer"></div>
+          </div>`,
+        'power-orbit': `
+          <div class="interactive-lab">
+            <div class="panel-title"><h3>幂的余数轨道</h3><span class="tag amber">观察周期与回到 1</span></div>
+            <div class="controls"><label>a <input class="control-input" id="orbitA" type="number" min="1" max="50" value="3"></label><label>m <input class="control-input" id="orbitM" type="number" min="2" max="30" value="10"></label><button class="btn" id="orbitBuild">生成轨道</button><button class="btn secondary" id="orbitNext">显示下一项</button></div>
+            <div class="stage"><div class="sequence-row" id="orbitRow"></div></div>
+            <div class="status" id="orbitStatus"></div><div class="interactive-answer" id="orbitAnswer"></div>
+          </div>`,
+        inverse: `
+          <div class="interactive-lab">
+            <div class="panel-title"><h3>乘法映射与逆元</h3><span class="tag">寻找乘积余数 1</span></div>
+            <div class="controls"><label>a <input class="control-input" id="invA" type="number" min="1" max="50" value="5"></label><label>m <input class="control-input" id="invM" type="number" min="2" max="24" value="12"></label><button class="btn" id="invBuild">映射全部余数</button></div>
+            <div class="stage"><div class="pair-grid" id="invGrid"></div></div>
+            <div class="status" id="invStatus"></div><div class="interactive-answer" id="invAnswer"></div>
+          </div>`,
+        wilson: `
+          <div class="interactive-lab">
+            <div class="panel-title"><h3>逆元配对实验</h3><span class="tag blue">剩下 1 与 −1</span></div>
+            <div class="controls"><label>p <input class="control-input" id="wilsonP" type="number" min="2" max="23" value="7"></label><button class="btn" id="wilsonBuild">配对并验证</button></div>
+            <div class="stage"><div class="pair-grid" id="wilsonPairs"></div></div>
+            <div class="status" id="wilsonStatus"></div><div class="interactive-answer" id="wilsonAnswer"></div>
+          </div>`,
+        crt: `
+          <div class="interactive-lab">
+            <div class="panel-title"><h3>两个周期的重合点</h3><span class="tag amber">同一整数满足两条余数</span></div>
+            <div class="controls"><label>r₁ <input class="control-input" id="crtR1" type="number" min="0" max="30" value="2"></label><label>m₁ <input class="control-input" id="crtM1" type="number" min="2" max="20" value="3"></label><label>r₂ <input class="control-input" id="crtR2" type="number" min="0" max="30" value="3"></label><label>m₂ <input class="control-input" id="crtM2" type="number" min="2" max="20" value="5"></label><button class="btn" id="crtBuild">寻找重合点</button></div>
+            <div class="stage"><div id="crtFormula"></div><div id="crtBlocks"></div><div id="crtRows"></div></div>
+            <div class="status" id="crtStatus"></div><div class="interactive-answer" id="crtAnswer"></div>
+          </div>`,
+        'linear-congruence': `
+          <div class="interactive-lab">
+            <div class="panel-title"><h3>线性同余解类</h3><span class="tag blue">点亮模 m 下全部解</span></div>
+            <div class="controls"><label>a <input class="control-input" id="lcA" type="number" min="1" max="50" value="6"></label><label>b <input class="control-input" id="lcB" type="number" min="0" max="50" value="9"></label><label>m <input class="control-input" id="lcM" type="number" min="2" max="30" value="15"></label><button class="btn" id="lcBuild">求解</button></div>
+            <div class="stage"><div class="chip-row" id="lcGrid"></div><div class="flow-line" id="lcFlow"></div></div>
+            <div class="general-sieve-panel">
+              <h4>广义 CRT：模数不互质时如何合并</h4>
+              <div class="controls"><label>r₁ <input class="control-input" id="gcrtR1" type="number" value="2"></label><label>m₁ <input class="control-input" id="gcrtM1" type="number" min="2" value="6"></label><label>r₂ <input class="control-input" id="gcrtR2" type="number" value="8"></label><label>m₂ <input class="control-input" id="gcrtM2" type="number" min="2" value="10"></label><button class="btn secondary" id="gcrtBuild">逐步合并</button></div>
+              <div class="stage"><div id="gcrtSteps"></div></div><div class="sieve-flow-note" id="gcrtNote"></div>
+            </div>
+            <div class="status" id="lcStatus"></div><div class="interactive-answer" id="lcAnswer"></div>
+          </div>`,
+        modeling: `
+          <div class="interactive-lab">
+            <div class="panel-title"><h3>数论工具选择器</h3><span class="tag">根据题目语言反选算法</span></div>
+            <div class="controls" id="modelTypes">
+              <button class="seg-btn active" data-model="single-prime">单次判质</button><button class="seg-btn" data-model="many-prime">批量判质</button><button class="seg-btn" data-model="factor-many">大量分解</button><button class="seg-btn" data-model="equation">整数方程</button><button class="seg-btn" data-model="power">大指数取模</button><button class="seg-btn" data-model="cycles">多周期合并</button>
+            </div>
+            <div class="stage"><div class="flow-line" id="modelFlow"></div><div class="panel" id="modelExplain"></div></div>
+            <div class="status" id="modelStatus"></div><div class="interactive-answer" id="modelAnswer"></div>
+          </div>`
+      };
+      return labs[type] || '';
+    }
+
+    function renderPage() {
+      $('#chapterNav').innerHTML = chapters.map((chapter, index) =>
+        `<a class="nav-link" href="#${chapter.id}"><span class="nav-num">${String(index + 1).padStart(2, '0')}</span>${chapter.title}</a>`
+      ).join('') + `<a class="nav-link" href="#answers"><span class="nav-num">${String(chapters.length + 1).padStart(2, '0')}</span>练习答案</a>`;
+
+      $('#courseRoot').innerHTML = chapters.map((chapter, index) => `
+        <section class="chapter" id="${chapter.id}">
+          <div class="section-inner">
+            <div class="chapter-kicker">${String(index + 1).padStart(2, '0')} · 数论工具</div>
+            ${index === 0 ? `<h1>${chapter.title}</h1>` : `<h2>${chapter.title}</h2>`}
+            <p class="lead">${chapter.lead}</p>
+            <div class="point-grid">
+              ${chapter.points.map((point, pointIndex) => `<article class="point-card"><span class="tag${pointIndex === 1 ? ' blue' : pointIndex === 2 ? ' amber' : ''}">知识点 ${pointIndex + 1}</span><h3>${point[0]}</h3><p>${point[1]}</p><div class="formula"><strong>${point[2]}</strong></div></article>`).join('')}
+            </div>
+            ${labHtml(chapter.lab)}
+            <h3>核心程序</h3>
+            <pre class="code-block"><code>${chapter.code}</code></pre>
+            <div class="exercise-set">
+              <h3>${chapter.title} · 思考练习</h3>
+              <ol>${chapter.exercises.map(item => `<li>${item[0]}</li>`).join('')}</ol>
+              <a class="answer-link" href="#answer-${chapter.id}">查看本节答案 ↓</a>
+            </div>
+          </div>
+        </section>`).join('') + `
+        <section class="chapter" id="answers">
+          <div class="section-inner">
+            <div class="chapter-kicker">${String(chapters.length + 1).padStart(2, '0')} · 自检</div>
+            <h2>思考练习答案</h2>
+            <div class="answer-key">
+              ${chapters.map(chapter => `<div class="answer-group" id="answer-${chapter.id}"><h4>${chapter.title}</h4><p>${chapter.exercises.map((item, index) => `${index + 1}. <code>${item[1]}</code>`).join('　')}</p></div>`).join('')}
+            </div>
+            <p class="footer-note">数论专题 · 单文件离线互动课件</p>
+          </div>
+        </section>`;
+    }
+
+    renderPage();
+
+    function gcd(a, b) {
+      a = Math.abs(a); b = Math.abs(b);
+      while (b) { const r = a % b; a = b; b = r; }
+      return a;
+    }
+    function exgcd(a, b) {
+      if (b === 0) return { g: Math.abs(a), x: a >= 0 ? 1 : -1, y: 0 };
+      const next = exgcd(b, a % b);
+      return { g: next.g, x: next.y, y: next.x - Math.trunc(a / b) * next.y };
+    }
+    function norm(a, m) { return ((a % m) + m) % m; }
+    function lcm(a, b) { return Math.abs(a / gcd(a, b) * b); }
+    function clampInt(value, low, high) {
+      const number = Number(value);
+      if (!Number.isInteger(number)) return low;
+      return Math.max(low, Math.min(high, number));
+    }
+    function factorize(n) {
+      const factors = [];
+      for (let p = 2; p * p <= n; p++) {
+        if (n % p) continue;
+        let e = 0;
+        while (n % p === 0) { n /= p; e++; }
+        factors.push([p, e]);
+      }
+      if (n > 1) factors.push([n, 1]);
+      return factors;
+    }
+    function isPrime(n) {
+      if (n < 2) return false;
+      for (let p = 2; p * p <= n; p++) if (n % p === 0) return false;
+      return true;
+    }
+    function phiValue(n) {
+      let ans = n, x = n;
+      for (let p = 2; p * p <= x; p++) {
+        if (x % p) continue;
+        ans = ans / p * (p - 1);
+        while (x % p === 0) x /= p;
+      }
+      if (x > 1) ans = ans / x * (x - 1);
+      return ans;
+    }
+    function setResult(statusId, answerId, text) {
+      $(statusId).innerHTML = text;
+      $(answerId).innerHTML = `<strong>当前答案</strong>${text}`;
+    }
+
+    // 01 congruence segment comparison
+    function renderRemainder() {
+      let values = $('#remValues').value.split(/[,，\s]+/).filter(Boolean).map(Number).filter(Number.isFinite).map(x => clampInt(Math.trunc(x), 0, 100)).slice(0, 4);
+      if (values.length < 2) values = [5, 17];
+      const m = clampInt($('#remM').value, 2, 12);
+      $('#remValues').value = values.join(','); $('#remM').value = m;
+      const rows = values.map((value, index) => ({value, index, q: Math.floor(value / m), r: norm(value, m)}));
+      const maxQ = Math.max(1, ...rows.map(row => row.q));
+      const residueCount = rows.reduce((map, row) => map.set(row.r, (map.get(row.r) || 0) + 1), new Map());
+      const colors = ['#b66b00', '#0f766e', '#8b5aa5', '#b24f45', '#5678aa', '#77712c'];
+      const residueColors = new Map([...residueCount.keys()].map((r, i) => [r, colors[i % colors.length]]));
+      const head = `<div class="mod-compare-head" style="--q-cols:${maxQ}"><span>整数分解</span>${Array.from({length:maxQ}, (_, i) => `<span>完整模段 ${maxQ-i}</span>`).join('')}<span>共同余数段</span></div>`;
+      const body = rows.map(row => {
+        const ghosts = Array.from({length:maxQ-row.q}, () => `<div class="mod-cell ghost">虚线对位</div>`).join('');
+        const full = Array.from({length:row.q}, () => `<div class="mod-cell full">m=${m}</div>`).join('');
+        const color = residueColors.get(row.r), width = row.r === 0 ? 3 : Math.max(10, row.r / m * 100);
+        const remainder = `<div class="mod-cell remainder-cell"><span class="remainder-fill" style="width:${width}%;background:${color}"></span><span class="remainder-label">余 ${row.r}</span></div>`;
+        return `<div class="mod-compare-row${residueCount.get(row.r)>1?' same-class':''}" style="--q-cols:${maxQ}"><div class="mod-row-label"><strong>${row.value}</strong><small>${row.q}×${m}+${row.r}</small></div>${ghosts}${full}${remainder}</div>`;
+      }).join('');
+      const groups = [...residueCount.entries()].map(([r, count]) => `余 ${r}：${count} 条`).join('；');
+      $('#remLines').innerHTML = `${head}${body}<div class="mod-compare-note">右端余数段对齐；左侧每多一个蓝块，原数就多 ${m}。虚线格专门用来比较“相差了几个完整模数”。</div>`;
+      const equations = rows.map(row => `${row.value}=${row.q}×${m}+${row.r}`).join('；');
+      const allSame = residueCount.size === 1;
+      setResult('#remStatus', '#remAnswer', `${equations}。${groups}。${allSame ? `所有余数段完全相同，任意两数之差都由若干个完整的 ${m} 组成，因此两两同余。` : '余数段颜色或长度不同的两行不同余；只有余数相同的行互相同余。'}`);
+    }
+    $('#remBuild').addEventListener('click', renderRemainder);
+    renderRemainder();
+
+    // 02 interactive factor tree
+    let factorOriginal=360,factorRemain=360,factorSteps=[],factorFound=[],factorDone=false;
+    function buildFactor() {
+      factorOriginal=clampInt($('#factorN').value,2,1000000);
+      $('#factorN').value=factorOriginal;
+      factorRemain=factorOriginal;factorSteps=[];factorFound=[];factorDone=false;
+      $('#factorPick').value=2;
+      renderFactor('从候选因子 2 开始。先判断它是否为质数，再检查能否整除当前节点。');
+    }
+    function factorTreeData(){
+      function build(value,index){
+        if(index>=factorSteps.length)return {value,prime:factorDone&&isPrime(value)};
+        const step=factorSteps[index];
+        return {value,children:[{value:step.p,prime:true},build(step.q,index+1)]};
+      }
+      return build(factorOriginal,0);
+    }
+    function renderFactor(message=''){
+      const tree=factorTreeData();
+      function countLeaves(node){return node.children?node.children.reduce((s,x)=>s+countLeaves(x),0):1;}
+      function depth(node){return node.children?1+Math.max(...node.children.map(depth)):0;}
+      const leaves=countLeaves(tree),maxDepth=depth(tree),width=760,height=Math.max(180,90*(maxDepth+1)+35),unit=(width-80)/Math.max(leaves,2);
+      const nodes=[],lines=[];
+      function place(node,start,d,parent){
+        const leafCount=countLeaves(node),x=40+(start+leafCount/2)*unit,y=36+d*86;
+        nodes.push({node,x,y});
+        if(parent)lines.push([parent.x,parent.y+18,x,y-18]);
+        if(node.children){let cursor=start;node.children.forEach(child=>{const childLeaves=countLeaves(child);place(child,cursor,d+1,{x,y});cursor+=childLeaves;});}
+      }
+      place(tree,0,0,null);
+      let svg=`<svg class="factor-tree-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="逐步因数树">`;
+      lines.forEach(([x1,y1,x2,y2])=>svg+=`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#78918a" stroke-width="3"/>`);
+      nodes.forEach(({node,x,y})=>{
+        const prime=node.prime||(!node.children&&isPrime(node.value)&&factorDone),fill=prime?'#0f766e':node.children?'#2867a8':'#ffdf92',text=prime||node.children?'#fff':'#714100';
+        svg+=`<circle cx="${x}" cy="${y}" r="24" fill="${fill}" stroke="${prime?'#075e57':'#78918a'}" stroke-width="2"/><text x="${x}" y="${y+6}" text-anchor="middle" fill="${text}" font-size="15" font-weight="800">${node.value}</text>`;
+      });
+      svg+='</svg>';
+      $('#factorTree').innerHTML=svg;
+      const summary=factorFound.length?`<span class="math-product">${factorize(factorOriginal).map(([p,e])=>`<span class="math-power">${p}<sup>${e}</sup></span>`).join('<span>×</span>')}</span>`:'等待填写';
+      $('#factorExpression').innerHTML=factorDone?`${factorOriginal} = ${summary}`:`已取出：${factorFound.join(' × ')||'尚未取出质因子'}；当前剩余 ${factorRemain}`;
+      const total=factorize(factorOriginal).reduce((s,[,e])=>s+e,0);
+      $('#factorProgress').style.width=`${Math.min(100,factorFound.length/total*100)}%`;
+      $('#factorRemain').textContent=factorDone?'分解完成':`待分解：${factorRemain}`;
+      const prompt=factorDone?`${factorOriginal} 的质因数已经全部落在叶子节点：${summary}。`:message||`当前节点是 ${factorRemain}，请从候选 ${$('#factorPick').value} 继续尝试。`;
+      setResult('#factorStatus','#factorAnswer',prompt);
+    }
+    function tryFactor(){
+      if(factorDone)return renderFactor('因数树已经完成，可修改 n 后重建。');
+      const p=clampInt($('#factorPick').value,2,1000000);$('#factorPick').value=p;
+      if(!isPrime(p))return renderFactor(`${p} 不是质数，不能直接写到质因数叶子上。`);
+      if(factorRemain%p!==0)return renderFactor(`${p} 不能整除当前节点 ${factorRemain}，余数为 ${factorRemain%p}。请换下一个候选。`);
+      factorFound.push(p);
+      if(p===factorRemain){factorRemain=1;factorDone=true;return renderFactor('最后一个剩余节点本身是质数，因数树完成。');}
+      const q=factorRemain/p;
+      factorSteps.push({value:factorRemain,p,q});
+      factorRemain=q;
+      renderFactor(`${p} 可以整除，已把节点拆成 ${p}×${q}。若 ${q} 仍能被 ${p} 整除，可以继续填写同一个质因子。`);
+    }
+    $('#factorBuild').addEventListener('click',buildFactor);
+    $('#factorTry').addEventListener('click',tryFactor);
+    $('#factorNext').addEventListener('click',()=>{$('#factorPick').value=clampInt($('#factorPick').value,2,999999)+1;renderFactor(`候选已移动到 ${$('#factorPick').value}，请判断它是不是质因子。`);});
+    buildFactor();
+
+    // 03 Euclidean division diagram
+    let gcdSteps = [], gcdIndex = 0, gcdInputs = [252, 105];
+    function buildGcd() {
+      let a = clampInt($('#gcdA').value, 1, 10000), b = clampInt($('#gcdB').value, 1, 10000);
+      $('#gcdA').value = a; $('#gcdB').value = b;
+      if(a<b)[a,b]=[b,a];
+      gcdInputs = [a,b]; gcdSteps = [];
+      while (b) { const q = Math.floor(a / b), r = a % b; gcdSteps.push({a,b,q,r}); a = b; b = r; }
+      gcdIndex = 0; renderGcd();
+    }
+    function renderGcd() {
+      const shown = gcdSteps.slice(0, gcdIndex);
+      const current=gcdSteps[Math.min(gcdIndex,gcdSteps.length-1)];
+      const pieces=current?Array.from({length:Math.min(current.q,8)},()=>`<div class="division-piece" style="flex:1">${current.b}</div>`).join(''):'';
+      const more=current&&current.q>8?`<div class="division-piece" style="flex:.8">…×${current.q}</div>`:'';
+      const remainder=current&&current.r?`<div class="division-piece remainder" style="flex:${Math.max(.35,current.r/current.b)}">${current.r}</div>`:'';
+      const rows = shown.map((s,i)=>`<tr><td>${i+1}</td><td>${s.a}=${s.b}×${s.q}+${s.r}</td><td>gcd(${s.b},${s.r})</td></tr>`).join('');
+      $('#gcdStage').innerHTML = current?`<div class="division-equation">${current.a} = ${current.b} × ${current.q} + ${current.r}</div><div class="division-strip">${pieces}${more}${remainder||'<div class="division-piece remainder" style="flex:.3">余数 0</div>'}</div><div class="flow-line"><div class="flow-node">gcd(${gcdInputs[0]},${gcdInputs[1]})</div>${shown.map(s=>`<span class="flow-arrow">→</span><div class="flow-node">gcd(${s.b},${s.r})</div>`).join('')}</div><div class="step-table"><table><thead><tr><th>步</th><th>辗转相除式</th><th>下一组</th></tr></thead><tbody>${rows||'<tr><td colspan="3">点击“下一步”，余数将成为下一轮除数</td></tr>'}</tbody></table></div>`:'';
+      const done = gcdIndex === gcdSteps.length;
+      const g=gcd(gcdInputs[0],gcdInputs[1]);
+      setResult('#gcdStatus','#gcdAnswer',done?`余数变为 0，最后一个非零余数是 ${g}，所以 gcd(${gcdInputs[0]},${gcdInputs[1]})=${g}。`:`已完成 ${gcdIndex}/${gcdSteps.length} 轮。蓝色整段表示 ${current.b}，黄色表示余数 ${current.r}；下一轮只保留“除数与余数”。`);
+    }
+    $('#gcdBuild').addEventListener('click',buildGcd);
+    $('#gcdNext').addEventListener('click',()=>{gcdIndex=Math.min(gcdSteps.length,gcdIndex+1);renderGcd();});
+    $('#gcdPrev').addEventListener('click',()=>{gcdIndex=Math.max(0,gcdIndex-1);renderGcd();});
+    buildGcd();
+
+    // 04 Bezout measuring cups
+    function renderBezout(){
+      let a=clampInt($('#bezA').value,1,10000),b=clampInt($('#bezB').value,1,10000);
+      $('#bezA').value=a;$('#bezB').value=b;
+      const eg=exgcd(a,b),ca=a*eg.x,cb=b*eg.y,max=Math.max(Math.abs(ca),Math.abs(cb),eg.g),scale=value=>Math.max(8,Math.round(Math.abs(value)/max*175));
+      const cup=(title,value,cls='')=>`<div class="beaker-card"><div class="beaker"><div class="beaker-liquid ${value<0?'negative ':''}${cls}" style="height:${scale(value)}px"></div></div><strong>${title}</strong><div class="beaker-value">${value>=0?'+':''}${value}</div><small>${value<0?'从总量中取出':'向总量中倒入'}</small></div>`;
+      $('#bezBeakers').innerHTML=`${cup(`${a}×${eg.x}`,ca)}<div class="beaker-op">+</div>${cup(`${b}×${eg.y}`,cb)}<div class="beaker-op">=</div>${cup('gcd',eg.g,'result')}`;
+      const equations=[];let x=a,y=b;
+      while(y){const q=Math.floor(x/y),r=x%y;equations.push(`${x}=${y}×${q}+${r}`);x=y;y=r;}
+      $('#bezSubstitution').innerHTML=equations.map((text,i)=>`<span class="chip${i===equations.length-1?' active':' blue'}">${text}</span>`).join('')+`<span class="chip amber">${a}×${eg.x}+${b}×${eg.y}=${eg.g}</span>`;
+      setResult('#bezStatus','#bezAnswer',`蓝色量杯表示正贡献，红色量杯表示负贡献。${ca>=0?ca:`(${ca})`}+${cb>=0?cb:`(${cb})`}=${eg.g}，因此一组贝祖系数是 x=${eg.x}、y=${eg.y}。`);
+    }
+    $('#bezBuild').addEventListener('click',renderBezout);renderBezout();
+
+    // 05 Diophantine lattice
+    function renderDio() {
+      const a=clampInt($('#dioA').value,1,12), b=clampInt($('#dioB').value,1,12), c=clampInt($('#dioC').value,1,120);
+      $('#dioA').value=a; $('#dioB').value=b; $('#dioC').value=c;
+      const g=gcd(a,b), has=c%g===0, max=12, ox=65, oy=355, sx=52, sy=25;
+      let svg=`<line x1="${ox}" y1="${oy}" x2="${ox+max*sx}" y2="${oy}" stroke="#6f8580" stroke-width="2"/><line x1="${ox}" y1="${oy}" x2="${ox}" y2="${oy-max*sy}" stroke="#6f8580" stroke-width="2"/>`;
+      for(let x=0;x<=max;x++){svg+=`<line x1="${ox+x*sx}" y1="${oy}" x2="${ox+x*sx}" y2="${oy-max*sy}" stroke="#e1e8e5"/><text x="${ox+x*sx}" y="${oy+22}" text-anchor="middle">${x}</text>`;}
+      for(let y=0;y<=max;y++){svg+=`<line x1="${ox}" y1="${oy-y*sy}" x2="${ox+max*sx}" y2="${oy-y*sy}" stroke="#e1e8e5"/><text x="${ox-20}" y="${oy-y*sy+5}" text-anchor="middle">${y}</text>`;}
+      const points=[];
+      for(let x=0;x<=max;x++)for(let y=0;y<=max;y++)if(a*x+b*y===c)points.push([x,y]);
+      points.forEach(([x,y])=>svg+=`<circle cx="${ox+x*sx}" cy="${oy-y*sy}" r="9" fill="#0f766e"/><text x="${ox+x*sx+12}" y="${oy-y*sy-10}" fill="#0f625a">(${x},${y})</text>`);
+      $('#dioSvg').innerHTML=svg;
+      const eg=exgcd(a,b);
+      const x0=has?eg.x*(c/g):0, y0=has?eg.y*(c/g):0;
+      setResult('#dioStatus','#dioAnswer',has?`gcd(${a},${b})=${g} 能整除 ${c}，有整数解。一组特解 (${x0},${y0})；通解 x=${x0}+${b/g}t，y=${y0}-${a/g}t。图中点亮 ${points.length} 个非负小范围解。`:`gcd(${a},${b})=${g} 不能整除 ${c}，所以没有整数解。`);
+    }
+    $('#dioBuild').addEventListener('click',renderDio); renderDio();
+
+    // 05 modular clock
+    function renderMod() {
+      const a=clampInt($('#modA').value,-100,100), b=clampInt($('#modB').value,-100,100), m=clampInt($('#modM').value,2,16), op=$('#modOp').value;
+      $('#modA').value=a;$('#modB').value=b;$('#modM').value=m;
+      const ra=norm(a,m), rb=norm(b,m), raw=op==='+'?a+b:op==='-'?a-b:a*b, rr=norm(raw,m);
+      const cx=380,cy=190,r=135; let svg=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="#fff" stroke="#78918a" stroke-width="3"/>`;
+      for(let i=0;i<m;i++){const angle=-Math.PI/2+2*Math.PI*i/m,x=cx+r*Math.cos(angle),y=cy+r*Math.sin(angle);const color=i===rr?'#b66b00':i===ra||i===rb?'#2867a8':'#0f766e';svg+=`<circle cx="${x}" cy="${y}" r="${i===rr?20:16}" fill="${color}"/><text x="${x}" y="${y+5}" text-anchor="middle" fill="#fff" font-weight="800">${i}</text>`;}
+      svg+=`<text x="${cx}" y="${cy-8}" text-anchor="middle" font-size="22" font-weight="800">${ra} ${op} ${rb}</text><text x="${cx}" y="${cy+24}" text-anchor="middle" fill="#b66b00" font-size="20">≡ ${rr} (mod ${m})</text>`;
+      $('#modSvg').innerHTML=svg;
+      setResult('#modStatus','#modAnswer',`${a} 的标准余数是 ${ra}，${b} 的标准余数是 ${rb}；${a}${op}${b}=${raw}，规范余数为 ${rr}。`);
+    }
+    $('#modBuild').addEventListener('click',renderMod); renderMod();
+
+    // 07 fast power
+    let powStates=[],powIndex=0,powFinal=1,powOriginalB=0;
+    function buildPow(){
+      let a=clampInt($('#powA').value,0,100000),b=clampInt($('#powB').value,0,1000000),m=clampInt($('#powM').value,2,100000);
+      $('#powA').value=a;$('#powB').value=b;$('#powM').value=m;
+      powOriginalB=b;let ans=1%m,base=a%m,k=0;powStates=[];
+      if(b===0)powStates.push({b:0,bit:0,ans,base,k});
+      while(b){powStates.push({b,bit:b&1,ans,base,k});if(b&1)ans=ans*base%m;base=base*base%m;b=Math.floor(b/2);k++;}
+      powFinal=ans;powIndex=0;
+      $('#powBits').innerHTML=powOriginalB.toString(2).split('').reverse().map((bit,i)=>`<span class="bit-chip${bit==='1'?' active':''}">${bit}<small>2<sup>${i}</sup></small></span>`).join('');
+      renderPow();
+    }
+    function renderPow(){
+      const state=powStates[Math.min(powIndex,powStates.length-1)],done=powIndex===powStates.length;
+      const growWidth=Math.min(100,46+state.k*9),shrinkWidth=powOriginalB===0?20:Math.max(20,Math.round(state.b/Math.max(powOriginalB,1)*100));
+      $('#powMachine').innerHTML=`<div class="power-side"><h4>平方乘数不断放大</h4><div class="power-bar" style="width:${growWidth}%;height:${64+state.k*10}px"><span class="power-math" title="a 的 2^${state.k} 次方"><span class="power-base-symbol">a</span><span class="power-exp-symbol">2<sup>${state.k}</sup></span></span><span class="power-mod-line">mod m = ${state.base}</span></div></div><div class="power-center"><div class="power-bit">${state.bit}</div><strong>${state.bit?'乘入 ans':'本轮跳过'}</strong><p>当前 ans=${done?powFinal:state.ans}</p></div><div class="power-side"><h4>剩余指数不断缩小</h4><div class="power-bar shrink" style="width:${shrinkWidth}%;height:${Math.max(42,126-state.k*12)}px">${state.b}</div><p>每轮向右移一位</p></div>`;
+      const rows=powStates.slice(0,powIndex).map((s,i)=>`<tr><td>${i}</td><td>${s.b}</td><td>${s.bit}</td><td>${s.ans}</td><td>${s.base}</td><td>${s.bit?'乘入当前 base':'跳过'}</td></tr>`).join('');
+      $('#powTable').innerHTML=`<table><thead><tr><th>轮</th><th>b</th><th>最低位</th><th>ans</th><th>base</th><th>动作</th></tr></thead><tbody>${rows||'<tr><td colspan="6">点击“执行下一位”</td></tr>'}</tbody></table>`;
+      setResult('#powStatus','#powAnswer',done?`全部二进制位处理完毕，答案为 ${powFinal}。左侧每轮平方形成 a、a²、a⁴、a⁸……，右侧指数同步减半。`:`已处理 ${powIndex}/${powStates.length} 位。当前查看 2^${state.k} 位：乘数权重翻倍为 a^(2^${state.k})，剩余指数缩小为 ${state.b}。`);
+    }
+    $('#powBuild').addEventListener('click',buildPow);$('#powNext').addEventListener('click',()=>{powIndex=Math.min(powStates.length,powIndex+1);renderPow();});buildPow();
+
+    // 08 prime testing
+    let primeTrials=[],primeIndex=0,primeValue=91,primeFactor=0;
+    function buildPrime(){
+      primeValue=clampInt($('#primeN').value,1,1000000);$('#primeN').value=primeValue;primeTrials=[];primeFactor=0;
+      for(let i=2;i<=primeValue/i;i++)primeTrials.push(i);
+      primeIndex=0;renderPrime();
+    }
+    function renderPrime(){
+      const tested=primeTrials.slice(0,primeIndex);
+      primeFactor=tested.find(i=>primeValue%i===0)||0;
+      const floorRoot=Math.floor(Math.sqrt(primeValue)),ceilRoot=Math.ceil(Math.sqrt(primeValue));
+      $('#primeFlow').innerHTML=`<div class="flow-node">检查：${primeValue}</div><span class="flow-arrow">→</span><div class="flow-node">谁的平方接近 ${primeValue}？</div><span class="flow-arrow">→</span><div class="flow-node">${ceilRoot}<sup>2</sup>=${ceilRoot*ceilRoot}</div>`;
+      $('#primeBoundary').innerHTML=`<div><strong>左侧平方</strong><br>${floorRoot}<sup>2</sup>=${floorRoot*floorRoot}</div><div><strong>目标数</strong><br>${primeValue}</div><div><strong>停止边界</strong><br>${ceilRoot}<sup>2</sup>=${ceilRoot*ceilRoot}${ceilRoot*ceilRoot>primeValue?' &gt; '+primeValue:''}</div>`;
+      $('#primeRuler').innerHTML=Array.from({length:Math.max(1,ceilRoot)},(_,k)=>k+1).map(i=>`<span class="trial-mark${tested.includes(i)?' tested':''}${i===primeFactor?' factor':''}${i===ceilRoot?' boundary':''}">${i}</span>`).join('');
+      $('#primePairs').innerHTML=tested.length?tested.map(i=>{const r=primeValue%i,hit=r===0;return `<div class="trial-row${hit?' factor-row':''}"><strong>${primeValue} % ${i} = ${r}</strong><span class="trial-result">${hit?'整除，停止':'继续'}</span></div>`;}).join(''):'<div class="trial-row"><strong>等待从 2 开始试除</strong><span class="trial-result">未开始</span></div>';
+      const shape=primeValue>3&&(primeValue%6===1||primeValue%6===5);
+      $('#primeSummary').innerHTML=`<div><strong>朴素试除</strong><br>2 到 ${floorRoot}，最多 ${primeTrials.length} 次</div><div><strong>偶数与 6k±1 优化</strong><br>${primeValue>3?(shape?'通过必要条件，仍需试除':'可提前排除部分候选'):'小数单独处理'}</div><div><strong>多次询问</strong><br>不要重复试除，改用筛法预处理</div>`;
+      let text;
+      if(primeValue<2)text=`${primeValue} 不是质数。`;
+      else if(primeValue===2)text='2 是唯一的偶质数。';
+      else if(primeFactor)text=`${primeValue}%${primeFactor}=0，找到 ${primeValue}=${primeFactor}×${primeValue/primeFactor}，立即判定不是质数。`;
+      else if(primeIndex===primeTrials.length)text=`2～${floorRoot} 都不能整除 ${primeValue}；更大的因数若存在，其配对因数必不超过平方根，因此 ${primeValue} 是质数。`;
+      else text=`已写出 ${primeIndex}/${primeTrials.length} 条取模算式；下一步计算 ${primeValue}%${primeTrials[primeIndex]}。`;
+      setResult('#primeStatus','#primeAnswer',text);
+    }
+    $('#primeBuild').addEventListener('click',buildPrime);$('#primeNext').addEventListener('click',()=>{if(!primeFactor)primeIndex=Math.min(primeTrials.length,primeIndex+1);renderPrime();});buildPrime();
+
+    // 08 Eratosthenes sieve
+    let eratN=60,eratMarked=[],eratProcessed=new Set();
+    function buildErat(){eratN=clampInt($('#eratN').value,20,100);$('#eratN').value=eratN;eratMarked=Array(eratN+1).fill(0);eratMarked[0]=eratMarked[1]=-1;eratProcessed=new Set();renderErat();renderEratGeneral();}
+    function applyErat(p){
+      if(!isPrime(p)||p*p>eratN||eratProcessed.has(p))return;
+      eratProcessed.add(p);for(let j=p*p;j<=eratN;j+=p)if(!eratMarked[j])eratMarked[j]=p;renderErat(p);
+    }
+    function renderErat(current=0){
+      $('#eratGrid').innerHTML=Array.from({length:eratN-1},(_,k)=>k+2).map(x=>`<button class="number-cell${eratMarked[x]>0?' crossed':''}${eratProcessed.has(x)?' prime':''}${x===current?' current':''}" data-erat="${x}">${x}${eratMarked[x]>0?`<small>由 ${eratMarked[x]} 筛</small>`:''}</button>`).join('');
+      const next=Array.from({length:Math.floor(Math.sqrt(eratN))-1},(_,k)=>k+2).find(p=>isPrime(p)&&!eratProcessed.has(p));
+      const primes=Array.from({length:eratN-1},(_,k)=>k+2).filter(x=>eratMarked[x]===0);
+      setResult('#eratStatus','#eratAnswer',next?`点击 ${next} 或“筛下一个质数”，将从 ${next*next} 开始划去它的倍数。当前未划去 ${primes.length} 个数。`:`筛选完成：2～${eratN} 中共有 ${primes.length} 个质数。`);
+    }
+    $('#eratBuild').addEventListener('click',buildErat);$('#eratNext').addEventListener('click',()=>{const p=Array.from({length:Math.floor(Math.sqrt(eratN))-1},(_,k)=>k+2).find(x=>isPrime(x)&&!eratProcessed.has(x));if(p)applyErat(p);});
+    $('#eratGrid').addEventListener('click',e=>{const b=e.target.closest('[data-erat]');if(b)applyErat(Number(b.dataset.erat));});buildErat();
+
+    function renderEratGeneral(){
+      const special=[...new Set($('#eratSpecial').value.split(/[,，\s]+/).filter(Boolean).map(Number).filter(Number.isFinite).map(x=>clampInt(Math.trunc(x),1,eratN)))].sort((a,b)=>a-b);
+      if(!special.length)special.push(2);
+      $('#eratSpecial').value=special.join(',');
+      const mode=$('#eratGeneralMode').value;
+      let totalPairs=0;
+      $('#eratGeneralGrid').innerHTML=Array.from({length:eratN},(_,k)=>k+1).map(x=>{
+        const sources=special.filter(d=>x%d===0),inSet=special.includes(x);if(inSet)totalPairs+=sources.length;
+        let text,active=false;
+        if(mode==='mark'){text=sources.length?`由 ${sources.join(',')} 标记`:'未命中';active=sources.length>0;}
+        else if(mode==='count'){text=`特殊约数 ${sources.length} 个`;active=sources.length>0;}
+        else if(mode==='sum'){text=`贡献和 ${sources.reduce((s,d)=>s+d,0)}`;active=sources.length>0;}
+        else {text=inSet?`集合内约数 ${sources.length} 个`:'不在集合中';active=inSet;}
+        return `<div class="sieve-value-card${active?' active':''}"><span class="sieve-value-top">${x}</span><span class="sieve-value-bottom">${text}</span></div>`;
+      }).join('');
+      const task={mark:'只要收到至少一次传播就标记',count:'每收到一次传播就把计数加 1',sum:'把所有能整除它的特殊数累加',pairs:'只统计集合元素之间 d|x 的有序数对'}[mode];
+      const tail=mode==='pairs'?`；当前集合共有 ${totalPairs} 个整除数对`:`；例如 ${special[0]} 会传播到 ${special[0]},${special[0]*2},${special[0]*3}…`;
+      $('#eratGeneralNote').innerHTML=`传播源：[${special.join(', ')}]。${task}${tail}。核心循环始终是 <strong>for (j=d; j≤N; j+=d)</strong>。`;
+    }
+    $('#eratGeneralBuild').addEventListener('click',renderEratGeneral);$('#eratGeneralMode').addEventListener('change',renderEratGeneral);
+
+    // 09 linear sieve
+    let linearN=50,linearI=2,linearLp=[],linearPrimes=[];
+    function buildLinear(){linearN=clampInt($('#linearN').value,20,80);$('#linearN').value=linearN;linearLp=Array(linearN+1).fill(0);linearPrimes=[];linearI=2;renderLinear([]);renderLinearGeneral();}
+    function stepLinear(){if(linearI>linearN){renderLinear([]);return renderLinearGeneral();}const i=linearI,generated=[];if(linearLp[i]===0){linearLp[i]=i;linearPrimes.push(i);}for(const p of linearPrimes){if(p>linearLp[i]||i*p>linearN)break;linearLp[i*p]=p;generated.push([i*p,p]);}linearI++;renderLinear(generated,i);renderLinearGeneral(i);}
+    function renderLinear(generated,current=0){
+      $('#linearGrid').innerHTML=Array.from({length:linearN-1},(_,k)=>k+2).map(x=>`<div class="number-cell${linearLp[x]===x?' prime':''}${x===current?' current':''}">${x}<small>lp=${linearLp[x]||'?'}</small></div>`).join('');
+      $('#linearGenerated').innerHTML=generated.length?generated.map(([x,p])=>`<span class="chip blue">${x} 由 ${x/p}×${p}</span>`).join(''):'<span class="chip">等待处理</span>';
+      setResult('#linearStatus','#linearAnswer',linearI<=linearN?`下一步处理 i=${linearI}。已发现质数：[${linearPrimes.join(', ')}]。`:`处理完成；每个合数只保留最小质因子对应的唯一来源。`);
+    }
+    $('#linearBuild').addEventListener('click',buildLinear);$('#linearNext').addEventListener('click',stepLinear);buildLinear();
+
+    function linearFunctionTable(n){
+      const lp=Array(n+1).fill(0),phi=Array(n+1).fill(0),mu=Array(n+1).fill(0),tau=Array(n+1).fill(0),exp=Array(n+1).fill(0),primes=[];
+      lp[1]=1;phi[1]=1;mu[1]=1;tau[1]=1;
+      for(let i=2;i<=n;i++){
+        if(lp[i]===0){lp[i]=i;phi[i]=i-1;mu[i]=-1;tau[i]=2;exp[i]=1;primes.push(i);}
+        for(const p of primes){const v=i*p;if(v>n)break;lp[v]=p;if(i%p===0){phi[v]=phi[i]*p;mu[v]=0;exp[v]=exp[i]+1;tau[v]=tau[i]/(exp[i]+1)*(exp[v]+1);break;}phi[v]=phi[i]*(p-1);mu[v]=-mu[i];exp[v]=1;tau[v]=tau[i]*2;}
+      }
+      return {lp,phi,mu,tau};
+    }
+    function renderLinearGeneral(current=0){
+      const table=linearFunctionTable(linearN),mode=$('#linearGeneralMode').value,values=table[mode],label={lp:'lp',phi:'φ',mu:'μ',tau:'τ'}[mode];
+      $('#linearGeneralGrid').innerHTML=Array.from({length:linearN-1},(_,k)=>k+2).map(x=>`<div class="sieve-value-card${x===current?' active':''}"><span class="sieve-value-top">${x}</span><span class="sieve-value-bottom">${label}(${x})=${values[x]}</span></div>`).join('');
+      const target=current||Math.min(36,linearN),chain=[];let x=target;while(x>1){chain.push(x);x=Math.floor(x/table.lp[x]);}chain.push(1);
+      $('#linearGeneralFlow').innerHTML=chain.map((v,i)=>`${i?'<span class="flow-arrow">→</span>':''}<div class="flow-node">${v}${v>1?` ÷ lp=${table.lp[v]}`:''}</div>`).join('');
+      const rule={lp:'每个合数只由最小质因子对应的来源生成一次。',phi:'若 p|i，则 φ(ip)=φ(i)·p；否则 φ(ip)=φ(i)·(p−1)。',mu:'若 p|i，则 μ(ip)=0；否则 μ(ip)=−μ(i)。',tau:'若 p 的指数从 e 增为 e+1，就把因数个数中的 (e+1) 替换为 (e+2)。'}[mode];
+      $('#linearGeneralNote').innerHTML=`当前查看 <strong>${label}</strong>：${rule} 下方除法链展示如何沿最小质因子把 ${target} 逐步拆到 1。`;
+    }
+    $('#linearGeneralBuild').addEventListener('click',()=>renderLinearGeneral());$('#linearGeneralMode').addEventListener('change',()=>renderLinearGeneral());
+
+    // 10 divisor formulas
+    let divFactorData=[],divSelections={};
+    function renderDivisors(reset=true){
+      const n=clampInt($('#divN').value,2,1000000);$('#divN').value=n;const f=factorize(n);divFactorData=f;
+      if(reset||f.some(([p])=>divSelections[p]===undefined)){divSelections={};f.forEach(([p])=>divSelections[p]=0);}
+      $('#divExpression').innerHTML=`<span class="math-product"><span>${n} =</span>${f.map(([p,e],i)=>`${i?'<span>×</span>':''}<span class="math-power">${p}<sup>${e}</sup></span>`).join('')}</span>`;
+      $('#divChoices').innerHTML=f.map(([p,e])=>`<div class="choice-line"><strong>质数 ${p}</strong><div class="divisor-choice-grid">${Array.from({length:e+1},(_,k)=>`<button type="button" class="divisor-choice-card${divSelections[p]===k?' selected':''}" data-div-prime="${p}" data-div-exp="${k}"><span class="divisor-choice-value">${Math.pow(p,k)}</span><span class="divisor-choice-index">第 ${k+1} 种 · 指数 ${k}</span></button>`).join('')}</div></div>`).join('');
+      const selectedParts=f.map(([p])=>({p,e:divSelections[p],value:Math.pow(p,divSelections[p])})),selectedValue=selectedParts.reduce((s,item)=>s*item.value,1);
+      $('#divSelected').innerHTML=`当前选择：<span class="math-product">${selectedParts.map((item,i)=>`${i?'<span>×</span>':''}<span class="math-power">${item.p}<sup>${item.e}</sup></span>`).join('')}<span>= ${selectedValue}</span></span>；每一行独立选一种，乘积就是 ${n} 的一个因数。`;
+      let divisors=[1];for(const [p,e] of f){const old=[...divisors];let pw=1;for(let k=1;k<=e;k++){pw*=p;old.forEach(v=>divisors.push(v*pw));}}divisors.sort((a,b)=>a-b);
+      $('#divList').innerHTML=divisors.map(d=>`<span class="chip${d*d===n?' amber':''}">${d}</span>`).join('');
+      const sum=divisors.reduce((s,x)=>s+x,0);
+      setResult('#divStatus','#divAnswer',`共有 τ(${n})=${divisors.length} 个正因数，因数和 σ(${n})=${sum}。${Number.isInteger(Math.sqrt(n))?'平方根因数被单独点亮，因此因数个数为奇数。':'因数两两配对，因此因数个数为偶数。'}`);
+    }
+    $('#divBuild').addEventListener('click',()=>renderDivisors(true));
+    $('#divChoices').addEventListener('click',e=>{const button=e.target.closest('[data-div-prime]');if(!button)return;divSelections[Number(button.dataset.divPrime)]=Number(button.dataset.divExp);renderDivisors(false);});renderDivisors();
+
+    // 11 phi circle
+    function renderPhi(){
+      const n=clampInt($('#phiN').value,2,30);$('#phiN').value=n;const cx=380,cy=205,r=145;let svg=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="#fff" stroke="#78918a" stroke-width="3"/>`;const good=[];
+      for(let x=1;x<=n;x++){const angle=-Math.PI/2+2*Math.PI*(x-1)/n,px=cx+r*Math.cos(angle),py=cy+r*Math.sin(angle),ok=gcd(x,n)===1;if(ok)good.push(x);svg+=`<circle cx="${px}" cy="${py}" r="${ok?15:11}" fill="${ok?'#0f766e':'#d7dfdc'}"/><text x="${px}" y="${py+5}" text-anchor="middle" fill="${ok?'#fff':'#52635d'}" font-size="12" font-weight="800">${x}</text>`;}svg+=`<text x="${cx}" y="${cy}" text-anchor="middle" font-size="28" font-weight="800">φ(${n})=${good.length}</text>`;
+      $('#phiSvg').innerHTML=svg;$('#phiList').innerHTML=good.map(x=>`<span class="chip active">${x}</span>`).join('');
+      setResult('#phiStatus','#phiAnswer',`1～${n} 中与 ${n} 互质的是 [${good.join(', ')}]，所以 φ(${n})=${good.length}。`);
+    }
+    $('#phiBuild').addEventListener('click',renderPhi);renderPhi();
+
+    // 12 phi sieve
+    let phiSN=30,phiS=[],phiPrimes=[],phiPos=0;
+    function buildPhiS(){phiSN=clampInt($('#phiSN').value,10,50);$('#phiSN').value=phiSN;phiS=Array.from({length:phiSN+1},(_,i)=>i);phiPrimes=Array.from({length:phiSN-1},(_,k)=>k+2).filter(isPrime);phiPos=0;renderPhiS();}
+    function stepPhiS(){if(phiPos>=phiPrimes.length)return;const p=phiPrimes[phiPos++];for(let j=p;j<=phiSN;j+=p)phiS[j]=phiS[j]/p*(p-1);renderPhiS(p);}
+    function renderPhiS(current=0){$('#phiSGrid').innerHTML=Array.from({length:phiSN},(_,k)=>k+1).map(x=>`<div class="number-cell${x%current===0&&current?' current':''}">${x}<small>φ=${phiS[x]}</small></div>`).join('');const p=phiPrimes[phiPos];setResult('#phiSStatus','#phiSAnswer',p?`下一轮处理质数 ${p}，把它的每个倍数乘上 (${p}−1)/${p}。`:`全部质数处理完成，φ[1..${phiSN}] 已得到。`);}
+    $('#phiSBuild').addEventListener('click',buildPhiS);$('#phiSNext').addEventListener('click',stepPhiS);buildPhiS();
+
+    // 13 residue power orbit
+    let orbit=[],orbitPos=0,orbitA=3,orbitM=10;
+    function buildOrbit(){orbitA=clampInt($('#orbitA').value,1,50);orbitM=clampInt($('#orbitM').value,2,30);$('#orbitA').value=orbitA;$('#orbitM').value=orbitM;orbit=[];let value=1;const seen=new Map();for(let e=0;e<=orbitM*2;e++){if(seen.has(value)){orbit.push({e,value,repeat:seen.get(value)});break;}seen.set(value,e);orbit.push({e,value});value=value*orbitA%orbitM;}orbitPos=1;renderOrbit();}
+    function renderOrbit(){const shown=orbit.slice(0,orbitPos);$('#orbitRow').innerHTML=shown.map(item=>`<span class="chip${item.value===1?' active':item.repeat!==undefined?' amber':' blue'}">${orbitA}<sup>${item.e}</sup>≡${item.value}</span>`).join('');const coprime=gcd(orbitA,orbitM)===1;setResult('#orbitStatus','#orbitAnswer',`${orbitA} 与 ${orbitM}${coprime?'互质，可使用欧拉定理，φ('+orbitM+')='+phiValue(orbitM):'不互质，不能机械地按 φ(m) 降幂'}。${orbitPos===orbit.length?'轨道已出现重复，周期结构完成。':`已显示 ${orbitPos}/${orbit.length} 项。`}`);}
+    $('#orbitBuild').addEventListener('click',buildOrbit);$('#orbitNext').addEventListener('click',()=>{orbitPos=Math.min(orbit.length,orbitPos+1);renderOrbit();});buildOrbit();
+
+    // 14 inverse map
+    function renderInverse(){const a=clampInt($('#invA').value,1,50),m=clampInt($('#invM').value,2,24);$('#invA').value=a;$('#invM').value=m;let inverse=-1;$('#invGrid').innerHTML=Array.from({length:m},(_,x)=>{const product=a*x%m;if(product===1)inverse=x;return `<div class="pair-card${product===1?' active-pair':''}">${a}×${x}<br><strong>≡ ${product}</strong></div>`;}).join('');setResult('#invStatus','#invAnswer',inverse>=0?`gcd(${a},${m})=1，逆元是 ${inverse}，因为 ${a}×${inverse}≡1 (mod ${m})。`:`gcd(${a},${m})=${gcd(a,m)}>1，没有任何乘积余数能等于 1，所以逆元不存在。`);}
+    $('#invBuild').addEventListener('click',renderInverse);renderInverse();
+
+    // 15 Wilson pairing
+    function renderWilson(){const p=clampInt($('#wilsonP').value,2,23);$('#wilsonP').value=p;const used=new Set(),pairs=[];for(let x=1;x<p;x++){if(used.has(x))continue;let inv=-1;for(let y=1;y<p;y++)if(x*y%p===1){inv=y;break;}used.add(x);if(inv>=0)used.add(inv);pairs.push([x,inv]);}$('#wilsonPairs').innerHTML=pairs.map(([x,y])=>`<div class="pair-card"><strong>${y<0?`${x} 无逆元`:x===y?`${x} 自逆`:`${x} ↔ ${y}`}</strong><br>${y<0?'不能配成积 1':'积 ≡ 1'}</div>`).join('');let f=1;for(let i=1;i<p;i++)f=f*i%p;setResult('#wilsonStatus','#wilsonAnswer',`${p}${isPrime(p)?' 是质数':' 不是质数'}；(${p}−1)! mod ${p}=${f}，而 −1 的标准余数是 ${p-1}。${f===p-1?'满足':'不满足'}威尔逊条件。`);}
+    $('#wilsonBuild').addEventListener('click',renderWilson);renderWilson();
+
+    // 16 CRT construction and overlap verification
+    function inverseNumber(a,m){const result=exgcd(a,m);return result.g===1?norm(result.x,m):-1;}
+    function renderCrt(){
+      const r1Raw=clampInt($('#crtR1').value,0,30),m1=clampInt($('#crtM1').value,2,20),r2Raw=clampInt($('#crtR2').value,0,30),m2=clampInt($('#crtM2').value,2,20),r1=norm(r1Raw,m1),r2=norm(r2Raw,m2),g=gcd(m1,m2),period=lcm(m1,m2),limit=period*2;
+      $('#crtR1').value=r1Raw;$('#crtM1').value=m1;$('#crtR2').value=r2Raw;$('#crtM2').value=m2;
+      const a=[],b=[],both=[];for(let x=0;x<=limit;x++){if(x%m1===r1)a.push(x);if(x%m2===r2)b.push(x);if(x%m1===r1&&x%m2===r2)both.push(x);}
+      const compatible=(r2-r1)%g===0;
+      if(g===1){
+        const M=m1*m2,M1=M/m1,M2=M/m2,t1=inverseNumber(M1,m1),t2=inverseNumber(M2,m2),part1=r1*M1*t1,part2=r2*M2*t2,x0=norm(part1+part2,M);
+        $('#crtFormula').innerHTML=`<div class="crt-step-grid"><div class="crt-step-card"><strong>1. 总模数 M</strong>M=${m1}×${m2}=${M}</div><div class="crt-step-card"><strong>2. 缺一模数 Mᵢ</strong>M₁=${M1}，M₂=${M2}</div><div class="crt-step-card"><strong>3. 校正系数 tᵢ</strong>t₁=${t1}，t₂=${t2}</div><div class="crt-step-card"><strong>4. 合并并取模</strong>x₀=(${part1}+${part2}) mod ${M}=${x0}</div></div>`;
+        $('#crtBlocks').innerHTML=`<div class="crt-block-grid"><div class="crt-block-card"><strong>r₁M₁t₁=${r1}×${M1}×${t1}=${part1}</strong><div class="crt-checks"><span>mod ${m1} → ${norm(part1,m1)}=r₁</span><span>mod ${m2} → ${norm(part1,m2)}=0</span></div></div><div class="crt-plus">+</div><div class="crt-block-card amber"><strong>r₂M₂t₂=${r2}×${M2}×${t2}=${part2}</strong><div class="crt-checks"><span>mod ${m1} → ${norm(part2,m1)}=0</span><span>mod ${m2} → ${norm(part2,m2)}=r₂</span></div></div></div><div class="crt-final">x=(${part1}+${part2}) mod ${M}=${x0}，所以 x≡${x0} (mod ${M})</div>`;
+      }else{
+        $('#crtFormula').innerHTML=`<div class="crt-step-grid"><div class="crt-step-card"><strong>标准 CRT 前提</strong>gcd(${m1},${m2})=${g}≠1</div><div class="crt-step-card"><strong>兼容性检查</strong>${g}|(${r2}−${r1})：${compatible?'成立':'不成立'}</div><div class="crt-step-card"><strong>本节结论</strong>${compatible?'转入广义 CRT 合并':'两式冲突，无解'}</div><div class="crt-step-card"><strong>合并周期</strong>${compatible?period:'不存在'}</div></div>`;
+        $('#crtBlocks').innerHTML=`<div class="crt-final">Mᵢ、tᵢ 的标准构造要求模数互质；当前数据请看下一节“广义 CRT”的消元过程。</div>`;
+      }
+      $('#crtRows').innerHTML=`<h4>结果核验：x≡${r1} (mod ${m1})</h4><div class="sequence-row">${a.map(x=>`<span class="chip${both.includes(x)?' active':' blue'}">${x}</span>`).join('')}</div><h4>x≡${r2} (mod ${m2})</h4><div class="sequence-row">${b.map(x=>`<span class="chip${both.includes(x)?' active':' amber'}">${x}</span>`).join('')}</div>`;
+      setResult('#crtStatus','#crtAnswer',compatible?`构造结果与周期核验一致：最小非负解为 ${both[0]}，之后每隔 ${period} 重复。`:`gcd(${m1},${m2})=${g} 不能整除差值 ${r2-r1}，两条同余式无公共解。`);
+    }
+    $('#crtBuild').addEventListener('click',renderCrt);renderCrt();
+
+    // 17 linear congruence
+    function renderLinearCongruence(){const a=clampInt($('#lcA').value,1,50),b=clampInt($('#lcB').value,0,50),m=clampInt($('#lcM').value,2,30);$('#lcA').value=a;$('#lcB').value=b;$('#lcM').value=m;const solutions=Array.from({length:m},(_,x)=>x).filter(x=>a*x%m===b%m),g=gcd(a,m);$('#lcGrid').innerHTML=Array.from({length:m},(_,x)=>`<span class="chip${solutions.includes(x)?' active':''}">${x}</span>`).join('');$('#lcFlow').innerHTML=`<div class="flow-node">gcd(${a},${m})=${g}</div><span class="flow-arrow">→</span><div class="flow-node">${g}|${b} ? ${b%g===0?'是':'否'}</div><span class="flow-arrow">→</span><div class="flow-node">${solutions.length} 个解</div>`;setResult('#lcStatus','#lcAnswer',solutions.length?`模 ${m} 下全部解为 [${solutions.join(', ')}]，数量正好是 gcd(${a},${m})=${g}。`:`因为 ${g} 不能整除 ${b}，所以无解。`);}
+    $('#lcBuild').addEventListener('click',renderLinearCongruence);renderLinearCongruence();
+
+    function renderGeneralCrt(){
+      const r1=Math.trunc(Number($('#gcrtR1').value)||0),m1=clampInt($('#gcrtM1').value,2,1000),r2=Math.trunc(Number($('#gcrtR2').value)||0),m2=clampInt($('#gcrtM2').value,2,1000),g=gcd(m1,m2),delta=r2-r1;
+      $('#gcrtR1').value=r1;$('#gcrtM1').value=m1;$('#gcrtR2').value=r2;$('#gcrtM2').value=m2;
+      if(delta%g!==0){$('#gcrtSteps').innerHTML=`<div class="crt-step-grid"><div class="crt-step-card"><strong>1. 求公因数</strong>g=gcd(${m1},${m2})=${g}</div><div class="crt-step-card"><strong>2. 求余数差</strong>Δ=${r2}−${r1}=${delta}</div><div class="crt-step-card"><strong>3. 检查整除</strong>${g}∤${delta}</div><div class="crt-step-card"><strong>4. 结论</strong>两式冲突，无解</div></div>`;$('#gcrtNote').innerHTML='模数共享的公因数要求两条余数在这个公因数下也一致；当前不一致，所以无法合并。';return;}
+      const a=m1/g,b=delta/g,mod=m2/g,inv=inverseNumber(norm(a,mod),mod),k=norm(b*inv,mod),period=lcm(m1,m2),x0=norm(r1+m1*k,period);
+      $('#gcrtSteps').innerHTML=`<div class="crt-step-grid"><div class="crt-step-card"><strong>1. 消去 r₁</strong>令 x=${r1}+${m1}k</div><div class="crt-step-card"><strong>2. 代入第二式</strong>${m1}k≡${delta} (mod ${m2})</div><div class="crt-step-card"><strong>3. 同除以 g=${g}</strong>${a}k≡${b} (mod ${mod})，k≡${k}</div><div class="crt-step-card"><strong>4. 回代</strong>x₀=${r1}+${m1}×${k}≡${x0} (mod ${period})</div></div><div class="crt-final">核验：${x0} mod ${m1}=${norm(x0,m1)}，${x0} mod ${m2}=${norm(x0,m2)}</div>`;
+      $('#gcrtNote').innerHTML=`有解条件 ${g}|${delta} 成立。合并后的周期是 lcm(${m1},${m2})=${period}，所有解为 x=${x0}+${period}t。`;
+    }
+    $('#gcrtBuild').addEventListener('click',renderGeneralCrt);renderGeneralCrt();
+
+    // 18 model selector
+    const modelData={
+      'single-prime':['试除到 √n','单次输入，没有固定批量上界','边界 n<2；循环条件 i*i≤n'],
+      'many-prime':['埃筛 / 线性筛','询问多且共享上界','埃筛判质；线性筛还需要 lp 与积性函数'],
+      'factor-many':['线性筛 lp','大量整数都不超过同一 N','沿 x←x/lp[x] 分解，每次除去一个最小质因子'],
+      equation:['gcd + 扩展欧几里得','出现 ax+by=c 或 ax≡b','先判 gcd 是否整除，再求特解与通解'],
+      power:['模快速幂 + 周期定理','指数很大且只需模意义答案','先检查互质/质数模条件，避免错误降幂'],
+      cycles:['CRT / 广义 CRT','多个“除以 m 余 r”的周期条件','逐式合并；非互质时先检查余数差冲突']
+    };
+    let modelType='single-prime';
+    function renderModel(){const [method,reason,check]=modelData[modelType];$('#modelFlow').innerHTML=`<div class="flow-node">识别题目语言</div><span class="flow-arrow">→</span><div class="flow-node">${method}</div><span class="flow-arrow">→</span><div class="flow-node">检查条件与边界</div>`;$('#modelExplain').innerHTML=`<h3>${method}</h3><p>${reason}</p><div class="warning"><strong>必须检查：</strong>${check}</div>`;setResult('#modelStatus','#modelAnswer',`推荐工具：${method}。理由：${reason}。`);}
+    $('#modelTypes').addEventListener('click',e=>{const b=e.target.closest('[data-model]');if(!b)return;modelType=b.dataset.model;$$('#modelTypes .seg-btn').forEach(x=>x.classList.toggle('active',x===b));renderModel();});renderModel();
+
+    // Navigation
+    const sidebar=$('#sidebar'),overlay=$('#overlay');
+    function closeMenu(){sidebar.classList.remove('open');overlay.classList.remove('open');}
+    $('#menuBtn').addEventListener('click',()=>{sidebar.classList.toggle('open');overlay.classList.toggle('open');});
+    overlay.addEventListener('click',closeMenu);
+    $$('.nav-link').forEach(link=>link.addEventListener('click',closeMenu));
+    const sectionObserver=new IntersectionObserver(entries=>{const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(!visible)return;$$('.nav-link').forEach(link=>link.classList.toggle('active',link.getAttribute('href')==='#'+visible.target.id));$('#topMeta').textContent=visible.target.querySelector('h1,h2')?.textContent||'数论专题';},{rootMargin:'-16% 0px -70% 0px',threshold:[0,.2,.5]});
+    $$('.chapter').forEach(section=>sectionObserver.observe(section));
+  </script>
+</body>
+</html>

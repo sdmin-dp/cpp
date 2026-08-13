@@ -1,0 +1,2851 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="信息学奥赛数据结构理论复习课件：栈、表达式、队列、循环队列、树、二叉树、图论与堆。">
+<title>数据结构理论专题</title>
+<style>
+  :root {
+    --bg: #f3f6f4;
+    --paper: #1f2937;
+    --ink: #d1d5db;
+    --muted: #9ca3af;
+    --line: #374151;
+    --teal: #14b8a6;
+    --teal-soft: #0f766e;
+    --blue: #3b82f6;
+    --blue-soft: #1e40af;
+    --amber: #f59e0b;
+    --amber-soft: #d97706;
+    --red: #ef4444;
+    --red-soft: #dc2626;
+    --green: #10b981;
+    --green-soft: #059669;
+    --purple: #8b5cf6;
+    --shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    --sidebar: 248px;
+    --glass-bg: rgba(31, 41, 55, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  body {
+    margin: 0;
+    color: var(--ink);
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    backdrop-filter: blur(10px);
+  }
+  button, input { font: inherit; }
+  button { cursor: pointer; }
+  a { color: inherit; }
+  code, .mono {
+    font-family: Consolas, "Cascadia Code", monospace;
+    background: #edf1ef;
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+  .code-block {
+    margin: 18px 0;
+    padding: 16px 18px;
+    overflow-x: auto;
+    color: #e8f0ed;
+    background: #18312c;
+    border-left: 4px solid #e1a21a;
+    border-radius: 4px;
+    font-family: Consolas, "Cascadia Code", monospace;
+    font-size: 14px;
+    line-height: 1.65;
+    tab-size: 4;
+  }
+  .code-block code { padding: 0; color: inherit; background: transparent; }
+  svg text { font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif; }
+
+  .topbar {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 30;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 24px;
+    color: #fff;
+    background: var(--glass-bg);
+    border-bottom: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+  }
+  .menu-btn {
+    display: none;
+    width: 40px;
+    height: 40px;
+    color: #fff;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,.35);
+    border-radius: 5px;
+  }
+  .brand { min-width: 0; }
+  .brand strong { display: block; font-size: 18px; line-height: 1.2; }
+  .brand span { color: #c4d3ce; font-size: 12px; }
+  .top-meta {
+    margin-left: auto;
+    color: #dce8e4;
+    font-size: 13px;
+  }
+
+  .sidebar {
+    position: fixed;
+    z-index: 20;
+    top: 64px;
+    bottom: 0;
+    left: 0;
+    width: var(--sidebar);
+    overflow-y: auto;
+    padding: 22px 14px 40px;
+    background: var(--glass-bg);
+    border-right: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+  }
+  .nav-label {
+    margin: 0 10px 8px;
+    color: #7b8883;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .nav-link {
+    display: flex;
+    align-items: center;
+    min-height: 38px;
+    margin: 2px 0;
+    padding: 7px 10px;
+    color: #43504c;
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    border-radius: 0 5px 5px 0;
+  }
+  .nav-link:hover, .nav-link.active {
+    color: #0b625c;
+    background: var(--teal-soft);
+    border-left-color: var(--teal);
+  }
+  .nav-num {
+    width: 26px;
+    color: #84918c;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  main {
+    margin-left: var(--sidebar);
+    padding-top: 64px;
+  }
+  .chapter {
+    border-bottom: 1px solid var(--line);
+    background: var(--paper);
+    backdrop-filter: blur(10px);
+  }
+  .chapter:nth-of-type(even) { background: var(--paper); }
+  .section-inner {
+    width: min(1120px, calc(100% - 48px));
+    margin: 0 auto;
+    padding: 58px 0 64px;
+    background: var(--glass-bg);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+  }
+  .chapter-kicker {
+    margin-bottom: 6px;
+    color: var(--teal);
+    font-size: 13px;
+    font-weight: 800;
+  }
+  h1, h2, h3, h4 { margin: 0; letter-spacing: 0; line-height: 1.35; }
+  h1 { font-size: 36px; }
+  h2 { font-size: 29px; }
+  h3 { margin-top: 30px; font-size: 20px; }
+  h4 { margin-top: 22px; font-size: 17px; }
+  .lead {
+    max-width: 830px;
+    margin: 14px 0 26px;
+    color: var(--muted);
+    font-size: 17px;
+  }
+  .memory {
+    margin: 22px 0;
+    padding: 14px 18px;
+    color: #124e48;
+    background: var(--teal-soft);
+    border-left: 4px solid var(--teal);
+  }
+  .warning {
+    margin: 22px 0;
+    padding: 14px 18px;
+    color: #753500;
+    background: var(--amber-soft);
+    border-left: 4px solid var(--amber);
+  }
+  .danger {
+    margin: 22px 0;
+    padding: 14px 18px;
+    color: #7b1530;
+    background: var(--red-soft);
+    border-left: 4px solid var(--red);
+  }
+
+  .grid-2, .grid-3, .compare-grid {
+    display: grid;
+    gap: 22px;
+    margin-top: 24px;
+  }
+  .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .compare-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .panel {
+    min-width: 0;
+    padding: 20px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+  }
+  .panel h3, .panel h4 { margin-top: 0; }
+  .panel-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .tag {
+    display: inline-block;
+    padding: 2px 7px;
+    color: #075e57;
+    background: var(--teal-soft);
+    border: 1px solid #b9dfd8;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .tag.blue { color: #1d4ed8; background: var(--blue-soft); border-color: #c8d8ff; }
+  .tag.amber { color: #8a4a00; background: var(--amber-soft); border-color: #f1d39b; }
+  .tag.red { color: #9f1239; background: var(--red-soft); border-color: #f6c2cf; }
+
+  .table-wrap { margin: 20px 0; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; background: var(--paper); }
+  th, td { padding: 10px 12px; text-align: left; border: 1px solid var(--line); vertical-align: top; }
+  th { color: #25433c; background: #edf4f1; font-weight: 700; }
+  tr:nth-child(even) td { background: #fbfcfc; }
+
+  .formula-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin: 20px 0;
+  }
+  .formula {
+    padding: 15px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--blue);
+  }
+  .formula strong { display: block; color: #174db3; font-size: 20px; }
+  .formula span { color: var(--muted); font-size: 13px; }
+
+  .diagram {
+    width: 100%;
+    height: auto;
+    margin: 12px auto;
+    background: #fcfdfc;
+    border: 1px solid var(--line);
+  }
+  .edge { stroke: #7d8c87; stroke-width: 2.2; fill: none; }
+  .edge.directed { marker-end: url(#arrow); }
+  .node circle, circle.node { fill: #fff; stroke: #1e6f66; stroke-width: 2.5; }
+  .node text { fill: var(--ink); font-size: 15px; font-weight: 700; text-anchor: middle; dominant-baseline: middle; }
+  .node.current circle { fill: #ffd66b; stroke: #9a5b00; }
+  .node.visited circle { fill: #d8f2ec; stroke: var(--teal); }
+  .node.dim { opacity: .35; }
+  .label { fill: #5d6b66; font-size: 12px; }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 14px 0;
+  }
+  .control-input {
+    width: 120px;
+    min-height: 38px;
+    padding: 7px 10px;
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid #aebbb6;
+    border-radius: 4px;
+  }
+  .control-input.wide { width: min(100%, 360px); }
+  .btn {
+    min-height: 38px;
+    padding: 7px 13px;
+    color: #fff;
+    background: var(--teal);
+    border: 1px solid var(--teal);
+    border-radius: 4px;
+    font-weight: 700;
+  }
+  .btn:hover { background: #0b625c; }
+  .btn.secondary { color: #17433e; background: #fff; border-color: #9fb5ae; }
+  .btn.secondary:hover { background: var(--teal-soft); }
+  .btn.danger-btn { background: var(--red); border-color: var(--red); }
+  .btn:disabled { cursor: not-allowed; opacity: .45; }
+  .status {
+    min-height: 28px;
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  .stack-stage {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    min-height: 300px;
+    padding: 20px;
+    background: #f7faf9;
+    border: 1px dashed #adc0ba;
+  }
+  .stack-box {
+    position: relative;
+    width: min(220px, 80%);
+    min-height: 245px;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+    padding: 8px 10px 0;
+    border-right: 4px solid #40534d;
+    border-bottom: 4px solid #40534d;
+    border-left: 4px solid #40534d;
+  }
+  .stack-cell {
+    position: relative;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    margin-top: 5px;
+    color: #0f4f49;
+    background: #d9f1ec;
+    border: 1px solid #68a89e;
+    font-weight: 800;
+  }
+  .stack-cell.top::after {
+    content: "top";
+    position: absolute;
+    left: calc(100% + 14px);
+    color: var(--red);
+    font-family: Consolas, monospace;
+    font-size: 13px;
+  }
+
+  .queue-stage {
+    min-height: 150px;
+    padding: 34px 18px 20px;
+    overflow-x: auto;
+    background: #f7faf9;
+    border: 1px dashed #adc0ba;
+  }
+  .queue-track { display: flex; justify-content: center; min-width: max-content; }
+  .queue-cell {
+    position: relative;
+    width: 70px;
+    height: 52px;
+    display: grid;
+    place-items: center;
+    color: #173f68;
+    background: #e1ecff;
+    border: 1px solid #7ba2e9;
+    border-right: 0;
+    font-weight: 800;
+  }
+  .queue-cell:last-child { border-right: 1px solid #7ba2e9; }
+  .queue-cell.front::before, .queue-cell.rear::after {
+    position: absolute;
+    top: -29px;
+    font-family: Consolas, monospace;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .queue-cell.front::before { content: "front ↓"; left: 4px; color: var(--green); }
+  .queue-cell.rear::after { content: "rear ↓"; right: 4px; color: var(--red); }
+
+  .expression-layout {
+    display: grid;
+    grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr);
+    gap: 22px;
+  }
+  .token-line {
+    min-height: 52px;
+    padding: 10px;
+    background: #f5f8f7;
+    border: 1px solid var(--line);
+    font-family: Consolas, monospace;
+  }
+  .token {
+    display: inline-grid;
+    place-items: center;
+    min-width: 30px;
+    height: 30px;
+    margin: 0 3px 3px 0;
+    padding: 0 6px;
+    background: #fff;
+    border: 1px solid #b8c5c0;
+  }
+  .token.active { color: #fff; background: var(--red); border-color: var(--red); }
+  .step-table { max-height: 390px; overflow: auto; border: 1px solid var(--line); }
+  .step-table table { margin: 0; }
+  .step-table tr.active td { background: #fff4cc; }
+
+  .circle-stage { display: grid; place-items: center; min-height: 350px; }
+  #circleSvg { width: min(100%, 390px); height: auto; }
+  .circle-slot { fill: #fff; stroke: #78918a; stroke-width: 2; }
+  .circle-slot.filled { fill: #e3f2ff; stroke: var(--blue); }
+  .circle-slot.reserved { fill: #f5f5f5; stroke-dasharray: 4 3; }
+  .pointer-front { fill: var(--green); font-weight: 800; }
+  .pointer-rear { fill: var(--red); font-weight: 800; }
+
+  .tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0; }
+  .tab {
+    padding: 7px 12px;
+    color: #41504b;
+    background: #fff;
+    border: 1px solid #aebbb6;
+    border-radius: 4px;
+  }
+  .tab.active { color: #fff; background: var(--blue); border-color: var(--blue); }
+  .visited-line {
+    min-height: 46px;
+    padding: 8px;
+    background: #f5f8f7;
+    border: 1px solid var(--line);
+  }
+  .visit-chip {
+    display: inline-grid;
+    place-items: center;
+    width: 31px;
+    height: 31px;
+    margin-right: 5px;
+    color: #fff;
+    background: var(--teal);
+    border-radius: 50%;
+    font-weight: 800;
+  }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 14px; color: var(--muted); font-size: 13px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--teal); }
+  .dot.blue { background: var(--blue); }
+  .dot.amber { background: #d88a00; }
+  .dot.red { background: var(--red); }
+
+  .heap-array { display: flex; flex-wrap: wrap; gap: 4px; margin: 12px 0; }
+  .heap-item {
+    min-width: 48px;
+    padding: 8px 7px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #91a49e;
+  }
+  .heap-item span { display: block; color: #77847f; font-size: 10px; }
+  .heap-item.hot { background: #fff1bc; border-color: #bd7700; }
+
+  .interactive-lab {
+    margin: 24px 0;
+    padding: 20px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+  }
+  .lab-toolbar {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 16px;
+    margin: 14px 0;
+  }
+  .lab-field label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .lab-field .control-input { width: 100%; }
+  .interactive-stage {
+    width: 100%;
+    overflow-x: auto;
+    background: #f8fbfa;
+    border: 1px dashed #9fb5ae;
+  }
+  .interactive-stage svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .tree-builder-stage svg { min-width: 720px; }
+  .twin-heap-stage svg { min-width: 820px; }
+  .ghost-edge { stroke: #c7d2ce; stroke-width: 1.8; stroke-dasharray: 6 6; }
+  .ghost-node { fill: #fbfdfc; stroke: #b4c3be; stroke-width: 2; stroke-dasharray: 5 5; }
+  .built-edge { stroke: #3f7e75; stroke-width: 3; }
+  .built-node { fill: #d8f2ec; stroke: #0f766e; stroke-width: 2.5; }
+  .built-node.current { fill: #ffd66b; stroke: #9a5b00; stroke-width: 3; }
+  .stage-caption { fill: #66746f; font-size: 13px; }
+  .stage-title { fill: #18211e; font-size: 16px; font-weight: 800; }
+  .sequence-focus {
+    min-height: 54px;
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: #f5f8f7;
+    border-left: 4px solid var(--blue);
+    overflow-wrap: anywhere;
+  }
+  .twin-median-row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    margin: 10px 0;
+  }
+  .twin-stat {
+    padding: 9px 10px;
+    text-align: center;
+    background: #f5f8f7;
+    border: 1px solid var(--line);
+  }
+  .twin-stat span { display: block; color: var(--muted); font-size: 11px; }
+  .twin-stat strong { display: block; margin-top: 3px; font-size: 18px; }
+  .pending-sequence {
+    min-height: 38px;
+    padding: 7px;
+    background: #f5f8f7;
+    border: 1px solid var(--line);
+  }
+  .pending-sequence .token.done { color: #70807a; background: #e8eeeb; }
+  .pending-sequence .token.next { color: #fff; background: var(--red); border-color: var(--red); }
+
+  .quiz {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 24px;
+  }
+  .quiz-item { padding: 16px; background: #fff; border: 1px solid var(--line); }
+  .quiz-answer { display: none; margin-top: 10px; color: var(--green); font-weight: 700; }
+  .quiz-item.open .quiz-answer { display: block; }
+
+  .exercise-set {
+    margin-top: 34px;
+    padding: 20px 22px;
+    background: #fffdf5;
+    border: 1px solid #e9d9a8;
+    border-left: 4px solid #c47a00;
+  }
+  .exercise-set h3 { margin-top: 0; color: #7a4700; }
+  .exercise-set ol { margin-bottom: 0; padding-left: 24px; }
+  .exercise-set li { margin: 9px 0; }
+  .blank {
+    display: inline-block;
+    min-width: 72px;
+    height: 1.25em;
+    vertical-align: bottom;
+    border-bottom: 1px solid #4f5d58;
+  }
+  .answer-key {
+    margin-top: 26px;
+    padding: 22px;
+    background: #f2f7f5;
+    border: 1px solid #b9cbc5;
+  }
+  .answer-group { margin: 20px 0; }
+  .answer-group h4 { margin: 0 0 7px; color: #0d625b; }
+  .answer-group p { margin: 0; overflow-wrap: anywhere; word-break: break-all; }
+  .answer-group code { padding: 0 2px; white-space: normal; overflow-wrap: anywhere; word-break: break-all; }
+
+  .shape-row {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(130px, 1fr));
+    gap: 10px;
+    margin: 20px 0;
+    overflow-x: auto;
+  }
+  .shape-item {
+    min-width: 130px;
+    padding: 8px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid var(--line);
+  }
+  .shape-item svg { width: 100%; height: 120px; }
+  .shape-item strong { display: block; font-size: 13px; }
+
+  .conversion-steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin: 18px 0;
+  }
+  .conversion-step {
+    position: relative;
+    min-width: 0;
+    padding: 16px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--blue);
+  }
+  .conversion-step b { display: block; margin-bottom: 8px; color: #174db3; }
+  .conversion-step .mono { display: block; overflow-wrap: anywhere; }
+
+  .rebuild-stage {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin: 18px 0;
+  }
+  .rebuild-stage > div {
+    min-width: 0;
+    padding: 14px;
+    background: #fff;
+    border: 1px solid var(--line);
+  }
+  .rebuild-stage svg { width: 100%; height: 210px; }
+
+  .mini-graph-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .mini-graph {
+    padding: 10px;
+    background: #fff;
+    border: 1px solid var(--line);
+  }
+  .mini-graph svg { width: 100%; height: 165px; }
+  .mini-graph strong { display: block; text-align: center; }
+
+  .overlay { display: none; }
+  .footer-note { color: var(--muted); text-align: center; font-size: 13px; }
+
+  @media (max-width: 920px) {
+    .menu-btn { display: inline-grid; place-items: center; }
+    .sidebar { transform: translateX(-100%); transition: transform .2s ease; box-shadow: var(--shadow); }
+    .sidebar.open { transform: translateX(0); }
+    .overlay.open { display: block; position: fixed; z-index: 15; inset: 64px 0 0 0; background: rgba(0,0,0,.28); }
+    main { margin-left: 0; }
+    .grid-3, .formula-row { grid-template-columns: 1fr 1fr; }
+    .mini-graph-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 680px) {
+    .topbar { padding: 0 12px; }
+    .top-meta { display: none; }
+    .section-inner { width: min(100% - 28px, 1120px); padding: 42px 0 48px; }
+    h1 { font-size: 30px; }
+    h2 { font-size: 25px; }
+    .grid-2, .grid-3, .compare-grid, .formula-row, .expression-layout, .quiz, .conversion-steps, .rebuild-stage, .mini-graph-grid { grid-template-columns: 1fr; }
+    .panel { padding: 15px; }
+    th, td { padding: 8px; }
+    .interactive-lab { padding: 14px; }
+    .lab-toolbar { grid-template-columns: 1fr; }
+    .twin-median-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media print {
+    body { background: #fff; font-size: 11pt; }
+    .topbar, .sidebar, .overlay, .controls, .quiz button { display: none !important; }
+    main { margin: 0; padding: 0; }
+    .chapter { break-inside: auto; }
+    .section-inner { width: 100%; padding: 18mm 14mm; }
+    .panel, .diagram, table { break-inside: avoid; box-shadow: none; }
+    .chapter:nth-of-type(even) { background: #fff; }
+  }
+</style>
+
+<style id="portal-navigation-style">
+  .portal-home-link {
+    position: fixed; z-index: 99999; right: 18px; bottom: 18px;
+    min-width: 104px; min-height: 38px; display: inline-flex;
+    align-items: center; justify-content: center; gap: 7px;
+    padding: 8px 13px; color: #fff; background: #173e38;
+    border: 1px solid #d59b2f; border-radius: 4px;
+    box-shadow: 0 4px 14px rgba(18, 56, 50, .18);
+    font: 700 12px/1.2 "Microsoft YaHei", Arial, sans-serif;
+    letter-spacing: 0; text-decoration: none;
+  }
+  .portal-home-link:hover, .portal-home-link:focus-visible { background: #d59b2f; color: #173e38; outline: none; }
+  @media print { .portal-home-link { display: none !important; } }
+</style>
+</head>
+<body>
+<a class="portal-home-link" href="../index.html" aria-label="返回资料主页"><span aria-hidden="true">←</span><span>资料主页</span></a>
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="打开章节目录">☰</button>
+  <div class="brand">
+    <strong>数据结构理论专题</strong>
+    <span>信奥暑期集训复习课件</span>
+  </div>
+  <div class="top-meta">结构 · 关系 · 操作 · 复杂度</div>
+</header>
+
+<aside class="sidebar" id="sidebar" aria-label="章节目录">
+  <div class="nav-label">课程目录</div>
+  <nav>
+    <a class="nav-link active" href="#overview"><span class="nav-num">01</span>整体认识</a>
+    <a class="nav-link" href="#stack"><span class="nav-num">02</span>栈</a>
+    <a class="nav-link" href="#expression"><span class="nav-num">03</span>表达式</a>
+    <a class="nav-link" href="#queue"><span class="nav-num">04</span>队列</a>
+    <a class="nav-link" href="#circular"><span class="nav-num">05</span>循环队列</a>
+    <a class="nav-link" href="#tree"><span class="nav-num">06</span>树的基础</a>
+    <a class="nav-link" href="#binary"><span class="nav-num">07</span>二叉树</a>
+    <a class="nav-link" href="#traversal"><span class="nav-num">08</span>遍历与转换</a>
+    <a class="nav-link" href="#tree-formula"><span class="nav-num">09</span>层数与节点</a>
+    <a class="nav-link" href="#graph"><span class="nav-num">10</span>图论基础</a>
+    <a class="nav-link" href="#heap"><span class="nav-num">11</span>堆</a>
+    <a class="nav-link" href="#review"><span class="nav-num">12</span>总复习</a>
+  </nav>
+</aside>
+<div class="overlay" id="overlay"></div>
+
+<main>
+  <section class="chapter" id="overview">
+    <div class="section-inner">
+      <div class="chapter-kicker">01 · 整体认识</div>
+      <h1>数据结构：把“数据关系”组织清楚</h1>
+      <p class="lead">数据结构不只是容器名称，而是三件事的组合：数据之间有什么关系、允许进行哪些操作、这些操作需要多少时间和空间。</p>
+
+      <div class="memory"><strong>总记忆点：</strong>先看关系，再选结构；先看操作，再估复杂度。</div>
+
+      <svg class="diagram" viewBox="0 0 900 300" role="img" aria-label="数据结构分类图">
+        <path class="edge" d="M450 62 L450 105 M450 105 L190 105 L190 145 M450 105 L450 145 M450 105 L710 105 L710 145"/>
+        <g class="node"><circle cx="450" cy="45" r="33"/><text x="450" y="45">数据</text></g>
+        <g class="node"><circle cx="190" cy="170" r="39"/><text x="190" y="170">线性</text></g>
+        <g class="node"><circle cx="450" cy="170" r="39"/><text x="450" y="170">树形</text></g>
+        <g class="node"><circle cx="710" cy="170" r="39"/><text x="710" y="170">图形</text></g>
+        <path class="edge" d="M190 209 L190 238 M190 238 L95 238 M190 238 L285 238 M450 209 L450 255 M710 209 L710 255"/>
+        <text class="label" x="95" y="265" text-anchor="middle">栈 · 队列</text>
+        <text class="label" x="285" y="265" text-anchor="middle">数组 · 链表</text>
+        <text class="label" x="450" y="280" text-anchor="middle">二叉树 · 堆</text>
+        <text class="label" x="710" y="280" text-anchor="middle">有向 · 无向 · 带权</text>
+      </svg>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>结构</th><th>核心关系</th><th>最典型操作</th><th>第一判断</th></tr></thead>
+          <tbody>
+            <tr><td>栈</td><td>后进先出</td><td>压入、弹出、查看栈顶</td><td>是否只处理最新加入的数据</td></tr>
+            <tr><td>队列</td><td>先进先出</td><td>入队、出队、查看队首</td><td>是否按到达顺序处理</td></tr>
+            <tr><td>树</td><td>一对多、层次关系</td><td>遍历、统计子树、向下递归</td><td>是否存在父子层级</td></tr>
+            <tr><td>图</td><td>多对多、网络关系</td><td>遍历、连通、路径</td><td>关系是否可能交叉或成环</td></tr>
+            <tr><td>堆</td><td>完全二叉树 + 局部有序</td><td>取最值、插入、删除堆顶</td><td>是否反复取当前最值</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="chapter" id="stack">
+    <div class="section-inner">
+      <div class="chapter-kicker">02 · 线性结构</div>
+      <h2>栈：后进先出</h2>
+      <p class="lead">栈只允许在同一端加入和删除数据，这一端叫栈顶。最后进入的数据最先离开，简称 LIFO。</p>
+      <div class="memory"><strong>记忆点：</strong>像一摞盘子，只能从最上面放，也只能从最上面拿。</div>
+
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-title"><h3>栈操作实验</h3><span class="tag">交互</span></div>
+          <div class="controls">
+            <input class="control-input" id="stackInput" value="9" aria-label="入栈数据">
+            <button class="btn" id="pushBtn">+ 入栈</button>
+            <button class="btn danger-btn" id="popBtn">− 出栈</button>
+            <button class="btn secondary" id="stackReset">重置</button>
+          </div>
+          <div class="stack-stage"><div class="stack-box" id="stackBox"></div></div>
+          <div class="status" id="stackStatus" aria-live="polite"></div>
+        </div>
+        <div>
+          <h3>基本操作</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>操作</th><th>含义</th><th>数组下标变化</th></tr></thead>
+              <tbody>
+                <tr><td><code>push(x)</code></td><td>把 x 放到栈顶</td><td><code>top++</code> 后存入</td></tr>
+                <tr><td><code>pop()</code></td><td>删除栈顶</td><td><code>top--</code></td></tr>
+                <tr><td><code>top()</code></td><td>读取栈顶但不删除</td><td>访问 <code>a[top]</code></td></tr>
+                <tr><td><code>empty()</code></td><td>判断栈空</td><td><code>top == -1</code></td></tr>
+                <tr><td><code>size()</code></td><td>栈内元素个数</td><td><code>top + 1</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h3>典型应用</h3>
+          <ul>
+            <li>括号匹配与表达式计算。</li>
+            <li>撤销操作、浏览器返回。</li>
+            <li>DFS 的系统调用栈。</li>
+            <li>单调栈维护“最近更大或更小”。</li>
+          </ul>
+          <div class="danger"><strong>易错点：</strong>空栈不能读取或弹出栈顶；固定数组还要防止栈满。</div>
+        </div>
+      </div>
+
+      <h3>核心代码：数组模拟栈</h3>
+      <pre class="code-block"><code>int a[N];
+int top = -1;                 // top 指向当前栈顶，-1 表示空栈
+
+// 入栈 x
+a[++top] = x;
+
+// 读取并弹出栈顶
+if (top != -1) {
+	int x = a[top--];
+}</code></pre>
+
+      <h3>合法出栈序列与卡特兰数</h3>
+      <p>固定入栈顺序为 <code>1,2,3,...,n</code>，允许在过程中随时出栈。不同合法出栈序列的数量不是 <code>n!</code>，而是第 n 个卡特兰数：</p>
+      <div class="formula-row">
+        <div class="formula"><strong>C<sub>n</sub> = C(2n,n)/(n+1)</strong><span>组合数公式</span></div>
+        <div class="formula"><strong>C<sub>n</sub> = Σ C<sub>i</sub>C<sub>n−1−i</sub></strong><span>0 ≤ i &lt; n</span></div>
+        <div class="formula"><strong>1, 1, 2, 5, 14, 42...</strong><span>C<sub>0</sub> 到 C<sub>5</sub></span></div>
+      </div>
+
+      <p>3 个元素依次入栈时，共有 <strong>5</strong> 种合法出栈序列：</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>出栈序列</th><th>一种对应操作</th><th>关键时刻</th></tr></thead>
+          <tbody>
+            <tr><td>1 2 3</td><td>入1出1，入2出2，入3出3</td><td>每入一个立即出</td></tr>
+            <tr><td>1 3 2</td><td>入1出1，入2，入3，出3出2</td><td>2 等在栈底</td></tr>
+            <tr><td>2 1 3</td><td>入1入2，出2出1，入3出3</td><td>先处理前两个</td></tr>
+            <tr><td>2 3 1</td><td>入1入2出2，入3出3出1</td><td>1 一直留在栈底</td></tr>
+            <tr><td>3 2 1</td><td>全部入栈，再全部出栈</td><td>完全逆序</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="danger"><strong>为什么 3 1 2 不合法：</strong>为了先弹出 3，必须先把 1、2、3 全部压栈；弹出 3 后，栈顶是 2，不可能越过 2 先弹出 1。</div>
+
+      <svg class="diagram" viewBox="0 0 850 280" role="img" aria-label="卡特兰数栈操作路径示意图">
+        <line x1="90" y1="225" x2="350" y2="225" stroke="#6c7b76" stroke-width="2"/>
+        <line x1="90" y1="225" x2="90" y2="35" stroke="#6c7b76" stroke-width="2"/>
+        <line x1="90" y1="225" x2="330" y2="45" stroke="#be123c" stroke-width="2" stroke-dasharray="6 5"/>
+        <polyline points="90,225 90,165 170,165 170,105 250,105 250,45 330,45" fill="none" stroke="#0f766e" stroke-width="4"/>
+        <text x="220" y="258" text-anchor="middle" class="label">向右：出栈</text>
+        <text x="30" y="130" text-anchor="middle" class="label" transform="rotate(-90 30 130)">向上：入栈</text>
+        <text x="220" y="24" text-anchor="middle" class="label">路径不能越过“出栈数 &gt; 入栈数”的边界</text>
+        <text x="470" y="65" class="label">每一条合法路径对应一种进出顺序</text>
+        <text x="470" y="105" class="label">第一次回到空栈的位置，把问题分成左右两段</text>
+        <text x="470" y="145" class="label">左段有 Cᵢ 种，右段有 Cₙ₋₁₋ᵢ 种</text>
+        <text x="470" y="185" class="label">因此 Cₙ = Σ Cᵢ × Cₙ₋₁₋ᵢ</text>
+      </svg>
+
+      <pre class="code-block"><code>long long f[30];
+f[0] = 1;
+for (int n = 1; n &lt;= 20; n++) {
+	for (int i = 0; i &lt; n; i++) {
+		f[n] += f[i] * f[n - 1 - i];
+	}
+}</code></pre>
+
+      <div class="exercise-set">
+        <h3>栈 · 思考填空</h3>
+        <ol>
+          <li>依次入栈 1、2、3、4，若第一个出栈的是 4，则完整出栈序列只能是 <span class="blank"></span>。</li>
+          <li>入栈顺序为 1、2、3，排列 <code>3 1 2</code> 不合法，因为弹出 3 后栈顶是 <span class="blank"></span>。</li>
+          <li>4 个元素固定顺序入栈，合法出栈序列共有 C<sub>4</sub> = <span class="blank"></span> 种。</li>
+          <li>数组栈初始 <code>top=-1</code>，连续入栈 6 次再出栈 2 次，此时 <code>top=</code><span class="blank"></span>。</li>
+          <li>卡特兰递推中 C<sub>3</sub> = C<sub>0</sub>C<sub>2</sub> + C<sub>1</sub>C<sub>1</sub> + C<sub>2</sub>C<sub>0</sub> = <span class="blank"></span>。</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="expression">
+    <div class="section-inner">
+      <div class="chapter-kicker">03 · 栈的应用</div>
+      <h2>表达式：中缀、前缀与后缀互相转换</h2>
+      <p class="lead">转换的关键不是死记扫描规则，而是先用括号确定运算树，再把每个运算符移动到两个操作对象的前面或后面。</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>形式</th><th>例子</th><th>特点</th></tr></thead>
+          <tbody>
+            <tr><td>前缀</td><td><code>+ A * B C</code></td><td>运算符在操作数前，又称波兰式</td></tr>
+            <tr><td>中缀</td><td><code>A + B * C</code></td><td>需要优先级和括号</td></tr>
+            <tr><td>后缀</td><td><code>A B C * +</code></td><td>从左到右扫描，配合栈计算</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="expression-layout">
+        <div class="panel">
+          <div class="panel-title"><h3>转换控制</h3><span class="tag blue">逐步</span></div>
+          <label for="exprInput">中缀表达式</label>
+          <div class="controls">
+            <input class="control-input wide" id="exprInput" value="a+b*(c-d)" aria-label="中缀表达式">
+            <button class="btn" id="exprBuild">开始转换</button>
+          </div>
+          <div class="controls">
+            <button class="btn secondary" id="exprPrev">← 上一步</button>
+            <button class="btn secondary" id="exprNext">下一步 →</button>
+            <button class="btn secondary" id="exprEnd">看结果</button>
+          </div>
+          <h4>当前扫描</h4>
+          <div class="token-line" id="exprTokens"></div>
+          <h4>运算符栈</h4>
+          <div class="token-line" id="exprStack"></div>
+          <h4>后缀输出</h4>
+          <div class="token-line" id="exprOutput"></div>
+          <div class="status" id="exprStatus" aria-live="polite"></div>
+        </div>
+        <div class="panel">
+          <h3>转换记录</h3>
+          <div class="step-table" id="exprTable"></div>
+          <h3>运算符处理规则</h3>
+          <ol>
+            <li>操作数直接输出。</li>
+            <li>左括号直接入栈。</li>
+            <li>右括号让运算符出栈，直到遇到左括号。</li>
+            <li>普通运算符先弹出优先级更高或相等的栈顶，再入栈。</li>
+            <li>扫描结束，把剩余运算符全部弹出。</li>
+          </ol>
+        </div>
+      </div>
+
+      <h3>后缀表达式求值</h3>
+      <div class="grid-3">
+        <div class="panel"><strong>遇到数字</strong><p>把数字压入数值栈。</p></div>
+        <div class="panel"><strong>遇到运算符</strong><p>先弹出右操作数，再弹出左操作数。</p></div>
+        <div class="panel"><strong>完成运算</strong><p>把计算结果重新压入栈，最后栈中只剩答案。</p></div>
+      </div>
+      <div class="warning"><strong>顺序不能反：</strong>计算减法和除法时，第二次弹出的数在左边，即 <code>a op b</code>。</div>
+
+      <h3>统一理解法：括号三步走</h3>
+      <p>以 <code>A+B*(C-D)</code> 为例。先根据优先级补全括号，得到唯一的运算层次：</p>
+      <p class="memory"><strong>(A + (B * (C − D)))</strong></p>
+
+      <h4>中缀 → 前缀</h4>
+      <div class="conversion-steps">
+        <div class="conversion-step"><b>第 1 步：补全括号</b><span class="mono">(A + (B * (C − D)))</span></div>
+        <div class="conversion-step"><b>第 2 步：运算符移到括号前</b><span class="mono">(+ A (* B (− C D)))</span></div>
+        <div class="conversion-step"><b>第 3 步：删除括号</b><span class="mono">+ A * B − C D</span></div>
+      </div>
+
+      <h4>中缀 → 后缀</h4>
+      <div class="conversion-steps">
+        <div class="conversion-step"><b>第 1 步：补全括号</b><span class="mono">(A + (B * (C − D)))</span></div>
+        <div class="conversion-step"><b>第 2 步：运算符移到括号后</b><span class="mono">(A (B (C D −) *) +)</span></div>
+        <div class="conversion-step"><b>第 3 步：删除括号</b><span class="mono">A B C D − * +</span></div>
+      </div>
+
+      <h4>前缀 → 中缀</h4>
+      <p>从右向左扫描 <code>− * A B / C D</code>，操作数入栈；遇到运算符，弹出两个表达式并组合为 <code>(左 运算符 右)</code>。</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>扫描符号</th><th>组合动作</th><th>表达式栈（栈顶在左）</th></tr></thead>
+          <tbody>
+            <tr><td>D、C、/</td><td><code>(C/D)</code></td><td><code>(C/D)</code></td></tr>
+            <tr><td>B、A、*</td><td><code>(A*B)</code></td><td><code>(A*B), (C/D)</code></td></tr>
+            <tr><td>−</td><td><code>((A*B)−(C/D))</code></td><td>只剩完整表达式</td></tr>
+            <tr><td>去括号</td><td>保留优先级必需的结构</td><td><code>A*B−C/D</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>后缀 → 中缀</h4>
+      <p>从左向右扫描 <code>A B * C D / −</code>。遇到运算符时，先弹出的是右表达式，后弹出的是左表达式。</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>扫描符号</th><th>弹栈与组合</th><th>表达式栈</th></tr></thead>
+          <tbody>
+            <tr><td>A、B、*</td><td>右=B，左=A，组成 <code>(A*B)</code></td><td><code>(A*B)</code></td></tr>
+            <tr><td>C、D、/</td><td>右=D，左=C，组成 <code>(C/D)</code></td><td><code>(A*B), (C/D)</code></td></tr>
+            <tr><td>−</td><td>右=<code>(C/D)</code>，左=<code>(A*B)</code></td><td><code>((A*B)−(C/D))</code></td></tr>
+            <tr><td>去括号</td><td>依据优先级删除多余括号</td><td><code>A*B−C/D</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="memory"><strong>四类转换统一记忆：</strong>中缀先补括号再移动运算符；前缀从右向左合并；后缀从左向右合并。</div>
+
+      <h3>核心代码：中缀转后缀（单字符操作数）</h3>
+      <pre class="code-block"><code>int pri(char c) {
+	if (c == '+' || c == '-') return 1;
+	if (c == '*' || c == '/' || c == '%') return 2;
+	return 0;
+}
+
+string to_postfix(string s) {
+	stack&lt;char&gt; st;
+	string ans;
+	for (char c : s) {
+		if (isalnum(c)) ans += c;
+		else if (c == '(') st.push(c);
+		else if (c == ')') {
+			while (st.top() != '(') ans += st.top(), st.pop();
+			st.pop();
+		} else {
+			while (!st.empty() &amp;&amp; pri(st.top()) &gt;= pri(c)) {
+				ans += st.top();
+				st.pop();
+			}
+			st.push(c);
+		}
+	}
+	while (!st.empty()) ans += st.top(), st.pop();
+	return ans;
+}</code></pre>
+
+      <h3>核心代码：后缀转中缀</h3>
+      <pre class="code-block"><code>stack&lt;string&gt; st;
+for (char c : s) {
+	if (isalnum(c)) st.push(string(1, c));
+	else {
+		string b = st.top(); st.pop();  // 先弹出右边
+		string a = st.top(); st.pop();
+		st.push("(" + a + c + b + ")");
+	}
+}
+string ans = st.top();</code></pre>
+
+      <div class="exercise-set">
+        <h3>表达式 · 思考填空</h3>
+        <ol>
+          <li>中缀 <code>A*(B+C)-D</code> 的完整括号形式是 <span class="blank"></span>。</li>
+          <li>中缀 <code>A*(B+C)-D</code> 转为前缀是 <span class="blank"></span>。</li>
+          <li>中缀 <code>A*(B+C)-D</code> 转为后缀是 <span class="blank"></span>。</li>
+          <li>前缀 <code>+ A * B C</code> 转为中缀并去掉多余括号是 <span class="blank"></span>。</li>
+          <li>后缀 <code>A B C - /</code> 转为中缀时，最后一次运算的左表达式是 <span class="blank"></span>。</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="queue">
+    <div class="section-inner">
+      <div class="chapter-kicker">04 · 线性结构</div>
+      <h2>队列：先进先出</h2>
+      <p class="lead">队尾加入，队首删除。先到的数据先处理，简称 FIFO。</p>
+      <div class="memory"><strong>记忆点：</strong>像排队取餐，新来的人站队尾，最前面的人先离开。</div>
+
+      <div class="panel">
+        <div class="panel-title"><h3>队列操作实验</h3><span class="tag">交互</span></div>
+        <div class="controls">
+          <input class="control-input" id="queueInput" value="31" aria-label="入队数据">
+          <button class="btn" id="enqueueBtn">+ 入队</button>
+          <button class="btn danger-btn" id="dequeueBtn">− 出队</button>
+          <button class="btn secondary" id="queueReset">重置</button>
+        </div>
+        <div class="queue-stage"><div class="queue-track" id="queueTrack"></div></div>
+        <div class="status" id="queueStatus" aria-live="polite"></div>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <h3>顺序队列的指针</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>名称</th><th>指向</th><th>变化时机</th></tr></thead>
+              <tbody>
+                <tr><td><code>front</code></td><td>当前队首元素</td><td>出队后向后移动</td></tr>
+                <tr><td><code>rear</code></td><td>下一个可插入位置</td><td>入队后向后移动</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <h3>典型应用</h3>
+          <ul>
+            <li>BFS 按层扩展状态。</li>
+            <li>任务排队、消息缓冲。</li>
+            <li>树的层序遍历。</li>
+            <li>拓扑排序中保存入度为 0 的节点。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="warning"><strong>假溢出：</strong>普通数组队列不断出队后，前面出现空位，但 <code>rear</code> 已到数组末尾；循环队列就是为复用这些空位。</div>
+
+      <h3>核心代码：数组模拟顺序队列</h3>
+      <pre class="code-block"><code>int q[N];
+int front = 0, rear = 0;      // 区间 [front, rear) 保存有效元素
+
+// 入队 x
+q[rear++] = x;
+
+// 读取并出队
+if (front &lt; rear) {
+	int x = q[front++];
+}
+
+// 当前长度
+int len = rear - front;</code></pre>
+
+      <div class="exercise-set">
+        <h3>队列 · 思考填空</h3>
+        <ol>
+          <li>空队列依次入队 4、7、9，再连续出队两次，此时队首是 <span class="blank"></span>。</li>
+          <li>采用区间 <code>[front,rear)</code>，若 <code>front=3,rear=8</code>，队列长度为 <span class="blank"></span>。</li>
+          <li>BFS 使用队列，是为了保证状态按照 <span class="blank"></span> 的顺序扩展。</li>
+          <li>顺序队列的 <code>rear</code> 到达数组末尾，但前方已有空位，这种现象叫 <span class="blank"></span>。</li>
+          <li>依次执行“入 A、入 B、出、入 C、入 D、全部出队”，完整出队顺序为 <span class="blank"></span>。</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="circular">
+    <div class="section-inner">
+      <div class="chapter-kicker">05 · 队列优化</div>
+      <h2>循环队列：让下标绕回开头</h2>
+      <p class="lead">把数组首尾想象成相连的圆环，指针每次移动后对容量取模，就能重复利用已经空出的空间。</p>
+
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-title"><h3>循环队列实验</h3><span class="tag blue">容量 6</span></div>
+          <div class="controls">
+            <input class="control-input" id="circleInput" value="D" maxlength="4" aria-label="循环队列入队数据">
+            <button class="btn" id="circleEnqueue">+ 入队</button>
+            <button class="btn danger-btn" id="circleDequeue">− 出队</button>
+            <button class="btn secondary" id="circleReset">重置</button>
+          </div>
+          <div class="circle-stage"><svg id="circleSvg" viewBox="0 0 360 330" role="img" aria-label="循环队列示意图"></svg></div>
+          <div class="status" id="circleStatus" aria-live="polite"></div>
+        </div>
+        <div>
+          <h3>本课件采用的约定</h3>
+          <p><code>front</code> 指向队首元素，<code>rear</code> 指向下一个空位。为了区分“空”和“满”，始终空出一个位置。</p>
+          <div class="formula-row">
+            <div class="formula"><strong>front == rear</strong><span>队列为空</span></div>
+            <div class="formula"><strong>(rear+1)%N == front</strong><span>队列已满</span></div>
+            <div class="formula"><strong>(rear-front+N)%N</strong><span>当前元素个数</span></div>
+          </div>
+          <h3>指针移动</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>操作</th><th>先做什么</th><th>再移动</th></tr></thead>
+              <tbody>
+                <tr><td>入队</td><td><code>a[rear]=x</code></td><td><code>rear=(rear+1)%N</code></td></tr>
+                <tr><td>出队</td><td>读取或删除 <code>a[front]</code></td><td><code>front=(front+1)%N</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="danger"><strong>易错点：</strong>不同教材对 <code>rear</code> 的定义可能不同。写题前先固定约定，空、满、长度公式必须与约定配套。</div>
+        </div>
+      </div>
+
+      <h3>核心代码：保留一个空位的循环队列</h3>
+      <pre class="code-block"><code>const int M = 100;
+int q[M];
+int front = 0, rear = 0;
+
+bool empty() { return front == rear; }
+bool full() { return (rear + 1) % M == front; }
+
+// 入队 x
+if (!full()) {
+	q[rear] = x;
+	rear = (rear + 1) % M;
+}
+
+// 出队
+if (!empty()) {
+	int x = q[front];
+	front = (front + 1) % M;
+}</code></pre>
+
+      <div class="exercise-set">
+        <h3>循环队列 · 思考填空</h3>
+        <ol>
+          <li>容量 <code>N=8</code>，<code>front=6,rear=2</code>，当前长度为 <span class="blank"></span>。</li>
+          <li>保留一个空位时，长度为 N 的数组最多保存 <span class="blank"></span> 个元素。</li>
+          <li><code>N=6, front=2, rear=1</code> 时，循环队列处于 <span class="blank"></span> 状态。</li>
+          <li><code>rear=5,N=6</code>，执行一次指针后移后，新的 <code>rear=</code><span class="blank"></span>。</li>
+          <li>若 <code>front=rear=4</code>，队列长度为 <span class="blank"></span>，此时不能执行出队。</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="tree">
+    <div class="section-inner">
+      <div class="chapter-kicker">06 · 层次结构</div>
+      <h2>树的基础：父子关系与子树</h2>
+      <p class="lead">树是一种没有环的连通结构。除根节点外，每个节点恰好有一个父节点；一个节点可以有多个孩子。</p>
+
+      <div class="grid-2">
+        <svg class="diagram" viewBox="0 0 540 390" role="img" aria-label="树的基本概念示意图">
+          <path class="edge" d="M270 62 L150 145 M270 62 L270 145 M270 62 L405 145 M150 185 L85 270 M150 185 L195 270 M405 185 L350 270 M405 185 L460 270"/>
+          <g class="node"><circle cx="270" cy="48" r="28"/><text x="270" y="48">A</text></g>
+          <g class="node"><circle cx="150" cy="165" r="25"/><text x="150" y="165">B</text></g>
+          <g class="node"><circle cx="270" cy="165" r="25"/><text x="270" y="165">C</text></g>
+          <g class="node"><circle cx="405" cy="165" r="25"/><text x="405" y="165">D</text></g>
+          <g class="node"><circle cx="85" cy="290" r="23"/><text x="85" y="290">E</text></g>
+          <g class="node"><circle cx="195" cy="290" r="23"/><text x="195" y="290">F</text></g>
+          <g class="node"><circle cx="350" cy="290" r="23"/><text x="350" y="290">G</text></g>
+          <g class="node"><circle cx="460" cy="290" r="23"/><text x="460" y="290">H</text></g>
+          <text class="label" x="310" y="28">根节点</text>
+          <text class="label" x="110" y="218">B 的孩子</text>
+          <text class="label" x="165" y="336">叶子节点</text>
+          <path d="M62 315 Q140 365 218 315" fill="none" stroke="#be123c" stroke-width="2" stroke-dasharray="5 4"/>
+          <text class="label" x="140" y="377" text-anchor="middle">B 的子树</text>
+        </svg>
+        <div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>概念</th><th>在图中的例子</th></tr></thead>
+              <tbody>
+                <tr><td>根</td><td>A，没有父节点</td></tr>
+                <tr><td>父子</td><td>A 是 B 的父，B 是 A 的孩子</td></tr>
+                <tr><td>兄弟</td><td>B、C、D 拥有同一父节点</td></tr>
+                <tr><td>节点的度</td><td>A 的度为 3，C 的度为 0</td></tr>
+                <tr><td>叶子</td><td>C、E、F、G、H，度为 0</td></tr>
+                <tr><td>深度</td><td>若根深度为 1，则 E 深度为 3</td></tr>
+                <tr><td>高度</td><td>从节点向下到最深叶子的最长层数</td></tr>
+                <tr><td>森林</td><td>删除根 A 后，剩余三棵子树</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="memory"><strong>深度向上数，高度向下数：</strong>深度描述节点离根多远，高度描述节点下面还能走多深。题目若把根深度定义为 0，所有深度会整体少 1。</div>
+      <h3>树的三个基本事实</h3>
+      <div class="formula-row">
+        <div class="formula"><strong>边数 = n − 1</strong><span>n 个节点的树</span></div>
+        <div class="formula"><strong>任意两点路径唯一</strong><span>不会出现两条不同简单路径</span></div>
+        <div class="formula"><strong>连通且无环</strong><span>二者共同刻画树</span></div>
+      </div>
+
+      <h3>核心代码：邻接表存树与 DFS</h3>
+      <pre class="code-block"><code>vector&lt;int&gt; g[N];
+int dep[N], siz[N];
+
+void dfs(int u, int fa) {
+	siz[u] = 1;
+	for (int v : g[u]) {
+		if (v == fa) continue;     // 不沿原边返回父节点
+		dep[v] = dep[u] + 1;
+		dfs(v, u);
+		siz[u] += siz[v];          // 汇总孩子子树大小
+	}
+}</code></pre>
+
+      <div class="exercise-set">
+        <h3>树的基础 · 思考填空</h3>
+        <ol>
+          <li>一棵树有 2026 个节点，它一定有 <span class="blank"></span> 条边。</li>
+          <li>一个森林共有 20 个节点、5 棵树，它共有 <span class="blank"></span> 条边。</li>
+          <li>删除一棵树的根后得到 4 棵子树，说明原根节点的度为 <span class="blank"></span>。</li>
+          <li>在树中任取两个不同节点，它们之间的简单路径数量恒为 <span class="blank"></span>。</li>
+          <li>把每个节点的孩子数量全部相加，结果等于 <span class="blank"></span>。</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="binary">
+    <div class="section-inner">
+      <div class="chapter-kicker">07 · 特殊的树</div>
+      <h2>二叉树：每个节点至多两个孩子</h2>
+      <p class="lead">二叉树区分左孩子和右孩子。只有一个孩子时，也必须说明它是左孩子还是右孩子。</p>
+
+      <div class="grid-3">
+        <div class="panel">
+          <h3>严格二叉树</h3>
+          <svg class="diagram" viewBox="0 0 260 190" aria-label="严格二叉树">
+            <path class="edge" d="M130 45 L72 110 M130 45 L188 110"/>
+            <g class="node"><circle cx="130" cy="38" r="23"/><text x="130" y="38">A</text></g>
+            <g class="node"><circle cx="72" cy="120" r="21"/><text x="72" y="120">B</text></g>
+            <g class="node"><circle cx="188" cy="120" r="21"/><text x="188" y="120">C</text></g>
+          </svg>
+          <p>每个非叶节点恰好有两个孩子。英文常称 full binary tree。</p>
+        </div>
+        <div class="panel">
+          <h3>满二叉树</h3>
+          <svg class="diagram" viewBox="0 0 260 190" aria-label="满二叉树">
+            <path class="edge" d="M130 35 L72 85 M130 35 L188 85 M72 105 L42 155 M72 105 L100 155 M188 105 L160 155 M188 105 L218 155"/>
+            <g class="node"><circle cx="130" cy="30" r="19"/><text x="130" y="30">1</text></g>
+            <g class="node"><circle cx="72" cy="92" r="18"/><text x="72" y="92">2</text></g>
+            <g class="node"><circle cx="188" cy="92" r="18"/><text x="188" y="92">3</text></g>
+            <g class="node"><circle cx="42" cy="160" r="16"/><text x="42" y="160">4</text></g>
+            <g class="node"><circle cx="100" cy="160" r="16"/><text x="100" y="160">5</text></g>
+            <g class="node"><circle cx="160" cy="160" r="16"/><text x="160" y="160">6</text></g>
+            <g class="node"><circle cx="218" cy="160" r="16"/><text x="218" y="160">7</text></g>
+          </svg>
+          <p>每一层都放满，高度为 h 时节点数是 <code>2^h−1</code>。</p>
+        </div>
+        <div class="panel">
+          <h3>完全二叉树</h3>
+          <svg class="diagram" viewBox="0 0 260 190" aria-label="完全二叉树">
+            <path class="edge" d="M130 35 L72 85 M130 35 L188 85 M72 105 L42 155 M72 105 L100 155 M188 105 L160 155"/>
+            <g class="node"><circle cx="130" cy="30" r="19"/><text x="130" y="30">1</text></g>
+            <g class="node"><circle cx="72" cy="92" r="18"/><text x="72" y="92">2</text></g>
+            <g class="node"><circle cx="188" cy="92" r="18"/><text x="188" y="92">3</text></g>
+            <g class="node"><circle cx="42" cy="160" r="16"/><text x="42" y="160">4</text></g>
+            <g class="node"><circle cx="100" cy="160" r="16"/><text x="100" y="160">5</text></g>
+            <g class="node"><circle cx="160" cy="160" r="16"/><text x="160" y="160">6</text></g>
+          </svg>
+          <p>除最后一层外都放满，最后一层从左到右连续排列。</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="panel">
+          <h3>斜树</h3>
+          <p>每个节点几乎只有一个孩子，形状退化成链。n 个节点的高度可能达到 n。</p>
+        </div>
+        <div class="panel">
+          <h3>二叉搜索树：提前认识</h3>
+          <p>通常满足“左子树较小、右子树较大”。它强调大小关系；堆只强调父子关系，二者不能混淆。</p>
+        </div>
+      </div>
+
+      <div class="warning"><strong>术语提醒：</strong>中文竞赛语境中的“满二叉树”通常指每层全满；部分英文资料把“每个节点有 0 或 2 个孩子”称为 full binary tree。阅读题目时以题目定义为准。</div>
+
+      <h3>3 个节点能构成多少种二叉树</h3>
+      <p>这里只计算<strong>形状不同</strong>的二叉树，不给节点任意换标签。根占 1 个节点，剩余节点在左、右子树之间分配：</p>
+      <p class="memory"><strong>左子树 i 个节点，右子树 n−1−i 个节点，因此 B<sub>n</sub> = Σ B<sub>i</sub>B<sub>n−1−i</sub>。</strong></p>
+
+      <div class="shape-row" aria-label="三个节点的五种二叉树形状">
+        <div class="shape-item"><svg viewBox="0 0 130 120"><line x1="65" y1="22" x2="38" y2="58" class="edge"/><line x1="38" y1="58" x2="20" y2="98" class="edge"/><circle cx="65" cy="20" r="12" class="node"/><circle cx="38" cy="60" r="12" class="node"/><circle cx="20" cy="100" r="12" class="node"/></svg><strong>左—左</strong></div>
+        <div class="shape-item"><svg viewBox="0 0 130 120"><line x1="65" y1="22" x2="38" y2="58" class="edge"/><line x1="38" y1="58" x2="62" y2="98" class="edge"/><circle cx="65" cy="20" r="12" class="node"/><circle cx="38" cy="60" r="12" class="node"/><circle cx="62" cy="100" r="12" class="node"/></svg><strong>左—右</strong></div>
+        <div class="shape-item"><svg viewBox="0 0 130 120"><line x1="65" y1="22" x2="30" y2="80" class="edge"/><line x1="65" y1="22" x2="100" y2="80" class="edge"/><circle cx="65" cy="20" r="12" class="node"/><circle cx="30" cy="82" r="12" class="node"/><circle cx="100" cy="82" r="12" class="node"/></svg><strong>左右各一</strong></div>
+        <div class="shape-item"><svg viewBox="0 0 130 120"><line x1="65" y1="22" x2="92" y2="58" class="edge"/><line x1="92" y1="58" x2="68" y2="98" class="edge"/><circle cx="65" cy="20" r="12" class="node"/><circle cx="92" cy="60" r="12" class="node"/><circle cx="68" cy="100" r="12" class="node"/></svg><strong>右—左</strong></div>
+        <div class="shape-item"><svg viewBox="0 0 130 120"><line x1="65" y1="22" x2="92" y2="58" class="edge"/><line x1="92" y1="58" x2="110" y2="98" class="edge"/><circle cx="65" cy="20" r="12" class="node"/><circle cx="92" cy="60" r="12" class="node"/><circle cx="110" cy="100" r="12" class="node"/></svg><strong>右—右</strong></div>
+      </div>
+
+      <div class="formula-row">
+        <div class="formula"><strong>B<sub>0</sub>=1</strong><span>空树也算一种</span></div>
+        <div class="formula"><strong>B<sub>3</sub>=2+1+2=5</strong><span>左 0/1/2 个节点</span></div>
+        <div class="formula"><strong>B<sub>n</sub>=C<sub>n</sub></strong><span>与合法出栈序列同为卡特兰数</span></div>
+      </div>
+
+      <h3>核心代码：左右孩子数组</h3>
+      <pre class="code-block"><code>int l[N], r[N];              // l[u]、r[u] 分别是左右孩子编号，0 表示空
+
+void preorder(int u) {
+	if (u == 0) return;
+	cout &lt;&lt; u &lt;&lt; ' ';       // 根
+	preorder(l[u]);            // 左
+	preorder(r[u]);            // 右
+}</code></pre>
+
+      <div class="exercise-set">
+        <h3>二叉树 · 思考填空</h3>
+        <ol>
+          <li>不考虑节点标签，3 个节点共有 <span class="blank"></span> 种二叉树形状。</li>
+          <li>不考虑节点标签，4 个节点共有 C<sub>4</sub> = <span class="blank"></span> 种二叉树形状。</li>
+          <li>严格二叉树中有 12 个二孩节点，则叶子节点有 <span class="blank"></span> 个。</li>
+          <li>若固定二叉搜索树的中序序列为 1、2、3，则可构成 <span class="blank"></span> 棵不同二叉搜索树。</li>
+          <li>二叉树只有一个孩子时，必须继续区分它是 <span class="blank"></span> 孩子还是右孩子。</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="traversal">
+    <div class="section-inner">
+      <div class="chapter-kicker">08 · 访问顺序</div>
+      <h2>二叉树遍历与序列转换</h2>
+      <p class="lead">前、中、后序的名字取决于“根”在左右子树之前、中间还是之后；层序则按深度从上到下访问。</p>
+
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-title"><h3>遍历过程</h3><span class="tag">交互</span></div>
+          <div class="tabs" id="traversalTabs">
+            <button class="tab active" data-order="pre">前序</button>
+            <button class="tab" data-order="in">中序</button>
+            <button class="tab" data-order="post">后序</button>
+            <button class="tab" data-order="level">层序</button>
+          </div>
+          <svg class="diagram" id="treeSvg" viewBox="0 0 520 360" role="img" aria-label="二叉树遍历演示">
+            <path class="edge" d="M260 65 L145 145 M260 65 L375 145 M145 175 L85 260 M145 175 L205 260 M375 175 L315 260 M375 175 L435 260"/>
+            <g class="node" data-node="A"><circle cx="260" cy="52" r="28"/><text x="260" y="52">A</text></g>
+            <g class="node" data-node="B"><circle cx="145" cy="160" r="26"/><text x="145" y="160">B</text></g>
+            <g class="node" data-node="C"><circle cx="375" cy="160" r="26"/><text x="375" y="160">C</text></g>
+            <g class="node" data-node="D"><circle cx="85" cy="278" r="24"/><text x="85" y="278">D</text></g>
+            <g class="node" data-node="E"><circle cx="205" cy="278" r="24"/><text x="205" y="278">E</text></g>
+            <g class="node" data-node="F"><circle cx="315" cy="278" r="24"/><text x="315" y="278">F</text></g>
+            <g class="node" data-node="G"><circle cx="435" cy="278" r="24"/><text x="435" y="278">G</text></g>
+          </svg>
+          <div class="controls">
+            <button class="btn secondary" id="treePrev">← 上一步</button>
+            <button class="btn" id="treeNext">下一步 →</button>
+            <button class="btn secondary" id="treeAuto">自动播放</button>
+            <button class="btn secondary" id="treeReset">重置</button>
+          </div>
+          <div class="visited-line" id="treeVisited"></div>
+          <div class="status" id="treeStatus"></div>
+        </div>
+        <div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>遍历</th><th>递归顺序</th><th>图中结果</th></tr></thead>
+              <tbody>
+                <tr><td>前序</td><td>根 → 左 → 右</td><td>A B D E C F G</td></tr>
+                <tr><td>中序</td><td>左 → 根 → 右</td><td>D B E A F C G</td></tr>
+                <tr><td>后序</td><td>左 → 右 → 根</td><td>D E B F G C A</td></tr>
+                <tr><td>层序</td><td>从上到下、从左到右</td><td>A B C D E F G</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="memory"><strong>记忆点：</strong>“前中后”只看根的位置，左子树永远先于右子树。</div>
+          <h3>遍历序列能否唯一还原二叉树</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>已知序列</th><th>能否唯一还原</th><th>关键原因</th></tr></thead>
+              <tbody>
+                <tr><td>前序 + 中序</td><td>能</td><td>前序先找根，中序划分左右子树</td></tr>
+                <tr><td>后序 + 中序</td><td>能</td><td>后序最后找根，中序划分左右子树</td></tr>
+                <tr><td>层序 + 中序</td><td>通常能</td><td>层序确定每个区间最先出现的根</td></tr>
+                <tr><td>前序 + 后序</td><td>一般不能</td><td>只有一个孩子时，无法判断是左还是右</td></tr>
+                <tr><td>只有一种序列</td><td>不能</td><td>许多不同树可产生相同序列</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <h3>前序 + 中序还原：逐层缩小区间</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>当前前序</th><th>当前中序</th><th>根</th><th>划分结果</th></tr></thead>
+          <tbody>
+            <tr><td>A B D E C F G</td><td>D B E | A | F C G</td><td>A</td><td>左子树 D B E，右子树 F C G</td></tr>
+            <tr><td>B D E</td><td>D | B | E</td><td>B</td><td>左孩子 D，右孩子 E</td></tr>
+            <tr><td>C F G</td><td>F | C | G</td><td>C</td><td>左孩子 F，右孩子 G</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>方法一：前序 + 中序还原</h3>
+      <p><strong>前序第一个是根。</strong>在中序中找到根，根左边一定属于左子树，右边一定属于右子树；再按节点数量切分前序。</p>
+      <div class="rebuild-stage">
+        <div>
+          <strong>① 找总根</strong>
+          <p class="mono">前：A B D E C F G</p><p class="mono">中：D B E | A | F C G</p>
+          <svg viewBox="0 0 260 210"><circle cx="130" cy="55" r="24" fill="#ffd66b" stroke="#a85d00" stroke-width="2"/><text x="130" y="60" text-anchor="middle" font-weight="800">A</text><text x="130" y="115" text-anchor="middle" class="label">A 把中序分成左右两段</text></svg>
+        </div>
+        <div>
+          <strong>② 分别找子树根</strong>
+          <p class="mono">左前：B D E　右前：C F G</p>
+          <svg viewBox="0 0 260 210"><line x1="130" y1="48" x2="70" y2="130" class="edge"/><line x1="130" y1="48" x2="190" y2="130" class="edge"/><circle cx="130" cy="42" r="22" fill="#fff" stroke="#0f766e" stroke-width="2"/><circle cx="70" cy="138" r="22" fill="#ffd66b" stroke="#a85d00" stroke-width="2"/><circle cx="190" cy="138" r="22" fill="#ffd66b" stroke="#a85d00" stroke-width="2"/><text x="130" y="47" text-anchor="middle">A</text><text x="70" y="143" text-anchor="middle">B</text><text x="190" y="143" text-anchor="middle">C</text></svg>
+        </div>
+        <div>
+          <strong>③ 递归完成</strong>
+          <p class="mono">D | B | E　　F | C | G</p>
+          <svg viewBox="0 0 260 210"><path d="M130 35 L72 90 M130 35 L188 90 M72 108 L40 165 M72 108 L103 165 M188 108 L157 165 M188 108 L220 165" class="edge"/><g class="node"><circle cx="130" cy="30" r="18"/><text x="130" y="30">A</text></g><g class="node"><circle cx="72" cy="100" r="18"/><text x="72" y="100">B</text></g><g class="node"><circle cx="188" cy="100" r="18"/><text x="188" y="100">C</text></g><g class="node"><circle cx="40" cy="175" r="16"/><text x="40" y="175">D</text></g><g class="node"><circle cx="103" cy="175" r="16"/><text x="103" y="175">E</text></g><g class="node"><circle cx="157" cy="175" r="16"/><text x="157" y="175">F</text></g><g class="node"><circle cx="220" cy="175" r="16"/><text x="220" y="175">G</text></g></svg>
+        </div>
+      </div>
+
+      <h3>方法二：后序 + 中序还原</h3>
+      <p><strong>后序最后一个是根。</strong>中序仍负责划分左右子树；后序中先出现左子树，再出现右子树，最后才是根。</p>
+      <div class="rebuild-stage">
+        <div><strong>① 找总根</strong><p class="mono">后：D E B F G C | A</p><p class="mono">中：D B E | A | F C G</p><svg viewBox="0 0 260 210"><circle cx="130" cy="55" r="24" fill="#ffd66b" stroke="#a85d00" stroke-width="2"/><text x="130" y="60" text-anchor="middle" font-weight="800">A</text><text x="130" y="115" text-anchor="middle" class="label">从后序末尾取根</text></svg></div>
+        <div><strong>② 切分后序</strong><p class="mono">左后：D E B</p><p class="mono">右后：F G C</p><svg viewBox="0 0 260 210"><line x1="130" y1="48" x2="70" y2="130" class="edge"/><line x1="130" y1="48" x2="190" y2="130" class="edge"/><circle cx="130" cy="42" r="22" fill="#fff" stroke="#0f766e" stroke-width="2"/><circle cx="70" cy="138" r="22" fill="#ffd66b" stroke="#a85d00" stroke-width="2"/><circle cx="190" cy="138" r="22" fill="#ffd66b" stroke="#a85d00" stroke-width="2"/><text x="130" y="47" text-anchor="middle">A</text><text x="70" y="143" text-anchor="middle">B</text><text x="190" y="143" text-anchor="middle">C</text></svg></div>
+        <div><strong>③ 继续取各段末尾</strong><p class="mono">D E | B　　F G | C</p><svg viewBox="0 0 260 210"><path d="M130 35 L72 90 M130 35 L188 90 M72 108 L40 165 M72 108 L103 165 M188 108 L157 165 M188 108 L220 165" class="edge"/><g class="node"><circle cx="130" cy="30" r="18"/><text x="130" y="30">A</text></g><g class="node"><circle cx="72" cy="100" r="18"/><text x="72" y="100">B</text></g><g class="node"><circle cx="188" cy="100" r="18"/><text x="188" y="100">C</text></g><g class="node"><circle cx="40" cy="175" r="16"/><text x="40" y="175">D</text></g><g class="node"><circle cx="103" cy="175" r="16"/><text x="103" y="175">E</text></g><g class="node"><circle cx="157" cy="175" r="16"/><text x="157" y="175">F</text></g><g class="node"><circle cx="220" cy="175" r="16"/><text x="220" y="175">G</text></g></svg></div>
+      </div>
+
+      <h3>方法三：层序 + 中序还原</h3>
+      <p><strong>当前层序中第一个属于该中序区间的节点就是根。</strong>中序分段后，把剩余层序按“属于左段还是右段”过滤，保持原相对顺序。</p>
+      <div class="rebuild-stage">
+        <div><strong>① 层序首项是根</strong><p class="mono">层：A B C D E F G</p><p class="mono">中：D B E | A | F C G</p><svg viewBox="0 0 260 210"><circle cx="130" cy="55" r="24" fill="#ffd66b" stroke="#a85d00" stroke-width="2"/><text x="130" y="60" text-anchor="middle" font-weight="800">A</text><text x="130" y="115" text-anchor="middle" class="label">A 是当前区间最先出现者</text></svg></div>
+        <div><strong>② 过滤左右层序</strong><p class="mono">左层：B D E</p><p class="mono">右层：C F G</p><svg viewBox="0 0 260 210"><line x1="130" y1="48" x2="70" y2="130" class="edge"/><line x1="130" y1="48" x2="190" y2="130" class="edge"/><circle cx="130" cy="42" r="22" fill="#fff" stroke="#0f766e" stroke-width="2"/><circle cx="70" cy="138" r="22" fill="#ffd66b" stroke="#a85d00" stroke-width="2"/><circle cx="190" cy="138" r="22" fill="#ffd66b" stroke="#a85d00" stroke-width="2"/><text x="130" y="47" text-anchor="middle">A</text><text x="70" y="143" text-anchor="middle">B</text><text x="190" y="143" text-anchor="middle">C</text></svg></div>
+        <div><strong>③ 对子区间继续过滤</strong><p class="mono">B→D,E　　C→F,G</p><svg viewBox="0 0 260 210"><path d="M130 35 L72 90 M130 35 L188 90 M72 108 L40 165 M72 108 L103 165 M188 108 L157 165 M188 108 L220 165" class="edge"/><g class="node"><circle cx="130" cy="30" r="18"/><text x="130" y="30">A</text></g><g class="node"><circle cx="72" cy="100" r="18"/><text x="72" y="100">B</text></g><g class="node"><circle cx="188" cy="100" r="18"/><text x="188" y="100">C</text></g><g class="node"><circle cx="40" cy="175" r="16"/><text x="40" y="175">D</text></g><g class="node"><circle cx="103" cy="175" r="16"/><text x="103" y="175">E</text></g><g class="node"><circle cx="157" cy="175" r="16"/><text x="157" y="175">F</text></g><g class="node"><circle cx="220" cy="175" r="16"/><text x="220" y="175">G</text></g></svg></div>
+      </div>
+
+      <div class="interactive-lab">
+        <div class="panel-title"><h3>序列还原实验：逐个点亮二叉树</h3><span class="tag blue">最多 4 层</span></div>
+        <div class="tabs" id="rebuildTabs">
+          <button class="tab active" data-build="prein">前序 + 中序</button>
+          <button class="tab" data-build="postin">后序 + 中序</button>
+          <button class="tab" data-build="levelin">层序 + 中序</button>
+        </div>
+        <div class="lab-toolbar">
+          <div class="lab-field">
+            <label id="rebuildFirstLabel" for="rebuildFirst">前序序列</label>
+            <input class="control-input" id="rebuildFirst" value="A B D E C F G" aria-label="第一条遍历序列">
+          </div>
+          <div class="lab-field">
+            <label for="rebuildInorder">中序序列</label>
+            <input class="control-input" id="rebuildInorder" value="D B E A F C G" aria-label="中序序列">
+          </div>
+        </div>
+        <div class="controls">
+          <button class="btn" id="rebuildBuild">生成步骤</button>
+          <button class="btn secondary" id="rebuildPrev">← 上一步</button>
+          <button class="btn secondary" id="rebuildNext">下一步 →</button>
+          <button class="btn secondary" id="rebuildAuto">自动点亮</button>
+          <button class="btn secondary" id="rebuildReset">重置样例</button>
+        </div>
+        <div class="legend">
+          <span class="legend-item"><span class="dot" style="background:#fbfdfc;border:1px dashed #91a49e"></span>待确定位置</span>
+          <span class="legend-item"><span class="dot"></span>已经确定</span>
+          <span class="legend-item"><span class="dot amber"></span>本步找到的根</span>
+        </div>
+        <div class="interactive-stage tree-builder-stage">
+          <svg id="rebuildSvg" viewBox="0 0 900 510" role="img" aria-label="四层满二叉树骨架与序列还原过程"></svg>
+        </div>
+        <div class="sequence-focus" id="rebuildFocus">准备根据两条序列还原二叉树。</div>
+        <div class="status" id="rebuildStatus" aria-live="polite"></div>
+      </div>
+
+      <h3>核心代码：四种遍历</h3>
+      <pre class="code-block"><code>void dfs(int u) {
+	if (!u) return;
+	// cout &lt;&lt; u;             // 前序：根左右
+	dfs(l[u]);
+	// cout &lt;&lt; u;             // 中序：左根右
+	dfs(r[u]);
+	// cout &lt;&lt; u;             // 后序：左右根
+}
+
+void level(int root) {
+	queue&lt;int&gt; q;
+	q.push(root);
+	while (!q.empty()) {
+		int u = q.front(); q.pop();
+		cout &lt;&lt; u &lt;&lt; ' ';
+		if (l[u]) q.push(l[u]);
+		if (r[u]) q.push(r[u]);
+	}
+}</code></pre>
+
+      <div class="exercise-set">
+        <h3>遍历与还原 · 思考填空</h3>
+        <ol>
+          <li>前序为 <code>A B D E C F G</code>，中序为 <code>D B E A F C G</code>，整棵树的根是 <span class="blank"></span>。</li>
+          <li>上题中，根 A 的左子树共有 <span class="blank"></span> 个节点。</li>
+          <li>由上述前序和中序还原后，后序序列为 <span class="blank"></span>。</li>
+          <li>只知道前序和后序通常不能唯一还原，因为无法确定单个孩子属于 <span class="blank"></span>。</li>
+          <li>层序为 <code>A B C D E F G</code>，中序右段为 <code>F C G</code>，过滤得到右子树层序为 <span class="blank"></span>。</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="tree-formula">
+    <div class="section-inner">
+      <div class="chapter-kicker">09 · 数量关系</div>
+      <h2>二叉树的层数与节点关系</h2>
+      <p class="lead">公式不能只背结果，要先看题目中根节点是第 1 层还是第 0 层，以及高度按节点数还是边数计算。</p>
+
+      <div class="formula-row">
+        <div class="formula"><strong>第 k 层至多 2<sup>k−1</sup></strong><span>根为第 1 层</span></div>
+        <div class="formula"><strong>高度 h 至多 2<sup>h</sup>−1</strong><span>满二叉树达到上界</span></div>
+        <div class="formula"><strong>n<sub>0</sub> = n<sub>2</sub> + 1</strong><span>叶子数与二孩节点数</span></div>
+      </div>
+
+      <h3>为什么第 k 层至多有 2<sup>k−1</sup> 个节点</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>层</th><th>上一层最多节点</th><th>每个节点最多生两个孩子</th><th>本层最多</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>—</td><td>根只有一个</td><td>1 = 2<sup>0</sup></td></tr>
+            <tr><td>2</td><td>1</td><td>1 × 2</td><td>2 = 2<sup>1</sup></td></tr>
+            <tr><td>3</td><td>2</td><td>2 × 2</td><td>4 = 2<sup>2</sup></td></tr>
+            <tr><td>k</td><td>2<sup>k−2</sup></td><td>2<sup>k−2</sup> × 2</td><td>2<sup>k−1</sup></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>为什么 n<sub>0</sub> = n<sub>2</sub> + 1</h3>
+      <p>设叶子节点、一孩节点、二孩节点数量分别为 n<sub>0</sub>、n<sub>1</sub>、n<sub>2</sub>。</p>
+      <div class="compare-grid">
+        <div class="panel">
+          <strong>从节点总数看边数</strong>
+          <p>总节点数 n = n<sub>0</sub> + n<sub>1</sub> + n<sub>2</sub>，树的边数为 n−1。</p>
+        </div>
+        <div class="panel">
+          <strong>从孩子数量看边数</strong>
+          <p>每个孩子对应一条父子边，所以边数 = n<sub>1</sub> + 2n<sub>2</sub>。</p>
+        </div>
+      </div>
+      <p class="memory">令两种边数相等：n<sub>0</sub> + n<sub>1</sub> + n<sub>2</sub> − 1 = n<sub>1</sub> + 2n<sub>2</sub>，整理得到 <strong>n<sub>0</sub> = n<sub>2</sub> + 1</strong>。</p>
+
+      <h3>完全二叉树的数组编号</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>采用 1 下标</th><th>公式</th><th>存在条件</th></tr></thead>
+          <tbody>
+            <tr><td>父节点</td><td><code>i / 2</code></td><td><code>i &gt; 1</code></td></tr>
+            <tr><td>左孩子</td><td><code>2 * i</code></td><td><code>2*i &lt;= n</code></td></tr>
+            <tr><td>右孩子</td><td><code>2 * i + 1</code></td><td><code>2*i+1 &lt;= n</code></td></tr>
+            <tr><td>节点所在层</td><td><code>floor(log2(i)) + 1</code></td><td>根为第 1 层</td></tr>
+            <tr><td>n 个节点的高度</td><td><code>floor(log2(n)) + 1</code></td><td><code>n &gt; 0</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>把层数和节点数放到同一张图中</h3>
+      <svg class="diagram" viewBox="0 0 900 455" role="img" aria-label="四层满二叉树各层节点数量">
+        <rect x="20" y="20" width="860" height="78" fill="#edf8f5"/><rect x="20" y="105" width="860" height="92" fill="#eef4ff"/><rect x="20" y="205" width="860" height="102" fill="#fff7e8"/><rect x="20" y="315" width="860" height="120" fill="#fff1f4"/>
+        <text x="60" y="62" font-weight="800" fill="#0f766e">第 1 层：1</text><text x="60" y="150" font-weight="800" fill="#2563eb">第 2 层：2</text><text x="60" y="255" font-weight="800" fill="#a85d00">第 3 层：4</text><text x="60" y="375" font-weight="800" fill="#be123c">第 4 层：8</text>
+        <path class="edge" d="M510 62 L390 145 M510 62 L630 145 M390 165 L300 250 M390 165 L440 250 M630 165 L580 250 M630 165 L720 250 M300 270 L250 375 M300 270 L335 375 M440 270 L405 375 M440 270 L475 375 M580 270 L545 375 M580 270 L615 375 M720 270 L685 375 M720 270 L770 375"/>
+        <g class="node"><circle cx="510" cy="55" r="20"/><text x="510" y="55">1</text></g>
+        <g class="node"><circle cx="390" cy="155" r="18"/><text x="390" y="155">2</text></g><g class="node"><circle cx="630" cy="155" r="18"/><text x="630" y="155">3</text></g>
+        <g class="node"><circle cx="300" cy="260" r="17"/><text x="300" y="260">4</text></g><g class="node"><circle cx="440" cy="260" r="17"/><text x="440" y="260">5</text></g><g class="node"><circle cx="580" cy="260" r="17"/><text x="580" y="260">6</text></g><g class="node"><circle cx="720" cy="260" r="17"/><text x="720" y="260">7</text></g>
+        <g class="node"><circle cx="250" cy="390" r="15"/><text x="250" y="390">8</text></g><g class="node"><circle cx="335" cy="390" r="15"/><text x="335" y="390">9</text></g><g class="node"><circle cx="405" cy="390" r="15"/><text x="405" y="390">10</text></g><g class="node"><circle cx="475" cy="390" r="15"/><text x="475" y="390">11</text></g><g class="node"><circle cx="545" cy="390" r="15"/><text x="545" y="390">12</text></g><g class="node"><circle cx="615" cy="390" r="15"/><text x="615" y="390">13</text></g><g class="node"><circle cx="685" cy="390" r="15"/><text x="685" y="390">14</text></g><g class="node"><circle cx="770" cy="390" r="15"/><text x="770" y="390">15</text></g>
+      </svg>
+
+      <h3>等比数列求和：错位相减</h3>
+      <div class="compare-grid">
+        <div class="panel">
+          <strong>原式</strong>
+          <p class="mono">S = 1 + 2 + 2² + ... + 2<sup>h−1</sup></p>
+          <p>每一层是上一层的 2 倍。</p>
+        </div>
+        <div class="panel">
+          <strong>整体乘 2，向后错一位</strong>
+          <p class="mono">2S = 2 + 2² + ... + 2<sup>h−1</sup> + 2<sup>h</sup></p>
+          <p>中间各项会在相减时全部抵消。</p>
+        </div>
+      </div>
+      <p class="memory"><strong>2S − S = 2<sup>h</sup> − 1，所以 S = 2<sup>h</sup> − 1。</strong></p>
+
+      <h3>推广到 m 叉树</h3>
+      <p>如果每个节点至多有 m 个孩子，第 k 层至多有 m<sup>k−1</sup> 个节点。高度 h 的满 m 叉树：</p>
+      <div class="formula-row">
+        <div class="formula"><strong>S=1+m+...+m<sup>h−1</sup></strong><span>层节点数形成等比数列</span></div>
+        <div class="formula"><strong>mS−S=m<sup>h</sup>−1</strong><span>错位相减</span></div>
+        <div class="formula"><strong>S=(m<sup>h</sup>−1)/(m−1)</strong><span>m &gt; 1</span></div>
+      </div>
+      <p>例如满三叉树高度为 4，最多节点数为 <code>(3⁴−1)/(3−1)=40</code>。</p>
+
+      <h3>完整例子：完全二叉树有 2026 个节点</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>问题</th><th>计算过程</th><th>结论</th></tr></thead>
+          <tbody>
+            <tr><td>层数</td><td>2<sup>10</sup>=1024 ≤ 2026 &lt; 2048=2<sup>11</sup></td><td>11 层</td></tr>
+            <tr><td>二孩节点</td><td>编号 i 有右孩子需 2i+1≤2026，所以 i≤1012</td><td>1012 个</td></tr>
+            <tr><td>一孩节点</td><td>编号 1013 只有左孩子 2026；之后都是叶子</td><td>1 个</td></tr>
+            <tr><td>叶子节点</td><td>编号 1014 到 2026，共 2026−1013</td><td>1013 个</td></tr>
+            <tr><td>关系检查</td><td>n<sub>0</sub>=1013，n<sub>2</sub>+1=1012+1</td><td>满足 n<sub>0</sub>=n<sub>2</sub>+1</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>核心代码：完全二叉树数量统计</h3>
+      <pre class="code-block"><code>int n;
+cin &gt;&gt; n;
+
+int h = 0;
+for (int x = n; x; x /= 2) h++;  // floor(log2(n)) + 1
+
+int n2 = (n - 1) / 2;            // 有两个孩子的节点
+int n1 = (n % 2 == 0);            // n 为偶数时恰有一个一孩节点
+int n0 = n - n1 - n2;             // 叶子节点
+
+cout &lt;&lt; h &lt;&lt; ' ' &lt;&lt; n2 &lt;&lt; ' ' &lt;&lt; n1 &lt;&lt; ' ' &lt;&lt; n0;</code></pre>
+
+      <div class="exercise-set">
+        <h3>层数与节点 · 思考填空</h3>
+        <ol>
+          <li>高度为 6 的满二叉树共有 <span class="blank"></span> 个节点。</li>
+          <li>高度为 4 的满三叉树共有 <span class="blank"></span> 个节点。</li>
+          <li>100 个节点的完全二叉树共有 <span class="blank"></span> 个二孩节点。</li>
+          <li>100 个节点的完全二叉树共有 <span class="blank"></span> 个叶子节点和 <span class="blank"></span> 个一孩节点。</li>
+          <li>因为 2<sup>6</sup>≤100&lt;2<sup>7</sup>，100 个节点的完全二叉树高度为 <span class="blank"></span>。</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="graph">
+    <div class="section-inner">
+      <div class="chapter-kicker">10 · 网络结构</div>
+      <h2>图论基础：点、边、方向与连通</h2>
+      <p class="lead">图由顶点集合 V 和边集合 E 组成。树是特殊的图；图可以有环、可以不连通，也可以具有方向和权值。</p>
+
+      <div class="grid-2">
+        <div class="panel">
+          <h3>无向图</h3>
+          <svg class="diagram" viewBox="0 0 420 280" aria-label="无向图示意图">
+            <path class="edge" d="M95 65 L210 45 L330 90 L290 215 L135 220 L95 65 M210 45 L290 215 M95 65 L290 215"/>
+            <g class="node"><circle cx="95" cy="65" r="23"/><text x="95" y="65">A</text></g>
+            <g class="node"><circle cx="210" cy="45" r="23"/><text x="210" y="45">B</text></g>
+            <g class="node"><circle cx="330" cy="90" r="23"/><text x="330" y="90">C</text></g>
+            <g class="node"><circle cx="290" cy="215" r="23"/><text x="290" y="215">D</text></g>
+            <g class="node"><circle cx="135" cy="220" r="23"/><text x="135" y="220">E</text></g>
+          </svg>
+          <p>边没有方向，A—B 与 B—A 是同一条边。所有顶点度数之和等于 <strong>2|E|</strong>。</p>
+        </div>
+        <div class="panel">
+          <h3>有向图</h3>
+          <svg class="diagram" viewBox="0 0 420 280" aria-label="有向图示意图">
+            <defs><marker id="arrowGraph" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#7d8c87"/></marker></defs>
+            <line class="edge" marker-end="url(#arrowGraph)" x1="119" y1="75" x2="196" y2="55"/>
+            <line class="edge" marker-end="url(#arrowGraph)" x1="239" y1="61" x2="309" y2="106"/>
+            <line class="edge" marker-end="url(#arrowGraph)" x1="314" y1="137" x2="236" y2="203"/>
+            <line class="edge" marker-end="url(#arrowGraph)" x1="201" y1="205" x2="111" y2="99"/>
+            <line class="edge" marker-end="url(#arrowGraph)" x1="119" y1="86" x2="306" y2="112"/>
+            <g class="node"><circle cx="95" cy="82" r="23"/><text x="95" y="82">A</text></g>
+            <g class="node"><circle cx="220" cy="48" r="23"/><text x="220" y="48">B</text></g>
+            <g class="node"><circle cx="330" cy="120" r="23"/><text x="330" y="120">C</text></g>
+            <g class="node"><circle cx="220" cy="220" r="23"/><text x="220" y="220">D</text></g>
+          </svg>
+          <p>边有起点和终点。进入节点的是入边，离开节点的是出边；所有入度之和与出度之和都等于 <strong>|E|</strong>。</p>
+        </div>
+      </div>
+
+      <h3>图的核心概念</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>概念</th><th>含义</th><th>判断重点</th></tr></thead>
+          <tbody>
+            <tr><td>路径</td><td>沿边从一个点走到另一个点的顶点序列</td><td>有向图必须顺着箭头</td></tr>
+            <tr><td>简单路径</td><td>除必要情况外不重复经过顶点</td><td>不要重复点</td></tr>
+            <tr><td>环</td><td>起点和终点相同的封闭路径</td><td>DAG 是无环有向图</td></tr>
+            <tr><td>连通</td><td>无向图任意两点之间都有路径</td><td>不连通图可拆成多个连通块</td></tr>
+            <tr><td>强连通</td><td>有向图任意两点都能互相到达</td><td>u→v 和 v→u 都要存在路径</td></tr>
+            <tr><td>弱连通</td><td>忽略方向后连通</td><td>只说明底层无向结构连通</td></tr>
+            <tr><td>权</td><td>边或点附带距离、费用、时间等数值</td><td>路径长度常为边权之和</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>路径、环与连通：看图判断</h3>
+      <div class="mini-graph-grid">
+        <div class="mini-graph">
+          <strong>路径 A→B→C→D</strong>
+          <svg viewBox="0 0 220 165"><polyline points="25,100 80,45 140,75 195,30" fill="none" stroke="#0f766e" stroke-width="5"/><circle cx="25" cy="100" r="14" fill="#fff" stroke="#0f766e" stroke-width="2"/><circle cx="80" cy="45" r="14" fill="#fff" stroke="#0f766e" stroke-width="2"/><circle cx="140" cy="75" r="14" fill="#fff" stroke="#0f766e" stroke-width="2"/><circle cx="195" cy="30" r="14" fill="#fff" stroke="#0f766e" stroke-width="2"/><text x="25" y="105" text-anchor="middle">A</text><text x="80" y="50" text-anchor="middle">B</text><text x="140" y="80" text-anchor="middle">C</text><text x="195" y="35" text-anchor="middle">D</text></svg>
+        </div>
+        <div class="mini-graph">
+          <strong>环 A→B→C→A</strong>
+          <svg viewBox="0 0 220 165"><path d="M45 120 L110 30 L180 120 Z" fill="none" stroke="#be123c" stroke-width="5"/><circle cx="45" cy="120" r="14" fill="#fff" stroke="#be123c" stroke-width="2"/><circle cx="110" cy="30" r="14" fill="#fff" stroke="#be123c" stroke-width="2"/><circle cx="180" cy="120" r="14" fill="#fff" stroke="#be123c" stroke-width="2"/><text x="45" y="125" text-anchor="middle">A</text><text x="110" y="35" text-anchor="middle">B</text><text x="180" y="125" text-anchor="middle">C</text></svg>
+        </div>
+        <div class="mini-graph">
+          <strong>连通图：只有一个连通块</strong>
+          <svg viewBox="0 0 220 165"><path d="M35 45 L105 30 L180 65 L145 130 L55 120 L35 45 M105 30 L145 130" fill="none" stroke="#2563eb" stroke-width="3"/><circle cx="35" cy="45" r="13" fill="#eaf1ff" stroke="#2563eb"/><circle cx="105" cy="30" r="13" fill="#eaf1ff" stroke="#2563eb"/><circle cx="180" cy="65" r="13" fill="#eaf1ff" stroke="#2563eb"/><circle cx="145" cy="130" r="13" fill="#eaf1ff" stroke="#2563eb"/><circle cx="55" cy="120" r="13" fill="#eaf1ff" stroke="#2563eb"/></svg>
+        </div>
+        <div class="mini-graph">
+          <strong>不连通图：两个连通块</strong>
+          <svg viewBox="0 0 220 165"><path d="M25 55 L80 30 L70 100 L25 55" fill="none" stroke="#0f766e" stroke-width="3"/><path d="M140 55 L195 40 L180 115 L140 55" fill="none" stroke="#a85d00" stroke-width="3"/><circle cx="25" cy="55" r="12" fill="#e5f4f1" stroke="#0f766e"/><circle cx="80" cy="30" r="12" fill="#e5f4f1" stroke="#0f766e"/><circle cx="70" cy="100" r="12" fill="#e5f4f1" stroke="#0f766e"/><circle cx="140" cy="55" r="12" fill="#fff3dc" stroke="#a85d00"/><circle cx="195" cy="40" r="12" fill="#fff3dc" stroke="#a85d00"/><circle cx="180" cy="115" r="12" fill="#fff3dc" stroke="#a85d00"/></svg>
+        </div>
+      </div>
+      <div class="warning"><strong>判断顺序：</strong>先确定边是否有方向，再按方向检查路径；出现回到起点的封闭路径才构成环；无向图任意两点可达才叫连通。</div>
+
+      <div class="grid-2">
+        <div class="panel">
+          <h3>连通块</h3>
+          <svg class="diagram" viewBox="0 0 500 250" aria-label="图的连通块">
+            <path d="M70 80 L150 55 L190 135 L100 170 L70 80" stroke="#0f766e" stroke-width="3" fill="none"/>
+            <path d="M320 70 L410 100 L365 180 L320 70" stroke="#2563eb" stroke-width="3" fill="none"/>
+            <circle cx="70" cy="80" r="17" fill="#d8f2ec" stroke="#0f766e" stroke-width="2"/><circle cx="150" cy="55" r="17" fill="#d8f2ec" stroke="#0f766e" stroke-width="2"/><circle cx="190" cy="135" r="17" fill="#d8f2ec" stroke="#0f766e" stroke-width="2"/><circle cx="100" cy="170" r="17" fill="#d8f2ec" stroke="#0f766e" stroke-width="2"/>
+            <circle cx="320" cy="70" r="17" fill="#eaf1ff" stroke="#2563eb" stroke-width="2"/><circle cx="410" cy="100" r="17" fill="#eaf1ff" stroke="#2563eb" stroke-width="2"/><circle cx="365" cy="180" r="17" fill="#eaf1ff" stroke="#2563eb" stroke-width="2"/>
+            <text class="label" x="125" y="220" text-anchor="middle">连通块 1</text><text class="label" x="365" y="220" text-anchor="middle">连通块 2</text>
+          </svg>
+        </div>
+        <div class="panel">
+          <h3>完全图的边数</h3>
+          <p>无向完全图中，每对不同顶点之间恰有一条边：</p>
+          <p class="memory"><strong>m = n(n−1)/2</strong></p>
+          <p>不含自环的有向完全图中，每个有序点对都有一条边：</p>
+          <p class="memory"><strong>m = n(n−1)</strong></p>
+        </div>
+      </div>
+
+      <h3>三种常见存图方式</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>方式</th><th>空间</th><th>查一条边</th><th>遍历邻点</th><th>适用</th></tr></thead>
+          <tbody>
+            <tr><td>邻接矩阵</td><td>O(n²)</td><td>O(1)</td><td>O(n)</td><td>点少、边密</td></tr>
+            <tr><td>邻接表</td><td>O(n+m)</td><td>通常与度有关</td><td>O(deg(u))</td><td>OI 中最常用</td></tr>
+            <tr><td>边集数组</td><td>O(m)</td><td>不方便</td><td>不方便</td><td>Kruskal 等按边处理</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>核心代码：邻接表与连通块</h3>
+      <pre class="code-block"><code>vector&lt;int&gt; g[N];
+bool vis[N];
+
+// 无向边：两个方向都要加入
+g[u].push_back(v);
+g[v].push_back(u);
+
+void dfs(int u) {
+	vis[u] = true;
+	for (int v : g[u]) {
+		if (!vis[v]) dfs(v);
+	}
+}
+
+int cnt = 0;
+for (int i = 1; i &lt;= n; i++) {
+	if (!vis[i]) {
+		cnt++;                    // 新发现一个连通块
+		dfs(i);
+	}
+}</code></pre>
+
+      <div class="exercise-set">
+        <h3>图论基础 · 思考填空</h3>
+        <ol>
+          <li>无向图所有顶点度数之和为 24，则边数为 <span class="blank"></span>。</li>
+          <li>有向图所有顶点入度之和为 17，则边数和出度之和分别为 <span class="blank"></span>、<span class="blank"></span>。</li>
+          <li>8 个顶点的无向完全图共有 <span class="blank"></span> 条边。</li>
+          <li>一个连通无向图有 10 个顶点、9 条边，它一定是一棵 <span class="blank"></span>。</li>
+          <li>有向图忽略方向后连通，但不能保证任意两点互相到达，这种性质叫 <span class="blank"></span>。</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="heap">
+    <div class="section-inner">
+      <div class="chapter-kicker">11 · 优先结构</div>
+      <h2>堆：反复取得当前最值</h2>
+      <p class="lead">堆是一棵完全二叉树，并满足父子之间的大小关系。小根堆的父节点不大于孩子，大根堆则相反。</p>
+      <div class="memory"><strong>记忆点：</strong>堆只保证“父子有序”，不保证整棵树从左到右有序。</div>
+
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-title"><h3>小根堆实验</h3><span class="tag amber">交互</span></div>
+          <div class="controls">
+            <input class="control-input" id="heapInput" value="4" aria-label="插入堆的数据">
+            <button class="btn" id="heapPush">+ 插入</button>
+            <button class="btn danger-btn" id="heapPop">− 删除堆顶</button>
+            <button class="btn secondary" id="heapReset">重置</button>
+          </div>
+          <div class="heap-array" id="heapArray"></div>
+          <svg class="diagram" id="heapSvg" viewBox="0 0 560 350" role="img" aria-label="小根堆结构图"></svg>
+          <div class="status" id="heapStatus" aria-live="polite"></div>
+        </div>
+        <div>
+          <h3>核心操作</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>操作</th><th>过程</th><th>复杂度</th></tr></thead>
+              <tbody>
+                <tr><td>读取堆顶</td><td>直接读取根节点</td><td>O(1)</td></tr>
+                <tr><td>插入</td><td>放到数组末尾，再向上调整</td><td>O(log n)</td></tr>
+                <tr><td>删除堆顶</td><td>末尾补到根，再向下调整</td><td>O(log n)</td></tr>
+                <tr><td>建堆</td><td>从最后一个非叶节点向下调整</td><td>O(n)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h3>向上与向下调整</h3>
+          <ul>
+            <li><strong>向上：</strong>新节点与父节点比较，违反堆序就交换。</li>
+            <li><strong>向下：</strong>父节点与两个孩子中更优者比较，违反堆序就交换。</li>
+            <li>完全二叉树高度是 O(log n)，所以一次调整也是 O(log n)。</li>
+          </ul>
+          <div class="danger"><strong>堆不是二叉搜索树：</strong>小根堆只能确定根最小，不能确定某个值在左子树还是右子树。</div>
+        </div>
+      </div>
+
+      <h3>核心代码：STL 小根堆</h3>
+      <pre class="code-block"><code>priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt; q;
+
+q.push(x);                   // 插入，内部自动向上调整
+int mn = q.top();            // 读取最小值
+q.pop();                     // 删除最小值，内部自动向下调整
+
+bool is_empty = q.empty();
+int len = q.size();</code></pre>
+
+      <h3>核心代码：手写向上调整</h3>
+      <pre class="code-block"><code>void up(int x) {
+	while (x &gt; 1 &amp;&amp; h[x] &lt; h[x / 2]) {
+		swap(h[x], h[x / 2]);
+		x /= 2;
+	}
+}</code></pre>
+
+      <h3>对顶堆：动态维护中位数</h3>
+      <p>把所有数从中间分成两半：较小的一半放入<strong>大根堆</strong>，较大的一半放入<strong>小根堆</strong>。两个堆顶正好隔着中间分界线，因此可以随时得到中位数。</p>
+      <div class="memory"><strong>记忆点：</strong>左边用大根堆，取“较小一半中的最大值”；右边用小根堆，取“较大一半中的最小值”。两个堆顶面对面。</div>
+
+      <div class="interactive-lab">
+        <div class="panel-title"><h3>对顶堆插入实验</h3><span class="tag amber">堆顶在中间相对</span></div>
+        <div class="lab-toolbar">
+          <div class="lab-field">
+            <label for="twinSequence">待插入序列（最多 15 个整数）</label>
+            <input class="control-input" id="twinSequence" value="5 1 9 3 7 11" aria-label="对顶堆待插入序列">
+          </div>
+          <div class="lab-field">
+            <label for="twinManualInput">单独插入一个整数</label>
+            <input class="control-input" id="twinManualInput" value="6" aria-label="单独插入对顶堆的数据">
+          </div>
+        </div>
+        <div class="controls">
+          <button class="btn secondary" id="twinLoad">载入序列</button>
+          <button class="btn" id="twinNext">插入下一项 →</button>
+          <button class="btn secondary" id="twinAuto">自动插入</button>
+          <button class="btn secondary" id="twinManualAdd">+ 单独插入</button>
+          <button class="btn secondary" id="twinUndo">撤回一步</button>
+          <button class="btn secondary" id="twinReset">重置样例</button>
+        </div>
+        <div class="pending-sequence" id="twinPending" aria-label="待插入序列"></div>
+        <div class="twin-median-row">
+          <div class="twin-stat"><span>左堆数量</span><strong id="twinLeftSize">0</strong></div>
+          <div class="twin-stat"><span>下中位数</span><strong id="twinLower">—</strong></div>
+          <div class="twin-stat"><span>上中位数</span><strong id="twinUpper">—</strong></div>
+          <div class="twin-stat"><span>右堆数量</span><strong id="twinRightSize">0</strong></div>
+        </div>
+        <div class="interactive-stage twin-heap-stage">
+          <svg id="twinHeapSvg" viewBox="0 0 1000 470" role="img" aria-label="左右横向相对的动态对顶堆"></svg>
+        </div>
+        <div class="status" id="twinStatus" aria-live="polite"></div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>必须保持的不变量</th><th>含义</th><th>破坏后怎样修复</th></tr></thead>
+          <tbody>
+            <tr><td><code>left.top() ≤ right.top()</code></td><td>左堆所有数不大于右堆所有数</td><td>新数先按与左堆顶的比较结果入堆</td></tr>
+            <tr><td><code>left.size() = right.size()</code>，或左边多 1 个</td><td>中位位置始终落在两个堆顶附近</td><td>把较大堆的堆顶移动到另一个堆</td></tr>
+            <tr><td>左边是大根堆，右边是小根堆</td><td>都能 O(1) 读取靠近中间的数</td><td>不能把两种堆写反</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>插入一个数的步骤</h3>
+      <ol>
+        <li>若左堆为空，或 <code>x ≤ left.top()</code>，把 x 放入左堆；否则放入右堆。</li>
+        <li>若左堆比右堆多 2 个，把左堆顶移动到右堆。</li>
+        <li>若右堆比左堆多 1 个，把右堆顶移动到左堆。</li>
+        <li>奇数个元素时中位数是左堆顶；偶数个元素时按题意取下中位数、上中位数或两者平均值。</li>
+      </ol>
+
+      <h3>核心代码：插入与查询中位数</h3>
+      <pre class="code-block"><code>priority_queue&lt;int&gt; left_heap;  // 大根堆：保存较小的一半
+priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt; right_heap; // 小根堆
+
+void add(int x) {
+	if (left_heap.empty() || x &lt;= left_heap.top()) {
+		left_heap.push(x);
+	} else {
+		right_heap.push(x);
+	}
+
+	// 约定：左堆数量等于右堆，或恰好多 1 个
+	if (left_heap.size() &gt; right_heap.size() + 1) {
+		right_heap.push(left_heap.top());
+		left_heap.pop();
+	}
+	if (right_heap.size() &gt; left_heap.size()) {
+		left_heap.push(right_heap.top());
+		right_heap.pop();
+	}
+}
+
+int lower_mid() {             // 奇偶均返回下中位数
+	return left_heap.top();
+}
+
+double average_mid() {        // 偶数个数时返回两个中位数的平均值
+	if (left_heap.size() &gt; right_heap.size()) return left_heap.top();
+	return (1.0 * left_heap.top() + right_heap.top()) / 2;
+}</code></pre>
+
+      <div class="warning"><strong>易错点：</strong>题目中的“中位数”口径必须先确认。偶数个数时，下中位数是左堆顶，上中位数是右堆顶，统计学中位数才是两者平均值。若还要删除任意旧元素，通常需要使用哈希表记录“延迟删除”，不能直接在堆中查找删除。</div>
+
+      <div class="exercise-set">
+        <h3>对顶堆 · 思考填空</h3>
+        <ol>
+          <li>依次插入 <code>5,1,9,3,7</code>，按照左堆可多 1 个的约定，左堆顶为 <span class="blank"></span>，右堆顶为 <span class="blank"></span>。</li>
+          <li>上题共有 5 个数，中位数为 <span class="blank"></span>。</li>
+          <li>继续插入 11 后，下中位数为 <span class="blank"></span>，上中位数为 <span class="blank"></span>，平均中位数为 <span class="blank"></span>。</li>
+          <li>若插入后左堆有 6 个元素、右堆有 4 个元素，应把 <span class="blank"></span> 移入 <span class="blank"></span>。</li>
+          <li>连续插入 n 个数并在每次插入后查询中位数，总时间复杂度为 <span class="blank"></span>。</li>
+        </ol>
+      </div>
+
+      <div class="exercise-set">
+        <h3>堆 · 思考填空</h3>
+        <ol>
+          <li>小根堆 <code>[2,5,7,11,9,13]</code> 插入 1 后，新堆顶是 <span class="blank"></span>。</li>
+          <li>采用 1 下标，堆中编号 14 的父节点编号是 <span class="blank"></span>。</li>
+          <li>删除小根堆堆顶后，应先用 <span class="blank"></span> 元素补到根，再向下调整。</li>
+          <li>从无序数组自底向上建堆的时间复杂度是 <span class="blank"></span>。</li>
+          <li>小根堆只能保证父节点不大于孩子，不能保证中序序列 <span class="blank"></span>。</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="review">
+    <div class="section-inner">
+      <div class="chapter-kicker">12 · 总复习</div>
+      <h2>从题目特征反选数据结构</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>题目关键词</th><th>优先想到</th><th>进一步确认</th></tr></thead>
+          <tbody>
+            <tr><td>最近加入、撤销、括号</td><td>栈</td><td>是否只操作同一端</td></tr>
+            <tr><td>先来先服务、最少步数、按层</td><td>队列</td><td>是否需要 BFS</td></tr>
+            <tr><td>固定数组反复入队出队</td><td>循环队列</td><td>空满约定是否一致</td></tr>
+            <tr><td>父子、层级、子树</td><td>树</td><td>根、方向、遍历序</td></tr>
+            <tr><td>至多两个孩子、前中后序</td><td>二叉树</td><td>左右孩子不能互换</td></tr>
+            <tr><td>网络、路线、连通、成环</td><td>图</td><td>方向、权值、稀疏程度</td></tr>
+            <tr><td>不断取当前最小或最大</td><td>堆</td><td>是否还伴随动态插入</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>分层练习</h3>
+      <div class="grid-3">
+        <div class="panel"><span class="tag">模板题</span><h4>结构识别</h4><p>给出操作序列，写出栈、队列、循环队列每一步状态；根据树图写四种遍历。</p></div>
+        <div class="panel"><span class="tag blue">变形题</span><h4>关系推导</h4><p>由遍历序列还原树；利用节点度数关系求叶子数；判断有向图的强弱连通。</p></div>
+        <div class="panel"><span class="tag amber">综合题</span><h4>结构选择</h4><p>表达式求值、层序统计、动态取最值，并说明为什么选择对应结构和复杂度。</p></div>
+      </div>
+
+      <div class="answer-key" id="answers">
+        <h3>全部思考填空答案</h3>
+        <p>答案集中放置在页面末尾。建议先完成对应章节的 5 道题，再到这里核对。</p>
+
+        <div class="answer-group"><h4>栈</h4><p>1. <code>4 3 2 1</code>　2. <code>2</code>　3. <code>14</code>　4. <code>3</code>　5. <code>5</code></p></div>
+        <div class="answer-group"><h4>表达式</h4><p>1. <code>((A*(B+C))-D)</code>　2. <code>- * A + B C D</code><br>3. <code>A B C + * D -</code>　4. <code>A+B*C</code><br>5. <code>A</code></p></div>
+        <div class="answer-group"><h4>队列</h4><p>1. <code>9</code>　2. <code>5</code>　3. 先进先出（或距离非递减）　4. 假溢出　5. <code>A B C D</code></p></div>
+        <div class="answer-group"><h4>循环队列</h4><p>1. <code>4</code>　2. <code>7</code>　3. 满　4. <code>0</code>　5. <code>0</code></p></div>
+        <div class="answer-group"><h4>树的基础</h4><p>1. <code>2025</code>　2. <code>15</code>　3. <code>4</code>　4. <code>1</code>　5. <code>n-1</code></p></div>
+        <div class="answer-group"><h4>二叉树</h4><p>1. <code>5</code>　2. <code>14</code>　3. <code>13</code>　4. <code>5</code>　5. 左</p></div>
+        <div class="answer-group"><h4>遍历与还原</h4><p>1. <code>A</code>　2. <code>3</code>　3. <code>D E B F G C A</code>　4. 左孩子还是右孩子　5. <code>C F G</code></p></div>
+        <div class="answer-group"><h4>层数与节点</h4><p>1. <code>63</code>　2. <code>40</code>　3. <code>49</code>　4. <code>50、1</code>　5. <code>7</code></p></div>
+        <div class="answer-group"><h4>图论基础</h4><p>1. <code>12</code>　2. <code>17、17</code>　3. <code>28</code>　4. 树　5. 弱连通</p></div>
+        <div class="answer-group"><h4>堆</h4><p>1. <code>1</code>　2. <code>7</code>　3. 最后一个　4. <code>O(n)</code>　5. 有序（递增）</p></div>
+        <div class="answer-group"><h4>对顶堆</h4><p>1. <code>5、7</code>　2. <code>5</code>　3. <code>5、7、6</code>　4. 左堆堆顶、右堆　5. <code>O(n log n)</code></p></div>
+      </div>
+      <p class="footer-note">数据结构理论专题 · 单文件离线课件</p>
+    </div>
+  </section>
+</main>
+
+<script>
+  const $ = (selector, root = document) => root.querySelector(selector);
+  const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+
+  // Mobile navigation
+  const sidebar = $('#sidebar');
+  const overlay = $('#overlay');
+  function closeMenu() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('open');
+  }
+  $('#menuBtn').addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('open');
+  });
+  overlay.addEventListener('click', closeMenu);
+  $$('.nav-link').forEach(link => link.addEventListener('click', closeMenu));
+
+  const sections = $$('.chapter');
+  const navLinks = $$('.nav-link');
+  const observer = new IntersectionObserver(entries => {
+    const visible = entries.filter(x => x.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    if (!visible) return;
+    navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + visible.target.id));
+  }, { rootMargin: '-15% 0px -70% 0px', threshold: [0, .2, .5] });
+  sections.forEach(section => observer.observe(section));
+
+  // Stack simulator
+  const stackInitial = ['4', '7'];
+  let stackData = [...stackInitial];
+  function renderStack(message = '当前栈顶是 7。') {
+    const box = $('#stackBox');
+    box.innerHTML = '';
+    stackData.forEach((value, index) => {
+      const cell = document.createElement('div');
+      cell.className = 'stack-cell' + (index === stackData.length - 1 ? ' top' : '');
+      cell.textContent = value;
+      box.appendChild(cell);
+    });
+    $('#stackStatus').textContent = stackData.length ? `${message}　大小：${stackData.length}` : `${message}　当前为空栈。`;
+  }
+  $('#pushBtn').addEventListener('click', () => {
+    const value = $('#stackInput').value.trim();
+    if (!value) return renderStack('请输入一个数据。');
+    if (stackData.length >= 6) return renderStack('栈满：固定容量为 6，不能继续入栈。');
+    stackData.push(value);
+    renderStack(`${value} 入栈，成为新的栈顶。`);
+  });
+  $('#popBtn').addEventListener('click', () => {
+    if (!stackData.length) return renderStack('下溢：空栈不能出栈。');
+    const value = stackData.pop();
+    renderStack(`${value} 出栈。`);
+  });
+  $('#stackReset').addEventListener('click', () => { stackData = [...stackInitial]; renderStack('已重置。'); });
+  renderStack();
+
+  // Expression converter (shunting-yard algorithm)
+  const operators = new Set(['+', '-', '*', '/', '%', '^']);
+  const precedence = { '+': 1, '-': 1, '*': 2, '/': 2, '%': 2, '^': 3 };
+  let exprSteps = [];
+  let exprIndex = 0;
+  let exprTokens = [];
+
+  function tokenizeExpression(text) {
+    const compact = text.replace(/\s+/g, '');
+    if (!compact) return [];
+    const tokens = compact.match(/[A-Za-z_]\w*|\d+(?:\.\d+)?|[()+\-*/%^]/g) || [];
+    return tokens.join('') === compact ? tokens : null;
+  }
+
+  function buildExpression() {
+    const tokens = tokenizeExpression($('#exprInput').value);
+    if (!tokens) {
+      exprSteps = [];
+      $('#exprStatus').textContent = '表达式含有暂不支持的字符。';
+      renderExpression();
+      return;
+    }
+    exprTokens = tokens;
+    const stack = [];
+    const output = [];
+    exprSteps = [{ token: '', stack: [], output: [], action: '准备开始扫描' }];
+    let valid = true;
+    tokens.forEach(token => {
+      let action = '';
+      if (/^[A-Za-z_]\w*$|^\d/.test(token)) {
+        output.push(token);
+        action = '操作数直接输出';
+      } else if (token === '(') {
+        stack.push(token);
+        action = '左括号入栈';
+      } else if (token === ')') {
+        while (stack.length && stack[stack.length - 1] !== '(') output.push(stack.pop());
+        if (!stack.length) {
+          valid = false;
+          action = '错误：缺少左括号';
+        } else {
+          stack.pop();
+          action = '弹出到左括号，并丢弃括号';
+        }
+      } else if (operators.has(token)) {
+        while (stack.length && operators.has(stack[stack.length - 1])) {
+          const top = stack[stack.length - 1];
+          const shouldPop = token === '^' ? precedence[top] > precedence[token] : precedence[top] >= precedence[token];
+          if (!shouldPop) break;
+          output.push(stack.pop());
+        }
+        stack.push(token);
+        action = '处理优先级后，运算符入栈';
+      }
+      exprSteps.push({ token, stack: [...stack], output: [...output], action });
+    });
+    while (valid && stack.length) {
+      const token = stack.pop();
+      if (token === '(') {
+        valid = false;
+        exprSteps.push({ token: '结束', stack: [...stack], output: [...output], action: '错误：缺少右括号' });
+        break;
+      }
+      output.push(token);
+      exprSteps.push({ token: '结束', stack: [...stack], output: [...output], action: `弹出剩余运算符 ${token}` });
+    }
+    exprIndex = 0;
+    renderExpression();
+  }
+
+  function renderTokenLine(container, values, activeIndex = -1) {
+    container.innerHTML = '';
+    values.forEach((value, index) => {
+      const span = document.createElement('span');
+      span.className = 'token' + (index === activeIndex ? ' active' : '');
+      span.textContent = value;
+      container.appendChild(span);
+    });
+    if (!values.length) container.textContent = '空';
+  }
+
+  function renderExpression() {
+    const step = exprSteps[exprIndex] || { token: '', stack: [], output: [], action: '等待输入' };
+    const scannedIndex = step.token === '' ? -1 : Math.min(exprIndex - 1, exprTokens.length - 1);
+    renderTokenLine($('#exprTokens'), exprTokens, scannedIndex);
+    renderTokenLine($('#exprStack'), step.stack);
+    renderTokenLine($('#exprOutput'), step.output);
+    $('#exprStatus').textContent = `步骤 ${exprIndex}/${Math.max(0, exprSteps.length - 1)}：${step.action}`;
+    const rows = exprSteps.map((s, i) => `<tr class="${i === exprIndex ? 'active' : ''}"><td>${i}</td><td>${s.token || '—'}</td><td>${s.stack.join(' ') || '空'}</td><td>${s.output.join(' ') || '空'}</td><td>${s.action}</td></tr>`).join('');
+    $('#exprTable').innerHTML = `<table><thead><tr><th>步</th><th>符号</th><th>栈</th><th>输出</th><th>动作</th></tr></thead><tbody>${rows}</tbody></table>`;
+    const activeRow = $('#exprTable tr.active');
+    if (activeRow) activeRow.scrollIntoView({ block: 'nearest' });
+  }
+  $('#exprBuild').addEventListener('click', buildExpression);
+  $('#exprPrev').addEventListener('click', () => { exprIndex = Math.max(0, exprIndex - 1); renderExpression(); });
+  $('#exprNext').addEventListener('click', () => { exprIndex = Math.min(exprSteps.length - 1, exprIndex + 1); renderExpression(); });
+  $('#exprEnd').addEventListener('click', () => { exprIndex = Math.max(0, exprSteps.length - 1); renderExpression(); });
+  buildExpression();
+
+  // Queue simulator
+  const queueInitial = ['12', '18', '23'];
+  let queueData = [...queueInitial];
+  function renderQueue(message = '12 在队首，23 在队尾。') {
+    const track = $('#queueTrack');
+    track.innerHTML = '';
+    queueData.forEach((value, index) => {
+      const cell = document.createElement('div');
+      cell.className = 'queue-cell' + (index === 0 ? ' front' : '') + (index === queueData.length - 1 ? ' rear' : '');
+      cell.textContent = value;
+      track.appendChild(cell);
+    });
+    if (!queueData.length) track.innerHTML = '<span class="status">空队列</span>';
+    $('#queueStatus').textContent = `${message}　长度：${queueData.length}`;
+  }
+  $('#enqueueBtn').addEventListener('click', () => {
+    const value = $('#queueInput').value.trim();
+    if (!value) return renderQueue('请输入一个数据。');
+    queueData.push(value);
+    renderQueue(`${value} 从队尾入队。`);
+  });
+  $('#dequeueBtn').addEventListener('click', () => {
+    if (!queueData.length) return renderQueue('空队列不能出队。');
+    const value = queueData.shift();
+    renderQueue(`${value} 从队首出队。`);
+  });
+  $('#queueReset').addEventListener('click', () => { queueData = [...queueInitial]; renderQueue('已重置。'); });
+  renderQueue();
+
+  // Circular queue simulator: rear points to the next empty slot.
+  const circleCapacity = 6;
+  let circleData = Array(circleCapacity).fill(null);
+  let circleFront = 0;
+  let circleRear = 3;
+  circleData[0] = 'A'; circleData[1] = 'B'; circleData[2] = 'C';
+  function circleSize() { return (circleRear - circleFront + circleCapacity) % circleCapacity; }
+  function circleFull() { return (circleRear + 1) % circleCapacity === circleFront; }
+  function renderCircle(message = 'front 指向 A，rear 指向下一个空位。') {
+    const svg = $('#circleSvg');
+    const cx = 180, cy = 160, radius = 105;
+    let html = '<circle cx="180" cy="160" r="58" fill="#f7faf9" stroke="#d8e0dc"/><text x="180" y="153" text-anchor="middle" fill="#5d6b66" font-size="13">有效元素</text><text x="180" y="181" text-anchor="middle" fill="#18211e" font-size="28" font-weight="800">' + circleSize() + '</text>';
+    for (let i = 0; i < circleCapacity; i++) {
+      const angle = -Math.PI / 2 + i * Math.PI * 2 / circleCapacity;
+      const x = cx + radius * Math.cos(angle);
+      const y = cy + radius * Math.sin(angle);
+      const value = circleData[i];
+      const classes = 'circle-slot' + (value !== null ? ' filled' : '') + (i === circleRear ? ' reserved' : '');
+      html += `<circle class="${classes}" cx="${x}" cy="${y}" r="29"/>`;
+      html += `<text x="${x}" y="${y + 5}" text-anchor="middle" fill="#18312c" font-size="16" font-weight="800">${value ?? '空'}</text>`;
+      html += `<text x="${x}" y="${y - 36}" text-anchor="middle" fill="#77847f" font-size="11">${i}</text>`;
+      if (i === circleFront) html += `<text class="pointer-front" x="${x - 13}" y="${y + 48}" text-anchor="middle" font-size="13">F</text>`;
+      if (i === circleRear) html += `<text class="pointer-rear" x="${x + 13}" y="${y + 48}" text-anchor="middle" font-size="13">R</text>`;
+    }
+    svg.innerHTML = html;
+    $('#circleStatus').textContent = `${message}　front=${circleFront}，rear=${circleRear}，size=${circleSize()}。`;
+  }
+  $('#circleEnqueue').addEventListener('click', () => {
+    const value = $('#circleInput').value.trim();
+    if (!value) return renderCircle('请输入一个数据。');
+    if (circleFull()) return renderCircle('队列已满：必须保留一个空位区分空和满。');
+    circleData[circleRear] = value;
+    circleRear = (circleRear + 1) % circleCapacity;
+    renderCircle(`${value} 入队，rear 按模向前移动。`);
+  });
+  $('#circleDequeue').addEventListener('click', () => {
+    if (circleFront === circleRear) return renderCircle('队列为空，不能出队。');
+    const value = circleData[circleFront];
+    circleData[circleFront] = null;
+    circleFront = (circleFront + 1) % circleCapacity;
+    renderCircle(`${value} 出队，front 按模向前移动。`);
+  });
+  $('#circleReset').addEventListener('click', () => {
+    circleData = Array(circleCapacity).fill(null);
+    circleFront = 0; circleRear = 3;
+    circleData[0] = 'A'; circleData[1] = 'B'; circleData[2] = 'C';
+    renderCircle('已重置。');
+  });
+  renderCircle();
+
+  // Tree traversal simulator
+  const traversalOrders = {
+    pre: { name: '前序', rule: '根 → 左 → 右', nodes: ['A','B','D','E','C','F','G'] },
+    in: { name: '中序', rule: '左 → 根 → 右', nodes: ['D','B','E','A','F','C','G'] },
+    post: { name: '后序', rule: '左 → 右 → 根', nodes: ['D','E','B','F','G','C','A'] },
+    level: { name: '层序', rule: '逐层从左到右', nodes: ['A','B','C','D','E','F','G'] }
+  };
+  let traversalMode = 'pre';
+  let traversalStep = 0;
+  let traversalTimer = null;
+  function stopTraversalAuto() {
+    clearInterval(traversalTimer);
+    traversalTimer = null;
+    $('#treeAuto').textContent = '自动播放';
+  }
+  function renderTraversal() {
+    const order = traversalOrders[traversalMode];
+    const visited = order.nodes.slice(0, traversalStep);
+    const current = traversalStep ? order.nodes[traversalStep - 1] : null;
+    $$('#treeSvg .node').forEach(node => {
+      const id = node.dataset.node;
+      node.classList.toggle('visited', visited.includes(id));
+      node.classList.toggle('current', id === current);
+    });
+    $('#treeVisited').innerHTML = visited.length ? visited.map(x => `<span class="visit-chip">${x}</span>`).join('') : '尚未访问节点';
+    $('#treeStatus').textContent = `${order.name}：${order.rule}　步骤 ${traversalStep}/${order.nodes.length}${current ? `，当前访问 ${current}` : ''}`;
+  }
+  $('#traversalTabs').addEventListener('click', event => {
+    const button = event.target.closest('.tab');
+    if (!button) return;
+    stopTraversalAuto();
+    traversalMode = button.dataset.order;
+    traversalStep = 0;
+    $$('#traversalTabs .tab').forEach(tab => tab.classList.toggle('active', tab === button));
+    renderTraversal();
+  });
+  $('#treePrev').addEventListener('click', () => { stopTraversalAuto(); traversalStep = Math.max(0, traversalStep - 1); renderTraversal(); });
+  $('#treeNext').addEventListener('click', () => { stopTraversalAuto(); traversalStep = Math.min(traversalOrders[traversalMode].nodes.length, traversalStep + 1); renderTraversal(); });
+  $('#treeReset').addEventListener('click', () => { stopTraversalAuto(); traversalStep = 0; renderTraversal(); });
+  $('#treeAuto').addEventListener('click', () => {
+    if (traversalTimer) return stopTraversalAuto();
+    if (traversalStep >= traversalOrders[traversalMode].nodes.length) traversalStep = 0;
+    $('#treeAuto').textContent = '暂停播放';
+    traversalTimer = setInterval(() => {
+      traversalStep++;
+      renderTraversal();
+      if (traversalStep >= traversalOrders[traversalMode].nodes.length) stopTraversalAuto();
+    }, 700);
+  });
+  renderTraversal();
+
+  // Rebuild a binary tree from two traversal sequences (up to four levels).
+  const rebuildDefaults = {
+    prein: { name: '前序 + 中序', firstLabel: '前序序列', first: 'A B D E C F G' },
+    postin: { name: '后序 + 中序', firstLabel: '后序序列', first: 'D E B F G C A' },
+    levelin: { name: '层序 + 中序', firstLabel: '层序序列', first: 'A B C D E F G' }
+  };
+  const rebuildDefaultInorder = 'D B E A F C G';
+  let rebuildMode = 'prein';
+  let rebuildEvents = [];
+  let rebuildNodes = new Map();
+  let rebuildStep = 0;
+  let rebuildTimer = null;
+
+  function escapeMarkup(value) {
+    return String(value).replace(/[&<>"']/g, char => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    })[char]);
+  }
+
+  function parseTreeSequence(text) {
+    const trimmed = text.trim();
+    if (!trimmed) return [];
+    const parts = trimmed.split(/[\s,]+/).filter(Boolean);
+    if (parts.length === 1 && /^[A-Za-z]+$/.test(parts[0]) && parts[0].length > 1) {
+      return [...parts[0]];
+    }
+    return parts;
+  }
+
+  function stopRebuildAuto() {
+    clearInterval(rebuildTimer);
+    rebuildTimer = null;
+    $('#rebuildAuto').textContent = '自动点亮';
+  }
+
+  function rebuildPosition(index) {
+    const level = Math.floor(Math.log2(index + 1));
+    const first = 2 ** level - 1;
+    const position = index - first;
+    const count = 2 ** level;
+    return {
+      x: 80 + 740 * (position + .5) / count,
+      y: [72, 178, 292, 420][level]
+    };
+  }
+
+  function renderRebuild(message = '') {
+    const svg = $('#rebuildSvg');
+    const visibleEvents = rebuildEvents.slice(0, rebuildStep);
+    const visible = new Set(visibleEvents.map(event => event.index));
+    const current = rebuildStep ? rebuildEvents[rebuildStep - 1] : null;
+    let html = '';
+
+    for (let index = 1; index < 15; index++) {
+      const parent = Math.floor((index - 1) / 2);
+      const a = rebuildPosition(parent);
+      const b = rebuildPosition(index);
+      html += `<line class="ghost-edge" x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}"/>`;
+    }
+    for (const event of visibleEvents) {
+      if (event.index === 0) continue;
+      const parent = Math.floor((event.index - 1) / 2);
+      if (!visible.has(parent)) continue;
+      const a = rebuildPosition(parent);
+      const b = rebuildPosition(event.index);
+      html += `<line class="built-edge" x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}"/>`;
+    }
+    for (let index = 0; index < 15; index++) {
+      const pos = rebuildPosition(index);
+      html += `<circle class="ghost-node" cx="${pos.x}" cy="${pos.y}" r="23"/>`;
+      html += `<text x="${pos.x}" y="${pos.y + 5}" text-anchor="middle" class="stage-caption">?</text>`;
+    }
+    visibleEvents.forEach((event, orderIndex) => {
+      const pos = rebuildPosition(event.index);
+      const isCurrent = current && current.index === event.index;
+      html += `<circle class="built-node${isCurrent ? ' current' : ''}" cx="${pos.x}" cy="${pos.y}" r="25"/>`;
+      html += `<text x="${pos.x}" y="${pos.y + 6}" text-anchor="middle" font-size="16" font-weight="800" fill="#18211e">${escapeMarkup(event.value)}</text>`;
+      html += `<text x="${pos.x}" y="${pos.y - 34}" text-anchor="middle" class="stage-caption">第 ${orderIndex + 1} 步</text>`;
+    });
+    ['第 1 层', '第 2 层', '第 3 层', '第 4 层'].forEach((label, index) => {
+      html += `<text x="12" y="${[76, 182, 296, 424][index]}" class="stage-caption">${label}</text>`;
+    });
+    svg.innerHTML = html;
+
+    if (current) {
+      $('#rebuildFocus').innerHTML = `<strong>第 ${rebuildStep} 步：确定 ${escapeMarkup(current.value)}</strong><br>${escapeMarkup(current.detail)}`;
+    } else {
+      $('#rebuildFocus').textContent = rebuildEvents.length ? '骨架已经铺好。点击“下一步”，从整棵树的根开始还原。' : '请输入两条合法序列并生成步骤。';
+    }
+    $('#rebuildStatus').textContent = message || `${rebuildDefaults[rebuildMode].name}　已点亮 ${rebuildStep}/${rebuildEvents.length} 个节点。`;
+    $('#rebuildPrev').disabled = rebuildStep === 0;
+    $('#rebuildNext').disabled = !rebuildEvents.length || rebuildStep >= rebuildEvents.length;
+  }
+
+  function buildReconstruction() {
+    stopRebuildAuto();
+    const firstOrder = parseTreeSequence($('#rebuildFirst').value);
+    const inorder = parseTreeSequence($('#rebuildInorder').value);
+    rebuildEvents = [];
+    rebuildNodes = new Map();
+    rebuildStep = 0;
+
+    try {
+      if (!firstOrder.length || firstOrder.length !== inorder.length) throw new Error('两条序列必须非空且节点数量相同。');
+      if (firstOrder.length > 15) throw new Error('演示最多使用 15 个节点，也就是 4 层满二叉树。');
+      if (firstOrder.some(value => value.length > 6)) throw new Error('单个节点名称请控制在 6 个字符以内。');
+      if (new Set(firstOrder).size !== firstOrder.length || new Set(inorder).size !== inorder.length) throw new Error('为了唯一识别节点，本演示不允许节点名称重复。');
+      const firstSet = new Set(firstOrder);
+      if (inorder.some(value => !firstSet.has(value))) throw new Error('两条序列包含的节点必须完全相同。');
+
+      function place(value, index, detail) {
+        const depth = Math.floor(Math.log2(index + 1)) + 1;
+        if (depth > 4) throw new Error(`还原后的树超过 4 层，节点 ${value} 无法放入演示骨架。`);
+        rebuildNodes.set(index, value);
+        rebuildEvents.push({ value, index, detail });
+      }
+
+      function fromPre(pre, ino, index) {
+        if (!pre.length) return;
+        const root = pre[0];
+        const cut = ino.indexOf(root);
+        if (cut < 0) throw new Error(`无法在当前中序区间找到节点 ${root}。`);
+        const leftIn = ino.slice(0, cut), rightIn = ino.slice(cut + 1);
+        const leftPre = pre.slice(1, 1 + leftIn.length), rightPre = pre.slice(1 + leftIn.length);
+        place(root, index, `前序首项 ${root} 是根；中序划分为 [${leftIn.join(' ') || '空'}] | ${root} | [${rightIn.join(' ') || '空'}]。`);
+        fromPre(leftPre, leftIn, index * 2 + 1);
+        fromPre(rightPre, rightIn, index * 2 + 2);
+      }
+
+      function fromPost(post, ino, index) {
+        if (!post.length) return;
+        const root = post[post.length - 1];
+        const cut = ino.indexOf(root);
+        if (cut < 0) throw new Error(`无法在当前中序区间找到节点 ${root}。`);
+        const leftIn = ino.slice(0, cut), rightIn = ino.slice(cut + 1);
+        const leftPost = post.slice(0, leftIn.length), rightPost = post.slice(leftIn.length, -1);
+        place(root, index, `后序末项 ${root} 是根；中序划分为 [${leftIn.join(' ') || '空'}] | ${root} | [${rightIn.join(' ') || '空'}]。`);
+        fromPost(leftPost, leftIn, index * 2 + 1);
+        fromPost(rightPost, rightIn, index * 2 + 2);
+      }
+
+      function fromLevel(level, ino, index) {
+        if (!level.length) return;
+        const root = level[0];
+        const cut = ino.indexOf(root);
+        if (cut < 0) throw new Error(`无法在当前中序区间找到节点 ${root}。`);
+        const leftIn = ino.slice(0, cut), rightIn = ino.slice(cut + 1);
+        const leftSet = new Set(leftIn), rightSet = new Set(rightIn);
+        const leftLevel = level.slice(1).filter(value => leftSet.has(value));
+        const rightLevel = level.slice(1).filter(value => rightSet.has(value));
+        place(root, index, `层序中最先出现的 ${root} 是根；过滤后左层序为 [${leftLevel.join(' ') || '空'}]，右层序为 [${rightLevel.join(' ') || '空'}]。`);
+        fromLevel(leftLevel, leftIn, index * 2 + 1);
+        fromLevel(rightLevel, rightIn, index * 2 + 2);
+      }
+
+      if (rebuildMode === 'prein') fromPre(firstOrder, inorder, 0);
+      if (rebuildMode === 'postin') fromPost(firstOrder, inorder, 0);
+      if (rebuildMode === 'levelin') fromLevel(firstOrder, inorder, 0);
+      if (rebuildEvents.length !== firstOrder.length) throw new Error('两条序列不能构成同一棵二叉树。');
+
+      const actualPre = [], actualIn = [], actualPost = [];
+      function collect(index) {
+        if (!rebuildNodes.has(index)) return;
+        const value = rebuildNodes.get(index);
+        actualPre.push(value);
+        collect(index * 2 + 1);
+        actualIn.push(value);
+        collect(index * 2 + 2);
+        actualPost.push(value);
+      }
+      collect(0);
+      const actualLevel = [...rebuildNodes.entries()].sort((a, b) => a[0] - b[0]).map(item => item[1]);
+      const actualFirst = rebuildMode === 'prein' ? actualPre : rebuildMode === 'postin' ? actualPost : actualLevel;
+      if (actualIn.join('\u0001') !== inorder.join('\u0001') || actualFirst.join('\u0001') !== firstOrder.join('\u0001')) {
+        throw new Error('这两条序列的访问顺序互相矛盾，不能还原为同一棵树。');
+      }
+      renderRebuild(`步骤生成完成，共 ${rebuildEvents.length} 个节点，树高不超过 4 层。`);
+    } catch (error) {
+      rebuildEvents = [];
+      rebuildNodes = new Map();
+      renderRebuild(error.message);
+    }
+  }
+
+  $('#rebuildTabs').addEventListener('click', event => {
+    const button = event.target.closest('.tab');
+    if (!button) return;
+    rebuildMode = button.dataset.build;
+    $$('#rebuildTabs .tab').forEach(tab => tab.classList.toggle('active', tab === button));
+    $('#rebuildFirstLabel').textContent = rebuildDefaults[rebuildMode].firstLabel;
+    $('#rebuildFirst').value = rebuildDefaults[rebuildMode].first;
+    $('#rebuildInorder').value = rebuildDefaultInorder;
+    buildReconstruction();
+  });
+  $('#rebuildBuild').addEventListener('click', buildReconstruction);
+  $('#rebuildPrev').addEventListener('click', () => { stopRebuildAuto(); rebuildStep = Math.max(0, rebuildStep - 1); renderRebuild(); });
+  $('#rebuildNext').addEventListener('click', () => { stopRebuildAuto(); rebuildStep = Math.min(rebuildEvents.length, rebuildStep + 1); renderRebuild(); });
+  $('#rebuildAuto').addEventListener('click', () => {
+    if (rebuildTimer) return stopRebuildAuto();
+    if (!rebuildEvents.length) return;
+    if (rebuildStep >= rebuildEvents.length) rebuildStep = 0;
+    $('#rebuildAuto').textContent = '暂停点亮';
+    rebuildTimer = setInterval(() => {
+      rebuildStep++;
+      renderRebuild();
+      if (rebuildStep >= rebuildEvents.length) stopRebuildAuto();
+    }, 850);
+  });
+  $('#rebuildReset').addEventListener('click', () => {
+    rebuildMode = 'prein';
+    $$('#rebuildTabs .tab').forEach(tab => tab.classList.toggle('active', tab.dataset.build === 'prein'));
+    $('#rebuildFirstLabel').textContent = '前序序列';
+    $('#rebuildFirst').value = rebuildDefaults.prein.first;
+    $('#rebuildInorder').value = rebuildDefaultInorder;
+    buildReconstruction();
+  });
+  buildReconstruction();
+
+  // Min-heap simulator
+  const heapInitial = [2, 5, 7, 11, 9, 13];
+  let heapData = [...heapInitial];
+  let heapHot = [];
+  function heapSwap(i, j) { [heapData[i], heapData[j]] = [heapData[j], heapData[i]]; heapHot.push(i, j); }
+  function heapUp(index) {
+    while (index > 0) {
+      const parent = Math.floor((index - 1) / 2);
+      if (heapData[parent] <= heapData[index]) break;
+      heapSwap(parent, index);
+      index = parent;
+    }
+  }
+  function heapDown(index) {
+    while (true) {
+      let best = index;
+      const left = index * 2 + 1, right = index * 2 + 2;
+      if (left < heapData.length && heapData[left] < heapData[best]) best = left;
+      if (right < heapData.length && heapData[right] < heapData[best]) best = right;
+      if (best === index) break;
+      heapSwap(index, best);
+      index = best;
+    }
+  }
+  function renderHeap(message = '当前堆顶为 2。') {
+    $('#heapArray').innerHTML = heapData.map((value, index) => `<div class="heap-item ${heapHot.includes(index) ? 'hot' : ''}"><span>下标 ${index + 1}</span>${value}</div>`).join('');
+    const svg = $('#heapSvg');
+    const positions = [
+      [280,45], [150,130], [410,130], [85,230], [215,230], [345,230], [475,230],
+      [50,315], [115,315], [180,315], [245,315], [310,315], [375,315], [440,315], [510,315]
+    ];
+    let html = '';
+    for (let i = 1; i < heapData.length && i < positions.length; i++) {
+      const parent = Math.floor((i - 1) / 2);
+      html += `<line class="edge" x1="${positions[parent][0]}" y1="${positions[parent][1]}" x2="${positions[i][0]}" y2="${positions[i][1]}"/>`;
+    }
+    heapData.slice(0, positions.length).forEach((value, index) => {
+      const [x,y] = positions[index];
+      const hot = heapHot.includes(index);
+      html += `<circle cx="${x}" cy="${y}" r="24" fill="${hot ? '#ffd66b' : '#ffffff'}" stroke="${hot ? '#a85d00' : '#0f766e'}" stroke-width="2.5"/>`;
+      html += `<text x="${x}" y="${y + 5}" text-anchor="middle" fill="#18211e" font-size="15" font-weight="800">${value}</text>`;
+    });
+    svg.innerHTML = html;
+    $('#heapStatus').textContent = `${message}　大小：${heapData.length}${heapData.length ? `，堆顶：${heapData[0]}` : ''}`;
+  }
+  $('#heapPush').addEventListener('click', () => {
+    const value = Number($('#heapInput').value);
+    if (!Number.isFinite(value)) return renderHeap('请输入有效数字。');
+    if (heapData.length >= 15) return renderHeap('演示区最多显示 15 个节点。');
+    heapHot = [heapData.length];
+    heapData.push(value);
+    heapUp(heapData.length - 1);
+    renderHeap(`${value} 放到末尾并向上调整。`);
+  });
+  $('#heapPop').addEventListener('click', () => {
+    if (!heapData.length) return renderHeap('空堆不能删除堆顶。');
+    const value = heapData[0];
+    heapHot = [0];
+    const last = heapData.pop();
+    if (heapData.length) {
+      heapData[0] = last;
+      heapDown(0);
+    }
+    renderHeap(`删除堆顶 ${value}，用末尾元素补位并向下调整。`);
+  });
+  $('#heapReset').addEventListener('click', () => { heapData = [...heapInitial]; heapHot = []; renderHeap('已重置。'); });
+  renderHeap();
+
+  // Twin heaps: max-heap on the left and min-heap on the right, with roots facing inward.
+  const twinDefaultSequence = [5, 1, 9, 3, 7, 11];
+  let twinLeft = [];
+  let twinRight = [];
+  let twinSequenceData = [...twinDefaultSequence];
+  let twinSequenceIndex = 0;
+  let twinHistory = [];
+  let twinHot = null;
+  let twinMessage = '';
+  let twinTimer = null;
+
+  function twinBetter(a, b, isMin) {
+    return isMin ? a < b : a > b;
+  }
+
+  function twinHeapPush(heap, value, isMin) {
+    heap.push(value);
+    let index = heap.length - 1;
+    while (index > 0) {
+      const parent = Math.floor((index - 1) / 2);
+      if (!twinBetter(heap[index], heap[parent], isMin)) break;
+      [heap[index], heap[parent]] = [heap[parent], heap[index]];
+      index = parent;
+    }
+    return index;
+  }
+
+  function twinHeapPop(heap, isMin) {
+    if (!heap.length) return null;
+    const root = heap[0];
+    const last = heap.pop();
+    if (!heap.length) return root;
+    heap[0] = last;
+    let index = 0;
+    while (true) {
+      let best = index;
+      const left = index * 2 + 1;
+      const right = index * 2 + 2;
+      if (left < heap.length && twinBetter(heap[left], heap[best], isMin)) best = left;
+      if (right < heap.length && twinBetter(heap[right], heap[best], isMin)) best = right;
+      if (best === index) break;
+      [heap[index], heap[best]] = [heap[best], heap[index]];
+      index = best;
+    }
+    return root;
+  }
+
+  function twinPosition(index, side) {
+    const level = Math.floor(Math.log2(index + 1));
+    const first = 2 ** level - 1;
+    const position = index - first;
+    const count = 2 ** level;
+    return {
+      x: side === 'left' ? 445 - level * 118 : 555 + level * 118,
+      y: 82 + (position + .5) * 330 / count
+    };
+  }
+
+  function stopTwinAuto() {
+    clearInterval(twinTimer);
+    twinTimer = null;
+    $('#twinAuto').textContent = '自动插入';
+  }
+
+  function twinMedianText() {
+    if (!twinLeft.length) return '当前没有数据。';
+    if (twinLeft.length > twinRight.length) return `当前共有奇数个数，中位数是 ${twinLeft[0]}。`;
+    const average = (twinLeft[0] + twinRight[0]) / 2;
+    return `下中位数 ${twinLeft[0]}，上中位数 ${twinRight[0]}，平均中位数 ${average}。`;
+  }
+
+  function renderTwin() {
+    const svg = $('#twinHeapSvg');
+    let html = `
+      <rect x="20" y="48" width="455" height="376" rx="8" fill="#fff9ea" stroke="#e2bf71"/>
+      <rect x="525" y="48" width="455" height="376" rx="8" fill="#edf8f5" stroke="#86bcb3"/>
+      <line x1="500" y1="58" x2="500" y2="414" stroke="#9fb5ae" stroke-width="2" stroke-dasharray="6 6"/>
+      <text x="245" y="78" text-anchor="middle" class="stage-title" fill="#7a4700">大根堆：较小的一半</text>
+      <text x="755" y="78" text-anchor="middle" class="stage-title" fill="#0d625b">小根堆：较大的一半</text>
+      <text x="500" y="34" text-anchor="middle" class="stage-title">中位分界</text>`;
+
+    function drawHeap(heap, side, isMin) {
+      for (let index = 1; index < heap.length; index++) {
+        const parent = Math.floor((index - 1) / 2);
+        const a = twinPosition(parent, side);
+        const b = twinPosition(index, side);
+        html += `<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="${side === 'left' ? '#b97911' : '#0f766e'}" stroke-width="2.4"/>`;
+      }
+      if (!heap.length) {
+        const root = twinPosition(0, side);
+        html += `<circle class="ghost-node" cx="${root.x}" cy="${root.y}" r="28"/>`;
+        html += `<text x="${root.x}" y="${root.y + 5}" text-anchor="middle" class="stage-caption">空</text>`;
+        return;
+      }
+      heap.forEach((value, index) => {
+        const pos = twinPosition(index, side);
+        const isHot = twinHot && twinHot.side === side && twinHot.index === index;
+        const isRoot = index === 0;
+        const fill = isHot ? '#ffd66b' : side === 'left' ? '#fff0bc' : '#d8f2ec';
+        const stroke = isHot ? '#9a5b00' : side === 'left' ? '#b97911' : '#0f766e';
+        const fontSize = String(value).length > 6 ? 10 : String(value).length > 4 ? 12 : 16;
+        html += `<circle cx="${pos.x}" cy="${pos.y}" r="${isRoot ? 29 : 25}" fill="${fill}" stroke="${stroke}" stroke-width="${isRoot || isHot ? 3 : 2}"/>`;
+        html += `<text x="${pos.x}" y="${pos.y + 5}" text-anchor="middle" font-size="${fontSize}" font-weight="800" fill="#18211e">${value}</text>`;
+        if (isRoot) html += `<text x="${pos.x}" y="${pos.y - 38}" text-anchor="middle" class="stage-caption">堆顶</text>`;
+      });
+    }
+
+    drawHeap(twinLeft, 'left', false);
+    drawHeap(twinRight, 'right', true);
+    const relation = twinLeft.length && twinRight.length ? `${twinLeft[0]} ≤ ${twinRight[0]}` : '等待形成分界';
+    const relationSize = relation.length > 13 ? 10 : relation.length > 9 ? 12 : 14;
+    html += `<text x="500" y="254" text-anchor="middle" font-size="28" font-weight="800" fill="#0f766e">≤</text>`;
+    html += `<text x="500" y="298" text-anchor="middle" class="stage-caption">两个堆顶在中间相对</text>`;
+    html += `<text x="500" y="325" text-anchor="middle" font-size="${relationSize}" font-weight="800" fill="#18211e">${relation}</text>`;
+    svg.innerHTML = html;
+
+    $('#twinLeftSize').textContent = twinLeft.length;
+    $('#twinRightSize').textContent = twinRight.length;
+    $('#twinLower').textContent = twinLeft.length ? twinLeft[0] : '—';
+    $('#twinUpper').textContent = twinLeft.length ? (twinRight.length === twinLeft.length ? twinRight[0] : twinLeft[0]) : '—';
+    $('#twinPending').innerHTML = twinSequenceData.length ? twinSequenceData.map((value, index) => {
+      const state = index < twinSequenceIndex ? ' done' : index === twinSequenceIndex ? ' next' : '';
+      return `<span class="token${state}">${value}</span>`;
+    }).join('') : '没有待插入序列';
+    $('#twinStatus').textContent = `${twinMessage || '两个堆始终保持数量相等，或左边恰好多 1 个。'}　${twinMedianText()}`;
+    $('#twinNext').disabled = twinSequenceIndex >= twinSequenceData.length || twinLeft.length + twinRight.length >= 15;
+    $('#twinUndo').disabled = !twinHistory.length;
+  }
+
+  function twinInsert(value, saveHistory = true) {
+    if (twinLeft.length + twinRight.length >= 15) {
+      twinMessage = '演示最多保存 15 个数。';
+      renderTwin();
+      return false;
+    }
+    if (saveHistory) {
+      twinHistory.push({
+        left: [...twinLeft], right: [...twinRight],
+        sequenceIndex: twinSequenceIndex, message: twinMessage
+      });
+    }
+
+    let route;
+    if (!twinLeft.length || value <= twinLeft[0]) {
+      const index = twinHeapPush(twinLeft, value, false);
+      twinHot = { side: 'left', index };
+      route = `${value} 不大于左堆顶，先进入左侧大根堆`;
+    } else {
+      const index = twinHeapPush(twinRight, value, true);
+      twinHot = { side: 'right', index };
+      route = `${value} 大于左堆顶，先进入右侧小根堆`;
+    }
+
+    if (twinLeft.length > twinRight.length + 1) {
+      const moved = twinHeapPop(twinLeft, false);
+      const index = twinHeapPush(twinRight, moved, true);
+      twinHot = { side: 'right', index };
+      twinMessage = `${route}；左边多出 2 个，将左堆顶 ${moved} 搬到右边。`;
+    } else if (twinRight.length > twinLeft.length) {
+      const moved = twinHeapPop(twinRight, true);
+      const index = twinHeapPush(twinLeft, moved, false);
+      twinHot = { side: 'left', index };
+      twinMessage = `${route}；右边数量更多，将右堆顶 ${moved} 搬到左边。`;
+    } else {
+      twinMessage = `${route}；两边数量已经平衡，不需要搬运。`;
+    }
+    renderTwin();
+    return true;
+  }
+
+  function parseTwinSequence() {
+    const parts = $('#twinSequence').value.trim().split(/[\s,]+/).filter(Boolean);
+    const values = parts.map(Number);
+    if (!values.length || values.some(value => !Number.isInteger(value))) return null;
+    if (values.length > 15) return null;
+    return values;
+  }
+
+  function loadTwinSequence() {
+    stopTwinAuto();
+    const values = parseTwinSequence();
+    if (!values) {
+      twinMessage = '请输入不超过 15 个整数，使用空格或逗号分隔。';
+      return renderTwin();
+    }
+    twinLeft = [];
+    twinRight = [];
+    twinSequenceData = values;
+    twinSequenceIndex = 0;
+    twinHistory = [];
+    twinHot = null;
+    twinMessage = `已载入 ${values.length} 个数，点击“插入下一项”观察分流和平衡。`;
+    renderTwin();
+  }
+
+  function insertTwinNext() {
+    if (twinSequenceIndex >= twinSequenceData.length) return false;
+    const value = twinSequenceData[twinSequenceIndex];
+    const inserted = twinInsert(value);
+    if (inserted) twinSequenceIndex++;
+    renderTwin();
+    return inserted;
+  }
+
+  function resetTwinSample() {
+    stopTwinAuto();
+    $('#twinSequence').value = twinDefaultSequence.join(' ');
+    twinLeft = [];
+    twinRight = [];
+    twinSequenceData = [...twinDefaultSequence];
+    twinSequenceIndex = 0;
+    twinHistory = [];
+    twinMessage = '';
+    twinDefaultSequence.forEach(value => {
+      twinInsert(value);
+      twinSequenceIndex++;
+    });
+    twinMessage = '样例已经完整插入；可撤回观察历史，或载入序列后逐项播放。';
+    renderTwin();
+  }
+
+  $('#twinLoad').addEventListener('click', loadTwinSequence);
+  $('#twinNext').addEventListener('click', () => { stopTwinAuto(); insertTwinNext(); });
+  $('#twinAuto').addEventListener('click', () => {
+    if (twinTimer) return stopTwinAuto();
+    if (twinSequenceIndex >= twinSequenceData.length) return;
+    $('#twinAuto').textContent = '暂停插入';
+    twinTimer = setInterval(() => {
+      const inserted = insertTwinNext();
+      if (!inserted || twinSequenceIndex >= twinSequenceData.length) stopTwinAuto();
+    }, 900);
+  });
+  $('#twinManualAdd').addEventListener('click', () => {
+    stopTwinAuto();
+    const value = Number($('#twinManualInput').value);
+    if (!Number.isInteger(value)) {
+      twinMessage = '单独插入的数据必须是整数。';
+      return renderTwin();
+    }
+    twinInsert(value);
+  });
+  $('#twinUndo').addEventListener('click', () => {
+    stopTwinAuto();
+    const snapshot = twinHistory.pop();
+    if (!snapshot) return;
+    twinLeft = snapshot.left;
+    twinRight = snapshot.right;
+    twinSequenceIndex = snapshot.sequenceIndex;
+    twinHot = null;
+    twinMessage = '已撤回上一次插入，两个堆恢复到前一状态。';
+    renderTwin();
+  });
+  $('#twinReset').addEventListener('click', resetTwinSample);
+  resetTwinSample();
+
+</script>
+</body>
+</html>
