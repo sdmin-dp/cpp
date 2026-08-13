@@ -5,7 +5,11 @@ using namespace std;
 const ll N=1e5+5;
 
 void solve(){
-    cout<<(ll)(sqrt(1e5)*1e5);
+    ll a,b;
+    cin>>a>>b;
+    if(a%b==0) cout<<0;
+    else cout<<b-(a%b);
+    cout<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
@@ -13,7 +17,7 @@ int main(){
     //freopen("xxx.in","r",stdin);
     //freopen("xxx.out","w",stdout);
     ll T=1;
-    //cin>>T;
+    cin>>T;
     while(T--){
         solve();
     }

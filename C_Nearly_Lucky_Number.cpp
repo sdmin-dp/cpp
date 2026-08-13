@@ -3,9 +3,17 @@ using namespace std;
 #define ll long long
 #define el '\n'
 const ll N=1e5+5;
-
+string s;
 void solve(){
-    cout<<(ll)(sqrt(1e5)*1e5);
+    cin>>s;
+    ll cnt=0;
+    for(auto i:s){
+        if(i=='4'||i=='7'){
+            cnt++;
+        }
+    }
+    if(cnt==4||cnt==7) cout<<"YES";
+    else cout<<"NO";
 }
 int main(){
     ios::sync_with_stdio(0);
