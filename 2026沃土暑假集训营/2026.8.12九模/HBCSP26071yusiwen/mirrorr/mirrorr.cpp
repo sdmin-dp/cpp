@@ -7,16 +7,13 @@ const ll mod=1e9+7;
 ll Q;
 ll dp[N];
 ll n,m;
-vector<ll> a;
 vector<pair<ll,ll>> q[N];
 vector<pair<ll,ll>> ans;
-void init(){
-    for(ll i=1;i<=n;i++){
-        string s=to_string(i);
-        string t=s;
-        reverse(s.begin(),s.end());
-        if(t==s) a.push_back(i);
-    }
+bool check(ll i){
+    string s=to_string(i);
+    string t=s;
+    reverse(s.begin(),s.end());
+    return s==t;
 }
 void solve(){
     cin>>Q;
@@ -27,11 +24,12 @@ void solve(){
         n=max(n,b);
         m=max(m,nn);
     }
-    init();
     dp[0]=1;
-    for(auto i:a){
-        for(int j=i;j<=m;j++){
-            dp[j]=(dp[j-i]+dp[j])%mod;
+    for(int i=1;i<=n;i++){
+        if(check(i)){
+            for(int j=i;j<=m;j++){
+                dp[j]=(dp[j-i]+dp[j])%mod;
+            }
         }
         for(auto j:q[i]){
             ans.push_back({j.second,dp[j.first]});
@@ -52,4 +50,3 @@ int main(){
     }
     return 0;
 }
-
