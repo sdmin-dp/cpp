@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>希尔排序可视化 | C++ 基础算法工具</title>
+<style>
+:root{
+    --ink:#202124;
+    --cream:#fffdf4;
+    --sky:#8bd3ff;
+    --blue:#2672ff;
+    --mint:#83e6b2;
+    --green:#1e9b62;
+    --sun:#ffd45a;
+    --orange:#ff8c42;
+    --pink:#ff77a8;
+    --red:#ee4266;
+    --purple:#8b5cf6;
+    --shadow:6px 6px 0 var(--ink);
+}
+*{box-sizing:border-box}
+body{
+    margin:0;
+    color:var(--ink);
+    background:
+        radial-gradient(circle at 16px 16px, rgba(32,33,36,.08) 2px, transparent 3px) 0 0/34px 34px,
+        linear-gradient(135deg,#fff4bf 0%,#ffe5ef 45%,#d7f3ff 100%);
+    font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;
+    min-height:100vh;
+}
+button,input{font:inherit}
+.page{max-width:1280px;margin:0 auto;padding:24px}
+.hero{
+    position:relative;
+    overflow:hidden;
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:linear-gradient(120deg,#fffdf4 0%,#ffe680 48%,#78d6ff 100%);
+    box-shadow:var(--shadow);
+    padding:28px;
+    min-height:176px;
+}
+.hero:before,.hero:after{
+    content:"";
+    position:absolute;
+    border:4px solid var(--ink);
+    background:rgba(255,255,255,.55);
+    transform:rotate(-12deg);
+}
+.hero:before{width:140px;height:140px;border-radius:50%;right:110px;top:-44px}
+.hero:after{width:120px;height:72px;border-radius:8px;right:22px;bottom:18px;transform:rotate(9deg)}
+.hero-content{
+    position:relative;
+    z-index:1;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:20px;
+    align-items:end;
+}
+h1{margin:0 0 10px;font-size:clamp(32px,5vw,62px);line-height:1;letter-spacing:0}
+.subtitle{max-width:790px;margin:0;font-size:18px;line-height:1.7;font-weight:700}
+.badge{
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    box-shadow:4px 4px 0 var(--ink);
+    padding:12px 16px;
+    font-weight:900;
+    text-align:center;
+    min-width:150px;
+}
+.badge small{display:block;margin-top:4px;color:#555;font-weight:800}
+.grid{display:grid;grid-template-columns:330px minmax(0,1fr);gap:22px;margin-top:24px}
+.panel{
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:var(--cream);
+    box-shadow:var(--shadow);
+}
+.panel-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    border-bottom:4px solid var(--ink);
+    padding:14px 16px;
+    background:var(--sun);
+}
+.panel-head.blue{background:var(--sky)}
+.panel-head.green{background:var(--mint)}
+.panel-head.pink{background:#ffc0d6}
+.panel-head h2{margin:0;font-size:20px}
+.panel-body{padding:16px}
+.control-stack{display:grid;gap:14px}
+.field label{display:block;margin-bottom:6px;font-size:14px;font-weight:900}
+.field input{
+    width:100%;
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    padding:10px 12px;
+    box-shadow:3px 3px 0 var(--ink);
+}
+.buttons,.manual-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.button{
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    min-height:44px;
+    padding:8px 12px;
+    font-weight:900;
+    cursor:pointer;
+    box-shadow:3px 3px 0 var(--ink);
+    transition:transform .12s ease, box-shadow .12s ease, filter .12s ease;
+}
+.button.primary{background:var(--blue);color:#fff}
+.button.orange{background:var(--orange);color:#fff}
+.button.green{background:var(--green);color:#fff}
+.button.pink{background:var(--pink);color:#fff}
+.button.purple{background:var(--purple);color:#fff}
+.button:hover:not(:disabled){transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
+.button:active:not(:disabled){transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.button:disabled{cursor:not-allowed;filter:grayscale(.4);opacity:.58}
+.speech{
+    position:relative;
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    padding:14px;
+    min-height:128px;
+    font-size:15px;
+    line-height:1.65;
+    box-shadow:4px 4px 0 rgba(32,33,36,.18);
+}
+.speech:after{
+    content:"";
+    position:absolute;
+    left:28px;
+    bottom:-16px;
+    width:26px;
+    height:26px;
+    border-right:3px solid var(--ink);
+    border-bottom:3px solid var(--ink);
+    background:#fff;
+    transform:rotate(45deg);
+}
+.stage{display:grid;gap:18px}
+.array-title{font-size:14px;font-weight:900;color:#555;margin-bottom:8px}
+.array-wrap{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    align-items:flex-start;
+    min-height:112px;
+    padding:12px;
+    border:3px dashed rgba(32,33,36,.42);
+    border-radius:8px;
+    background:rgba(255,255,255,.62);
+}
+.temp-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    align-items:center;
+}
+.temp-label{
+    border:3px solid var(--ink);
+    border-radius:999px;
+    background:#fff;
+    padding:8px 12px;
+    font-weight:900;
+    box-shadow:3px 3px 0 rgba(32,33,36,.22);
+}
+.cell{
+    position:relative;
+    width:72px;
+    min-height:88px;
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    box-shadow:4px 4px 0 var(--ink);
+    transition:transform .18s ease, background .18s ease, opacity .18s ease;
+    user-select:none;
+}
+.cell.unsorted{background:#fff}
+.cell.group{background:#fff2b8}
+.cell.done{background:#bff7d7}
+.cell.tempcell{background:#ffb3cf;transform:scale(1.05) rotate(-1deg)}
+.cell.compare{background:#b8ddff;transform:translateY(-5px) rotate(1deg)}
+.cell.slot{background:#ffe066;transform:translateY(-7px) rotate(-1deg)}
+.cell.shift{background:#8b5cf6;color:#fff;transform:scale(1.08) rotate(1deg)}
+.cell.insert{background:#ff8c42;color:#fff;transform:translateY(-7px) rotate(-1deg)}
+.cell.empty{
+    background:#f5f5f5;
+    color:#888;
+    box-shadow:3px 3px 0 rgba(32,33,36,.25);
+}
+.value{font-family:Consolas,"Courier New",monospace;font-size:25px;font-weight:900}
+.index{font-family:Consolas,"Courier New",monospace;font-size:12px;font-weight:900;color:#595959}
+.cell.shift .index,.cell.insert .index{color:#fff}
+.tag{
+    position:absolute;
+    top:-16px;
+    border:3px solid var(--ink);
+    border-radius:999px;
+    padding:1px 7px;
+    background:#fff;
+    color:var(--ink);
+    font-size:12px;
+    font-weight:900;
+    box-shadow:2px 2px 0 var(--ink);
+}
+.tag.i-tag{left:-10px;background:#ffb3cf}
+.tag.j-tag{right:-10px;background:#ffe066}
+.tag.prev-tag{left:-12px;background:#b8ddff}
+.tag.temp-tag{left:12px;background:#ffb3cf}
+.tag.move-tag{left:12px;background:#8b5cf6;color:#fff}
+.tag.in-tag{left:10px;background:#ff8c42;color:#fff}
+.status-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.stat{
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    padding:10px;
+    min-height:74px;
+    box-shadow:3px 3px 0 rgba(32,33,36,.22);
+}
+.stat b{display:block;font-size:13px;margin-bottom:6px}
+.stat span{font-family:Consolas,"Courier New",monospace;font-size:22px;font-weight:900}
+.formula{
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:#151515;
+    color:#f8f8f2;
+    padding:14px;
+    overflow:auto;
+    font-family:Consolas,"Courier New",monospace;
+    font-size:14px;
+    line-height:1.55;
+    box-shadow:4px 4px 0 rgba(32,33,36,.22);
+}
+.code-key{color:#ff79c6}
+.code-type{color:#8be9fd}
+.code-num{color:#bd93f9}
+.code-comment{color:#9ca3af}
+.rule-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.rule{
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    padding:12px;
+    font-weight:900;
+    min-height:86px;
+}
+.rule:nth-child(1){background:#bff7d7}
+.rule:nth-child(2){background:#ffe066}
+.rule:nth-child(3){background:#b8ddff}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:13px;font-weight:900}
+.legend span{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    border:2px solid var(--ink);
+    border-radius:999px;
+    background:#fff;
+    padding:5px 9px;
+}
+.dot{width:16px;height:16px;border:2px solid var(--ink);border-radius:50%;display:inline-block}
+.dot.group{background:#fff2b8}
+.dot.tempcell{background:#ffb3cf}
+.dot.compare{background:#b8ddff}
+.dot.shift{background:#8b5cf6}
+.dot.insert{background:#ff8c42}
+.dot.done{background:#bff7d7}
+.message-good{color:#087a42;font-weight:900}
+.message-warn{color:#b45400;font-weight:900}
+.message-bad{color:#d71942;font-weight:900}
+@media (max-width:960px){
+    .grid{grid-template-columns:1fr}
+    .hero-content{grid-template-columns:1fr}
+    .status-row,.rule-strip,.manual-actions{grid-template-columns:1fr}
+    .page{padding:14px}
+    .cell{width:64px}
+}
+</style>
+</head>
+<body>
+<main class="page">
+    <section class="hero">
+        <div class="hero-content">
+            <div>
+                <h1>希尔排序</h1>
+                <p class="subtitle">希尔排序是带间隔 gap 的插入排序：先按较大的 gap 分组后移，再不断缩小 gap，最后当 gap = 1 时完成一次普通插入排序。</p>
+            </div>
+            <div class="badge">Shell Sort<small>希尔排序</small></div>
+        </div>
+    </section>
+
+    <section class="grid">
+        <aside class="panel">
+            <div class="panel-head">
+                <h2>参数面板</h2>
+            </div>
+            <div class="panel-body control-stack">
+                <div class="field">
+                    <label for="arrayInput">初始数组 arr</label>
+                    <input id="arrayInput" value="23,12,1,8,34,54,2,3">
+                </div>
+                <div class="buttons">
+                    <button class="button orange" id="resetBtn">重置</button>
+                    <button class="button primary" id="nextBtn">下一步</button>
+                </div>
+                <button class="button green" id="finishBtn">自动跑完</button>
+                <div class="speech" id="autoInfo"></div>
+            </div>
+        </aside>
+
+        <section class="panel">
+            <div class="panel-head blue">
+                <h2>自动分步演示</h2>
+                <strong id="stepCounter">Step 0</strong>
+            </div>
+            <div class="panel-body stage">
+                <div>
+                    <div class="array-title">数组状态：黄色淡底表示当前 gap 分组，temp 单独保存在临时变量里</div>
+                    <div class="array-wrap" id="autoArray"></div>
+                </div>
+                <div class="temp-row">
+                    <div class="temp-label">临时变量 temp</div>
+                    <div id="autoTemp"></div>
+                </div>
+                <div class="status-row">
+                    <div class="stat"><b>当前 gap</b><span id="gapStat">-</span></div>
+                    <div class="stat"><b>外层 i</b><span id="iStat">-</span></div>
+                    <div class="stat"><b>扫描 j</b><span id="jStat">-</span></div>
+                    <div class="stat"><b>后移次数</b><span id="shiftStat">0</span></div>
+                </div>
+                <div class="legend">
+                    <span><i class="dot group"></i>当前 gap 分组</span>
+                    <span><i class="dot tempcell"></i>temp / arr[i]</span>
+                    <span><i class="dot compare"></i>arr[j-gap]</span>
+                    <span><i class="dot shift"></i>刚后移</span>
+                    <span><i class="dot insert"></i>插入位置</span>
+                    <span><i class="dot done"></i>完成</span>
+                </div>
+                <div class="rule-strip">
+                    <div class="rule">gap 初值为 n / 2，每轮结束后 gap /= 2。</div>
+                    <div class="rule">每个 gap 内，从 i = gap 到 n - 1 做插入排序式扫描。</div>
+                    <div class="rule">若 temp 小于 arr[j-gap]，就把 arr[j-gap] 后移到 arr[j]。</div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <section class="grid">
+        <aside class="panel">
+            <div class="panel-head green">
+                <h2>手动练习</h2>
+            </div>
+            <div class="panel-body control-stack">
+                <button class="button green" id="manualStartBtn">开始练习</button>
+                <div class="manual-actions">
+                    <button class="button pink" id="continueBtn" disabled>继续后移</button>
+                    <button class="button primary" id="insertBtn" disabled>停止插入</button>
+                </div>
+                <div class="speech" id="manualInfo"></div>
+            </div>
+        </aside>
+
+        <section class="panel">
+            <div class="panel-head pink">
+                <h2>判断 gap 插入排序的 while 条件</h2>
+                <strong id="manualProgress">未开始</strong>
+            </div>
+            <div class="panel-body stage">
+                <div>
+                    <div class="array-title">手动数组：判断 temp 是否还要跨 gap 向左比较并后移</div>
+                    <div class="array-wrap" id="manualArray"></div>
+                </div>
+                <div class="temp-row">
+                    <div class="temp-label">临时变量 temp</div>
+                    <div id="manualTemp"></div>
+                </div>
+                <div class="formula" aria-label="C++ 希尔排序代码">
+<pre><span class="code-type">void</span> shell_sort(<span class="code-type">int</span> *arr) {
+    <span class="code-key">for</span> (<span class="code-type">int</span> gap = n / <span class="code-num">2</span>; gap &gt; <span class="code-num">0</span>; gap /= <span class="code-num">2</span>) {
+        <span class="code-key">for</span> (<span class="code-type">int</span> i = gap; i &lt; n; i++) {
+            <span class="code-type">int</span> temp = arr[i];
+            <span class="code-type">int</span> j = i;
+            <span class="code-key">while</span> (j &gt;= gap &amp;&amp; temp &lt; arr[j - gap]) {
+                arr[j] = arr[j - gap];
+                j -= gap;
+            }
+            arr[j] = temp;
+        }
+    }
+}</pre>
+                </div>
+            </div>
+        </section>
+    </section>
+</main>
+
+<script>
+const els = {
+    arrayInput: document.getElementById('arrayInput'),
+    resetBtn: document.getElementById('resetBtn'),
+    nextBtn: document.getElementById('nextBtn'),
+    finishBtn: document.getElementById('finishBtn'),
+    autoInfo: document.getElementById('autoInfo'),
+    autoArray: document.getElementById('autoArray'),
+    autoTemp: document.getElementById('autoTemp'),
+    stepCounter: document.getElementById('stepCounter'),
+    gapStat: document.getElementById('gapStat'),
+    iStat: document.getElementById('iStat'),
+    jStat: document.getElementById('jStat'),
+    shiftStat: document.getElementById('shiftStat'),
+    manualStartBtn: document.getElementById('manualStartBtn'),
+    continueBtn: document.getElementById('continueBtn'),
+    insertBtn: document.getElementById('insertBtn'),
+    manualInfo: document.getElementById('manualInfo'),
+    manualArray: document.getElementById('manualArray'),
+    manualTemp: document.getElementById('manualTemp'),
+    manualProgress: document.getElementById('manualProgress')
+};
+
+const state = {
+    baseArr: [],
+    auto: {},
+    manual: {}
+};
+
+let autoRunTimer = null;
+
+function stopAutoRun() {
+    if (autoRunTimer !== null) {
+        clearInterval(autoRunTimer);
+        autoRunTimer = null;
+    }
+    els.finishBtn.textContent = '自动跑完';
+}
+
+function autoRunFinished() {
+    return state.auto.phase === 'done' || state.auto.phase === 'invalid';
+}
+
+function parseArray() {
+    return els.arrayInput.value
+        .split(',')
+        .map(x => Number(x.trim()))
+        .filter(Number.isFinite);
+}
+
+function initialGap(n) {
+    return Math.floor(n / 2);
+}
+
+function nextGap(gap) {
+    return Math.floor(gap / 2);
+}
+
+function initAll() {
+    state.baseArr = parseArray();
+    resetAuto();
+    resetManual(false);
+}
+
+function makeAutoState() {
+    const n = state.baseArr.length;
+    const gap = initialGap(n);
+    return {
+        arr: [...state.baseArr],
+        n,
+        gap,
+        i: gap,
+        j: null,
+        temp: null,
+        phase: n <= 1 || gap <= 0 ? 'done' : 'takeTemp',
+        step: 0,
+        checks: 0,
+        shifts: 0,
+        lastShiftFrom: null,
+        lastShiftTo: null,
+        lastInsert: null,
+        note: ''
+    };
+}
+
+function makeManualState(active) {
+    const n = state.baseArr.length;
+    const gap = initialGap(n);
+    const canRun = active && n > 1 && gap > 0;
+    return {
+        arr: [...state.baseArr],
+        n,
+        gap,
+        i: canRun ? gap : 0,
+        j: canRun ? gap : null,
+        temp: canRun ? state.baseArr[gap] : null,
+        phase: active ? (canRun ? 'decide' : 'done') : 'idle',
+        checks: 0,
+        shifts: 0,
+        active,
+        lastShiftFrom: null,
+        lastShiftTo: null,
+        lastInsert: null
+    };
+}
+
+function resetAuto() {
+    stopAutoRun();
+    state.auto = makeAutoState();
+    els.nextBtn.disabled = state.auto.phase === 'done';
+    els.finishBtn.disabled = state.auto.phase === 'done';
+    renderAuto();
+    updateAutoInfo();
+}
+
+function resetManual(active) {
+    state.manual = makeManualState(active);
+    setManualButtons();
+    renderManual();
+    if (active) {
+        updateManualInfo(state.manual.phase === 'done' ? '<span class="message-good">数组长度不超过 1，已经有序。</span>' : `开始 gap = ${state.manual.gap}：temp = arr[${state.manual.i}]，j = ${state.manual.j}。判断 while 条件是否继续。`);
+    } else {
+        updateManualInfo('点击“开始练习”，每次判断 while (j >= gap && temp < arr[j-gap]) 是否成立。');
+    }
+}
+
+function makeTag(text, cls) {
+    const el = document.createElement('span');
+    el.className = `tag ${cls}`;
+    el.textContent = text;
+    return el;
+}
+
+function makeCell(value, label, classes = [], tags = []) {
+    const cell = document.createElement('div');
+    cell.className = `cell ${classes.join(' ')}`;
+    tags.forEach(tag => cell.appendChild(tag));
+    const valueEl = document.createElement('div');
+    valueEl.className = 'value';
+    valueEl.textContent = value;
+    const indexEl = document.createElement('div');
+    indexEl.className = 'index';
+    indexEl.textContent = label;
+    cell.appendChild(valueEl);
+    cell.appendChild(indexEl);
+    return cell;
+}
+
+function renderCells(container, data) {
+    const { arr, gap, i, j, temp, phase, lastShiftFrom, lastShiftTo, lastInsert } = data;
+    const done = phase === 'done';
+    const activeResidue = gap > 0 && i !== null && i !== undefined ? i % gap : null;
+    container.innerHTML = '';
+    arr.forEach((value, index) => {
+        const classes = ['unsorted'];
+        const tags = [];
+        if (done) classes.push('done');
+        else if (activeResidue !== null && index % gap === activeResidue) classes.push('group');
+        if (!done && phase === 'takeTemp' && index === i) {
+            classes.push('tempcell');
+            tags.push(makeTag('i', 'i-tag'));
+        }
+        if (!done && temp !== null && index === j) {
+            classes.push('slot');
+            tags.push(makeTag('j', 'j-tag'));
+        }
+        if (!done && temp !== null && j !== null && index === j - gap) {
+            classes.push('compare');
+            tags.push(makeTag('j-gap', 'prev-tag'));
+        }
+        if (!done && (index === lastShiftFrom || index === lastShiftTo)) {
+            classes.push('shift');
+            if (index === lastShiftTo) tags.push(makeTag('后移', 'move-tag'));
+        }
+        if (!done && index === lastInsert) {
+            classes.push('insert');
+            tags.push(makeTag('插入', 'in-tag'));
+        }
+        container.appendChild(makeCell(value, `arr[${index}]`, classes, tags));
+    });
+}
+
+function renderTemp(container, temp, phase) {
+    container.innerHTML = '';
+    if (temp === null || phase === 'done' || phase === 'idle') {
+        const text = phase === 'done' ? '完成' : '?';
+        container.appendChild(makeCell(text, 'temp', ['empty'], []));
+        return;
+    }
+    container.appendChild(makeCell(temp, 'temp', ['tempcell'], [makeTag('temp', 'temp-tag')]));
+}
+
+function renderAuto() {
+    const a = state.auto;
+    renderCells(els.autoArray, a);
+    renderTemp(els.autoTemp, a.temp, a.phase);
+    els.stepCounter.textContent = `Step ${a.step}`;
+    els.gapStat.textContent = a.phase === 'done' ? '-' : a.gap;
+    els.iStat.textContent = a.phase === 'done' ? '-' : a.i;
+    els.jStat.textContent = a.j === null || a.phase === 'done' ? '-' : a.j;
+    els.shiftStat.textContent = a.shifts;
+}
+
+function updateAutoInfo() {
+    const a = state.auto;
+    if (a.n === 0) {
+        els.autoInfo.innerHTML = '<span class="message-bad">数组不能为空。</span>';
+        return;
+    }
+    if (a.n === 1) {
+        els.autoInfo.innerHTML = '<span class="message-good">只有一个元素，不需要排序。</span>';
+        return;
+    }
+    if (a.phase === 'done') {
+        els.autoInfo.innerHTML = `<span class="message-good">希尔排序完成。</span><br>共判断 ${a.checks} 次 while 条件，后移 ${a.shifts} 次。`;
+        return;
+    }
+    if (a.note) {
+        els.autoInfo.innerHTML = a.note;
+        return;
+    }
+    if (a.phase === 'takeTemp') {
+        els.autoInfo.innerHTML = `当前 gap = ${a.gap}，进入 i = ${a.i}。<br>下一步执行 temp = arr[${a.i}]，j = ${a.i}。`;
+    } else if (a.phase === 'check') {
+        const text = a.j >= a.gap ? `temp = ${a.temp}，arr[${a.j - a.gap}] = ${a.arr[a.j - a.gap]}` : 'j 已经小于 gap';
+        els.autoInfo.innerHTML = `检查 while：j >= gap && temp < arr[j-gap]。<br>${text}`;
+    } else if (a.phase === 'shift') {
+        els.autoInfo.innerHTML = `条件成立。<br>下一步执行 arr[${a.j}] = arr[${a.j - a.gap}]，然后 j -= gap。`;
+    } else if (a.phase === 'insert') {
+        els.autoInfo.innerHTML = `条件不成立。<br>下一步执行 arr[${a.j}] = temp，把 ${a.temp} 插入当前 gap 分组。`;
+    }
+}
+
+function autoStep() {
+    const a = state.auto;
+    if (a.phase === 'done') return;
+    a.lastShiftFrom = null;
+    a.lastShiftTo = null;
+    a.lastInsert = null;
+    a.note = '';
+    if (a.phase === 'takeTemp') {
+        a.temp = a.arr[a.i];
+        a.j = a.i;
+        a.phase = 'check';
+        a.step++;
+        a.note = `已保存 temp = arr[${a.i}] = ${a.temp}。<br>现在从 j = ${a.j} 按 gap = ${a.gap} 向左比较。`;
+    } else if (a.phase === 'check') {
+        const shouldShift = a.j >= a.gap && a.temp < a.arr[a.j - a.gap];
+        a.checks++;
+        a.step++;
+        if (shouldShift) {
+            a.phase = 'shift';
+            a.note = `while 条件成立：${a.temp} < arr[${a.j - a.gap}] = ${a.arr[a.j - a.gap]}。<br>下一步把 arr[${a.j - a.gap}] 后移到 arr[${a.j}]。`;
+        } else {
+            a.phase = 'insert';
+            const reason = a.j < a.gap ? 'j 已经小于 gap' : `${a.temp} >= arr[${a.j - a.gap}] = ${a.arr[a.j - a.gap]}`;
+            a.note = `while 条件停止：${reason}。<br>下一步把 temp 插入 arr[${a.j}]。`;
+        }
+    } else if (a.phase === 'shift') {
+        a.arr[a.j] = a.arr[a.j - a.gap];
+        a.lastShiftFrom = a.j - a.gap;
+        a.lastShiftTo = a.j;
+        a.j -= a.gap;
+        a.shifts++;
+        a.step++;
+        a.phase = 'check';
+        a.note = `已执行后移，数组中出现重复值是正常的，因为 temp = ${a.temp} 还保存在临时变量里。<br>j 变为 ${a.j}，继续检查 while。`;
+    } else if (a.phase === 'insert') {
+        a.arr[a.j] = a.temp;
+        a.lastInsert = a.j;
+        a.step++;
+        a.note = `已执行 arr[${a.j}] = temp，本次 gap 插入完成。`;
+        a.temp = null;
+        a.j = null;
+        a.i++;
+        if (a.i >= a.n) {
+            a.gap = nextGap(a.gap);
+            if (a.gap <= 0) {
+                a.phase = 'done';
+                els.nextBtn.disabled = true;
+                els.finishBtn.disabled = true;
+            } else {
+                a.i = a.gap;
+                a.phase = 'takeTemp';
+                a.note += `<br>进入下一轮 gap = ${a.gap}。`;
+            }
+        } else {
+            a.phase = 'takeTemp';
+            a.note += `<br>继续当前 gap，下一项 i = ${a.i}。`;
+        }
+    }
+    renderAuto();
+    updateAutoInfo();
+}
+
+function finishAuto() {
+    if (autoRunTimer !== null || autoRunFinished()) return;
+    els.finishBtn.textContent = '自动中...';
+    els.finishBtn.disabled = true;
+    els.nextBtn.disabled = true;
+    autoRunTimer = setInterval(() => {
+        if (autoRunFinished()) {
+            stopAutoRun();
+            els.finishBtn.disabled = true;
+            els.nextBtn.disabled = true;
+            return;
+        }
+        autoStep();
+        if (autoRunFinished()) {
+            stopAutoRun();
+            els.finishBtn.disabled = true;
+            els.nextBtn.disabled = true;
+        }
+    }, 1000);
+}
+
+function startManual() {
+    resetManual(true);
+}
+
+function setManualButtons() {
+    const canDecide = state.manual.active && state.manual.phase === 'decide';
+    els.continueBtn.disabled = !canDecide;
+    els.insertBtn.disabled = !canDecide;
+}
+
+function renderManual() {
+    const m = state.manual;
+    renderCells(els.manualArray, m);
+    renderTemp(els.manualTemp, m.temp, m.phase);
+    if (m.phase === 'idle') els.manualProgress.textContent = '未开始';
+    else if (m.phase === 'done') els.manualProgress.textContent = '已完成';
+    else els.manualProgress.textContent = `gap = ${m.gap}, i = ${m.i}, j = ${m.j}`;
+}
+
+function moveToNextManualItem(m) {
+    m.temp = null;
+    m.j = null;
+    m.i++;
+    if (m.i >= m.n) {
+        m.gap = nextGap(m.gap);
+        if (m.gap <= 0) {
+            m.phase = 'done';
+            return 'done';
+        }
+        m.i = m.gap;
+        m.temp = m.arr[m.i];
+        m.j = m.i;
+        return 'newGap';
+    }
+    m.temp = m.arr[m.i];
+    m.j = m.i;
+    return 'sameGap';
+}
+
+function manualDecision(userContinues) {
+    const m = state.manual;
+    if (m.phase !== 'decide') return;
+    m.lastShiftFrom = null;
+    m.lastShiftTo = null;
+    m.lastInsert = null;
+    const shouldContinue = m.j >= m.gap && m.temp < m.arr[m.j - m.gap];
+    if (userContinues !== shouldContinue) {
+        if (m.j < m.gap) {
+            updateManualInfo('<span class="message-bad">判断不对。</span><br>j 已经小于 gap，while 必须停止并插入。');
+        } else {
+            updateManualInfo(`<span class="message-bad">判断不对。</span><br>temp = ${m.temp}，arr[${m.j - m.gap}] = ${m.arr[m.j - m.gap]}，应选择“${shouldContinue ? '继续后移' : '停止插入'}”。`);
+        }
+        return;
+    }
+    m.checks++;
+    if (shouldContinue) {
+        m.arr[m.j] = m.arr[m.j - m.gap];
+        m.lastShiftFrom = m.j - m.gap;
+        m.lastShiftTo = m.j;
+        m.j -= m.gap;
+        m.shifts++;
+        updateManualInfo(`<span class="message-good">判断正确，已后移。</span><br>temp 仍然是 ${m.temp}，j 变为 ${m.j}，继续判断 while。`);
+    } else {
+        const pos = m.j;
+        m.arr[pos] = m.temp;
+        m.lastInsert = pos;
+        const result = moveToNextManualItem(m);
+        if (result === 'done') {
+            updateManualInfo(`<span class="message-good">练习完成。</span><br>共判断 ${m.checks} 次 while，后移 ${m.shifts} 次。`);
+        } else if (result === 'newGap') {
+            updateManualInfo(`<span class="message-good">插入正确。</span><br>进入下一轮 gap = ${m.gap}：temp = arr[${m.i}] = ${m.temp}，j = ${m.j}。`);
+        } else {
+            updateManualInfo(`<span class="message-good">插入正确。</span><br>继续当前 gap = ${m.gap}：temp = arr[${m.i}] = ${m.temp}，j = ${m.j}。`);
+        }
+    }
+    setManualButtons();
+    renderManual();
+}
+
+function updateManualInfo(html) {
+    els.manualInfo.innerHTML = html;
+}
+
+els.resetBtn.onclick = initAll;
+els.nextBtn.onclick = autoStep;
+els.finishBtn.onclick = finishAuto;
+els.arrayInput.oninput = initAll;
+els.manualStartBtn.onclick = startManual;
+els.continueBtn.onclick = () => manualDecision(true);
+els.insertBtn.onclick = () => manualDecision(false);
+
+initAll();
+</script>
+</body>
+</html>

@@ -22,12 +22,12 @@ void solve(){
         if(t[i]==t[j]) j++;  // 匹配成功，最长公共前后缀长度增加
         
         nxt[i]=j;  // 记录当前位置的最长公共前后缀长度
-    }
+    }                                         
     
     // 使用next数组进行主串匹配
     for(int i=0,j=0;i<n;i++){  // i遍历主串，j表示当前已匹配的模式串长度
         // 当j>0且当前字符不匹配时，通过next数组回溯j的位置
-        // 这避免了主串指针i的回退，保证线性时间复杂度[7,8](@ref)
+        // 这避免了主串指针i的回退，保证线性时间复杂度[7,8]
         while(j>0&&s[i]!=t[j]) j=nxt[j-1];  // 利用部分匹配信息跳过不必要的比较
         
         // 如果当前字符匹配，j向前移动
@@ -53,3 +53,43 @@ int main() {
     }
     return 0;
 }
+/*
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define el '\n'
+const ll N=1e6+5;
+string s,t;
+ll nxt[N];
+ll n,m;
+void solve(){
+    cin>>s>>t;
+    n=s.size(),m=t.size();
+    for(int i=1,j=0;i<m;i++){
+        while(j>0&&t[i]!=t[j]) j=nxt[j-1];
+        if(t[i]==t[j]) j++;
+        nxt[i]=j;
+    }
+    for(int i=0,j=0;i<n;i++){
+        while(j>0&&s[i]!=t[j]) j=nxt[j-1];
+        if(s[i]==t[j]) j++;
+        if(j==m){
+            cout<<i-m+1+1<<el;
+            j=nxt[j-1];
+        }
+    }
+    for(int i=0;i<m;i++) cout<<nxt[i]<<" ";
+}
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    // freopen("xxx.in","r",stdin);
+    // freopen("xxx.out","w",stdout);
+    ll T=1;
+    // cin>>T;
+    while(T--){
+        solve();
+    }
+    return 0;
+}
+*/

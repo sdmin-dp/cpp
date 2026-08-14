@@ -3,19 +3,20 @@ using namespace std;
 #define ll long long
 #define el '\n'
 const ll N=1e5+5;
-ll n;
-ll a[N];
-map<ll,ll> mp;
+ll n,m;
+ll a[N],b[N];
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
         cin>>a[i];
-        mp[a[i]]=0;
+        b[i]=a[i];
     }
-    ll idx=0;
-    for(auto &i:mp) i.second=idx++;
+    sort(b+1,b+n+1);
+    m=unique(b+1,b+n+1)-b-1;
+    cerr<<m;
     for(int i=1;i<=n;i++){
-        cout<<mp[a[i]]<<el;
+        ll pos=lower_bound(b+1,b+m+1,a[i])-b;
+        cout<<pos-1<<el;
     }
 }
 int main(){

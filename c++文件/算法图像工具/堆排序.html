@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>堆排序可视化 | C++ 基础算法工具</title>
+<style>
+:root{
+    --ink:#202124;
+    --cream:#fffdf4;
+    --sky:#8bd3ff;
+    --blue:#2672ff;
+    --mint:#83e6b2;
+    --green:#1e9b62;
+    --sun:#ffd45a;
+    --orange:#ff8c42;
+    --pink:#ff77a8;
+    --purple:#8b5cf6;
+    --shadow:6px 6px 0 var(--ink);
+}
+*{box-sizing:border-box}
+body{
+    margin:0;
+    color:var(--ink);
+    background:
+        radial-gradient(circle at 16px 16px, rgba(32,33,36,.08) 2px, transparent 3px) 0 0/34px 34px,
+        linear-gradient(135deg,#fff4bf 0%,#ffe5ef 45%,#d7f3ff 100%);
+    font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;
+    min-height:100vh;
+}
+button,input{font:inherit}
+.page{max-width:1280px;margin:0 auto;padding:24px}
+.hero{
+    position:relative;
+    overflow:hidden;
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:linear-gradient(120deg,#fffdf4 0%,#ffe680 48%,#78d6ff 100%);
+    box-shadow:var(--shadow);
+    padding:28px;
+    min-height:176px;
+}
+.hero:before,.hero:after{
+    content:"";
+    position:absolute;
+    border:4px solid var(--ink);
+    background:rgba(255,255,255,.55);
+    transform:rotate(-12deg);
+}
+.hero:before{width:140px;height:140px;border-radius:50%;right:110px;top:-44px}
+.hero:after{width:120px;height:72px;border-radius:8px;right:22px;bottom:18px;transform:rotate(9deg)}
+.hero-content{
+    position:relative;
+    z-index:1;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:20px;
+    align-items:end;
+}
+h1{margin:0 0 10px;font-size:clamp(32px,5vw,62px);line-height:1;letter-spacing:0}
+.subtitle{max-width:850px;margin:0;font-size:18px;line-height:1.7;font-weight:700}
+.badge{
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    box-shadow:4px 4px 0 var(--ink);
+    padding:12px 16px;
+    font-weight:900;
+    text-align:center;
+    min-width:150px;
+}
+.badge small{display:block;margin-top:4px;color:#555;font-weight:800}
+.grid{display:grid;grid-template-columns:330px minmax(0,1fr);gap:22px;margin-top:24px}
+.panel{
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:var(--cream);
+    box-shadow:var(--shadow);
+}
+.panel-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    border-bottom:4px solid var(--ink);
+    padding:14px 16px;
+    background:var(--sun);
+}
+.panel-head.blue{background:var(--sky)}
+.panel-head.green{background:var(--mint)}
+.panel-head.pink{background:#ffc0d6}
+.panel-head h2{margin:0;font-size:20px}
+.panel-body{padding:16px}
+.control-stack{display:grid;gap:14px}
+.field label{display:block;margin-bottom:6px;font-size:14px;font-weight:900}
+.field input{
+    width:100%;
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    padding:10px 12px;
+    box-shadow:3px 3px 0 var(--ink);
+}
+.buttons,.manual-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.manual-actions.three{grid-template-columns:1fr}
+.button{
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    min-height:44px;
+    padding:8px 12px;
+    font-weight:900;
+    cursor:pointer;
+    box-shadow:3px 3px 0 var(--ink);
+    transition:transform .12s ease, box-shadow .12s ease, filter .12s ease;
+}
+.button.primary{background:var(--blue);color:#fff}
+.button.orange{background:var(--orange);color:#fff}
+.button.green{background:var(--green);color:#fff}
+.button.pink{background:var(--pink);color:#fff}
+.button.purple{background:var(--purple);color:#fff}
+.button:hover:not(:disabled){transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
+.button:active:not(:disabled){transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.button:disabled{cursor:not-allowed;filter:grayscale(.4);opacity:.58}
+.speech{
+    position:relative;
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    padding:14px;
+    min-height:136px;
+    font-size:15px;
+    line-height:1.65;
+    box-shadow:4px 4px 0 rgba(32,33,36,.18);
+}
+.speech:after{
+    content:"";
+    position:absolute;
+    left:28px;
+    bottom:-16px;
+    width:26px;
+    height:26px;
+    border-right:3px solid var(--ink);
+    border-bottom:3px solid var(--ink);
+    background:#fff;
+    transform:rotate(45deg);
+}
+.stage{display:grid;gap:18px}
+.tree-title,.array-title{font-size:14px;font-weight:900;color:#555;margin-bottom:8px}
+.tree-area{
+    position:relative;
+    min-height:430px;
+    border:3px dashed rgba(32,33,36,.42);
+    border-radius:8px;
+    background:rgba(255,255,255,.62);
+    overflow:hidden;
+}
+.edge-svg{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+}
+.edge{
+    stroke:var(--ink);
+    stroke-width:5;
+    stroke-linecap:round;
+    opacity:.75;
+}
+.tree-node{
+    position:absolute;
+    width:68px;
+    min-height:68px;
+    border:4px solid var(--ink);
+    border-radius:50%;
+    background:#fff;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    transform:translate(-50%,-50%);
+    box-shadow:4px 4px 0 var(--ink);
+    transition:transform .18s ease, background .18s ease, opacity .18s ease;
+    user-select:none;
+}
+.tree-node.clickable{cursor:pointer}
+.tree-node.clickable:hover{transform:translate(-50%,-56%) rotate(-2deg)}
+.tree-node.outside{opacity:.32;background:#eee}
+.tree-node.sorted{background:#bff7d7}
+.tree-node.parent{background:#ffe066}
+.tree-node.child{background:#b8ddff}
+.tree-node.chosen{background:#ffb3cf}
+.tree-node.root{background:#ffb3cf}
+.tree-node.end{background:#ff8c42;color:#fff}
+.tree-node.swap{background:#8b5cf6;color:#fff;transform:translate(-50%,-50%) scale(1.12) rotate(2deg)}
+.node-value{font-family:Consolas,"Courier New",monospace;font-size:22px;font-weight:900;line-height:1}
+.node-index{font-family:Consolas,"Courier New",monospace;font-size:11px;font-weight:900;color:#555;margin-top:3px}
+.tree-node.end .node-index,.tree-node.swap .node-index{color:#fff}
+.array-wrap{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    align-items:flex-start;
+    min-height:96px;
+    padding:12px;
+    border:3px dashed rgba(32,33,36,.42);
+    border-radius:8px;
+    background:rgba(255,255,255,.62);
+}
+.cell{
+    position:relative;
+    width:66px;
+    min-height:78px;
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    box-shadow:4px 4px 0 var(--ink);
+}
+.cell.heap{background:#fff2b8}
+.cell.sorted{background:#bff7d7}
+.cell.parent{background:#ffe066}
+.cell.child{background:#b8ddff}
+.cell.swap{background:#8b5cf6;color:#fff}
+.cell.end{background:#ff8c42;color:#fff}
+.value{font-family:Consolas,"Courier New",monospace;font-size:23px;font-weight:900}
+.index{font-family:Consolas,"Courier New",monospace;font-size:12px;font-weight:900;color:#595959}
+.cell.swap .index,.cell.end .index{color:#fff}
+.status-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.stat{
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    padding:10px;
+    min-height:74px;
+    box-shadow:3px 3px 0 rgba(32,33,36,.22);
+}
+.stat b{display:block;font-size:13px;margin-bottom:6px}
+.stat span{font-family:Consolas,"Courier New",monospace;font-size:22px;font-weight:900}
+.formula{
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:#151515;
+    color:#f8f8f2;
+    padding:14px;
+    overflow:auto;
+    font-family:Consolas,"Courier New",monospace;
+    font-size:14px;
+    line-height:1.55;
+    box-shadow:4px 4px 0 rgba(32,33,36,.22);
+}
+.code-key{color:#ff79c6}
+.code-type{color:#8be9fd}
+.code-num{color:#bd93f9}
+.code-comment{color:#9ca3af}
+.rule-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.rule{
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    padding:12px;
+    font-weight:900;
+    min-height:86px;
+}
+.rule:nth-child(1){background:#bff7d7}
+.rule:nth-child(2){background:#ffe066}
+.rule:nth-child(3){background:#b8ddff}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:13px;font-weight:900}
+.legend span{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    border:2px solid var(--ink);
+    border-radius:999px;
+    background:#fff;
+    padding:5px 9px;
+}
+.dot{width:16px;height:16px;border:2px solid var(--ink);border-radius:50%;display:inline-block}
+.dot.parent{background:#ffe066}
+.dot.child{background:#b8ddff}
+.dot.chosen{background:#ffb3cf}
+.dot.swap{background:#8b5cf6}
+.dot.end{background:#ff8c42}
+.dot.sorted{background:#bff7d7}
+.message-good{color:#087a42;font-weight:900}
+.message-warn{color:#b45400;font-weight:900}
+.message-bad{color:#d71942;font-weight:900}
+@media (max-width:960px){
+    .grid{grid-template-columns:1fr}
+    .hero-content{grid-template-columns:1fr}
+    .status-row,.rule-strip,.manual-actions{grid-template-columns:1fr}
+    .page{padding:14px}
+    .tree-area{min-height:390px}
+    .tree-node{width:58px;min-height:58px}
+}
+</style>
+</head>
+<body>
+<main class="page">
+    <section class="hero">
+        <div class="hero-content">
+            <div>
+                <h1>堆排序</h1>
+                <p class="subtitle">把数组看成完全二叉树。先从最后一个非叶子结点向上做 Down 建成大顶堆，再反复交换堆顶和堆尾，把最大值送到已排序区。</p>
+            </div>
+            <div class="badge">Heap Sort<small>堆排序</small></div>
+        </div>
+    </section>
+
+    <section class="grid">
+        <aside class="panel">
+            <div class="panel-head">
+                <h2>参数面板</h2>
+            </div>
+            <div class="panel-body control-stack">
+                <div class="field">
+                    <label for="arrayInput">初始数组 a（最多 15 个）</label>
+                    <input id="arrayInput" value="4,10,3,5,1,8,6,2,7">
+                </div>
+                <div class="buttons">
+                    <button class="button orange" id="resetBtn">重置</button>
+                    <button class="button primary" id="nextBtn">下一步</button>
+                </div>
+                <button class="button green" id="finishBtn">自动跑完</button>
+                <div class="speech" id="autoInfo"></div>
+            </div>
+        </aside>
+
+        <section class="panel">
+            <div class="panel-head blue">
+                <h2>自动分步演示</h2>
+                <strong id="stepCounter">Step 0</strong>
+            </div>
+            <div class="panel-body stage">
+                <div>
+                    <div class="tree-title">完全二叉树视图：Down 就是把较大的孩子往上“冒泡”</div>
+                    <div class="tree-area" id="autoTree"></div>
+                </div>
+                <div>
+                    <div class="array-title">数组辅助视图：树节点下标和数组下标完全对应</div>
+                    <div class="array-wrap" id="autoArray"></div>
+                </div>
+                <div class="status-row">
+                    <div class="stat"><b>阶段</b><span id="phaseStat">建堆</span></div>
+                    <div class="stat"><b>堆范围 n</b><span id="limitStat">-</span></div>
+                    <div class="stat"><b>parent</b><span id="parentStat">-</span></div>
+                    <div class="stat"><b>child</b><span id="childStat">-</span></div>
+                </div>
+                <div class="legend">
+                    <span><i class="dot parent"></i>父结点</span>
+                    <span><i class="dot child"></i>孩子候选</span>
+                    <span><i class="dot chosen"></i>较大孩子</span>
+                    <span><i class="dot swap"></i>刚交换</span>
+                    <span><i class="dot end"></i>堆尾</span>
+                    <span><i class="dot sorted"></i>已排序</span>
+                </div>
+                <div class="rule-strip">
+                    <div class="rule">建堆：从 (n-2)/2 到 0，对每个父结点执行 Down。</div>
+                    <div class="rule">Down：先在左右孩子中选较大的 child，再和 parent 比较。</div>
+                    <div class="rule">排序：交换 a[0] 和 a[end]，缩小堆范围，再从根 Down。</div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <section class="grid">
+        <aside class="panel">
+            <div class="panel-head green">
+                <h2>手动练习</h2>
+            </div>
+            <div class="panel-body control-stack">
+                <button class="button green" id="manualStartBtn">开始练习</button>
+                <div class="manual-actions three">
+                    <button class="button primary" id="compareBtn" disabled>判断父子是否交换</button>
+                    <button class="button purple" id="swapDownBtn" disabled>执行父子交换</button>
+                    <button class="button orange" id="swapEndBtn" disabled>交换堆顶和堆尾</button>
+                </div>
+                <div class="speech" id="manualInfo"></div>
+            </div>
+        </aside>
+
+        <section class="panel">
+            <div class="panel-head pink">
+                <h2>点击较大的孩子，再判断是否交换</h2>
+                <strong id="manualProgress">未开始</strong>
+            </div>
+            <div class="panel-body stage">
+                <div>
+                    <div class="tree-title">手动树：选择 child 时点击左右孩子中较大的那个</div>
+                    <div class="tree-area" id="manualTree"></div>
+                </div>
+                <div>
+                    <div class="array-title">手动数组</div>
+                    <div class="array-wrap" id="manualArray"></div>
+                </div>
+                <div class="formula" aria-label="C++ 堆排序代码">
+<pre><span class="code-type">void</span> Down(<span class="code-type">int</span> a[], <span class="code-type">int</span> n, <span class="code-type">int</span> parent) {
+    <span class="code-type">int</span> child = parent * <span class="code-num">2</span> + <span class="code-num">1</span>;
+    <span class="code-key">while</span> (child &lt; n) {
+        <span class="code-key">if</span> (child + <span class="code-num">1</span> &lt; n &amp;&amp; a[child + <span class="code-num">1</span>] &gt; a[child])
+            child++;
+        <span class="code-key">if</span> (a[child] &gt; a[parent]) {
+            swap(a[child], a[parent]);
+            parent = child;
+            child = parent * <span class="code-num">2</span> + <span class="code-num">1</span>;
+        }
+        <span class="code-key">else</span>
+            <span class="code-key">return</span>;
+    }
+}
+
+<span class="code-type">void</span> HeapSort(<span class="code-type">int</span> a[], <span class="code-type">int</span> n) {
+    <span class="code-key">for</span> (<span class="code-type">int</span> i = (n - <span class="code-num">2</span>) / <span class="code-num">2</span>; i &gt;= <span class="code-num">0</span>; i--)
+        Down(a, n, i);
+    <span class="code-type">int</span> end = n - <span class="code-num">1</span>;
+    <span class="code-key">while</span> (end &gt; <span class="code-num">0</span>) {
+        swap(a[<span class="code-num">0</span>], a[end]);
+        Down(a, end, <span class="code-num">0</span>);
+        end--;
+    }
+}</pre>
+                </div>
+            </div>
+        </section>
+    </section>
+</main>
+
+<script>
+const MAX_N = 15;
+
+const els = {
+    arrayInput: document.getElementById('arrayInput'),
+    resetBtn: document.getElementById('resetBtn'),
+    nextBtn: document.getElementById('nextBtn'),
+    finishBtn: document.getElementById('finishBtn'),
+    autoInfo: document.getElementById('autoInfo'),
+    autoTree: document.getElementById('autoTree'),
+    autoArray: document.getElementById('autoArray'),
+    stepCounter: document.getElementById('stepCounter'),
+    phaseStat: document.getElementById('phaseStat'),
+    limitStat: document.getElementById('limitStat'),
+    parentStat: document.getElementById('parentStat'),
+    childStat: document.getElementById('childStat'),
+    manualStartBtn: document.getElementById('manualStartBtn'),
+    compareBtn: document.getElementById('compareBtn'),
+    swapDownBtn: document.getElementById('swapDownBtn'),
+    swapEndBtn: document.getElementById('swapEndBtn'),
+    manualInfo: document.getElementById('manualInfo'),
+    manualTree: document.getElementById('manualTree'),
+    manualArray: document.getElementById('manualArray'),
+    manualProgress: document.getElementById('manualProgress')
+};
+
+const state = {
+    baseArr: [],
+    valid: true,
+    error: '',
+    auto: {},
+    manual: {}
+};
+
+let autoRunTimer = null;
+
+function stopAutoRun() {
+    if (autoRunTimer !== null) {
+        clearInterval(autoRunTimer);
+        autoRunTimer = null;
+    }
+    els.finishBtn.textContent = '自动跑完';
+}
+
+function autoRunFinished() {
+    return state.auto.phase === 'done' || state.auto.phase === 'invalid';
+}
+
+function parseArray() {
+    const raw = els.arrayInput.value.split(',').map(x => x.trim()).filter(Boolean);
+    const arr = raw.map(Number);
+    if (raw.length === 0 || arr.some(x => !Number.isFinite(x))) {
+        return { valid:false, arr:[], error:'请输入用逗号分隔的数字。' };
+    }
+    if (arr.length > MAX_N) {
+        return { valid:false, arr, error:`树形展示最多支持 ${MAX_N} 个元素。` };
+    }
+    return { valid:true, arr, error:'' };
+}
+
+function initAll() {
+    const parsed = parseArray();
+    state.baseArr = parsed.arr;
+    state.valid = parsed.valid;
+    state.error = parsed.error;
+    resetAuto();
+    resetManual(false);
+}
+
+function lastParentIndex(n) {
+    return Math.floor((n - 2) / 2);
+}
+
+function makeSortState(active) {
+    const n = state.baseArr.length;
+    return {
+        arr: [...state.baseArr],
+        n,
+        phase: !state.valid ? 'invalid' : active ? (n <= 1 ? 'done' : 'startBuildDown') : 'idle',
+        buildI: lastParentIndex(n),
+        end: n - 1,
+        limit: n,
+        downType: 'build',
+        parent: null,
+        child: null,
+        leftChild: null,
+        rightChild: null,
+        chosenChild: null,
+        compareResult: null,
+        lastSwapA: null,
+        lastSwapB: null,
+        swaps: 0,
+        step: 0,
+        note: '',
+        active
+    };
+}
+
+function resetAuto() {
+    stopAutoRun();
+    state.auto = makeSortState(true);
+    els.nextBtn.disabled = !state.valid || state.auto.phase === 'done';
+    els.finishBtn.disabled = !state.valid || state.auto.phase === 'done';
+    renderAuto();
+    updateAutoInfo();
+}
+
+function resetManual(active) {
+    state.manual = makeSortState(active);
+    setManualButtons();
+    renderManual();
+    if (!active) updateManualInfo('点击“开始练习”，先从最后一个非叶子结点开始建堆。');
+    else if (!state.valid) updateManualInfo(`<span class="message-bad">${state.error}</span>`);
+    else if (state.manual.phase === 'done') updateManualInfo('<span class="message-good">数组长度不超过 1，已经有序。</span>');
+    else {
+        prepareNextDown(state.manual);
+        updateManualInfo(`建堆阶段：对 parent = ${state.manual.parent} 执行 Down。请点击较大的孩子结点。`);
+        setManualButtons();
+        renderManual();
+    }
+}
+
+function prepareNextDown(data) {
+    data.lastSwapA = null;
+    data.lastSwapB = null;
+    data.child = null;
+    data.leftChild = null;
+    data.rightChild = null;
+    data.chosenChild = null;
+    data.compareResult = null;
+    if (data.phase === 'startBuildDown') {
+        data.limit = data.n;
+        data.downType = 'build';
+        data.parent = data.buildI;
+        data.phase = 'selectChild';
+        markChildCandidates(data);
+        if (data.leftChild === null) finishDown(data);
+    } else if (data.phase === 'startExtractDown') {
+        data.limit = data.end;
+        data.downType = 'extract';
+        data.parent = 0;
+        data.phase = 'selectChild';
+        markChildCandidates(data);
+        if (data.leftChild === null) finishDown(data);
+    }
+}
+
+function markChildCandidates(data) {
+    const left = data.parent * 2 + 1;
+    data.leftChild = left < data.limit ? left : null;
+    data.rightChild = left + 1 < data.limit ? left + 1 : null;
+}
+
+function finishDown(data) {
+    data.parent = null;
+    data.child = null;
+    data.leftChild = null;
+    data.rightChild = null;
+    data.chosenChild = null;
+    data.compareResult = null;
+    if (data.downType === 'build') {
+        data.buildI--;
+        if (data.buildI >= 0) data.phase = 'startBuildDown';
+        else data.phase = 'extractSwap';
+    } else {
+        data.end--;
+        if (data.end > 0) data.phase = 'extractSwap';
+        else data.phase = 'done';
+    }
+}
+
+function chooseLargerChild(data) {
+    const left = data.parent * 2 + 1;
+    if (left >= data.limit) return null;
+    const right = left + 1;
+    data.leftChild = left;
+    data.rightChild = right < data.limit ? right : null;
+    let child = left;
+    if (right < data.limit && data.arr[right] > data.arr[left]) child = right;
+    return child;
+}
+
+function makeEdge(svg, a, b) {
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', a.x);
+    line.setAttribute('y1', a.y);
+    line.setAttribute('x2', b.x);
+    line.setAttribute('y2', b.y);
+    line.setAttribute('class', 'edge');
+    svg.appendChild(line);
+}
+
+function nodePos(index) {
+    const level = Math.floor(Math.log2(index + 1));
+    const start = (1 << level) - 1;
+    const pos = index - start;
+    const count = 1 << level;
+    const x = (pos + 1) * (1000 / (count + 1));
+    const y = 56 + level * 98;
+    return { x, y };
+}
+
+function renderTree(container, data, clickable) {
+    container.innerHTML = '';
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 'edge-svg');
+    svg.setAttribute('viewBox', '0 0 1000 430');
+    container.appendChild(svg);
+    for (let i = 1; i < data.arr.length; i++) {
+        const p = Math.floor((i - 1) / 2);
+        makeEdge(svg, nodePos(p), nodePos(i));
+    }
+    data.arr.forEach((value, index) => {
+        const pos = nodePos(index);
+        const node = document.createElement('div');
+        node.className = 'tree-node';
+        if (data.phase === 'done') node.classList.add('sorted');
+        else if (index >= data.limit) node.classList.add('outside');
+        if (index > data.end) node.classList.add('sorted');
+        if (index === data.parent) node.classList.add('parent');
+        if (index === data.leftChild || index === data.rightChild) node.classList.add('child');
+        if (index === data.chosenChild) node.classList.add('chosen');
+        if (data.phase === 'extractSwap' && index === 0) node.classList.add('root');
+        if (data.phase === 'extractSwap' && index === data.end) node.classList.add('end');
+        if (index === data.lastSwapA || index === data.lastSwapB) node.classList.add('swap');
+        if (clickable && data.phase === 'selectChild' && (index === data.leftChild || index === data.rightChild)) {
+            node.classList.add('clickable');
+            node.onclick = () => manualNodeClick(index);
+        }
+        if (clickable && data.phase === 'extractSwap' && (index === 0 || index === data.end)) {
+            node.classList.add('clickable');
+            node.onclick = manualSwapEnd;
+        }
+        node.style.left = `${pos.x / 10}%`;
+        node.style.top = `${pos.y}px`;
+        const valueEl = document.createElement('div');
+        valueEl.className = 'node-value';
+        valueEl.textContent = value;
+        const indexEl = document.createElement('div');
+        indexEl.className = 'node-index';
+        indexEl.textContent = index;
+        node.appendChild(valueEl);
+        node.appendChild(indexEl);
+        container.appendChild(node);
+    });
+}
+
+function renderArray(container, data) {
+    container.innerHTML = '';
+    data.arr.forEach((value, index) => {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        if (index < data.limit) cell.classList.add('heap');
+        if (index > data.end || data.phase === 'done') cell.classList.add('sorted');
+        if (index === data.parent) cell.classList.add('parent');
+        if (index === data.chosenChild) cell.classList.add('child');
+        if (data.phase === 'extractSwap' && index === data.end) cell.classList.add('end');
+        if (index === data.lastSwapA || index === data.lastSwapB) cell.classList.add('swap');
+        const valueEl = document.createElement('div');
+        valueEl.className = 'value';
+        valueEl.textContent = value;
+        const indexEl = document.createElement('div');
+        indexEl.className = 'index';
+        indexEl.textContent = `a[${index}]`;
+        cell.appendChild(valueEl);
+        cell.appendChild(indexEl);
+        container.appendChild(cell);
+    });
+}
+
+function renderAuto() {
+    renderTree(els.autoTree, state.auto, false);
+    renderArray(els.autoArray, state.auto);
+    els.stepCounter.textContent = `Step ${state.auto.step}`;
+    els.phaseStat.textContent = phaseText(state.auto);
+    els.limitStat.textContent = state.auto.limit ?? '-';
+    els.parentStat.textContent = state.auto.parent ?? '-';
+    els.childStat.textContent = state.auto.chosenChild ?? state.auto.child ?? '-';
+}
+
+function renderManual() {
+    renderTree(els.manualTree, state.manual, true);
+    renderArray(els.manualArray, state.manual);
+    if (state.manual.phase === 'idle') els.manualProgress.textContent = '未开始';
+    else if (state.manual.phase === 'done') els.manualProgress.textContent = '已完成';
+    else els.manualProgress.textContent = `${phaseText(state.manual)} parent=${state.manual.parent ?? '-'}`;
+}
+
+function phaseText(data) {
+    if (data.phase === 'invalid') return '输入错误';
+    if (data.phase === 'done') return '完成';
+    if (data.phase === 'startBuildDown' || data.downType === 'build') return '建堆';
+    if (data.phase === 'extractSwap' || data.downType === 'extract') return '排序';
+    return '-';
+}
+
+function autoStep() {
+    const a = state.auto;
+    if (autoRunFinished()) return;
+    a.note = '';
+    a.lastSwapA = null;
+    a.lastSwapB = null;
+    if (a.phase === 'startBuildDown' || a.phase === 'startExtractDown') {
+        prepareNextDown(a);
+        a.note = `开始 Down：堆范围 n = ${a.limit}，parent = ${a.parent}。`;
+    } else if (a.phase === 'selectChild') {
+        const child = chooseLargerChild(a);
+        if (child === null) {
+            a.note = `parent = ${a.parent} 没有孩子，Down 结束。`;
+            finishDown(a);
+        } else {
+            a.chosenChild = child;
+            a.child = child;
+            a.phase = 'compare';
+            const rightText = a.rightChild === null ? '没有右孩子' : `右孩子 a[${a.rightChild}] = ${a.arr[a.rightChild]}`;
+            a.note = `比较孩子：左孩子 a[${a.leftChild}] = ${a.arr[a.leftChild]}，${rightText}。选择较大的 child = ${child}。`;
+        }
+    } else if (a.phase === 'compare') {
+        a.compareResult = a.arr[a.chosenChild] > a.arr[a.parent];
+        if (a.compareResult) {
+            a.phase = 'swapDown';
+            a.note = `a[${a.chosenChild}] = ${a.arr[a.chosenChild]} > a[${a.parent}] = ${a.arr[a.parent]}，需要交换。`;
+        } else {
+            a.note = `a[${a.chosenChild}] = ${a.arr[a.chosenChild]} 不大于 a[${a.parent}] = ${a.arr[a.parent]}，Down 返回。`;
+            finishDown(a);
+        }
+    } else if (a.phase === 'swapDown') {
+        swap(a.arr, a.parent, a.chosenChild);
+        a.lastSwapA = a.parent;
+        a.lastSwapB = a.chosenChild;
+        a.swaps++;
+        a.parent = a.chosenChild;
+        a.child = null;
+        a.leftChild = null;
+        a.rightChild = null;
+        a.chosenChild = null;
+        if (a.parent * 2 + 1 < a.limit) {
+            a.phase = 'selectChild';
+            markChildCandidates(a);
+            a.note = `父子交换完成，parent 更新为 ${a.parent}，继续向下调整。`;
+        } else {
+            a.note = `父子交换完成，parent = ${a.parent} 已经没有孩子，Down 结束。`;
+            finishDown(a);
+        }
+    } else if (a.phase === 'extractSwap') {
+        swap(a.arr, 0, a.end);
+        a.lastSwapA = 0;
+        a.lastSwapB = a.end;
+        a.swaps++;
+        a.limit = a.end;
+        a.phase = 'startExtractDown';
+        a.note = `交换堆顶 a[0] 和堆尾 a[${a.end}]，最大值进入已排序区。接下来对 n = ${a.end} 的堆执行 Down。`;
+    }
+    a.step++;
+    if (a.phase === 'done') {
+        els.nextBtn.disabled = true;
+        els.finishBtn.disabled = true;
+    }
+    renderAuto();
+    updateAutoInfo();
+}
+
+function updateAutoInfo() {
+    if (!state.valid) {
+        els.autoInfo.innerHTML = `<span class="message-bad">${state.error}</span>`;
+        return;
+    }
+    if (state.auto.phase === 'done') {
+        els.autoInfo.innerHTML = `<span class="message-good">堆排序完成。</span><br>共执行 ${state.auto.swaps} 次交换。`;
+        return;
+    }
+    els.autoInfo.innerHTML = state.auto.note || '点击“下一步”，先从最后一个非叶子结点开始 Down 建堆。';
+}
+
+function finishAuto() {
+    if (autoRunTimer !== null || autoRunFinished()) return;
+    els.finishBtn.textContent = '自动中...';
+    els.finishBtn.disabled = true;
+    els.nextBtn.disabled = true;
+    autoRunTimer = setInterval(() => {
+        if (autoRunFinished()) {
+            stopAutoRun();
+            els.finishBtn.disabled = true;
+            els.nextBtn.disabled = true;
+            return;
+        }
+        autoStep();
+        if (autoRunFinished()) {
+            stopAutoRun();
+            els.finishBtn.disabled = true;
+            els.nextBtn.disabled = true;
+        }
+    }, 1000);
+}
+
+function startManual() {
+    resetManual(true);
+}
+
+function setManualButtons() {
+    const m = state.manual;
+    els.compareBtn.disabled = !(m.active && m.phase === 'compare');
+    els.swapDownBtn.disabled = !(m.active && m.phase === 'swapDown');
+    els.swapEndBtn.disabled = !(m.active && m.phase === 'extractSwap');
+}
+
+function manualNodeClick(index) {
+    const m = state.manual;
+    if (m.phase !== 'selectChild') return;
+    const expected = chooseLargerChild(m);
+    if (index !== expected) {
+        updateManualInfo(`<span class="message-bad">孩子选错了。</span><br>应该选择值更大的 child = ${expected}。`);
+        renderManual();
+        return;
+    }
+    m.chosenChild = expected;
+    m.child = expected;
+    m.phase = 'compare';
+    updateManualInfo(`<span class="message-good">孩子选择正确。</span><br>现在比较 a[${m.chosenChild}] 和 a[${m.parent}]，判断是否交换。`);
+    setManualButtons();
+    renderManual();
+}
+
+function manualCompare() {
+    const m = state.manual;
+    if (m.phase !== 'compare') return;
+    if (m.arr[m.chosenChild] > m.arr[m.parent]) {
+        m.phase = 'swapDown';
+        updateManualInfo(`a[${m.chosenChild}] = ${m.arr[m.chosenChild]} > a[${m.parent}] = ${m.arr[m.parent]}，需要交换。`);
+    } else {
+        updateManualInfo(`a[${m.chosenChild}] = ${m.arr[m.chosenChild]} 不大于 a[${m.parent}] = ${m.arr[m.parent]}，Down 返回。`);
+        finishDown(m);
+        if (m.phase === 'startBuildDown' || m.phase === 'startExtractDown') {
+            prepareNextDown(m);
+            updateManualInfo(updateNextManualMessage(m));
+        }
+    }
+    setManualButtons();
+    renderManual();
+}
+
+function manualSwapDown() {
+    const m = state.manual;
+    if (m.phase !== 'swapDown') return;
+    swap(m.arr, m.parent, m.chosenChild);
+    m.lastSwapA = m.parent;
+    m.lastSwapB = m.chosenChild;
+    m.swaps++;
+    m.parent = m.chosenChild;
+    m.child = null;
+    m.leftChild = null;
+    m.rightChild = null;
+    m.chosenChild = null;
+    if (m.parent * 2 + 1 < m.limit) {
+        m.phase = 'selectChild';
+        markChildCandidates(m);
+        updateManualInfo(`交换完成，parent 更新为 ${m.parent}。继续点击较大的孩子。`);
+    } else {
+        finishDown(m);
+        if (m.phase === 'startBuildDown' || m.phase === 'startExtractDown') prepareNextDown(m);
+        updateManualInfo(updateNextManualMessage(m));
+    }
+    setManualButtons();
+    renderManual();
+}
+
+function manualSwapEnd() {
+    const m = state.manual;
+    if (m.phase !== 'extractSwap') return;
+    swap(m.arr, 0, m.end);
+    m.lastSwapA = 0;
+    m.lastSwapB = m.end;
+    m.swaps++;
+    m.limit = m.end;
+    m.phase = 'startExtractDown';
+    prepareNextDown(m);
+    if (m.phase === 'done') {
+        updateManualInfo('<span class="message-good">堆顶和堆尾交换完成，练习完成。</span>');
+    } else {
+        updateManualInfo(`堆顶和堆尾交换完成，最大值进入已排序区。现在对 n = ${m.limit} 的堆从 root 开始 Down。`);
+    }
+    setManualButtons();
+    renderManual();
+}
+
+function updateNextManualMessage(m) {
+    if (m.phase === 'done') return '<span class="message-good">练习完成。</span>';
+    if (m.phase === 'extractSwap') return `建堆完成。现在点击“交换堆顶和堆尾”，或直接点击树上的根结点/堆尾结点，把 a[0] 和 a[${m.end}] 交换。`;
+    if (m.phase === 'selectChild') return `继续 Down：parent = ${m.parent}，请点击较大的孩子。`;
+    return '继续下一步。';
+}
+
+function updateManualInfo(html) {
+    els.manualInfo.innerHTML = html;
+}
+
+function swap(arr, i, j) {
+    const temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+}
+
+els.resetBtn.onclick = initAll;
+els.nextBtn.onclick = autoStep;
+els.finishBtn.onclick = finishAuto;
+els.arrayInput.oninput = initAll;
+els.manualStartBtn.onclick = startManual;
+els.compareBtn.onclick = manualCompare;
+els.swapDownBtn.onclick = manualSwapDown;
+els.swapEndBtn.onclick = manualSwapEnd;
+
+initAll();
+</script>
+</body>
+</html>

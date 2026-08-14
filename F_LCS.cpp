@@ -7,6 +7,7 @@ ll n,m;
 string s,t;
 ll dp[N][N];
 void solve(){
+    cin>>s>>t;
     n=s.size(),m=t.size();
     s=' '+s,t=' '+t;
     for(int i=1;i<=n;i++){
@@ -14,7 +15,7 @@ void solve(){
             dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
             if(s[i]==t[j]) dp[i][j]=max(dp[i][j],dp[i-1][j-1]+1);
         }
-    }
+    }                                                                                            
     ll i=n,j=m;
     string ans;
     while(i>=1&&j>=1){

@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>扩展欧几里得算法推导 | C++ 基础算法工具</title>
+<style>
+:root{
+    --ink:#202124;
+    --paper:#fff9e8;
+    --cream:#fffdf5;
+    --white:#ffffff;
+    --sky:#8bd3ff;
+    --blue:#2672ff;
+    --mint:#83e6b2;
+    --green:#168a58;
+    --sun:#ffd45a;
+    --orange:#ff8c42;
+    --pink:#ff87b2;
+    --red:#e83f5b;
+    --purple:#8b5cf6;
+    --gray:#667085;
+    --shadow:6px 6px 0 var(--ink);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+    margin:0;
+    color:var(--ink);
+    background:
+        radial-gradient(circle at 16px 16px,rgba(32,33,36,.08) 2px,transparent 3px) 0 0/34px 34px,
+        linear-gradient(135deg,#fff4bf 0%,#ffe6ef 46%,#d8f4ff 100%);
+    font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;
+    min-height:100vh;
+}
+button,input{font:inherit}
+button:focus-visible,input:focus-visible{outline:4px solid rgba(38,114,255,.35);outline-offset:2px}
+.page{max-width:1320px;margin:0 auto;padding:24px}
+.hero{
+    position:relative;
+    overflow:hidden;
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:linear-gradient(120deg,#fffdf4 0%,#ffe680 48%,#7bd8ff 100%);
+    box-shadow:var(--shadow);
+    padding:28px;
+    min-height:184px;
+}
+.hero:before,.hero:after{
+    content:"";
+    position:absolute;
+    border:4px solid var(--ink);
+    background:rgba(255,255,255,.58);
+}
+.hero:before{width:132px;height:132px;border-radius:50%;right:112px;top:-48px}
+.hero:after{width:124px;height:72px;border-radius:8px;right:20px;bottom:17px;transform:rotate(8deg)}
+.hero-content{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:end}
+h1{margin:0 0 10px;font-size:clamp(34px,5vw,62px);line-height:1;letter-spacing:0}
+.subtitle{max-width:880px;margin:0;font-size:18px;line-height:1.7;font-weight:800}
+.badge{border:4px solid var(--ink);border-radius:8px;background:#fff;box-shadow:4px 4px 0 var(--ink);padding:12px 16px;font-weight:900;text-align:center;min-width:168px}
+.badge small{display:block;margin-top:4px;color:#555;font-weight:800}
+.goal-strip{
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    gap:14px;
+    align-items:center;
+    margin-top:22px;
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    box-shadow:var(--shadow);
+    padding:16px 18px;
+}
+.goal-label{font-weight:900;background:var(--pink);border:3px solid var(--ink);border-radius:8px;padding:8px 12px}
+.goal-formula{font-family:Consolas,"Courier New",monospace;font-size:clamp(20px,3vw,30px);font-weight:900;text-align:center;overflow-wrap:anywhere}
+.goal-note{color:#555;font-weight:800;text-align:right}
+.workspace{display:grid;grid-template-columns:330px minmax(0,1fr);gap:22px;margin-top:24px;align-items:start}
+.panel{min-width:0;max-width:100%;border:4px solid var(--ink);border-radius:8px;background:var(--cream);box-shadow:var(--shadow)}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:4px solid var(--ink);padding:14px 16px;background:var(--sun)}
+.panel-head.blue{background:var(--sky)}
+.panel-head.green{background:var(--mint)}
+.panel-head.pink{background:#ffc3d8}
+.panel-head.purple{background:#d9c9ff}
+.panel-head h2,.panel-head h3{margin:0;font-size:20px}
+.panel-body{padding:16px}
+.control-stack{display:grid;gap:14px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field label{display:block;margin-bottom:6px;font-size:14px;font-weight:900}
+.field input{width:100%;border:3px solid var(--ink);border-radius:8px;background:#fff;padding:10px 12px;box-shadow:3px 3px 0 var(--ink);font-weight:900}
+.button-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.button{
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    min-height:44px;
+    padding:8px 12px;
+    font-weight:900;
+    cursor:pointer;
+    box-shadow:3px 3px 0 var(--ink);
+    transition:transform .12s ease,box-shadow .12s ease,filter .12s ease;
+}
+.button.primary{background:var(--blue);color:#fff}
+.button.orange{background:var(--orange);color:#fff}
+.button.green{background:var(--green);color:#fff}
+.button.pink{background:var(--pink);color:#202124}
+.button.purple{background:var(--purple);color:#fff}
+.button:hover:not(:disabled){transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
+.button:active:not(:disabled){transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.button:disabled{cursor:not-allowed;filter:grayscale(.45);opacity:.55}
+.button.wide{grid-column:1/-1}
+.notice{border:3px solid var(--ink);border-radius:8px;background:#fff;padding:12px;font-size:14px;line-height:1.65;font-weight:700}
+.notice strong{color:var(--red)}
+.legend{display:grid;gap:8px;font-size:14px;font-weight:800}
+.legend-item{display:flex;align-items:center;gap:8px}
+.dot{width:18px;height:18px;border:3px solid var(--ink);border-radius:4px;background:#fff;flex:0 0 auto}
+.dot.down{background:var(--sky)}
+.dot.base{background:var(--sun)}
+.dot.up{background:var(--mint)}
+.progress-shell{height:18px;border:3px solid var(--ink);border-radius:8px;background:#fff;overflow:hidden}
+.progress-bar{height:100%;width:0;background:var(--blue);transition:width .25s ease}
+.progress-text{font-size:14px;font-weight:900;text-align:center}
+.main-stack{display:grid;gap:20px;min-width:0}
+.task-box{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:start}
+.step-number{width:56px;height:56px;border:4px solid var(--ink);border-radius:50%;display:grid;place-items:center;background:var(--sun);font-size:22px;font-weight:900;box-shadow:3px 3px 0 var(--ink)}
+.task-kicker{font-size:13px;font-weight:900;color:var(--blue);margin-bottom:4px}
+.task-title{font-size:22px;font-weight:900;line-height:1.35}
+.task-desc{margin-top:6px;line-height:1.75;font-weight:700;color:#444}
+.stage-grid{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(300px,.82fr);gap:16px}
+.formula-board{border:4px solid var(--ink);border-radius:8px;background:#fff;padding:18px;min-height:330px;box-shadow:4px 4px 0 rgba(32,33,36,.17)}
+.formula-board h3{margin:0 0 14px;font-size:17px}
+.equation-flow{display:grid;gap:10px}
+.equation-line{border:3px solid rgba(32,33,36,.25);border-radius:8px;background:#fffdf6;padding:11px 12px;font-family:Consolas,"Microsoft YaHei",monospace;font-size:clamp(16px,2vw,20px);line-height:1.55;font-weight:900;overflow-wrap:anywhere}
+.equation-line.active{border-color:var(--ink);background:#fff0a8;box-shadow:3px 3px 0 var(--ink)}
+.equation-line.result{border-color:var(--ink);background:#bff1d4;box-shadow:3px 3px 0 var(--ink)}
+.equation-caption{display:block;font-family:"Microsoft YaHei","PingFang SC",sans-serif;font-size:13px;color:#555;margin-bottom:3px;font-weight:800}
+.coefficient-map{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin-top:14px}
+.coefficient-card{border:3px solid var(--ink);border-radius:8px;padding:12px;background:#e6f5ff;text-align:center;font-weight:900;min-width:0}
+.coefficient-card strong{display:block;font-family:Consolas,monospace;font-size:22px;margin-top:5px;overflow-wrap:anywhere}
+.map-arrow{font-size:28px;font-weight:900}
+.division-visual{border:4px solid var(--ink);border-radius:8px;background:#f9f4ff;padding:16px;min-height:330px}
+.division-visual h3{margin:0 0 10px;font-size:17px}
+.division-equation{text-align:center;font-family:Consolas,monospace;font-size:19px;font-weight:900;margin-bottom:14px;overflow-wrap:anywhere}
+.bar-label{display:flex;justify-content:space-between;gap:10px;font-size:13px;font-weight:900;margin-bottom:6px}
+.division-bar{display:flex;width:100%;height:78px;border:4px solid var(--ink);border-radius:8px;overflow:hidden;background:#fff}
+.division-piece{display:grid;place-items:center;border-right:3px solid var(--ink);background:var(--sky);font-weight:900;min-width:0}
+.division-piece:last-child{border-right:0}
+.division-piece.remainder{background:var(--pink)}
+.division-piece span{padding:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.call-arrow{text-align:center;font-size:28px;font-weight:900;margin:10px 0}
+.next-pair{border:3px solid var(--ink);border-radius:8px;background:#fff;padding:12px;text-align:center;font-family:Consolas,monospace;font-size:18px;font-weight:900;box-shadow:3px 3px 0 var(--ink)}
+.stack-list{display:flex;flex-wrap:wrap;gap:10px}
+.frame{position:relative;border:3px solid var(--ink);border-radius:8px;background:#fff;padding:10px 12px;min-width:150px;font-family:Consolas,"Microsoft YaHei",monospace;font-weight:900;box-shadow:3px 3px 0 rgba(32,33,36,.2)}
+.frame.current{background:var(--sun);box-shadow:4px 4px 0 var(--ink)}
+.frame.down{background:#dff4ff}
+.frame.up{background:#dff7e9}
+.frame.base{background:#fff0a8}
+.frame.wait{opacity:.55}
+.frame small{display:block;margin-top:5px;color:#555;font-family:"Microsoft YaHei",sans-serif}
+.table-wrap{min-width:0;max-width:100%;overflow-x:auto}
+table{width:100%;border-collapse:separate;border-spacing:0;border:3px solid var(--ink);border-radius:8px;overflow:hidden;background:#fff;font-size:14px}
+th,td{padding:10px 9px;text-align:center;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);font-weight:800;white-space:nowrap}
+th:last-child,td:last-child{border-right:0}
+tr:last-child td{border-bottom:0}
+th{background:var(--sky);font-weight:900}
+tr.active-row td{background:#fff0a8}
+tr.returned-row td{background:#dff7e9}
+.placeholder{color:#888}
+.derivation{margin-top:24px;display:grid;gap:20px}
+.derivation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.proof-step{border:4px solid var(--ink);border-radius:8px;background:#fff;padding:17px;box-shadow:4px 4px 0 rgba(32,33,36,.18)}
+.proof-step:nth-child(2){background:#fff8d5}
+.proof-step:nth-child(3){background:#e8f7ff}
+.proof-step:nth-child(4){background:#e5f8ed}
+.proof-step h3{margin:0 0 10px;font-size:18px}
+.proof-step p{margin:8px 0;line-height:1.75;font-weight:700}
+.math{font-family:Consolas,"Courier New",monospace;font-weight:900;overflow-wrap:anywhere}
+.math.big{font-size:20px;border-left:6px solid var(--blue);padding:10px 12px;background:rgba(255,255,255,.7)}
+.compare{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;margin-top:10px}
+.compare-box{border:3px solid var(--ink);border-radius:8px;padding:10px;background:#fff;text-align:center;font-family:Consolas,monospace;font-weight:900}
+.compare-arrow{font-size:25px;font-weight:900}
+.lower-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;margin-top:24px}
+.geometry-wrap{display:grid;gap:12px}
+#geometrySvg{display:block;width:100%;height:auto;min-height:360px;border:3px solid var(--ink);border-radius:8px;background:#fff}
+.geo-caption{font-size:14px;line-height:1.7;font-weight:700;color:#444}
+.solution-family{border:3px solid var(--ink);border-radius:8px;background:#fff0a8;padding:12px;text-align:center;font-family:Consolas,monospace;font-size:17px;font-weight:900;overflow-wrap:anywhere}
+.practice-box{display:grid;gap:12px}
+.practice-prompt{border:3px solid var(--ink);border-radius:8px;background:#fff;padding:13px;line-height:1.7;font-weight:800}
+.practice-inputs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.practice-inputs label{font-size:13px;font-weight:900}
+.practice-inputs input{width:100%;margin-top:5px;border:3px solid var(--ink);border-radius:8px;padding:9px;background:#fff;font-weight:900}
+.feedback{min-height:52px;border:3px solid var(--ink);border-radius:8px;background:#fff;padding:10px 12px;line-height:1.55;font-weight:800}
+.feedback.ok{background:#dff7e9;color:#11663f}
+.feedback.bad{background:#ffe1e6;color:#9d1731}
+.code-layout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:16px}
+.code-box{border:4px solid var(--ink);border-radius:8px;background:#202124;color:#f8f8f2;padding:14px;overflow-x:auto}
+.code-line{display:block;min-width:max-content;padding:3px 8px;border-left:5px solid transparent;font-family:Consolas,"Courier New",monospace;line-height:1.55;white-space:pre}
+.code-line.highlight{background:#604c00;border-left-color:#ffd45a;color:#fff}
+.line-no{display:inline-block;width:28px;color:#9aa0a6;user-select:none}
+.code-note{border:3px solid var(--ink);border-radius:8px;background:#fff;padding:14px;line-height:1.75;font-weight:700}
+.code-note h3{margin:0 0 8px;font-size:17px}
+.summary-list{display:grid;gap:10px}
+.summary-item{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:start}
+.summary-index{width:32px;height:32px;border:3px solid var(--ink);border-radius:50%;background:var(--pink);display:grid;place-items:center;font-weight:900}
+.summary-item p{margin:3px 0;line-height:1.6;font-weight:750}
+.footer-note{margin:22px 0 6px;text-align:center;font-size:14px;font-weight:800;color:#555}
+.hide{display:none!important}
+@media(max-width:980px){
+    .workspace{grid-template-columns:minmax(0,1fr)}
+    .stage-grid,.lower-grid,.code-layout{grid-template-columns:minmax(0,1fr)}
+    .control-stack{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}
+    .control-stack>.notice,.control-stack>.legend,.control-stack>.progress-area{grid-column:1/-1}
+}
+@media(max-width:700px){
+    .page{padding:14px}
+    .hero{padding:20px;min-height:0}
+    .hero-content{grid-template-columns:1fr}
+    .badge{justify-self:start}
+    .goal-strip{grid-template-columns:1fr;text-align:center}
+    .goal-note{text-align:center}
+    .control-stack,.derivation-grid{grid-template-columns:minmax(0,1fr)}
+    .field-row,.practice-inputs{grid-template-columns:minmax(0,1fr)}
+    .coefficient-map,.compare{grid-template-columns:minmax(0,1fr)}
+    .map-arrow,.compare-arrow{transform:rotate(90deg);text-align:center}
+    .task-box{grid-template-columns:1fr}
+    .step-number{width:48px;height:48px}
+    .division-bar{height:66px}
+}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="page">
+    <header class="hero">
+        <div class="hero-content">
+            <div>
+                <h1>扩展欧几里得算法</h1>
+                <p class="subtitle">从递归式出发，亲手看清“取模代入、整理同类项、对比系数、逐层回溯”的完整推导。页面中的每一个式子都与 C++ 程序中的一行对应。</p>
+            </div>
+            <div class="badge">Extended GCD<small>扩展欧几里得算法</small></div>
+        </div>
+    </header>
+
+    <section class="goal-strip" aria-label="算法目标">
+        <div class="goal-label">最终目标</div>
+        <div class="goal-formula">求 x, y，使 ax + by = gcd(a, b)</div>
+        <div class="goal-note">贝祖等式的一组整数解</div>
+    </section>
+
+    <section class="workspace">
+        <aside class="panel">
+            <div class="panel-head"><h2>数值与播放控制</h2></div>
+            <div class="panel-body control-stack">
+                <div class="field-row">
+                    <div class="field">
+                        <label for="aInput">整数 a</label>
+                        <input id="aInput" type="number" min="1" max="9999" step="1" value="99">
+                    </div>
+                    <div class="field">
+                        <label for="bInput">整数 b</label>
+                        <input id="bInput" type="number" min="1" max="9999" step="1" value="78">
+                    </div>
+                </div>
+                <div class="button-row">
+                    <button class="button primary wide" id="buildBtn" type="button">生成推导过程</button>
+                    <button class="button" id="prevBtn" type="button">上一步</button>
+                    <button class="button orange" id="nextBtn" type="button">下一步</button>
+                    <button class="button green" id="autoBtn" type="button">自动演示</button>
+                    <button class="button pink" id="resetBtn" type="button">回到开头</button>
+                </div>
+                <div class="progress-area">
+                    <div class="progress-shell"><div class="progress-bar" id="progressBar"></div></div>
+                    <div class="progress-text" id="progressText">第 1 / 1 步</div>
+                </div>
+                <div class="notice" id="inputNotice">
+                    当前页面只使用<strong>正整数</strong>，这样 C++ 的 <span class="math">a % b</span> 与数学中的非负余数完全一致。
+                </div>
+                <div class="legend" aria-label="颜色图例">
+                    <div class="legend-item"><span class="dot down"></span>蓝色：递归向下，规模变小</div>
+                    <div class="legend-item"><span class="dot base"></span>黄色：到达 b = 0 的边界</div>
+                    <div class="legend-item"><span class="dot up"></span>绿色：回溯向上，计算系数</div>
+                </div>
+            </div>
+        </aside>
+
+        <div class="main-stack">
+            <section class="panel">
+                <div class="panel-head blue"><h2>逐步数值演示</h2><strong id="phaseBadge">准备</strong></div>
+                <div class="panel-body">
+                    <div class="task-box">
+                        <div class="step-number" id="stepNumber">1</div>
+                        <div>
+                            <div class="task-kicker" id="taskKicker">先看清我们要求什么</div>
+                            <div class="task-title" id="taskTitle">建立贝祖等式</div>
+                            <div class="task-desc" id="taskDesc"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="stage-grid">
+                <div class="formula-board" aria-live="polite">
+                    <h3>当前代数推导</h3>
+                    <div class="equation-flow" id="equationFlow"></div>
+                    <div class="coefficient-map" id="coefficientMap"></div>
+                </div>
+                <div class="division-visual">
+                    <h3>欧几里得除法的图形理解</h3>
+                    <div id="divisionVisual"></div>
+                </div>
+            </section>
+
+            <section class="panel">
+                <div class="panel-head green"><h2>递归调用栈</h2><span>先下探，再回溯</span></div>
+                <div class="panel-body">
+                    <div class="stack-list" id="stackList"></div>
+                </div>
+            </section>
+
+            <section class="panel">
+                <div class="panel-head pink"><h2>每一层的数据记录</h2><span>q = floor(a / b)</span></div>
+                <div class="panel-body table-wrap">
+                    <table aria-label="扩展欧几里得递归记录表">
+                        <thead><tr><th>层</th><th>a</th><th>b</th><th>q</th><th>r = a % b</th><th>返回 x</th><th>返回 y</th><th>验证 ax + by</th></tr></thead>
+                        <tbody id="recordBody"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <section class="derivation">
+        <div class="panel">
+            <div class="panel-head purple"><h2>从递归式推出回溯公式：完整推导</h2><span>这是 exgcd 最关键的一步</span></div>
+            <div class="panel-body derivation-grid">
+                <article class="proof-step">
+                    <h3>1. 假设更小的问题已经求出</h3>
+                    <p>递归调用 <span class="math">exgcd(b, a % b)</span> 返回一组系数 <span class="math">x₁, y₁</span>。按照函数的含义，它们一定满足：</p>
+                    <div class="math big">b x₁ + (a mod b) y₁ = d</div>
+                    <p>其中 <span class="math">d = gcd(b, a mod b) = gcd(a, b)</span>。</p>
+                </article>
+                <article class="proof-step">
+                    <h3>2. 把“取模”改写成普通四则运算</h3>
+                    <p>令 <span class="math">q = floor(a / b)</span>。带余除法告诉我们：</p>
+                    <div class="math big">a mod b = a - q b</div>
+                    <p>也就是 <span class="math">a = qb + r</span>、<span class="math">r = a mod b</span>。这个等价替换正是递归和原问题之间的桥梁。</p>
+                </article>
+                <article class="proof-step">
+                    <h3>3. 代入并展开括号</h3>
+                    <p>把 <span class="math">a mod b = a - qb</span> 代回递归式：</p>
+                    <div class="math big">b x₁ + (a - qb)y₁ = d</div>
+                    <p class="math">= b x₁ + a y₁ - qb y₁</p>
+                    <p class="math">= a y₁ + b(x₁ - qy₁) = d</p>
+                </article>
+                <article class="proof-step">
+                    <h3>4. 与原问题对比系数</h3>
+                    <p>原问题希望得到 <span class="math">ax + by = d</span>。整理后的递归式已经具有完全相同的结构：</p>
+                    <div class="compare">
+                        <div class="compare-box">a · x + b · y</div>
+                        <div class="compare-arrow">↔</div>
+                        <div class="compare-box">a · y₁ + b · (x₁-qy₁)</div>
+                    </div>
+                    <p>因此直接读取对应位置的系数，就得到：</p>
+                    <div class="math big">x = y₁，y = x₁ - floor(a / b)y₁</div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="lower-grid">
+        <section class="panel">
+            <div class="panel-head blue"><h2>几何视角：整数格点与整条解集</h2></div>
+            <div class="panel-body geometry-wrap">
+                <svg id="geometrySvg" viewBox="0 0 760 430" role="img" aria-labelledby="geoTitle geoDesc">
+                    <title id="geoTitle">贝祖等式的整数格点解</title>
+                    <desc id="geoDesc">直线 ax加by等于最大公约数，以及这条直线上的整数解。</desc>
+                </svg>
+                <div class="solution-family" id="solutionFamily"></div>
+                <div class="geo-caption" id="geoCaption"></div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="panel-head green"><h2>回溯填空练习</h2></div>
+            <div class="panel-body practice-box">
+                <div class="practice-prompt" id="practicePrompt">推进到任意一个绿色“回溯”步骤，这里会给出该层的 x₁、y₁ 和 q，请你计算新的 x、y。</div>
+                <div class="practice-inputs">
+                    <label>这一层的 x
+                        <input id="practiceX" type="number" step="1" placeholder="填入 x">
+                    </label>
+                    <label>这一层的 y
+                        <input id="practiceY" type="number" step="1" placeholder="填入 y">
+                    </label>
+                </div>
+                <div class="button-row">
+                    <button class="button green" id="checkBtn" type="button">检查答案</button>
+                    <button class="button" id="answerBtn" type="button">显示答案</button>
+                </div>
+                <div class="feedback" id="practiceFeedback">提示：先写出 <span class="math">x = y₁</span>，再计算 <span class="math">y = x₁ - qy₁</span>。</div>
+            </div>
+        </section>
+    </section>
+
+    <section class="panel" style="margin-top:24px">
+        <div class="panel-head pink"><h2>C++ 代码与当前步骤对应</h2><span>高亮行会随演示变化</span></div>
+        <div class="panel-body code-layout">
+            <pre class="code-box" aria-label="扩展欧几里得算法 C++ 代码"><code id="codeBox"><span class="code-line" data-code="signature"><span class="line-no">1</span>long long exgcd(long long a, long long b,</span><span class="code-line" data-code="signature"><span class="line-no">2</span>                long long &amp;x, long long &amp;y) {</span><span class="code-line" data-code="base"><span class="line-no">3</span>    if (b == 0) {</span><span class="code-line" data-code="base"><span class="line-no">4</span>        x = 1;</span><span class="code-line" data-code="base"><span class="line-no">5</span>        y = 0;</span><span class="code-line" data-code="base"><span class="line-no">6</span>        return a;</span><span class="code-line" data-code="base"><span class="line-no">7</span>    }</span><span class="code-line" data-code="prepare"><span class="line-no">8</span>    long long x1, y1;</span><span class="code-line" data-code="recurse"><span class="line-no">9</span>    long long d = exgcd(b, a % b, x1, y1);</span><span class="code-line" data-code="back"><span class="line-no">10</span>    x = y1;</span><span class="code-line" data-code="back"><span class="line-no">11</span>    y = x1 - (a / b) * y1;</span><span class="code-line" data-code="return"><span class="line-no">12</span>    return d;</span><span class="code-line" data-code="signature"><span class="line-no">13</span>}</span></code></pre>
+            <div class="code-note">
+                <h3 id="codeNoteTitle">函数含义</h3>
+                <div id="codeNoteText">调用 <span class="math">exgcd(a,b,x,y)</span> 后，返回值是 <span class="math">gcd(a,b)</span>，引用参数满足 <span class="math">ax+by=gcd(a,b)</span>。</div>
+                <hr style="border:0;border-top:3px dashed rgba(32,33,36,.3);margin:14px 0">
+                <div class="summary-list">
+                    <div class="summary-item"><div class="summary-index">1</div><p>递归向下只负责把 <span class="math">(a,b)</span> 变成更小的 <span class="math">(b,a%b)</span>。</p></div>
+                    <div class="summary-item"><div class="summary-index">2</div><p><span class="math">b=0</span> 时，<span class="math">a·1+0·0=a</span>，所以边界系数是 <span class="math">(1,0)</span>。</p></div>
+                    <div class="summary-item"><div class="summary-index">3</div><p>真正计算系数发生在回溯阶段：<span class="math">x=y₁，y=x₁-qy₁</span>。</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <p class="footer-note">默认样例 99 与 78 最终得到：99 × (-11) + 78 × 14 = 3。</p>
+</main>
+
+<script>
+"use strict";
+
+const dom = {
+    aInput: document.getElementById("aInput"),
+    bInput: document.getElementById("bInput"),
+    buildBtn: document.getElementById("buildBtn"),
+    prevBtn: document.getElementById("prevBtn"),
+    nextBtn: document.getElementById("nextBtn"),
+    autoBtn: document.getElementById("autoBtn"),
+    resetBtn: document.getElementById("resetBtn"),
+    progressBar: document.getElementById("progressBar"),
+    progressText: document.getElementById("progressText"),
+    inputNotice: document.getElementById("inputNotice"),
+    phaseBadge: document.getElementById("phaseBadge"),
+    stepNumber: document.getElementById("stepNumber"),
+    taskKicker: document.getElementById("taskKicker"),
+    taskTitle: document.getElementById("taskTitle"),
+    taskDesc: document.getElementById("taskDesc"),
+    equationFlow: document.getElementById("equationFlow"),
+    coefficientMap: document.getElementById("coefficientMap"),
+    divisionVisual: document.getElementById("divisionVisual"),
+    stackList: document.getElementById("stackList"),
+    recordBody: document.getElementById("recordBody"),
+    geometrySvg: document.getElementById("geometrySvg"),
+    solutionFamily: document.getElementById("solutionFamily"),
+    geoCaption: document.getElementById("geoCaption"),
+    practicePrompt: document.getElementById("practicePrompt"),
+    practiceX: document.getElementById("practiceX"),
+    practiceY: document.getElementById("practiceY"),
+    checkBtn: document.getElementById("checkBtn"),
+    answerBtn: document.getElementById("answerBtn"),
+    practiceFeedback: document.getElementById("practiceFeedback"),
+    codeLines: [...document.querySelectorAll(".code-line")],
+    codeNoteTitle: document.getElementById("codeNoteTitle"),
+    codeNoteText: document.getElementById("codeNoteText")
+};
+
+let model = null;
+let stepIndex = 0;
+let autoTimer = null;
+
+function esc(value) {
+    return String(value).replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"})[ch]);
+}
+
+function buildModel(a, b) {
+    const frames = [];
+    let ca = a;
+    let cb = b;
+    let level = 0;
+    while (cb !== 0) {
+        const q = Math.floor(ca / cb);
+        const r = ca % cb;
+        frames.push({level, a:ca, b:cb, q, r, x:null, y:null, childX:null, childY:null});
+        ca = cb;
+        cb = r;
+        level++;
+    }
+    const base = {level, a:ca, b:0, q:null, r:null, x:1, y:0};
+
+    let childX = 1;
+    let childY = 0;
+    for (let i = frames.length - 1; i >= 0; i--) {
+        const f = frames[i];
+        f.childX = childX;
+        f.childY = childY;
+        f.x = childY;
+        f.y = childX - f.q * childY;
+        childX = f.x;
+        childY = f.y;
+    }
+
+    const steps = [{type:"intro", frameIndex:0}];
+    frames.forEach((f, i) => steps.push({type:"down", frameIndex:i}));
+    steps.push({type:"base", frameIndex:frames.length});
+    for (let i = frames.length - 1; i >= 0; i--) steps.push({type:"up", frameIndex:i});
+    steps.push({type:"finish", frameIndex:0});
+    return {a,b,d:ca,frames,base,steps,x:frames.length ? frames[0].x : 1,y:frames.length ? frames[0].y : 0};
+}
+
+function parseInputs() {
+    const a = Number(dom.aInput.value);
+    const b = Number(dom.bInput.value);
+    if (!Number.isInteger(a) || !Number.isInteger(b) || a < 1 || b < 1 || a > 9999 || b > 9999) {
+        dom.inputNotice.innerHTML = "请输入 <strong>1 到 9999</strong> 之间的正整数。";
+        dom.inputNotice.style.background = "#ffe1e6";
+        return null;
+    }
+    dom.inputNotice.innerHTML = `已生成 <span class="math">exgcd(${a}, ${b})</span>。递归共有 <strong>${buildModel(a,b).frames.length}</strong> 次取模。`;
+    dom.inputNotice.style.background = "#fff";
+    return {a,b};
+}
+
+function rebuild() {
+    stopAuto();
+    const values = parseInputs();
+    if (!values) return;
+    model = buildModel(values.a, values.b);
+    stepIndex = 0;
+    clearPractice();
+    render();
+}
+
+function stopAuto() {
+    if (autoTimer) {
+        clearInterval(autoTimer);
+        autoTimer = null;
+    }
+    dom.autoBtn.textContent = "自动演示";
+}
+
+function toggleAuto() {
+    if (autoTimer) {
+        stopAuto();
+        return;
+    }
+    if (stepIndex >= model.steps.length - 1) stepIndex = 0;
+    dom.autoBtn.textContent = "暂停演示";
+    autoTimer = setInterval(() => {
+        if (stepIndex >= model.steps.length - 1) {
+            stopAuto();
+            render();
+            return;
+        }
+        stepIndex++;
+        clearPractice();
+        render();
+    }, 1000);
+}
+
+function go(delta) {
+    stopAuto();
+    stepIndex = Math.max(0, Math.min(model.steps.length - 1, stepIndex + delta));
+    clearPractice();
+    render();
+}
+
+function resetSteps() {
+    stopAuto();
+    stepIndex = 0;
+    clearPractice();
+    render();
+}
+
+function currentStep() { return model.steps[stepIndex]; }
+
+function stepContext() {
+    const step = currentStep();
+    if (step.type === "base") return model.base;
+    return model.frames[step.frameIndex] || model.frames[0];
+}
+
+function render() {
+    const step = currentStep();
+    const progress = model.steps.length === 1 ? 100 : stepIndex / (model.steps.length - 1) * 100;
+    dom.progressBar.style.width = `${progress}%`;
+    dom.progressText.textContent = `第 ${stepIndex + 1} / ${model.steps.length} 步`;
+    dom.stepNumber.textContent = String(stepIndex + 1);
+    dom.prevBtn.disabled = stepIndex === 0;
+    dom.nextBtn.disabled = stepIndex === model.steps.length - 1;
+    renderTask(step);
+    renderEquations(step);
+    renderDivision(step);
+    renderStack(step);
+    renderTable(step);
+    renderPractice(step);
+    renderCode(step);
+    renderGeometry();
+}
+
+function renderTask(step) {
+    const f = stepContext();
+    const descriptions = {
+        intro: {
+            phase:"准备",
+            kicker:"先看清函数承诺",
+            title:`目标：把 gcd(${model.a}, ${model.b}) 写成 ${model.a}x + ${model.b}y`,
+            desc:"普通 gcd 只求最大公约数；exgcd 还会找到一组整数系数 x、y。接下来先沿欧几里得算法递归到底，再从最深层把系数一层层带回来。"
+        },
+        down: {
+            phase:"递归向下",
+            kicker:`第 ${f.level} 层：计算余数并缩小问题`,
+            title:`exgcd(${f.a}, ${f.b}) → exgcd(${f.b}, ${f.r})`,
+            desc:`因为 ${f.a} = ${f.q} × ${f.b} + ${f.r}，且 gcd(${f.a},${f.b}) = gcd(${f.b},${f.r})。这一层暂时不能确定 x、y，要等待更深一层先返回 x₁、y₁。`
+        },
+        base: {
+            phase:"递归边界",
+            kicker:`第 ${f.level} 层：b 已经等于 0`,
+            title:`exgcd(${f.a}, 0) 直接返回`,
+            desc:`此时 gcd(${f.a},0)=${f.a}，而 ${f.a}×1+0×0=${f.a}，所以最深层返回 d=${f.a}、x=1、y=0。这是整个回溯计算的起点。`
+        },
+        up: {
+            phase:"回溯向上",
+            kicker:`返回第 ${f.level} 层：把子问题的系数改写成原问题的系数`,
+            title:`由 (${f.childX}, ${f.childY}) 算出 (${f.x}, ${f.y})`,
+            desc:`子问题满足 ${f.b}×${f.childX}+${f.r}×${f.childY}=${model.d}。用 ${f.r}=${f.a}-${f.q}×${f.b} 代入后，对比 ${f.a}x+${f.b}y=${model.d} 的系数。`
+        },
+        finish: {
+            phase:"完成",
+            kicker:"所有递归层都已返回",
+            title:`得到 x=${model.x}，y=${model.y}，d=${model.d}`,
+            desc:`最终验证：${model.a}×(${model.x}) + ${model.b}×(${model.y}) = ${model.a*model.x + model.b*model.y}。因此这组系数确实把最大公约数表示成了 a 与 b 的整数线性组合。`
+        }
+    };
+    const info = descriptions[step.type];
+    dom.phaseBadge.textContent = info.phase;
+    dom.taskKicker.textContent = info.kicker;
+    dom.taskTitle.textContent = info.title;
+    dom.taskDesc.textContent = info.desc;
+}
+
+function line(caption, expression, cls="") {
+    return `<div class="equation-line ${cls}"><span class="equation-caption">${caption}</span>${expression}</div>`;
+}
+
+function renderEquations(step) {
+    const f = stepContext();
+    let html = "";
+    let map = "";
+    if (step.type === "intro") {
+        html += line("原问题", `${model.a}x + ${model.b}y = gcd(${model.a}, ${model.b})` ,"active");
+        html += line("普通欧几里得算法", `gcd(a,b) = gcd(b,a mod b)`);
+        html += line("exgcd 多做的事情", "在递归返回时，同时恢复 x 与 y 的值", "result");
+        map = `<div class="coefficient-card"><span>输入</span><strong>(${model.a}, ${model.b})</strong></div><div class="map-arrow">→</div><div class="coefficient-card"><span>输出</span><strong>d, x, y</strong></div>`;
+    } else if (step.type === "down") {
+        html += line("带余除法", `${f.a} = ${f.q} × ${f.b} + ${f.r}`, "active");
+        html += line("余数", `${f.a} mod ${f.b} = ${f.r}`);
+        html += line("最大公约数不变", `gcd(${f.a},${f.b}) = gcd(${f.b},${f.r})`, "result");
+        map = `<div class="coefficient-card"><span>当前问题</span><strong>(${f.a}, ${f.b})</strong></div><div class="map-arrow">→</div><div class="coefficient-card"><span>递归子问题</span><strong>(${f.b}, ${f.r})</strong></div>`;
+    } else if (step.type === "base") {
+        html += line("边界条件", `b = 0，所以 gcd(${f.a},0) = ${f.a}`, "active");
+        html += line("构造一组显然成立的系数", `${f.a} × 1 + 0 × 0 = ${f.a}`);
+        html += line("向上一层返回", `d = ${f.a}，x₁ = 1，y₁ = 0`, "result");
+        map = `<div class="coefficient-card"><span>x₁</span><strong>1</strong></div><div class="map-arrow">，</div><div class="coefficient-card"><span>y₁</span><strong>0</strong></div>`;
+    } else if (step.type === "up") {
+        html += line("子问题已经给出的等式", `${f.b}×(${f.childX}) + ${f.r}×(${f.childY}) = ${model.d}`);
+        html += line("使用取模公式", `${f.r} = ${f.a} - ${f.q}×${f.b}`, "active");
+        html += line("代入", `${f.b}×(${f.childX}) + (${f.a}-${f.q}×${f.b})×(${f.childY}) = ${model.d}`);
+        html += line("按 a、b 整理", `${f.a}×(${f.childY}) + ${f.b}×(${f.childX}-${f.q}×(${f.childY})) = ${model.d}`);
+        html += line("计算本层系数", `x=${f.childY}=${f.x}，y=${f.childX}-${f.q}×(${f.childY})=${f.y}`, "result");
+        map = `<div class="coefficient-card"><span>子问题系数 (x₁, y₁)</span><strong>(${f.childX}, ${f.childY})</strong></div><div class="map-arrow">→</div><div class="coefficient-card"><span>本层系数 (x, y)</span><strong>(${f.x}, ${f.y})</strong></div>`;
+    } else {
+        html += line("最终系数", `x = ${model.x}，y = ${model.y}`, "active");
+        html += line("代回原式", `${model.a}×(${model.x}) + ${model.b}×(${model.y})`);
+        html += line("验证结果", `${model.a*model.x} + ${model.b*model.y} = ${model.d} = gcd(${model.a},${model.b})`, "result");
+        map = `<div class="coefficient-card"><span>贝祖系数</span><strong>(${model.x}, ${model.y})</strong></div><div class="map-arrow">✓</div><div class="coefficient-card"><span>最大公约数</span><strong>${model.d}</strong></div>`;
+    }
+    dom.equationFlow.innerHTML = html;
+    dom.coefficientMap.innerHTML = map;
+}
+
+function renderDivision(step) {
+    let f = stepContext();
+    if (step.type === "intro" || step.type === "finish" || step.type === "base") {
+        f = model.frames[Math.min(model.frames.length - 1, step.type === "base" ? model.frames.length - 1 : 0)];
+    }
+    if (!f) {
+        dom.divisionVisual.innerHTML = `<div class="notice">没有需要继续取模的层。</div>`;
+        return;
+    }
+    const q = f.q;
+    const r = f.r;
+    const denominator = Math.max(1, f.a);
+    const pieces = [];
+    const maxVisible = 8;
+    if (q <= maxVisible) {
+        for (let i=0;i<q;i++) pieces.push(`<div class="division-piece" style="flex:${f.b} 1 0"><span>${f.b}</span></div>`);
+    } else {
+        pieces.push(`<div class="division-piece" style="flex:${q*f.b} 1 0"><span>${q} 个 ${f.b}</span></div>`);
+    }
+    if (r > 0) pieces.push(`<div class="division-piece remainder" style="flex:${r} 1 0"><span>${r}</span></div>`);
+    const childText = r === 0 ? "余数为 0，下一次进入边界" : `下一对参数：(${f.b}, ${r})`;
+    dom.divisionVisual.innerHTML = `
+        <div class="division-equation">${f.a} = ${q} × ${f.b} + ${r}</div>
+        <div class="bar-label"><span>整段长度 a = ${f.a}</span><span>蓝：q 个 b，粉：余数 r</span></div>
+        <div class="division-bar" aria-label="把 ${f.a} 分成 ${q} 个 ${f.b} 和余数 ${r}">${pieces.join("")}</div>
+        <div class="call-arrow">↓</div>
+        <div class="next-pair">${childText}</div>
+        <p style="margin:12px 0 0;line-height:1.65;font-size:14px;font-weight:750">几何上，不断拿较短的一段去铺较长的一段，剩下的粉色部分就是余数。递归参数因此越来越小。</p>`;
+}
+
+function returnedThreshold() {
+    const step = currentStep();
+    if (step.type === "finish") return 0;
+    if (step.type !== "up") return model.frames.length + 1;
+    return step.frameIndex;
+}
+
+function renderStack(step) {
+    const deepestDown = step.type === "intro" ? -1 : step.type === "down" ? step.frameIndex : model.frames.length;
+    const returnedFrom = returnedThreshold();
+    const cards = model.frames.map((f,i) => {
+        let cls = "wait";
+        let note = "尚未调用";
+        if (i <= deepestDown) { cls = "down"; note = `等待 exgcd(${f.b},${f.r})`; }
+        if (i >= returnedFrom) { cls = "up"; note = `已返回 (${f.x},${f.y})`; }
+        if ((step.type === "down" || step.type === "up") && step.frameIndex === i) cls += " current";
+        return `<div class="frame ${cls}">第 ${f.level} 层：(${f.a}, ${f.b})<small>${note}</small></div>`;
+    });
+    let baseClass = step.type === "intro" || step.type === "down" ? "wait" : "base";
+    if (step.type === "base") baseClass += " current";
+    cards.push(`<div class="frame ${baseClass}">第 ${model.base.level} 层：(${model.base.a}, 0)<small>边界返回 (1,0)</small></div>`);
+    dom.stackList.innerHTML = cards.join("");
+}
+
+function isFrameReturned(i, step) {
+    if (step.type === "finish") return true;
+    if (step.type !== "up") return false;
+    return i >= step.frameIndex;
+}
+
+function renderTable(step) {
+    const rows = model.frames.map((f,i) => {
+        const returned = isFrameReturned(i,step);
+        const active = (step.type === "down" || step.type === "up") && step.frameIndex === i;
+        const cls = active ? "active-row" : returned ? "returned-row" : "";
+        return `<tr class="${cls}"><td>${f.level}</td><td>${f.a}</td><td>${f.b}</td><td>${f.q}</td><td>${f.r}</td><td class="${returned?"":"placeholder"}">${returned?f.x:"等待回溯"}</td><td class="${returned?"":"placeholder"}">${returned?f.y:"等待回溯"}</td><td class="${returned?"":"placeholder"}">${returned?`${f.a*f.x+f.b*f.y} = d`:"—"}</td></tr>`;
+    });
+    const showBase = step.type !== "intro" && step.type !== "down";
+    rows.push(`<tr class="${step.type === "base"?"active-row":showBase?"returned-row":""}"><td>${model.base.level}</td><td>${model.base.a}</td><td>0</td><td>—</td><td>—</td><td class="${showBase?"":"placeholder"}">${showBase?1:"等待到达"}</td><td class="${showBase?"":"placeholder"}">${showBase?0:"等待到达"}</td><td class="${showBase?"":"placeholder"}">${showBase?`${model.base.a} = d`:"—"}</td></tr>`);
+    dom.recordBody.innerHTML = rows.join("");
+}
+
+function clearPractice() {
+    dom.practiceX.value = "";
+    dom.practiceY.value = "";
+    dom.practiceFeedback.className = "feedback";
+    dom.practiceFeedback.innerHTML = `提示：先写出 <span class="math">x = y₁</span>，再计算 <span class="math">y = x₁ - qy₁</span>。`;
+}
+
+function renderPractice(step) {
+    const enabled = step.type === "up";
+    dom.practiceX.disabled = !enabled;
+    dom.practiceY.disabled = !enabled;
+    dom.checkBtn.disabled = !enabled;
+    dom.answerBtn.disabled = !enabled;
+    if (!enabled) {
+        dom.practicePrompt.innerHTML = `推进到任意一个绿色“回溯”步骤，这里会给出该层的 <span class="math">x₁、y₁</span> 和 <span class="math">q</span>，请你计算新的 <span class="math">x、y</span>。`;
+        return;
+    }
+    const f = model.frames[step.frameIndex];
+    dom.practicePrompt.innerHTML = `当前层 <span class="math">a=${f.a}, b=${f.b}, q=${f.q}</span>，子问题返回 <span class="math">x₁=${f.childX}, y₁=${f.childY}</span>。请根据回溯公式填写本层的 x、y。`;
+}
+
+function checkPractice(show=false) {
+    const step = currentStep();
+    if (step.type !== "up") return;
+    const f = model.frames[step.frameIndex];
+    if (show) {
+        dom.practiceX.value = f.x;
+        dom.practiceY.value = f.y;
+        dom.practiceFeedback.className = "feedback ok";
+        dom.practiceFeedback.innerHTML = `答案：<span class="math">x=y₁=${f.childY}</span>；<span class="math">y=x₁-qy₁=${f.childX}-${f.q}×(${f.childY})=${f.y}</span>。`;
+        return;
+    }
+    const x = Number(dom.practiceX.value);
+    const y = Number(dom.practiceY.value);
+    if (dom.practiceX.value === "" || dom.practiceY.value === "") {
+        dom.practiceFeedback.className = "feedback bad";
+        dom.practiceFeedback.textContent = "请先把 x 和 y 都填写完整。";
+    } else if (x === f.x && y === f.y) {
+        dom.practiceFeedback.className = "feedback ok";
+        dom.practiceFeedback.innerHTML = `正确。本层验证：<span class="math">${f.a}×(${x})+${f.b}×(${y})=${model.d}</span>。`;
+    } else {
+        dom.practiceFeedback.className = "feedback bad";
+        dom.practiceFeedback.innerHTML = `还不正确。先确认 <span class="math">x</span> 是否直接等于 <span class="math">y₁=${f.childY}</span>，再检查负数乘法。`;
+    }
+}
+
+function renderCode(step) {
+    let keys = [];
+    let title = "函数含义";
+    let text = `调用 <span class="math">exgcd(a,b,x,y)</span> 后，返回最大公约数，同时通过引用参数带回贝祖系数。`;
+    if (step.type === "intro") keys = ["signature"];
+    if (step.type === "down") {
+        keys = ["prepare","recurse"];
+        title = "递归调用";
+        text = `代码把 <span class="math">(${stepContext().a},${stepContext().b})</span> 变成 <span class="math">(${stepContext().b},${stepContext().r})</span>。此时 x1、y1 还要等待深层返回。`;
+    }
+    if (step.type === "base") {
+        keys = ["base"];
+        title = "递归边界";
+        text = `<span class="math">b=0</span> 时不再递归。选择 <span class="math">x=1,y=0</span>，就有 <span class="math">a×1+0×0=a</span>。`;
+    }
+    if (step.type === "up") {
+        keys = ["back","return"];
+        title = "回溯换元";
+        text = `第 10 行对应 <span class="math">x=y₁</span>；第 11 行对应 <span class="math">y=x₁-floor(a/b)y₁</span>。整数除法 <span class="math">a/b</span> 就是本层商 q。`;
+    }
+    if (step.type === "finish") {
+        keys = ["return"];
+        title = "返回完成";
+        text = `最终返回 <span class="math">d=${model.d}</span>，引用参数中保存 <span class="math">x=${model.x}, y=${model.y}</span>。`;
+    }
+    dom.codeLines.forEach(el => el.classList.toggle("highlight", keys.includes(el.dataset.code)));
+    dom.codeNoteTitle.textContent = title;
+    dom.codeNoteText.innerHTML = text;
+}
+
+function svgEl(name, attrs, text="") {
+    const el = document.createElementNS("http://www.w3.org/2000/svg", name);
+    Object.entries(attrs).forEach(([key,value]) => el.setAttribute(key,String(value)));
+    if (text !== "") el.textContent = text;
+    return el;
+}
+
+function renderGeometry() {
+    const svg = dom.geometrySvg;
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(svgEl("title", {id:"geoTitle"}, `直线 ${model.a}x + ${model.b}y = ${model.d} 上的整数解`));
+    svg.appendChild(svgEl("desc", {id:"geoDesc"}, "标出一组贝祖系数以及沿通解方向排列的相邻整数格点。"));
+    const W=760,H=430,pad={l:58,r:28,t:30,b:48};
+    const dx=model.b/model.d;
+    const dy=-model.a/model.d;
+    const points=[-1,0,1].map(t=>({t,x:model.x+dx*t,y:model.y+dy*t}));
+    let xMin=Math.min(0,...points.map(p=>p.x)),xMax=Math.max(0,...points.map(p=>p.x));
+    let yMin=Math.min(0,...points.map(p=>p.y)),yMax=Math.max(0,...points.map(p=>p.y));
+    const xPad=Math.max(3,(xMax-xMin)*.12),yPad=Math.max(3,(yMax-yMin)*.12);
+    xMin-=xPad;xMax+=xPad;yMin-=yPad;yMax+=yPad;
+    const sx=x=>pad.l+(x-xMin)/(xMax-xMin)*(W-pad.l-pad.r);
+    const sy=y=>H-pad.b-(y-yMin)/(yMax-yMin)*(H-pad.t-pad.b);
+    const defs=svgEl("defs",{});
+    const clip=svgEl("clipPath",{id:"plotClip"});
+    clip.appendChild(svgEl("rect",{x:pad.l,y:pad.t,width:W-pad.l-pad.r,height:H-pad.t-pad.b}));
+    defs.appendChild(clip);svg.appendChild(defs);
+    svg.appendChild(svgEl("rect",{x:pad.l,y:pad.t,width:W-pad.l-pad.r,height:H-pad.t-pad.b,fill:"#fffdf5",stroke:"#202124","stroke-width":2}));
+
+    const grid=svgEl("g",{"clip-path":"url(#plotClip)"});
+    const ticks=6;
+    for(let i=0;i<=ticks;i++){
+        const x=xMin+(xMax-xMin)*i/ticks;
+        const y=yMin+(yMax-yMin)*i/ticks;
+        grid.appendChild(svgEl("line",{x1:sx(x),y1:pad.t,x2:sx(x),y2:H-pad.b,stroke:"#d9dde5","stroke-width":1}));
+        grid.appendChild(svgEl("line",{x1:pad.l,y1:sy(y),x2:W-pad.r,y2:sy(y),stroke:"#d9dde5","stroke-width":1}));
+        svg.appendChild(svgEl("text",{x:sx(x),y:H-pad.b+22,"text-anchor":"middle",fill:"#4b5563","font-size":12,"font-family":"Consolas"},formatTick(x)));
+        svg.appendChild(svgEl("text",{x:pad.l-9,y:sy(y)+4,"text-anchor":"end",fill:"#4b5563","font-size":12,"font-family":"Consolas"},formatTick(y)));
+    }
+    svg.appendChild(grid);
+    if(xMin<=0&&xMax>=0) svg.appendChild(svgEl("line",{x1:sx(0),y1:pad.t,x2:sx(0),y2:H-pad.b,stroke:"#202124","stroke-width":2}));
+    if(yMin<=0&&yMax>=0) svg.appendChild(svgEl("line",{x1:pad.l,y1:sy(0),x2:W-pad.r,y2:sy(0),stroke:"#202124","stroke-width":2}));
+    svg.appendChild(svgEl("text",{x:W-pad.r,y:H-12,"text-anchor":"end",fill:"#202124","font-size":14,"font-weight":900},"x"));
+    svg.appendChild(svgEl("text",{x:22,y:pad.t+8,"text-anchor":"middle",fill:"#202124","font-size":14,"font-weight":900},"y"));
+
+    const lineX1=xMin,lineX2=xMax;
+    const lineY1=(model.d-model.a*lineX1)/model.b;
+    const lineY2=(model.d-model.a*lineX2)/model.b;
+    const lineGroup=svgEl("g",{"clip-path":"url(#plotClip)"});
+    lineGroup.appendChild(svgEl("line",{x1:sx(lineX1),y1:sy(lineY1),x2:sx(lineX2),y2:sy(lineY2),stroke:"#2672ff","stroke-width":5}));
+    svg.appendChild(lineGroup);
+
+    points.forEach((p,index)=>{
+        const px=sx(p.x),py=sy(p.y);
+        svg.appendChild(svgEl("circle",{cx:px,cy:py,r:index===1?9:7,fill:index===1?"#ee4266":"#8b5cf6",stroke:"#202124","stroke-width":3}));
+        const anchor=px>W-150?"end":"start";
+        const tx=anchor==="end"?px-12:px+12;
+        const ty=py<55?py+22:py-12;
+        svg.appendChild(svgEl("text",{x:tx,y:ty,"text-anchor":anchor,fill:"#202124","font-size":13,"font-weight":900},`t=${p.t}: (${p.x}, ${p.y})`));
+    });
+    svg.appendChild(svgEl("text",{x:pad.l+12,y:pad.t+22,fill:"#2672ff","font-size":14,"font-weight":900},`${model.a}x + ${model.b}y = ${model.d}`));
+    dom.solutionFamily.textContent = `x = ${model.x} + ${model.b/model.d}t，y = ${model.y} - ${model.a/model.d}t（t 为任意整数）`;
+    dom.geoCaption.innerHTML = `蓝线上的每个点都满足方程，但只有落在整数网格上的点才是整数解。红点是算法求出的 <span class="math">(${model.x},${model.y})</span>。沿向量 <span class="math">(${model.b/model.d}, -${model.a/model.d})</span> 移动，方程值不变，因为 <span class="math">a·(b/d)+b·(-a/d)=0</span>。`;
+}
+
+function formatTick(value) {
+    const rounded=Math.round(value);
+    return Math.abs(value-rounded)<1e-8 ? String(rounded) : value.toFixed(1);
+}
+
+dom.buildBtn.addEventListener("click",rebuild);
+dom.prevBtn.addEventListener("click",()=>go(-1));
+dom.nextBtn.addEventListener("click",()=>go(1));
+dom.autoBtn.addEventListener("click",toggleAuto);
+dom.resetBtn.addEventListener("click",resetSteps);
+dom.checkBtn.addEventListener("click",()=>checkPractice(false));
+dom.answerBtn.addEventListener("click",()=>checkPractice(true));
+[dom.aInput,dom.bInput].forEach(input=>input.addEventListener("keydown",event=>{if(event.key==="Enter")rebuild();}));
+
+model=buildModel(99,78);
+render();
+</script>
+</body>
+</html>
