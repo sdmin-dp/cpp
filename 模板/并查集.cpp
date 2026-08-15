@@ -3,21 +3,20 @@ using namespace std;
 #define ll long long
 #define el '\n'
 const ll N=1e5+5;
-ll n;
-bool vis[N];
-void prime_ai(){
-    vis[0]=vis[1]=1;
-    for(ll i=2;i<=n;i++){
-        if(vis[i]) continue;
-        for(ll j=i*i;j<=n;j+=i) vis[j]=1;
+struct bcj{
+    vector<ll> fa;
+    bcj(ll len){
+        fa.reserve(len+5);
+        fa.resize(len+5);
+        for(int i=1;i<=len;i++) fa[i]=i;
     }
-}
+    ll find(ll x){
+        if(x==fa[x]) return x;
+        else return fa[x]=find(fa[x]);
+    }
+};
 void solve(){
-    cin>>n;
-    prime_ai();
-    for(int i=1;i<=n;i++){
-        if(vis[i]) cout<<i<<" ";
-    }    
+    
 }
 int main(){
     ios::sync_with_stdio(0);
