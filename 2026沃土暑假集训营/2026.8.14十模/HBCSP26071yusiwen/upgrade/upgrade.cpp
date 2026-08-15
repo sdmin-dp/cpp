@@ -9,18 +9,21 @@ ll n,m;
 pair<ll,ll> a[N+5];
 ll dp[N+5],dp2[M+5];
 void init(){
-    for(int i=2;i<=N;i++){
-        dp[i]=inf;
-        for(int j=1;j<i;j++){
-            ll v=i-j;
-            ll x=v/j;
-            if(x*j==v) dp[i]=min(dp[v]+1,dp[i]);
+    for(int i=1;i<=N;i++) dp[i]=inf;
+    dp[1]=0;
+    for(int i=1;i<=N;i++){
+        for(int x=1;x<=i;x++){
+            ll to=i+i/x;
+            if(to<=N){
+                dp[to]=min(dp[to],dp[i]+1);
+            }
         }
     }
 }
 void solve(){
     cin>>n>>m;
     memset(dp2,0,sizeof(dp2));
+    m=min(20*n,m);
     for(int i=1;i<=n;i++){
         cin>>a[i].first;
         a[i].first=dp[a[i].first];
