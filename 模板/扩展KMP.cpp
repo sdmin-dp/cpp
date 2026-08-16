@@ -20,7 +20,7 @@ using namespace std;
 const ll N=1e5+5;
 
 string s;      // 输入字符串
-ll n;          // 字符串长度
+ll n;          //字符串长度
 ll z[N];       // Z数组，z[i]表示从位置i开始的后缀与原串的最长公共前缀长度
 ll l=1, r;     // 维护的最右匹配区间[l, r]，满足s[l..r] == s[1..r-l+1]
 
