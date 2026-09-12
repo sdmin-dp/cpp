@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>计数排序可视化 | C++ 基础算法工具</title>
+<style>
+:root{
+    --ink:#202124;
+    --cream:#fffdf4;
+    --sky:#8bd3ff;
+    --blue:#2672ff;
+    --mint:#83e6b2;
+    --green:#1e9b62;
+    --sun:#ffd45a;
+    --orange:#ff8c42;
+    --pink:#ff77a8;
+    --red:#ee4266;
+    --purple:#8b5cf6;
+    --shadow:6px 6px 0 var(--ink);
+}
+*{box-sizing:border-box}
+body{
+    margin:0;
+    color:var(--ink);
+    background:
+        radial-gradient(circle at 16px 16px, rgba(32,33,36,.08) 2px, transparent 3px) 0 0/34px 34px,
+        linear-gradient(135deg,#fff4bf 0%,#ffe5ef 45%,#d7f3ff 100%);
+    font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;
+    min-height:100vh;
+}
+button,input{font:inherit}
+.page{max-width:1280px;margin:0 auto;padding:24px}
+.hero{
+    position:relative;
+    overflow:hidden;
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:linear-gradient(120deg,#fffdf4 0%,#ffe680 48%,#78d6ff 100%);
+    box-shadow:var(--shadow);
+    padding:28px;
+    min-height:176px;
+}
+.hero:before,.hero:after{
+    content:"";
+    position:absolute;
+    border:4px solid var(--ink);
+    background:rgba(255,255,255,.55);
+    transform:rotate(-12deg);
+}
+.hero:before{width:140px;height:140px;border-radius:50%;right:110px;top:-44px}
+.hero:after{width:120px;height:72px;border-radius:8px;right:22px;bottom:18px;transform:rotate(9deg)}
+.hero-content{
+    position:relative;
+    z-index:1;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:20px;
+    align-items:end;
+}
+h1{margin:0 0 10px;font-size:clamp(32px,5vw,62px);line-height:1;letter-spacing:0}
+.subtitle{max-width:790px;margin:0;font-size:18px;line-height:1.7;font-weight:700}
+.badge{
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    box-shadow:4px 4px 0 var(--ink);
+    padding:12px 16px;
+    font-weight:900;
+    text-align:center;
+    min-width:150px;
+}
+.badge small{display:block;margin-top:4px;color:#555;font-weight:800}
+.grid{display:grid;grid-template-columns:330px minmax(0,1fr);gap:22px;margin-top:24px}
+.panel{
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:var(--cream);
+    box-shadow:var(--shadow);
+}
+.panel-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    border-bottom:4px solid var(--ink);
+    padding:14px 16px;
+    background:var(--sun);
+}
+.panel-head.blue{background:var(--sky)}
+.panel-head.green{background:var(--mint)}
+.panel-head.pink{background:#ffc0d6}
+.panel-head h2{margin:0;font-size:20px}
+.panel-body{padding:16px}
+.control-stack{display:grid;gap:14px}
+.field label{display:block;margin-bottom:6px;font-size:14px;font-weight:900}
+.field input{
+    width:100%;
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    padding:10px 12px;
+    box-shadow:3px 3px 0 var(--ink);
+}
+.buttons,.manual-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.button{
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    min-height:44px;
+    padding:8px 12px;
+    font-weight:900;
+    cursor:pointer;
+    box-shadow:3px 3px 0 var(--ink);
+    transition:transform .12s ease, box-shadow .12s ease, filter .12s ease;
+}
+.button.primary{background:var(--blue);color:#fff}
+.button.orange{background:var(--orange);color:#fff}
+.button.green{background:var(--green);color:#fff}
+.button.pink{background:var(--pink);color:#fff}
+.button.purple{background:var(--purple);color:#fff}
+.button:hover:not(:disabled){transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
+.button:active:not(:disabled){transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.button:disabled{cursor:not-allowed;filter:grayscale(.4);opacity:.58}
+.speech{
+    position:relative;
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    padding:14px;
+    min-height:128px;
+    font-size:15px;
+    line-height:1.65;
+    box-shadow:4px 4px 0 rgba(32,33,36,.18);
+}
+.speech:after{
+    content:"";
+    position:absolute;
+    left:28px;
+    bottom:-16px;
+    width:26px;
+    height:26px;
+    border-right:3px solid var(--ink);
+    border-bottom:3px solid var(--ink);
+    background:#fff;
+    transform:rotate(45deg);
+}
+.stage{display:grid;gap:18px}
+.array-title{font-size:14px;font-weight:900;color:#555;margin-bottom:8px}
+.array-wrap{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    align-items:flex-start;
+    min-height:112px;
+    padding:12px;
+    border:3px dashed rgba(32,33,36,.42);
+    border-radius:8px;
+    background:rgba(255,255,255,.62);
+}
+.cell{
+    position:relative;
+    width:72px;
+    min-height:88px;
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    box-shadow:4px 4px 0 var(--ink);
+    transition:transform .18s ease, background .18s ease, opacity .18s ease;
+    user-select:none;
+}
+.cell.clickable{cursor:pointer}
+.cell.clickable:hover{transform:translateY(-4px) rotate(-1deg)}
+.cell.plain{background:#fff}
+.cell.input{background:#fff}
+.cell.current{background:#ffe066;transform:translateY(-7px) rotate(-1deg)}
+.cell.max{background:#ffb3cf;transform:translateY(-5px) rotate(1deg)}
+.cell.bucket{background:#fff2b8}
+.cell.active-bucket{background:#b8ddff;transform:translateY(-5px) rotate(1deg)}
+.cell.counted{background:#bff7d7}
+.cell.output{background:#8b5cf6;color:#fff;transform:scale(1.05) rotate(1deg)}
+.cell.empty{
+    background:#f5f5f5;
+    color:#888;
+    box-shadow:3px 3px 0 rgba(32,33,36,.25);
+}
+.cell.done{background:#bff7d7}
+.value{font-family:Consolas,"Courier New",monospace;font-size:25px;font-weight:900}
+.index{font-family:Consolas,"Courier New",monospace;font-size:12px;font-weight:900;color:#595959}
+.cell.output .index{color:#fff}
+.tag{
+    position:absolute;
+    top:-16px;
+    border:3px solid var(--ink);
+    border-radius:999px;
+    padding:1px 7px;
+    background:#fff;
+    color:var(--ink);
+    font-size:12px;
+    font-weight:900;
+    box-shadow:2px 2px 0 var(--ink);
+}
+.tag.i-tag{left:-10px;background:#ffe066}
+.tag.max-tag{right:-10px;background:#ffb3cf}
+.tag.bucket-tag{left:8px;background:#b8ddff}
+.tag.out-tag{left:12px;background:#8b5cf6;color:#fff}
+.status-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.stat{
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    padding:10px;
+    min-height:74px;
+    box-shadow:3px 3px 0 rgba(32,33,36,.22);
+}
+.stat b{display:block;font-size:13px;margin-bottom:6px}
+.stat span{font-family:Consolas,"Courier New",monospace;font-size:22px;font-weight:900}
+.formula{
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:#151515;
+    color:#f8f8f2;
+    padding:14px;
+    overflow:auto;
+    font-family:Consolas,"Courier New",monospace;
+    font-size:14px;
+    line-height:1.55;
+    box-shadow:4px 4px 0 rgba(32,33,36,.22);
+}
+.code-key{color:#ff79c6}
+.code-type{color:#8be9fd}
+.code-num{color:#bd93f9}
+.code-comment{color:#9ca3af}
+.rule-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.rule{
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    padding:12px;
+    font-weight:900;
+    min-height:86px;
+}
+.rule:nth-child(1){background:#bff7d7}
+.rule:nth-child(2){background:#ffe066}
+.rule:nth-child(3){background:#b8ddff}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:13px;font-weight:900}
+.legend span{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    border:2px solid var(--ink);
+    border-radius:999px;
+    background:#fff;
+    padding:5px 9px;
+}
+.dot{width:16px;height:16px;border:2px solid var(--ink);border-radius:50%;display:inline-block}
+.dot.current{background:#ffe066}
+.dot.max{background:#ffb3cf}
+.dot.bucket{background:#fff2b8}
+.dot.active-bucket{background:#b8ddff}
+.dot.output{background:#8b5cf6}
+.dot.done{background:#bff7d7}
+.message-good{color:#087a42;font-weight:900}
+.message-warn{color:#b45400;font-weight:900}
+.message-bad{color:#d71942;font-weight:900}
+@media (max-width:960px){
+    .grid{grid-template-columns:1fr}
+    .hero-content{grid-template-columns:1fr}
+    .status-row,.rule-strip,.manual-actions{grid-template-columns:1fr}
+    .page{padding:14px}
+    .cell{width:64px}
+}
+</style>
+</head>
+<body>
+<main class="page">
+    <section class="hero">
+        <div class="hero-content">
+            <div>
+                <h1>计数排序</h1>
+                <p class="subtitle">适合数值范围不大的非负整数。先统计每个值出现几次，再从小到大按次数写回数组。</p>
+            </div>
+            <div class="badge">Counting Sort<small>计数排序</small></div>
+        </div>
+    </section>
+
+    <section class="grid">
+        <aside class="panel">
+            <div class="panel-head">
+                <h2>参数面板</h2>
+            </div>
+            <div class="panel-body control-stack">
+                <div class="field">
+                    <label for="arrayInput">初始数组 arr</label>
+                    <input id="arrayInput" value="4,2,8,2,3,3,1">
+                </div>
+                <div class="buttons">
+                    <button class="button orange" id="resetBtn">重置</button>
+                    <button class="button primary" id="nextBtn">下一步</button>
+                </div>
+                <button class="button green" id="finishBtn">自动跑完</button>
+                <div class="speech" id="autoInfo"></div>
+            </div>
+        </aside>
+
+        <section class="panel">
+            <div class="panel-head blue">
+                <h2>自动分步演示</h2>
+                <strong id="stepCounter">Step 0</strong>
+            </div>
+            <div class="panel-body stage">
+                <div>
+                    <div class="array-title">原数组 arr：先扫描最大值，再逐个统计</div>
+                    <div class="array-wrap" id="autoInput"></div>
+                </div>
+                <div>
+                    <div class="array-title">计数数组 count：count[x] 表示数字 x 出现了几次</div>
+                    <div class="array-wrap" id="autoCount"></div>
+                </div>
+                <div>
+                    <div class="array-title">输出数组：按 count 从小到大写回</div>
+                    <div class="array-wrap" id="autoOutput"></div>
+                </div>
+                <div class="status-row">
+                    <div class="stat"><b>当前阶段</b><span id="phaseStat">找最大</span></div>
+                    <div class="stat"><b>最大值 max</b><span id="maxStat">-</span></div>
+                    <div class="stat"><b>输入下标 i</b><span id="inputStat">-</span></div>
+                    <div class="stat"><b>输出下标 k</b><span id="outputStat">-</span></div>
+                </div>
+                <div class="legend">
+                    <span><i class="dot current"></i>当前处理</span>
+                    <span><i class="dot max"></i>当前最大值</span>
+                    <span><i class="dot active-bucket"></i>当前桶</span>
+                    <span><i class="dot output"></i>刚输出</span>
+                    <span><i class="dot done"></i>已完成</span>
+                </div>
+                <div class="rule-strip">
+                    <div class="rule">找范围：先找 max，创建 count[0..max]。</div>
+                    <div class="rule">统计：遍历 arr，执行 count[arr[i]]++。</div>
+                    <div class="rule">输出：从小到大扫描 count，把有次数的值写回数组。</div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <section class="grid">
+        <aside class="panel">
+            <div class="panel-head green">
+                <h2>手动练习</h2>
+            </div>
+            <div class="panel-body control-stack">
+                <button class="button green" id="manualStartBtn">开始练习</button>
+                <div class="manual-actions">
+                    <button class="button purple" id="manualHintBtn" disabled>查看当前任务</button>
+                    <button class="button orange" id="manualResetBtn" disabled>重来练习</button>
+                </div>
+                <div class="speech" id="manualInfo"></div>
+            </div>
+        </aside>
+
+        <section class="panel">
+            <div class="panel-head pink">
+                <h2>点击正确的 count 桶</h2>
+                <strong id="manualProgress">未开始</strong>
+            </div>
+            <div class="panel-body stage">
+                <div>
+                    <div class="array-title">原数组 arr：统计阶段按 i 顺序处理</div>
+                    <div class="array-wrap" id="manualInput"></div>
+                </div>
+                <div>
+                    <div class="array-title">手动计数数组 count：统计时点正确桶 +1，输出时点最小的非零桶</div>
+                    <div class="array-wrap" id="manualCount"></div>
+                </div>
+                <div>
+                    <div class="array-title">手动输出数组</div>
+                    <div class="array-wrap" id="manualOutput"></div>
+                </div>
+                <div class="formula" aria-label="C++ 计数排序代码">
+<pre><span class="code-type">void</span> counting_sort(<span class="code-type">int</span> *arr) {
+    <span class="code-type">int</span> maxValue = arr[<span class="code-num">0</span>];
+    <span class="code-key">for</span> (<span class="code-type">int</span> i = <span class="code-num">1</span>; i &lt; n; i++) {
+        <span class="code-key">if</span> (arr[i] &gt; maxValue) maxValue = arr[i];
+    }
+
+    <span class="code-type">int</span> count[maxValue + <span class="code-num">1</span>] = {<span class="code-num">0</span>};
+    <span class="code-key">for</span> (<span class="code-type">int</span> i = <span class="code-num">0</span>; i &lt; n; i++) {
+        count[arr[i]]++;
+    }
+
+    <span class="code-type">int</span> k = <span class="code-num">0</span>;
+    <span class="code-key">for</span> (<span class="code-type">int</span> value = <span class="code-num">0</span>; value &lt;= maxValue; value++) {
+        <span class="code-key">while</span> (count[value] &gt; <span class="code-num">0</span>) {
+            arr[k] = value;
+            count[value]--;
+            k++;
+        }
+    }
+}</pre>
+                </div>
+            </div>
+        </section>
+    </section>
+</main>
+
+<script>
+const MAX_BUCKET = 30;
+
+const els = {
+    arrayInput: document.getElementById('arrayInput'),
+    resetBtn: document.getElementById('resetBtn'),
+    nextBtn: document.getElementById('nextBtn'),
+    finishBtn: document.getElementById('finishBtn'),
+    autoInfo: document.getElementById('autoInfo'),
+    autoInput: document.getElementById('autoInput'),
+    autoCount: document.getElementById('autoCount'),
+    autoOutput: document.getElementById('autoOutput'),
+    stepCounter: document.getElementById('stepCounter'),
+    phaseStat: document.getElementById('phaseStat'),
+    maxStat: document.getElementById('maxStat'),
+    inputStat: document.getElementById('inputStat'),
+    outputStat: document.getElementById('outputStat'),
+    manualStartBtn: document.getElementById('manualStartBtn'),
+    manualHintBtn: document.getElementById('manualHintBtn'),
+    manualResetBtn: document.getElementById('manualResetBtn'),
+    manualInfo: document.getElementById('manualInfo'),
+    manualInput: document.getElementById('manualInput'),
+    manualCount: document.getElementById('manualCount'),
+    manualOutput: document.getElementById('manualOutput'),
+    manualProgress: document.getElementById('manualProgress')
+};
+
+const state = {
+    baseArr: [],
+    valid: true,
+    error: '',
+    maxValue: 0,
+    auto: {},
+    manual: {}
+};
+
+let autoRunTimer = null;
+
+function stopAutoRun() {
+    if (autoRunTimer !== null) {
+        clearInterval(autoRunTimer);
+        autoRunTimer = null;
+    }
+    els.finishBtn.textContent = '自动跑完';
+}
+
+function autoRunFinished() {
+    return state.auto.phase === 'done' || state.auto.phase === 'invalid';
+}
+
+function parseArray() {
+    const raw = els.arrayInput.value.split(',').map(x => x.trim()).filter(Boolean);
+    const arr = raw.map(Number);
+    if (raw.length === 0 || arr.some(x => !Number.isInteger(x))) {
+        return { valid: false, arr: [], error: '请输入用逗号分隔的整数。' };
+    }
+    if (arr.some(x => x < 0)) {
+        return { valid: false, arr, error: '基础计数排序要求数组元素是非负整数。' };
+    }
+    const maxValue = Math.max(...arr);
+    if (maxValue > MAX_BUCKET) {
+        return { valid: false, arr, error: `为了便于展示，请把最大值控制在 ${MAX_BUCKET} 以内。` };
+    }
+    return { valid: true, arr, error: '' };
+}
+
+function initAll() {
+    const parsed = parseArray();
+    state.baseArr = parsed.arr;
+    state.valid = parsed.valid;
+    state.error = parsed.error;
+    state.maxValue = parsed.valid ? Math.max(...parsed.arr) : 0;
+    resetAuto();
+    resetManual(false);
+}
+
+function emptyCount() {
+    return new Array(state.maxValue + 1).fill(0);
+}
+
+function emptyOutput() {
+    return new Array(state.baseArr.length).fill(null);
+}
+
+function makeAutoState() {
+    const n = state.baseArr.length;
+    const count = state.valid ? emptyCount() : [];
+    const output = state.valid ? emptyOutput() : [];
+    if (state.valid && n === 1) {
+        count[state.baseArr[0]] = 1;
+        output[0] = state.baseArr[0];
+    }
+    return {
+        arr: [...state.baseArr],
+        count,
+        output,
+        n,
+        phase: state.valid && n > 1 ? 'findMax' : state.valid && n === 1 ? 'done' : 'invalid',
+        scanIndex: 1,
+        maxValue: state.valid && n > 0 ? state.baseArr[0] : null,
+        countIndex: 0,
+        outValue: 0,
+        outIndex: 0,
+        activeBucket: null,
+        lastOutput: null,
+        step: 0,
+        note: ''
+    };
+}
+
+function makeManualState(active) {
+    const n = state.baseArr.length;
+    const count = state.valid ? emptyCount() : [];
+    const output = state.valid ? emptyOutput() : [];
+    if (state.valid && n === 1) {
+        count[state.baseArr[0]] = 1;
+        output[0] = state.baseArr[0];
+    }
+    return {
+        arr: [...state.baseArr],
+        count,
+        output,
+        phase: active && state.valid && n > 1 ? 'counting' : active && state.valid && n === 1 ? 'done' : active ? 'invalid' : 'idle',
+        countIndex: 0,
+        outIndex: 0,
+        activeBucket: null,
+        lastOutput: null,
+        active,
+        n
+    };
+}
+
+function resetAuto() {
+    stopAutoRun();
+    state.auto = makeAutoState();
+    els.nextBtn.disabled = !state.valid || state.baseArr.length <= 1;
+    els.finishBtn.disabled = !state.valid || state.baseArr.length <= 1;
+    renderAuto();
+    updateAutoInfo();
+}
+
+function resetManual(active) {
+    state.manual = makeManualState(active);
+    els.manualHintBtn.disabled = !(active && state.valid);
+    els.manualResetBtn.disabled = !active;
+    renderManual();
+    if (!active) {
+        updateManualInfo('点击“开始练习”。统计阶段点击 arr[i] 对应的 count 桶，输出阶段点击最小的非零桶。');
+    } else if (!state.valid) {
+        updateManualInfo(`<span class="message-bad">${state.error}</span>`);
+    } else {
+        updateManualInfo(`统计阶段：当前 i = 0，arr[0] = ${state.baseArr[0]}。请点击 count[${state.baseArr[0]}]。`);
+    }
+}
+
+function makeTag(text, cls) {
+    const el = document.createElement('span');
+    el.className = `tag ${cls}`;
+    el.textContent = text;
+    return el;
+}
+
+function makeCell(value, label, classes = [], tags = [], clickable = false, onClick = null) {
+    const cell = document.createElement('div');
+    cell.className = `cell ${classes.join(' ')}`;
+    if (clickable) {
+        cell.classList.add('clickable');
+        cell.onclick = onClick;
+    }
+    tags.forEach(tag => cell.appendChild(tag));
+    const valueEl = document.createElement('div');
+    valueEl.className = 'value';
+    valueEl.textContent = value;
+    const indexEl = document.createElement('div');
+    indexEl.className = 'index';
+    indexEl.textContent = label;
+    cell.appendChild(valueEl);
+    cell.appendChild(indexEl);
+    return cell;
+}
+
+function renderInput(container, arr, options = {}) {
+    const { current = null, maxIndex = null, done = false } = options;
+    container.innerHTML = '';
+    arr.forEach((value, index) => {
+        const classes = ['input'];
+        const tags = [];
+        if (done) classes.push('done');
+        if (index === current) {
+            classes.push('current');
+            tags.push(makeTag('i', 'i-tag'));
+        }
+        if (index === maxIndex) {
+            classes.push('max');
+            tags.push(makeTag('max', 'max-tag'));
+        }
+        container.appendChild(makeCell(value, `arr[${index}]`, classes, tags));
+    });
+}
+
+function renderCount(container, count, options = {}) {
+    const { activeBucket = null, clickable = false, onClick = null } = options;
+    container.innerHTML = '';
+    count.forEach((value, index) => {
+        const classes = ['bucket'];
+        const tags = [];
+        if (value > 0) classes.push('counted');
+        if (index === activeBucket) {
+            classes.push('active-bucket');
+            tags.push(makeTag('桶', 'bucket-tag'));
+        }
+        container.appendChild(makeCell(value, `count[${index}]`, classes, tags, clickable, () => onClick(index)));
+    });
+}
+
+function renderOutput(container, output, options = {}) {
+    const { lastOutput = null, done = false } = options;
+    container.innerHTML = '';
+    output.forEach((value, index) => {
+        const classes = [];
+        const tags = [];
+        if (value === null) {
+            classes.push('empty');
+        } else if (done) {
+            classes.push('done');
+        } else {
+            classes.push('output');
+        }
+        if (index === lastOutput) tags.push(makeTag('写入', 'out-tag'));
+        container.appendChild(makeCell(value === null ? '?' : value, `out[${index}]`, classes, tags));
+    });
+}
+
+function currentMaxIndex(auto) {
+    if (!auto.arr.length || auto.maxValue === null) return null;
+    return auto.arr.findIndex(x => x === auto.maxValue);
+}
+
+function renderAuto() {
+    const a = state.auto;
+    const done = a.phase === 'done';
+    renderInput(els.autoInput, a.arr, {
+        current: a.phase === 'findMax' ? a.scanIndex : a.phase === 'counting' ? a.countIndex : null,
+        maxIndex: a.phase === 'findMax' ? currentMaxIndex(a) : null,
+        done
+    });
+    renderCount(els.autoCount, a.count, { activeBucket: a.activeBucket });
+    renderOutput(els.autoOutput, a.output, { lastOutput: a.lastOutput, done });
+    els.stepCounter.textContent = `Step ${a.step}`;
+    els.phaseStat.textContent = phaseName(a.phase);
+    els.maxStat.textContent = a.maxValue === null ? '-' : a.maxValue;
+    els.inputStat.textContent = a.phase === 'counting' ? a.countIndex : a.phase === 'findMax' ? a.scanIndex : '-';
+    els.outputStat.textContent = a.phase === 'output' || done ? a.outIndex : '-';
+}
+
+function phaseName(phase) {
+    if (phase === 'findMax') return '找最大';
+    if (phase === 'counting') return '统计';
+    if (phase === 'output') return '输出';
+    if (phase === 'done') return '完成';
+    return '-';
+}
+
+function updateAutoInfo() {
+    const a = state.auto;
+    if (!state.valid) {
+        els.autoInfo.innerHTML = `<span class="message-bad">${state.error}</span>`;
+        return;
+    }
+    if (a.phase === 'done') {
+        els.autoInfo.innerHTML = `<span class="message-good">计数排序完成。</span><br>输出结果已经按从小到大排列。`;
+        return;
+    }
+    if (a.note) {
+        els.autoInfo.innerHTML = a.note;
+        return;
+    }
+    if (a.phase === 'findMax') {
+        els.autoInfo.innerHTML = `先扫描数组找最大值。<br>当前 max = ${a.maxValue}，下一步查看 arr[${a.scanIndex}]。`;
+    } else if (a.phase === 'counting') {
+        els.autoInfo.innerHTML = `统计阶段。<br>下一步执行 count[arr[${a.countIndex}]]++。`;
+    } else if (a.phase === 'output') {
+        els.autoInfo.innerHTML = `输出阶段。<br>从小到大找到第一个 count[value] > 0 的桶并写入输出数组。`;
+    }
+}
+
+function autoStep() {
+    const a = state.auto;
+    if (a.phase === 'done' || a.phase === 'invalid') return;
+    a.note = '';
+    a.activeBucket = null;
+    a.lastOutput = null;
+    if (a.phase === 'findMax') {
+        const value = a.arr[a.scanIndex];
+        if (value > a.maxValue) a.maxValue = value;
+        a.step++;
+        a.note = `查看 arr[${a.scanIndex}] = ${value}，当前 max = ${a.maxValue}。`;
+        a.scanIndex++;
+        if (a.scanIndex >= a.n) {
+            a.phase = 'counting';
+            a.countIndex = 0;
+            a.note += `<br>最大值已确定，创建 count[0..${state.maxValue}]。`;
+        }
+    } else if (a.phase === 'counting') {
+        const value = a.arr[a.countIndex];
+        a.count[value]++;
+        a.activeBucket = value;
+        a.step++;
+        a.note = `arr[${a.countIndex}] = ${value}，执行 count[${value}]++，现在 count[${value}] = ${a.count[value]}。`;
+        a.countIndex++;
+        if (a.countIndex >= a.n) {
+            a.phase = 'output';
+            a.outValue = 0;
+            a.outIndex = 0;
+            a.note += '<br>统计完成，接下来从小到大输出。';
+        }
+    } else if (a.phase === 'output') {
+        while (a.outValue <= state.maxValue && a.count[a.outValue] === 0) {
+            a.outValue++;
+        }
+        if (a.outValue > state.maxValue) {
+            a.phase = 'done';
+        } else {
+            a.output[a.outIndex] = a.outValue;
+            a.count[a.outValue]--;
+            a.activeBucket = a.outValue;
+            a.lastOutput = a.outIndex;
+            a.step++;
+            a.note = `输出 ${a.outValue} 到 out[${a.outIndex}]，count[${a.outValue}] 减 1。`;
+            a.outIndex++;
+            if (a.outIndex >= a.n) {
+                a.phase = 'done';
+                els.nextBtn.disabled = true;
+                els.finishBtn.disabled = true;
+                a.note += '<br>所有元素输出完毕。';
+            }
+        }
+    }
+    renderAuto();
+    updateAutoInfo();
+}
+
+function finishAuto() {
+    if (autoRunTimer !== null || autoRunFinished()) return;
+    els.finishBtn.textContent = '自动中...';
+    els.finishBtn.disabled = true;
+    els.nextBtn.disabled = true;
+    autoRunTimer = setInterval(() => {
+        if (autoRunFinished()) {
+            stopAutoRun();
+            els.finishBtn.disabled = true;
+            els.nextBtn.disabled = true;
+            return;
+        }
+        autoStep();
+        if (autoRunFinished()) {
+            stopAutoRun();
+            els.finishBtn.disabled = true;
+            els.nextBtn.disabled = true;
+        }
+    }, 1000);
+}
+
+function startManual() {
+    resetManual(true);
+}
+
+function resetManualOnly() {
+    resetManual(true);
+}
+
+function renderManual() {
+    const m = state.manual;
+    const done = m.phase === 'done';
+    renderInput(els.manualInput, m.arr, {
+        current: m.phase === 'counting' ? m.countIndex : null,
+        done
+    });
+    renderCount(els.manualCount, m.count, {
+        activeBucket: m.activeBucket,
+        clickable: m.active && (m.phase === 'counting' || m.phase === 'output'),
+        onClick: manualBucketClick
+    });
+    renderOutput(els.manualOutput, m.output, { lastOutput: m.lastOutput, done });
+    if (m.phase === 'idle') els.manualProgress.textContent = '未开始';
+    else if (m.phase === 'counting') els.manualProgress.textContent = `统计 i = ${m.countIndex}`;
+    else if (m.phase === 'output') els.manualProgress.textContent = `输出 k = ${m.outIndex}`;
+    else if (m.phase === 'done') els.manualProgress.textContent = '已完成';
+    else els.manualProgress.textContent = '-';
+}
+
+function manualBucketClick(value) {
+    const m = state.manual;
+    if (!m.active) return;
+    m.activeBucket = null;
+    m.lastOutput = null;
+    if (m.phase === 'counting') {
+        const expected = m.arr[m.countIndex];
+        if (value !== expected) {
+            updateManualInfo(`<span class="message-bad">桶选错了。</span><br>当前 arr[${m.countIndex}] = ${expected}，应该点击 count[${expected}]。`);
+            return;
+        }
+        m.count[value]++;
+        m.activeBucket = value;
+        m.countIndex++;
+        if (m.countIndex >= m.n) {
+            m.phase = 'output';
+            m.outIndex = 0;
+            updateManualInfo('<span class="message-good">统计完成。</span><br>进入输出阶段，请从最小的非零 count 桶开始点击。');
+        } else {
+            updateManualInfo(`<span class="message-good">统计正确。</span><br>下一项 arr[${m.countIndex}] = ${m.arr[m.countIndex]}，点击 count[${m.arr[m.countIndex]}]。`);
+        }
+    } else if (m.phase === 'output') {
+        const expected = firstNonZeroBucket(m.count);
+        if (expected === -1) return;
+        if (value !== expected) {
+            updateManualInfo(`<span class="message-bad">输出顺序不对。</span><br>应该从最小的非零桶开始，现在应点击 count[${expected}]。`);
+            return;
+        }
+        m.output[m.outIndex] = value;
+        m.count[value]--;
+        m.activeBucket = value;
+        m.lastOutput = m.outIndex;
+        m.outIndex++;
+        if (m.outIndex >= m.n) {
+            m.phase = 'done';
+            updateManualInfo('<span class="message-good">练习完成。</span><br>你已经按 count 数组从小到大输出了所有元素。');
+        } else {
+            const next = firstNonZeroBucket(m.count);
+            updateManualInfo(`<span class="message-good">输出正确。</span><br>继续点击最小的非零桶${next === -1 ? '' : `：count[${next}]`}。`);
+        }
+    }
+    renderManual();
+}
+
+function firstNonZeroBucket(count) {
+    for (let i = 0; i < count.length; i++) {
+        if (count[i] > 0) return i;
+    }
+    return -1;
+}
+
+function showManualHint() {
+    const m = state.manual;
+    if (m.phase === 'counting') {
+        updateManualInfo(`当前任务：arr[${m.countIndex}] = ${m.arr[m.countIndex]}，点击 count[${m.arr[m.countIndex]}]。`);
+    } else if (m.phase === 'output') {
+        const next = firstNonZeroBucket(m.count);
+        updateManualInfo(`当前任务：点击最小的非零桶 count[${next}]，把 ${next} 输出到 out[${m.outIndex}]。`);
+    } else if (m.phase === 'done') {
+        updateManualInfo('<span class="message-good">练习已经完成。</span>');
+    }
+}
+
+function updateManualInfo(html) {
+    els.manualInfo.innerHTML = html;
+}
+
+els.resetBtn.onclick = initAll;
+els.nextBtn.onclick = autoStep;
+els.finishBtn.onclick = finishAuto;
+els.arrayInput.oninput = initAll;
+els.manualStartBtn.onclick = startManual;
+els.manualHintBtn.onclick = showManualHint;
+els.manualResetBtn.onclick = resetManualOnly;
+
+initAll();
+</script>
+</body>
+</html>

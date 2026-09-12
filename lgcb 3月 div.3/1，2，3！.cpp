@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+#define ll long long
+using namespace std;
+#define el '\n'
+const ll N=1e5+5;
+
+void solve(){
+    string s;
+    cin>>s;
+    ll l=0,r=0;
+    ll cnt[]={0,0,0,0};
+    ll ans=1e18;
+    for(;r<s.size();r++){
+        cnt[s[r]-48]++;
+        while(cnt[s[l]-48]>1){
+            cnt[s[l]-48]--;
+            l++;
+        }
+        if(cnt[1]>=1&&cnt[2]>=1&&cnt[3]>=1) ans=min(ans,r-l+1);
+        
+        // cerr<<r<<":"<<cnt[1]<<" "<<cnt[2]<<" "<<cnt[3]<<" "<<l<<" "<<r<<el;
+    }
+    // if(cnt[1]>=1&&cnt[2]>=1&&cnt[3]>=1) ans=min(ans,r-l+1);
+    if(ans==1e18) cout<<0<<el;
+    else cout<<ans<<el;
+}
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    //freopen("xxx.in","r",stdin);
+    //freopen("xxx.out","w",stdout);
+    ll T=1;
+    cin>>T;
+    while(T--){
+        solve();
+    }
+    return 0;
+}

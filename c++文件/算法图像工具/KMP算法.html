@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KMP 算法可视化 | C++ 字符串匹配学习工具</title>
+<style>
+:root{
+    --ink:#202124;
+    --cream:#fffdf5;
+    --white:#fff;
+    --sky:#8bd3ff;
+    --blue:#2672ff;
+    --mint:#83e6b2;
+    --green:#168a58;
+    --sun:#ffd45a;
+    --orange:#ff8c42;
+    --pink:#ff87b2;
+    --red:#e83f5b;
+    --purple:#8b5cf6;
+    --muted:#667085;
+    --shadow:6px 6px 0 var(--ink);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+    margin:0;
+    min-height:100vh;
+    color:var(--ink);
+    background:
+        radial-gradient(circle at 16px 16px,rgba(32,33,36,.08) 2px,transparent 3px) 0 0/34px 34px,
+        linear-gradient(135deg,#fff4bf 0%,#ffe6ef 46%,#d8f4ff 100%);
+    font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;
+    overflow-x:hidden;
+}
+button,input{font:inherit}
+button:focus-visible,input:focus-visible{outline:4px solid rgba(38,114,255,.35);outline-offset:2px}
+.page{max-width:1380px;margin:0 auto;padding:24px}
+.hero{
+    position:relative;
+    overflow:hidden;
+    min-height:184px;
+    padding:28px;
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:linear-gradient(120deg,#fffdf4 0%,#ffe680 48%,#7bd8ff 100%);
+    box-shadow:var(--shadow);
+}
+.hero:before,.hero:after{content:"";position:absolute;border:4px solid var(--ink);background:rgba(255,255,255,.58)}
+.hero:before{width:132px;height:132px;border-radius:50%;right:112px;top:-48px}
+.hero:after{width:124px;height:72px;border-radius:8px;right:20px;bottom:17px;transform:rotate(8deg)}
+.hero-content{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:end}
+h1{margin:0 0 10px;font-size:clamp(36px,5vw,64px);line-height:1;letter-spacing:0}
+.subtitle{max-width:900px;margin:0;font-size:18px;line-height:1.7;font-weight:800}
+.badge{min-width:166px;padding:12px 16px;border:4px solid var(--ink);border-radius:8px;background:#fff;box-shadow:4px 4px 0 var(--ink);font-weight:900;text-align:center}
+.badge small{display:block;margin-top:4px;color:#555;font-weight:800}
+.roadmap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:22px}
+.road-step{display:grid;grid-template-columns:38px 1fr;gap:9px;align-items:center;padding:12px;border:3px solid var(--ink);border-radius:8px;background:#fff;box-shadow:3px 3px 0 var(--ink);font-weight:900}
+.road-step:nth-child(1){background:#fff3b8}.road-step:nth-child(2){background:#dcf3ff}.road-step:nth-child(3){background:#e1f7eb}.road-step:nth-child(4){background:#ffe1eb}
+.road-num{width:36px;height:36px;display:grid;place-items:center;border:3px solid var(--ink);border-radius:50%;background:#fff}
+.learn-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:24px}
+.panel{min-width:0;max-width:100%;border:4px solid var(--ink);border-radius:8px;background:var(--cream);box-shadow:var(--shadow)}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border-bottom:4px solid var(--ink);background:var(--sun)}
+.panel-head.blue{background:var(--sky)}.panel-head.green{background:var(--mint)}.panel-head.pink{background:#ffc3d8}.panel-head.purple{background:#d9c9ff}
+.panel-head h2,.panel-head h3{margin:0;font-size:20px}.panel-body{padding:16px}
+.concept{line-height:1.75;font-weight:700}.concept p{margin:0 0 10px}.concept p:last-child{margin-bottom:0}
+.math{font-family:Consolas,"Courier New",monospace;font-weight:900;overflow-wrap:anywhere}
+.key-box{padding:10px 12px;border:3px solid var(--ink);border-radius:8px;background:#fff;font-weight:900;text-align:center}
+.prefix-demo{display:grid;gap:9px;margin-top:10px}
+.word-row{display:flex;justify-content:center;gap:5px;flex-wrap:wrap}
+.mini-char{width:38px;height:38px;display:grid;place-items:center;border:3px solid var(--ink);border-radius:6px;background:#fff;font-family:Consolas,monospace;font-weight:900}
+.mini-char.prefix{background:var(--sky)}.mini-char.suffix{background:var(--pink)}
+.arrow-note{text-align:center;font-size:14px;font-weight:900;color:#555}
+.workspace{display:grid;grid-template-columns:340px minmax(0,1fr);gap:22px;margin-top:24px;align-items:start}
+.controls{display:grid;gap:14px}
+.field label{display:block;margin-bottom:6px;font-size:14px;font-weight:900}
+.field input[type="text"]{width:100%;padding:10px 12px;border:3px solid var(--ink);border-radius:8px;background:#fff;box-shadow:3px 3px 0 var(--ink);font-family:Consolas,"Microsoft YaHei",monospace;font-weight:900;text-transform:uppercase}
+.mode-group{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.button{
+    min-height:44px;padding:8px 11px;border:3px solid var(--ink);border-radius:8px;background:#fff;box-shadow:3px 3px 0 var(--ink);
+    color:var(--ink);font-weight:900;cursor:pointer;transition:transform .12s ease,box-shadow .12s ease,filter .12s ease;
+}
+.button.primary{background:var(--blue);color:#fff}.button.orange{background:var(--orange);color:#fff}.button.green{background:var(--green);color:#fff}.button.pink{background:var(--pink)}.button.purple{background:var(--purple);color:#fff}
+.button.selected{background:var(--ink);color:#fff}.button:hover:not(:disabled){transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
+.button:active:not(:disabled){transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}.button:disabled{cursor:not-allowed;filter:grayscale(.45);opacity:.52}
+.button-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.button.wide{grid-column:1/-1}
+.speed-box{padding:11px;border:3px solid var(--ink);border-radius:8px;background:#fff}
+.speed-top{display:flex;justify-content:space-between;gap:10px;margin-bottom:8px;font-size:14px;font-weight:900}.speed-box input{width:100%;accent-color:var(--blue)}
+.notice{padding:12px;border:3px solid var(--ink);border-radius:8px;background:#fff;font-size:14px;line-height:1.65;font-weight:750}.notice.bad{background:#ffe1e6;color:#981a31}.notice.ok{background:#dff7e9;color:#11663f}
+.progress-shell{height:18px;border:3px solid var(--ink);border-radius:8px;background:#fff;overflow:hidden}.progress-bar{height:100%;width:0;background:var(--blue);transition:width .25s ease}.progress-text{text-align:center;font-size:14px;font-weight:900;margin-top:5px}
+.main-stack{display:grid;gap:20px;min-width:0}
+.task-layout{display:grid;grid-template-columns:58px minmax(0,1fr) auto;gap:14px;align-items:start}
+.step-bubble{width:56px;height:56px;display:grid;place-items:center;border:4px solid var(--ink);border-radius:50%;background:var(--sun);box-shadow:3px 3px 0 var(--ink);font-size:21px;font-weight:900}
+.task-kicker{font-size:13px;font-weight:900;color:var(--blue);margin-bottom:4px}.task-title{font-size:22px;line-height:1.35;font-weight:900}.task-desc{margin-top:7px;color:#444;line-height:1.7;font-weight:750}
+.phase-chip{padding:8px 10px;border:3px solid var(--ink);border-radius:8px;background:#fff;font-weight:900;white-space:nowrap}
+.visual-board{display:grid;gap:18px;min-height:360px}
+.visual-section{min-width:0}.visual-title{display:flex;justify-content:space-between;gap:10px;margin-bottom:7px;font-size:14px;font-weight:900;color:#555}
+.tape-scroll{max-width:100%;padding:10px 8px 15px;overflow-x:auto;border:3px dashed rgba(32,33,36,.38);border-radius:8px;background:rgba(255,255,255,.64)}
+.tape{position:relative;display:grid;grid-auto-flow:row;grid-template-columns:repeat(var(--cols),58px);grid-template-rows:24px 58px 25px;gap:0;width:max-content;min-width:100%;justify-content:start;padding:0 12px}
+.index-cell,.pointer-cell{display:grid;place-items:center;font-family:Consolas,monospace;font-size:12px;font-weight:900;color:#666}.pointer-cell{font-size:13px;color:var(--ink)}
+.char-cell{position:relative;width:58px;height:58px;display:grid;place-items:center;border:3px solid var(--ink);border-right:0;background:#fff;font-family:Consolas,"Microsoft YaHei",monospace;font-size:24px;font-weight:900}
+.char-cell.last{border-right:3px solid var(--ink)}.char-cell.compare{background:var(--sun)}.char-cell.same{background:var(--mint)}.char-cell.mismatch{background:#ffb5c4}.char-cell.past{background:#e7f7ee;color:#16613f}.char-cell.dim{opacity:.42}
+.char-cell:after{content:attr(data-label);position:absolute;right:2px;top:1px;font-family:"Microsoft YaHei",sans-serif;font-size:10px;color:#555}
+.align-stage{position:relative;min-width:max-content;padding:7px 12px 12px}
+.align-row{display:grid;grid-auto-flow:row;grid-template-columns:repeat(var(--cols),58px);grid-template-rows:22px 58px 23px;width:max-content}
+.pattern-offset{height:103px}.pattern-row{display:grid;grid-auto-flow:row;grid-template-columns:repeat(var(--cols),58px);grid-template-rows:22px 58px 23px;width:max-content;transition:margin-left .25s ease}
+.empty-cell{width:58px}.next-strip{display:grid;grid-auto-flow:column;grid-auto-columns:58px;width:max-content;padding:0 12px}
+.next-pair{display:grid;grid-template-rows:28px 44px;border-left:2px solid var(--ink)}.next-pair:last-child{border-right:2px solid var(--ink)}
+.next-pair span{display:grid;place-items:center;border-top:2px solid var(--ink);font-family:Consolas,monospace;font-size:13px;font-weight:900}.next-pair strong{display:grid;place-items:center;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);background:#fff;font-family:Consolas,monospace;font-size:18px}.next-pair.active strong{background:var(--sun)}.next-pair.known strong{background:#dff7e9}.next-pair.unknown strong{color:#aaa}
+.manual-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.action-button{min-height:58px;text-align:left;line-height:1.35}.action-button small{display:block;margin-top:3px;font-weight:700;opacity:.82}
+.practice-tools{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}.practice-tools .button{min-height:38px}.action-button.recommended{background:var(--sun);box-shadow:5px 5px 0 var(--ink)}
+.feedback{min-height:58px;padding:11px 13px;border:3px solid var(--ink);border-radius:8px;background:#fff;line-height:1.6;font-weight:800}.feedback.ok{background:#dff7e9;color:#11663f}.feedback.bad{background:#ffe1e6;color:#981a31}.feedback.info{background:#e3f4ff;color:#174e77}
+.state-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.state-card{padding:10px;border:3px solid var(--ink);border-radius:8px;background:#fff;text-align:center}.state-card span{display:block;color:#555;font-size:12px;font-weight:900}.state-card strong{display:block;margin-top:3px;font-family:Consolas,monospace;font-size:20px;overflow-wrap:anywhere}
+.explain-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;margin-top:24px}.logic-flow{display:grid;gap:10px}.logic-item{display:grid;grid-template-columns:42px 1fr;gap:10px;align-items:start}.logic-num{width:40px;height:40px;display:grid;place-items:center;border:3px solid var(--ink);border-radius:50%;background:var(--pink);font-weight:900}.logic-item h3{margin:0 0 4px;font-size:16px}.logic-item p{margin:0;line-height:1.65;font-weight:700;color:#444}
+.prefix-geometry{display:grid;gap:12px}.geometry-line{padding:12px;border:3px solid var(--ink);border-radius:8px;background:#fff}.geometry-label{display:flex;justify-content:space-between;gap:8px;margin-bottom:7px;font-size:13px;font-weight:900}.ribbon{display:flex;min-height:48px}.ribbon-piece{min-width:38px;display:grid;place-items:center;border:3px solid var(--ink);border-right:0;background:#fff;font-family:Consolas,monospace;font-weight:900}.ribbon-piece:last-child{border-right:3px solid var(--ink)}.ribbon-piece.prefix{background:var(--sky)}.ribbon-piece.suffix{background:var(--pink)}.ribbon-piece.middle{background:#eee;color:#777}
+.code-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);gap:16px}.code-box{max-width:100%;margin:0;padding:14px;overflow-x:auto;border:4px solid var(--ink);border-radius:8px;background:#202124;color:#f8f8f2}.code-line{display:block;min-width:max-content;padding:3px 8px;border-left:5px solid transparent;font-family:Consolas,"Courier New",monospace;line-height:1.55;white-space:pre}.code-line.highlight{background:#604c00;border-left-color:#ffd45a;color:#fff}.line-no{display:inline-block;width:30px;color:#9aa0a6;user-select:none}
+.code-note{padding:14px;border:3px solid var(--ink);border-radius:8px;background:#fff;line-height:1.72;font-weight:700}.code-note h3{margin:0 0 9px}.complexity{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}.complexity div{padding:9px;border:3px solid var(--ink);border-radius:8px;text-align:center;font-weight:900}.complexity div:first-child{background:#dff7e9}.complexity div:last-child{background:#e3f4ff}
+.log-list{display:grid;gap:8px;max-height:250px;overflow-y:auto}.log-item{display:grid;grid-template-columns:auto 1fr;gap:9px;padding:8px 10px;border-left:5px solid var(--blue);background:#fff;font-size:14px;line-height:1.5;font-weight:750}.log-item strong{color:var(--blue)}
+.match-list{display:flex;gap:9px;flex-wrap:wrap}.match-chip{padding:7px 10px;border:3px solid var(--ink);border-radius:8px;background:var(--mint);font-family:Consolas,monospace;font-weight:900}.empty-note{color:#777;font-weight:750}
+.footer-note{text-align:center;margin:22px 0 6px;color:#555;font-size:14px;font-weight:800}
+@media(max-width:1040px){.learn-grid{grid-template-columns:1fr}.workspace{grid-template-columns:minmax(0,1fr)}.controls{grid-template-columns:repeat(2,minmax(0,1fr))}.controls>.progress-area,.controls>.notice{grid-column:1/-1}.explain-grid,.code-layout{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:720px){.page{padding:14px}.hero{padding:20px;min-height:0}.hero-content{grid-template-columns:1fr}.badge{justify-self:start}.roadmap{grid-template-columns:1fr 1fr}.controls{grid-template-columns:minmax(0,1fr)}.controls>.progress-area,.controls>.notice{grid-column:auto}.task-layout{grid-template-columns:50px minmax(0,1fr)}.phase-chip{grid-column:1/-1}.step-bubble{width:48px;height:48px}.manual-actions,.state-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.tape,.align-row,.pattern-row{grid-template-columns:repeat(var(--cols),50px)}.next-strip{grid-auto-columns:50px}.char-cell,.empty-cell{width:50px}.char-cell{height:52px}.pattern-offset{height:97px}.tape{grid-template-rows:22px 52px 23px}.align-row,.pattern-row{grid-template-rows:22px 52px 23px}}
+@media(max-width:430px){.roadmap,.manual-actions,.state-grid,.complexity{grid-template-columns:minmax(0,1fr)}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="page">
+    <header class="hero">
+        <div class="hero-content">
+            <div>
+                <h1>KMP 字符串匹配</h1>
+                <p class="subtitle">从暴力匹配为什么浪费开始，理解前缀、后缀和 next 数组，再亲手完成每一次比较与回退。目标不是背公式，而是看懂“主串指针为什么不用后退”。</p>
+            </div>
+            <div class="badge">KMP Algorithm<small>KMP 算法</small></div>
+        </div>
+    </header>
+
+    <section class="roadmap" aria-label="学习路线">
+        <div class="road-step"><div class="road-num">1</div><div>认识匹配问题</div></div>
+        <div class="road-step"><div class="road-num">2</div><div>理解真前后缀</div></div>
+        <div class="road-step"><div class="road-num">3</div><div>构造 next 数组</div></div>
+        <div class="road-step"><div class="road-num">4</div><div>完成 KMP 匹配</div></div>
+    </section>
+
+    <section class="learn-grid">
+        <article class="panel">
+            <div class="panel-head"><h2>0. 要解决什么？</h2></div>
+            <div class="panel-body concept">
+                <p>在主串 <span class="math">text</span> 中寻找模式串 <span class="math">pattern</span> 出现的位置。例如在 <span class="math">ABABABC</span> 中寻找 <span class="math">ABABC</span>。</p>
+                <div class="key-box">暴力：失配后，模式串只右移 1 格并重新比较</div>
+                <p>已经匹配过的字符往往包含有用信息。KMP 利用这些信息，让主串下标 <span class="math">i</span> 始终不回退。</p>
+            </div>
+        </article>
+        <article class="panel">
+            <div class="panel-head blue"><h2>1. 什么是真前后缀？</h2></div>
+            <div class="panel-body concept">
+                <p>对字符串 <span class="math">ABAB</span>，前缀 <span class="math">AB</span> 与后缀 <span class="math">AB</span> 相等，长度为 2。</p>
+                <div class="prefix-demo">
+                    <div class="word-row"><span class="mini-char prefix">A</span><span class="mini-char prefix">B</span><span class="mini-char">A</span><span class="mini-char">B</span></div>
+                    <div class="arrow-note">前缀 AB</div>
+                    <div class="word-row"><span class="mini-char">A</span><span class="mini-char">B</span><span class="mini-char suffix">A</span><span class="mini-char suffix">B</span></div>
+                    <div class="arrow-note">后缀 AB</div>
+                </div>
+                <p>“真”表示不能取整个字符串自身。</p>
+            </div>
+        </article>
+        <article class="panel">
+            <div class="panel-head green"><h2>2. next[i] 记什么？</h2></div>
+            <div class="panel-body concept">
+                <p>本页面采用：</p>
+                <div class="key-box math">next[i] = pattern[0..i] 的最长相等真前后缀长度</div>
+                <p>若已经匹配了 <span class="math">j</span> 个字符却失配，就令 <span class="math">j = next[j-1]</span>，把可复用的后缀对齐到模式串前缀。</p>
+                <p><strong>注意：</strong>有些教材把这个数组叫 <span class="math">pi</span>，或使用以 <span class="math">-1</span> 开头的 next。定义不同，代码写法也会不同。</p>
+            </div>
+        </article>
+    </section>
+
+    <section class="workspace">
+        <aside class="panel">
+            <div class="panel-head"><h2>演示控制台</h2></div>
+            <div class="panel-body controls">
+                <div class="field">
+                    <label for="textInput">主串 text</label>
+                    <input id="textInput" type="text" maxlength="28" value="ABABDABACDABABCABAB" autocomplete="off" spellcheck="false">
+                </div>
+                <div class="field">
+                    <label for="patternInput">模式串 pattern</label>
+                    <input id="patternInput" type="text" maxlength="14" value="ABABCABAB" autocomplete="off" spellcheck="false">
+                </div>
+                <button class="button primary" id="buildBtn" type="button">生成完整演示</button>
+                <button class="button purple" id="searchOnlyBtn" type="button">直接练习匹配</button>
+                <div>
+                    <div style="font-size:14px;font-weight:900;margin-bottom:7px">操作模式</div>
+                    <div class="mode-group">
+                        <button class="button selected" id="demoModeBtn" type="button">演示模式</button>
+                        <button class="button" id="manualModeBtn" type="button">手动练习</button>
+                    </div>
+                </div>
+                <div class="speed-box">
+                    <div class="speed-top"><span>自动演示速度</span><strong id="speedText">1.0 秒/步</strong></div>
+                    <input id="speedRange" type="range" min="250" max="2500" step="250" value="1000" aria-label="自动演示每步间隔">
+                </div>
+                <div class="button-grid">
+                    <button class="button" id="prevBtn" type="button">上一步</button>
+                    <button class="button orange" id="nextBtn" type="button">演示下一步</button>
+                    <button class="button green" id="autoBtn" type="button">自动演示</button>
+                    <button class="button pink" id="resetBtn" type="button">回到开头</button>
+                </div>
+                <div class="progress-area">
+                    <div class="progress-shell"><div class="progress-bar" id="progressBar"></div></div>
+                    <div class="progress-text" id="progressText">已执行 0 步</div>
+                </div>
+                <div class="notice" id="inputNotice">可以输入英文字母、数字或汉字。空格会被移除，英文字母自动转为大写。</div>
+            </div>
+        </aside>
+
+        <div class="main-stack">
+            <section class="panel">
+                <div class="panel-head blue"><h2>当前任务</h2><span id="modeLabel">演示模式</span></div>
+                <div class="panel-body task-layout">
+                    <div class="step-bubble" id="stepBubble">0</div>
+                    <div>
+                        <div class="task-kicker" id="taskKicker">准备构造 next 数组</div>
+                        <div class="task-title" id="taskTitle"></div>
+                        <div class="task-desc" id="taskDesc"></div>
+                    </div>
+                    <div class="phase-chip" id="phaseChip">构造 next[]</div>
+                </div>
+            </section>
+
+            <section class="panel">
+                <div class="panel-head green"><h2>字符串对齐视图</h2><span>黄色格是当前比较位置</span></div>
+                <div class="panel-body visual-board">
+                    <div id="visualArea"></div>
+                    <div class="visual-section">
+                        <div class="visual-title"><span>next 数组</span><span id="nextMeaning">最长相等真前后缀长度</span></div>
+                        <div class="tape-scroll"><div class="next-strip" id="nextStrip"></div></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="panel" id="manualPanel">
+                <div class="panel-head pink"><h2>由你决定下一步</h2><span>选错不会改变状态</span></div>
+                <div class="panel-body">
+                    <div class="manual-actions">
+                        <button class="button action-button" data-action="equal" type="button">两个字符相等<small>接受当前字符，j++</small></button>
+                        <button class="button action-button" data-action="fallback" type="button">失配，使用 next 回退<small>i 不动，j = next[j-1]</small></button>
+                        <button class="button action-button" data-action="advance" type="button">失配且无法再回退<small>确定 next 为 0，或主串 i++</small></button>
+                        <button class="button action-button" data-action="record" type="button">记录一次完整匹配<small>保存起点，再继续寻找</small></button>
+                    </div>
+                    <div class="practice-tools">
+                        <button class="button" id="hintBtn" type="button">提示</button>
+                        <button class="button purple" id="answerBtn" type="button">显示正确操作</button>
+                    </div>
+                    <div class="feedback info" id="feedback" style="margin-top:12px">切换到“手动练习”，观察黄色字符后选择正确操作。</div>
+                </div>
+            </section>
+
+            <section class="state-grid" aria-label="算法状态">
+                <div class="state-card"><span>主串下标 i</span><strong id="stateI">—</strong></div>
+                <div class="state-card"><span>模式串下标 j</span><strong id="stateJ">0</strong></div>
+                <div class="state-card"><span>当前已匹配长度</span><strong id="stateLen">0</strong></div>
+                <div class="state-card"><span>已找到次数</span><strong id="stateCount">0</strong></div>
+            </section>
+
+            <section class="panel">
+                <div class="panel-head purple"><h2>已找到的匹配位置</h2><span>下标从 0 开始</span></div>
+                <div class="panel-body"><div class="match-list" id="matchList"></div></div>
+            </section>
+        </div>
+    </section>
+
+    <section class="explain-grid">
+        <section class="panel">
+            <div class="panel-head blue"><h2>失配时为什么可以直接跳？</h2></div>
+            <div class="panel-body logic-flow">
+                <div class="logic-item"><div class="logic-num">1</div><div><h3>已经匹配 pattern[0..j-1]</h3><p>这段内容与主串刚刚经过的 j 个字符完全相同。</p></div></div>
+                <div class="logic-item"><div class="logic-num">2</div><div><h3>寻找这段内容的最长相等前后缀</h3><p>长度就是 <span class="math">next[j-1]</span>。已匹配部分末尾的后缀，等于模式串开头的前缀。</p></div></div>
+                <div class="logic-item"><div class="logic-num">3</div><div><h3>保留一定正确的部分</h3><p>令 <span class="math">j=next[j-1]</span>，只移动模式串；主串字符还没判断完，所以 <span class="math">i</span> 不动。</p></div></div>
+                <div class="logic-item"><div class="logic-num">4</div><div><h3>因此每个指针只向前或沿 next 回退</h3><p>构造 next 是 <span class="math">O(m)</span>，匹配是 <span class="math">O(n)</span>，总复杂度为 <span class="math">O(n+m)</span>。</p></div></div>
+            </div>
+        </section>
+        <section class="panel">
+            <div class="panel-head green"><h2>当前前缀与后缀</h2></div>
+            <div class="panel-body prefix-geometry" id="prefixGeometry"></div>
+        </section>
+    </section>
+
+    <section class="panel" style="margin-top:24px">
+        <div class="panel-head pink"><h2>C++ 核心代码同步</h2><span>使用 next[0] = 0 的版本</span></div>
+        <div class="panel-body code-layout">
+            <pre class="code-box" aria-label="KMP C++ 核心代码"><code><span class="code-line" data-code="next-init"><span class="line-no">1</span>vector&lt;int&gt; buildNext(const string &amp;p) {</span><span class="code-line" data-code="next-init"><span class="line-no">2</span>    vector&lt;int&gt; nxt(p.size(), 0);</span><span class="code-line" data-code="next-loop"><span class="line-no">3</span>    for (int i = 1, j = 0; i &lt; p.size(); i++) {</span><span class="code-line" data-code="next-fallback"><span class="line-no">4</span>        while (j &gt; 0 &amp;&amp; p[i] != p[j])</span><span class="code-line" data-code="next-fallback"><span class="line-no">5</span>            j = nxt[j - 1];</span><span class="code-line" data-code="next-equal"><span class="line-no">6</span>        if (p[i] == p[j]) j++;</span><span class="code-line" data-code="next-record"><span class="line-no">7</span>        nxt[i] = j;</span><span class="code-line" data-code="next-init"><span class="line-no">8</span>    }</span><span class="code-line" data-code="next-init"><span class="line-no">9</span>    return nxt;</span><span class="code-line"><span class="line-no">10</span>}</span><span class="code-line"><span class="line-no">11</span></span><span class="code-line" data-code="search-init"><span class="line-no">12</span>vector&lt;int&gt; kmp(const string &amp;s, const string &amp;p) {</span><span class="code-line" data-code="search-init"><span class="line-no">13</span>    vector&lt;int&gt; nxt = buildNext(p), ans;</span><span class="code-line" data-code="search-loop"><span class="line-no">14</span>    for (int i = 0, j = 0; i &lt; s.size(); i++) {</span><span class="code-line" data-code="search-fallback"><span class="line-no">15</span>        while (j &gt; 0 &amp;&amp; s[i] != p[j])</span><span class="code-line" data-code="search-fallback"><span class="line-no">16</span>            j = nxt[j - 1];</span><span class="code-line" data-code="search-equal"><span class="line-no">17</span>        if (s[i] == p[j]) j++;</span><span class="code-line" data-code="search-record"><span class="line-no">18</span>        if (j == p.size()) {</span><span class="code-line" data-code="search-record"><span class="line-no">19</span>            ans.push_back(i - j + 1);</span><span class="code-line" data-code="search-record"><span class="line-no">20</span>            j = nxt[j - 1];</span><span class="code-line" data-code="search-record"><span class="line-no">21</span>        }</span><span class="code-line" data-code="search-init"><span class="line-no">22</span>    }</span><span class="code-line" data-code="finish"><span class="line-no">23</span>    return ans;</span><span class="code-line"><span class="line-no">24</span>}</span></code></pre>
+            <div class="code-note">
+                <h3 id="codeNoteTitle">先构造 next 数组</h3>
+                <div id="codeNoteText">变量 <span class="math">j</span> 同时表示“准备比较的模式串下标”和“当前已匹配的长度”。当相等时执行 <span class="math">j++</span>，再记录 <span class="math">next[i]=j</span>。</div>
+                <div class="complexity"><div>构造 next：O(m)</div><div>匹配主串：O(n)</div></div>
+                <hr style="border:0;border-top:3px dashed rgba(32,33,36,.3);margin:14px 0">
+                <strong>一定要记住：</strong>
+                <p>失配时不是把 <span class="math">i</span> 拉回去，而是不断缩短当前可复用的前缀长度 <span class="math">j</span>。同一个主串字符可能与模式串中的不同位置比较多次。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="panel" style="margin-top:24px">
+        <div class="panel-head green"><h2>操作日志</h2><span>最近一步显示在最上方</span></div>
+        <div class="panel-body"><div class="log-list" id="logList"></div></div>
+    </section>
+    <p class="footer-note">建议先用演示模式看一遍，再回到开头切换手动练习；遇到失配时，先问自己“已经匹配的部分还能保留多长”。</p>
+</main>
+
+<script>
+"use strict";
+
+const dom={
+ textInput:document.getElementById("textInput"),patternInput:document.getElementById("patternInput"),buildBtn:document.getElementById("buildBtn"),searchOnlyBtn:document.getElementById("searchOnlyBtn"),
+ demoModeBtn:document.getElementById("demoModeBtn"),manualModeBtn:document.getElementById("manualModeBtn"),speedRange:document.getElementById("speedRange"),speedText:document.getElementById("speedText"),
+ prevBtn:document.getElementById("prevBtn"),nextBtn:document.getElementById("nextBtn"),autoBtn:document.getElementById("autoBtn"),resetBtn:document.getElementById("resetBtn"),progressBar:document.getElementById("progressBar"),progressText:document.getElementById("progressText"),inputNotice:document.getElementById("inputNotice"),
+ modeLabel:document.getElementById("modeLabel"),stepBubble:document.getElementById("stepBubble"),taskKicker:document.getElementById("taskKicker"),taskTitle:document.getElementById("taskTitle"),taskDesc:document.getElementById("taskDesc"),phaseChip:document.getElementById("phaseChip"),
+ visualArea:document.getElementById("visualArea"),nextStrip:document.getElementById("nextStrip"),nextMeaning:document.getElementById("nextMeaning"),manualPanel:document.getElementById("manualPanel"),actionButtons:[...document.querySelectorAll("[data-action]")],hintBtn:document.getElementById("hintBtn"),answerBtn:document.getElementById("answerBtn"),feedback:document.getElementById("feedback"),
+ stateI:document.getElementById("stateI"),stateJ:document.getElementById("stateJ"),stateLen:document.getElementById("stateLen"),stateCount:document.getElementById("stateCount"),matchList:document.getElementById("matchList"),prefixGeometry:document.getElementById("prefixGeometry"),codeLines:[...document.querySelectorAll(".code-line")],codeNoteTitle:document.getElementById("codeNoteTitle"),codeNoteText:document.getElementById("codeNoteText"),logList:document.getElementById("logList")
+};
+
+let state=null;
+let initialState=null;
+let history=[];
+let mode="demo";
+let autoTimer=null;
+let feedback={type:"info",text:"观察黄色字符，思考下一步应该执行哪一种操作。"};
+let answerVisible=false;
+
+function clean(value,max=28){return [...value.replace(/\s+/g,"").toUpperCase()].slice(0,max).join("");}
+function clone(value){return JSON.parse(JSON.stringify(value));}
+function fullNext(pattern){
+ const nxt=Array(pattern.length).fill(0);
+ for(let i=1,j=0;i<pattern.length;i++){
+  while(j>0&&pattern[i]!==pattern[j])j=nxt[j-1];
+  if(pattern[i]===pattern[j])j++;
+  nxt[i]=j;
+ }
+ return nxt;
+}
+function makeState(text,pattern,searchOnly=false){
+ const nxt=Array(pattern.length).fill(null);nxt[0]=0;
+ return {text,pattern,next:searchOnly?fullNext(pattern):nxt,phase:searchOnly?"search":"next",nextI:1,nextJ:0,textI:0,matchJ:0,awaitRecord:false,matches:[],done:false,steps:0,logs:searchOnly?["已直接生成 next 数组，开始匹配主串。"]:["next[0] = 0：单个字符没有非空真前后缀。"]};
+}
+function validateInputs(){
+ const text=clean(dom.textInput.value,28),pattern=clean(dom.patternInput.value,14);
+ dom.textInput.value=text;dom.patternInput.value=pattern;
+ if(!text||!pattern){setNotice("主串和模式串都不能为空。","bad");return null;}
+ if(pattern.length>text.length){setNotice("模式串比主串长，算法仍可运行，但结果一定为空。","bad");}
+ else setNotice(`已载入：主串长度 n=${text.length}，模式串长度 m=${pattern.length}。`,"ok");
+ return{text,pattern};
+}
+function setNotice(text,type=""){dom.inputNotice.textContent=text;dom.inputNotice.className=`notice ${type}`;}
+function build(searchOnly=false){
+ stopAuto();const values=validateInputs();if(!values)return;
+ state=makeState(values.text,values.pattern,searchOnly);initialState=clone(state);history=[];answerVisible=false;feedback={type:"info",text:searchOnly?"next 数组已经生成。现在从 text[0] 与 pattern[0] 开始比较。":"先从 i=1、j=0 开始构造 next 数组。"};if(mode==="manual")settleManualTransitions();render();
+}
+function expectedAction(){
+ if(state.done)return null;
+ const p=state.pattern,s=state.text;
+ if(state.phase==="next"){
+  if(state.nextI>=p.length)return{kind:"beginSearch"};
+  if(p[state.nextI]===p[state.nextJ])return{kind:"equal"};
+  if(state.nextJ>0)return{kind:"fallback"};
+  return{kind:"advance"};
+ }
+ if(state.awaitRecord)return{kind:"record"};
+ if(state.textI>=s.length)return{kind:"finish"};
+ if(s[state.textI]===p[state.matchJ])return{kind:"equal"};
+ if(state.matchJ>0)return{kind:"fallback"};
+ return{kind:"advance"};
+}
+function actionName(kind){return({equal:"两个字符相等",fallback:"失配，使用 next 回退",advance:"失配且无法再回退",record:"记录一次完整匹配",beginSearch:"进入主串匹配",finish:"结束算法"})[kind]||kind;}
+function perform(kind,fromManual=false){
+ const expected=expectedAction();if(!expected)return;
+ if(kind!==expected.kind){
+  feedback={type:"bad",text:wrongHint(expected.kind)};renderFeedback();return;
+ }
+ history.push(clone(state));answerVisible=false;
+ const p=state.pattern,s=state.text;
+ let log="";
+ if(kind==="beginSearch"){
+  state.phase="search";state.textI=0;state.matchJ=0;log="next 数组构造完成，进入主串匹配阶段。";
+ }else if(kind==="finish"){
+  state.done=true;state.phase="done";log=`主串检查完成，共找到 ${state.matches.length} 次匹配。`;
+ }else if(state.phase==="next"){
+  const i=state.nextI,j=state.nextJ;
+  if(kind==="equal"){
+   state.nextJ++;state.next[i]=state.nextJ;log=`pattern[${i}]='${p[i]}' 与 pattern[${j}]='${p[j]}' 相等，j++，next[${i}]=${state.nextJ}。`;state.nextI++;
+  }else if(kind==="fallback"){
+   const old=state.nextJ;state.nextJ=state.next[old-1];log=`字符失配，j 从 ${old} 回退到 next[${old-1}]=${state.nextJ}，i=${i} 保持不动。`;
+  }else{
+   state.next[i]=0;log=`字符失配且 j=0，next[${i}]=0，i 继续向右。`;state.nextI++;
+  }
+ }else{
+  const i=state.textI,j=state.matchJ;
+  if(kind==="equal"){
+   log=`text[${i}]='${s[i]}' 与 pattern[${j}]='${p[j]}' 相等，i、j 同时右移。`;state.textI++;state.matchJ++;if(state.matchJ===p.length)state.awaitRecord=true;
+  }else if(kind==="fallback"){
+   const old=state.matchJ;state.matchJ=state.next[old-1];log=`text[${i}]='${s[i]}' 与 pattern[${j}]='${p[j]}' 失配，j=${old} → next[${old-1}]=${state.matchJ}，主串 i 不动。`;
+  }else if(kind==="advance"){
+   log=`text[${i}]='${s[i]}' 与 pattern[0]='${p[0]}' 失配，j 已为 0，只让主串 i 右移。`;state.textI++;
+  }else if(kind==="record"){
+   const pos=state.textI-p.length;state.matches.push(pos);const old=state.matchJ;state.matchJ=state.next[old-1];state.awaitRecord=false;log=`找到完整匹配，起点为 ${pos}；为寻找重叠匹配，j 回退到 next[${old-1}]=${state.matchJ}。`;
+  }
+ }
+ state.steps++;state.logs.unshift(log);feedback={type:"ok",text:fromManual?`正确：${log}`:log};if(fromManual)settleManualTransitions();render();
+ if(autoTimer)scheduleAuto();
+}
+function wrongHint(expected){
+ if(expected==="equal")return"再看一次两个黄色字符：它们相等，此时应接受这个字符并让 j 增加。";
+ if(expected==="fallback")return"字符确实不同，但 j 还大于 0，说明已匹配部分仍可能复用；主串指针先不要右移。";
+ if(expected==="advance")return state.phase==="next"?"字符不同且 j 已经是 0，这个位置的 next 值只能是 0。":"字符不同且 j 已经是 0，模式串无法再缩短，只能让主串指针继续右移。";
+ if(expected==="record")return"j 已经等于模式串长度，说明完整匹配刚刚发生，应先记录匹配起点。";
+ return"当前阶段需要先完成系统提示的过渡操作。";
+}
+function settleManualTransitions(){
+ if(state.phase==="next"&&state.nextI>=state.pattern.length){state.phase="search";state.textI=0;state.matchJ=0;state.logs.unshift("next 数组构造完成，系统自动进入主串匹配阶段。");}
+ if(state.phase==="search"&&!state.awaitRecord&&state.textI>=state.text.length){state.done=true;state.phase="done";state.logs.unshift(`主串检查完成，共找到 ${state.matches.length} 次匹配。`);}
+}
+function showHint(){
+ if(mode!=="manual"||state.done)return;
+ const kind=expectedAction()?.kind;
+ const hints={equal:"先比较两个黄色字符是否完全相同。相同就不需要查看 next。",fallback:"当前字符不同。再看 j 是否大于 0：大于 0 代表已有匹配部分还可能复用。",advance:"当前字符不同，并且 j 已经无法继续缩短。",record:"模式串的每个字符都已经匹配，应先保存这次匹配的位置。"};
+ feedback={type:"info",text:hints[kind]||"当前阶段会由系统自动过渡。"};renderFeedback();
+}
+function showAnswer(){
+ if(mode!=="manual"||state.done)return;
+ const expected=expectedAction();if(!expected)return;answerVisible=true;feedback={type:"info",text:`正确操作是：“${actionName(expected.kind)}”。观察状态后再亲自点击。`};renderFeedback();renderControls();
+}
+function demoNext(){stopAuto();const e=expectedAction();if(e)perform(e.kind);}
+function back(){stopAuto();if(!history.length)return;state=history.pop();answerVisible=false;feedback={type:"info",text:"已退回上一步，可以重新观察这一状态。"};render();}
+function reset(){stopAuto();state=clone(initialState);history=[];answerVisible=false;if(mode==="manual")settleManualTransitions();feedback={type:"info",text:"已回到本次演示的开头。"};render();}
+function setMode(nextMode){stopAuto();mode=nextMode;answerVisible=false;if(mode==="manual")settleManualTransitions();feedback={type:"info",text:mode==="manual"?"现在由你判断下一步。选错不会改变算法状态。":"演示模式可逐步查看，也可以按设定速度自动播放。"};render();}
+function toggleAuto(){
+ if(autoTimer){stopAuto();return;}
+ if(state.done){reset();}
+ mode="demo";dom.autoBtn.textContent="暂停演示";autoTimer=true;feedback={type:"info",text:"自动演示正在运行，可随时暂停或调整速度。"};render();scheduleAuto();
+}
+function scheduleAuto(){
+ if(!autoTimer)return;
+ if(state.done){stopAuto();render();return;}
+ if(typeof autoTimer==="number")clearTimeout(autoTimer);
+ autoTimer=setTimeout(()=>{const e=expectedAction();if(e)perform(e.kind);},Number(dom.speedRange.value));
+}
+function stopAuto(){if(typeof autoTimer==="number")clearTimeout(autoTimer);autoTimer=null;dom.autoBtn.textContent="自动演示";}
+function render(){
+ renderControls();renderTask();renderVisual();renderNext();renderState();renderMatches();renderGeometry();renderCode();renderLog();renderFeedback();
+}
+function renderControls(){
+ dom.demoModeBtn.classList.toggle("selected",mode==="demo");dom.manualModeBtn.classList.toggle("selected",mode==="manual");dom.modeLabel.textContent=mode==="demo"?"演示模式":"手动练习";
+ dom.prevBtn.disabled=!history.length||!!autoTimer;dom.nextBtn.disabled=mode!=="demo"||state.done||!!autoTimer;dom.autoBtn.disabled=mode!=="demo";
+ dom.actionButtons.forEach(b=>b.disabled=mode!=="manual"||state.done||["beginSearch","finish"].includes(expectedAction()?.kind));
+ dom.hintBtn.disabled=mode!=="manual"||state.done;dom.answerBtn.disabled=mode!=="manual"||state.done;dom.actionButtons.forEach(b=>b.classList.toggle("recommended",answerVisible&&b.dataset.action===expectedAction()?.kind));
+ const denominator=Math.max(1,state.text.length+state.pattern.length*2);const progress=Math.min(100,state.steps/denominator*100);dom.progressBar.style.width=`${progress}%`;dom.progressText.textContent=`已执行 ${state.steps} 步 · 历史可回退 ${history.length} 步`;dom.stepBubble.textContent=String(state.steps);
+}
+function currentComparison(){
+ if(state.phase==="next")return{left:state.nextI<state.pattern.length?state.nextI:null,right:state.nextI<state.pattern.length?state.nextJ:null};
+ if(state.phase==="search"&&!state.awaitRecord&&state.textI<state.text.length)return{text:state.textI,pattern:state.matchJ};
+ return{};
+}
+function renderTask(){
+ const e=expectedAction();let kicker="",title="",desc="",chip="";
+ if(state.phase==="next"){
+  chip="构造 next[]";
+  if(e?.kind==="beginSearch"){kicker="第一阶段完成";title="next 数组已经全部构造完毕";desc="接下来把模式串放到主串下方，从 text[0] 和 pattern[0] 开始真正匹配。";}
+  else{kicker=`计算 next[${state.nextI}]，当前 j=${state.nextJ}`;title=`比较 pattern[${state.nextI}]='${state.pattern[state.nextI]}' 与 pattern[${state.nextJ}]='${state.pattern[state.nextJ]}'`;desc="i 指向当前要计算 next 的位置；j 表示目前候选的相等前后缀长度，也是准备比较的前缀下标。";}
+ }else if(state.phase==="search"){
+  chip="KMP 匹配";
+  if(e?.kind==="record"){const pos=state.textI-state.pattern.length;kicker="模式串全部匹配";title=`发现一次完整匹配，起点是 ${pos}`;desc="先记录答案。随后仍可利用 next 回退 j，继续寻找可能与当前结果重叠的匹配。";}
+  else if(e?.kind==="finish"){kicker="主串已经检查完毕";title="所有字符都已处理";desc="执行结束操作，汇总找到的全部位置。";}
+  else{kicker=`主串 i=${state.textI}，模式串 j=${state.matchJ}`;title=`比较 text[${state.textI}]='${state.text[state.textI]}' 与 pattern[${state.matchJ}]='${state.pattern[state.matchJ]}'`;desc="相等时两个指针一起前进；失配且 j>0 时只回退 j；只有 j=0 仍失配时，主串 i 才直接右移。";}
+ }else{chip="算法完成";kicker="KMP 匹配结束";title=`共找到 ${state.matches.length} 次匹配`;desc=state.matches.length?`匹配起点：${state.matches.join("、")}。主串指针从未向左回退。`:"模式串没有在主串中出现。主串指针仍然只扫描了一遍。";}
+ dom.taskKicker.textContent=kicker;dom.taskTitle.textContent=title;dom.taskDesc.textContent=desc;dom.phaseChip.textContent=chip;
+}
+function charsRow(str,compareIndex,pastUntil=-1,label=""){
+ let html="";[...str].forEach((ch,i)=>{let cls="char-cell";if(i===str.length-1)cls+=" last";if(i===compareIndex)cls+=" compare";if(i<pastUntil)cls+=" past";html+=`<div class="index-cell">${i}</div>`;});
+ [...str].forEach((ch,i)=>{let cls="char-cell";if(i===str.length-1)cls+=" last";if(i===compareIndex)cls+=" compare";if(i<pastUntil)cls+=" past";html+=`<div class="${cls}" data-label="${i===compareIndex?label:""}">${escapeHtml(ch)}</div>`;});
+ [...str].forEach((_,i)=>{html+=`<div class="pointer-cell">${i===compareIndex?"▲":""}</div>`;});return html;
+}
+function renderVisual(){
+ if(state.phase==="next"){
+  const ci=state.nextI<state.pattern.length?state.nextI:-1,cj=state.nextI<state.pattern.length?state.nextJ:-1;
+  const labels=state.pattern.split("").map((ch,i)=>{let tag="";if(i===ci)tag="i";if(i===cj)tag=tag?"i,j":"j";return{ch,tag};});
+  let rows="";labels.forEach((x,i)=>rows+=`<div class="index-cell">${i}</div>`);labels.forEach((x,i)=>rows+=`<div class="char-cell ${i===state.pattern.length-1?"last":""} ${i===ci||i===cj?"compare":""}" data-label="${x.tag}">${escapeHtml(x.ch)}</div>`);labels.forEach(x=>rows+=`<div class="pointer-cell">${x.tag?"▲ "+x.tag:""}</div>`);
+  dom.visualArea.innerHTML=`<div class="visual-section"><div class="visual-title"><span>模式串 pattern：构造 next</span><span>i 右移，j 可沿 next 回退</span></div><div class="tape-scroll"><div class="tape" style="--cols:${state.pattern.length}">${rows}</div></div></div>`;
+ }else{
+  const i=Math.min(state.textI,state.text.length-1);const start=state.awaitRecord?state.textI-state.pattern.length:Math.max(0,state.textI-state.matchJ);let textHtml="",patHtml="";
+  [...state.text].forEach((ch,k)=>textHtml+=`<div class="index-cell">${k}</div>`);[...state.text].forEach((ch,k)=>textHtml+=`<div class="char-cell ${k===state.text.length-1?"last":""} ${!state.awaitRecord&&k===state.textI?"compare":""} ${k<state.textI?"past":""}" data-label="${!state.awaitRecord&&k===state.textI?"i":""}">${escapeHtml(ch)}</div>`);[...state.text].forEach((_,k)=>textHtml+=`<div class="pointer-cell">${!state.awaitRecord&&k===state.textI?"▲ i":""}</div>`);
+  for(let k=0;k<start;k++)patHtml+=`<div class="empty-cell"></div>`;[...state.pattern].forEach((ch,k)=>patHtml+=`<div class="index-cell">${k}</div>`);for(let k=0;k<start;k++)patHtml+=`<div class="empty-cell"></div>`;[...state.pattern].forEach((ch,k)=>patHtml+=`<div class="char-cell ${k===state.pattern.length-1?"last":""} ${!state.awaitRecord&&k===state.matchJ?"compare":""} ${k<state.matchJ?"same":""}" data-label="${!state.awaitRecord&&k===state.matchJ?"j":""}">${escapeHtml(ch)}</div>`);for(let k=0;k<start;k++)patHtml+=`<div class="empty-cell"></div>`;[...state.pattern].forEach((_,k)=>patHtml+=`<div class="pointer-cell">${!state.awaitRecord&&k===state.matchJ?"▲ j":""}</div>`);
+  dom.visualArea.innerHTML=`<div class="visual-section"><div class="visual-title"><span>主串 text</span><span>i 只向右移动</span></div><div class="tape-scroll"><div class="align-stage"><div class="align-row" style="--cols:${state.text.length}">${textHtml}</div><div class="pattern-offset"><div class="pattern-row" style="--cols:${start+state.pattern.length}">${patHtml}</div></div></div></div></div>`;
+ }
+}
+function renderNext(){
+ dom.nextStrip.innerHTML=state.pattern.split("").map((ch,i)=>{const known=state.next[i]!==null;const active=state.phase==="next"&&i===state.nextI;return`<div class="next-pair ${active?"active":known?"known":"unknown"}"><span>${escapeHtml(ch)} [${i}]</span><strong>${known?state.next[i]:"?"}</strong></div>`;}).join("");
+}
+function renderState(){dom.stateI.textContent=state.phase==="search"?Math.min(state.textI,state.text.length):"—";dom.stateJ.textContent=state.phase==="next"?state.nextJ:state.matchJ;dom.stateLen.textContent=state.phase==="next"?state.nextJ:state.matchJ;dom.stateCount.textContent=state.matches.length;}
+function renderMatches(){dom.matchList.innerHTML=state.matches.length?state.matches.map((p,i)=>`<span class="match-chip">第 ${i+1} 次：起点 ${p}</span>`).join(""):`<span class="empty-note">尚未记录完整匹配。</span>`;}
+function ribbon(str,length,type,fromEnd=false){return[...str].map((ch,i)=>{let cls="middle";if(length>0&&((!fromEnd&&i<length)||(fromEnd&&i>=str.length-length)))cls=type;return`<span class="ribbon-piece ${cls}">${escapeHtml(ch)}</span>`;}).join("");}
+function renderGeometry(){
+ let source="",len=0,title="";
+ if(state.phase==="next"){
+  const upto=Math.max(1,Math.min(state.nextI,state.pattern.length));source=state.pattern.slice(0,upto);len=Math.min(state.nextJ,source.length-1);title=`正在为片段 ${source} 寻找最长相等真前后缀`;
+ }else{source=state.pattern.slice(0,state.matchJ);len=state.matchJ?state.next[state.matchJ-1]||0:0;title=state.matchJ?`已经匹配 ${state.matchJ} 个字符；若下一字符失配，可保留长度 ${len}`:"当前还没有已匹配字符，失配时无法复用前后缀。";}
+ if(!source)source=state.pattern[0];
+ dom.prefixGeometry.innerHTML=`<div class="key-box">${escapeHtml(title)}</div><div class="geometry-line"><div class="geometry-label"><span>候选前缀</span><span>长度 ${len}</span></div><div class="ribbon">${ribbon(source,len,"prefix",false)}</div></div><div class="geometry-line"><div class="geometry-label"><span>候选后缀</span><span>长度 ${len}</span></div><div class="ribbon">${ribbon(source,len,"suffix",true)}</div></div><div class="notice">蓝色前缀与粉色后缀内容相等时，后缀已经在主串中验证过，可直接把它当作下一轮的模式串前缀。</div>`;
+}
+function renderCode(){
+ const e=expectedAction();let keys=[],title="",text="";
+ if(state.phase==="next"){
+  if(e?.kind==="fallback"){keys=["next-fallback"];title="沿 next 回退 j";text="失配时 i 不变，j 变成更短的候选前后缀长度，然后用同一个 pattern[i] 再比较。";}
+  else if(e?.kind==="equal"){keys=["next-equal","next-record"];title="相等并记录 next[i]";text="相等说明候选前后缀可以再延长 1 个字符，因此 j++，再把 j 写入 next[i]。";}
+  else if(e?.kind==="advance"){keys=["next-fallback","next-record"];title="无法形成非空前后缀";text="j=0 仍失配，所以 next[i]=0，for 循环让 i 继续右移。";}
+  else{keys=["search-init"];title="next 构造完成";text="模式串自己的结构已经分析完毕，接下来用它匹配主串。";}
+ }else if(state.phase==="search"){
+  if(e?.kind==="fallback"){keys=["search-fallback"];title="主串 i 不回退";text="只把 j 改为 next[j-1]，然后让当前 text[i] 与新的 pattern[j] 继续比较。";}
+  else if(e?.kind==="equal"){keys=["search-equal"];title="字符相等";text="j++ 表示已匹配长度增加；for 循环随后让主串 i 右移。";}
+  else if(e?.kind==="record"){keys=["search-record"];title="记录完整匹配";text="起点是 i-j。记录后回退 j，可以继续寻找重叠出现的模式串。";}
+  else if(e?.kind==="advance"){keys=["search-loop","search-fallback"];title="j=0 仍失配";text="while 条件不成立，j 不变；for 循环只让主串 i 右移。";}
+  else{keys=["finish"];title="扫描结束";text="主串下标到达末尾，返回所有匹配起点。";}
+ }else{keys=["finish"];title="算法完成";text=`共找到 ${state.matches.length} 次匹配，时间复杂度为 O(n+m)。`;}
+ dom.codeLines.forEach(line=>line.classList.toggle("highlight",keys.includes(line.dataset.code)));dom.codeNoteTitle.textContent=title;dom.codeNoteText.textContent=text;
+}
+function renderLog(){dom.logList.innerHTML=state.logs.length?state.logs.slice(0,12).map((log,i)=>`<div class="log-item"><strong>${state.steps-i}</strong><span>${escapeHtml(log)}</span></div>`).join(""):`<div class="empty-note">尚无操作记录。</div>`;}
+function renderFeedback(){dom.feedback.className=`feedback ${feedback.type}`;dom.feedback.textContent=feedback.text;}
+function escapeHtml(value){return String(value??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"})[ch]);}
+
+dom.buildBtn.addEventListener("click",()=>build(false));dom.searchOnlyBtn.addEventListener("click",()=>build(true));dom.demoModeBtn.addEventListener("click",()=>setMode("demo"));dom.manualModeBtn.addEventListener("click",()=>setMode("manual"));dom.prevBtn.addEventListener("click",back);dom.nextBtn.addEventListener("click",demoNext);dom.autoBtn.addEventListener("click",toggleAuto);dom.resetBtn.addEventListener("click",reset);
+dom.actionButtons.forEach(button=>button.addEventListener("click",()=>perform(button.dataset.action,true)));
+dom.hintBtn.addEventListener("click",showHint);dom.answerBtn.addEventListener("click",showAnswer);
+dom.speedRange.addEventListener("input",()=>{dom.speedText.textContent=`${(Number(dom.speedRange.value)/1000).toFixed(2).replace(/0$/,"")} 秒/步`;if(autoTimer)scheduleAuto();});
+[dom.textInput,dom.patternInput].forEach(input=>input.addEventListener("keydown",event=>{if(event.key==="Enter")build(false);}));
+
+state=makeState(clean(dom.textInput.value,28),clean(dom.patternInput.value,14),false);initialState=clone(state);render();
+</script>
+</body>
+</html>

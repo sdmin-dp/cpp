@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>图论算法手动互动教学 | C++ 算法课件</title>
+<style>
+:root{
+    --ink:#202124;
+    --cream:#fffdf4;
+    --sun:#ffd45a;
+    --sky:#8bd3ff;
+    --mint:#83e6b2;
+    --blue:#2672ff;
+    --green:#1e9b62;
+    --orange:#ff8c42;
+    --pink:#ff77a8;
+    --red:#ee4266;
+    --purple:#8b5cf6;
+    --shadow:6px 6px 0 var(--ink);
+}
+*{box-sizing:border-box}
+body{
+    margin:0;
+    color:var(--ink);
+    background:
+        radial-gradient(circle at 16px 16px, rgba(32,33,36,.08) 2px, transparent 3px) 0 0/34px 34px,
+        linear-gradient(135deg,#fff4bf 0%,#ffe5ef 45%,#d7f3ff 100%);
+    font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;
+    min-height:100vh;
+}
+button,input,select{font:inherit}
+button{cursor:pointer}
+button:disabled{cursor:not-allowed;opacity:.55;filter:grayscale(.5)}
+.page{max-width:1480px;margin:0 auto;padding:22px}
+.hero{
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:linear-gradient(120deg,#fffdf4 0%,#ffe680 48%,#78d6ff 100%);
+    box-shadow:var(--shadow);
+    padding:24px 28px;
+    overflow:hidden;
+    position:relative;
+}
+.hero:before,.hero:after{
+    content:"";
+    position:absolute;
+    border:4px solid var(--ink);
+    background:rgba(255,255,255,.55);
+}
+.hero:before{width:138px;height:138px;border-radius:50%;right:112px;top:-50px}
+.hero:after{width:132px;height:72px;border-radius:8px;right:24px;bottom:16px;transform:rotate(9deg)}
+.hero-content{
+    position:relative;
+    z-index:1;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:18px;
+    align-items:end;
+}
+h1{margin:0 0 8px;font-size:clamp(30px,4.6vw,58px);line-height:1;letter-spacing:0}
+.subtitle{margin:0;max-width:900px;font-size:17px;line-height:1.65;font-weight:800}
+.badge{
+    min-width:176px;
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    box-shadow:4px 4px 0 var(--ink);
+    padding:12px 16px;
+    text-align:center;
+    font-size:18px;
+    font-weight:900;
+}
+.badge small{display:block;margin-top:4px;color:#555;font-size:14px;font-weight:900}
+.layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(360px,.95fr);gap:20px;margin-top:22px}
+.bottom-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(360px,.9fr);gap:20px;margin-top:20px}
+.panel{border:4px solid var(--ink);border-radius:8px;background:var(--cream);box-shadow:var(--shadow)}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:4px solid var(--ink);padding:12px 14px;background:var(--sun)}
+.panel-head.blue{background:var(--sky)}
+.panel-head.green{background:var(--mint)}
+.panel-head.pink{background:#ffc0d6}
+.panel-head h2{margin:0;font-size:20px}
+.panel-body{padding:14px}
+.top-controls{display:grid;grid-template-columns:repeat(4,minmax(120px,1fr));gap:10px;align-items:end}
+.field label{display:block;margin:0 0 5px;font-size:13px;font-weight:900;color:#4a4a4a}
+.input,.select{
+    width:100%;
+    min-height:42px;
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    padding:8px 10px;
+    box-shadow:3px 3px 0 var(--ink);
+    font-weight:800;
+}
+.toolbar,.action-row{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}
+.button{
+    min-height:40px;
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    padding:7px 11px;
+    box-shadow:3px 3px 0 var(--ink);
+    font-size:14px;
+    font-weight:900;
+    transition:transform .12s ease,box-shadow .12s ease;
+}
+.button:hover:not(:disabled){transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
+.button:active:not(:disabled){transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.button.primary{background:var(--blue);color:#fff}
+.button.green{background:var(--green);color:#fff}
+.button.orange{background:var(--orange);color:#fff}
+.button.pink{background:var(--pink);color:#fff}
+.button.purple{background:var(--purple);color:#fff}
+.button.red{background:var(--red);color:#fff}
+.button.mode-active{background:var(--sun)}
+.rule-line{
+    margin-top:12px;
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    padding:10px 12px;
+    box-shadow:4px 4px 0 rgba(32,33,36,.18);
+    font-size:14px;
+    font-weight:800;
+    line-height:1.55;
+}
+.graph-stage{
+    margin-top:14px;
+    border:3px dashed rgba(32,33,36,.5);
+    border-radius:8px;
+    background:
+        linear-gradient(rgba(255,255,255,.72),rgba(255,255,255,.72)),
+        radial-gradient(circle at 14px 14px, rgba(32,33,36,.08) 2px, transparent 3px) 0 0/28px 28px;
+    min-height:560px;
+    overflow:hidden;
+}
+#graphSvg{display:block;width:100%;height:560px;touch-action:none}
+.edge-line{stroke:#333;stroke-width:5;stroke-linecap:round}
+.edge-hit{stroke:transparent;stroke-width:22;cursor:pointer}
+.edge-label-bg{fill:#fff;stroke:var(--ink);stroke-width:2.4}
+.edge-label{fill:var(--ink);font-weight:900;font-size:16px;pointer-events:none}
+.edge-active .edge-line{stroke:var(--orange);stroke-width:8}
+.edge-candidate .edge-line{stroke:var(--purple);stroke-dasharray:9 7}
+.edge-mst .edge-line{stroke:var(--green);stroke-width:8}
+.edge-answer .edge-line{stroke:var(--red);stroke-width:9}
+.graph-node{cursor:pointer}
+.graph-node circle{fill:#fff;stroke:var(--ink);stroke-width:4;filter:drop-shadow(4px 4px 0 rgba(32,33,36,.95))}
+.graph-node text{fill:var(--ink);font-size:22px;font-weight:900;text-anchor:middle;dominant-baseline:middle;pointer-events:none}
+.node-caption{font-size:11px!important;fill:#555!important;font-weight:900!important}
+.graph-node:hover circle{fill:#fff1a8}
+.graph-node.start circle{fill:#b9f6ca}
+.graph-node.target circle{fill:#ffc0d6}
+.graph-node.visited circle{fill:#c7f2ff}
+.graph-node.queued circle{stroke:var(--purple);stroke-width:6}
+.graph-node.current circle{fill:#ffe066;stroke:var(--orange);stroke-width:7}
+.graph-node.checking circle,.graph-node.active-node circle{fill:#ffb3c9;stroke:var(--red);stroke-width:7}
+.graph-node.mst-node circle{fill:#bff7d7;stroke:var(--green);stroke-width:6}
+.graph-node.answer-node circle{fill:#ff8c42;stroke:var(--red);stroke-width:7}
+.matrix-wrap{margin-top:14px;overflow:auto}
+.matrix-table{border-collapse:separate;border-spacing:0;min-width:520px;background:#fff;border:3px solid var(--ink);border-radius:8px;overflow:hidden;box-shadow:4px 4px 0 rgba(32,33,36,.2)}
+.matrix-table th,.matrix-table td{border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);min-width:58px;height:42px;text-align:center;font-weight:900}
+.matrix-table th{background:#e8f7ff}
+.matrix-table tr:last-child td{border-bottom:0}
+.matrix-table td:last-child,.matrix-table th:last-child{border-right:0}
+.matrix-table td.focus-main{background:#ffe066}
+.matrix-table td.focus-via{background:#bff7d7}
+.side-stack{display:grid;gap:14px}
+.speech,.feedback,.state-box{border:3px solid var(--ink);border-radius:8px;background:#fff;padding:12px;box-shadow:4px 4px 0 rgba(32,33,36,.18)}
+.speech{min-height:112px;font-size:15px;line-height:1.6}
+.task-title{font-size:14px;color:#555;font-weight:900}
+.task-text{margin-top:6px;font-size:17px;font-weight:900}
+.feedback{min-height:46px;font-weight:900;line-height:1.5}
+.feedback.ok{background:#d8ffe9}
+.feedback.bad{background:#ffe0e7}
+.feedback.info{background:#e8f7ff}
+.state-box h3{margin:0 0 9px;font-size:16px}
+.kv{display:grid;grid-template-columns:92px minmax(0,1fr);gap:8px;align-items:start;padding:6px 0;border-top:1px dashed rgba(32,33,36,.25);font-size:14px}
+.kv:first-of-type{border-top:0}
+.kv b{font-weight:900}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:2px solid var(--ink);border-radius:8px;background:#fff8d8;padding:3px 7px;font-family:Consolas,"Courier New",monospace;font-size:13px;font-weight:900}
+.chip.green{background:#d8ffe9}
+.chip.blue{background:#e8f7ff}
+.chip.gray{background:#f0f0f0}
+.edge-list{display:grid;gap:6px;max-height:220px;overflow:auto;padding-right:2px}
+.edge-item{display:flex;justify-content:space-between;gap:8px;border:2px solid var(--ink);border-radius:8px;background:#fff;padding:6px 8px;font-size:13px;font-weight:900}
+.edge-item.clickable{cursor:pointer}
+.edge-item.active{background:#ffe066}
+.edge-item.done{background:#d8ffe9}
+.edge-item.skip{background:#f0f0f0;color:#666}
+.code-box{margin:0;overflow:auto;max-height:330px;background:#111827;color:#f8fafc;border-radius:0 0 4px 4px;padding:12px 0;font-family:Consolas,"Courier New",monospace;font-size:14px;line-height:1.55}
+.code-line{display:grid;grid-template-columns:42px minmax(0,1fr);gap:10px;padding:1px 14px;white-space:pre}
+.code-line.active{background:#ffe066;color:#111827;font-weight:900}
+.line-no{color:#9ca3af;text-align:right;user-select:none}
+.code-line.active .line-no{color:#111827}
+.log-list{display:grid;gap:7px;max-height:330px;overflow:auto}
+.log-item{border:2px solid var(--ink);border-radius:8px;background:#fff;padding:8px 10px;font-size:14px;font-weight:800;line-height:1.45;cursor:pointer}
+.log-item:hover,.log-item.active{background:#e8f7ff}
+.empty{color:#666;font-weight:800;line-height:1.6}
+.hidden{display:none!important}
+@media (max-width:1080px){.layout,.bottom-grid{grid-template-columns:1fr}.top-controls{grid-template-columns:repeat(2,minmax(120px,1fr))}}
+@media (max-width:680px){.page{padding:14px}.hero-content{grid-template-columns:1fr}.top-controls{grid-template-columns:1fr}#graphSvg{height:500px}.graph-stage{min-height:500px}}
+</style>
+</head>
+<body>
+<div class="page">
+    <header class="hero">
+        <div class="hero-content">
+            <div>
+                <h1>图论算法互动教学</h1>
+                <p class="subtitle">面向算法初学者：学生通过点击节点、边或判断按钮，自己完成 BFS、最短路、最小生成树等算法的下一步。</p>
+            </div>
+            <div class="badge">Graph Algorithms<small>手动操作课件</small></div>
+        </div>
+    </header>
+
+    <main class="layout">
+        <section class="panel">
+            <div class="panel-head blue">
+                <h2>图的互动区域</h2>
+                <div class="field" style="min-width:220px">
+                    <label for="algorithmSelect">当前算法</label>
+                    <select id="algorithmSelect" class="select">
+                        <option value="bfs">普通 BFS 最短路</option>
+                        <option value="dijkstra">Dijkstra 优先队列</option>
+                        <option value="floyd">Floyd 多源最短路</option>
+                        <option value="spfa">SPFA</option>
+                        <option value="bellman">Bellman-Ford</option>
+                        <option value="kruskal">并查集 + Kruskal</option>
+                        <option value="prim">Prim 最小生成树</option>
+                    </select>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="top-controls">
+                    <div class="field">
+                        <label for="graphType">图类型</label>
+                        <select id="graphType" class="select">
+                            <option value="undirected">无向图</option>
+                            <option value="directed">有向图</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="edgeWeight">新边权值</label>
+                        <input id="edgeWeight" class="input" type="number" value="1" step="1">
+                    </div>
+                    <div class="field">
+                        <label>起点</label>
+                        <input id="startDisplay" class="input" readonly value="未选择">
+                    </div>
+                    <div class="field">
+                        <label>终点</label>
+                        <input id="targetDisplay" class="input" readonly value="未选择">
+                    </div>
+                </div>
+                <div class="toolbar" id="editToolbar">
+                    <button class="button mode-active" data-mode="move">移动点</button>
+                    <button class="button" data-mode="addNode">添加节点</button>
+                    <button class="button" data-mode="addEdge">添加边</button>
+                    <button class="button" data-mode="weight">改边权</button>
+                    <button class="button" data-mode="start">选起点</button>
+                    <button class="button" data-mode="target">选终点</button>
+                    <button class="button" data-mode="delete">删除</button>
+                    <button class="button green" id="exampleBtn">生成示例图</button>
+                    <button class="button red" id="clearBtn">清空</button>
+                </div>
+                <div class="rule-line" id="ruleLine"></div>
+                <div class="graph-stage">
+                    <svg id="graphSvg" viewBox="0 0 900 560" aria-label="图算法互动区域"></svg>
+                </div>
+                <div class="matrix-wrap hidden" id="matrixWrap"></div>
+            </div>
+        </section>
+
+        <aside class="panel">
+            <div class="panel-head green">
+                <h2>算法状态栏</h2>
+                <button class="button primary" id="startRunBtn">开始手动</button>
+            </div>
+            <div class="panel-body side-stack">
+                <div class="speech">
+                    <div class="task-title">当前任务</div>
+                    <div class="task-text" id="taskText">先选择算法和示例图，然后点击“开始手动”。</div>
+                </div>
+                <div class="feedback info" id="feedback">图编辑：空白处加点、点点连边、点击边改权或删除。</div>
+                <div class="action-row" id="actionButtons"></div>
+                <div class="action-row">
+                    <button class="button orange" id="hintBtn">提示</button>
+                    <button class="button pink" id="answerBtn">查看正确操作</button>
+                    <button class="button" id="backBtn">上一步</button>
+                    <button class="button purple" id="resetRunBtn">重置算法</button>
+                </div>
+                <div class="state-box" id="stateBox">
+                    <h3>核心数据结构</h3>
+                    <div class="empty">尚未开始算法。</div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <section class="bottom-grid">
+        <section class="panel">
+            <div class="panel-head pink">
+                <h2>C++ 核心代码</h2>
+                <span class="task-title">执行到哪一步，就高亮哪一段</span>
+            </div>
+            <pre class="code-box" id="codeBox"></pre>
+        </section>
+        <section class="panel">
+            <div class="panel-head">
+                <h2>操作日志</h2>
+                <button class="button" id="returnCurrentBtn">回到当前</button>
+            </div>
+            <div class="panel-body">
+                <div class="log-list" id="logList">
+                    <div class="empty">正确完成一步后，这里会记录状态。点击日志可回看当时数据。</div>
+                </div>
+            </div>
+        </section>
+    </section>
+</div>
+
+<script>
+const INF = 1000000000;
+const svgNS = "http://www.w3.org/2000/svg";
+const dom = {
+    algorithm: document.getElementById("algorithmSelect"),
+    graphType: document.getElementById("graphType"),
+    edgeWeight: document.getElementById("edgeWeight"),
+    startDisplay: document.getElementById("startDisplay"),
+    targetDisplay: document.getElementById("targetDisplay"),
+    editToolbar: document.getElementById("editToolbar"),
+    exampleBtn: document.getElementById("exampleBtn"),
+    clearBtn: document.getElementById("clearBtn"),
+    ruleLine: document.getElementById("ruleLine"),
+    svg: document.getElementById("graphSvg"),
+    matrixWrap: document.getElementById("matrixWrap"),
+    startRunBtn: document.getElementById("startRunBtn"),
+    taskText: document.getElementById("taskText"),
+    feedback: document.getElementById("feedback"),
+    actionButtons: document.getElementById("actionButtons"),
+    hintBtn: document.getElementById("hintBtn"),
+    answerBtn: document.getElementById("answerBtn"),
+    backBtn: document.getElementById("backBtn"),
+    resetRunBtn: document.getElementById("resetRunBtn"),
+    returnCurrentBtn: document.getElementById("returnCurrentBtn"),
+    stateBox: document.getElementById("stateBox"),
+    codeBox: document.getElementById("codeBox"),
+    logList: document.getElementById("logList")
+};
+
+let graph = { nodes:[], edges:[], directed:false, nextNodeId:1, nextEdgeId:1, start:null, target:null };
+let editMode = "move";
+let pendingEdgeStart = null;
+let dragging = null;
+let run = null;
+let answerVisible = false;
+
+const info = {
+    bfs:["普通 BFS 最短路","BFS 默认把每条边看成权值 1，适合无权图。手动流程：入队、出队、检查邻接点、更新 dis。"],
+    dijkstra:["Dijkstra 算法（优先队列优化）","Dijkstra 不允许负权边。手动流程：从优先队列取最小距离节点，再判断每条边是否松弛。"],
+    floyd:["Floyd 多源最短路","Floyd 使用距离矩阵。每一步观察 dis[i][j]、dis[i][k]、dis[k][j]，判断是否用 k 更新。"],
+    spfa:["SPFA","SPFA 支持负权边但不能有负环。手动流程：队列出点、逐边松弛、必要时重新入队。"],
+    bellman:["Bellman-Ford","Bellman-Ford 可以处理负权边。每一轮逐边判断松弛，本轮无更新时可以提前结束。"],
+    kruskal:["并查集 + Kruskal 最小生成树","Kruskal 使用无向带权图。每次从排序后的边中选当前最小边，用并查集判断是否成环。"],
+    prim:["Prim 最小生成树","Prim 使用无向带权图。每次选择连接“已选集合”和“未选集合”的最小边。"]
+};
+
+const code = {
+    bfs:{
+        lines:["queue<int> q;","vis[s] = true; dis[s] = 0; q.push(s);","while(!q.empty()){","    int u = q.front(); q.pop();","    for(int v : g[u]){","        if(!vis[v]){","            vis[v] = true;","            dis[v] = dis[u] + 1;","            q.push(v);","        }","    }","}"],
+        map:{init:[1],pop:[3],check:[4],update:[5,6,7,8],skip:[5],finish:[10]}
+    },
+    dijkstra:{
+        lines:["priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;","dis[s] = 0; pq.push({0, s});","while(!pq.empty()){","    auto [d, u] = pq.top(); pq.pop();","    if(vis[u]) continue;","    vis[u] = true;","    for(auto [v, w] : g[u]){","        if(dis[v] > dis[u] + w){","            dis[v] = dis[u] + w;","            pq.push({dis[v], v});","        }","    }","}"],
+        map:{init:[1],pop:[3,4,5],stale:[4],check:[6],update:[7,8,9],noRelax:[7],finish:[11]}
+    },
+    floyd:{
+        lines:["for(int k = 1; k <= n; k++){","    for(int i = 1; i <= n; i++){","        for(int j = 1; j <= n; j++){","            if(dis[i][j] > dis[i][k] + dis[k][j]){","                dis[i][j] = dis[i][k] + dis[k][j];","            }","        }","    }","}"],
+        map:{update:[3,4],noUpdate:[3]}
+    },
+    spfa:{
+        lines:["queue<int> q;","dis[s] = 0; q.push(s); inq[s] = true;","while(!q.empty()){","    int u = q.front(); q.pop(); inq[u] = false;","    for(auto [v, w] : g[u]){","        if(dis[v] > dis[u] + w){","            dis[v] = dis[u] + w;","            if(!inq[v]){ q.push(v); inq[v] = true; }","        }","    }","}"],
+        map:{init:[1],pop:[3],check:[4],relax:[5,6],enqueue:[7],noRelax:[5],already:[7],finish:[9]}
+    },
+    bellman:{
+        lines:["dis[s] = 0;","for(int i = 1; i <= n - 1; i++){","    bool changed = false;","    for(auto [u, v, w] : edges){","        if(dis[u] != INF && dis[v] > dis[u] + w){","            dis[v] = dis[u] + w;","            changed = true;","        }","    }","    if(!changed) break;","}"],
+        map:{init:[0],relax:[3,4,5,6],noRelax:[3,4],round:[9]}
+    },
+    kruskal:{
+        lines:["sort(edges.begin(), edges.end(), cmp);","for(auto [u, v, w] : edges){","    int fu = find(u), fv = find(v);","    if(fu != fv){","        fa[fu] = fv;","        mst.push_back({u, v, w});","        ans += w;","    }","}"],
+        map:{add:[2,3,4,5,6],skip:[2,3],choose:[0,1]}
+    },
+    prim:{
+        lines:["vis[s] = true;","while(mst.size() < n - 1){","    找到连接 vis 与 !vis 的最小边 (u, v, w);","    vis[v] = true;","    mst.push_back({u, v, w});","    ans += w;","}"],
+        map:{init:[0],add:[2,3,4,5]}
+    }
+};
+
+function esc(x){return String(x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]))}
+function clone(x){return JSON.parse(JSON.stringify(x))}
+function order(){return graph.nodes.map(n=>n.id).sort((a,b)=>a-b)}
+function node(id){return graph.nodes.find(n=>n.id===id)}
+function edge(id){return graph.edges.find(e=>e.id===id)}
+function fmt(x){return x===null||x===undefined?"-":x>=INF/2?"INF":String(x)}
+function addSafe(a,b){return a>=INF/2||b>=INF/2?INF:a+b}
+function edgeText(e){return e?`${e.u}${e.directed?"->":"-"}${e.v} / w=${e.w}`:""}
+function arcText(a){return a?`${a.u}->${a.v} / w=${a.w}`:""}
+function svgEl(name,attrs){const e=document.createElementNS(svgNS,name);Object.entries(attrs||{}).forEach(([k,v])=>{if(v!==null&&v!==undefined)e.setAttribute(k,v)});return e}
+function feedback(t,type="info"){dom.feedback.className=`feedback ${type}`;dom.feedback.textContent=t}
+function ptr(evt){const p=dom.svg.createSVGPoint();p.x=evt.clientX;p.y=evt.clientY;return p.matrixTransform(dom.svg.getScreenCTM().inverse())}
+
+function setGraph(nodes,edges,directed,start,target){
+    graph.nodes=nodes.map(n=>({...n}));
+    graph.edges=edges.map((e,i)=>({id:i+1,directed,...e}));
+    graph.directed=directed;
+    graph.nextNodeId=Math.max(0,...graph.nodes.map(n=>n.id))+1;
+    graph.nextEdgeId=graph.edges.length+1;
+    graph.start=start??graph.nodes[0]?.id??null;
+    graph.target=target??null;
+    dom.graphType.value=directed?"directed":"undirected";
+    pendingEdgeStart=null;
+    run=null;
+    answerVisible=false;
+    feedback("示例图已生成，可以直接开始手动操作。","ok");
+    renderAll();
+}
+
+function loadExample(){
+    const nodes=[
+        {id:1,x:130,y:120},{id:2,x:340,y:80},{id:3,x:570,y:120},
+        {id:4,x:210,y:330},{id:5,x:460,y:330},{id:6,x:720,y:300}
+    ];
+    const a=dom.algorithm.value;
+    if(a==="bfs"){
+        setGraph(nodes,[{u:1,v:2,w:1},{u:1,v:4,w:1},{u:2,v:3,w:1},{u:2,v:5,w:1},{u:4,v:5,w:1},{u:3,v:6,w:1},{u:5,v:6,w:1}],false,1,6);
+    }else if(a==="kruskal"||a==="prim"){
+        setGraph(nodes,[{u:1,v:2,w:6},{u:1,v:4,w:5},{u:2,v:3,w:1},{u:2,v:4,w:3},{u:2,v:5,w:5},{u:3,v:5,w:4},{u:3,v:6,w:6},{u:4,v:5,w:2},{u:5,v:6,w:4}],false,1,6);
+    }else if(a==="bellman"||a==="spfa"){
+        setGraph(nodes,[{u:1,v:2,w:4},{u:1,v:4,w:2},{u:2,v:3,w:3},{u:2,v:5,w:-2},{u:4,v:5,w:3},{u:5,v:3,w:2},{u:3,v:6,w:2},{u:5,v:6,w:5}],true,1,6);
+    }else{
+        setGraph(nodes,[{u:1,v:2,w:2},{u:1,v:4,w:5},{u:2,v:3,w:4},{u:2,v:5,w:1},{u:4,v:5,w:2},{u:5,v:3,w:1},{u:3,v:6,w:3},{u:5,v:6,w:6}],true,1,6);
+    }
+}
+
+function addNode(x,y){
+    const id=graph.nextNodeId++;
+    graph.nodes.push({id,x:Math.max(42,Math.min(858,x)),y:Math.max(42,Math.min(518,y))});
+    if(graph.start===null)graph.start=id;
+    renderAll();
+}
+function addEdge(u,v,w){
+    if(u===v)return;
+    const same=graph.edges.find(e=>(e.u===u&&e.v===v)||(!graph.directed&&e.u===v&&e.v===u));
+    if(same)same.w=w;
+    else graph.edges.push({id:graph.nextEdgeId++,u,v,w,directed:graph.directed});
+    renderAll();
+}
+function clearGraph(){
+    graph={nodes:[],edges:[],directed:false,nextNodeId:1,nextEdgeId:1,start:null,target:null};
+    run=null;answerVisible=false;pendingEdgeStart=null;dom.graphType.value="undirected";
+    feedback("已清空图。","info");renderAll();
+}
+function setMode(m){
+    editMode=m;pendingEdgeStart=null;
+    [...dom.editToolbar.querySelectorAll("[data-mode]")].forEach(b=>b.classList.toggle("mode-active",b.dataset.mode===m));
+    renderAll();
+}
+function running(){return run&&run.index<run.steps.length&&run.previewIndex===null}
+
+function onNode(id){
+    if(running()){submit({type:"node",id});return}
+    if(run&&run.previewIndex!==null){feedback("正在查看历史状态，点击“回到当前”后再继续。","info");return}
+    if(editMode==="addEdge"){
+        if(pendingEdgeStart===null){pendingEdgeStart=id;feedback(`已选节点 ${id}，再点一个节点完成连边。`,"info")}
+        else{const w=Number(dom.edgeWeight.value);addEdge(pendingEdgeStart,id,Number.isFinite(w)?w:1);pendingEdgeStart=null;feedback("边已添加。","ok")}
+    }else if(editMode==="start"){graph.start=id;feedback(`起点已设为 ${id}。`,"ok");renderAll()}
+    else if(editMode==="target"){graph.target=id;feedback(`终点已设为 ${id}。`,"ok");renderAll()}
+    else if(editMode==="delete"){graph.nodes=graph.nodes.filter(n=>n.id!==id);graph.edges=graph.edges.filter(e=>e.u!==id&&e.v!==id);if(graph.start===id)graph.start=graph.nodes[0]?.id??null;if(graph.target===id)graph.target=null;feedback(`节点 ${id} 已删除。`,"ok");renderAll()}
+}
+function onEdge(id){
+    if(running()){submit({type:"edge",id});return}
+    if(run&&run.previewIndex!==null){feedback("正在查看历史状态，点击“回到当前”后再继续。","info");return}
+    const e=edge(id);if(!e)return;
+    if(editMode==="weight"){
+        const v=prompt("请输入新的边权：",String(e.w));
+        if(v!==null){const w=Number(v);if(Number.isFinite(w)){e.w=w;feedback("边权已更新。","ok");renderAll()}else feedback("边权必须是数字。","bad")}
+    }else if(editMode==="delete"){graph.edges=graph.edges.filter(x=>x.id!==id);feedback("边已删除。","ok");renderAll()}
+}
+
+function currentStep(){return !run||run.previewIndex!==null||run.index>=run.steps.length?null:run.steps[run.index]}
+function snapshot(){
+    if(!run)return null;
+    if(run.previewIndex!==null)return run.previewIndex<0?run.initial:run.steps[run.previewIndex]?.after||run.initial;
+    return run.index<run.steps.length?run.steps[run.index].before:run.steps[run.steps.length-1]?.after||run.initial;
+}
+
+function renderGraph(){
+    const svg=dom.svg;svg.innerHTML="";
+    const defs=svgEl("defs");
+    const marker=svgEl("marker",{id:"arrowHead",viewBox:"0 0 10 10",refX:"8",refY:"5",markerWidth:"7",markerHeight:"7",orient:"auto-start-reverse"});
+    marker.appendChild(svgEl("path",{d:"M 0 0 L 10 5 L 0 10 z",fill:"#202124"}));
+    defs.appendChild(marker);svg.appendChild(defs);
+    const s=snapshot(),st=currentStep();
+    const answerEdge=answerVisible&&st?.expected?.type==="edge"?st.expected.id:null;
+    const answerNode=answerVisible&&st?.expected?.type==="node"?st.expected.id:null;
+    const cand=new Set((s?.candidates||[]).map(x=>x.edgeId??x.id));
+    const mst=new Set(s?.mstEdges||[]);
+    const hEdge=new Set([...(st?.highlightEdges||[]),...(s?.highlightEdges||[])]);
+    const hNode=new Set([...(st?.highlightNodes||[]),...(s?.highlightNodes||[])]);
+    graph.edges.forEach(e=>{
+        const u=node(e.u),v=node(e.v);if(!u||!v)return;
+        const dx=v.x-u.x,dy=v.y-u.y,len=Math.max(1,Math.hypot(dx,dy));
+        const x1=u.x+dx/len*34,y1=u.y+dy/len*34,x2=v.x-dx/len*(e.directed?40:34),y2=v.y-dy/len*(e.directed?40:34);
+        const g=svgEl("g");
+        const cls=["edge-group"];
+        if(hEdge.has(e.id)||s?.edge?.edgeId===e.id)cls.push("edge-active");
+        if(cand.has(e.id))cls.push("edge-candidate");
+        if(mst.has(e.id))cls.push("edge-mst");
+        if(answerEdge===e.id)cls.push("edge-answer");
+        g.setAttribute("class",cls.join(" "));
+        g.appendChild(svgEl("line",{x1,y1,x2,y2,class:"edge-line","marker-end":e.directed?"url(#arrowHead)":null}));
+        const hit=svgEl("line",{x1,y1,x2,y2,class:"edge-hit"});
+        hit.addEventListener("click",ev=>{ev.stopPropagation();onEdge(e.id)});
+        g.appendChild(hit);
+        const mx=(x1+x2)/2,my=(y1+y2)/2,label=String(e.w),rw=Math.max(34,label.length*10+20);
+        g.appendChild(svgEl("rect",{x:mx-rw/2,y:my-17,width:rw,height:28,rx:7,class:"edge-label-bg"}));
+        const t=svgEl("text",{x:mx,y:my+3,class:"edge-label","text-anchor":"middle"});t.textContent=label;g.appendChild(t);
+        svg.appendChild(g);
+    });
+    graph.nodes.forEach(n=>{
+        const g=svgEl("g",{transform:`translate(${n.x},${n.y})`});
+        const cls=["graph-node"];
+        if(graph.start===n.id)cls.push("start");
+        if(graph.target===n.id)cls.push("target");
+        if(s?.vis&&s.vis[n.id])cls.push("visited");
+        if(s?.queue&&s.queue.includes(n.id))cls.push("queued");
+        if(s?.inQueue&&s.inQueue[n.id])cls.push("queued");
+        if(s?.current===n.id||s?.pulled?.v===n.id)cls.push("current");
+        if(s?.checking===n.id)cls.push("checking");
+        if(s?.selected&&s.selected[n.id])cls.push("mst-node");
+        if(hNode.has(n.id)||pendingEdgeStart===n.id)cls.push("active-node");
+        if(answerNode===n.id)cls.push("answer-node");
+        g.setAttribute("class",cls.join(" "));
+        g.appendChild(svgEl("circle",{r:28}));
+        const txt=svgEl("text",{y:0});txt.textContent=n.id;g.appendChild(txt);
+        const cap=svgEl("text",{y:43,class:"node-caption"});
+        const parts=[];if(graph.start===n.id)parts.push("S");if(graph.target===n.id)parts.push("T");if(s?.dis&&s.dis[n.id]!==undefined)parts.push(`d=${fmt(s.dis[n.id])}`);if(s?.key&&s.key[n.id]!==undefined)parts.push(`c=${fmt(s.key[n.id])}`);
+        cap.textContent=parts.join(" ");g.appendChild(cap);
+        g.addEventListener("click",ev=>{ev.stopPropagation();onNode(n.id)});
+        g.addEventListener("mousedown",ev=>{if(editMode==="move"&&!running()){ev.stopPropagation();dragging={id:n.id}}});
+        svg.appendChild(g);
+    });
+    if(run&&run.previewIndex!==null){const t=svgEl("text",{x:20,y:34,fill:"#202124","font-size":"18","font-weight":"900"});t.textContent="历史状态预览中";svg.appendChild(t)}
+}
+
+function renderMatrix(){
+    const s=snapshot(),st=currentStep();
+    if(!s||s.algo!=="floyd"){dom.matrixWrap.classList.add("hidden");dom.matrixWrap.innerHTML="";return}
+    dom.matrixWrap.classList.remove("hidden");
+    const f=st?.matrixFocus||{};
+    let html='<table class="matrix-table"><thead><tr><th>dis</th>';
+    s.order.forEach(id=>html+=`<th>${id}</th>`);
+    html+='</tr></thead><tbody>';
+    s.order.forEach((r,i)=>{html+=`<tr><th>${r}</th>`;s.order.forEach((c,j)=>{const cls=[];if(i===f.i&&j===f.j)cls.push("focus-main");if((i===f.i&&j===f.k)||(i===f.k&&j===f.j))cls.push("focus-via");html+=`<td class="${cls.join(" ")}">${fmt(s.dist[i][j])}</td>`});html+="</tr>"});
+    dom.matrixWrap.innerHTML=html+"</tbody></table>";
+}
+
+function kv(k,v){return `<div class="kv"><b>${esc(k)}</b><div>${v}</div></div>`}
+function chips(xs){return !xs||!xs.length?'<span class="empty">空</span>':`<div class="chips">${xs.map(x=>`<span class="chip">${esc(fmt(x))}</span>`).join("")}</div>`}
+function mapChips(m,ord){return `<div class="chips">${ord.map(id=>`<span class="chip blue">${id}:${fmt(m[id])}</span>`).join("")}</div>`}
+function boolChips(m,ord){return `<div class="chips">${ord.map(id=>`<span class="chip ${m[id]?"green":"gray"}">${id}:${m[id]?1:0}</span>`).join("")}</div>`}
+function find(parent,x){let c=String(x);while(String(parent[c])!==c)c=String(parent[c]);return Number(c)}
+function union(s,a,b){const ra=find(s.parent,a),rb=find(s.parent,b);if(ra===rb)return false;s.parent[rb]=ra;return true}
+function setLabels(s){const g={};s.order.forEach(id=>{const r=find(s.parent,id);(g[r]||(g[r]=[])).push(id)});return Object.values(g).map(x=>`{${x.sort((a,b)=>a-b).join(",")}}`)}
+function kruskalHtml(s){return (s.sortedEdges||[]).map((e,i)=>{const cls=["edge-item","clickable"];if(i===s.idx)cls.push("active");if(i<s.idx&&(s.mstEdges||[]).includes(e.id))cls.push("done");if(i<s.idx&&!(s.mstEdges||[]).includes(e.id))cls.push("skip");return `<div class="${cls.join(" ")}" data-edge-action="${e.id}"><span>${i+1}. ${e.u}-${e.v}</span><span>w=${e.w}</span></div>`}).join("")}
+function candHtml(s){return !s.candidates?.length?'<div class="empty">暂无候选边</div>':s.candidates.map((c,i)=>`<div class="edge-item clickable ${i===0?"active":""}" data-edge-action="${c.edgeId}"><span>${edgeText(edge(c.edgeId))}，接入 ${c.to}</span><span>w=${c.w}</span></div>`).join("")}
+
+function renderState(){
+    const s=snapshot();
+    if(!s){dom.stateBox.innerHTML='<h3>核心数据结构</h3><div class="empty">尚未开始算法。</div>';return}
+    let html=`<h3>${info[s.algo][0]}</h3>`;
+    if(s.algo==="bfs"){html+=kv("queue",chips(s.queue))+kv("当前队首",s.current??"-")+kv("正在检查",s.checking??"-")+kv("dis[]",mapChips(s.dis,s.order))+kv("vis[]",boolChips(s.vis,s.order))}
+    else if(s.algo==="dijkstra"){html+=kv("priority_queue",chips((s.pq||[]).map(x=>`(${x.d},${x.v})`)))+kv("取出节点",s.pulled?`${s.pulled.v}, d=${s.pulled.d}`:"-")+kv("当前节点",s.current??"-")+kv("dis[]",mapChips(s.dis,s.order))+kv("vis[]",boolChips(s.vis,s.order))}
+    else if(s.algo==="floyd"){html+=kv("k / i / j",`${s.order[s.k]} / ${s.order[s.i]} / ${s.order[s.j]}`)+kv("dis[i][j]",fmt(s.dist[s.i][s.j]))+kv("dis[i][k]+dis[k][j]",fmt(addSafe(s.dist[s.i][s.k],s.dist[s.k][s.j])))}
+    else if(s.algo==="spfa"){html+=kv("queue",chips(s.queue))+kv("当前节点",s.current??"-")+kv("当前边",s.edge?arcText(s.edge):"-")+kv("dis[]",mapChips(s.dis,s.order))+kv("inQueue[]",boolChips(s.inQueue,s.order))}
+    else if(s.algo==="bellman"){html+=kv("当前轮次",s.round||"-")+kv("当前边",s.edge?arcText(s.edge):"-")+kv("本轮更新",s.updatedInRound?"是":"否")+kv("dis[]",mapChips(s.dis,s.order))}
+    else if(s.algo==="kruskal"){html+=kv("MST 总权值",s.total)+kv("已选边",chips((s.mstEdges||[]).map(id=>edgeText(edge(id)))))+kv("集合",chips(setLabels(s)))+`<div class="kv"><b>排序边</b><div class="edge-list">${kruskalHtml(s)}</div></div>`}
+    else if(s.algo==="prim"){html+=kv("已入树点",chips(Object.keys(s.selected).filter(id=>s.selected[id]).map(Number).sort((a,b)=>a-b)))+kv("MST 总权值",s.total)+kv("最小代价",mapChips(s.key||{},s.order))+kv("已选边",chips((s.mstEdges||[]).map(id=>edgeText(edge(id)))))+`<div class="kv"><b>候选边</b><div class="edge-list">${candHtml(s)}</div></div>`}
+    dom.stateBox.innerHTML=html;
+    dom.stateBox.querySelectorAll("[data-edge-action]").forEach(r=>r.addEventListener("click",()=>submit({type:"edge",id:Number(r.dataset.edgeAction)})));
+}
+
+function renderTask(){
+    if(!run){dom.taskText.textContent="先编辑图或生成示例图，然后点击“开始手动”。";dom.actionButtons.innerHTML="";return}
+    if(run.previewIndex!==null){dom.taskText.textContent="正在查看日志中的历史状态。";dom.actionButtons.innerHTML='<button class="button primary">回到当前步骤</button>';dom.actionButtons.querySelector("button").onclick=returnCurrent;return}
+    const st=currentStep();
+    if(!st){dom.taskText.textContent=run.doneMessage||"算法执行完毕。";dom.actionButtons.innerHTML="";return}
+    dom.taskText.textContent=st.task;dom.actionButtons.innerHTML="";
+    (st.buttons||[]).forEach(b=>{const x=document.createElement("button");x.className=`button ${b.kind||""}`;x.textContent=b.label;x.onclick=()=>submit({type:"button",id:b.id});dom.actionButtons.appendChild(x)})
+}
+function renderCode(){
+    const a=run?.algo||dom.algorithm.value,lib=code[a],st=currentStep(),active=new Set(st&&lib.map[st.code]?lib.map[st.code]:[]);
+    dom.codeBox.innerHTML=lib.lines.map((l,i)=>`<div class="code-line ${active.has(i)?"active":""}"><span class="line-no">${i+1}</span><span>${esc(l)}</span></div>`).join("");
+}
+function renderLogs(){
+    if(!run||!run.logs.length){dom.logList.innerHTML='<div class="empty">正确完成一步后，这里会记录状态。点击日志可回看当时数据。</div>';return}
+    dom.logList.innerHTML=run.logs.map((l,i)=>`<div class="log-item ${run.previewIndex===i?"active":""}" data-log="${i}">步骤 ${i+1}：${esc(l)}</div>`).join("");
+    dom.logList.querySelectorAll("[data-log]").forEach(x=>x.onclick=()=>{run.previewIndex=Number(x.dataset.log);feedback(`正在查看步骤 ${run.previewIndex+1} 的状态。`,"info");renderAll()});
+}
+function renderRule(){const a=dom.algorithm.value;dom.ruleLine.textContent=info[a][1];dom.graphType.value=graph.directed?"directed":"undirected";dom.startDisplay.value=graph.start===null?"未选择":`节点 ${graph.start}`;dom.targetDisplay.value=graph.target===null?"未选择":`节点 ${graph.target}`}
+function renderAll(){renderRule();renderGraph();renderMatrix();renderTask();renderState();renderCode();renderLogs()}
+
+function adj(){
+    const a={};order().forEach(id=>a[id]=[]);
+    graph.edges.forEach(e=>{a[e.u]?.push({edgeId:e.id,u:e.u,v:e.v,w:e.w});if(!e.directed)a[e.v]?.push({edgeId:e.id,u:e.v,v:e.u,w:e.w})});
+    Object.values(a).forEach(x=>x.sort((p,q)=>p.v-q.v||p.w-q.w||p.edgeId-q.edgeId));
+    return a;
+}
+function arcs(){
+    const out=[];graph.edges.forEach(e=>{out.push({edgeId:e.id,u:e.u,v:e.v,w:e.w});if(!e.directed)out.push({edgeId:e.id,u:e.v,v:e.u,w:e.w})});
+    return out.sort((p,q)=>p.u-q.u||p.v-q.v||p.w-q.w||p.edgeId-q.edgeId);
+}
+function step(steps,state,def,mutate){const before=clone(state);mutate(state);steps.push({buttons:[],highlightNodes:[],highlightEdges:[],...def,before,after:clone(state)})}
+function base(a){const o=order(),dis={},vis={};o.forEach(id=>{dis[id]=INF;vis[id]=false});return {algo:a,order:o,dis,vis,queue:[],current:null,checking:null,edge:null}}
+
+function buildBfs(){
+    const g=adj(),s=graph.start,state=base("bfs"),steps=[];
+    step(steps,state,{task:`点击起点 ${s}，完成 vis[${s}]=1、dis[${s}]=0，并把它入队。`,expected:{type:"node",id:s},highlightNodes:[s],hint:"BFS 从起点开始，起点距离为 0。",answer:`点击节点 ${s}`,log:`节点 ${s} 入队，dis[${s}]=0`,code:"init"},st=>{st.vis[s]=true;st.dis[s]=0;st.queue.push(s)});
+    while(state.queue.length){
+        const u=state.queue[0];
+        step(steps,state,{task:`队首是 ${u}。点击“队首出队”，开始检查它的邻接点。`,expected:{type:"button",id:"pop"},buttons:[{id:"pop",label:"队首出队",kind:"primary"}],highlightNodes:[u],hint:"BFS 每次处理 queue.front()。",answer:"点击“队首出队”",log:`取出节点 ${u}`,code:"pop"},st=>{st.current=u;st.queue.shift();st.checking=null;st.edge=null});
+        (g[u]||[]).forEach(e=>{
+            step(steps,state,{task:`当前在节点 ${u}。下一条应该检查哪条邻接边？`,expected:{type:"edge",id:e.edgeId},highlightNodes:[u],hint:`从 ${u} 的邻接表按节点编号检查。`,answer:`点击边 ${arcText(e)}`,log:`检查边 ${arcText(e)}`,code:"check"},st=>{st.checking=e.v;st.edge=e});
+            if(!state.vis[e.v])step(steps,state,{task:`节点 ${e.v} 还没有访问。点击节点 ${e.v} 完成更新并入队。`,expected:{type:"node",id:e.v},highlightNodes:[e.v],highlightEdges:[e.edgeId],hint:`新距离是 dis[${u}] + 1。`,answer:`点击节点 ${e.v}，dis[${e.v}]=${state.dis[u]+1}`,log:`发现节点 ${e.v}，dis[${e.v}]=${state.dis[u]+1}，入队`,code:"update"},st=>{st.vis[e.v]=true;st.dis[e.v]=st.dis[u]+1;st.queue.push(e.v)});
+            else step(steps,state,{task:`节点 ${e.v} 已经访问过，是否还需要入队？`,expected:{type:"button",id:"skip"},buttons:[{id:"skip",label:"不用入队"}],highlightNodes:[e.v],highlightEdges:[e.edgeId],hint:"vis[v]=1 的点不重复入队。",answer:"点击“不用入队”",log:`节点 ${e.v} 已访问，跳过`,code:"skip"},st=>{});
+        });
+        step(steps,state,{task:`节点 ${u} 的邻接点检查完毕。`,expected:{type:"button",id:"finishNode"},buttons:[{id:"finishNode",label:"结束当前点",kind:"green"}],highlightNodes:[u],hint:"当前节点的 for 循环结束后，回到 while 判断队列。",answer:"点击“结束当前点”",log:`节点 ${u} 处理完毕`,code:"finish"},st=>{st.current=null;st.checking=null;st.edge=null});
+    }
+    return {algo:"bfs",initial:steps[0]?.before||state,steps,doneMessage:"BFS 完成，dis[] 就是从起点出发的最短边数。"};
+}
+
+function buildDijkstra(){
+    const g=adj(),s=graph.start,state=base("dijkstra"),steps=[];state.pq=[];state.pulled=null;
+    step(steps,state,{task:`点击起点 ${s}，设置 dis[${s}]=0，并把 (0,${s}) 放入优先队列。`,expected:{type:"node",id:s},highlightNodes:[s],hint:"Dijkstra 从起点的 0 距离记录开始。",answer:`点击节点 ${s}`,log:`初始化起点 ${s}，入队 (0,${s})`,code:"init"},st=>{st.dis[s]=0;st.pq.push({d:0,v:s})});
+    while(state.pq.length&&steps.length<500){
+        state.pq.sort((a,b)=>a.d-b.d||a.v-b.v);const rec=state.pq[0],u=rec.v,stale=state.vis[u];
+        step(steps,state,{task:`优先队列堆顶是 (${rec.d},${u})。点击节点 ${u} 取出最小记录。`,expected:{type:"node",id:u},highlightNodes:[u],hint:"优先队列按距离从小到大取出。",answer:`点击节点 ${u}`,log:stale?`取出 (${rec.d},${u})，但 ${u} 已确定，跳过`:`取出 (${rec.d},${u})，标记 vis[${u}]=1`,code:stale?"stale":"pop"},st=>{st.pulled=st.pq.shift();st.current=u;st.edge=null;st.checking=null;if(!st.vis[u])st.vis[u]=true});
+        if(stale){state.current=null;continue}
+        (g[u]||[]).forEach(e=>{
+            step(steps,state,{task:`当前节点 ${u}。点击下一条需要判断松弛的边。`,expected:{type:"edge",id:e.edgeId},highlightNodes:[u,e.v],hint:`比较 dis[${e.v}] 与 dis[${u}]+${e.w}。`,answer:`点击边 ${arcText(e)}`,log:`检查边 ${arcText(e)}`,code:"check"},st=>{st.edge=e;st.checking=e.v});
+            const nd=state.dis[u]>=INF/2?INF:state.dis[u]+e.w;
+            if(!state.vis[e.v]&&nd<state.dis[e.v])step(steps,state,{task:`可以松弛。点击节点 ${e.v}，把 dis[${e.v}] 更新为 ${nd} 并压入优先队列。`,expected:{type:"node",id:e.v},highlightNodes:[e.v],highlightEdges:[e.edgeId],hint:`${fmt(state.dis[e.v])} > ${fmt(state.dis[u])}+${e.w}。`,answer:`点击节点 ${e.v}，更新为 ${nd}`,log:`松弛 ${arcText(e)}，dis[${e.v}]=${nd}，入队 (${nd},${e.v})`,code:"update"},st=>{st.dis[e.v]=nd;st.pq.push({d:nd,v:e.v})});
+            else step(steps,state,{task:`这条边能让 dis[${e.v}] 变小吗？`,expected:{type:"button",id:"noRelax"},buttons:[{id:"noRelax",label:"不能松弛"}],highlightNodes:[e.v],highlightEdges:[e.edgeId],hint:`当前 dis[${e.v}]=${fmt(state.dis[e.v])}，候选值是 ${fmt(nd)}。`,answer:"点击“不能松弛”",log:`${arcText(e)} 不松弛`,code:"noRelax"},st=>{});
+        });
+        step(steps,state,{task:`节点 ${u} 的所有边已经检查完毕。`,expected:{type:"button",id:"finishNode"},buttons:[{id:"finishNode",label:"结束当前点",kind:"green"}],highlightNodes:[u],hint:"继续回到优先队列取堆顶。",answer:"点击“结束当前点”",log:`节点 ${u} 处理完毕`,code:"finish"},st=>{st.current=null;st.checking=null;st.edge=null});
+    }
+    return {algo:"dijkstra",initial:steps[0]?.before||state,steps,doneMessage:"Dijkstra 完成，vis=1 的点已经得到最短路。"};
+}
+
+function buildFloyd(){
+    const o=order(),n=o.length,idx={};o.forEach((id,i)=>idx[id]=i);
+    const dist=Array.from({length:n},(_,i)=>Array.from({length:n},(_,j)=>i===j?0:INF));
+    graph.edges.forEach(e=>{const u=idx[e.u],v=idx[e.v];dist[u][v]=Math.min(dist[u][v],e.w);if(!e.directed)dist[v][u]=Math.min(dist[v][u],e.w)});
+    const state={algo:"floyd",order:o,dist,k:0,i:0,j:0},steps=[];
+    for(let k=0;k<n;k++)for(let i=0;i<n;i++)for(let j=0;j<n;j++){
+        state.k=k;state.i=i;state.j=j;const via=addSafe(state.dist[i][k],state.dist[k][j]),cur=state.dist[i][j],yes=via<cur;
+        step(steps,state,{task:`k=${o[k]}，i=${o[i]}，j=${o[j]}。判断 dis[${o[i]}][${o[j]}] 是否需要更新。`,expected:{type:"button",id:yes?"update":"noUpdate"},buttons:[{id:"update",label:"需要更新",kind:"primary"},{id:"noUpdate",label:"不更新"}],highlightNodes:[o[k],o[i],o[j]],matrixFocus:{k,i,j},hint:`比较 ${fmt(cur)} 和 ${fmt(state.dist[i][k])}+${fmt(state.dist[k][j])}。`,answer:yes?`选择“需要更新”，新值是 ${fmt(via)}`:"选择“不更新”",log:yes?`用 ${o[k]} 更新 dis[${o[i]}][${o[j]}]：${fmt(cur)} -> ${fmt(via)}`:`dis[${o[i]}][${o[j]}] 不更新`,code:yes?"update":"noUpdate"},st=>{if(yes)st.dist[i][j]=via});
+    }
+    return {algo:"floyd",initial:steps[0]?.before||state,steps,doneMessage:"Floyd 完成，矩阵中每个 dis[i][j] 都是最短路。"};
+}
+
+function buildSpfa(){
+    const g=adj(),s=graph.start,state=base("spfa"),steps=[];state.inQueue={};state.order.forEach(id=>state.inQueue[id]=false);
+    step(steps,state,{task:`点击起点 ${s}，设置 dis[${s}]=0，并把它放入队列。`,expected:{type:"node",id:s},highlightNodes:[s],hint:"SPFA 从起点入队开始。",answer:`点击节点 ${s}`,log:`初始化起点 ${s}，入队`,code:"init"},st=>{st.dis[s]=0;st.queue.push(s);st.inQueue[s]=true});
+    while(state.queue.length&&steps.length<800){
+        const u=state.queue[0];
+        step(steps,state,{task:`队首是 ${u}。点击“队首出队”，开始用它松弛邻边。`,expected:{type:"button",id:"pop"},buttons:[{id:"pop",label:"队首出队",kind:"primary"}],highlightNodes:[u],hint:"SPFA 每次取出队首，并把 inQueue[u] 置为 false。",answer:"点击“队首出队”",log:`取出节点 ${u}`,code:"pop"},st=>{st.current=u;st.queue.shift();st.inQueue[u]=false;st.edge=null;st.checking=null});
+        (g[u]||[]).forEach(e=>{
+            step(steps,state,{task:`当前节点 ${u}。点击下一条需要检查的边。`,expected:{type:"edge",id:e.edgeId},highlightNodes:[u,e.v],hint:`检查 ${arcText(e)} 是否能让 dis[${e.v}] 变小。`,answer:`点击边 ${arcText(e)}`,log:`检查边 ${arcText(e)}`,code:"check"},st=>{st.edge=e;st.checking=e.v});
+            const nd=state.dis[u]>=INF/2?INF:state.dis[u]+e.w;
+            if(nd<state.dis[e.v]){
+                step(steps,state,{task:`可以松弛：dis[${e.v}] 应更新为 ${nd}。`,expected:{type:"button",id:"relax"},buttons:[{id:"relax",label:`更新 dis[${e.v}]`,kind:"primary"}],highlightNodes:[e.v],highlightEdges:[e.edgeId],hint:`${fmt(state.dis[e.v])} > ${fmt(state.dis[u])}+${e.w}。`,answer:`点击“更新 dis[${e.v}]”`,log:`松弛 ${arcText(e)}，dis[${e.v}]=${nd}`,code:"relax"},st=>{st.dis[e.v]=nd});
+                if(!state.inQueue[e.v])step(steps,state,{task:`节点 ${e.v} 不在队列中，是否需要重新入队？`,expected:{type:"node",id:e.v},highlightNodes:[e.v],hint:"被更新且不在队列的点，需要入队等待继续扩展。",answer:`点击节点 ${e.v}`,log:`节点 ${e.v} 入队`,code:"enqueue"},st=>{st.queue.push(e.v);st.inQueue[e.v]=true});
+                else step(steps,state,{task:`节点 ${e.v} 已经在队列中，还要重复入队吗？`,expected:{type:"button",id:"already"},buttons:[{id:"already",label:"不重复入队"}],highlightNodes:[e.v],hint:"inQueue[v]=1 时不重复放入队列。",answer:"点击“不重复入队”",log:`节点 ${e.v} 已在队列中，不重复入队`,code:"already"},st=>{});
+            }else step(steps,state,{task:"这条边是否可以松弛？",expected:{type:"button",id:"noRelax"},buttons:[{id:"noRelax",label:"不能松弛"}],highlightNodes:[e.v],highlightEdges:[e.edgeId],hint:`当前 dis[${e.v}]=${fmt(state.dis[e.v])}，候选值是 ${fmt(nd)}。`,answer:"点击“不能松弛”",log:`${arcText(e)} 不松弛`,code:"noRelax"},st=>{});
+        });
+        step(steps,state,{task:`节点 ${u} 的所有出边检查完毕。`,expected:{type:"button",id:"finishNode"},buttons:[{id:"finishNode",label:"结束当前点",kind:"green"}],highlightNodes:[u],hint:"继续处理队列中的下一个点。",answer:"点击“结束当前点”",log:`节点 ${u} 处理完毕`,code:"finish"},st=>{st.current=null;st.edge=null;st.checking=null});
+    }
+    return {algo:"spfa",initial:steps[0]?.before||state,steps,doneMessage:"SPFA 完成，队列为空，当前 dis[] 为最短路结果。"};
+}
+
+function buildBellman(){
+    const es=arcs(),s=graph.start,state=base("bellman"),steps=[];state.round=0;state.updatedInRound=false;
+    step(steps,state,{task:`点击起点 ${s}，设置 dis[${s}]=0。`,expected:{type:"node",id:s},highlightNodes:[s],hint:"Bellman-Ford 也从起点距离 0 开始。",answer:`点击节点 ${s}`,log:`初始化起点 ${s}`,code:"init"},st=>{st.dis[s]=0});
+    for(let r=1;r<=state.order.length-1;r++){
+        state.round=r;state.updatedInRound=false;
+        for(const e of es){
+            state.edge=e;const nd=state.dis[e.u]>=INF/2?INF:state.dis[e.u]+e.w,yes=nd<state.dis[e.v];
+            step(steps,state,{task:`第 ${r} 轮，检查边 ${arcText(e)}。是否发生松弛？`,expected:{type:"button",id:yes?"relax":"noRelax"},buttons:[{id:"relax",label:"发生松弛",kind:"primary"},{id:"noRelax",label:"不松弛"}],highlightNodes:[e.u,e.v],highlightEdges:[e.edgeId],hint:`比较 dis[${e.v}]=${fmt(state.dis[e.v])} 与 dis[${e.u}]+${e.w}=${fmt(nd)}。`,answer:yes?`选择“发生松弛”，更新为 ${fmt(nd)}`:"选择“不松弛”",log:yes?`第 ${r} 轮：${arcText(e)} 松弛，dis[${e.v}]=${fmt(nd)}`:`第 ${r} 轮：${arcText(e)} 不松弛`,code:yes?"relax":"noRelax"},st=>{if(yes){st.dis[e.v]=nd;st.updatedInRound=true}});
+        }
+        const changed=state.updatedInRound;
+        step(steps,state,{task:`第 ${r} 轮结束。本轮是否发生过更新？`,expected:{type:"button",id:changed?"roundChanged":"roundStable"},buttons:[{id:"roundChanged",label:"本轮有更新",kind:"primary"},{id:"roundStable",label:"本轮无更新"}],hint:"如果一整轮没有任何更新，说明可以提前结束。",answer:changed?"选择“本轮有更新”":"选择“本轮无更新”",log:changed?`第 ${r} 轮结束：发生过更新，继续下一轮`:`第 ${r} 轮结束：无更新，提前结束`,code:"round"},st=>{st.edge=null});
+        if(!changed)break;
+    }
+    return {algo:"bellman",initial:steps[0]?.before||state,steps,doneMessage:"Bellman-Ford 完成，若某一轮无更新则已经提前结束。"};
+}
+
+function buildKruskal(){
+    const o=order(),sortedEdges=graph.edges.map(e=>({...e})).sort((a,b)=>a.w-b.w||a.u-b.u||a.v-b.v||a.id-b.id),parent={},steps=[];o.forEach(id=>parent[id]=id);
+    const state={algo:"kruskal",order:o,parent,sortedEdges,idx:0,mstEdges:[],total:0};
+    for(let i=0;i<sortedEdges.length;i++){
+        state.idx=i;const e=sortedEdges[i],same=find(state.parent,e.u)===find(state.parent,e.v);
+        step(steps,state,{task:`请选择排序后第 ${i+1} 条边：${e.u}-${e.v}，权值 ${e.w}。`,expected:{type:"edge",id:e.id},highlightEdges:[e.id],hint:"Kruskal 每次按权值从小到大处理下一条边。",answer:`点击边 ${e.u}-${e.v}，权值 ${e.w}`,log:same?`选择边 ${e.u}-${e.v}，find 相同，成环，不能加入`:`选择边 ${e.u}-${e.v}，合并集合，加入 MST`,code:same?"skip":"add"},st=>{st.idx=i+1;if(!same){union(st,e.u,e.v);st.mstEdges.push(e.id);st.total+=e.w}});
+        if(state.mstEdges.length===o.length-1)break;
+    }
+    return {algo:"kruskal",initial:steps[0]?.before||state,steps,doneMessage:"Kruskal 完成，绿色边组成最小生成树。"};
+}
+
+function crossing(s){
+    const out=[];graph.edges.forEach(e=>{const a=!!s.selected[e.u],b=!!s.selected[e.v];if(a!==b)out.push({edgeId:e.id,from:a?e.u:e.v,to:a?e.v:e.u,w:e.w})});
+    return out.sort((p,q)=>p.w-q.w||p.to-q.to||p.edgeId-q.edgeId);
+}
+function buildPrim(){
+    const o=order(),selected={},key={},s=graph.start,steps=[];o.forEach(id=>{selected[id]=false;key[id]=INF});
+    const state={algo:"prim",order:o,selected,key,candidates:[],mstEdges:[],total:0,current:null};
+    step(steps,state,{task:`点击起点 ${s}，把它加入 MST 点集。`,expected:{type:"node",id:s},highlightNodes:[s],hint:"Prim 先任选一个起点作为已选集合。",answer:`点击节点 ${s}`,log:`节点 ${s} 加入 MST 点集`,code:"init"},st=>{st.selected[s]=true;st.key[s]=0;st.current=s});
+    while(Object.values(state.selected).filter(Boolean).length<o.length&&steps.length<300){
+        state.candidates=crossing(state);state.candidates.forEach(c=>{if(c.w<state.key[c.to])state.key[c.to]=c.w});
+        if(!state.candidates.length)break;
+        const best=state.candidates[0];
+        step(steps,state,{task:"请选择连接“已选点集”和“未选点集”的最小边。",expected:{type:"edge",id:best.edgeId},hint:"候选边列表已按权值排序，正确边一定跨过已选与未选两个集合。",answer:`点击边 ${edgeText(edge(best.edgeId))}，接入节点 ${best.to}`,log:`选择边 ${edgeText(edge(best.edgeId))}，节点 ${best.to} 加入 MST`,code:"add"},st=>{st.selected[best.to]=true;st.current=best.to;st.mstEdges.push(best.edgeId);st.total+=best.w;st.candidates=crossing(st);st.candidates.forEach(c=>{if(c.w<st.key[c.to])st.key[c.to]=c.w})});
+    }
+    return {algo:"prim",initial:steps[0]?.before||state,steps,doneMessage:"Prim 完成，绿色边组成最小生成树。"};
+}
+
+function validate(a){
+    if(!graph.nodes.length)return "请先添加节点，或一键生成示例图。";
+    if(["bfs","dijkstra","spfa","bellman","prim"].includes(a)&&graph.start===null)graph.start=graph.nodes[0].id;
+    if(a==="dijkstra"&&graph.edges.some(e=>e.w<0))return "Dijkstra 不允许负权边，请修改边权或换用 Bellman-Ford / SPFA。";
+    if(["kruskal","prim"].includes(a)){graph.directed=false;graph.edges.forEach(e=>e.directed=false);dom.graphType.value="undirected"}
+    return "";
+}
+function startRun(){
+    const a=dom.algorithm.value,issue=validate(a);if(issue){feedback(issue,"bad");renderAll();return}
+    const builders={bfs:buildBfs,dijkstra:buildDijkstra,floyd:buildFloyd,spfa:buildSpfa,bellman:buildBellman,kruskal:buildKruskal,prim:buildPrim};
+    run={...builders[a](),index:0,logs:[],previewIndex:null};answerVisible=false;feedback("手动模式已开始。请根据当前任务点击图中的节点、边或右侧按钮。","info");renderAll();
+}
+function match(exp,act){return exp&&act&&exp.type===act.type&&(exp.type==="button"?exp.id===act.id:Number(exp.id)===Number(act.id))}
+function submit(act){
+    if(!run||run.previewIndex!==null)return;
+    const st=currentStep();
+    if(!st){feedback("算法已经执行完毕，可以重置算法重新练习。","ok");return}
+    if(match(st.expected,act)){run.logs.push(st.log);run.index++;answerVisible=false;feedback(run.index>=run.steps.length?"正确，算法已经完成。":"正确，进入下一步。","ok");renderAll()}
+    else feedback(st.wrong||"这一步不对。先观察当前数据结构，再重新选择。","bad");
+}
+function showHint(){const st=currentStep();feedback(st?st.hint||"观察高亮的数据结构。":"当前没有需要提示的步骤。","info")}
+function showAnswer(){const st=currentStep();if(!st){feedback("算法已经完成。","ok");return}answerVisible=true;feedback(st.answer||"正确操作已高亮。","info");renderAll()}
+function back(){if(!run||run.index<=0){feedback("已经在第一步之前。","info");return}run.previewIndex=null;run.index--;run.logs.pop();answerVisible=false;feedback("已回退一步。","info");renderAll()}
+function resetRun(){if(!run){feedback("尚未开始算法。","info");return}startRun()}
+function returnCurrent(){if(!run)return;run.previewIndex=null;feedback("已回到当前步骤。","info");renderAll()}
+function applyAlgoRule(){const a=dom.algorithm.value;if(["kruskal","prim"].includes(a)){graph.directed=false;graph.edges.forEach(e=>e.directed=false);dom.graphType.value="undirected"}renderCode()}
+
+dom.editToolbar.querySelectorAll("[data-mode]").forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.mode)));
+dom.exampleBtn.addEventListener("click",loadExample);
+dom.clearBtn.addEventListener("click",clearGraph);
+dom.startRunBtn.addEventListener("click",startRun);
+dom.hintBtn.addEventListener("click",showHint);
+dom.answerBtn.addEventListener("click",showAnswer);
+dom.backBtn.addEventListener("click",back);
+dom.resetRunBtn.addEventListener("click",resetRun);
+dom.returnCurrentBtn.addEventListener("click",returnCurrent);
+dom.algorithm.addEventListener("change",()=>{run=null;answerVisible=false;applyAlgoRule();renderAll()});
+dom.graphType.addEventListener("change",()=>{graph.directed=dom.graphType.value==="directed";graph.edges.forEach(e=>e.directed=graph.directed);run=null;renderAll()});
+dom.svg.addEventListener("click",ev=>{if(ev.target!==dom.svg||running())return;if(editMode==="addNode"){const p=ptr(ev);addNode(p.x,p.y);feedback("节点已添加。","ok")}});
+dom.svg.addEventListener("mousemove",ev=>{if(!dragging)return;const n=node(dragging.id);if(!n)return;const p=ptr(ev);n.x=Math.max(42,Math.min(858,p.x));n.y=Math.max(42,Math.min(518,p.y));renderAll()});
+window.addEventListener("mouseup",()=>dragging=null);
+loadExample();
+</script>
+</body>
+</html>

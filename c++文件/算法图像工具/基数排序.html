@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>基数排序可视化 | C++ 基础算法工具</title>
+<style>
+:root{
+    --ink:#202124;
+    --cream:#fffdf4;
+    --sky:#8bd3ff;
+    --blue:#2672ff;
+    --mint:#83e6b2;
+    --green:#1e9b62;
+    --sun:#ffd45a;
+    --orange:#ff8c42;
+    --pink:#ff77a8;
+    --purple:#8b5cf6;
+    --shadow:6px 6px 0 var(--ink);
+}
+*{box-sizing:border-box}
+body{
+    margin:0;
+    color:var(--ink);
+    background:
+        radial-gradient(circle at 16px 16px, rgba(32,33,36,.08) 2px, transparent 3px) 0 0/34px 34px,
+        linear-gradient(135deg,#fff4bf 0%,#ffe5ef 45%,#d7f3ff 100%);
+    font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;
+    min-height:100vh;
+}
+button,input{font:inherit}
+.page{max-width:1280px;margin:0 auto;padding:24px}
+.hero{
+    position:relative;
+    overflow:hidden;
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:linear-gradient(120deg,#fffdf4 0%,#ffe680 48%,#78d6ff 100%);
+    box-shadow:var(--shadow);
+    padding:28px;
+    min-height:176px;
+}
+.hero:before,.hero:after{
+    content:"";
+    position:absolute;
+    border:4px solid var(--ink);
+    background:rgba(255,255,255,.55);
+    transform:rotate(-12deg);
+}
+.hero:before{width:140px;height:140px;border-radius:50%;right:110px;top:-44px}
+.hero:after{width:120px;height:72px;border-radius:8px;right:22px;bottom:18px;transform:rotate(9deg)}
+.hero-content{
+    position:relative;
+    z-index:1;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:20px;
+    align-items:end;
+}
+h1{margin:0 0 10px;font-size:clamp(32px,5vw,62px);line-height:1;letter-spacing:0}
+.subtitle{max-width:830px;margin:0;font-size:18px;line-height:1.7;font-weight:700}
+.badge{
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    box-shadow:4px 4px 0 var(--ink);
+    padding:12px 16px;
+    font-weight:900;
+    text-align:center;
+    min-width:150px;
+}
+.badge small{display:block;margin-top:4px;color:#555;font-weight:800}
+.grid{display:grid;grid-template-columns:330px minmax(0,1fr);gap:22px;margin-top:24px}
+.panel{
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:var(--cream);
+    box-shadow:var(--shadow);
+}
+.panel-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    border-bottom:4px solid var(--ink);
+    padding:14px 16px;
+    background:var(--sun);
+}
+.panel-head.blue{background:var(--sky)}
+.panel-head.green{background:var(--mint)}
+.panel-head.pink{background:#ffc0d6}
+.panel-head h2{margin:0;font-size:20px}
+.panel-body{padding:16px}
+.control-stack{display:grid;gap:14px}
+.field label{display:block;margin-bottom:6px;font-size:14px;font-weight:900}
+.field input{
+    width:100%;
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    padding:10px 12px;
+    box-shadow:3px 3px 0 var(--ink);
+}
+.buttons,.manual-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.button{
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    min-height:44px;
+    padding:8px 12px;
+    font-weight:900;
+    cursor:pointer;
+    box-shadow:3px 3px 0 var(--ink);
+    transition:transform .12s ease, box-shadow .12s ease, filter .12s ease;
+}
+.button.primary{background:var(--blue);color:#fff}
+.button.orange{background:var(--orange);color:#fff}
+.button.green{background:var(--green);color:#fff}
+.button.pink{background:var(--pink);color:#fff}
+.button.purple{background:var(--purple);color:#fff}
+.button:hover:not(:disabled){transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
+.button:active:not(:disabled){transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.button:disabled{cursor:not-allowed;filter:grayscale(.4);opacity:.58}
+.speech{
+    position:relative;
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    padding:14px;
+    min-height:136px;
+    font-size:15px;
+    line-height:1.65;
+    box-shadow:4px 4px 0 rgba(32,33,36,.18);
+}
+.speech:after{
+    content:"";
+    position:absolute;
+    left:28px;
+    bottom:-16px;
+    width:26px;
+    height:26px;
+    border-right:3px solid var(--ink);
+    border-bottom:3px solid var(--ink);
+    background:#fff;
+    transform:rotate(45deg);
+}
+.stage{display:grid;gap:18px}
+.array-title{font-size:14px;font-weight:900;color:#555;margin-bottom:8px}
+.array-wrap{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    align-items:flex-start;
+    min-height:112px;
+    padding:12px;
+    border:3px dashed rgba(32,33,36,.42);
+    border-radius:8px;
+    background:rgba(255,255,255,.62);
+}
+.cell{
+    position:relative;
+    width:72px;
+    min-height:88px;
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    box-shadow:4px 4px 0 var(--ink);
+    transition:transform .18s ease, background .18s ease, opacity .18s ease;
+    user-select:none;
+}
+.cell.clickable{cursor:pointer}
+.cell.clickable:hover{transform:translateY(-4px) rotate(-1deg)}
+.cell.plain{background:#fff}
+.cell.current{background:#ffe066;transform:translateY(-7px) rotate(-1deg)}
+.cell.bucket{background:#fff2b8}
+.cell.active-bucket{background:#b8ddff;transform:translateY(-5px) rotate(1deg)}
+.cell.prefix{background:#bff7d7}
+.cell.output{background:#8b5cf6;color:#fff;transform:scale(1.05) rotate(1deg)}
+.cell.copy{background:#ff8c42;color:#fff;transform:translateY(-7px) rotate(-1deg)}
+.cell.done{background:#bff7d7}
+.cell.empty{
+    background:#f5f5f5;
+    color:#888;
+    box-shadow:3px 3px 0 rgba(32,33,36,.25);
+}
+.value{font-family:Consolas,"Courier New",monospace;font-size:25px;font-weight:900}
+.index{font-family:Consolas,"Courier New",monospace;font-size:12px;font-weight:900;color:#595959}
+.cell.output .index,.cell.copy .index{color:#fff}
+.tag{
+    position:absolute;
+    top:-16px;
+    border:3px solid var(--ink);
+    border-radius:999px;
+    padding:1px 7px;
+    background:#fff;
+    color:var(--ink);
+    font-size:12px;
+    font-weight:900;
+    box-shadow:2px 2px 0 var(--ink);
+}
+.tag.i-tag{left:-10px;background:#ffe066}
+.tag.bucket-tag{left:8px;background:#b8ddff}
+.tag.out-tag{left:12px;background:#8b5cf6;color:#fff}
+.tag.copy-tag{left:8px;background:#ff8c42;color:#fff}
+.status-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.stat{
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    padding:10px;
+    min-height:74px;
+    box-shadow:3px 3px 0 rgba(32,33,36,.22);
+}
+.stat b{display:block;font-size:13px;margin-bottom:6px}
+.stat span{font-family:Consolas,"Courier New",monospace;font-size:22px;font-weight:900}
+.formula{
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:#151515;
+    color:#f8f8f2;
+    padding:14px;
+    overflow:auto;
+    font-family:Consolas,"Courier New",monospace;
+    font-size:14px;
+    line-height:1.55;
+    box-shadow:4px 4px 0 rgba(32,33,36,.22);
+}
+.code-key{color:#ff79c6}
+.code-type{color:#8be9fd}
+.code-num{color:#bd93f9}
+.code-comment{color:#9ca3af}
+.rule-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.rule{
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    padding:12px;
+    font-weight:900;
+    min-height:86px;
+}
+.rule:nth-child(1){background:#bff7d7}
+.rule:nth-child(2){background:#ffe066}
+.rule:nth-child(3){background:#b8ddff}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:13px;font-weight:900}
+.legend span{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    border:2px solid var(--ink);
+    border-radius:999px;
+    background:#fff;
+    padding:5px 9px;
+}
+.dot{width:16px;height:16px;border:2px solid var(--ink);border-radius:50%;display:inline-block}
+.dot.current{background:#ffe066}
+.dot.bucket{background:#fff2b8}
+.dot.active-bucket{background:#b8ddff}
+.dot.prefix{background:#bff7d7}
+.dot.output{background:#8b5cf6}
+.dot.copy{background:#ff8c42}
+.message-good{color:#087a42;font-weight:900}
+.message-warn{color:#b45400;font-weight:900}
+.message-bad{color:#d71942;font-weight:900}
+@media (max-width:960px){
+    .grid{grid-template-columns:1fr}
+    .hero-content{grid-template-columns:1fr}
+    .status-row,.rule-strip,.manual-actions{grid-template-columns:1fr}
+    .page{padding:14px}
+    .cell{width:64px}
+}
+</style>
+</head>
+<body>
+<main class="page">
+    <section class="hero">
+        <div class="hero-content">
+            <div>
+                <h1>基数排序</h1>
+                <p class="subtitle">从个位开始，按每一位数字做一次稳定的计数排序。个位排完排十位，十位排完排百位，直到最大数的最高位处理完。</p>
+            </div>
+            <div class="badge">Radix Sort<small>基数排序</small></div>
+        </div>
+    </section>
+
+    <section class="grid">
+        <aside class="panel">
+            <div class="panel-head">
+                <h2>参数面板</h2>
+            </div>
+            <div class="panel-body control-stack">
+                <div class="field">
+                    <label for="arrayInput">初始数组 arr</label>
+                    <input id="arrayInput" value="170,45,75,90,802,24,2,66">
+                </div>
+                <div class="buttons">
+                    <button class="button orange" id="resetBtn">重置</button>
+                    <button class="button primary" id="nextBtn">下一步</button>
+                </div>
+                <button class="button green" id="finishBtn">自动跑完</button>
+                <div class="speech" id="autoInfo"></div>
+            </div>
+        </aside>
+
+        <section class="panel">
+            <div class="panel-head blue">
+                <h2>自动分步演示</h2>
+                <strong id="stepCounter">Step 0</strong>
+            </div>
+            <div class="panel-body stage">
+                <div>
+                    <div class="array-title">当前数组 arr：每一轮按当前位 digit 做稳定计数排序</div>
+                    <div class="array-wrap" id="autoArray"></div>
+                </div>
+                <div>
+                    <div class="array-title">count[0..9]：先统计 digit，再变成前缀位置表</div>
+                    <div class="array-wrap" id="autoCount"></div>
+                </div>
+                <div>
+                    <div class="array-title">输出数组 output：从右往左稳定放入</div>
+                    <div class="array-wrap" id="autoOutput"></div>
+                </div>
+                <div class="status-row">
+                    <div class="stat"><b>当前位 exp</b><span id="expStat">1</span></div>
+                    <div class="stat"><b>阶段</b><span id="phaseStat">统计</span></div>
+                    <div class="stat"><b>当前下标</b><span id="indexStat">0</span></div>
+                    <div class="stat"><b>digit</b><span id="digitStat">-</span></div>
+                </div>
+                <div class="legend">
+                    <span><i class="dot current"></i>当前元素</span>
+                    <span><i class="dot active-bucket"></i>当前 digit 桶</span>
+                    <span><i class="dot prefix"></i>前缀 count</span>
+                    <span><i class="dot output"></i>写入 output</span>
+                    <span><i class="dot copy"></i>复制回 arr</span>
+                </div>
+                <div class="rule-strip">
+                    <div class="rule">digit = (arr[i] / exp) % 10，exp 依次为 1、10、100...</div>
+                    <div class="rule">count 先统计每个 digit 的个数，再累加成前缀位置。</div>
+                    <div class="rule">从右往左放入 output，保证相同 digit 的元素稳定。</div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <section class="grid">
+        <aside class="panel">
+            <div class="panel-head green">
+                <h2>手动练习</h2>
+            </div>
+            <div class="panel-body control-stack">
+                <button class="button green" id="manualStartBtn">开始练习</button>
+                <div class="manual-actions">
+                    <button class="button primary" id="prefixBtn" disabled>计算前缀</button>
+                    <button class="button orange" id="copyBtn" disabled>复制回 arr</button>
+                </div>
+                <button class="button purple" id="hintBtn" disabled>查看当前任务</button>
+                <div class="speech" id="manualInfo"></div>
+            </div>
+        </aside>
+
+        <section class="panel">
+            <div class="panel-head pink">
+                <h2>点击正确的桶或输出位置</h2>
+                <strong id="manualProgress">未开始</strong>
+            </div>
+            <div class="panel-body stage">
+                <div>
+                    <div class="array-title">手动数组 arr</div>
+                    <div class="array-wrap" id="manualArray"></div>
+                </div>
+                <div>
+                    <div class="array-title">手动 count[0..9]</div>
+                    <div class="array-wrap" id="manualCount"></div>
+                </div>
+                <div>
+                    <div class="array-title">手动 output：放置阶段点击正确位置</div>
+                    <div class="array-wrap" id="manualOutput"></div>
+                </div>
+                <div class="formula" aria-label="C++ 基数排序代码">
+<pre><span class="code-comment">// LSD 十进制基数排序：每一位用稳定计数排序</span>
+<span class="code-type">void</span> radix_sort(<span class="code-type">int</span> arr[], <span class="code-type">int</span> n) {
+    <span class="code-type">int</span> maxValue = arr[<span class="code-num">0</span>];
+    <span class="code-key">for</span> (<span class="code-type">int</span> i = <span class="code-num">1</span>; i &lt; n; i++)
+        <span class="code-key">if</span> (arr[i] &gt; maxValue) maxValue = arr[i];
+
+    <span class="code-key">for</span> (<span class="code-type">int</span> exp = <span class="code-num">1</span>; maxValue / exp &gt; <span class="code-num">0</span>; exp *= <span class="code-num">10</span>) {
+        <span class="code-type">int</span> output[<span class="code-num">105</span>];
+        <span class="code-type">int</span> count[<span class="code-num">10</span>] = {<span class="code-num">0</span>};
+
+        <span class="code-key">for</span> (<span class="code-type">int</span> i = <span class="code-num">0</span>; i &lt; n; i++)
+            count[(arr[i] / exp) % <span class="code-num">10</span>]++;
+
+        <span class="code-key">for</span> (<span class="code-type">int</span> i = <span class="code-num">1</span>; i &lt; <span class="code-num">10</span>; i++)
+            count[i] += count[i - <span class="code-num">1</span>];
+
+        <span class="code-key">for</span> (<span class="code-type">int</span> i = n - <span class="code-num">1</span>; i &gt;= <span class="code-num">0</span>; i--) {
+            <span class="code-type">int</span> digit = (arr[i] / exp) % <span class="code-num">10</span>;
+            output[count[digit] - <span class="code-num">1</span>] = arr[i];
+            count[digit]--;
+        }
+
+        <span class="code-key">for</span> (<span class="code-type">int</span> i = <span class="code-num">0</span>; i &lt; n; i++)
+            arr[i] = output[i];
+    }
+}</pre>
+                </div>
+            </div>
+        </section>
+    </section>
+</main>
+
+<script>
+const MAX_VALUE = 99999;
+
+const els = {
+    arrayInput: document.getElementById('arrayInput'),
+    resetBtn: document.getElementById('resetBtn'),
+    nextBtn: document.getElementById('nextBtn'),
+    finishBtn: document.getElementById('finishBtn'),
+    autoInfo: document.getElementById('autoInfo'),
+    autoArray: document.getElementById('autoArray'),
+    autoCount: document.getElementById('autoCount'),
+    autoOutput: document.getElementById('autoOutput'),
+    stepCounter: document.getElementById('stepCounter'),
+    expStat: document.getElementById('expStat'),
+    phaseStat: document.getElementById('phaseStat'),
+    indexStat: document.getElementById('indexStat'),
+    digitStat: document.getElementById('digitStat'),
+    manualStartBtn: document.getElementById('manualStartBtn'),
+    prefixBtn: document.getElementById('prefixBtn'),
+    copyBtn: document.getElementById('copyBtn'),
+    hintBtn: document.getElementById('hintBtn'),
+    manualInfo: document.getElementById('manualInfo'),
+    manualArray: document.getElementById('manualArray'),
+    manualCount: document.getElementById('manualCount'),
+    manualOutput: document.getElementById('manualOutput'),
+    manualProgress: document.getElementById('manualProgress')
+};
+
+const state = {
+    baseArr: [],
+    valid: true,
+    error: '',
+    maxValue: 0,
+    auto: {},
+    manual: {}
+};
+
+let autoRunTimer = null;
+
+function stopAutoRun() {
+    if (autoRunTimer !== null) {
+        clearInterval(autoRunTimer);
+        autoRunTimer = null;
+    }
+    els.finishBtn.textContent = '自动跑完';
+}
+
+function autoRunFinished() {
+    return state.auto.phase === 'done' || state.auto.phase === 'invalid';
+}
+
+function parseArray() {
+    const raw = els.arrayInput.value.split(',').map(x => x.trim()).filter(Boolean);
+    const arr = raw.map(Number);
+    if (raw.length === 0 || arr.some(x => !Number.isInteger(x))) {
+        return { valid:false, arr:[], error:'请输入用逗号分隔的整数。' };
+    }
+    if (arr.some(x => x < 0)) {
+        return { valid:false, arr, error:'基础 LSD 基数排序要求元素是非负整数。' };
+    }
+    if (Math.max(...arr) > MAX_VALUE) {
+        return { valid:false, arr, error:`为了展示清晰，请把最大值控制在 ${MAX_VALUE} 以内。` };
+    }
+    return { valid:true, arr, error:'' };
+}
+
+function digitOf(value, exp) {
+    return Math.floor(value / exp) % 10;
+}
+
+function phaseName(phase) {
+    if (phase === 'count') return '统计';
+    if (phase === 'prefix') return '前缀';
+    if (phase === 'place') return '放置';
+    if (phase === 'copy') return '复制';
+    if (phase === 'done') return '完成';
+    return '-';
+}
+
+function initAll() {
+    const parsed = parseArray();
+    state.baseArr = parsed.arr;
+    state.valid = parsed.valid;
+    state.error = parsed.error;
+    state.maxValue = parsed.valid ? Math.max(...parsed.arr) : 0;
+    resetAuto();
+    resetManual(false);
+}
+
+function emptyCount() {
+    return new Array(10).fill(0);
+}
+
+function emptyOutput() {
+    return new Array(state.baseArr.length).fill(null);
+}
+
+function makeAutoState() {
+    return {
+        arr: [...state.baseArr],
+        count: emptyCount(),
+        output: emptyOutput(),
+        exp: 1,
+        pass: 1,
+        phase: state.valid && state.baseArr.length > 1 ? 'count' : state.valid ? 'done' : 'invalid',
+        countIndex: 0,
+        prefixIndex: 1,
+        placeIndex: state.baseArr.length - 1,
+        copyIndex: 0,
+        activeBucket: null,
+        lastInput: null,
+        lastOutput: null,
+        step: 0,
+        note: ''
+    };
+}
+
+function makeManualState(active) {
+    return {
+        arr: [...state.baseArr],
+        count: emptyCount(),
+        output: emptyOutput(),
+        exp: 1,
+        pass: 1,
+        phase: active && state.valid && state.baseArr.length > 1 ? 'count' : active && state.valid ? 'done' : active ? 'invalid' : 'idle',
+        countIndex: 0,
+        prefixIndex: 1,
+        placeIndex: state.baseArr.length - 1,
+        copyIndex: 0,
+        activeBucket: null,
+        lastInput: null,
+        lastOutput: null,
+        active
+    };
+}
+
+function resetAuto() {
+    stopAutoRun();
+    state.auto = makeAutoState();
+    els.nextBtn.disabled = !state.valid || state.baseArr.length <= 1;
+    els.finishBtn.disabled = !state.valid || state.baseArr.length <= 1;
+    renderAuto();
+    updateAutoInfo();
+}
+
+function resetManual(active) {
+    state.manual = makeManualState(active);
+    setManualButtons();
+    renderManual();
+    if (!active) {
+        updateManualInfo('点击“开始练习”。统计阶段点 digit 桶，放置阶段点正确的 output 位置。');
+    } else if (!state.valid) {
+        updateManualInfo(`<span class="message-bad">${state.error}</span>`);
+    } else if (state.manual.phase === 'done') {
+        updateManualInfo('<span class="message-good">数组长度不超过 1，已经有序。</span>');
+    } else {
+        const d = digitOf(state.manual.arr[0], state.manual.exp);
+        updateManualInfo(`第 ${state.manual.pass} 轮，exp = ${state.manual.exp}。当前 arr[0] 的 digit = ${d}，请点击 count[${d}]。`);
+    }
+}
+
+function makeTag(text, cls) {
+    const el = document.createElement('span');
+    el.className = `tag ${cls}`;
+    el.textContent = text;
+    return el;
+}
+
+function makeCell(value, label, classes = [], tags = [], clickable = false, onClick = null) {
+    const cell = document.createElement('div');
+    cell.className = `cell ${classes.join(' ')}`;
+    if (clickable) {
+        cell.classList.add('clickable');
+        cell.onclick = onClick;
+    }
+    tags.forEach(tag => cell.appendChild(tag));
+    const valueEl = document.createElement('div');
+    valueEl.className = 'value';
+    valueEl.textContent = value;
+    const indexEl = document.createElement('div');
+    indexEl.className = 'index';
+    indexEl.textContent = label;
+    cell.appendChild(valueEl);
+    cell.appendChild(indexEl);
+    return cell;
+}
+
+function renderArray(container, arr, data) {
+    container.innerHTML = '';
+    arr.forEach((value, index) => {
+        const classes = ['plain'];
+        const tags = [];
+        if (data.phase === 'done') classes.push('done');
+        if (index === data.countIndex && data.phase === 'count') {
+            classes.push('current');
+            tags.push(makeTag('i', 'i-tag'));
+        }
+        if (index === data.placeIndex && data.phase === 'place') {
+            classes.push('current');
+            tags.push(makeTag('i', 'i-tag'));
+        }
+        if (index === data.copyIndex && data.phase === 'copy') {
+            classes.push('copy');
+            tags.push(makeTag('copy', 'copy-tag'));
+        }
+        if (index === data.lastInput) {
+            classes.push('output');
+            tags.push(makeTag('取', 'out-tag'));
+        }
+        const digit = digitOf(value, data.exp || 1);
+        container.appendChild(makeCell(value, `a[${index}] d=${digit}`, classes, tags));
+    });
+}
+
+function renderCount(container, count, data, clickable = false) {
+    container.innerHTML = '';
+    count.forEach((value, index) => {
+        const classes = ['bucket'];
+        const tags = [];
+        if (data.phase === 'prefix' && index < data.prefixIndex) classes.push('prefix');
+        if (index === data.activeBucket) {
+            classes.push('active-bucket');
+            tags.push(makeTag('桶', 'bucket-tag'));
+        }
+        container.appendChild(makeCell(value, `count[${index}]`, classes, tags, clickable, () => manualBucketClick(index)));
+    });
+}
+
+function renderOutput(container, output, data, clickable = false) {
+    container.innerHTML = '';
+    output.forEach((value, index) => {
+        const classes = value === null ? ['empty'] : ['output'];
+        const tags = [];
+        if (data.phase === 'done' && value !== null) classes.push('done');
+        if (index === data.lastOutput) tags.push(makeTag('写入', 'out-tag'));
+        container.appendChild(makeCell(value === null ? '?' : value, `out[${index}]`, classes, tags, clickable && data.phase === 'place', () => manualOutputClick(index)));
+    });
+}
+
+function renderAuto() {
+    const a = state.auto;
+    renderArray(els.autoArray, a.arr, a);
+    renderCount(els.autoCount, a.count, a);
+    renderOutput(els.autoOutput, a.output, a);
+    els.stepCounter.textContent = `Step ${a.step}`;
+    els.expStat.textContent = a.phase === 'done' ? '-' : a.exp;
+    els.phaseStat.textContent = phaseName(a.phase);
+    els.indexStat.textContent = currentIndexText(a);
+    els.digitStat.textContent = currentDigitText(a);
+}
+
+function renderManual() {
+    const m = state.manual;
+    renderArray(els.manualArray, m.arr, m);
+    renderCount(els.manualCount, m.count, m, m.active && m.phase === 'count');
+    renderOutput(els.manualOutput, m.output, m, m.active && m.phase === 'place');
+    if (m.phase === 'idle') els.manualProgress.textContent = '未开始';
+    else if (m.phase === 'done') els.manualProgress.textContent = '已完成';
+    else els.manualProgress.textContent = `第 ${m.pass} 轮：${phaseName(m.phase)} exp=${m.exp}`;
+}
+
+function currentIndexText(data) {
+    if (data.phase === 'count') return data.countIndex;
+    if (data.phase === 'prefix') return data.prefixIndex;
+    if (data.phase === 'place') return data.placeIndex;
+    if (data.phase === 'copy') return data.copyIndex;
+    return '-';
+}
+
+function currentDigitText(data) {
+    if (data.phase === 'count' && data.countIndex < data.arr.length) return digitOf(data.arr[data.countIndex], data.exp);
+    if (data.phase === 'place' && data.placeIndex >= 0) return digitOf(data.arr[data.placeIndex], data.exp);
+    return '-';
+}
+
+function updateAutoInfo() {
+    const a = state.auto;
+    if (!state.valid) {
+        els.autoInfo.innerHTML = `<span class="message-bad">${state.error}</span>`;
+        return;
+    }
+    if (a.phase === 'done') {
+        els.autoInfo.innerHTML = `<span class="message-good">基数排序完成。</span><br>所有位都已经处理完毕。`;
+        return;
+    }
+    if (a.note) {
+        els.autoInfo.innerHTML = a.note;
+        return;
+    }
+    if (a.phase === 'count') {
+        const d = digitOf(a.arr[a.countIndex], a.exp);
+        els.autoInfo.innerHTML = `第 ${a.pass} 轮，exp = ${a.exp}。<br>统计 arr[${a.countIndex}] = ${a.arr[a.countIndex]} 的 digit = ${d}。`;
+    } else if (a.phase === 'prefix') {
+        els.autoInfo.innerHTML = `计算 count 前缀和。<br>下一步执行 count[${a.prefixIndex}] += count[${a.prefixIndex - 1}]。`;
+    } else if (a.phase === 'place') {
+        const d = digitOf(a.arr[a.placeIndex], a.exp);
+        els.autoInfo.innerHTML = `稳定放置阶段，从右往左处理。<br>当前 arr[${a.placeIndex}] = ${a.arr[a.placeIndex]}，digit = ${d}。`;
+    } else if (a.phase === 'copy') {
+        els.autoInfo.innerHTML = `把 output 复制回 arr。<br>下一步复制 output[${a.copyIndex}]。`;
+    }
+}
+
+function autoStep() {
+    const a = state.auto;
+    if (a.phase === 'done' || a.phase === 'invalid') return;
+    a.note = '';
+    a.activeBucket = null;
+    a.lastInput = null;
+    a.lastOutput = null;
+    if (a.phase === 'count') {
+        const value = a.arr[a.countIndex];
+        const d = digitOf(value, a.exp);
+        a.count[d]++;
+        a.activeBucket = d;
+        a.note = `arr[${a.countIndex}] = ${value}，digit = ${d}，所以 count[${d}]++。`;
+        a.countIndex++;
+        if (a.countIndex >= a.arr.length) {
+            a.phase = 'prefix';
+            a.prefixIndex = 1;
+            a.note += '<br>统计完成，开始计算 count 前缀和。';
+        }
+    } else if (a.phase === 'prefix') {
+        a.count[a.prefixIndex] += a.count[a.prefixIndex - 1];
+        a.activeBucket = a.prefixIndex;
+        a.note = `count[${a.prefixIndex}] += count[${a.prefixIndex - 1}]，现在 count[${a.prefixIndex}] = ${a.count[a.prefixIndex]}。`;
+        a.prefixIndex++;
+        if (a.prefixIndex >= 10) {
+            a.phase = 'place';
+            a.placeIndex = a.arr.length - 1;
+            a.note += '<br>前缀和完成，开始从右往左放入 output。';
+        }
+    } else if (a.phase === 'place') {
+        const value = a.arr[a.placeIndex];
+        const d = digitOf(value, a.exp);
+        const pos = a.count[d] - 1;
+        a.output[pos] = value;
+        a.count[d]--;
+        a.activeBucket = d;
+        a.lastInput = a.placeIndex;
+        a.lastOutput = pos;
+        a.note = `digit = ${d}，放到 output[count[${d}] - 1] = output[${pos}]，然后 count[${d}]--。`;
+        a.placeIndex--;
+        if (a.placeIndex < 0) {
+            a.phase = 'copy';
+            a.copyIndex = 0;
+            a.note += '<br>本位放置完成，准备复制回 arr。';
+        }
+    } else if (a.phase === 'copy') {
+        a.arr[a.copyIndex] = a.output[a.copyIndex];
+        a.lastOutput = a.copyIndex;
+        a.note = `arr[${a.copyIndex}] = output[${a.copyIndex}] = ${a.arr[a.copyIndex]}。`;
+        a.copyIndex++;
+        if (a.copyIndex >= a.arr.length) {
+            const nextExp = a.exp * 10;
+            if (Math.floor(state.maxValue / nextExp) > 0) {
+                a.exp = nextExp;
+                a.pass++;
+                a.count = emptyCount();
+                a.output = emptyOutput();
+                a.countIndex = 0;
+                a.phase = 'count';
+                a.note += `<br>进入下一位，exp = ${a.exp}。`;
+            } else {
+                a.phase = 'done';
+                els.nextBtn.disabled = true;
+                els.finishBtn.disabled = true;
+                a.note += '<br>所有位处理完毕。';
+            }
+        }
+    }
+    a.step++;
+    renderAuto();
+    updateAutoInfo();
+}
+
+function finishAuto() {
+    if (autoRunTimer !== null || autoRunFinished()) return;
+    els.finishBtn.textContent = '自动中...';
+    els.finishBtn.disabled = true;
+    els.nextBtn.disabled = true;
+    autoRunTimer = setInterval(() => {
+        if (autoRunFinished()) {
+            stopAutoRun();
+            els.finishBtn.disabled = true;
+            els.nextBtn.disabled = true;
+            return;
+        }
+        autoStep();
+        if (autoRunFinished()) {
+            stopAutoRun();
+            els.finishBtn.disabled = true;
+            els.nextBtn.disabled = true;
+        }
+    }, 1000);
+}
+
+function startManual() {
+    resetManual(true);
+}
+
+function setManualButtons() {
+    const m = state.manual;
+    els.prefixBtn.disabled = !(m.active && m.phase === 'prefix');
+    els.copyBtn.disabled = !(m.active && m.phase === 'copy');
+    els.hintBtn.disabled = !(m.active && state.valid);
+}
+
+function manualBucketClick(bucket) {
+    const m = state.manual;
+    if (!m.active || m.phase !== 'count') return;
+    m.activeBucket = null;
+    m.lastInput = null;
+    m.lastOutput = null;
+    const value = m.arr[m.countIndex];
+    const expected = digitOf(value, m.exp);
+    if (bucket !== expected) {
+        updateManualInfo(`<span class="message-bad">桶选错了。</span><br>arr[${m.countIndex}] = ${value}，当前位 digit = ${expected}，应点击 count[${expected}]。`);
+        return;
+    }
+    m.count[bucket]++;
+    m.activeBucket = bucket;
+    m.countIndex++;
+    if (m.countIndex >= m.arr.length) {
+        m.phase = 'prefix';
+        m.prefixIndex = 1;
+        updateManualInfo('<span class="message-good">统计完成。</span><br>点击“计算前缀”，把 count 变成位置表。');
+    } else {
+        const next = digitOf(m.arr[m.countIndex], m.exp);
+        updateManualInfo(`<span class="message-good">统计正确。</span><br>下一项 arr[${m.countIndex}] = ${m.arr[m.countIndex]}，digit = ${next}。`);
+    }
+    setManualButtons();
+    renderManual();
+}
+
+function manualPrefixStep() {
+    const m = state.manual;
+    if (m.phase !== 'prefix') return;
+    m.count[m.prefixIndex] += m.count[m.prefixIndex - 1];
+    m.activeBucket = m.prefixIndex;
+    updateManualInfo(`count[${m.prefixIndex}] += count[${m.prefixIndex - 1}]，现在 count[${m.prefixIndex}] = ${m.count[m.prefixIndex]}。`);
+    m.prefixIndex++;
+    if (m.prefixIndex >= 10) {
+        m.phase = 'place';
+        m.placeIndex = m.arr.length - 1;
+        updateManualInfo('<span class="message-good">前缀和完成。</span><br>现在从右往左处理 arr，点击正确的 output 位置。');
+    }
+    setManualButtons();
+    renderManual();
+}
+
+function manualOutputClick(pos) {
+    const m = state.manual;
+    if (m.phase !== 'place') return;
+    m.activeBucket = null;
+    m.lastInput = null;
+    m.lastOutput = null;
+    const value = m.arr[m.placeIndex];
+    const d = digitOf(value, m.exp);
+    const expectedPos = m.count[d] - 1;
+    if (pos !== expectedPos) {
+        updateManualInfo(`<span class="message-bad">输出位置不对。</span><br>arr[${m.placeIndex}] = ${value}，digit = ${d}，应放到 output[${expectedPos}]。`);
+        return;
+    }
+    m.output[pos] = value;
+    m.count[d]--;
+    m.activeBucket = d;
+    m.lastInput = m.placeIndex;
+    m.lastOutput = pos;
+    m.placeIndex--;
+    if (m.placeIndex < 0) {
+        m.phase = 'copy';
+        m.copyIndex = 0;
+        updateManualInfo('<span class="message-good">本位放置完成。</span><br>点击“复制回 arr”，进入下一位或完成排序。');
+    } else {
+        const nextD = digitOf(m.arr[m.placeIndex], m.exp);
+        updateManualInfo(`<span class="message-good">放置正确。</span><br>继续从右往左，arr[${m.placeIndex}] 的 digit = ${nextD}。`);
+    }
+    setManualButtons();
+    renderManual();
+}
+
+function manualCopyBack() {
+    const m = state.manual;
+    if (m.phase !== 'copy') return;
+    m.arr = [...m.output];
+    const nextExp = m.exp * 10;
+    if (Math.floor(state.maxValue / nextExp) > 0) {
+        m.exp = nextExp;
+        m.pass++;
+        m.count = emptyCount();
+        m.output = emptyOutput();
+        m.countIndex = 0;
+        m.prefixIndex = 1;
+        m.placeIndex = m.arr.length - 1;
+        m.activeBucket = null;
+        m.lastInput = null;
+        m.lastOutput = null;
+        m.phase = 'count';
+        const d = digitOf(m.arr[0], m.exp);
+        updateManualInfo(`<span class="message-good">已复制回 arr。</span><br>进入第 ${m.pass} 轮，exp = ${m.exp}。arr[0] 的 digit = ${d}。`);
+    } else {
+        m.phase = 'done';
+        m.activeBucket = null;
+        updateManualInfo('<span class="message-good">练习完成。</span><br>所有位都已经处理完毕。');
+    }
+    setManualButtons();
+    renderManual();
+}
+
+function showHint() {
+    const m = state.manual;
+    if (m.phase === 'count') {
+        const d = digitOf(m.arr[m.countIndex], m.exp);
+        updateManualInfo(`当前任务：arr[${m.countIndex}] = ${m.arr[m.countIndex]}，digit = ${d}，点击 count[${d}]。`);
+    } else if (m.phase === 'prefix') {
+        updateManualInfo(`当前任务：点击“计算前缀”，执行 count[${m.prefixIndex}] += count[${m.prefixIndex - 1}]。`);
+    } else if (m.phase === 'place') {
+        const value = m.arr[m.placeIndex];
+        const d = digitOf(value, m.exp);
+        const pos = m.count[d] - 1;
+        updateManualInfo(`当前任务：arr[${m.placeIndex}] = ${value}，digit = ${d}，点击 output[${pos}]。`);
+    } else if (m.phase === 'copy') {
+        updateManualInfo('当前任务：点击“复制回 arr”，结束本位处理。');
+    } else if (m.phase === 'done') {
+        updateManualInfo('<span class="message-good">练习已经完成。</span>');
+    }
+}
+
+function updateManualInfo(html) {
+    els.manualInfo.innerHTML = html;
+}
+
+els.resetBtn.onclick = initAll;
+els.nextBtn.onclick = autoStep;
+els.finishBtn.onclick = finishAuto;
+els.arrayInput.oninput = initAll;
+els.manualStartBtn.onclick = startManual;
+els.prefixBtn.onclick = manualPrefixStep;
+els.copyBtn.onclick = manualCopyBack;
+els.hintBtn.onclick = showHint;
+
+initAll();
+</script>
+</body>
+</html>

@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>二分查找可视化 | C++ 基础算法工具</title>
+<style>
+:root{
+    --ink:#202124;
+    --paper:#fff8e8;
+    --cream:#fffdf4;
+    --sky:#8bd3ff;
+    --blue:#2672ff;
+    --mint:#83e6b2;
+    --green:#1e9b62;
+    --sun:#ffd45a;
+    --orange:#ff8c42;
+    --pink:#ff77a8;
+    --red:#ee4266;
+    --purple:#8b5cf6;
+    --shadow:6px 6px 0 var(--ink);
+}
+*{box-sizing:border-box}
+body{
+    margin:0;
+    color:var(--ink);
+    background:
+        radial-gradient(circle at 16px 16px, rgba(32,33,36,.08) 2px, transparent 3px) 0 0/34px 34px,
+        linear-gradient(135deg,#fff4bf 0%,#ffe5ef 45%,#d7f3ff 100%);
+    font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;
+    min-height:100vh;
+}
+button,input{
+    font:inherit;
+}
+.page{
+    max-width:1280px;
+    margin:0 auto;
+    padding:24px;
+}
+.hero{
+    position:relative;
+    overflow:hidden;
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:linear-gradient(120deg,#fffdf4 0%,#ffe680 48%,#78d6ff 100%);
+    box-shadow:var(--shadow);
+    padding:28px;
+    min-height:176px;
+}
+.hero:before,.hero:after{
+    content:"";
+    position:absolute;
+    border:4px solid var(--ink);
+    background:rgba(255,255,255,.55);
+    transform:rotate(-12deg);
+}
+.hero:before{
+    width:140px;height:140px;border-radius:50%;
+    right:110px;top:-44px;
+}
+.hero:after{
+    width:120px;height:72px;border-radius:8px;
+    right:22px;bottom:18px;
+    transform:rotate(9deg);
+}
+.hero-content{
+    position:relative;
+    z-index:1;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:20px;
+    align-items:end;
+}
+h1{
+    margin:0 0 10px;
+    font-size:clamp(32px,5vw,62px);
+    line-height:1;
+    letter-spacing:0;
+}
+.subtitle{
+    max-width:760px;
+    margin:0;
+    font-size:18px;
+    line-height:1.7;
+    font-weight:700;
+}
+.badge{
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    box-shadow:4px 4px 0 var(--ink);
+    padding:12px 16px;
+    font-weight:900;
+    text-align:center;
+    min-width:142px;
+}
+.badge small{
+    display:block;
+    margin-top:4px;
+    color:#555;
+    font-weight:800;
+}
+.grid{
+    display:grid;
+    grid-template-columns:330px minmax(0,1fr);
+    gap:22px;
+    margin-top:24px;
+}
+.panel{
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:var(--cream);
+    box-shadow:var(--shadow);
+}
+.panel-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    border-bottom:4px solid var(--ink);
+    padding:14px 16px;
+    background:var(--sun);
+}
+.panel-head.blue{background:var(--sky)}
+.panel-head.green{background:var(--mint)}
+.panel-head.pink{background:#ffc0d6}
+.panel-head h2{
+    margin:0;
+    font-size:20px;
+}
+.panel-body{
+    padding:16px;
+}
+.control-stack{
+    display:grid;
+    gap:14px;
+}
+.field label{
+    display:block;
+    margin-bottom:6px;
+    font-size:14px;
+    font-weight:900;
+}
+.field input{
+    width:100%;
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    padding:10px 12px;
+    box-shadow:3px 3px 0 var(--ink);
+}
+.buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+.button{
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    min-height:44px;
+    padding:8px 12px;
+    font-weight:900;
+    cursor:pointer;
+    box-shadow:3px 3px 0 var(--ink);
+    transition:transform .12s ease, box-shadow .12s ease, filter .12s ease;
+}
+.button.primary{background:var(--blue);color:#fff}
+.button.orange{background:var(--orange);color:#fff}
+.button.green{background:var(--green);color:#fff}
+.button.pink{background:var(--pink);color:#fff}
+.button:hover:not(:disabled){
+    transform:translate(-1px,-1px);
+    box-shadow:5px 5px 0 var(--ink);
+}
+.button:active:not(:disabled){
+    transform:translate(2px,2px);
+    box-shadow:1px 1px 0 var(--ink);
+}
+.button:disabled{
+    cursor:not-allowed;
+    filter:grayscale(.4);
+    opacity:.58;
+}
+.speech{
+    position:relative;
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    padding:14px;
+    min-height:118px;
+    font-size:15px;
+    line-height:1.65;
+    box-shadow:4px 4px 0 rgba(32,33,36,.18);
+}
+.speech:after{
+    content:"";
+    position:absolute;
+    left:28px;
+    bottom:-16px;
+    width:26px;
+    height:26px;
+    border-right:3px solid var(--ink);
+    border-bottom:3px solid var(--ink);
+    background:#fff;
+    transform:rotate(45deg);
+}
+.stage{
+    display:grid;
+    gap:18px;
+}
+.array-wrap{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    align-items:flex-start;
+    min-height:112px;
+    padding:12px;
+    border:3px dashed rgba(32,33,36,.42);
+    border-radius:8px;
+    background:rgba(255,255,255,.62);
+}
+.cell{
+    position:relative;
+    width:72px;
+    min-height:88px;
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    box-shadow:4px 4px 0 var(--ink);
+    transition:transform .18s ease, background .18s ease, opacity .18s ease;
+    user-select:none;
+}
+.cell.clickable{
+    cursor:pointer;
+}
+.cell.clickable:hover{
+    transform:translateY(-4px) rotate(-1deg);
+}
+.value{
+    font-family:Consolas,"Courier New",monospace;
+    font-size:25px;
+    font-weight:900;
+}
+.index{
+    font-family:Consolas,"Courier New",monospace;
+    font-size:12px;
+    font-weight:900;
+    color:#595959;
+}
+.cell.low{background:#bff7d7}
+.cell.high{background:#b8ddff}
+.cell.mid{
+    background:#ffe066;
+    transform:translateY(-7px) rotate(-1deg);
+}
+.cell.found{
+    background:#ff77a8;
+    color:#fff;
+    transform:scale(1.08) rotate(1deg);
+}
+.cell.dead{
+    opacity:.36;
+    background:#ececec;
+    box-shadow:2px 2px 0 var(--ink);
+}
+.tag{
+    position:absolute;
+    top:-16px;
+    border:3px solid var(--ink);
+    border-radius:999px;
+    padding:1px 7px;
+    background:#fff;
+    font-size:12px;
+    font-weight:900;
+    box-shadow:2px 2px 0 var(--ink);
+}
+.tag.low-tag{left:-10px;background:#bff7d7}
+.tag.mid-tag{left:18px;background:#ffe066}
+.tag.high-tag{right:-10px;background:#b8ddff}
+.status-row{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:12px;
+}
+.stat{
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    padding:10px;
+    min-height:74px;
+    box-shadow:3px 3px 0 rgba(32,33,36,.22);
+}
+.stat b{
+    display:block;
+    font-size:13px;
+    margin-bottom:6px;
+}
+.stat span{
+    font-family:Consolas,"Courier New",monospace;
+    font-size:22px;
+    font-weight:900;
+}
+.formula{
+    border:4px solid var(--ink);
+    border-radius:8px;
+    background:#151515;
+    color:#f8f8f2;
+    padding:14px;
+    overflow:auto;
+    font-family:Consolas,"Courier New",monospace;
+    font-size:14px;
+    line-height:1.55;
+    box-shadow:4px 4px 0 rgba(32,33,36,.22);
+}
+.code-key{color:#ff79c6}
+.code-type{color:#8be9fd}
+.code-num{color:#bd93f9}
+.code-comment{color:#9ca3af}
+.rule-strip{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+}
+.rule{
+    border:3px solid var(--ink);
+    border-radius:8px;
+    background:#fff;
+    padding:12px;
+    font-weight:900;
+    min-height:86px;
+}
+.rule:nth-child(1){background:#bff7d7}
+.rule:nth-child(2){background:#ffe066}
+.rule:nth-child(3){background:#b8ddff}
+.manual-actions{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+.message-good{color:#087a42;font-weight:900}
+.message-warn{color:#b45400;font-weight:900}
+.message-bad{color:#d71942;font-weight:900}
+.legend{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    font-size:13px;
+    font-weight:900;
+}
+.legend span{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    border:2px solid var(--ink);
+    border-radius:999px;
+    background:#fff;
+    padding:5px 9px;
+}
+.dot{
+    width:16px;height:16px;border:2px solid var(--ink);border-radius:50%;
+    display:inline-block;
+}
+.dot.low{background:#bff7d7}
+.dot.mid{background:#ffe066}
+.dot.high{background:#b8ddff}
+.dot.dead{background:#ececec}
+@media (max-width:960px){
+    .grid{grid-template-columns:1fr}
+    .hero-content{grid-template-columns:1fr}
+    .status-row,.rule-strip,.manual-actions{grid-template-columns:1fr}
+    .page{padding:14px}
+    .cell{width:64px}
+}
+</style>
+</head>
+<body>
+<main class="page">
+    <section class="hero">
+        <div class="hero-content">
+            <div>
+                <h1>二分查找</h1>
+                <p class="subtitle">给定一个升序数组，每次查看中间位置 mid，把搜索范围砍掉一半。这里演示的是 C++ 入门版：查找一个目标值是否存在。</p>
+            </div>
+            <div class="badge">Binary Search<small>基础版</small></div>
+        </div>
+    </section>
+
+    <section class="grid">
+        <aside class="panel">
+            <div class="panel-head">
+                <h2>参数面板</h2>
+            </div>
+            <div class="panel-body control-stack">
+                <div class="field">
+                    <label for="arrayInput">升序数组</label>
+                    <input id="arrayInput" value="1,3,5,7,9,11,13,15,17">
+                </div>
+                <div class="field">
+                    <label for="targetInput">要查找的 target</label>
+                    <input id="targetInput" value="11">
+                </div>
+                <div class="buttons">
+                    <button class="button orange" id="resetBtn">重置</button>
+                    <button class="button primary" id="nextBtn">下一步</button>
+                </div>
+                <button class="button green" id="sortBtn">按升序整理数组</button>
+                <div class="speech" id="autoInfo"></div>
+            </div>
+        </aside>
+
+        <section class="panel">
+            <div class="panel-head blue">
+                <h2>自动分步演示</h2>
+                <strong id="stepCounter">Step 0</strong>
+            </div>
+            <div class="panel-body stage">
+                <div class="array-wrap" id="autoArray"></div>
+                <div class="status-row">
+                    <div class="stat"><b>左边界 low</b><span id="lowStat">0</span></div>
+                    <div class="stat"><b>右边界 high</b><span id="highStat">0</span></div>
+                    <div class="stat"><b>中点 mid</b><span id="midStat">-</span></div>
+                    <div class="stat"><b>比较次数</b><span id="countStat">0</span></div>
+                </div>
+                <div class="legend">
+                    <span><i class="dot low"></i>low</span>
+                    <span><i class="dot mid"></i>mid</span>
+                    <span><i class="dot high"></i>high</span>
+                    <span><i class="dot dead"></i>已排除</span>
+                </div>
+                <div class="rule-strip">
+                    <div class="rule">arr[mid] == target：找到了，返回 mid。</div>
+                    <div class="rule">arr[mid] &lt; target：目标在右边，low = mid + 1。</div>
+                    <div class="rule">arr[mid] &gt; target：目标在左边，high = mid - 1。</div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <section class="grid">
+        <aside class="panel">
+            <div class="panel-head green">
+                <h2>手动练习</h2>
+            </div>
+            <div class="panel-body control-stack">
+                <button class="button green" id="manualStartBtn">开始练习</button>
+                <div class="manual-actions">
+                    <button class="button pink" id="lessBtn" disabled>目标更小</button>
+                    <button class="button green" id="equalBtn" disabled>找到了</button>
+                    <button class="button primary" id="greaterBtn" disabled>目标更大</button>
+                </div>
+                <div class="speech" id="manualInfo"></div>
+            </div>
+        </aside>
+
+        <section class="panel">
+            <div class="panel-head pink">
+                <h2>点击你算出的 mid</h2>
+                <strong id="manualRange">low = 0, high = 0</strong>
+            </div>
+            <div class="panel-body stage">
+                <div class="array-wrap" id="manualArray"></div>
+                <div class="formula" aria-label="C++ 二分查找代码">
+<pre><span class="code-type">int</span> binarySearch(vector&lt;<span class="code-type">int</span>&gt;&amp; a, <span class="code-type">int</span> target) {
+    <span class="code-type">int</span> low = <span class="code-num">0</span>, high = (<span class="code-type">int</span>)a.size() - <span class="code-num">1</span>;
+    <span class="code-key">while</span> (low &lt;= high) {
+        <span class="code-type">int</span> mid = low + (high - low) / <span class="code-num">2</span>;
+        <span class="code-key">if</span> (a[mid] == target) <span class="code-key">return</span> mid;
+        <span class="code-key">else if</span> (a[mid] &lt; target) low = mid + <span class="code-num">1</span>;
+        <span class="code-key">else</span> high = mid - <span class="code-num">1</span>;
+    }
+    <span class="code-key">return</span> -<span class="code-num">1</span>; <span class="code-comment">// 没有找到</span>
+}</pre>
+                </div>
+            </div>
+        </section>
+    </section>
+</main>
+
+<script>
+const els = {
+    arrayInput: document.getElementById('arrayInput'),
+    targetInput: document.getElementById('targetInput'),
+    resetBtn: document.getElementById('resetBtn'),
+    nextBtn: document.getElementById('nextBtn'),
+    sortBtn: document.getElementById('sortBtn'),
+    autoInfo: document.getElementById('autoInfo'),
+    autoArray: document.getElementById('autoArray'),
+    stepCounter: document.getElementById('stepCounter'),
+    lowStat: document.getElementById('lowStat'),
+    highStat: document.getElementById('highStat'),
+    midStat: document.getElementById('midStat'),
+    countStat: document.getElementById('countStat'),
+    manualStartBtn: document.getElementById('manualStartBtn'),
+    lessBtn: document.getElementById('lessBtn'),
+    equalBtn: document.getElementById('equalBtn'),
+    greaterBtn: document.getElementById('greaterBtn'),
+    manualInfo: document.getElementById('manualInfo'),
+    manualArray: document.getElementById('manualArray'),
+    manualRange: document.getElementById('manualRange')
+};
+
+const state = {
+    arr: [],
+    target: 0,
+    low: 0,
+    high: 0,
+    mid: null,
+    step: 0,
+    comparisons: 0,
+    done: false,
+    foundIndex: null,
+    manual: {
+        active: false,
+        low: 0,
+        high: 0,
+        selectedMid: null,
+        done: false
+    }
+};
+
+function parseArray() {
+    return els.arrayInput.value
+        .split(',')
+        .map(x => Number(x.trim()))
+        .filter(x => Number.isFinite(x));
+}
+
+function isSorted(arr) {
+    for (let i = 1; i < arr.length; i++) {
+        if (arr[i - 1] > arr[i]) return false;
+    }
+    return true;
+}
+
+function parseTarget() {
+    const target = Number(els.targetInput.value.trim());
+    return Number.isFinite(target) ? target : 0;
+}
+
+function initAll() {
+    state.arr = parseArray();
+    state.target = parseTarget();
+    state.low = 0;
+    state.high = state.arr.length - 1;
+    state.mid = null;
+    state.step = 0;
+    state.comparisons = 0;
+    state.done = state.arr.length === 0;
+    state.foundIndex = null;
+    state.manual.active = false;
+    state.manual.low = 0;
+    state.manual.high = state.arr.length - 1;
+    state.manual.selectedMid = null;
+    state.manual.done = false;
+    els.nextBtn.disabled = state.arr.length === 0 || !isSorted(state.arr);
+    disableManualChoices();
+    renderAuto();
+    renderManual();
+    updateAutoInfo();
+    updateManualInfo('点击“开始练习”，然后每轮先算 mid = low + (high - low) / 2。');
+}
+
+function renderCells(container, options) {
+    const { arr, low, high, mid, foundIndex, clickable, onClick, selectedMid } = options;
+    container.innerHTML = '';
+    arr.forEach((value, index) => {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        if (index < low || index > high) cell.classList.add('dead');
+        if (index === low && low <= high) cell.classList.add('low');
+        if (index === high && low <= high) cell.classList.add('high');
+        if (index === mid || index === selectedMid) cell.classList.add('mid');
+        if (index === foundIndex) cell.classList.add('found');
+        if (clickable && index >= low && index <= high) {
+            cell.classList.add('clickable');
+            cell.onclick = () => onClick(index);
+        }
+
+        if (index === low && low <= high) cell.appendChild(tag('low', 'low-tag'));
+        if ((index === mid || index === selectedMid) && low <= high) cell.appendChild(tag('mid', 'mid-tag'));
+        if (index === high && low <= high) cell.appendChild(tag('high', 'high-tag'));
+
+        const valueEl = document.createElement('div');
+        valueEl.className = 'value';
+        valueEl.textContent = value;
+        const indexEl = document.createElement('div');
+        indexEl.className = 'index';
+        indexEl.textContent = `idx ${index}`;
+        cell.appendChild(valueEl);
+        cell.appendChild(indexEl);
+        container.appendChild(cell);
+    });
+}
+
+function tag(text, cls) {
+    const el = document.createElement('span');
+    el.className = `tag ${cls}`;
+    el.textContent = text;
+    return el;
+}
+
+function renderAuto() {
+    renderCells(els.autoArray, {
+        arr: state.arr,
+        low: state.low,
+        high: state.high,
+        mid: state.mid,
+        foundIndex: state.foundIndex
+    });
+    els.stepCounter.textContent = `Step ${state.step}`;
+    els.lowStat.textContent = state.low;
+    els.highStat.textContent = state.high;
+    els.midStat.textContent = state.mid === null ? '-' : state.mid;
+    els.countStat.textContent = state.comparisons;
+}
+
+function updateAutoInfo() {
+    if (state.arr.length === 0) {
+        els.autoInfo.innerHTML = '<span class="message-bad">数组不能为空。</span>';
+        return;
+    }
+    if (!isSorted(state.arr)) {
+        els.autoInfo.innerHTML = '<span class="message-warn">二分查找要求数组升序排列。</span><br>请先点击“按升序整理数组”，或手动改成升序。';
+        return;
+    }
+    if (state.done && state.foundIndex !== null) {
+        els.autoInfo.innerHTML = `<span class="message-good">找到了。</span><br>target = ${state.target}，位置是 arr[${state.foundIndex}]。`;
+        return;
+    }
+    if (state.done) {
+        els.autoInfo.innerHTML = `<span class="message-bad">没有找到。</span><br>当 low > high 时，搜索区间为空，返回 -1。`;
+        return;
+    }
+    if (state.mid === null) {
+        els.autoInfo.innerHTML = `准备开始：low = ${state.low}, high = ${state.high}。<br>下一步会计算 mid。`;
+        return;
+    }
+    const value = state.arr[state.mid];
+    let hint = '';
+    if (value < state.target) hint = `${value} < ${state.target}，下一步会让 low = mid + 1。`;
+    if (value > state.target) hint = `${value} > ${state.target}，下一步会让 high = mid - 1。`;
+    if (value === state.target) hint = `${value} == ${state.target}，下一步会返回 mid。`;
+    els.autoInfo.innerHTML = `mid = ${state.mid}，arr[mid] = ${value}。<br>${hint}`;
+}
+
+function autoStep() {
+    if (state.done || !isSorted(state.arr)) return;
+    if (state.low > state.high) {
+        state.done = true;
+        state.mid = null;
+        els.nextBtn.disabled = true;
+        renderAuto();
+        updateAutoInfo();
+        return;
+    }
+    if (state.mid === null) {
+        state.mid = state.low + Math.floor((state.high - state.low) / 2);
+        state.step++;
+        state.comparisons++;
+    } else {
+        const value = state.arr[state.mid];
+        if (value === state.target) {
+            state.foundIndex = state.mid;
+            state.done = true;
+            els.nextBtn.disabled = true;
+        } else if (value < state.target) {
+            state.low = state.mid + 1;
+            state.mid = null;
+        } else {
+            state.high = state.mid - 1;
+            state.mid = null;
+        }
+        if (state.low > state.high && state.foundIndex === null) {
+            state.done = true;
+            els.nextBtn.disabled = true;
+        }
+    }
+    renderAuto();
+    updateAutoInfo();
+}
+
+function renderManual() {
+    const manual = state.manual;
+    renderCells(els.manualArray, {
+        arr: state.arr,
+        low: manual.low,
+        high: manual.high,
+        selectedMid: manual.selectedMid,
+        foundIndex: manual.done && manual.selectedMid !== null && state.arr[manual.selectedMid] === state.target ? manual.selectedMid : null,
+        clickable: manual.active && !manual.done,
+        onClick: chooseManualMid
+    });
+    els.manualRange.textContent = `low = ${manual.low}, high = ${manual.high}`;
+}
+
+function startManual() {
+    state.manual.active = true;
+    state.manual.low = 0;
+    state.manual.high = state.arr.length - 1;
+    state.manual.selectedMid = null;
+    state.manual.done = state.arr.length === 0 || !isSorted(state.arr);
+    disableManualChoices();
+    if (state.arr.length === 0) {
+        updateManualInfo('<span class="message-bad">数组不能为空。</span>');
+    } else if (!isSorted(state.arr)) {
+        updateManualInfo('<span class="message-warn">先把数组整理成升序，再开始练习。</span>');
+    } else {
+        updateManualInfo(`本轮范围是 [${state.manual.low}, ${state.manual.high}]。请点击你算出的 mid。`);
+    }
+    renderManual();
+}
+
+function chooseManualMid(index) {
+    const manual = state.manual;
+    if (!manual.active || manual.done) return;
+    const correctMid = manual.low + Math.floor((manual.high - manual.low) / 2);
+    if (index !== correctMid) {
+        manual.selectedMid = index;
+        renderManual();
+        updateManualInfo(`<span class="message-bad">mid 算错了。</span><br>当前应为 low + (high - low) / 2 = ${correctMid}。`);
+        disableManualChoices();
+        return;
+    }
+    manual.selectedMid = index;
+    renderManual();
+    enableManualChoices();
+    updateManualInfo(`mid 正确，arr[${index}] = ${state.arr[index]}。请选择它和 target = ${state.target} 的比较结果。`);
+}
+
+function manualCompare(choice) {
+    const manual = state.manual;
+    if (manual.selectedMid === null) return;
+    const value = state.arr[manual.selectedMid];
+    const correct = value === state.target ? 'equal' : value < state.target ? 'greater' : 'less';
+    if (choice !== correct) {
+        const text = value < state.target ? '目标更大' : value > state.target ? '目标更小' : '找到了';
+        updateManualInfo(`<span class="message-bad">比较方向不对。</span><br>因为 arr[mid] = ${value}，target = ${state.target}，应选择“${text}”。`);
+        return;
+    }
+    if (choice === 'equal') {
+        manual.done = true;
+        disableManualChoices();
+        updateManualInfo(`<span class="message-good">练习完成。</span><br>target = ${state.target}，找到的位置是 ${manual.selectedMid}。`);
+    } else if (choice === 'greater') {
+        manual.low = manual.selectedMid + 1;
+        manual.selectedMid = null;
+        disableManualChoices();
+        if (manual.low > manual.high) finishManualNotFound();
+        else updateManualInfo(`范围更新为 [${manual.low}, ${manual.high}]。继续点击新的 mid。`);
+    } else {
+        manual.high = manual.selectedMid - 1;
+        manual.selectedMid = null;
+        disableManualChoices();
+        if (manual.low > manual.high) finishManualNotFound();
+        else updateManualInfo(`范围更新为 [${manual.low}, ${manual.high}]。继续点击新的 mid。`);
+    }
+    renderManual();
+}
+
+function finishManualNotFound() {
+    state.manual.done = true;
+    updateManualInfo('<span class="message-warn">练习完成：没有找到。</span><br>low 已经大于 high，返回 -1。');
+}
+
+function updateManualInfo(html) {
+    els.manualInfo.innerHTML = html;
+}
+
+function disableManualChoices() {
+    els.lessBtn.disabled = true;
+    els.equalBtn.disabled = true;
+    els.greaterBtn.disabled = true;
+}
+
+function enableManualChoices() {
+    els.lessBtn.disabled = false;
+    els.equalBtn.disabled = false;
+    els.greaterBtn.disabled = false;
+}
+
+els.resetBtn.onclick = initAll;
+els.nextBtn.onclick = autoStep;
+els.sortBtn.onclick = () => {
+    const sorted = parseArray().sort((a, b) => a - b);
+    els.arrayInput.value = sorted.join(',');
+    initAll();
+};
+els.arrayInput.oninput = initAll;
+els.targetInput.oninput = initAll;
+els.manualStartBtn.onclick = startManual;
+els.lessBtn.onclick = () => manualCompare('less');
+els.equalBtn.onclick = () => manualCompare('equal');
+els.greaterBtn.onclick = () => manualCompare('greater');
+
+initAll();
+</script>
+</body>
+</html>
