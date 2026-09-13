@@ -1,0 +1,12 @@
+B B D B B
+A C D C B
+D C B D D
+T F T C C A
+F T T D B A
+F T F B C A
+C A B A D
+D B C A B
+
+-1 -2 -4=7
+
+-50=50
