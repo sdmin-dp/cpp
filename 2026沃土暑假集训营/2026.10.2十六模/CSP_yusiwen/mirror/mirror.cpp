@@ -29,7 +29,7 @@ void solve(){
         }
     }
     // cerr<<k<<" "<<cnt;
-    for(int i=0;i<n;i++){
+    for(int i=0;i<n&&i<=n-i-1;i++){
         if(!ish[i]&&!ish[n-i-1]&&s[i]!='9'&&k>=2){
             k-=2;
             s[i]='9',s[n-i-1]='9';
