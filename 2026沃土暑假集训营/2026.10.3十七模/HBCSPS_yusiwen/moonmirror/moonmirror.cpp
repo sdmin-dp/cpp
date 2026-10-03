@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define ll int
+#define ll long long
 #define el '\n'
 const ll N=5000+5;
 ll n,k;
@@ -8,17 +8,32 @@ ll a[N];
 ll dp[N][N];
 ll mx=-1e9,mn=1e9;
 bool check(ll x){
+    // len-1
+    vector<int> pre1(n+1,0);
+    // len-2
+    vector<int> pre2(n+1,1);
+    // len
+    vector<int> now(n+1,0);
     for(ll len=2;len<=n;len++){
         for(ll l=1;l+len-1<=n;l++){
             ll r=l+len-1;
-            dp[l][r]=min(dp[l][r-1],dp[l+1][r])+1;
+            // dp[l][r]=min(dp[l][r-1],dp[l+1][r])+1;
+            ll c1=pre1[l]+1;
+            ll c2=pre1[l+1]+1;
+            ll c3=1e18;
             if(llabs(a[r]-a[l])<=x){
-                if(len>2) dp[l][r]=min(dp[l][r],dp[l+1][r-1]);
-                else dp[l][r]=0;
+                c3=pre2[l+1];
+                // if(len>2) dp[l][r]=min(dp[l][r],dp[l+1][r-1]);
+                // else dp[l][r]=0;
             }
+            now[l]=min({c1,c2,c3});
         }
+        pre2.swap(pre1);
+        pre1.swap(now);
+        
+
     }
-    return (dp[1][n]<=k);
+    return pre1[1]<=k;
 }   
 void erfen(){
     ll l=0,r=mx-mn+5,mid=0,ans=0;
