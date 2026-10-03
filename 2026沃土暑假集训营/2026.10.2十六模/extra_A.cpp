@@ -3,34 +3,51 @@ using namespace std;
 #define ll long long
 #define el '\n'
 const ll N=2e5+5;
-ll n,k,cnt;
-string s,t;
-bool ish[N];
+ll n,k;
+string s;
+ll c[N];
+ll base[N];
+ll suf[N];
 void solve(){
-    cin>>n>>k>>t;s=t;
-    reverse(t.begin(),t.end());
-    for(int i=0;i<=n-i-1;i++) if(s[i]!=t[i]) cnt++;
-    if(k<cnt){
+    cin>>n>>k>>s;
+    for(int i=0;i<n;i++) cin>>c[i];
+    ll mn=0;
+    for(int i=0;i<n-i-1;i++){
+        int j=n-i-1;
+        if(s[i]==s[j]) base[i]=0;
+        else base[i]=min(c[i],c[j]);
+        mn+=base[i];
+    }
+    if(mn>k){
         cout<<-1;
         return;
     }
-    k-=cnt;
-    for(int i=1;i<=n;i++){
-        if(s[i]!=t[i]){
-            s[i]=s[n-i-1]=max(s[i],s[n-i-1]);
-            ish[i]=ish[n-i-1]=1;
+    int m=n/2;
+    suf[m]=0;
+    for(int i=m-1;i>=0;i--) suf[i]=suf[i+1]+base[i];
+    for(int i=0;i<m;i++){
+        int j=n-i-1;
+        ll left=k-suf[i+1];
+        for(int d=9;d>=0;d--){
+            ll cost=0;
+            if(s[i]-'0'!=d) cost+=c[i];
+            if(s[j]-'0'!=d) cost+=c[j];
+            if(cost<=left){
+                s[i]=s[j]='0'+d;
+                k-=cost;
+                break;
+            }
         }
     }
-    for(int i=0;i<n&&i<=n-i-1;i++){
-        if(!ish[i]&&!ish[n-i-1]&&s[i]!='9'&&k>=2){
-            k-=2;
-            s[i]='9',s[n-i-1]='9';
-        }else if(ish[i]&&ish[n-i-1]&&s[i]!='9'&&k>=1){
-            k--;
-            s[i]='9',s[n-i-1]='9';
-        }else if(i==n-i-1&&s[i]!='9'&&k>=1){
-            k--;
-            s[i]='9';
+    if(n%2){
+        int i=n/2;
+        for(int d=9;d>=0;d--){
+            ll cost=(s[i]-'0'!=d?c[i]:0);
+            if(cost<=k){
+                s[i]='0'+d;
+                k-=cost;
+                break;
+            }
         }
     }
     cout<<s;
@@ -47,8 +64,3 @@ int main(){
     }
     return 0;
 }
-/*
-5 1
-91899
-91999
-*/
