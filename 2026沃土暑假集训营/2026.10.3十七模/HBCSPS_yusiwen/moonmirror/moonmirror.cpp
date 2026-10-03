@@ -1,20 +1,18 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define ll long long
+#define ll int
 #define el '\n'
 const ll N=5000+5;
 ll n,k;
 ll a[N];
 ll dp[N][N];
-ll mx=-1e12,mn=1e12;
+ll mx=-1e9,mn=1e9;
 bool check(ll x){
-    memset(dp,0,sizeof(dp));
-    for(ll i=1;i<=n;i++) dp[i][i]=1;
     for(ll len=2;len<=n;len++){
         for(ll l=1;l+len-1<=n;l++){
             ll r=l+len-1;
             dp[l][r]=min(dp[l][r-1],dp[l+1][r])+1;
-            if(abs(a[r]-a[l])<=x){
+            if(llabs(a[r]-a[l])<=x){
                 if(len>2) dp[l][r]=min(dp[l][r],dp[l+1][r-1]);
                 else dp[l][r]=0;
             }
@@ -24,6 +22,7 @@ bool check(ll x){
 }   
 void erfen(){
     ll l=0,r=mx-mn+5,mid=0,ans=0;
+    for(int i=1;i<=n;i++) dp[i][i]=1;
     while(l<=r){
         mid=(l+r)/2;
         if(check(mid)){

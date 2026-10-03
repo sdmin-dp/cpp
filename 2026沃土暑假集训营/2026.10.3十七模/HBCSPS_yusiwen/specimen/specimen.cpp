@@ -6,7 +6,7 @@ struct node{
     ll first,second;
     bool operator < (const node b) const{
         if(first!=b.first) return first<b.first;
-        else return second>b.second;
+        else return second<b.second;
     };
 };
 ll n;
@@ -28,7 +28,7 @@ void solve(){
                 sum+=w;
                 b_sum+=w;
                 q.push({w,i});
-            }else if(w<q.top().first&&sum-q.top().first+w<=c){
+            }else if(!q.empty()&&w<q.top().first&&sum-q.top().first+w<=c){
                 ll t=q.top().first;q.pop();
                 sum-=t;sum+=w;
                 b_sum-=t;b_sum+=w;
