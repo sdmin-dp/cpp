@@ -19,7 +19,6 @@ void solve()
 	cin>>lx>>ly>>rx>>ry;
 	cout<<num[rx][ry]-num[lx-1][ry]-num[rx][ly-1]+num[lx-1][ly-1]<<el;
 	ll x;
-	cin>>lx>>ly>>rx>>ry>>m;
 	d[lx][ly]+=x;
 	d[lx][ry+1]-=x;
 	d[rx+1][ly]-=x;
