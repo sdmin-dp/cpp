@@ -1,30 +1,20 @@
 #include<bits/stdc++.h>
 using namespace std;
 #define ll long long
-#define el '\n'
-const ll N=1500+5;
-ll n,m,q,mn;
-ll a[N][N];
+ll n,m,q,k,x,y,r;
+ll a[1505][1505],ans;
 void solve(){
-    cin>>n>>m>>q>>mn;
-    for(int k=1;k<=q;k++){
-        ll x,y,r;cin>>x>>y>>r;
-        for(int i=1;i<=n;i++){
-            for(int j=1;j<=m;j++){
-                if(llabs(i-x)+llabs(j-y)<=r){
-                    a[i][j]++;
-                }
-            }
-        }
+    cin>>n>>m>>q>>k;
+    for(int l=1;l<=q;++l){
+        cin>>x>>y>>r;
+        for(int i=max(0ll,x-r);i<=min(n,x+r);++i)
+            for(int j=max(0ll,y-r);j<=min(m,y+r);++j)
+                if(abs(i-x)+abs(j-y)<=r)
+                    ++a[i][j];
     }
-    ll ans=0;
-    for(int i=1;i<=n;i++){
-        for(int j=1;j<=m;j++){
-            if(a[i][j]>=mn){
-                ans++;
-            }
-        }
-    }
+    for(int i=1;i<=n;i++)
+        for(int j=1;j<=m;j++) 
+            if(a[i][j]>=k) ++ans;
     cout<<ans;
 }
 int main(){
