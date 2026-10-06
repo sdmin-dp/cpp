@@ -2,24 +2,29 @@
 using namespace std;
 #define ll long long
 #define el '\n'
-const ll N=1e5+5;
+const ll N=400+5;
 string s;
-ll sum[3];
+ll pos[3][N];
+ll cnt[3];
+ll dp[N][N][3];
+char lltoc(ll x){return char(x+48);}
+ll ctoll(char c){return c-48;}
 void solve(){
 	cin>>s;
-	cout<<-1;
+	s=' '+s;
+	ll n=s.size()-1;
+	for(int i=1;i<=n;i++) pos[ctoll(i)][++cnt[ctoll(s[i])]]=i;
+
 }
 int main(){
 	ios::sync_with_stdio(0);
 	cin.tie(0);cout.tie(0);
-	freopen("string.in","r",stdin);
-	freopen("string.out","w",stdout);
+	//freopen(".in","r",stdin);
+	//freopen(".out","w",stdout);
 	ll T=1;
-//	cin>>T;
+	//cin>>T;
 	while(T--){
 		solve();
 	}
 	return 0;
 }
-
-
