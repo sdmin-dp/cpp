@@ -5,10 +5,10 @@ using namespace std;
 const ll N=1e5+5;
 
 void solve(){
-    string t=1;
-    reverse(t.begin(),t.end());
-    if(t.size()>1&&t[t.size()-1]=='0') t.pop_back();
-    reverse(t.begin(),t.end());
+    string s="wkrisddds_b";
+    string s1=s.substr(0,3);
+    string s2=s.substr(4);
+    cout<<s1<<" "<<s2;
 }
 int main(){
     ios::sync_with_stdio(0);
