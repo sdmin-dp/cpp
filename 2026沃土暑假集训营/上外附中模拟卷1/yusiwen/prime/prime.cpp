@@ -2,44 +2,67 @@
 using namespace std;
 #define ll long long
 #define el '\n'
-const ll N=1e5+5;
+const ll N=3e5+5;
+const ll AN=5e6;
 const ll mod=1e9+7;
 ll n;
 ll a[N];
-ll cnt=0;
-ll prime(ll x){
-    ll ans=0;
-    for(ll i=2;i*i<=x;i++){
-        if(x%i==0){
-            ans++;
-            while(x%i==0) x/=i;
+bool vis[AN+5];
+ll f[AN+5];
+map<ll,ll> ct;
+vector<ll> prime;
+void init(){
+    for(ll i=2;i<=AN;i++){
+        if(!vis[i]){
+            prime.push_back(i);
+            for(ll j=i*i;j<=AN;j+=i){
+                vis[j]=1;
+            }
         }
     }
-    if(x!=1) ans++;
-    return ans;
-}
-void dfs(ll x,ll res){
-    if(x==n+1){
-        // cerr<<res<<" "<<cnt+prime(res)<<el;
-        cnt=(cnt+prime(res))%mod;
-        return;
+    f[0]=1;
+    for(ll i=1;i<=AN;i++){
+        f[i]=f[i-1]*2%mod;
     }
-    dfs(x+1,res);
-    dfs(x+1,res*a[x]);
 }
 void solve(){
+    init();
     cin>>n;
-    for(int i=1;i<=n;i++){
+    for(ll i=1;i<=n;i++){
         cin>>a[i];
+        for(auto x:prime){
+            if(a[i]==1){
+                break;
+            }
+            if(!vis[a[i]]){
+                if(a[i]>1){
+                    ct[a[i]]++;
+                }
+                break;
+            }
+            bool flag=0;
+            while(a[i]%x==0){
+                if(!flag){
+                    ct[x]++;
+                    flag=1;
+                }
+                a[i]/=x;
+            }
+        }
     }
-    dfs(1,1);
-    cout<<cnt;
+    ll ans=0;
+    for(auto x:ct){
+        ll k=x.second;
+        ll tmp=(f[k]-1)*f[n-k]%mod;
+        ans=(ans+tmp)%mod;
+    }
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
-    freopen("prime.in","r",stdin);
-    freopen("prime.out","w",stdout);
+    //freopen(".in","r",stdin);
+    //freopen(".out","w",stdout);
     ll T=1;
     //cin>>T;
     while(T--){

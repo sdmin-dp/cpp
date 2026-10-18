@@ -7,7 +7,7 @@ ll n,m;
 ll dp[20005],v[N],w[N];
 void solve(){
 	cin>>n>>m;
-	for(int i=1;i<=n;i++) cin>>w[i]>>v[i];
+	for(int i=1;i<=n;i++) cin>>v[i]>>w[i];
 	for(int i=1;i<=n;i++){
 		for(int j=m;j>=w[i];j--){
 			dp[j]=max(dp[j],dp[j-w[i]]+v[i]);
