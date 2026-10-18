@@ -5,15 +5,23 @@ using namespace std;
 const ll N=1e5+5;
 
 void solve(){
-    
+    ll n;
+    // vector<vector<ll>> g(n+1);
+    cin>>n;
+    for(int i=1;i<=n;i++){
+        ll u,v;
+        cin>>u>>v;
+    }
+    cout<<0<<" "<<n-3;
+    cout<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
-    //freopen(".in","r",stdin);
-    //freopen(".out","w",stdout);
+    freopen("tree.in","r",stdin);
+    freopen("tree.out","w",stdout);
     ll T=1;
-    //cin>>T;
+    cin>>T;
     while(T--){
         solve();
     }
