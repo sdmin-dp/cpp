@@ -5,22 +5,34 @@ using namespace std;
 const ll N=2000+5;
 ll n;
 ll a[N];
+ll l[N][N];
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
         cin>>a[i];
     }
-    ll ans=0;
-    for(int i=1;i<=n;i++){
-        for(int j=i+1;j<=n;j++){
-            if(a[j]<a[i]) continue;
-            for(int k=j+1;k<=n;k++){
-                if(a[k]>=a[j]||a[k]<=a[i]) continue;
-                for(int l=k+1;l<=n;l++){
-                    if(a[l]<=a[j]) continue;
-                    ans++;
-                    // cerr<<i<<" "<<j<<" "<<k<<" "<<l<<el;
+    for(int j=2;j<n-1;j++){
+        ll c=0;
+        for(int k=n-1;k>j;k--){
+            if(a[k]<a[j]){
+                ll L=k+1;
+                if(a[L]>a[j]){
+                    c++;
                 }
+                l[j][k]=c;
+            }
+        }
+    }
+    ll ans=0;
+    for(int k=3;k<n;k++){
+        ll c=0;
+        for(int j=2;j<k;j++){
+            if(a[k]<a[j]){
+                ll i=j-1;
+                if(a[i]<a[k]){
+                    c++;
+                }
+                ans+=l[j][k]*c;
             }
         }
     }
