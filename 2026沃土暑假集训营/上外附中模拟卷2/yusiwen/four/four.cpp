@@ -11,28 +11,22 @@ void solve(){
     for(int i=1;i<=n;i++){
         cin>>a[i];
     }
-    for(int j=2;j<n-1;j++){
+    for(int j=1;j<=n;j++){
         ll c=0;
-        for(int k=n-1;k>j;k--){
-            if(a[k]<a[j]){
-                ll L=k+1;
-                if(a[L]>a[j]){
-                    c++;
-                }
-                l[j][k]=c;
-            }
+        for(int k=n;k>j;k--){
+            if(a[k]>a[j]) c++;
+            l[j][k-1]=c;
         }
     }
     ll ans=0;
     for(int k=3;k<n;k++){
         ll c=0;
-        for(int j=2;j<k;j++){
-            if(a[k]<a[j]){
-                ll i=j-1;
-                if(a[i]<a[k]){
-                    c++;
-                }
-                ans+=l[j][k]*c;
+        for(int j=1;j<k;j++){
+            if(a[j]<a[k]){
+                c++;
+            }
+            else if(a[k]<a[j]){
+                ans+=c*l[j][k];
             }
         }
     }

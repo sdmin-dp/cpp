@@ -15,6 +15,7 @@ void solve(){
     n=0,m=0;
     for(int i=1;i<=20;i++) g[i].clear();
     cin>>m;
+    // cerr<<m<<el;
     for(int i=1;i<=m;i++){
         string s,t;
         cin>>s>>t;
@@ -28,9 +29,15 @@ void solve(){
         }
         g[mp[s]].push_back(mp[t]);
     }
+    if(m!=8){
+        cout<<"no"<<el;
+        return;
+    }
+    ll cnt1=0,cnt4=0,cnt0=0;
     n=idx;
     for(int i=1;i<=n;i++){
         if(g[i].size()==1){
+            cnt1++;
             for(auto j:remp[i]){
                 if(!(('a'<=j&&j<='z')||('A'<=j&&j<='Z'))){
                     cout<<"no"<<el;
@@ -44,6 +51,7 @@ void solve(){
                 return;
             }
         }else if(g[i].size()==4){
+            cnt4++;
             ll fj=-1;
             for(ll j=0;j<remp[i].size();j++){
                 if('0'<=remp[i][j]&&remp[i][j]<='9'){
@@ -67,14 +75,17 @@ void solve(){
                     return;
                 }
             }
+        }else if(g[i].size()==0){
+            cnt0++;
         }
-        else if(g[i].size()!=0){
+        else{
             // cerr<<remp[i]<<" "<<g[i].size()<<el;
             cout<<"no"<<el;
             return;
         }
     }
-    cout<<"yes"<<el;
+    if(cnt4==1&&cnt1==4&&cnt0==4) cout<<"yes"<<el;
+    else cout<<"no"<<el;
 }
 int main(){
     ios::sync_with_stdio(0);
