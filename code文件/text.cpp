@@ -3,12 +3,14 @@ using namespace std;
 #define ll long long
 #define el '\n'
 const ll N=1e5+5;
-
+string s="zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty";
 void solve(){
-    string s="wkrisddds_b";
-    string s1=s.substr(0,3);
-    string s2=s.substr(4);
-    cout<<s1<<" "<<s2;
+    stringstream ss;
+    ss<<s;
+    ll i=0;
+    while(ss>>s){
+        cout<<"{"<<'"'<<s<<'"'<<","<<i++<<"},"<<el;
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
