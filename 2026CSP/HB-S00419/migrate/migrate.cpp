@@ -1,38 +1,38 @@
 #include<bits/stdc++.h>
 using namespace std;
 #define ll long long
-#define el '\n'
-const ll N=2e6+5;
-ll op;
-ll n,d;
-ll a[N];
-void solve(){
-    cin>>n>>d;
-    for(int i=1;i<=n;i++){
-        cin>>a[i];
-    }
-    if(op==11||op==12){
-        ll x=a[2]-a[1];
-        if(!(2*x<=d&&d<3*x)){
-            cout<<0<<el;
-            return;            
-        }else{
-            cout<<n-((2*x)*3/2)<<el;
+ll c,T,n,d,a[2000006],ans;vector<vector<ll>> g;
+void bfs(ll s){
+    vector<pair<ll,ll>> dis(n+3,{LLONG_MAX,0});
+    queue<ll> q;
+    dis[s]={0,1};q.push(s);
+    while(q.size()){
+        ll u=q.front();q.pop();
+        for(ll v:g[u]){
+            if(dis[v].first>dis[u].first+1){
+                dis[v].first=dis[u].first+1,dis[v].second=dis[u].second;
+                q.push(v);
+            }else if(dis[v].first==dis[u].first+1) dis[v].second+=dis[u].second;
         }
-    }else if(op==13||op==14){
-        cout<<0<<el;
     }
+    for(auto x:dis) if(x.second==2) ans++;
 }
 int main(){
-    ios::sync_with_stdio(0);
-    cin.tie(0);cout.tie(0);
+    ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
     freopen("migrate.in","r",stdin);
     freopen("migrate.out","w",stdout);
-    cin>>op;
-    ll T=1;
-    cin>>T;
+    cin>>c>>T;
     while(T--){
-        solve();
+        cin>>n>>d;ans=0;g.resize(n+3);
+        for(int i=1;i<=n;i++) cin>>a[i];
+        for(int i=1;i<=n;i++){
+            for(int j=2;j<=n;j++){
+                if(a[j]-a[i]<=d) g[i].push_back(j);
+                else break;
+            }
+        }
+        for(int i=1;i<=n;i++)bfs(i);
+        cout<<ans<<'\n';g.clear();
     }
     return 0;
 }
