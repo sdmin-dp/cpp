@@ -14,11 +14,13 @@ void solve(){
     ll n;
     cin>>n;
     for(ll i=2;i<=N;i++){
-        if(!vis[i]) v.push_back(i);
         if(vis[i]) continue;
-        if(!check(i))
+        if(!check(i)){
+            v.push_back(i);
             for(ll j=i;j<=N;j+=i)
                 vis[j]=1;
+        }
+            
     }
     while(n--){
         ll x;cin>>x;
