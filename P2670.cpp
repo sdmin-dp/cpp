@@ -9,17 +9,19 @@ ll ans[N][N];
 ll dx[]={0,1,0,-1,1,1,-1,-1}, dy[]={1,0,-1,0,-1,1,-1,1};
 void solve(){
     cin>>n>>m;
-    for(ll i=1;i<=n;i++){
-        for(ll j=1;j<=n;j++){
+    for(ll i=1;i<=n;i++)
+        for(ll j=1;j<=n;j++)
             cin>>a[i][j];
-            if(a[i][j]=='*'){
+    for(ll i=1;i<=n;i++)
+        for(ll j=1;j<=n;j++)
+            if(a[i][j]=='*')
                 for(int i=0;i<8;i++){
                     ll xx=dx[i],yy=dy[i];
-                    
+                    if(xx>=1&&xx<=n&&yy>=1&&yy<=m&&a[xx][yy]!='*'){
+                        ans[xx][yy]++;
+                    }       
                 }
-            }
-        }
-    }
+                
 }
 int main(){
     ios::sync_with_stdio(0);
