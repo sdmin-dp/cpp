@@ -26,10 +26,8 @@ void solve(){
             cout<<-1<<el;
             continue;
         }
-        ll i=x+1;
         ll ans=v[upper_bound(v.begin(),v.end(),x)-v.begin()];
-        while(vis[i]) i++;
-        cout<<i<<el;
+        cout<<ans<<el;
     }
 }
 int main(){
