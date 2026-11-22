@@ -5,8 +5,8 @@ using namespace std;
 const ll N=1e5+5;
 ll n;
 ll a[N];
-void dfs(ll x){
-    for(int i=1;i<=n;i++){
+void dfs(ll l,ll r){
+    for(int i=l;i<=r;i++){
         
     }
 }
