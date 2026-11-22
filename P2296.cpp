@@ -31,6 +31,10 @@ void solve(){
             }
         }
     }
+    if(vis[s]!=1){
+        cout<<-1;
+        return;
+    }
     queue<pair<ll,ll>> p;
     p.push({s,0});
     while(!p.empty()){
