@@ -14,13 +14,13 @@ void solve(){
         g2[u].push_back(v);
     }
     cin>>s>>t;
-    vis[t]=1;
     queue<ll> q;
     q.push(t);
     while(!q.empty()){
         ll u=q.front();
+        vis[u]=1;
         q.pop();
-        for(auto i:g[u]) vis[i]=1;
+        for(auto i:g[u]) q.push(i);
     }
     for(int i=1;i<=n;i++){
         if(!vis[i]) continue;
