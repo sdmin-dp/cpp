@@ -6,6 +6,7 @@ const ll N=1e5+5;
 
 void solve(){
     ll a,b;
+    cin>>a>>b;
     cout<<(a+b+1);
 }
 int main(){
