@@ -41,9 +41,9 @@ void solve(){
     }
     
     for(auto i:que){
-        ll gcd=__gcd(ans[i].first,ans[i].second);
-        ans[i].first/=gcd;
-        ans[i].second/=gcd;
+        // ll gcd=__gcd(ans[i].first,ans[i].second);
+        // ans[i].first/=gcd;
+        // ans[i].second/=gcd;
         cout<<ans[i].first<<" "<<ans[i].second<<el;
     }
 }
