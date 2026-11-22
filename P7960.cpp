@@ -12,8 +12,8 @@ bool check(ll x){
 void solve(){
     ll n;
     cin>>n;
-    for(ll i=1;i<=N;i++){
-        if(vis[i]==1) continue;
+    for(ll i=2;i<=N;i++){
+        if(vis[i]) continue;
         if(!check(i))
             for(ll j=i;j<=N;j+=i)
                 vis[j]=1;
