@@ -1,22 +1,48 @@
 #include<bits/stdc++.h>
-using namespace std;
 #define ll long long
+using namespace std;
 #define el '\n'
-const ll N=1e4+5;
-ll n,m,s,t;
-vector<ll> g[N];
-void solve(){
-    cin>>n>>m;
-    for(ll i=1;i<=m;i++){
-        ll u,v;cin>>u>>v;
-        g[u].push_back(v);
+const ll N=1e5+5;
+ll n,m;
+vector<pair<ll,ll>> g[N];
+ll dis[N];
+ll s,t;
+void dijkstra(){
+    priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;
+    q.push({0,s});
+    memset(dis,0x3f,sizeof(dis));
+    dis[s]=0;
+    while(!q.empty()){
+        auto x=q.top();
+        q.pop();
+        if(x.first>dis[x.second]) continue;
+        for(auto i:g[x.second]){
+            if(dis[i.first]>x.first+i.second){
+                dis[i.first]=x.first+i.second;
+                q.push({dis[i.first],i.first});
+            }
+        }
     }
 }
-int main(){
+void solve(){
+    cin>>n>>m;
+    for(int i=1;i<=m;i++){
+        ll u,v,w;
+        cin>>u>>v;
+        w=1;
+        g[u].push_back({v,w});
+    }
+    cin>>s>>t;
+    dijkstra();
+    cout<<(dis[t]==4557430888798830399?-1:dis[t]+1)<<" ";
+
+}
+
+int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);cout.tie(0);
-    //freopen(".in","r",stdin);
-    //freopen(".out","w",stdout);
+    //freopen("xxx.in","r",stdin);
+    //freopen("xxx.out","w",stdout);
     ll T=1;
     //cin>>T;
     while(T--){
