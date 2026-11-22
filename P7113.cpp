@@ -5,8 +5,16 @@ using namespace std;
 const ll N=1e5+5;
 ll n,m;
 vector<ll> g[N];
+ll q[N];
 void solve(){
-    
+    cin>>n>>m;
+    for(ll i=1;i<=n;i++){
+        ll k;cin>>k;
+        for(ll j=1;j<=k;j++){
+            ll x;cin>>x;
+            g[i].push_back(x);
+        }
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
