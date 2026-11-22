@@ -6,7 +6,9 @@ const ll N=1e5+5;
 ll n;
 ll a[N];
 void dfs(ll x){
-    
+    for(int i=1;i<=n;i++){
+        
+    }
 }
 void solve(){
     cin>>n;
