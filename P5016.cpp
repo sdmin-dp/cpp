@@ -8,7 +8,7 @@ ll a[N];
 ll m,p1,s1,s2;
 void solve(){
     cin>>n;
-    for(int i=1;i<=n;i++){
+    for(int i=1;i<=n;i++){ 
         cin>>a[i];
     }
     cin>>m>>p1>>s1>>s2;
