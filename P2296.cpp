@@ -32,7 +32,7 @@ void solve(){
         g[v].push_back({u,w});
     }
     dijkstra();
-    cout<<dis[n]<<" ";
+    cout<<(dis[n]==4557430888798830399?-1:dis[n])<<" ";
 
 }
 
