@@ -2,7 +2,7 @@
 using namespace std;
 #define ll long long
 #define el '\n'
-const ll N=1e7+5;
+const ll N=1e7;
 bool vis[N];
 bool check(ll x){
     string s=to_string(x);
@@ -14,9 +14,19 @@ void solve(){
     cin>>n;
     for(ll i=1;i<=N;i++){
         if(vis[i]==1) continue;
-        if(){
-
+        if(!check(i))
+            for(ll j=i;j<=N;j+=i)
+                vis[j]=1;
+    }
+    while(n--){
+        ll x;cin>>x;
+        if(vis[x]==1){
+            cout<<-1<<el;
+            continue;
         }
+        ll i=x;
+        while(vis[i]) i++;
+        cout<<i<<el;
     }
 }
 int main(){
