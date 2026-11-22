@@ -23,10 +23,27 @@ void solve(){
     for(int i=1;i<=n;i++){
         if(in[i]==0){
             q.push(i);
+            ans[i]={1,1};
         }
     }
     while(!q.empty()){
-        
+        ll u=q.front();
+        q.pop();
+        ll w1=ans[u].first,w2=ans[u].second*g[u].size();
+        for(auto v:g[u]){
+            ans[v].first*=w2;
+            ans[v].first+=w1*ans[v].second;
+            ans[v].second*=w2;
+            if(!--in[v]){
+                q.push(v);
+            }
+        }
+    }
+    for(auto i:que){
+        ll gcd=__gcd(ans[i].first,ans[i].second);
+        ans[i].first/=gcd;
+        ans[i].second/=gcd;
+        cout<<ans[i].first<<" "<<ans[i].second<<el;
     }
 }
 int main(){
