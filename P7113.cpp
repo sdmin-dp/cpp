@@ -39,6 +39,7 @@ void solve(){
             }
         }
     }
+    exit(0);
     for(auto i:que){
         ll gcd=__gcd(ans[i].first,ans[i].second);
         ans[i].first/=gcd;
