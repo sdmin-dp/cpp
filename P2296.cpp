@@ -15,7 +15,9 @@ void solve(){
     queue<ll> q;
     q.push(t);
     while(!q.empty()){
-        
+        for(auto i:g){
+            
+        }
     }
 }
 int main(){
