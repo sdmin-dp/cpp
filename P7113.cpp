@@ -6,6 +6,7 @@ const ll N=1e5+5;
 ll n,m;
 vector<ll> g[N];
 vector<ll> q;
+ll in[N];
 void solve(){
     cin>>n>>m;
     for(ll i=1;i<=n;i++){
@@ -14,6 +15,13 @@ void solve(){
         for(ll j=1;j<=k;j++){
             ll x;cin>>x;
             g[i].push_back(x);
+            in[x]++;
+        }
+    }
+    queue<pair<ll,pair<ll,ll>>> q;
+    for(int i=1;i<=n;i++){
+        if(in[i]==0){
+            q.push({i,{1,1}});
         }
     }
 }
