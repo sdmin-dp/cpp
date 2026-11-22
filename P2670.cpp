@@ -17,6 +17,7 @@ void solve(){
             if(a[i][j]=='*')
                 for(int i=0;i<8;i++){
                     ll xx=i+dx[i],yy=j+dy[i];
+                    cerr<<xx<<" "<<yy<<el;
                     if(xx>=1&&xx<=n&&yy>=1&&yy<=m&&a[xx][yy]!='*')
                         ans[xx][yy]++;     
                 }
