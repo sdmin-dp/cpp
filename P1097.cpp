@@ -11,6 +11,9 @@ void solve(){
         ll x;cin>>x;
         mp[x]++;
     }
+    for(auto i:mp){
+        cout<<i.first<<" "<<i.second<<el;
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
