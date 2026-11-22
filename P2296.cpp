@@ -35,7 +35,7 @@ void solve(){
     }
     cin>>s>>t;
     dijkstra();
-    cout<<(dis[t]==4557430888798830399?-1:dis[n])<<" ";
+    cout<<(dis[t]==4557430888798830399?-1:dis[t])<<" ";
 
 }
 
