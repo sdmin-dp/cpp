@@ -20,7 +20,9 @@ void solve(){
         ll u=q.front();
         vis[u]=1;
         q.pop();
-        for(auto i:g[u]) q.push(i);
+        for(auto i:g[u]) {
+            q.push(i);
+        }
     }
     for(int i=1;i<=n;i++){
         if(!vis[i]) continue;
