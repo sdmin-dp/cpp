@@ -14,6 +14,7 @@ void solve(){
         g2[u].push_back(v);
     }
     cin>>s>>t;
+    vis[t]=1;
     queue<ll> q;
     q.push(t);
     while(!q.empty()){
