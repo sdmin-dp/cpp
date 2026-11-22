@@ -2,7 +2,7 @@
 using namespace std;
 #define ll long long
 #define el '\n'
-const ll N=1e7+1e6;
+const ll N=1e7+1;
 bool vis[N+3];
 vector<int>v;
 bool check(ll x){
