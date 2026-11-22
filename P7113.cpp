@@ -5,11 +5,12 @@ using namespace std;
 const ll N=1e5+5;
 ll n,m;
 vector<ll> g[N];
-ll q[N];
+vector<ll> q;
 void solve(){
     cin>>n>>m;
     for(ll i=1;i<=n;i++){
         ll k;cin>>k;
+        if(k==0) q.push_back(i); 
         for(ll j=1;j<=k;j++){
             ll x;cin>>x;
             g[i].push_back(x);
