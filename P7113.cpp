@@ -39,7 +39,7 @@ void solve(){
                 ans[v].first*=w2;
                 ans[v].first+=w1*ans[v].second;
                 ans[v].second*=w2;
-                ll gcd=__gcd(ans[v].first,ans[v].second);
+                __int128 gcd=__gcd(ans[v].first,ans[v].second);
                 ans[v].first/=gcd;
                 ans[v].second/=gcd;
             }
@@ -52,7 +52,7 @@ void solve(){
     
     for(auto i:que){
         if(ans[i].first!=0){
-            ll gcd=__gcd(ans[i].first,ans[i].second);
+            __int128 gcd=__gcd(ans[i].first,ans[i].second);
             ans[i].first/=gcd;
             ans[i].second/=gcd;
         }
