@@ -4,8 +4,13 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 map<ll,ll> mp;
+ll n;
 void solve(){
-    
+    cin>>n;
+    for(int i=1;i<=n;i++){
+        ll x;cin>>x;
+        mp[x]++;
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
