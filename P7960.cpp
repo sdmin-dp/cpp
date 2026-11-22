@@ -24,7 +24,7 @@ void solve(){
             cout<<-1<<el;
             continue;
         }
-        ll i=x;
+        ll i=x+1;
         while(vis[i]) i++;
         cout<<i<<el;
     }
