@@ -30,7 +30,21 @@ void solve(){
             }
         }
     }
-    
+    queue<pair<ll,ll>> p;
+    p.push({s,0});
+    while(!p.empty()){
+        auto [u,w]=p.front();
+        if(u==t){
+            cout<<w;
+            return;
+        }
+        for(auto v:g2[u]){
+            if(vis[v]){
+                p.push({v,w+1});
+            }
+        }
+    }
+    cout<<-1;
 }
 int main(){
     ios::sync_with_stdio(0);
