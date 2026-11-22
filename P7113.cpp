@@ -27,6 +27,7 @@ void solve(){
     while(!q.empty()){
         ll u=q.front().first;
         auto [w1,w2]=q.front().second;
+        w2*=g[u].size();
     }
 }
 int main(){
