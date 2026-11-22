@@ -7,7 +7,7 @@ ll n,m;
 vector<ll> g[N];
 vector<ll> que;
 ll in[N];
-ll ans[N];
+pair<ll,ll> ans[N];
 void solve(){
     cin>>n>>m;
     for(ll i=1;i<=n;i++){
@@ -19,21 +19,14 @@ void solve(){
             in[x]++;
         }
     }
-    queue<pair<ll,pair<ll,ll>>> q;
+    queue<ll> q;
     for(int i=1;i<=n;i++){
         if(in[i]==0){
-            q.push({i,{1,1}});
+            q.push(i);
         }
     }
     while(!q.empty()){
-        ll u=q.front().first;
-        auto [w1,w2]=q.front().second;
-        w2*=g[u].size();
-        for(auto v:g[u]){
-            if(!(--in[v])){
-                q.push({v,{w1,w2}});
-            }
-        }
+        
     }
 }
 int main(){
