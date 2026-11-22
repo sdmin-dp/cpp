@@ -4,11 +4,19 @@ using namespace std;
 #define el '\n'
 const ll N=1e7+5;
 bool vis[N];
+bool check(ll x){
+    string s=to_string(x);
+    for(auto i:s) if(i=='7') return 0;
+    return 1;
+}
 void solve(){
     ll n;
     cin>>n;
-    for(int i=1;i<=N;i++){
-        
+    for(ll i=1;i<=N;i++){
+        if(vis[i]==1) continue;
+        if(){
+
+        }
     }
 }
 int main(){
