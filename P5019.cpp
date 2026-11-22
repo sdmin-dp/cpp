@@ -3,9 +3,16 @@ using namespace std;
 #define ll long long
 #define el '\n'
 const ll N=1e5+5;
-
-void solve(){
+ll n;
+ll a[N];
+void dfs(){
     
+}
+void solve(){
+    cin>>n;
+    for(int i=1;i<=n;i++){
+        cin>>a[i];
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
