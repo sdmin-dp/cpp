@@ -24,6 +24,10 @@ void solve(){
             q.push({i,{1,1}});
         }
     }
+    while(!q.empty()){
+        ll u=q.front().first;
+        auto [w1,w2]=q.front().second;
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
