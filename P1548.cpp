@@ -12,7 +12,7 @@ void solve(){
     for(ll i=1;i<=n;i++)
         for(ll j=1;j<=m;j++)
             ans2+=(n-i+1)*(m-j+1);
-    cout<<ans1<<" "<<ans2;
+    cout<<ans1<<" "<<ans2-(n*m);
 }
 int main(){
     ios::sync_with_stdio(0);
