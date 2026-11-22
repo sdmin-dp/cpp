@@ -30,6 +30,8 @@ void solve(){
         ll u=q.front();
         q.pop();
         ll w1=ans[u].first,w2=ans[u].second*g[u].size();
+        ll gcdw=__gcd(w1,w2);
+        w1/=gcdw,w2/=gcdw;
         for(auto v:g[u]){
             if(ans[v].first==0){ 
                 ans[v]={w1,w2};
