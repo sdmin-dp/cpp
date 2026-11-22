@@ -39,13 +39,14 @@ void solve(){
             }
         }
     }
-    exit(0);
+    
     for(auto i:que){
         ll gcd=__gcd(ans[i].first,ans[i].second);
         ans[i].first/=gcd;
         ans[i].second/=gcd;
         cout<<ans[i].first<<" "<<ans[i].second<<el;
     }
+    exit(0);
 }
 int main(){
     ios::sync_with_stdio(0);
