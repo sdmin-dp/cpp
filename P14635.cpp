@@ -4,26 +4,23 @@ using namespace std;
 #define el '\n'
 const ll N=1e5+5;
 ll n,m;
-ll a[N][3];
-set<pair<ll,pair<ll,ll>>>st;
+ll a[N];
+ll sum,h=1e17;
 void solve(){
     cin>>n>>m;
     for(int i=1;i<=n;i++){
-        cin>>a[i][1]>>a[i][2];
-        st.insert({a[i][1],{i,1}});
+        ll x;
+        cin>>a[i]>>x;
+        h=min(h,a[i]+x);
     }
+    sort(a+1,a+n+1);
     ll ans=0;
-    while(1){
-        auto t=*st.begin();
-        st.erase(st.begin());
-        if(m<t.first){
-            cout<<ans;
-            return;
-        }
-        ans++;
-        m-=t.first;
-        st.insert({a[t.second.first][3-t.second.second],{t.second.first,3-t.second.second}});
+    for(int i=0;i<=n;i++){
+        sum+=a[i];
+        if(sum>m) break;
+        ans=max(ans,i+(m-sum)/h*2);
     }
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
