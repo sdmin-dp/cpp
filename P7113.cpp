@@ -7,7 +7,7 @@ ll n,m;
 vector<ll> g[N];
 vector<ll> que;
 ll in[N];
-pair<ll,ll> ans[N];
+pair<__int128,__int128> ans[N];
 void solve(){
     cin>>n>>m;
     for(ll i=1;i<=n;i++){
@@ -29,7 +29,7 @@ void solve(){
     while(!q.empty()){
         ll u=q.front();
         q.pop();
-        ll w1=ans[u].first,w2=ans[u].second*g[u].size();
+        __int128 w1=ans[u].first,w2=ans[u].second*g[u].size();
         ll gcdw=__gcd(w1,w2);
         w1/=gcdw,w2/=gcdw;
         for(auto v:g[u]){
@@ -57,7 +57,8 @@ void solve(){
             ans[i].second/=gcd;
         }
         
-        cout<<ans[i].first<<" "<<ans[i].second<<el;
+        ll a1=ans[i].first,a2=ans[i].second;
+        cout<<a1<<" "<<a2<<el;
     }
 }
 int main(){
