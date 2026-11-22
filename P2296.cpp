@@ -40,7 +40,7 @@ void solve(){
             return;
         }
         for(auto v:g2[u]){
-            if(vis[v]!=0&&vis[v]!=2&&!vis2[v]){
+            if(vis[v]==1&&!vis2[v]){
                 p.push({v,w+1});
                 vis2[v]=1;
             }
