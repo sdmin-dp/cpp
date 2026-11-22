@@ -17,11 +17,16 @@ void solve(){
             if(a[i][j]=='*')
                 for(int i=0;i<8;i++){
                     ll xx=dx[i],yy=dy[i];
-                    if(xx>=1&&xx<=n&&yy>=1&&yy<=m&&a[xx][yy]!='*'){
-                        ans[xx][yy]++;
-                    }       
+                    if(xx>=1&&xx<=n&&yy>=1&&yy<=m&&a[xx][yy]!='*')
+                        ans[xx][yy]++;     
                 }
-                
+    for(ll i=1;i<=n;i++){
+        for(ll j=1;j<=m;j++){
+            if(a[i][j]=='*') cout<<'*';
+            else cout<<ans[i][j];
+        }
+        cout<<el;
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
