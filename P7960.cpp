@@ -16,9 +16,10 @@ void solve(){
     for(ll i=2;i<=N;i++){
         if(vis[i]) continue;
         if(!check(i)){
-            v.push_back(i);
             for(ll j=i;j<=N;j+=i)
                 vis[j]=1;
+        }else{
+            v.push_back(i);
         }
             
     }
