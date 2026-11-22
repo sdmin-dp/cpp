@@ -3,9 +3,17 @@ using namespace std;
 #define ll long long
 #define el '\n'
 const ll N=1e5+5;
-
+ll count(ll x){
+    string s=to_string(x);
+    ll cnt=0;
+    for(auto i:s) cnt+=(i-48);
+    return cnt;
+}
 void solve(){
-	
+	ll ans=0;
+	for(ll i=1;i<=2020;i++){
+
+	}
 }
 int main(){
 	ios::sync_with_stdio(0);
