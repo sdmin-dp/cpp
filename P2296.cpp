@@ -21,7 +21,15 @@ void solve(){
         q.pop();
         for(auto i:g[u]) vis[i]=1;
     }
-    
+    for(int i=1;i<=n;i++){
+        if(!vis[i]) continue;
+        for(auto j:g2[i]){
+            if(!vis[j]){
+                vis[i]=0;
+                break;
+            }
+        }
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
