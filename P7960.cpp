@@ -4,6 +4,7 @@ using namespace std;
 #define el '\n'
 const ll N=1e7;
 bool vis[N+3];
+vector<int>v;
 bool check(ll x){
     string s=to_string(x);
     for(auto i:s) if(i=='7') return 0;
@@ -13,6 +14,7 @@ void solve(){
     ll n;
     cin>>n;
     for(ll i=2;i<=N;i++){
+        if(!vis[i]) v.push_back(i);
         if(vis[i]) continue;
         if(!check(i))
             for(ll j=i;j<=N;j+=i)
