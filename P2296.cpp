@@ -27,7 +27,8 @@ void solve(){
     cin>>n>>m;
     for(int i=1;i<=m;i++){
         ll u,v,w;
-        cin>>u>>v>>w;
+        cin>>u>>v;
+        w=1;
         g[u].push_back({v,w});
         g[v].push_back({u,w});
     }
