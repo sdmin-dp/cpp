@@ -7,6 +7,7 @@ ll n;
 ll a[N];
 ll ans=0;
 void dfs(ll l,ll r,ll tag){
+    if(l>r) return;
     ll mn=1e9,id=0;
     for(int i=l;i<=r;i++){
         if(a[i]<mn){
