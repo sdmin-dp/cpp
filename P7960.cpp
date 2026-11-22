@@ -18,6 +18,7 @@ void solve(){
             for(ll j=i;j<=N;j+=i)
                 vis[j]=1;
     }
+    exit(0);
     while(n--){
         ll x;cin>>x;
         if(vis[x]==1){
