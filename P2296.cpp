@@ -25,7 +25,7 @@ void solve(){
         if(!vis[i]) continue;
         for(auto j:g2[i]){
             if(!vis[j]){
-                vis[i]=0;
+                vis[i]=2;
                 break;
             }
         }
