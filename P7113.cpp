@@ -8,6 +8,15 @@ vector<ll> g[N];
 vector<ll> que;
 ll in[N];
 pair<__int128,__int128> ans[N];
+void print128(__int128 x){
+    string s;
+    while(x){
+        s.push_back('0'+x%10);
+        x/=10;
+    }
+    reverse(s.begin(),s.end());
+    cout<<s;
+}
 void solve(){
     cin>>n>>m;
     for(ll i=1;i<=n;i++){
@@ -57,8 +66,10 @@ void solve(){
             ans[i].second/=gcd;
         }
         
-        ll a1=ans[i].first,a2=ans[i].second;
-        cout<<a1<<" "<<a2<<el;
+        __int128 a1=ans[i].first,a2=ans[i].second;
+        print128(a1);
+        cout<<" ";
+        print128(a2);
     }
 }
 int main(){
