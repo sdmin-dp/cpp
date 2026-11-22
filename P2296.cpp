@@ -5,7 +5,7 @@ using namespace std;
 const ll N=1e4+5;
 ll n,m,s,t;
 vector<ll> g[N],g2[N];
-ll vis[N],vis2[N];
+ll vis[N],vis2[N],vis3[N];
 void solve(){
     cin>>n>>m;
     for(ll i=1;i<=m;i++){
@@ -21,6 +21,8 @@ void solve(){
         vis[u]=1;
         q.pop();
         for(auto i:g[u]) {
+            if(vis3[i]) continue;
+            vis3[i]=1;
             q.push(i);
         }
     }
