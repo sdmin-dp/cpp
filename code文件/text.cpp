@@ -12,8 +12,9 @@ ll count(ll x){
 void solve(){
 	ll ans=0;
 	for(ll i=1;i<=2020;i++){
-
+		ans+=count(i);
 	}
+	cout<<ans;
 }
 int main(){
 	ios::sync_with_stdio(0);
