@@ -13,8 +13,10 @@ void solve(){
     }
     cin>>s>>t;
     queue<ll> q;
-    q.push(1);
-    
+    q.push(t);
+    while(!q.empty()){
+        
+    }
 }
 int main(){
     ios::sync_with_stdio(0);
