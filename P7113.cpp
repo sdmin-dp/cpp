@@ -70,6 +70,7 @@ void solve(){
         print128(a1);
         cout<<" ";
         print128(a2);
+        cout<<el;
     }
 }
 int main(){
