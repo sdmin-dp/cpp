@@ -5,16 +5,26 @@ using namespace std;
 const ll N=1e5+5;
 ll n;
 ll a[N];
-void dfs(ll l,ll r){
+ll ans=0;
+void dfs(ll l,ll r,ll tag){
+    ll mn=1e9,id=0;
     for(int i=l;i<=r;i++){
-        
+        if(a[i]<mn){
+            id=i;
+            mn=a[i];
+        }
     }
+    ans+=(mn-tag);
+    dfs(l,id-1,mn);
+    dfs(id+1,r,mn);
 }
 void solve(){
     cin>>n;
     for(int i=1;i<=n;i++){
         cin>>a[i];
     }
+    dfs(1,n,0);
+    cout<<ans;
 }
 int main(){
     ios::sync_with_stdio(0);
