@@ -9,8 +9,11 @@ void solve(){
     cin>>n>>m;
     for(ll i=1;i<=m;i++){
         ll u,v;cin>>u>>v;
-        g[u].push_back(v);
+        g[v].push_back(u);
     }
+    cin>>s>>t;
+    queue<ll> q;
+    q.push(1);
     
 }
 int main(){
