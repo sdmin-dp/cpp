@@ -5,7 +5,7 @@ using namespace std;
 const ll N=1e5+5;
 ll n;
 ll a[N];
-void dfs(ll n){
+void dfs(ll x){
     
 }
 void solve(){
