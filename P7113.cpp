@@ -31,9 +31,14 @@ void solve(){
         q.pop();
         ll w1=ans[u].first,w2=ans[u].second*g[u].size();
         for(auto v:g[u]){
-            ans[v].first*=w2;
-            ans[v].first+=w1*ans[v].second;
-            ans[v].second*=w2;
+            if(ans[v].first==0){
+                ans[v]={w1,w2};
+            }else{
+                ans[v].first*=w2;
+                ans[v].first+=w1*ans[v].second;
+                ans[v].second*=w2;
+            }
+            
             if(!--in[v]){
                 q.push(v);
             }
