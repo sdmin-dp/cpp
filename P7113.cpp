@@ -31,7 +31,7 @@ void solve(){
         q.pop();
         ll w1=ans[u].first,w2=ans[u].second*g[u].size();
         for(auto v:g[u]){
-            if(ans[v].first==0){
+            if(ans[v].first==0){ 
                 ans[v]={w1,w2};
             }else{
                 ans[v].first*=w2;
