@@ -6,11 +6,12 @@ const ll N=1e5+5;
 ll n,m;
 vector<pair<ll,ll>> g[N];
 ll dis[N];
+ll s,t;
 void dijkstra(){
     priority_queue<pair<ll,ll>,vector<pair<ll,ll>>,greater<pair<ll,ll>>> q;
-    q.push({0,1});
+    q.push({0,s});
     memset(dis,0x3f,sizeof(dis));
-    dis[1]=0;
+    dis[s]=0;
     while(!q.empty()){
         auto x=q.top();
         q.pop();
@@ -32,8 +33,9 @@ void solve(){
         g[u].push_back({v,w});
         g[v].push_back({u,w});
     }
+    cin>>s>>t;
     dijkstra();
-    cout<<(dis[n]==4557430888798830399?-1:dis[n])<<" ";
+    cout<<(dis[t]==4557430888798830399?-1:dis[n])<<" ";
 
 }
 
