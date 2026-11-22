@@ -5,13 +5,14 @@ using namespace std;
 const ll N=1e5+5;
 ll n,m;
 vector<ll> g[N];
-vector<ll> q;
+vector<ll> que;
 ll in[N];
+ll ans[N];
 void solve(){
     cin>>n>>m;
     for(ll i=1;i<=n;i++){
         ll k;cin>>k;
-        if(k==0) q.push_back(i); 
+        if(k==0) que.push_back(i); 
         for(ll j=1;j<=k;j++){
             ll x;cin>>x;
             g[i].push_back(x);
@@ -28,6 +29,11 @@ void solve(){
         ll u=q.front().first;
         auto [w1,w2]=q.front().second;
         w2*=g[u].size();
+        for(auto v:g[u]){
+            if(!(--in[v])){
+                q.push({v,{w1,w2}});
+            }
+        }
     }
 }
 int main(){
