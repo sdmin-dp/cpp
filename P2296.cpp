@@ -4,21 +4,24 @@ using namespace std;
 #define el '\n'
 const ll N=1e4+5;
 ll n,m,s,t;
-vector<ll> g[N];
+vector<ll> g[N],g2[N];
+bool vis[N];
 void solve(){
     cin>>n>>m;
     for(ll i=1;i<=m;i++){
         ll u,v;cin>>u>>v;
         g[v].push_back(u);
+        g2[u].push_back(v);
     }
     cin>>s>>t;
     queue<ll> q;
     q.push(t);
     while(!q.empty()){
-        for(auto i:g){
-            
-        }
+        ll u=q.front();
+        q.pop();
+        for(auto i:g[u]) vis[i]=1;
     }
+    
 }
 int main(){
     ios::sync_with_stdio(0);
