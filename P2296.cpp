@@ -30,6 +30,7 @@ void solve(){
             }
         }
     }
+    exit(0);
     queue<pair<ll,ll>> p;
     p.push({s,0});
     while(!p.empty()){
