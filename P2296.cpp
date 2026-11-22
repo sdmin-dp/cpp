@@ -34,6 +34,7 @@ void solve(){
     p.push({s,0});
     while(!p.empty()){
         auto [u,w]=p.front();
+        p.pop();
         if(u==t){
             cout<<w;
             return;
