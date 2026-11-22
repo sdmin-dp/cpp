@@ -13,7 +13,7 @@ int main(){
     //freopen(".in","r",stdin);
     //freopen(".out","w",stdout);
     ll T=1;
-    //cin>>T;
+    cin>>T;
     while(T--){
         solve();
     }
