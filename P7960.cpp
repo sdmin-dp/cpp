@@ -3,7 +3,7 @@ using namespace std;
 #define ll long long
 #define el '\n'
 const ll N=1e7;
-bool vis[N];
+bool vis[N+3];
 bool check(ll x){
     string s=to_string(x);
     for(auto i:s) if(i=='7') return 0;
